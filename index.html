@@ -158,7 +158,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/22/control-flow-statement/" class="post-title-link" itemprop="url">control_flow_statement</a>
+            <a href="/2020/02/22/control-flow-statement/" class="post-title-link" itemprop="url">제어문 / control_flow_statement</a>
         </h1>
 
         <div class="post-meta">
@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-23 23:54:18" itemprop="dateModified" datetime="2020-02-23T23:54:18+09:00">2020-02-23</time>
+                <time title="Modified: 2020-02-23 23:59:19" itemprop="dateModified" datetime="2020-02-23T23:59:19+09:00">2020-02-23</time>
               </span>
 
           
@@ -189,9 +189,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.블록문</span><br><span class="line">.조건문</span><br><span class="line"> .if...else문</span><br><span class="line"> .switch문</span><br><span class="line">.반복문</span><br><span class="line"> .for문</span><br><span class="line"> .while문</span><br><span class="line"> .do...while문</span><br><span class="line">.break문</span><br><span class="line">.continue문</span><br></pre></td></tr></table></figure>
-
-<h2 id="제어문"><a href="#제어문" class="headerlink" title="제어문"></a>제어문</h2><p>주어진 조건에 따라 코드 블록을 실행(조건문)하거나 반복 실행(반복문)할 때 사용한다. 일반적으로 코드는 위에서 아래 방향으로 순차적으로 실행된다. 제어문을 사용하면 코드의 실행 흐름을 인위적으로 제어할 수 있다.</p>
+          <h2 id="제어문"><a href="#제어문" class="headerlink" title="제어문"></a>제어문</h2><p>주어진 조건에 따라 코드 블록을 실행(조건문)하거나 반복 실행(반복문)할 때 사용한다. 일반적으로 코드는 위에서 아래 방향으로 순차적으로 실행된다. 제어문을 사용하면 코드의 실행 흐름을 인위적으로 제어할 수 있다.</p>
 <h3 id="블록문-Block-statement-Compound-statement"><a href="#블록문-Block-statement-Compound-statement" class="headerlink" title="블록문 (Block statement/Compound statement)"></a>블록문 (Block statement/Compound statement)</h3><p>0개 이상의 문을 중괄호로 묶은 것으로 코드 블록 또는 블록이라고 부르기도 한다. 자바스크립트는 블록문을 하나의 실행 단위로 취급한다.</p>
 <p><code>문의 끝에는 세미 콜론(;)을 붙이는 것이 일반적이지만 블록문의 끝에는 세미콜론을 붙이지 않는다는 것에 주의한다.</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 블록문</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">var</span> foo = <span class="number">10</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(foo);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -272,7 +270,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-23 23:54:18" itemprop="dateModified" datetime="2020-02-23T23:54:18+09:00">2020-02-23</time>
+                <time title="Modified: 2020-02-23 23:59:19" itemprop="dateModified" datetime="2020-02-23T23:59:19+09:00">2020-02-23</time>
               </span>
 
           
@@ -286,9 +284,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.연산자의 종류</span><br><span class="line">.산술 연산자</span><br><span class="line"> .이항 산술 연산자</span><br><span class="line"> .단항 산술 연산자</span><br><span class="line"> .문자열 연결 연산자</span><br><span class="line">.할당 연산자</span><br><span class="line">.비교 연산자</span><br><span class="line"> .동등&#x2F;일치 비교 연산자</span><br><span class="line"> .대소 관계 비교 연산자</span><br><span class="line">.삼항 조건 연산자</span><br><span class="line">.논리 연산자</span><br><span class="line">.쉼표 연산자</span><br><span class="line">.그룹 연산자</span><br><span class="line">.typeof 연산자</span><br><span class="line">.지수 연산자</span><br></pre></td></tr></table></figure>
-
-<h2 id="연산자"><a href="#연산자" class="headerlink" title="연산자"></a>연산자</h2><blockquote>
+          <h2 id="연산자"><a href="#연산자" class="headerlink" title="연산자"></a>연산자</h2><blockquote>
 <p>하나 이상의 표현식을 대상으로 산술, 할당, 비교, 논리, 타입, 지수 연산(operation) 등을 수행해 하나의 값을 만든다. 이때 연산의 대상을 피연산자(Operand)라 한다.<br>변수와 값을 어떻게 작동하게 할 것인지에 관한 것.<br>프로그래밍 언어에서 특정 연산을 하도록 하는 문자.<br>테스트 수행, 연산, 문자열 합치기 등등에 사용.</p>
 </blockquote>
 <p>target variable = source value<br>a = 42 (42 값을 a에 할당한다.)<br>값 + 값 = 새로운 값</p>
@@ -403,7 +399,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-23 23:54:18" itemprop="dateModified" datetime="2020-02-23T23:54:18+09:00">2020-02-23</time>
+                <time title="Modified: 2020-02-23 23:59:19" itemprop="dateModified" datetime="2020-02-23T23:59:19+09:00">2020-02-23</time>
               </span>
 
           
@@ -478,7 +474,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-23 23:54:18" itemprop="dateModified" datetime="2020-02-23T23:54:18+09:00">2020-02-23</time>
+                <time title="Modified: 2020-02-23 23:59:19" itemprop="dateModified" datetime="2020-02-23T23:59:19+09:00">2020-02-23</time>
               </span>
 
           
@@ -562,7 +558,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-23 23:54:18" itemprop="dateModified" datetime="2020-02-23T23:54:18+09:00">2020-02-23</time>
+                <time title="Modified: 2020-02-23 23:59:19" itemprop="dateModified" datetime="2020-02-23T23:59:19+09:00">2020-02-23</time>
               </span>
 
           
