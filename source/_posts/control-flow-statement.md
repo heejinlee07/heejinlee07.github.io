@@ -1,21 +1,8 @@
 ---
-title: control_flow_statement
+title: 제어문 / control_flow_statement
 date: 2020-02-22 21:58:42
 tags:
 ---
-
-```
-.블록문
-.조건문
- .if...else문
- .switch문
-.반복문
- .for문
- .while문
- .do...while문
-.break문
-.continue문
-```
 
 ## 제어문
 
