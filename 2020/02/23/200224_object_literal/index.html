@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="원시타입: string, number, boolean, null, undefined, symbol객체: object, array, function…  원시타입의 값은 변경불가의 값이다. 따라서 원래 할당되어 있던 값을 변경하는 것이 아니라 재할당이 이루어진다. 123let a &#x3D; 5; &#x2F;&#x2F; a &#x3D; 5let b &#x3D; a; &#x2F;&#x2F; b &#x3D; 5;a &#x3D; 6; &#x2F;&#x2F; a">
+  <meta name="description" content="객체란?객체는 다양한 타입의 값(원시 값 또는 다른 객체)들을 하나의 단위로 구성한 복합적인 자료 구조이다. 0개 이상인 속성명(property)과 객체의 관련된 값이 중괄호({})로 묶여진다. 즉 키(key)과 값(value)으로 구성된 프로퍼티(Property)들의 집합이라고 할 수 있다. 1234567키워드 식별자 &#x3D; &amp;#123;  key(속성) :">
 <meta property="og:type" content="article">
-<meta property="og:title" content="왜 원시타입은 변경불가하고, 객체는 가능할까?">
-<meta property="og:url" content="https://heejinlee07.github.io/2020/02/20/200222_mutable_immutable/index.html">
+<meta property="og:title" content="객체 리터럴 &#x2F; Object">
+<meta property="og:url" content="https://heejinlee07.github.io/2020/02/23/200224_object_literal/index.html">
 <meta property="og:site_name" content="Heejin">
-<meta property="og:description" content="원시타입: string, number, boolean, null, undefined, symbol객체: object, array, function…  원시타입의 값은 변경불가의 값이다. 따라서 원래 할당되어 있던 값을 변경하는 것이 아니라 재할당이 이루어진다. 123let a &#x3D; 5; &#x2F;&#x2F; a &#x3D; 5let b &#x3D; a; &#x2F;&#x2F; b &#x3D; 5;a &#x3D; 6; &#x2F;&#x2F; a">
+<meta property="og:description" content="객체란?객체는 다양한 타입의 값(원시 값 또는 다른 객체)들을 하나의 단위로 구성한 복합적인 자료 구조이다. 0개 이상인 속성명(property)과 객체의 관련된 값이 중괄호({})로 묶여진다. 즉 키(key)과 값(value)으로 구성된 프로퍼티(Property)들의 집합이라고 할 수 있다. 1234567키워드 식별자 &#x3D; &amp;#123;  key(속성) :">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-02-20T15:00:00.000Z">
+<meta property="article:published_time" content="2020-02-23T15:00:00.000Z">
 <meta property="article:modified_time" content="2020-02-24T14:20:20.549Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://heejinlee07.github.io/2020/02/20/200222_mutable_immutable/">
+<link rel="canonical" href="https://heejinlee07.github.io/2020/02/23/200224_object_literal/">
 
 
 <script id="page-configurations">
@@ -44,7 +44,7 @@
   };
 </script>
 
-  <title>왜 원시타입은 변경불가하고, 객체는 가능할까? | Heejin</title>
+  <title>객체 리터럴 / Object | Heejin</title>
   
 
 
@@ -146,7 +146,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/20/200222_mutable_immutable/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/200224_object_literal/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -159,7 +159,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          왜 원시타입은 변경불가하고, 객체는 가능할까?
+          객체 리터럴 / Object
         </h1>
 
         <div class="post-meta">
@@ -168,16 +168,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-21T00:00:00+09:00">2020-02-21</time>
+              <time title="Created: 2020-02-24 00:00:00 / Modified: 23:20:20" itemprop="dateCreated datePublished" datetime="2020-02-24T00:00:00+09:00">2020-02-24</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-24 23:20:20" itemprop="dateModified" datetime="2020-02-24T23:20:20+09:00">2020-02-24</time>
-              </span>
 
           
 
@@ -190,26 +184,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-<p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
+        <h2 id="객체란"><a href="#객체란" class="headerlink" title="객체란?"></a>객체란?</h2><p>객체는 다양한 타입의 값(원시 값 또는 다른 객체)들을 하나의 단위로 구성한 복합적인 자료 구조이다. 0개 이상인 속성명(property)과 객체의 관련된 값이 중괄호({})로 묶여진다. 즉 <em>키(key)과 값(value)으로 구성된 프로퍼티(Property)들의 집합</em>이라고 할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">키워드 식별자 = &#123;</span><br><span class="line">  key(속성) : value(값)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name : <span class="string">'Lee'</span> <span class="comment">//프로퍼티</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>자바스크립트에 사용할 수 있는 모든 값이 프로퍼티 값이 될 수 있고, 함수도 사용할 수 있다. 이 경우 일반 함수와 구분하기 위해 메소드(Method)라 부른다.</p>
+<p><code>프로퍼티와 메소드의 역할</code></p>
+<ul>
+<li>프로퍼티: key와 value를 통해 객체의 상태를 나타낸다.</li>
+<li>메소드: 프로퍼티를 참조하고 조작할 수 있는 동작을 말한다.</li>
+</ul>
+<h2 id="객체-리터럴에-의한-객체-생성"><a href="#객체-리터럴에-의한-객체-생성" class="headerlink" title="객체 리터럴에 의한 객체 생성"></a>객체 리터럴에 의한 객체 생성</h2><p>클래스 기반 객체지향 언어: 클래스 사전정의, 필요한 시점에 new연산자와 생성자를 호출하여 인스턴스 생성 (C++, java 등)<br>프로토타입 기반 객체지향 언어: 자바스크립트. <code>객체 리터럴</code>, Object 생성자 함수, 생성자 함수, Object.create 메소드, 클래스 (ES6) 등의 방법으로 객체 생성</p>
+<p><code>객체 리터럴</code><br>객체를 생성하는 표기법이며, 변수에 할당이 이루어지는 시점에 자바스크립트 엔진은 객체 리터럴을 해석하여 객체를 생성한다. <code>var empty = {};</code>와 같이 프로퍼티를 정의하지 않으면 빈 객체가 생성된다. 서버에게 주소를 넣어달라고 요청하는 것처럼 연속된 구조체나 연관된 데이터를 일정한 방법으로 변환하고자 할 때 많이 쓰인다.</p>
+<blockquote>
+<p>객체 리터럴의 중괄호({})는 코드블록이 아니다. 코드블록에는 중괄호 뒤이 세미콜론이 붙지 않지만, 객체 리터럴은 값으로 평가되는 표현식이므로 중괄호 뒤에 세미콜론을 붙인다.</p>
 </blockquote>
-<p><code>원시타입</code>의 값은 <strong>변경불가</strong>의 값이다. 따라서 원래 할당되어 있던 값을 변경하는 것이 아니라 재할당이 이루어진다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">5</span>; <span class="comment">// a = 5</span></span><br><span class="line"><span class="keyword">let</span> b = a; <span class="comment">// b = 5;</span></span><br><span class="line">a = <span class="number">6</span>; <span class="comment">// a = 6;</span></span><br></pre></td></tr></table></figure>
-
-<p>처음 5라는 값을 a라는 변수에 할당하고, 다음으로 5라는 값을 담고 있는 a의 값을 b에 할당하였을 때,<br>b의 값 5는 a의 값 5가 들어있는 메모리 공간을 차지하는 것이 아니라 새로운 공간을 차지하여 값을 할당한다. 그리고 a를 6이라고 재할당하면 이 역시 새로운 공간을 차지한다.</p>
-<p><em>객체의 경우는 어떨까?</em></p>
-<p><code>객체</code>는 <strong>변경가능</strong>한 값이기 때문에 새로운 공간에 값을 재할당하는 것이 아니라 원래 할당된 공간의 값을 변경한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  word: <span class="string">"hello"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line"><span class="comment">//b  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line">a.word = <span class="string">"world"</span>;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"world"&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>{word: &quot;hello&quot;}</code>라는 객체를 a라는 변수에 할당하였고, 그 다음 b에 a의 값을 할당하였을 때,<br>b는 새로운 메모리 공간을 차지하는 대신 처음 a가 만들어 둔 <code>{word: &quot;hello&quot;}</code>라는 값이 든 공간을 바라보게 된다. 즉, a와 b라는 서로 다른 식별자가 <code>{word: &quot;hello&quot;}</code>라는 값이 들어 있는 하나의 공간을 공유하는 것이다.<br>따라서 a의 word라는 프로퍼티를 world로 변경하면 새로운 공간에 <code>{word: &quot;world&quot;}</code>라는 값을 담는 것이 아니라 원래 <code>{word: &quot;hello&quot;}</code>가 있던 공간의 프로퍼티를 <code>{word: &quot;world&quot;}</code>로 변경한다. b.word를 해도 같은 결과가 나온다.</p>
 <hr>
-<p><em>그렇다면 변수를 할당할 때 재할당이 불가능한 키워드 <strong>const</strong>를 사용한다면 어떻게 될까?</em></p>
-<p><code>const a = 5;</code>라고 할당한 후, <code>a = 6;</code>이라고 재할당하면 const는 재할당이 되지 않기 때문에 오류가 발생한다. 하지만 객체의 경우라면 어떻게 될까?</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a = &#123;num: 3&#125;</span></span><br><span class="line">a.num = <span class="number">5</span>;</span><br><span class="line"><span class="comment">//a = &#123;num: 5&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="프로퍼티"><a href="#프로퍼티" class="headerlink" title="프로퍼티"></a>프로퍼티</h2><ul>
+<li>프로퍼티 키 : 빈 문자열을 포함하는 모든 문자열 또는 symbol 값</li>
+<li>프로퍼티 값 : 자바스크립트에서 사용할 수 있는 모든 값</li>
+</ul>
+<p>프로퍼티 키는 프로퍼티 값에 접근할 수 있는 이름이며, 식별자 역할을 하며 식별자 네이밍 규칙을 준수하는 것이 권장된다.</p>
+<h2 id="프로퍼티-접근"><a href="#프로퍼티-접근" class="headerlink" title="프로퍼티 접근"></a>프로퍼티 접근</h2><p>마침표(.)를 사용하는 마침표 표기법(Dot notation) 또는 대괄호([…])를 사용하는 대괄호 표기법(Bracket notation)을 사용한다. 대괄호 표기법을 사용하는 경우, 대괄호 내부에 지정하는 프로퍼티 키는 반드시 따옴표로 감싼 문자열이어야 한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 마침표 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="comment">// 객체이름.접근하고자 하는 항목</span></span><br><span class="line"><span class="built_in">console</span>.log(person.name); <span class="comment">// Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 대괄호 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"name"</span>]); <span class="comment">// Lee</span></span><br></pre></td></tr></table></figure>
 
-<p>const는 재할당을 할 수 없지만 다음과 같이 객체가 할당되면 객체의 프로퍼티는 변경할 수 있다.<br>처음 const a라는 변수에 <code>{num : 3}</code>를 할당한다. 그러면 이 값은 하나의 메모리 공간을 차지하게 된다.<br>이때 a의 num라는 프로퍼티에 접근하여 <code>a.num = 5;</code>라고 값을 할당한 후 a를 참조하면 값이 5로 바뀌어 있다.</p>
-<p>하지만 다음과 같이 코드를 사용하면 const는 재할당을 할 수 없기 때문에 오류가 발생한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line">a = &#123;</span><br><span class="line">  num: <span class="number">5</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>프로퍼티 값 갱신</code>: 이미 존재하는 프로퍼티에 값을 할당한다.<br><code>프로퍼티 동적 생성</code>: 존재하지 않는 프로퍼티에 값을 할당한다.<br><code>프로퍼티 삭제</code>: delete 연산자를 사용한다. 이때 delete 연산자의 피연산자는 프로퍼티 값에 접근할 수 있는 표현식이어야 한다. 만약 존재하지 않는 프로퍼티를 삭제하면 아무런 에러없이 무시된다.</p>
+</blockquote>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Object_literals" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Basics" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/object-literal" target="_blank" rel="noopener">Poiemaweb</a></p>
 
     </div>
 
@@ -225,13 +226,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/02/15/hello-world/" rel="prev" title="Hello World">
-      <i class="fa fa-chevron-left"></i> Hello World
+    <a href="/2020/02/23/200224_type_casting/" rel="prev" title="타입 변환과 단축 평가 / Type casting">
+      <i class="fa fa-chevron-left"></i> 타입 변환과 단축 평가 / Type casting
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/02/22/200222_expression_statement/" rel="next" title="표현식과 문 / expression & statement">
-      표현식과 문 / expression & statement <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -291,6 +289,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#객체란"><span class="nav-number">1.</span> <span class="nav-text">객체란?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#객체-리터럴에-의한-객체-생성"><span class="nav-number">2.</span> <span class="nav-text">객체 리터럴에 의한 객체 생성</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#프로퍼티"><span class="nav-number">3.</span> <span class="nav-text">프로퍼티</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#프로퍼티-접근"><span class="nav-number">4.</span> <span class="nav-text">프로퍼티 접근</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
