@@ -4,8 +4,6 @@ date: 2020-02-24
 tags:
 ---
 
-# 객체 리터럴
-
 ## 객체란?
 
 객체는 다양한 타입의 값(원시 값 또는 다른 객체)들을 하나의 단위로 구성한 복합적인 자료 구조이다. 0개 이상인 속성명(property)과 객체의 관련된 값이 중괄호({})로 묶여진다. 즉 *키(key)과 값(value)으로 구성된 프로퍼티(Property)들의 집합*이라고 할 수 있다.
@@ -63,9 +61,9 @@ console.log(person.name); // Lee
 console.log(person["name"]); // Lee
 ```
 
-> 프로퍼티 값 갱신: 이미 존재하는 프로퍼티에 값을 할당한다.
-> 프로퍼티 동적 생성: 존재하지 않는 프로퍼티에 값을 할당한다.
-> 프로퍼티 삭제: delete 연산자를 사용한다. 이때 delete 연산자의 피연산자는 프로퍼티 값에 접근할 수 있는 표현식이어야 한다. 만약 존재하지 않는 프로퍼티를 삭제하면 아무런 에러없이 무시된다.
+> `프로퍼티 값 갱신`: 이미 존재하는 프로퍼티에 값을 할당한다.
+> `프로퍼티 동적 생성`: 존재하지 않는 프로퍼티에 값을 할당한다.
+> `프로퍼티 삭제`: delete 연산자를 사용한다. 이때 delete 연산자의 피연산자는 프로퍼티 값에 접근할 수 있는 표현식이어야 한다. 만약 존재하지 않는 프로퍼티를 삭제하면 아무런 에러없이 무시된다.
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Object_literals)
 [MDN](https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Basics)
