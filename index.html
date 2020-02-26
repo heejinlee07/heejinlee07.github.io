@@ -144,7 +144,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/25/0225_loverduck/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/25/200225_scope/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -158,7 +158,83 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/25/0225_loverduck/" class="post-title-link" itemprop="url">200225 패스트 캠퍼스 러버덕 정리</a>
+            <a href="/2020/02/25/200225_scope/" class="post-title-link" itemprop="url">스코프 / Scope</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-02-26 00:00:00 / Modified: 23:30:55" itemprop="dateCreated datePublished" datetime="2020-02-26T00:00:00+09:00">2020-02-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="스코프"><a href="#스코프" class="headerlink" title="스코프"></a>스코프</h2><p>모든 식별자(변수 이름, 함수 이름, 클래스 이름 등)는 자신이 선언된 위치에 의해 다른 코드가 식별자 자신을 참조할 수 있는 유효 범위가 결정된다. 이를 스코프(Scope, 유효범위)라 한다. <em>즉, 스코프는 식별자가 유효한 범위를 말한다.</em></p>
+<ul>
+<li>스코프(유효 범위)를 통해 식별자인 변수 이름의 충돌을 방지하여 같은 이름의 변수를 사용할 수 있도록 한다. 스코프 내에서 식별자는 유일해야 하지만 다른 스코프에는 같은 이름의 식별자를 사용할 수 있다.</li>
+</ul>
+<h2 id="스코프의-종류"><a href="#스코프의-종류" class="headerlink" title="스코프의 종류"></a>스코프의 종류</h2><p>변수는 자신이 선언된 위치(전역 or 지역)에 의해 자신이 유효한 범위인 스코프가 결정됨.</p>
+<ul>
+<li><code>전역(global)</code>: 코드의 가장 바깥 영역, 전역 스코프, 전역 변수</li>
+<li>전역 변수는 어디에서나 참조할 수 있다.</li>
+<li><code>지역(local)</code>: 함수 몸체 내부, 지역 스코프, 지역 변수</li>
+<li>자신이 선언된 지역과 하위 지역(중첩 함수)에서만 참조할 수 있다.</li>
+</ul>
+<h2 id="스코프-체인"><a href="#스코프-체인" class="headerlink" title="스코프 체인"></a>스코프 체인</h2><p>스코프는 함수의 중첩에 의해 계층적 구조를 갖는다. 모든 지역의 최상위 스코프는 <code>전역 스코프</code>이다.</p>
+<p>자바스크립트 엔진은 스코프 체인을 따라 변수를 참조하는 코드의 스코프에서 상위 스코프 방향으로 이동하며 선언된 변수를 검색한다. 절대 하위 스코프로 내려가면 식별자를 검색하는 일은 없다. 이는 상위 스코프에서 유효한 변수는 하위 스코프에서 자유롭게 참조할 수 있지만 하위 스코프에서 유효한 변수를 상위 스코프에서 참조할 수 없다는 것을 의미한다.</p>
+<h2 id="함수-레벨-스코프"><a href="#함수-레벨-스코프" class="headerlink" title="함수 레벨 스코프"></a>함수 레벨 스코프</h2><p>함수 몸체 만이 아니라 모든 코드 블록(if, for, while, try/catch 등)이 지역 스코프를 만드는 것을 말한다. 단, var 키워드로 선언된 변수는 오로지 함수의 코드 블록 만을 지역 스코프로 인정한다. 이러한 특성을 <code>함수 레벨 스코프(Function level scope)</code>라 한다. 아래 예제를 살펴보자.</p>
+<h2 id="렉시컬-스코프"><a href="#렉시컬-스코프" class="headerlink" title="렉시컬 스코프"></a>렉시컬 스코프</h2><ul>
+<li><code>동적 스코프</code>: 함수 정의 시점에는 함수가 어디서 호출될 지 알 수 없다. 따라서 함수가 호출되는 시점에 동적으로 상위 스코프를 결정하는 것을 말한다.</li>
+<li><code>렉시컬 스코프 (정적 스코프)</code>: 함수 정의가 평가되는 시점에 상위 스코프가 정적으로 결정, 자바스크립트는 함수를 어디서 정의했는지에 따라 상위 스코프를 결정하므로 렉시컬 스코프를 따른다.</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/25/0225_rubberduck/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/25/0225_rubberduck/" class="post-title-link" itemprop="url">200225 패스트 캠퍼스 러버덕 정리</a>
         </h1>
 
         <div class="post-meta">
@@ -175,7 +251,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 23:30:55" itemprop="dateModified" datetime="2020-02-26T23:30:55+09:00">2020-02-26</time>
               </span>
 
           
@@ -256,7 +332,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 23:30:55" itemprop="dateModified" datetime="2020-02-26T23:30:55+09:00">2020-02-26</time>
               </span>
 
           
@@ -394,88 +470,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/24/200225_scope/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/24/200225_scope/" class="post-title-link" itemprop="url">스코프 / Scope</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-25 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-25T00:00:00+09:00">2020-02-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="스코프"><a href="#스코프" class="headerlink" title="스코프"></a>스코프</h2><p>모든 식별자(변수 이름, 함수 이름, 클래스 이름 등)는 자신이 선언된 위치에 의해 다른 코드가 식별자 자신을 참조할 수 있는 유효 범위가 결정된다. 이를 스코프(Scope, 유효범위)라 한다. <em>즉, 스코프는 식별자가 유효한 범위를 말한다.</em></p>
-<ul>
-<li>스코프(유효 범위)를 통해 식별자인 변수 이름의 충돌을 방지하여 같은 이름의 변수를 사용할 수 있도록 한다. 스코프 내에서 식별자는 유일해야 하지만 다른 스코프에는 같은 이름의 식별자를 사용할 수 있다.</li>
-</ul>
-<h2 id="스코프의-종류"><a href="#스코프의-종류" class="headerlink" title="스코프의 종류"></a>스코프의 종류</h2><p>변수는 자신이 선언된 위치(전역 or 지역)에 의해 자신이 유효한 범위인 스코프가 결정됨.</p>
-<ul>
-<li><code>전역(global)</code>: 코드의 가장 바깥 영역, 전역 스코프, 전역 변수</li>
-<li>전역 변수는 어디에서나 참조할 수 있다.</li>
-<li><code>지역(local)</code>: 함수 몸체 내부, 지역 스코프, 지역 변수</li>
-<li>자신이 선언된 지역과 하위 지역(중첩 함수)에서만 참조할 수 있다.</li>
-</ul>
-<h2 id="스코프-체인"><a href="#스코프-체인" class="headerlink" title="스코프 체인"></a>스코프 체인</h2><p>스코프는 함수의 중첩에 의해 계층적 구조를 갖는다. 모든 지역의 최상위 스코프는 <code>전역 스코프</code>이다.</p>
-<p>자바스크립트 엔진은 스코프 체인을 따라 변수를 참조하는 코드의 스코프에서 상위 스코프 방향으로 이동하며 선언된 변수를 검색한다. 절대 하위 스코프로 내려가면 식별자를 검색하는 일은 없다. 이는 상위 스코프에서 유효한 변수는 하위 스코프에서 자유롭게 참조할 수 있지만 하위 스코프에서 유효한 변수를 상위 스코프에서 참조할 수 없다는 것을 의미한다.</p>
-<h2 id="함수-레벨-스코프"><a href="#함수-레벨-스코프" class="headerlink" title="함수 레벨 스코프"></a>함수 레벨 스코프</h2><p>함수 몸체 만이 아니라 모든 코드 블록(if, for, while, try/catch 등)이 지역 스코프를 만드는 것을 말한다. 단, var 키워드로 선언된 변수는 오로지 함수의 코드 블록 만을 지역 스코프로 인정한다. 이러한 특성을 <code>함수 레벨 스코프(Function level scope)</code>라 한다. 아래 예제를 살펴보자.</p>
-<h2 id="렉시컬-스코프"><a href="#렉시컬-스코프" class="headerlink" title="렉시컬 스코프"></a>렉시컬 스코프</h2><ul>
-<li><code>동적 스코프</code>: 함수 정의 시점에는 함수가 어디서 호출될 지 알 수 없다. 따라서 함수가 호출되는 시점에 동적으로 상위 스코프를 결정하는 것을 말한다.</li>
-<li><code>렉시컬 스코프 (정적 스코프)</code>: 함수 정의가 평가되는 시점에 상위 스코프가 정적으로 결정, 자바스크립트는 함수를 어디서 정의했는지에 따라 상위 스코프를 결정하므로 렉시컬 스코프를 따른다.</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/200224_type_casting/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -507,7 +501,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 23:30:55" itemprop="dateModified" datetime="2020-02-26T23:30:55+09:00">2020-02-26</time>
               </span>
 
           
@@ -599,7 +593,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/0224_loverduck/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/0224_rubberduck/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -613,7 +607,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/23/0224_loverduck/" class="post-title-link" itemprop="url">200224 패스트 캠퍼스 러버덕 정리</a>
+            <a href="/2020/02/23/0224_rubberduck/" class="post-title-link" itemprop="url">200224 패스트 캠퍼스 러버덕 정리</a>
         </h1>
 
         <div class="post-meta">
@@ -630,7 +624,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 23:30:55" itemprop="dateModified" datetime="2020-02-26T23:30:55+09:00">2020-02-26</time>
               </span>
 
           
@@ -700,7 +694,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 23:30:55" itemprop="dateModified" datetime="2020-02-26T23:30:55+09:00">2020-02-26</time>
               </span>
 
           
@@ -791,7 +785,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 23:30:55" itemprop="dateModified" datetime="2020-02-26T23:30:55+09:00">2020-02-26</time>
               </span>
 
           
@@ -886,7 +880,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 23:30:55" itemprop="dateModified" datetime="2020-02-26T23:30:55+09:00">2020-02-26</time>
               </span>
 
           
@@ -1015,7 +1009,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 23:30:55" itemprop="dateModified" datetime="2020-02-26T23:30:55+09:00">2020-02-26</time>
               </span>
 
           
@@ -1090,7 +1084,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 23:30:55" itemprop="dateModified" datetime="2020-02-26T23:30:55+09:00">2020-02-26</time>
               </span>
 
           

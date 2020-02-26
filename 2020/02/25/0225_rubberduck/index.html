@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="스코프모든 식별자(변수 이름, 함수 이름, 클래스 이름 등)는 자신이 선언된 위치에 의해 다른 코드가 식별자 자신을 참조할 수 있는 유효 범위가 결정된다. 이를 스코프(Scope, 유효범위)라 한다. 즉, 스코프는 식별자가 유효한 범위를 말한다.  스코프(유효 범위)를 통해 식별자인 변수 이름의 충돌을 방지하여 같은 이름의 변수를 사용할 수 있도록 한다.">
+  <meta name="description" content="연산자 ++,–의 부수효과단항 산술 연산자는 이항 산술연산자와는 달리 값을 변경하는 부수효과가 있다.예를 들어 1 + 1 은 값을 변경하는 것이 아니라 2라는 새로운 값을 반환하는 것 뿐이다. 123456789&#x2F;&#x2F;a++의 경우 선할당 후증가var a &#x3D; 1; &#x2F;&#x2F; 1a++; &#x2F;&#x2F; 1a; &#x2F;&#x2F; 2&#x2F;&#x2F;++a의 경우 선증가 후할당var a &#x3D; 1; &#x2F;&#x2F; 1++a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="스코프 &#x2F; Scope">
-<meta property="og:url" content="https://heejinlee07.github.io/2020/02/24/200225_scope/index.html">
+<meta property="og:title" content="200225 패스트 캠퍼스 러버덕 정리">
+<meta property="og:url" content="https://heejinlee07.github.io/2020/02/25/0225_rubberduck/index.html">
 <meta property="og:site_name" content="Heejin">
-<meta property="og:description" content="스코프모든 식별자(변수 이름, 함수 이름, 클래스 이름 등)는 자신이 선언된 위치에 의해 다른 코드가 식별자 자신을 참조할 수 있는 유효 범위가 결정된다. 이를 스코프(Scope, 유효범위)라 한다. 즉, 스코프는 식별자가 유효한 범위를 말한다.  스코프(유효 범위)를 통해 식별자인 변수 이름의 충돌을 방지하여 같은 이름의 변수를 사용할 수 있도록 한다.">
+<meta property="og:description" content="연산자 ++,–의 부수효과단항 산술 연산자는 이항 산술연산자와는 달리 값을 변경하는 부수효과가 있다.예를 들어 1 + 1 은 값을 변경하는 것이 아니라 2라는 새로운 값을 반환하는 것 뿐이다. 123456789&#x2F;&#x2F;a++의 경우 선할당 후증가var a &#x3D; 1; &#x2F;&#x2F; 1a++; &#x2F;&#x2F; 1a; &#x2F;&#x2F; 2&#x2F;&#x2F;++a의 경우 선증가 후할당var a &#x3D; 1; &#x2F;&#x2F; 1++a">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-02-24T15:00:00.000Z">
-<meta property="article:modified_time" content="2020-02-26T13:22:20.849Z">
+<meta property="article:published_time" content="2020-02-25T11:07:25.000Z">
+<meta property="article:modified_time" content="2020-02-26T14:30:55.272Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://heejinlee07.github.io/2020/02/24/200225_scope/">
+<link rel="canonical" href="https://heejinlee07.github.io/2020/02/25/0225_rubberduck/">
 
 
 <script id="page-configurations">
@@ -44,7 +44,7 @@
   };
 </script>
 
-  <title>스코프 / Scope | Heejin</title>
+  <title>200225 패스트 캠퍼스 러버덕 정리 | Heejin</title>
   
 
 
@@ -146,7 +146,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/24/200225_scope/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/25/0225_rubberduck/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -159,7 +159,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          스코프 / Scope
+          200225 패스트 캠퍼스 러버덕 정리
         </h1>
 
         <div class="post-meta">
@@ -169,14 +169,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-02-25 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-25T00:00:00+09:00">2020-02-25</time>
+              <time title="Created: 2020-02-25 20:07:25" itemprop="dateCreated datePublished" datetime="2020-02-25T20:07:25+09:00">2020-02-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 23:30:55" itemprop="dateModified" datetime="2020-02-26T23:30:55+09:00">2020-02-26</time>
               </span>
 
           
@@ -190,24 +190,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="스코프"><a href="#스코프" class="headerlink" title="스코프"></a>스코프</h2><p>모든 식별자(변수 이름, 함수 이름, 클래스 이름 등)는 자신이 선언된 위치에 의해 다른 코드가 식별자 자신을 참조할 수 있는 유효 범위가 결정된다. 이를 스코프(Scope, 유효범위)라 한다. <em>즉, 스코프는 식별자가 유효한 범위를 말한다.</em></p>
-<ul>
-<li>스코프(유효 범위)를 통해 식별자인 변수 이름의 충돌을 방지하여 같은 이름의 변수를 사용할 수 있도록 한다. 스코프 내에서 식별자는 유일해야 하지만 다른 스코프에는 같은 이름의 식별자를 사용할 수 있다.</li>
-</ul>
-<h2 id="스코프의-종류"><a href="#스코프의-종류" class="headerlink" title="스코프의 종류"></a>스코프의 종류</h2><p>변수는 자신이 선언된 위치(전역 or 지역)에 의해 자신이 유효한 범위인 스코프가 결정됨.</p>
-<ul>
-<li><code>전역(global)</code>: 코드의 가장 바깥 영역, 전역 스코프, 전역 변수</li>
-<li>전역 변수는 어디에서나 참조할 수 있다.</li>
-<li><code>지역(local)</code>: 함수 몸체 내부, 지역 스코프, 지역 변수</li>
-<li>자신이 선언된 지역과 하위 지역(중첩 함수)에서만 참조할 수 있다.</li>
-</ul>
-<h2 id="스코프-체인"><a href="#스코프-체인" class="headerlink" title="스코프 체인"></a>스코프 체인</h2><p>스코프는 함수의 중첩에 의해 계층적 구조를 갖는다. 모든 지역의 최상위 스코프는 <code>전역 스코프</code>이다.</p>
-<p>자바스크립트 엔진은 스코프 체인을 따라 변수를 참조하는 코드의 스코프에서 상위 스코프 방향으로 이동하며 선언된 변수를 검색한다. 절대 하위 스코프로 내려가면 식별자를 검색하는 일은 없다. 이는 상위 스코프에서 유효한 변수는 하위 스코프에서 자유롭게 참조할 수 있지만 하위 스코프에서 유효한 변수를 상위 스코프에서 참조할 수 없다는 것을 의미한다.</p>
-<h2 id="함수-레벨-스코프"><a href="#함수-레벨-스코프" class="headerlink" title="함수 레벨 스코프"></a>함수 레벨 스코프</h2><p>함수 몸체 만이 아니라 모든 코드 블록(if, for, while, try/catch 등)이 지역 스코프를 만드는 것을 말한다. 단, var 키워드로 선언된 변수는 오로지 함수의 코드 블록 만을 지역 스코프로 인정한다. 이러한 특성을 <code>함수 레벨 스코프(Function level scope)</code>라 한다. 아래 예제를 살펴보자.</p>
-<h2 id="렉시컬-스코프"><a href="#렉시컬-스코프" class="headerlink" title="렉시컬 스코프"></a>렉시컬 스코프</h2><ul>
-<li><code>동적 스코프</code>: 함수 정의 시점에는 함수가 어디서 호출될 지 알 수 없다. 따라서 함수가 호출되는 시점에 동적으로 상위 스코프를 결정하는 것을 말한다.</li>
-<li><code>렉시컬 스코프 (정적 스코프)</code>: 함수 정의가 평가되는 시점에 상위 스코프가 정적으로 결정, 자바스크립트는 함수를 어디서 정의했는지에 따라 상위 스코프를 결정하므로 렉시컬 스코프를 따른다.</li>
-</ul>
+        <h2 id="연산자-–의-부수효과"><a href="#연산자-–의-부수효과" class="headerlink" title="연산자 ++,–의 부수효과"></a>연산자 ++,–의 부수효과</h2><p>단항 산술 연산자는 이항 산술연산자와는 달리 값을 변경하는 부수효과가 있다.<br>예를 들어 1 + 1 은 값을 변경하는 것이 아니라 2라는 새로운 값을 반환하는 것 뿐이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//a++의 경우 선할당 후증가</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>; <span class="comment">// 1</span></span><br><span class="line">a++; <span class="comment">// 1</span></span><br><span class="line">a; <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//++a의 경우 선증가 후할당</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>; <span class="comment">// 1</span></span><br><span class="line">++a; <span class="comment">// 2</span></span><br><span class="line">a; <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="for문의-실행순서"><a href="#for문의-실행순서" class="headerlink" title="for문의 실행순서"></a>for문의 실행순서</h2><p>for문은 조건식이 거짓으로 판별될 때까지 코드 블록을 반복 실행한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (할당문 or 선언문, 조건식, 증감식)</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123;</span><br><span class="line">조건식이 참인 경우 반복 실행될 문;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>할당문 or 선언문 실행(최초 한 번만 실행, 그렇지 않으면 반복될 때마다 값이 초기화됨)</li>
+<li>조건식 실행하여 true/false 판단</li>
+<li>true일 경우 코드블록의 문을 실행</li>
+<li>증감식으로 이동하여 값을 증가함.</li>
+<li>다시 조건식으로 돌아가 true/false 판단 (false라고 판단되었을 때 문의 실행은 종료)</li>
+</ol>
+<h2 id="if문과-삼항연산자"><a href="#if문과-삼항연산자" class="headerlink" title="if문과 삼항연산자"></a>if문과 삼항연산자</h2><p><code>if문</code>: 참/거짓을 판단하여 주어진 조건식의 평가 결과에 따라 코드블록 실행</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식<span class="number">1</span>) &#123;</span><br><span class="line">  <span class="comment">//조건식이 참일 때 실행</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (조건식<span class="number">2</span>) &#123;</span><br><span class="line">  <span class="comment">//조건식이 참일 때 실행 &#123;</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">//조건식1/2가 모두 거짓일 때 실행</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//else if는 여러 번 사용가능.</span></span><br></pre></td></tr></table></figure>
+
+<p><code>삼항조건연산자</code>: 참/거짓을 판단하여 조건식의 결과에 따른 값을 반환하므로 if문을 대체하여 사용가능<br>조건식 ? 조건식이 참일 때 반환할 값 : 조건식이 거짓일 때 반환할 값</p>
 
     </div>
 
@@ -223,12 +222,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/02/23/200224_type_casting/" rel="prev" title="타입 변환과 단축 평가 / Type casting">
-      <i class="fa fa-chevron-left"></i> 타입 변환과 단축 평가 / Type casting
+    <a href="/2020/02/24/200225_function/" rel="prev" title="함수 / Function">
+      <i class="fa fa-chevron-left"></i> 함수 / Function
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/02/24/200225_function/" rel="next" title="함수 / Function">
-      함수 / Function <i class="fa fa-chevron-right"></i>
+    <a href="/2020/02/25/200225_scope/" rel="next" title="스코프 / Scope">
+      스코프 / Scope <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -289,7 +288,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#스코프"><span class="nav-number">1.</span> <span class="nav-text">스코프</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#스코프의-종류"><span class="nav-number">2.</span> <span class="nav-text">스코프의 종류</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#스코프-체인"><span class="nav-number">3.</span> <span class="nav-text">스코프 체인</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#함수-레벨-스코프"><span class="nav-number">4.</span> <span class="nav-text">함수 레벨 스코프</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#렉시컬-스코프"><span class="nav-number">5.</span> <span class="nav-text">렉시컬 스코프</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#연산자-–의-부수효과"><span class="nav-number">1.</span> <span class="nav-text">연산자 ++,–의 부수효과</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for문의-실행순서"><span class="nav-number">2.</span> <span class="nav-text">for문의 실행순서</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if문과-삼항연산자"><span class="nav-number">3.</span> <span class="nav-text">if문과 삼항연산자</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
