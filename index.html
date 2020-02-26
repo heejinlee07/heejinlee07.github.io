@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:19:59" itemprop="dateModified" datetime="2020-02-26T22:19:59+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
               </span>
 
           
@@ -225,7 +225,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/0224_loverduck/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/24/200225_function/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -239,7 +239,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/23/0224_loverduck/" class="post-title-link" itemprop="url">200224 패스트 캠퍼스 러버덕 정리</a>
+            <a href="/2020/02/24/200225_function/" class="post-title-link" itemprop="url">함수 / Function</a>
         </h1>
 
         <div class="post-meta">
@@ -249,14 +249,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-24T00:00:00+09:00">2020-02-24</time>
+              <time title="Created: 2020-02-25 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-25T00:00:00+09:00">2020-02-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:19:59" itemprop="dateModified" datetime="2020-02-26T22:19:59+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
               </span>
 
           
@@ -270,12 +270,111 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="리터럴"><a href="#리터럴" class="headerlink" title="리터럴"></a>리터럴</h2><p>값을 생성하는 가장 간단한 방법<br>사람이 이해할 수 있는 문자로 값을 생성<br>런타임 때 값을 평가하여 생성함</p>
-<h2 id="표현식인-문과-표현식이-아닌-문"><a href="#표현식인-문과-표현식이-아닌-문" class="headerlink" title="표현식인 문과 표현식이 아닌 문"></a>표현식인 문과 표현식이 아닌 문</h2><p>값: 표현식이 평가되어 생성된 결과<br>표현식: 값으로 평가될 수 있는 문<br>문: 컴퓨터에 내리는 명령. 선언문, 할당문, 조건 문 등<br>표현식인 문: 변수에 할당할 수 있는 문으로 값을 생성한다.<br>표현식이 아닌 문: 변수에 할당할 수 없다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//example</span></span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">-&gt;<span class="literal">undefined</span></span><br><span class="line"><span class="comment">//변수 선언문은 표현식이 아닌 문이기 때문에</span></span><br><span class="line"><span class="comment">//평가할 수 없어서 완료된 평가값이 나올 자리에</span></span><br><span class="line"><span class="comment">//평가값 대신 undefined가 출력된다.</span></span><br><span class="line"><span class="comment">//undefined는 평가된 값이 아닌 완료값이다.</span></span><br><span class="line"> a = <span class="number">1</span>;</span><br><span class="line">-&gt;<span class="number">2</span></span><br><span class="line"><span class="comment">//변수 할당문은 표현식인 문이기 때문에 평가된 값 2가 출력된다.</span></span><br></pre></td></tr></table></figure>
+          <h2 id="함수"><a href="#함수" class="headerlink" title="함수"></a>함수</h2><p>input과 output가 이루어지는 일련의 과정을 문(statement)들로 구현하고 코드 블록으로 감싸서 하나의 실행 단위로 정의한 것<br>한 가지 일을 수행하는 코드가 블럭으로 묶여 있는 것.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> 함수명(<span class="params">매개변수</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> 반환값;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//함수를 정의하는 코드블록, 함수생성</span></span><br><span class="line"></span><br><span class="line">함수명(인수); <span class="comment">//함수호출, 인수를 매개변수를 통해 함수에게 전달</span></span><br><span class="line"><span class="comment">//코드블록의 문을 실행하여 반환값 반환</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="데이터-타입"><a href="#데이터-타입" class="headerlink" title="데이터 타입"></a>데이터 타입</h2><p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
-<p>원시타입은 변경불가하고, 객체는 변경가능하다.</p>
+<blockquote>
+<p>함수명은 생략 가능(익명함수) 이름이 있다면 기명 함수</p>
+</blockquote>
+<ul>
+<li>매개변수(parameter): 함수의 정의에서 전달받은 인수를 함수 내부로 전달하기 위해 사용하는 변수. 함수 몸체 내부에서만 참조 가능, 외부에서는 참조할 수 없다.</li>
+<li>인수(argument): 함수가 호출될 때 함수로 값을 전달해주는 값. 인수를 매개변수를 통해 함수에게 전달. 값으로 평가될 수 있는 표현식이어야 한다.</li>
+</ul>
+<blockquote>
+<p>인수 -&gt; 인수 전달 -&gt; 매개변수 -&gt; return 반환값 -&gt;함수 외부로 반환<br>매개변수와 인수의 개수가 일치하는지 여부는 체크하지 않는다.<br>매개변수의 이상적인 개수는 0개이며, 최대 3개 이상을 넘기지 않는 것을 권장한다.<br>만약 그 이상이 필요하다면 매개변수 선언 후 객체를 인수로 전달받는 것이 좋다.<br>매개 변수가 많아지면 함수 호출 시 전달해야 할 인수의 순서를 고려한다.</p>
+</blockquote>
+<h2 id="함수의-사용-이유"><a href="#함수의-사용-이유" class="headerlink" title="함수의 사용 이유"></a>함수의 사용 이유</h2><ul>
+<li>코드의 재사용: 동일한 작업을 반복 수행할 때 코드를 여러번 작성하는 대신 호출가능</li>
+<li>코드의 중복 억제: 중복된 코드를 여러 번 작성하면 수정도 여러 번 해야함.</li>
+<li>코드의 가독성 향상: 함수 이름(식별자)을 통해 함수의 역할 파악</li>
+</ul>
+<h2 id="함수-리터럴"><a href="#함수-리터럴" class="headerlink" title="함수 리터럴"></a>함수 리터럴</h2><p>함수 리터럴로 함수를 생성한다. <em>함수의 이름을 생략할 수 있다.</em></p>
+<p>함수 == 객체<br>함수 != 일반 객체</p>
+<p>함수 - 호출가능 / 일반 객체 - 호출불가, 함수 객체 고유의 프로퍼티 가짐.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//add라는 이름의 변수를 만들고 함수를 담는다.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>함수 리터럴의 4가지 부분</code></p>
+<ol>
+<li>function이라는 예약어 (예시의 function)</li>
+<li>function의 이름 (예시는 익명 함수)</li>
+</ol>
+<ul>
+<li>기명함수: 함수 이름이 있음</li>
+<li>익명 함수: 함수 이름이 없음.</li>
+</ul>
+<ol start="3">
+<li>function의 매개변수 (예시의 a,b)<blockquote>
+<p>매개변수의 이름은 함수의 변수로 정의된다. 그러나 다른 변수와는 달리<br><code>undefined</code>로 초기화되는 대신 함수가 호출될 때의 <code>인수</code>로 초기화된다.</p>
+</blockquote>
+</li>
+<li>중괄호({})로 감싸진 문(statement)</li>
+</ol>
+<ul>
+<li>함수의 몸체</li>
+<li>함수가 호출될 때 실행된다.</li>
+</ul>
+<hr>
+<h2 id="함수-정의"><a href="#함수-정의" class="headerlink" title="함수 정의"></a>함수 정의</h2><p>함수를 호출하기 이전에 인수를 전달받을 매개변수와 실행할 문들, 그리고 반환할 값을 지정하는 것</p>
+<h3 id="함수-선언문"><a href="#함수-선언문" class="headerlink" title="함수 선언문"></a>함수 선언문</h3><p>함수 리터럴과 형태는 같지만 그와 달리 함수 선언문에서는 함수 이름을 생략할 수 없다. <em>함수 선언문은 또한 표현식이 아닌 ‘문’이다.</em>(변수에 할당할 수 없다.) 따라서 함수 선언문을 실행하면 undefined가 출력된다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">coffee</span>(<span class="params">temp, menu</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> temp + menu;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//함수명(예시에서 coffee)</span></span><br><span class="line"><span class="comment">//함수명을 생략하면 오류가 발생한다.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(coffee(<span class="string">"iced"</span>, <span class="string">"americano"</span>));</span><br><span class="line"><span class="comment">//icedamericano가 출력된다.</span></span><br><span class="line"><span class="comment">//iced americano로 출력하고 싶다면</span></span><br><span class="line"><span class="comment">//retuen temp + ' ' + menu;로 반환값을 작성한다.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//다음과 같이 함수를 선언할 수도 있다.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">coffee</span>(<span class="params">temp, menu</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(temp + <span class="string">" "</span> + menu);</span><br><span class="line">&#125;</span><br><span class="line">coffee(<span class="string">"iced"</span>, <span class="string">"americano"</span>);</span><br><span class="line"><span class="comment">//iced americano</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="함수-선언문-vs-함수리터럴-vs-함수-표현식"><a href="#함수-선언문-vs-함수리터럴-vs-함수-표현식" class="headerlink" title="함수 선언문 vs 함수리터럴 vs 함수 표현식"></a>함수 선언문 vs 함수리터럴 vs 함수 표현식</h3><p>function add(x,y) {<br>return x + y;<br>}</p>
+<ul>
+<li><code>함수 리터럴</code>: 식별자는 옵션이므로 없어도 된다. 함수 리터럴은 함수 그 자체가 아니라 함수의 값이다. 따라서 함수는 함수 리터럴을 참조한다고 할 수 있다.<br>단, 자바스크립트 엔진은 상황에 따라 동일한 함수 리터럴에 대해 함수 선언문(표현식이 아닌 문) 또는 함수 리터럴 표현식(표현식인 문)으로 해석하기도 한다.</li>
+<li><code>함수 선언문</code>: 표현식이 아닌 문이다.<br>단, 자바스크립트 엔진은 함수 선언문을 표현식으로 변환하여 함수 객체를 생성한다고 할 수 있다.</li>
+<li><code>함수 표현식</code>: 표현식인 문이다.</li>
+</ul>
+<h3 id="함수-표현식"><a href="#함수-표현식" class="headerlink" title="함수 표현식"></a>함수 표현식</h3><blockquote>
+<p>함수 리터럴로 생성한 함수 객체를 변수에 할당하는 것.</p>
+</blockquote>
+<p>함수는 일급객체이므로 함수를 값처럼 자유롭게 사용할 수 있다. 함수는 객체 타입의 값이기 때문에 변수에 할당할 수 있고, 프로퍼티 값이 될 수 있고, 배열의 요소가 될 수도 있다.</p>
+<h3 id="함수-생성-시점과-함수-호이스팅"><a href="#함수-생성-시점과-함수-호이스팅" class="headerlink" title="함수 생성 시점과 함수 호이스팅"></a>함수 생성 시점과 함수 호이스팅</h3><p><code>함수 선언문</code>: 함수를 정의함. 함수 선언문 이전에 호출 및 참조 가능. 런타임 이전에 먼저 실행됨.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(add(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">//7</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>함수 정의 -&gt; 함수 객체 생성 -&gt; 함수 이름과 동일한 이름의 식별자를 암묵적으로 생성하고 생성된 함수 객체를 할당 -&gt;런타임 -&gt;런타임 때 평가되어 함수 리터럴이 함수 객체가 됨.</p>
+<p><code>함수 호이스팅</code>: 위와 같이 함수 선언문이 선두로 끌어 올려진 것처럼 동작하는 것</p>
+<p><code>변수 호이스팅 vs 함수 호이스팅</code></p>
+<ul>
+<li>공통점: 런타임 이전에 먼저 실행되어 식별자를 생성한다.</li>
+<li><code>변수</code>: undefined로 초기화됨.</li>
+<li><code>함수 선언문</code>: 함수 객체로 초기화됨.</li>
+</ul>
+<p><code>함수 표현식</code>: 변수 할당문의 값이 함수 리터럴인 문. 변수 선언문과 변수 할당문의 축약 표현과 동일하게 동작.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(sub(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">// TypeError: sub is not a function</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sub = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x - y;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>함수 표현식의 함수 리터럴은 할당문이 실행되는 시점(런타임)에 평가되어 함수 객체가 됨.<br>이 경우 함수 호이스팅이 아니라 변수 호이스팅이 발생.</p>
+<blockquote>
+<p>함수 선언문은 함수 호출 전에 반드시 함수를 선언해야한다는 규칙을 무시하고, 선언문 이전에도 참조 및 호출이 가능하다.<br>따라서 가능한 함수 표현식을 쓰는 것이 권장된다.</p>
+</blockquote>
+<h3 id="function-생성자-함수"><a href="#function-생성자-함수" class="headerlink" title="function 생성자 함수"></a>function 생성자 함수</h3><p>객체를 생성하는 방법에는 factory함수와 생성자(constructor)함수가 있다.</p>
+<p><code>factory 함수</code>: 객체를 반환하는 클래스나 생성자가 아닌 함수. 자바스크립트의 함수는 new 키워드가 없어도 객체를 반환다.</p>
+<p><code>생성자 함수</code>: 객체를 생성하는 함수<br>step1. 생성자 함수를 작성하여 개체를 정의한다. (파스칼 케이스를 사용한다.)<br>step2. new 키워드를 사용하여 개체의 인스턴스를 만든다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">car</span>(<span class="params">make, model, year</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.make = make;</span><br><span class="line">  <span class="keyword">this</span>.model = model;</span><br><span class="line">  <span class="keyword">this</span>.year = year;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//함수의 인자로 전달받은 값을 개체의 속성에 할당하기 위해 `this`를 사용한다.</span></span><br><span class="line"><span class="comment">//this는 코드블록이 실행될 때 빈 객체를 참조한다.</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mycar = <span class="keyword">new</span> Car(<span class="string">"Eagle"</span>, <span class="string">"Talon TSi"</span>, <span class="number">1993</span>);</span><br><span class="line"><span class="comment">//new는 빈 객체를 만든다.</span></span><br><span class="line"><span class="comment">//위에 정의된 함수에서 this는 new가 생성한 빈 객체를 가리킬 수 있게 한다.</span></span><br><span class="line"><span class="comment">//this를 통해 new가 생성한 빈 객체에 접근한다.</span></span><br><span class="line"><span class="comment">//new가 새로 생성한 객체에 함수의 값을 반환한다.</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="화살표-함수"><a href="#화살표-함수" class="headerlink" title="화살표 함수"></a>화살표 함수</h3><p>ES6에서 새롭게 도입된 화살표 함수(Arrow function)는 function 키워드 대신 화살표(=&gt;, Fat arrow)를 사용하여 보다 간략한 방법으로 함수를 선언할 수 있다. 화살표 함수는 항상 익명 함수로 정의한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> add = <span class="function">(<span class="params">x, y</span>) =&gt;</span> x + y;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">// 7</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="반환문"><a href="#반환문" class="headerlink" title="반환문"></a>반환문</h2><ul>
+<li>함수의 실행을 중단하고 함수 몸체를 빠져나간다.</li>
+<li>반환문 이후에 다른 문이 존재하면 그 문은 무시된다.</li>
+<li>반환문을 생략하면 <code>undefined</code>가 반환된다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y; <span class="comment">//반환문</span></span><br><span class="line">  <span class="built_in">console</span>.log(sum(<span class="number">2</span>, <span class="number">3</span>)); <span class="comment">//실행되지 않는다.</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(sum(<span class="number">2</span>, <span class="number">3</span>)); <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="다양한-함수의-형태"><a href="#다양한-함수의-형태" class="headerlink" title="다양한 함수의 형태"></a>다양한 함수의 형태</h2><h3 id="즉시실행함수"><a href="#즉시실행함수" class="headerlink" title="즉시실행함수"></a>즉시실행함수</h3><p>함수 정의와 동시에 즉시 호출된다. <code>단 한번</code>만 호출되며 다시 호출할 수 없다. 보통 익명함수를 사용함.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 익명 즉시 실행 함수</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">5</span>;</span><br><span class="line">  <span class="keyword">return</span> a * b;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<h3 id="재귀-함수"><a href="#재귀-함수" class="headerlink" title="재귀 함수"></a>재귀 함수</h3><p>함수가 자기 자신을 호출하는 위, 재귀 호출을 수행하는 함수를 말한다. 재귀 함수는 자신을 무한 재귀 호출하므로 반드시 탈출 조건을 만들어야한다. 그렇지 않으면 에러가 발생한다. 대부분 재귀 함수는 for문이나 while문으로 구현할 수 있다.</p>
+<h3 id="중첩-함수"><a href="#중첩-함수" class="headerlink" title="중첩 함수"></a>중첩 함수</h3><p>함수 내부에 정의된 함수이며, 내부 함수라 부르기도 한다. 중첩 함수를 포함하는 함수는 외부 함수라 한다.</p>
+<h3 id="콜백-함수"><a href="#콜백-함수" class="headerlink" title="콜백 함수"></a>콜백 함수</h3><p>함수의 매개변수를 통해 전달되는 함수를 콜백 함수(Callback function)라고 하며, 콜백 함수를 매개변수를 통해 전달받은 함수를 고차 함수(Higher-Order Function, HOF)라고 한다.</p>
+<p>콜백 함수는 고차 함수에 전달되어 헬퍼 함수의 역할을 한다.<br>함수 외부에서 고차 함수 내부로 주입하므로 자유롭게 교체가 가능하다.<br>고차 함수는 매개변수를 통해 전달받은 콜백 함수의 호출 시점을 결정하여 호출한다.</p>
+<h3 id="순수-함수와-비순수-함수"><a href="#순수-함수와-비순수-함수" class="headerlink" title="순수 함수와 비순수 함수"></a>순수 함수와 비순수 함수</h3><p>순수 함수(Pure function): 어떤 외부 상태에 의존하지도 않고 변경시키지도 않는, 즉 부수 효과가 없는 함수, 동일한 인수가 전달되면 동일한 값을 반환한다.<br>비순수 함수(Impure function): 외부 상태를 변경시키는 즉, 부수 효과가 있는 함수</p>
+<hr>
+<p><em>Reference</em></p>
+<p><a href="http://tcpschool.com/javascript/js_function_parameterArgument" target="_blank" rel="noopener">TCP SCHOOL</a><br><a href="https://www.oreilly.com/library/view/javascript-the-good/9780596517748/ch04s02.html" target="_blank" rel="noopener">OREILLY</a><br><a href="https://medium.com/javascript-scene/javascript-factory-functions-with-es6-4d224591a8b1" target="_blank" rel="noopener">Medium</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Obsolete_Pages/Core_JavaScript_1.5_Guide/Creating_New_Objects/Using_a_Constructor_Function" target="_blank" rel="noopener">MDN</a><br><a href="https://www.youtube.com/watch?v=23AOrSN-wmI&t=314s" target="_blank" rel="noopener">Programming with Mosh</a><br><a href="https://poiemaweb.com/fastcampus/function#41-%ED%95%A8%EC%88%98-%EC%84%A0%EC%96%B8%EB%AC%B8" target="_blank" rel="noopener">Poiemaweb/fastcampus</a></p>
 
       
     </div>
@@ -295,7 +394,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/200224_object_literal/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/24/200225_scope/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -309,7 +408,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/23/200224_object_literal/" class="post-title-link" itemprop="url">객체 리터럴 / Object</a>
+            <a href="/2020/02/24/200225_scope/" class="post-title-link" itemprop="url">스코프 / Scope</a>
         </h1>
 
         <div class="post-meta">
@@ -319,14 +418,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-24T00:00:00+09:00">2020-02-24</time>
+              <time title="Created: 2020-02-25 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-25T00:00:00+09:00">2020-02-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:19:59" itemprop="dateModified" datetime="2020-02-26T22:19:59+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
               </span>
 
           
@@ -340,33 +439,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="객체란"><a href="#객체란" class="headerlink" title="객체란?"></a>객체란?</h2><p>객체는 다양한 타입의 값(원시 값 또는 다른 객체)들을 하나의 단위로 구성한 복합적인 자료 구조이다. 0개 이상인 속성명(property)과 객체의 관련된 값이 중괄호({})로 묶여진다. 즉 <em>키(key)과 값(value)으로 구성된 프로퍼티(Property)들의 집합</em>이라고 할 수 있다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">키워드 식별자 = &#123;</span><br><span class="line">  key(속성) : value(값)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name : <span class="string">'Lee'</span> <span class="comment">//프로퍼티</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>자바스크립트에 사용할 수 있는 모든 값이 프로퍼티 값이 될 수 있고, 함수도 사용할 수 있다. 이 경우 일반 함수와 구분하기 위해 메소드(Method)라 부른다.</p>
-<p><code>프로퍼티와 메소드의 역할</code></p>
+          <h2 id="스코프"><a href="#스코프" class="headerlink" title="스코프"></a>스코프</h2><p>모든 식별자(변수 이름, 함수 이름, 클래스 이름 등)는 자신이 선언된 위치에 의해 다른 코드가 식별자 자신을 참조할 수 있는 유효 범위가 결정된다. 이를 스코프(Scope, 유효범위)라 한다. <em>즉, 스코프는 식별자가 유효한 범위를 말한다.</em></p>
 <ul>
-<li>프로퍼티: key와 value를 통해 객체의 상태를 나타낸다.</li>
-<li>메소드: 프로퍼티를 참조하고 조작할 수 있는 동작을 말한다.</li>
+<li>스코프(유효 범위)를 통해 식별자인 변수 이름의 충돌을 방지하여 같은 이름의 변수를 사용할 수 있도록 한다. 스코프 내에서 식별자는 유일해야 하지만 다른 스코프에는 같은 이름의 식별자를 사용할 수 있다.</li>
 </ul>
-<h2 id="객체-리터럴에-의한-객체-생성"><a href="#객체-리터럴에-의한-객체-생성" class="headerlink" title="객체 리터럴에 의한 객체 생성"></a>객체 리터럴에 의한 객체 생성</h2><p>클래스 기반 객체지향 언어: 클래스 사전정의, 필요한 시점에 new연산자와 생성자를 호출하여 인스턴스 생성 (C++, java 등)<br>프로토타입 기반 객체지향 언어: 자바스크립트. <code>객체 리터럴</code>, Object 생성자 함수, 생성자 함수, Object.create 메소드, 클래스 (ES6) 등의 방법으로 객체 생성</p>
-<p><code>객체 리터럴</code><br>객체를 생성하는 표기법이며, 변수에 할당이 이루어지는 시점에 자바스크립트 엔진은 객체 리터럴을 해석하여 객체를 생성한다. <code>var empty = {};</code>와 같이 프로퍼티를 정의하지 않으면 빈 객체가 생성된다. 서버에게 주소를 넣어달라고 요청하는 것처럼 연속된 구조체나 연관된 데이터를 일정한 방법으로 변환하고자 할 때 많이 쓰인다.</p>
-<blockquote>
-<p>객체 리터럴의 중괄호({})는 코드블록이 아니다. 코드블록에는 중괄호 뒤이 세미콜론이 붙지 않지만, 객체 리터럴은 값으로 평가되는 표현식이므로 중괄호 뒤에 세미콜론을 붙인다.</p>
-</blockquote>
-<hr>
-<h2 id="프로퍼티"><a href="#프로퍼티" class="headerlink" title="프로퍼티"></a>프로퍼티</h2><ul>
-<li>프로퍼티 키 : 빈 문자열을 포함하는 모든 문자열 또는 symbol 값</li>
-<li>프로퍼티 값 : 자바스크립트에서 사용할 수 있는 모든 값</li>
+<h2 id="스코프의-종류"><a href="#스코프의-종류" class="headerlink" title="스코프의 종류"></a>스코프의 종류</h2><p>변수는 자신이 선언된 위치(전역 or 지역)에 의해 자신이 유효한 범위인 스코프가 결정됨.</p>
+<ul>
+<li><code>전역(global)</code>: 코드의 가장 바깥 영역, 전역 스코프, 전역 변수</li>
+<li>전역 변수는 어디에서나 참조할 수 있다.</li>
+<li><code>지역(local)</code>: 함수 몸체 내부, 지역 스코프, 지역 변수</li>
+<li>자신이 선언된 지역과 하위 지역(중첩 함수)에서만 참조할 수 있다.</li>
 </ul>
-<p>프로퍼티 키는 프로퍼티 값에 접근할 수 있는 이름이며, 식별자 역할을 하며 식별자 네이밍 규칙을 준수하는 것이 권장된다.</p>
-<h2 id="프로퍼티-접근"><a href="#프로퍼티-접근" class="headerlink" title="프로퍼티 접근"></a>프로퍼티 접근</h2><p>마침표(.)를 사용하는 마침표 표기법(Dot notation) 또는 대괄호([…])를 사용하는 대괄호 표기법(Bracket notation)을 사용한다. 대괄호 표기법을 사용하는 경우, 대괄호 내부에 지정하는 프로퍼티 키는 반드시 따옴표로 감싼 문자열이어야 한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 마침표 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="comment">// 객체이름.접근하고자 하는 항목</span></span><br><span class="line"><span class="built_in">console</span>.log(person.name); <span class="comment">// Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 대괄호 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"name"</span>]); <span class="comment">// Lee</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><code>프로퍼티 값 갱신</code>: 이미 존재하는 프로퍼티에 값을 할당한다.<br><code>프로퍼티 동적 생성</code>: 존재하지 않는 프로퍼티에 값을 할당한다.<br><code>프로퍼티 삭제</code>: delete 연산자를 사용한다. 이때 delete 연산자의 피연산자는 프로퍼티 값에 접근할 수 있는 표현식이어야 한다. 만약 존재하지 않는 프로퍼티를 삭제하면 아무런 에러없이 무시된다.</p>
-</blockquote>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Object_literals" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Basics" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/object-literal" target="_blank" rel="noopener">Poiemaweb</a></p>
+<h2 id="스코프-체인"><a href="#스코프-체인" class="headerlink" title="스코프 체인"></a>스코프 체인</h2><p>스코프는 함수의 중첩에 의해 계층적 구조를 갖는다. 모든 지역의 최상위 스코프는 <code>전역 스코프</code>이다.</p>
+<p>자바스크립트 엔진은 스코프 체인을 따라 변수를 참조하는 코드의 스코프에서 상위 스코프 방향으로 이동하며 선언된 변수를 검색한다. 절대 하위 스코프로 내려가면 식별자를 검색하는 일은 없다. 이는 상위 스코프에서 유효한 변수는 하위 스코프에서 자유롭게 참조할 수 있지만 하위 스코프에서 유효한 변수를 상위 스코프에서 참조할 수 없다는 것을 의미한다.</p>
+<h2 id="함수-레벨-스코프"><a href="#함수-레벨-스코프" class="headerlink" title="함수 레벨 스코프"></a>함수 레벨 스코프</h2><p>함수 몸체 만이 아니라 모든 코드 블록(if, for, while, try/catch 등)이 지역 스코프를 만드는 것을 말한다. 단, var 키워드로 선언된 변수는 오로지 함수의 코드 블록 만을 지역 스코프로 인정한다. 이러한 특성을 <code>함수 레벨 스코프(Function level scope)</code>라 한다. 아래 예제를 살펴보자.</p>
+<h2 id="렉시컬-스코프"><a href="#렉시컬-스코프" class="headerlink" title="렉시컬 스코프"></a>렉시컬 스코프</h2><ul>
+<li><code>동적 스코프</code>: 함수 정의 시점에는 함수가 어디서 호출될 지 알 수 없다. 따라서 함수가 호출되는 시점에 동적으로 상위 스코프를 결정하는 것을 말한다.</li>
+<li><code>렉시컬 스코프 (정적 스코프)</code>: 함수 정의가 평가되는 시점에 상위 스코프가 정적으로 결정, 자바스크립트는 함수를 어디서 정의했는지에 따라 상위 스코프를 결정하므로 렉시컬 스코프를 따른다.</li>
+</ul>
 
       
     </div>
@@ -417,7 +507,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:19:59" itemprop="dateModified" datetime="2020-02-26T22:19:59+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
               </span>
 
           
@@ -509,6 +599,167 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/0224_loverduck/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/23/0224_loverduck/" class="post-title-link" itemprop="url">200224 패스트 캠퍼스 러버덕 정리</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-24T00:00:00+09:00">2020-02-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="리터럴"><a href="#리터럴" class="headerlink" title="리터럴"></a>리터럴</h2><p>값을 생성하는 가장 간단한 방법<br>사람이 이해할 수 있는 문자로 값을 생성<br>런타임 때 값을 평가하여 생성함</p>
+<h2 id="표현식인-문과-표현식이-아닌-문"><a href="#표현식인-문과-표현식이-아닌-문" class="headerlink" title="표현식인 문과 표현식이 아닌 문"></a>표현식인 문과 표현식이 아닌 문</h2><p>값: 표현식이 평가되어 생성된 결과<br>표현식: 값으로 평가될 수 있는 문<br>문: 컴퓨터에 내리는 명령. 선언문, 할당문, 조건 문 등<br>표현식인 문: 변수에 할당할 수 있는 문으로 값을 생성한다.<br>표현식이 아닌 문: 변수에 할당할 수 없다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//example</span></span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">-&gt;<span class="literal">undefined</span></span><br><span class="line"><span class="comment">//변수 선언문은 표현식이 아닌 문이기 때문에</span></span><br><span class="line"><span class="comment">//평가할 수 없어서 완료된 평가값이 나올 자리에</span></span><br><span class="line"><span class="comment">//평가값 대신 undefined가 출력된다.</span></span><br><span class="line"><span class="comment">//undefined는 평가된 값이 아닌 완료값이다.</span></span><br><span class="line"> a = <span class="number">1</span>;</span><br><span class="line">-&gt;<span class="number">2</span></span><br><span class="line"><span class="comment">//변수 할당문은 표현식인 문이기 때문에 평가된 값 2가 출력된다.</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="데이터-타입"><a href="#데이터-타입" class="headerlink" title="데이터 타입"></a>데이터 타입</h2><p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
+<p>원시타입은 변경불가하고, 객체는 변경가능하다.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/200224_object_literal/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/23/200224_object_literal/" class="post-title-link" itemprop="url">객체 리터럴 / Object</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-24T00:00:00+09:00">2020-02-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="객체란"><a href="#객체란" class="headerlink" title="객체란?"></a>객체란?</h2><p>객체는 다양한 타입의 값(원시 값 또는 다른 객체)들을 하나의 단위로 구성한 복합적인 자료 구조이다. 0개 이상인 속성명(property)과 객체의 관련된 값이 중괄호({})로 묶여진다. 즉 <em>키(key)과 값(value)으로 구성된 프로퍼티(Property)들의 집합</em>이라고 할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">키워드 식별자 = &#123;</span><br><span class="line">  key(속성) : value(값)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name : <span class="string">'Lee'</span> <span class="comment">//프로퍼티</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>자바스크립트에 사용할 수 있는 모든 값이 프로퍼티 값이 될 수 있고, 함수도 사용할 수 있다. 이 경우 일반 함수와 구분하기 위해 메소드(Method)라 부른다.</p>
+<p><code>프로퍼티와 메소드의 역할</code></p>
+<ul>
+<li>프로퍼티: key와 value를 통해 객체의 상태를 나타낸다.</li>
+<li>메소드: 프로퍼티를 참조하고 조작할 수 있는 동작을 말한다.</li>
+</ul>
+<h2 id="객체-리터럴에-의한-객체-생성"><a href="#객체-리터럴에-의한-객체-생성" class="headerlink" title="객체 리터럴에 의한 객체 생성"></a>객체 리터럴에 의한 객체 생성</h2><p>클래스 기반 객체지향 언어: 클래스 사전정의, 필요한 시점에 new연산자와 생성자를 호출하여 인스턴스 생성 (C++, java 등)<br>프로토타입 기반 객체지향 언어: 자바스크립트. <code>객체 리터럴</code>, Object 생성자 함수, 생성자 함수, Object.create 메소드, 클래스 (ES6) 등의 방법으로 객체 생성</p>
+<p><code>객체 리터럴</code><br>객체를 생성하는 표기법이며, 변수에 할당이 이루어지는 시점에 자바스크립트 엔진은 객체 리터럴을 해석하여 객체를 생성한다. <code>var empty = {};</code>와 같이 프로퍼티를 정의하지 않으면 빈 객체가 생성된다. 서버에게 주소를 넣어달라고 요청하는 것처럼 연속된 구조체나 연관된 데이터를 일정한 방법으로 변환하고자 할 때 많이 쓰인다.</p>
+<blockquote>
+<p>객체 리터럴의 중괄호({})는 코드블록이 아니다. 코드블록에는 중괄호 뒤이 세미콜론이 붙지 않지만, 객체 리터럴은 값으로 평가되는 표현식이므로 중괄호 뒤에 세미콜론을 붙인다.</p>
+</blockquote>
+<hr>
+<h2 id="프로퍼티"><a href="#프로퍼티" class="headerlink" title="프로퍼티"></a>프로퍼티</h2><ul>
+<li>프로퍼티 키 : 빈 문자열을 포함하는 모든 문자열 또는 symbol 값</li>
+<li>프로퍼티 값 : 자바스크립트에서 사용할 수 있는 모든 값</li>
+</ul>
+<p>프로퍼티 키는 프로퍼티 값에 접근할 수 있는 이름이며, 식별자 역할을 하며 식별자 네이밍 규칙을 준수하는 것이 권장된다.</p>
+<h2 id="프로퍼티-접근"><a href="#프로퍼티-접근" class="headerlink" title="프로퍼티 접근"></a>프로퍼티 접근</h2><p>마침표(.)를 사용하는 마침표 표기법(Dot notation) 또는 대괄호([…])를 사용하는 대괄호 표기법(Bracket notation)을 사용한다. 대괄호 표기법을 사용하는 경우, 대괄호 내부에 지정하는 프로퍼티 키는 반드시 따옴표로 감싼 문자열이어야 한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 마침표 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="comment">// 객체이름.접근하고자 하는 항목</span></span><br><span class="line"><span class="built_in">console</span>.log(person.name); <span class="comment">// Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 대괄호 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"name"</span>]); <span class="comment">// Lee</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>프로퍼티 값 갱신</code>: 이미 존재하는 프로퍼티에 값을 할당한다.<br><code>프로퍼티 동적 생성</code>: 존재하지 않는 프로퍼티에 값을 할당한다.<br><code>프로퍼티 삭제</code>: delete 연산자를 사용한다. 이때 delete 연산자의 피연산자는 프로퍼티 값에 접근할 수 있는 표현식이어야 한다. 만약 존재하지 않는 프로퍼티를 삭제하면 아무런 에러없이 무시된다.</p>
+</blockquote>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Object_literals" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Basics" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/object-literal" target="_blank" rel="noopener">Poiemaweb</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/22/200223_control-flow-statement/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -540,7 +791,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:19:59" itemprop="dateModified" datetime="2020-02-26T22:19:59+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
               </span>
 
           
@@ -635,7 +886,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:19:59" itemprop="dateModified" datetime="2020-02-26T22:19:59+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
               </span>
 
           
@@ -764,7 +1015,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:19:59" itemprop="dateModified" datetime="2020-02-26T22:19:59+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
               </span>
 
           
@@ -839,7 +1090,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:19:59" itemprop="dateModified" datetime="2020-02-26T22:19:59+09:00">2020-02-26</time>
+                <time title="Modified: 2020-02-26 22:22:20" itemprop="dateModified" datetime="2020-02-26T22:22:20+09:00">2020-02-26</time>
               </span>
 
           
@@ -888,86 +1139,12 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/15/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-15 12:07:25" itemprop="dateCreated datePublished" datetime="2020-02-15T12:07:25+09:00">2020-02-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 22:19:59" itemprop="dateModified" datetime="2020-02-26T22:19:59+09:00">2020-02-26</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
@@ -1032,7 +1209,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
