@@ -28,7 +28,7 @@
 <meta property="og:description" content="암묵적 타입 변환과 명시적 타입 변환암묵적 타입 변환: 자바스크립트 엔진이 개발자의 의도와는 상관없이 문맥에 따라 타입을 문자열, 숫자와 같은 원시타입의 값으로 강제 변환하는 것. 12341 + &#39;1&#39; &#x3D; ?&#x2F;&#x2F;숫자 1과 문자열 1을 더하면 에러가 날 것 같지만&#x2F;&#x2F;자바스크립트 엔진은 피연산자가 모두 문자열일 것이라고 간주하여&#x2F;&#x2F;둘을 더한 &#96;문자열 11&#96;이라">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-26T15:00:00.000Z">
-<meta property="article:modified_time" content="2020-02-27T03:11:45.969Z">
+<meta property="article:modified_time" content="2020-02-27T15:52:32.856Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -168,10 +168,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-02-27 00:00:00 / Modified: 12:11:45" itemprop="dateCreated datePublished" datetime="2020-02-27T00:00:00+09:00">2020-02-27</time>
+              <time title="Created: 2020-02-27 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-27T00:00:00+09:00">2020-02-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-28 00:52:32" itemprop="dateModified" datetime="2020-02-28T00:52:32+09:00">2020-02-28</time>
+              </span>
 
           
 
@@ -193,14 +199,14 @@
 <h2 id="단축평가-논리곱-논리합"><a href="#단축평가-논리곱-논리합" class="headerlink" title="단축평가: 논리곱, 논리합"></a>단축평가: 논리곱, 논리합</h2><p>단축평가는 표현식을 평가하는 도중에 결과가 확정되면 나머지 평가 과정을 중단하는 것이다. 논리곱과 논리합은 언제나 2개의 피연산자 중 어느 한쪽으로 평가된다.</p>
 <p><code>논리곱(&amp;&amp;)</code><br>논리곱은 두 개의 피연산자가 모두 <code>true</code>일 때만 <code>true</code>를 반환한다. 둘 중 하나라도 <code>false</code>일 때는 <code>false</code>가 반환된다.</p>
 <blockquote>
-<p>true &amp;&amp; anything anything<br>false &amp;&amp; anything false</p>
+<p>true &amp;&amp; anything //anything<br>false &amp;&amp; anything //false</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"cat"</span> &amp;&amp; <span class="string">"dog"</span>; <span class="comment">//dog</span></span><br></pre></td></tr></table></figure>
 
-<p>위의 예시와 같은 상황에서 첫 번째 피연산자인 <code>cat</code>을 평가헸을 때 <code>true</code>로 반환되지만 <em>논리곱(&amp;&amp;)은 두 피연산자 모두 true일때 true이므로,</em> 두 번째 피연산자까지 평가를 해보아야한다. 따라서 두 번째 피연산자인 <code>dog</code>을 검사한 후 <code>dog</code>를 반환한다.</p>
+<p>위의 예시와 같은 상황에서 첫 번째 피연산자인 <code>cat</code>을 평가했을 때 <code>true</code>로 반환되지만 <em>논리곱(&amp;&amp;)은 두 피연산자 모두 true일때 true이므로</em> 두 번째 피연산자까지 평가를 해보아야한다. 따라서 두 번째 피연산자인 <code>dog</code>을 검사한 후 <code>dog</code>를 반환한다.</p>
 <p><code>논리합(||)</code><br>논리합은 두 개의 피연산자 중 하나만 <code>true</code>여도 <code>true</code>를 반환한다. 두 개의 피연산자 모두 <code>false</code>인 경우에는 <code>false</code>를 반환한다.</p>
 <blockquote>
-<p>true || anything true<br>false || anything anything</p>
+<p>true || anything //true<br>false || anything //anything</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"Cat"</span> || <span class="string">"Dog"</span>; <span class="comment">// 'Cat'</span></span><br></pre></td></tr></table></figure>
 
@@ -242,8 +248,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/02/25/200226_scope_ex/" rel="prev" title="스코프 실습">
-      <i class="fa fa-chevron-left"></i> 스코프 실습
+    <a href="/2020/02/26/200227_global_variables/" rel="prev" title="전역 변수의 문제점">
+      <i class="fa fa-chevron-left"></i> 전역 변수의 문제점
     </a></div>
       <div class="post-nav-item"></div>
     </div>
@@ -319,7 +325,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
