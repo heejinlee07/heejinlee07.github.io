@@ -29,20 +29,20 @@ console.log(1 + "");
 `논리곱(&&)`
 논리곱은 두 개의 피연산자가 모두 `true`일 때만 `true`를 반환한다. 둘 중 하나라도 `false`일 때는 `false`가 반환된다.
 
-> true && anything anything
-> false && anything false
+> true && anything //anything
+> false && anything //false
 
 ```javascript
 "cat" && "dog"; //dog
 ```
 
-위의 예시와 같은 상황에서 첫 번째 피연산자인 `cat`을 평가헸을 때 `true`로 반환되지만 _논리곱(&&)은 두 피연산자 모두 true일때 true이므로,_ 두 번째 피연산자까지 평가를 해보아야한다. 따라서 두 번째 피연산자인 `dog`을 검사한 후 `dog`를 반환한다.
+위의 예시와 같은 상황에서 첫 번째 피연산자인 `cat`을 평가했을 때 `true`로 반환되지만 _논리곱(&&)은 두 피연산자 모두 true일때 true이므로_ 두 번째 피연산자까지 평가를 해보아야한다. 따라서 두 번째 피연산자인 `dog`을 검사한 후 `dog`를 반환한다.
 
 `논리합(||)`
 논리합은 두 개의 피연산자 중 하나만 `true`여도 `true`를 반환한다. 두 개의 피연산자 모두 `false`인 경우에는 `false`를 반환한다.
 
-> true || anything true
-> false || anything anything
+> true || anything //true
+> false || anything //anything
 
 ```javascript
 "Cat" || "Dog"; // 'Cat'
