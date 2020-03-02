@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="변수란 무엇인가? 왜 필요한가? 변수: 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간을 식별하기 위해 붙인 이름   기억하고 싶은 값을 메모리에 저장하고, 재사용하기 위해 필요하다. 값의 위치를 가리키는 상징적인 이름  123451 + 2;&#x2F;&#x2F; 3 재사용 불가var result &#x3D; 1 + 2;result; &#x2F;&#x2F;3 재사용 가능  위">
+<meta property="og:type" content="article">
+<meta property="og:title" content="변수 &#x2F; Variables">
+<meta property="og:url" content="https://heejinlee07.github.io/2020/02/20/200221_variables/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="변수란 무엇인가? 왜 필요한가? 변수: 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간을 식별하기 위해 붙인 이름   기억하고 싶은 값을 메모리에 저장하고, 재사용하기 위해 필요하다. 값의 위치를 가리키는 상징적인 이름  123451 + 2;&#x2F;&#x2F; 3 재사용 불가var result &#x3D; 1 + 2;result; &#x2F;&#x2F;3 재사용 가능  위">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-02-20T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-02T07:35:22.193Z">
+<meta property="article:author" content="Heejin Lee">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2020/02/20/200221_variables/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>변수 / Variables | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/20/200221_variables/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          변수 / Variables
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-21T00:00:00+09:00">2020-02-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-02 16:35:22" itemprop="dateModified" datetime="2020-03-02T16:35:22+09:00">2020-03-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="변수란-무엇인가-왜-필요한가"><a href="#변수란-무엇인가-왜-필요한가" class="headerlink" title="변수란 무엇인가? 왜 필요한가?"></a>변수란 무엇인가? 왜 필요한가?</h2><blockquote>
+<p>변수: 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간을 식별하기 위해 붙인 이름</p>
+</blockquote>
+<ul>
+<li>기억하고 싶은 값을 메모리에 저장하고, 재사용하기 위해 필요하다.</li>
+<li>값의 위치를 가리키는 상징적인 이름</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + <span class="number">2</span>;</span><br><span class="line"><span class="comment">// 3 재사용 불가</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = <span class="number">1</span> + <span class="number">2</span>;</span><br><span class="line">result; <span class="comment">//3 재사용 가능</span></span><br></pre></td></tr></table></figure>
+
+<p>위와 같이 연산이 이루어질 때 피연산자는 메모리에 피연산자의 값을 저장한다. 연산자는 cpu에서 연산되어 값을 출력한다.</p>
+<ul>
+<li><code>변수명</code>: 메모리 공간에 저장된 값을 식별할 수 있는 고유한 이름</li>
+<li><code>변수 값</code>: 변수에 저장된 값</li>
+<li><code>할당</code>: 변수에 값을 저장</li>
+<li><code>참조</code>: 변수에 저장된 값을 읽어들임.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">변수 키워드 변수명 = 변수 값</span><br><span class="line">변수이름; <span class="comment">//참조</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result= <span class="number">30</span>;</span><br><span class="line">result;</span><br></pre></td></tr></table></figure>
+
+<h2 id="식별자"><a href="#식별자" class="headerlink" title="식별자"></a>식별자</h2><p>어떤 값을 구별하여 식별해낼 수 있는 고유한 이름, 변수명을 식별자라 하기도 한다.<br><code>var result= 30;</code>이라고 하면 식별자 <code>result</code>는 값 30이 아닌 값 30이 저장된 메모리 주소를 기억하고 있다. <em>따라서 메모리 주소에 붙인 이름이라고 할 수도 있다.</em></p>
+<h2 id="변수-선언"><a href="#변수-선언" class="headerlink" title="변수 선언"></a>변수 선언</h2><p>변수를 생성하는 것. 값을 저장하기 위한 메모리 공간을 확보(할당)하고, 변수명과 확보된 메모리 공간의 주소를 연결하여 값을 저장할 수 있도록 준비하는 것. 변수를 선언할 때는 <code>var, let, const 키워드</code>를 사용하며, 처음 변수가 선언되어 학보된 메모리 공간은 확보가 해제되기 전까지는 누구도 사용할 수 없다.</p>
+<p>단, ES6 이후로는 var 키워드가 가진 <em>의도치 않은 전역변수 선언</em>이라는 부작용 때문에 const나 let을 주로 사용한다.</p>
+<ol>
+<li><code>변수 선언</code>: <code>var result;</code>라고 변수를 선언하면 메모리 공간에 <code>result</code>라는 식별자를 가진 메모리 공간이 확보된다. 이는 변수 이름을 등록하여 JS 엔진에게 변수의 존재를 알리는 것이다.</li>
+<li><code>초기화</code>: 선언 후 아무런 값을 할당하지 않았다면, 메모리 공간은 비어있을 것 같지만, 그렇지 않고 <code>undefined</code>라는 값이 암묵적으로 할당된다. 이를 초기화라 한다.</li>
+</ol>
+<blockquote>
+<p>초기화: 변수 선언 이후 최초로 값을 할당하는 것. 만약 초기화를 거치지 않으면 이전에 다른 어플리케이션이 사용했던 값(Garbage value)이 남아있을 수 있다.</p>
+</blockquote>
+<h2 id="변수-선언의-실행-시점과-변수-호이스팅"><a href="#변수-선언의-실행-시점과-변수-호이스팅" class="headerlink" title="변수 선언의 실행 시점과 변수 호이스팅"></a>변수 선언의 실행 시점과 변수 호이스팅</h2><p><code>변수 호이스팅</code>: 변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(result); <span class="comment">//undefined</span></span><br><span class="line"><span class="keyword">var</span> result;</span><br></pre></td></tr></table></figure>
+
+<p>위와 같이 <code>var result;</code>라고 선언하기 전에 변수를 먼저 참조하면 코드를 한 줄씩 순차적으로 실행하는 자바스크립트의 특성상 오류가 발생할 것 같지만, 그렇지 않고 <code>undefined</code>라는 값이 출력된다.</p>
+<ol>
+<li><p>자바스크립트 엔진은 코드를 한 줄씩 실행하기 이전(런타임 이전)에 변수 선언문(함수 선언문 등의 모든 선언문)을 찾아내어 먼저 실행한다. <em>따라서 변수 선언문의 위치와 상관없이 런타임 이전에 먼저 실행된다고 할 수 있다.</em></p>
+</li>
+<li><p>선언문을 제외한 나머지 코드가 한줄씩 순차적으로 실행된다.</p>
+</li>
+</ol>
+<h2 id="값의-할당"><a href="#값의-할당" class="headerlink" title="값의 할당"></a>값의 할당</h2><p>할당 연산자를 사용하여 우변의 값을 좌변에 할당한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result; <span class="comment">//변수 선언</span></span><br><span class="line">result = <span class="number">1</span>; <span class="comment">//값의 할당</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = <span class="number">1</span>; <span class="comment">//단축표현. 선언과 할당을 동시에.</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>값을 할당할 때는 이미 주어진 값을 지운 후 새로운 값을 할당한 것이 아니다. 위의 예시를 들자면 변수 선언시 초기화된 값 <code>undefined</code>를 지운 후 그 자리에 1을 할당하는 것이 아니라 새로운 메모리 공간을 확보한 후 그 곳에 값을 저장한다.</p>
+</blockquote>
+<h2 id="값의-재할당"><a href="#값의-재할당" class="headerlink" title="값의 재할당"></a>값의 재할당</h2><p>이미 값이 할당되어 있는 변수에 새로운 값을 할당하는 것. 단, var, let과 달리 const는 재할당이 금지되어 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result = <span class="number">1</span>; <span class="comment">//단축표현. 선언과 할당을 동시에.</span></span><br><span class="line">result = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(result); <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+
+<p>위와 같이 result라는 변수에 값을 재할당하면 1에서 2로 값이 변경된다. 이때도 역시 1이 있던 공간의 값을 지우고 2를 저장하는 것이 아니라 새로운 메모리 공간을 확보하여 그 곳에 2라는 값을 저장한다.</p>
+<p><code>가비지 컬렉터</code>: 애플리케이션이 할당(allocate)한 메모리 공간을 주기적으로 검사하여 더 이상 사용되고 있지 않는 메모리를 해제(release)하는 기능.</p>
+<blockquote>
+<p>위와 같이 재할당이 이루어지면 result가 가지고 있던 이전의 값인 <code>undefined</code>와 <code>1</code>은 어떤 변수도 가지고 있지 않기 때문에 불필요한 값들이므로 가비지 컬렉터가 메모리에서 자동해제 시킨다. 단 언제 해제되는지는 예측할 수 없다.</p>
+</blockquote>
+<h2 id="두-변수의-값을-교환하는-코드"><a href="#두-변수의-값을-교환하는-코드" class="headerlink" title="두 변수의 값을 교환하는 코드"></a>두 변수의 값을 교환하는 코드</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> y = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">x = <span class="number">2</span>;</span><br><span class="line">y = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//혹은 아래와 같이</span></span><br><span class="line">x = y;</span><br><span class="line">y = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x, y); <span class="comment">// 2 1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="식별자-네이밍-규칙"><a href="#식별자-네이밍-규칙" class="headerlink" title="식별자 네이밍 규칙"></a>식별자 네이밍 규칙</h2><ul>
+<li>특수문자를 제외한 문자, 숫자, underscore(_), 달러기호($)는 포함가능</li>
+<li>숫자로 시작해서는 안됨. ex) var 1num;</li>
+<li>예약어(프로그래밍 언어에서 사용되거 있거나 사용될 예정인 단어) 사용금지 (ex. var var;)</li>
+</ul>
+<p><em>자바스크립트는 대소문자를 구별한다. 따라서 <code>var abc;</code>와 <code>var ABC</code>는 별개의 변수이다.</em></p>
+<ul>
+<li>변수나 함수의 이름: 카멜 케이스를 사용. (ex. var firstName;)</li>
+<li>생성자 함수, 클래스의 이름: 파스칼 케이스를 사용 (ex. var FirstName;)</li>
+</ul>
+<hr>
+<p><em>Reference</em></p>
+<p><a href="https://poiemaweb.com/fastcampus/variable" target="_blank" rel="noopener">Poiemaweb/fastcampus</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/15/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/20/200222_mutable_immutable/" rel="next" title="왜 원시타입은 변경불가하고, 객체는 가능할까?">
+      왜 원시타입은 변경불가하고, 객체는 가능할까? <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#변수란-무엇인가-왜-필요한가"><span class="nav-number">1.</span> <span class="nav-text">변수란 무엇인가? 왜 필요한가?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#식별자"><span class="nav-number">2.</span> <span class="nav-text">식별자</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#변수-선언"><span class="nav-number">3.</span> <span class="nav-text">변수 선언</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#변수-선언의-실행-시점과-변수-호이스팅"><span class="nav-number">4.</span> <span class="nav-text">변수 선언의 실행 시점과 변수 호이스팅</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#값의-할당"><span class="nav-number">5.</span> <span class="nav-text">값의 할당</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#값의-재할당"><span class="nav-number">6.</span> <span class="nav-text">값의 재할당</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#두-변수의-값을-교환하는-코드"><span class="nav-number">7.</span> <span class="nav-text">두 변수의 값을 교환하는 코드</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#식별자-네이밍-규칙"><span class="nav-number">8.</span> <span class="nav-text">식별자 네이밍 규칙</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
