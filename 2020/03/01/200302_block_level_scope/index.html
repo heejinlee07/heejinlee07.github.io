@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="var 키워드로 선언한 변수의 문제점변수 중복 선언 허용12345var x &#x3D; 1;&#x2F;&#x2F; var 키워드로 선언된 변수는 같은 스코프 내에서 중복 선언을 허용한다.&#x2F;&#x2F; 아래 변수 선언문은 자바스크립트 엔진에 의해 var 키워드가 없는 것처럼 동작한다.var x &#x3D; 2;console.log(x); &#x2F;&#x2F; 2  var 키워드는 중복 선언을 허용하기 때문에 위와 같이">
+<meta property="og:type" content="article">
+<meta property="og:title" content="let, const와 블록 레벨 스코프">
+<meta property="og:url" content="https://heejinlee07.github.io/2020/03/01/200302_block_level_scope/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="var 키워드로 선언한 변수의 문제점변수 중복 선언 허용12345var x &#x3D; 1;&#x2F;&#x2F; var 키워드로 선언된 변수는 같은 스코프 내에서 중복 선언을 허용한다.&#x2F;&#x2F; 아래 변수 선언문은 자바스크립트 엔진에 의해 var 키워드가 없는 것처럼 동작한다.var x &#x3D; 2;console.log(x); &#x2F;&#x2F; 2  var 키워드는 중복 선언을 허용하기 때문에 위와 같이">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-01T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-02T05:54:48.400Z">
+<meta property="article:author" content="Heejin Lee">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2020/03/01/200302_block_level_scope/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>let, const와 블록 레벨 스코프 | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/01/200302_block_level_scope/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          let, const와 블록 레벨 스코프
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-02 00:00:00 / Modified: 14:54:48" itemprop="dateCreated datePublished" datetime="2020-03-02T00:00:00+09:00">2020-03-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="var-키워드로-선언한-변수의-문제점"><a href="#var-키워드로-선언한-변수의-문제점" class="headerlink" title="var 키워드로 선언한 변수의 문제점"></a>var 키워드로 선언한 변수의 문제점</h2><h3 id="변수-중복-선언-허용"><a href="#변수-중복-선언-허용" class="headerlink" title="변수 중복 선언 허용"></a>변수 중복 선언 허용</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// var 키워드로 선언된 변수는 같은 스코프 내에서 중복 선언을 허용한다.</span></span><br><span class="line"><span class="comment">// 아래 변수 선언문은 자바스크립트 엔진에 의해 var 키워드가 없는 것처럼 동작한다.</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p><code>var 키워드</code>는 중복 선언을 허용하기 때문에 위와 같이 변수가 이미 선언되어 있는 것을 모르고 중복 선언 및 할당을 하면 의도치 않게 변수값이 변경된다.</p>
+<h3 id="함수-레벨-스코프"><a href="#함수-레벨-스코프" class="headerlink" title="함수 레벨 스코프"></a>함수 레벨 스코프</h3><p>함수의 코드 블록만이 <code>지역 스코프</code>로 인정되며, 함수 외부에서 var 키워드로 선언한 변수는 코드 블록 내에서 선언된다고 하여도 <code>전역 변수</code>이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (x === <span class="number">1</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(x);</span><br><span class="line">  <span class="comment">// expected output: 2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x);</span><br><span class="line"><span class="comment">// expected output: 2</span></span><br></pre></td></tr></table></figure>
+
+<p>위 코드에서 if문 내의 <code>var x = 2;</code>는 코드 블록 내에 있어서 <code>지역 변수</code>인 것처럼 보이지만 var 키워드는 함수의 코드 블록만을 <code>지역 스코프</code>로 인정하기 때문에, <code>전역변수</code>이다. 따라서 전역 변수 x가 중복 선언된 것이 되므로 의도치 않게 x의 값이 1에서 2로 변경된다. for문이나 if문 등에서 선언된 var 키워드도 전역 변수이다.</p>
+<h3 id="변수-호이스팅"><a href="#변수-호이스팅" class="headerlink" title="변수 호이스팅"></a>변수 호이스팅</h3><p>var키워드로 선언한 변수는 어디에 선언되어 있든지 런타임 이전에 먼저 실행되는 변수 호이스팅이 발생한다. 따라서 선언문 이젠에도 값을 참조할 수 있다. 다만 할당문 이전에 변수를 참조하면 초기화된 값이 <code>undefined</code>를 반환한다.</p>
+<hr>
+<h2 id="let-키워드"><a href="#let-키워드" class="headerlink" title="let 키워드"></a>let 키워드</h2><h3 id="변수-중복-선언-금지"><a href="#변수-중복-선언-금지" class="headerlink" title="변수 중복 선언 금지"></a>변수 중복 선언 금지</h3><p>var키워드는 동일한 이름의 변수를 중복 선언해도 에러가 발생하지 않고, 마치 재할당되는 것처럼 동작한다. 그러나 let은 동일한 이름의 변수를 중복 선언하면 이미 선언되었다는 에러가 발생한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//var 키워드</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">//2</span></span><br><span class="line"><span class="comment">//동일한 변수를 중복 선언해도 에러 발생 x</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//let 키워드</span></span><br><span class="line"><span class="keyword">let</span> y = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> y = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">console</span>.log(y); <span class="comment">//SyntaxError</span></span><br><span class="line"><span class="comment">//동일한 변수 중복 선언 시 에러 발생</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="블록-레벨-스코프"><a href="#블록-레벨-스코프" class="headerlink" title="블록 레벨 스코프"></a>블록 레벨 스코프</h3><p>모든 코드 블록(함수, if 문, for 문, while 문, try/catch 문 등) 을 지역 스코프로 인정한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//var 키워드</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span> (x &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(x); <span class="comment">//1</span></span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">//2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//let 키워드</span></span><br><span class="line"><span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span> (x &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(x); <span class="comment">//undefined</span></span><br><span class="line">  <span class="keyword">let</span> x = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">//1</span></span><br></pre></td></tr></table></figure>
+
+<p>var 키워드는 함수 레벨 스코프를 가지기 때문에 if문의 코드블록 내에 있어도 <code>전역변수</code>이다. x의 값이 2로 출력된다. let 키워드는 블록 레벨 스코프를 가지기 때문에 if문을 지역 스코프로 인정한다. 따라서 if문 블록 내의 코드블록은 <code>지역변수</code>이다. 따라서 if문 내의 x는 코드블록 내에서만 값이 유효하다. 그런데 <code>let x = 2</code>라고 선언되기 이전에 호출되었으므로 <code>undefined</code>가 출력된다. 그러나 if문 밖에 있는 x는 if문 내의 x와 다른 값이기 때문에 1이라는 값이 출력된다.</p>
+<h3 id="변수-호이스팅-1"><a href="#변수-호이스팅-1" class="headerlink" title="변수 호이스팅"></a>변수 호이스팅</h3><p>let 키워드를 런타임 이전에 참조하면 에러가 발생해서 변수 호이스팅이 발생하지 않는 것처럼 보이지만 그렇지 않다. let 키워드는 선언 단계와 초기화 단계가 분리되어 실행된다. 런타임 이전에 암묵적으로 선언이 실행되고, 초기화 단계는 변수 선언문에 도달했을 때 실행된다. (var 키워드는 런타임 이전에 선언과 초기화 단계가 한번에 진행되기 때문에 런타임 이전에 참조가 가능하고, undefined를 반환한다.)</p>
+<p><code>일시적 사각지대 (Temporal Dead Zone; TDZ)</code><br>스코프의 시작 지점부터 초기화 시작 지점(변수 선언문)까지는 변수를 참조할 수 없고, 이구간을 일시적 사각지대라고 한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// var 키워드로 선언한 변수</span></span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// undefined 런타임 이전에 참조가능</span></span><br><span class="line"><span class="comment">//선언과 초기화가 런타임 이전에 동시에 이루어진다.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo;</span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">foo = <span class="number">1</span>; <span class="comment">// 할당문에서 할당 단계가 실행된다.</span></span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// let 키워드로 선언한 변수</span></span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// ReferenceError: foo is not defined</span></span><br><span class="line"><span class="comment">//런타임 이전에 선언 단계만 실행된다.</span></span><br><span class="line"><span class="comment">//변수 초기화가 아직 이루어지지 않았으므로 참조가 불가하다.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> foo; <span class="comment">// 변수 선언문에서 초기화 단계가 실행된다.</span></span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">foo = <span class="number">1</span>; <span class="comment">// 할당문에서 할당 단계가 실행된다.</span></span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="전역-객체와-let"><a href="#전역-객체와-let" class="headerlink" title="전역 객체와 let"></a>전역 객체와 let</h3><p><code>전역 객체</code>: 코드가 실행되기 이전 단계에 자바스크립트 엔진에 의해 어떤 객체보다도 먼저 생성되는 특수한 객체이며 어떤 객체에도 속하지 않은 최상위 객체</p>
+<blockquote>
+<p>클라이언트 사이드 환경(브라우저)에서는 window, 서버 사이드 환경(Node.js)에서는 global 객체를 가리킨다.</p>
+</blockquote>
+<ul>
+<li>var 키워드로 선언한 전역 변수는 전역 객체 window의 프로퍼티이다.</li>
+<li>let 키워드로 선언한 전역 변수는 전역 객체 window의 프로퍼티가 아니다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//브라우저 환경의 경우</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.x); <span class="comment">//1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.x); <span class="comment">//undefined</span></span><br><span class="line"><span class="comment">//let은 전역 객체의 프로퍼티가 아니기 때문에 참조불가</span></span><br><span class="line"><span class="comment">//conse도 마찬가지로 전역 객체의 프로퍼티가 아니다.</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="const-키워드"><a href="#const-키워드" class="headerlink" title="const 키워드"></a>const 키워드</h2><h3 id="선언과-초기화"><a href="#선언과-초기화" class="headerlink" title="선언과 초기화"></a>선언과 초기화</h3><p>const 키워드는 상수를 선언하기 위해 사용하고, 선언과 동시에 할당이 이루어져야 한다. let처럼 블록 레벨 스코프이며, 변수 호이스팅이 발생하지 않는 것처럼 동작하지만 실질적으로 발생하는 것이다.</p>
+<h3 id="재할당-금지"><a href="#재할당-금지" class="headerlink" title="재할당 금지"></a>재할당 금지</h3><p>const는 재할당이 자유로운 var,let과 달리 재할당이 금지된다. 그러나 변수에 객체를 할당한 후 객체의 프로퍼티 값을 변경(추가, 삭제, 변경 등)하는 것은 가능하다.</p>
+<hr>
+<h2 id="var-vs-let-vs-const"><a href="#var-vs-let-vs-const" class="headerlink" title="var vs let vs const"></a>var vs let vs const</h2><p>var: 함수 블록만을 지역 스코프로 인정, 그외의 경우 모두 전역 스코프를 가짐.<br>let: 블록 스코프 가지므로, 선언된 블록 내 및 하위 블록에서만 값이 유효.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">varTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">2</span>; <span class="comment">// 상위 블록과 같은 변수</span></span><br><span class="line">    <span class="built_in">console</span>.log(x); <span class="comment">// 2</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(x); <span class="comment">// 2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">letTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> x = <span class="number">2</span>; <span class="comment">// 상위 블록과 다른 변수</span></span><br><span class="line">    <span class="built_in">console</span>.log(x); <span class="comment">// 2</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(x); <span class="comment">// 1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><em>Reference</em></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/let" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/block-level-scope" target="_blank" rel="noopener">Poiemaweb/fastcampus</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/27/0228_rubberduck/" rel="prev" title="200228 패스트캠퍼스 러버덕 정리">
+      <i class="fa fa-chevron-left"></i> 200228 패스트캠퍼스 러버덕 정리
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#var-키워드로-선언한-변수의-문제점"><span class="nav-number">1.</span> <span class="nav-text">var 키워드로 선언한 변수의 문제점</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#변수-중복-선언-허용"><span class="nav-number">1.1.</span> <span class="nav-text">변수 중복 선언 허용</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#함수-레벨-스코프"><span class="nav-number">1.2.</span> <span class="nav-text">함수 레벨 스코프</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#변수-호이스팅"><span class="nav-number">1.3.</span> <span class="nav-text">변수 호이스팅</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#let-키워드"><span class="nav-number">2.</span> <span class="nav-text">let 키워드</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#변수-중복-선언-금지"><span class="nav-number">2.1.</span> <span class="nav-text">변수 중복 선언 금지</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#블록-레벨-스코프"><span class="nav-number">2.2.</span> <span class="nav-text">블록 레벨 스코프</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#변수-호이스팅-1"><span class="nav-number">2.3.</span> <span class="nav-text">변수 호이스팅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#전역-객체와-let"><span class="nav-number">2.4.</span> <span class="nav-text">전역 객체와 let</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#const-키워드"><span class="nav-number">3.</span> <span class="nav-text">const 키워드</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#선언과-초기화"><span class="nav-number">3.1.</span> <span class="nav-text">선언과 초기화</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#재할당-금지"><span class="nav-number">3.2.</span> <span class="nav-text">재할당 금지</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#var-vs-let-vs-const"><span class="nav-number">4.</span> <span class="nav-text">var vs let vs const</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
