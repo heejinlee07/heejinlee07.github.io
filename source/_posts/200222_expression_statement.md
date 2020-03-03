@@ -71,8 +71,8 @@ _변수 선언문은 표현식이 아닌 문이므로_ 값을 반환해야할 �
 
 _Reference_
 
-[Poiemaweb](https://poiemaweb.com/fastcampus/expression)
-[2ality](https://2ality.com/2012/09/expressions-vs-statements.html)
-[JavaScript for impatient programmers](https://exploringjs.com/impatient-js/ch_syntax.html#statement-vs-expression)
 [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Expressions_and_Operators)
+[2ality](https://2ality.com/2012/09/expressions-vs-statements.html)
+[Poiemaweb](https://poiemaweb.com/fastcampus/expression)
 [Codexpanse](https://www.youtube.com/watch?v=WVyCrI1cHi8)
+[JavaScript for impatient programmers](https://exploringjs.com/impatient-js/ch_syntax.html#statement-vs-expression)
