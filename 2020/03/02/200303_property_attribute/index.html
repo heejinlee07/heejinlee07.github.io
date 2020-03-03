@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="객체ECMAScript 사양에 따르면 객체는 다음과 같이 구성된다.  내부 슬롯(Internal slots): 자바스크립트에서 접근할 수 없는 위치에 있는 저장소(storage)이며 only to operations in the specification. 프로퍼티의 집합(A collection of properties): 각각의 프로퍼티는 키를 속성과 연결">
+<meta property="og:type" content="article">
+<meta property="og:title" content="프로퍼티 어트리뷰트 &#x2F; Property Attribute">
+<meta property="og:url" content="https://heejinlee07.github.io/2020/03/02/200303_property_attribute/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="객체ECMAScript 사양에 따르면 객체는 다음과 같이 구성된다.  내부 슬롯(Internal slots): 자바스크립트에서 접근할 수 없는 위치에 있는 저장소(storage)이며 only to operations in the specification. 프로퍼티의 집합(A collection of properties): 각각의 프로퍼티는 키를 속성과 연결">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-02T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-03T08:34:01.663Z">
+<meta property="article:author" content="Heejin Lee">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2020/03/02/200303_property_attribute/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>프로퍼티 어트리뷰트 / Property Attribute | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/02/200303_property_attribute/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          프로퍼티 어트리뷰트 / Property Attribute
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-03 00:00:00 / Modified: 17:34:01" itemprop="dateCreated datePublished" datetime="2020-03-03T00:00:00+09:00">2020-03-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="객체"><a href="#객체" class="headerlink" title="객체"></a>객체</h2><p>ECMAScript 사양에 따르면 객체는 다음과 같이 구성된다.</p>
+<ul>
+<li><code>내부 슬롯(Internal slots)</code>: 자바스크립트에서 접근할 수 없는 위치에 있는 저장소(storage)이며 only to operations in the specification.</li>
+<li><code>프로퍼티의 집합(A collection of properties)</code>: 각각의 프로퍼티는 키를 속성과 연결한다.(fields in a record). 프로퍼티 키는 <code>string</code>이나 <code>symbol</code> 중 하나다.</li>
+</ul>
+<h2 id="내부-슬롯과-내부-메소드"><a href="#내부-슬롯과-내부-메소드" class="headerlink" title="내부 슬롯과 내부 메소드"></a>내부 슬롯과 내부 메소드</h2><p>자바스크립트 엔진의 알고리즘을 설명하기 위해 ECMAScript 사양에서 사용하는 의사 프로퍼티(Pseudo property)와 의사 메소드(Pseudo method). 내부 슬롯과 내부 메소드는 외부로 공개된 객체의 프로퍼티가 아닌 엔진의 내부 로직이기 때문에 간접적으로 접근할 수 있는 일부 경우를 제외하고는 직접 접근하거나 호출할 수 없다. 이중대괄호([[]])로 묶인 이름으로 식별한다.</p>
+<ul>
+<li><code>내부 슬롯(Internal slots)</code></li>
+<li>메소드 슬롯(Method slot): 객체 조작을 위함 (프로퍼티 가져오기, 설정 등)</li>
+<li>데이터 슬롯(Data slot): 저장소(storage)가 있음. [[Prototype]], [[Extensible]], [[PrivateFieldValues]]</li>
+</ul>
+<h2 id="프로퍼티-어트리뷰트와-프로퍼티-디스크립터-객체"><a href="#프로퍼티-어트리뷰트와-프로퍼티-디스크립터-객체" class="headerlink" title="프로퍼티 어트리뷰트와 프로퍼티 디스크립터 객체"></a>프로퍼티 어트리뷰트와 프로퍼티 디스크립터 객체</h2><p>자바스크립트 엔진은 프로퍼티를 생성할 때, 프로퍼티의 상태[프로퍼티의 값(value), 값의 갱신 가능 여부(writable), 열거 가능 여부(enumerable), 재정의 가능 여부(configurable)]를 나타내는 프로퍼티 어트리뷰트를 기본값으로 자동 정의한다.</p>
+<ul>
+<li><code>프로퍼티 어트리뷰트</code>: 프로퍼티 어트리뷰트는 자바스크립트 엔진이 관리하는 내부 상태 값(meta-property)인 내부 슬롯([[Value]], [[Writable]], [[Enumerable]], [[Configurable]])이다. Object.getOwnPropertyDescriptor 메소드를 사용하여 간접적으로 확인할 수 있다.</li>
+<li><code>프로퍼티 디스크립터</code>: 어트리뷰트의 특성을 자바스크립트 객체로 인코딩한다. 새로운 프로퍼티를 만들거나 이미 존재하고 있는 프로퍼티를 바꿀 수도 있다.</li>
+<li><code>Object.getOwnPropertyDescriptor 메소드</code>: 호출 시 첫번째 매개변수에는 객체의 참조를 전달, 두번째 매개변수에는 프로퍼티 키를 문자열로 전달한다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 프로퍼티 어트리뷰트 정보를 제공하는 프로퍼티 디스크립터 객체를 반환한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(person, <span class="string">"name"</span>));</span><br><span class="line"><span class="comment">// &#123;value: "Lee", writable: true, enumerable: true, configurable: true&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="데이터-프로퍼티와-접근자-프로퍼티"><a href="#데이터-프로퍼티와-접근자-프로퍼티" class="headerlink" title="데이터 프로퍼티와 접근자 프로퍼티"></a>데이터 프로퍼티와 접근자 프로퍼티</h2><ul>
+<li><p><code>데이터 프로퍼티</code>: 데이터를 저장. 키와 값으로 구성된 일반적인 프로퍼티. 키에 값을 연결</p>
+</li>
+<li><p><code>접근자 프로퍼티</code>: 자체적으로는 값을 갖지 않고 다른 데이터 프로퍼티의 값을 읽거나 저장할 때 호출되는 접근자 함수(Accessor function)로 구성된 프로퍼티. 값을 가져오거나 저장하기 위해 하나 혹은 두 개의 접근자 함수 (get, set)을 연결짓는다.<br>getter/setter 함수가 있는데 getter은 get 어트리뷰트, setter은 set 어트리뷰트에 저장됨.</p>
+<h3 id="데이터-프로퍼티"><a href="#데이터-프로퍼티" class="headerlink" title="데이터 프로퍼티"></a>데이터 프로퍼티</h3><p>데이터 프로퍼티는 프로퍼티 어트리뷰트를 갖는데, JS 엔진이 프로퍼티를 생성할 때 기본값으로 자동 정의된다.</p>
+<ul>
+<li>[[Value]]: value. 프로퍼티 키로 프로퍼티 값에 접근하면 반환되는 값</li>
+<li>[[Writable]]: writable. 프로퍼티 값의 변경 가능 여부를 나타내며 불리언 값을 갖는다. <code>false</code>인 경우 [[value]]의 값을 변경할 수 없는 읽기 전용 프로퍼티가 된다.</li>
+<li>[[Enumerable]]: enumerable. 프로퍼티의 열거 가능 여부를 나타내며 불리언 값을 갖는다.<br>패캠 자료<br>[[Enumerable]]의 값이 false인 경우, 해당 프로퍼티는 for…in 문이나 Object.keys 메소드 등으로 열거할 수 없다.<br>mdn<br>true 라면, 이 속성은 for…in 루프에서 열거될 수 있다.<br>둘 중 어떤게 맞는 말인지???</li>
+<li>[[Configurable]]: configurable. 프로퍼티의 재정의 가능 여부를 나타내며 불리언 값을 갖는다. 값이 false인 경우, 해당 프로퍼티의 삭제, 프로퍼티 어트리뷰트 값의 변경이 금지된다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="접근자-프로퍼티"><a href="#접근자-프로퍼티" class="headerlink" title="접근자 프로퍼티"></a>접근자 프로퍼티</h3><p>자체적으로는 값을 갖지 않고 다른 데이터 프로퍼티의 값을 읽거나 저장할 때 사용하는 접근자 함수(Accessor function)로 구성된 프로퍼티다.</p>
+<ul>
+<li>[[Get]]: get. 데이터 프로퍼티의 값을 읽을 때 호출되는 접근자 함수. 프로퍼티 어트리뷰트 [[Get]]의 값, 즉 getter 함수가 호출되고 그 결과가 프로퍼티 값으로 반환된다.</li>
+<li>[[Set]]: set. 데이터 프로퍼티의 값을 읽을 때 호출되는 접근자 함수. 프로퍼티 어트리뷰트 [[Set]]의 값, 즉 setter 함수가 호출되고 그 결과가 프로퍼티 값으로 반환된다.</li>
+<li>[[Enumerable]]: enumerable. 데이터 프로퍼티의 [[Enumerable]]와 같다.</li>
+<li>[[Configurable]]: configurable. false라면 이 속성은 제거될 수 없고, 데이터 속성을 수정할 수 없다.</li>
+</ul>
+<h2 id="프로퍼티-정의"><a href="#프로퍼티-정의" class="headerlink" title="프로퍼티 정의"></a>프로퍼티 정의</h2><p>새로운 프로퍼티를 추가하면서 프로퍼티 어트리뷰트를 명시적으로 정의하거나, 기존 프로퍼티의 프로퍼티 어트리뷰트를 재정의하는 것. 객체의 프로퍼티가 어떻게 동작해야하는지를 명확히 정의할 수 있다. Object.defineProperty 메소드 사용</p>
+<h2 id="객체-변경-방지"><a href="#객체-변경-방지" class="headerlink" title="객체 변경 방지"></a>객체 변경 방지</h2><p>객체는 변경 가능한 값이므로 재할당없이 직접 변경이 가능하다. 즉, 프로퍼티를 추가하거나 삭제할 수 있고, 프로퍼티의 값을 갱신할 수 있으며 Object.defineProperty 또는 Object.defineProperties 메소드를 사용하여 프로퍼티 어트리뷰트를 재정의할 수도 있다.</p>
+<h3 id="객체-확장-금지"><a href="#객체-확장-금지" class="headerlink" title="객체 확장 금지"></a>객체 확장 금지</h3><p>Object.preventExtensions 메소드는 객체의 확장을 금지한다. 객체 확장 금지란 프로퍼티 추가 금지를 의미한다. 즉, 확장이 금지된 객체는 프로퍼티 추가가 금지된다. 확장이 금지된 객체인지 여부는 Object.isExtensible 메소드로 확인 할 수 있다.</p>
+<h3 id="객체-밀봉"><a href="#객체-밀봉" class="headerlink" title="객체 밀봉"></a>객체 밀봉</h3><p>Object.seal 메소드는 객체를 밀봉한다. 객체 밀봉(seal)이란 프로퍼티 추가 및 삭제와 프로퍼티 어트리뷰트 재정의 금지를 의미한다. 즉, 밀봉된 객체는 읽기와 쓰기만 가능하게 된다. 밀봉된 객체인지 여부는 Object.isSealed 메소드로 확인 할 수 있다.</p>
+<h3 id="객체-동결"><a href="#객체-동결" class="headerlink" title="객체 동결"></a>객체 동결</h3><p>Object.freeze 메소드는 객체를 동결한다. 객체 동결(freeze)이란 프로퍼티 추가 및 삭제와 프로퍼티 어트리뷰트 재정의 금지, 프로퍼티 값 갱신 금지를 의미한다. 즉, 동결된 객체는 읽기만 가능하게 된다. 밀봉된 객체인지 여부는 Object.isFrozen 메소드로 확인 할 수 있다.</p>
+<h3 id="불변-객체"><a href="#불변-객체" class="headerlink" title="불변 객체"></a>불변 객체</h3><p>지금까지 살펴본 변경 방지 메소드들은 얕은 변경 방지(Shallow only)로 직속 프로퍼티만 변경이 방지되고 중첩 객체까지는 영향을 주지는 못하다. 따라서 Object.freeze 메소드로 객체를 동결하여도 중첩 객체까지 동결할 수 없다.</p>
+<hr>
+<p><em>Reference</em></p>
+<p><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Data_structures" target="_blank" rel="noopener">MDN</a><br><a href="https://2ality.com/2019/11/object-property-attributes.html" target="_blank" rel="noopener">2ality</a><br><a href="http://ecma-international.org/ecma-262/10.0/#sec-object-internal-methods-and-internal-slots" target="_blank" rel="noopener">ECMAScript</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/01/200302_block_level_scope/" rel="prev" title="let, const와 블록 레벨 스코프">
+      <i class="fa fa-chevron-left"></i> let, const와 블록 레벨 스코프
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#객체"><span class="nav-number">1.</span> <span class="nav-text">객체</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#내부-슬롯과-내부-메소드"><span class="nav-number">2.</span> <span class="nav-text">내부 슬롯과 내부 메소드</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#프로퍼티-어트리뷰트와-프로퍼티-디스크립터-객체"><span class="nav-number">3.</span> <span class="nav-text">프로퍼티 어트리뷰트와 프로퍼티 디스크립터 객체</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#데이터-프로퍼티와-접근자-프로퍼티"><span class="nav-number">4.</span> <span class="nav-text">데이터 프로퍼티와 접근자 프로퍼티</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#데이터-프로퍼티"><span class="nav-number">4.1.</span> <span class="nav-text">데이터 프로퍼티</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#접근자-프로퍼티"><span class="nav-number">4.2.</span> <span class="nav-text">접근자 프로퍼티</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#프로퍼티-정의"><span class="nav-number">5.</span> <span class="nav-text">프로퍼티 정의</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#객체-변경-방지"><span class="nav-number">6.</span> <span class="nav-text">객체 변경 방지</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#객체-확장-금지"><span class="nav-number">6.1.</span> <span class="nav-text">객체 확장 금지</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#객체-밀봉"><span class="nav-number">6.2.</span> <span class="nav-text">객체 밀봉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#객체-동결"><span class="nav-number">6.3.</span> <span class="nav-text">객체 동결</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#불변-객체"><span class="nav-number">6.4.</span> <span class="nav-text">불변 객체</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
