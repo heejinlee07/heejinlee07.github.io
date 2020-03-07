@@ -221,4 +221,4 @@ _Reference_
 [MDN](https://developer.mozilla.org/ko/docs/Learn/JavaScript/First_steps/Math)
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Operator_precedence)
 [MDN](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash)
-[Poiemaweb/fastcampus](https://poiemaweb.com/js-operator)
+[Poiemaweb/fastcampus](https://poiemaweb.com/fastcampus/operator)

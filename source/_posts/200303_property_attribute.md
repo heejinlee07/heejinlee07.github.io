@@ -52,9 +52,6 @@ console.log(Object.getOwnPropertyDescriptor(person, "name"));
   - [[Enumerable]]: enumerable. 프로퍼티의 열거 가능 여부를 나타내며 불리언 값을 갖는다.
     패캠 자료
     [[Enumerable]]의 값이 false인 경우, 해당 프로퍼티는 for…in 문이나 Object.keys 메소드 등으로 열거할 수 없다.
-    mdn
-    true 라면, 이 속성은 for...in 루프에서 열거될 수 있다.
-    둘 중 어떤게 맞는 말인지???
   - [[Configurable]]: configurable. 프로퍼티의 재정의 가능 여부를 나타내며 불리언 값을 갖는다. 값이 false인 경우, 해당 프로퍼티의 삭제, 프로퍼티 어트리뷰트 값의 변경이 금지된다.
 
 ### 접근자 프로퍼티
