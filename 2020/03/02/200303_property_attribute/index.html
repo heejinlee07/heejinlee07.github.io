@@ -28,7 +28,7 @@
 <meta property="og:description" content="객체ECMAScript 사양에 따르면 객체는 다음과 같이 구성된다.  내부 슬롯(Internal slots): 자바스크립트에서 접근할 수 없는 위치에 있는 저장소(storage)이며 only to operations in the specification. 프로퍼티의 집합(A collection of properties): 각각의 프로퍼티는 키를 속성과 연결">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-02T15:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-03T08:34:01.663Z">
+<meta property="article:modified_time" content="2020-03-07T15:24:06.559Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -168,10 +168,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-03-03 00:00:00 / Modified: 17:34:01" itemprop="dateCreated datePublished" datetime="2020-03-03T00:00:00+09:00">2020-03-03</time>
+              <time title="Created: 2020-03-03 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-03T00:00:00+09:00">2020-03-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-08 00:24:06" itemprop="dateModified" datetime="2020-03-08T00:24:06+09:00">2020-03-08</time>
+              </span>
 
           
 
@@ -211,7 +217,7 @@
 <ul>
 <li>[[Value]]: value. 프로퍼티 키로 프로퍼티 값에 접근하면 반환되는 값</li>
 <li>[[Writable]]: writable. 프로퍼티 값의 변경 가능 여부를 나타내며 불리언 값을 갖는다. <code>false</code>인 경우 [[value]]의 값을 변경할 수 없는 읽기 전용 프로퍼티가 된다.</li>
-<li>[[Enumerable]]: enumerable. 프로퍼티의 열거 가능 여부를 나타내며 불리언 값을 갖는다.<br>패캠 자료<br>[[Enumerable]]의 값이 false인 경우, 해당 프로퍼티는 for…in 문이나 Object.keys 메소드 등으로 열거할 수 없다.<br>mdn<br>true 라면, 이 속성은 for…in 루프에서 열거될 수 있다.<br>둘 중 어떤게 맞는 말인지???</li>
+<li>[[Enumerable]]: enumerable. 프로퍼티의 열거 가능 여부를 나타내며 불리언 값을 갖는다.<br>패캠 자료<br>[[Enumerable]]의 값이 false인 경우, 해당 프로퍼티는 for…in 문이나 Object.keys 메소드 등으로 열거할 수 없다.</li>
 <li>[[Configurable]]: configurable. 프로퍼티의 재정의 가능 여부를 나타내며 불리언 값을 갖는다. 값이 false인 경우, 해당 프로퍼티의 삭제, 프로퍼티 어트리뷰트 값의 변경이 금지된다.</li>
 </ul>
 </li>
@@ -250,7 +256,10 @@
     <a href="/2020/03/01/200302_block_level_scope/" rel="prev" title="let, const와 블록 레벨 스코프">
       <i class="fa fa-chevron-left"></i> let, const와 블록 레벨 스코프
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/03/200304_constructor/" rel="next" title="생성자 함수에 의한 객체 생성">
+      생성자 함수에 의한 객체 생성 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -324,7 +333,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
