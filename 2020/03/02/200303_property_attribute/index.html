@@ -28,7 +28,7 @@
 <meta property="og:description" content="객체ECMAScript 사양에 따르면 객체는 다음과 같이 구성된다.  내부 슬롯(Internal slots): 자바스크립트에서 접근할 수 없는 위치에 있는 저장소(storage)이며 only to operations in the specification. 프로퍼티의 집합(A collection of properties): 각각의 프로퍼티는 키를 속성과 연결">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-02T15:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-07T15:24:06.559Z">
+<meta property="article:modified_time" content="2020-03-14T05:34:15.955Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-08 00:24:06" itemprop="dateModified" datetime="2020-03-08T00:24:06+09:00">2020-03-08</time>
+                <time title="Modified: 2020-03-14 14:34:15" itemprop="dateModified" datetime="2020-03-14T14:34:15+09:00">2020-03-14</time>
               </span>
 
           
@@ -209,6 +209,7 @@
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 프로퍼티 어트리뷰트 정보를 제공하는 프로퍼티 디스크립터 객체를 반환한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(person, <span class="string">"name"</span>));</span><br><span class="line"><span class="comment">// &#123;value: "Lee", writable: true, enumerable: true, configurable: true&#125;</span></span><br></pre></td></tr></table></figure>
 
+<p>프로퍼티가 여러 개일 때 프로퍼티 어트리뷰트 정보를 알고 싶다면 <code>getOwnPropertyDescriptors</code>를 사용한다.</p>
 <h2 id="데이터-프로퍼티와-접근자-프로퍼티"><a href="#데이터-프로퍼티와-접근자-프로퍼티" class="headerlink" title="데이터 프로퍼티와 접근자 프로퍼티"></a>데이터 프로퍼티와 접근자 프로퍼티</h2><ul>
 <li><p><code>데이터 프로퍼티</code>: 데이터를 저장. 키와 값으로 구성된 일반적인 프로퍼티. 키에 값을 연결</p>
 </li>
@@ -217,7 +218,7 @@
 <ul>
 <li>[[Value]]: value. 프로퍼티 키로 프로퍼티 값에 접근하면 반환되는 값</li>
 <li>[[Writable]]: writable. 프로퍼티 값의 변경 가능 여부를 나타내며 불리언 값을 갖는다. <code>false</code>인 경우 [[value]]의 값을 변경할 수 없는 읽기 전용 프로퍼티가 된다.</li>
-<li>[[Enumerable]]: enumerable. 프로퍼티의 열거 가능 여부를 나타내며 불리언 값을 갖는다.<br>패캠 자료<br>[[Enumerable]]의 값이 false인 경우, 해당 프로퍼티는 for…in 문이나 Object.keys 메소드 등으로 열거할 수 없다.</li>
+<li>[[Enumerable]]: enumerable. 프로퍼티의 열거 가능 여부를 나타내며 불리언 값을 갖는다. [[Enumerable]]의 값이 false인 경우, 해당 프로퍼티는 for…in 문이나 Object.keys 메소드 등으로 열거할 수 없다.</li>
 <li>[[Configurable]]: configurable. 프로퍼티의 재정의 가능 여부를 나타내며 불리언 값을 갖는다. 값이 false인 경우, 해당 프로퍼티의 삭제, 프로퍼티 어트리뷰트 값의 변경이 금지된다.</li>
 </ul>
 </li>
@@ -333,7 +334,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
