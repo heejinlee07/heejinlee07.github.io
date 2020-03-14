@@ -8,10 +8,37 @@ tags:
 
 - 무명의 리터럴로 생성할 수 있다. 즉, 런타임에 생성이 가능하다.
 - 변수나 자료 구조(객체, 배열 등)에 저장할 수 있다.
-- 함수의 매개 변수에게 전달할 수 있다.
+- 함수의 매개 변수에게 함수를 전달할 수 있다.
 - 함수의 결과값으로 반환할 수 있다.
 
 함수는 위의 조건을 만족하는 일급 객체이며, 이는 함수를 객체와 동일하게 사용할 수 있다는 의미이다. 함수는 값을 사용할 수 있는 곳 어디에서든 리터럴로 정의할 수 있으며, 런타임에 함수 객체로 평가된다. 또한 프로퍼티를 가질 수도 있다.
+
+```javascript
+// 함수는 무명의 리터럴로 생성할 수 있으며, 변수에 저장할 수 있다.
+// 그리고 런타임에 함수 리터럴이 평가되어 함수 객체가 생성되고 변수에 할당된다.
+const increase = function(num) {
+  return ++num;
+};
+
+//함수는 객체에 저장할 수 있다.
+const predicates = { increas, decrease };
+
+// 함수의 매개 변수에게 전달할 수 있다.
+// 함수의 결과값으로 반환할 수 있다.
+function makeCounter(predicate) {
+  let num = 0;
+
+  return function() {
+    num = predicate(num);
+    return num;
+  };
+}
+
+//함수는 매개 변수에게 함수를 전달할 수 있다.
+const increaser = makeCounter(predicates.increase);
+console.log(increaser());
+console.log(increaser());
+```
 
 ## arguments 프로퍼티
 

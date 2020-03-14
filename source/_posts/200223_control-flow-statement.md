@@ -79,16 +79,11 @@ if...else문은 아래와 같이 삼항 조건 연산자로 바꿔 쓸 수 있�
 
 ```javascript
 var num = 2;
-var kind = "";
 
-if (num > 0) {
-  kind = "양수";
-} else if (num < 0) {
-  kind = "음수";
-} else {
-  kind = "영";
-}
-console.log(kind); //양수
+// 0은 false로 취급된다.
+var kind = num ? (num > 0 ? '양수' : '음수') : '영';
+
+console.log(kind); // 양수
 ```
 
 단, 삼항 조건 연산자는 값으로 평가되는 표현식을 만들기 때문에 변수에 할당이 가능하고, if...else문은 표현식이 아닌 문이기 때문에 변수에 할당이 불가하다.

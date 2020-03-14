@@ -37,6 +37,8 @@ console.log(Object.getOwnPropertyDescriptor(person, "name"));
 // {value: "Lee", writable: true, enumerable: true, configurable: true}
 ```
 
+프로퍼티가 여러 개일 때 프로퍼티 어트리뷰트 정보를 알고 싶다면 `getOwnPropertyDescriptors`를 사용한다.
+
 ## 데이터 프로퍼티와 접근자 프로퍼티
 
 - `데이터 프로퍼티`: 데이터를 저장. 키와 값으로 구성된 일반적인 프로퍼티. 키에 값을 연결
@@ -49,9 +51,7 @@ console.log(Object.getOwnPropertyDescriptor(person, "name"));
 
   - [[Value]]: value. 프로퍼티 키로 프로퍼티 값에 접근하면 반환되는 값
   - [[Writable]]: writable. 프로퍼티 값의 변경 가능 여부를 나타내며 불리언 값을 갖는다. `false`인 경우 [[value]]의 값을 변경할 수 없는 읽기 전용 프로퍼티가 된다.
-  - [[Enumerable]]: enumerable. 프로퍼티의 열거 가능 여부를 나타내며 불리언 값을 갖는다.
-    패캠 자료
-    [[Enumerable]]의 값이 false인 경우, 해당 프로퍼티는 for…in 문이나 Object.keys 메소드 등으로 열거할 수 없다.
+  - [[Enumerable]]: enumerable. 프로퍼티의 열거 가능 여부를 나타내며 불리언 값을 갖는다. [[Enumerable]]의 값이 false인 경우, 해당 프로퍼티는 for…in 문이나 Object.keys 메소드 등으로 열거할 수 없다.
   - [[Configurable]]: configurable. 프로퍼티의 재정의 가능 여부를 나타내며 불리언 값을 갖는다. 값이 false인 경우, 해당 프로퍼티의 삭제, 프로퍼티 어트리뷰트 값의 변경이 금지된다.
 
 ### 접근자 프로퍼티
