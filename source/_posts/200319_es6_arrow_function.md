@@ -44,9 +44,34 @@ console.log(obj.foo()); // 1
 console.log(obj.bar()); // 1
 ```
 
+### 메소드 축약 표현
+
+```javascript
+// ES5
+var obj = {
+  name: "Lee",
+  sayHi: function() {
+    console.log("Hi! " + this.name);
+  }
+};
+
+obj.sayHi(); // Hi! Lee
+
+// ES6
+const obj = {
+  name: "Lee",
+  // 메소드 축약 표현
+  sayHi() {
+    console.log("Hi! " + this.name);
+  }
+};
+
+obj.sayHi(); // Hi! Lee
+```
+
 ## 화살표 함수
 
-기존의 함수 정의 방법보다 간략하게 정의할 수 있고, 콜백 함수 내부에서 this가 전역 객체를 가리키는 문제를 해결하는 데 유용하다.
+기존의 함수 정의 방법보다 간략하게 정의할 수 있고, 콜백 함수 내부에서 this가 전역 객체를 가리키는 문제를 해결하는 데 유용하다. 항상 익명이며, 생성자로 사용할 수 없다.
 
 ### 화살표 함수 정의
 
@@ -54,6 +79,7 @@ console.log(obj.bar()); // 1
 
 - 매개변수가 여러 개면 소괄호 안에 매개 변수를 선언한다. 한개인 경우 소괄호를 생략할 수 있다.
   `(x,y) => {...}`
+
 - 매개 변수가 없을 때 소괄호를 생략할 수 없다.
   `() => {...}`
 
@@ -77,3 +103,10 @@ console.log(obj.bar()); // 1
 ### this
 
 화살표 함수는 함수 자체의 this 바인딩이 없다. 화살표 함수 내부에서 this를 참조하면 상위 컨텍스트의 this를 그대로 참조한다. 이를 Lexical this라 한다. 이는 마치 렉시컬 스코프(“12.7. 렉시컬 스코프” 참고)와 같이 화살표 함수의 this가 함수가 정의된 위치에 의해 결정된다는 것을 의미한다.
+
+---
+
+_Reference_
+[poiemaweb/fastcampus](https://poiemaweb.com/fastcampus/es6-function)
+[MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/%EC%95%A0%EB%A1%9C%EC%9A%B0_%ED%8E%91%EC%85%98S)
+[poiemaweb](https://poiemaweb.com/es6-enhanced-object-property#3-%EB%A9%94%EC%86%8C%EB%93%9C-%EC%B6%95%EC%95%BD-%ED%91%9C%ED%98%84)
