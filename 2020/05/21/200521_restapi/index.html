@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="원시타입: string, number, boolean, null, undefined, symbol객체: object, array, function…  원시타입의 값은 변경불가의 값이다. 따라서 원래 할당되어 있던 값을 변경하는 것이 아니라 재할당이 이루어진다. 123let a &#x3D; 5; &#x2F;&#x2F; a &#x3D; 5let b &#x3D; a; &#x2F;&#x2F; b &#x3D; 5;a &#x3D; 6; &#x2F;&#x2F; a">
+  <meta name="description" content="REST APIREST는 HTTP를 기반으로 클라이언트가 서버의 리소스에 접근하는 방식을 규정한 아키텍쳐이고, REST API는 REST를 기반으로 서비스 API를 구현한 것을 의미한다. REST API의 구성 자원(resource): HTTP URI로 표현, 자원을 내용으로 함. 행위(verb): HTTP METHOD로 표현, 자원에 대한 행위를 내용으로">
 <meta property="og:type" content="article">
-<meta property="og:title" content="왜 원시타입은 변경불가하고, 객체는 가능할까?">
-<meta property="og:url" content="https://heejinlee07.github.io/2020/02/20/200222_mutable_immutable/index.html">
+<meta property="og:title" content="Rest API">
+<meta property="og:url" content="https://heejinlee07.github.io/2020/05/21/200521_restapi/index.html">
 <meta property="og:site_name" content="Heejin">
-<meta property="og:description" content="원시타입: string, number, boolean, null, undefined, symbol객체: object, array, function…  원시타입의 값은 변경불가의 값이다. 따라서 원래 할당되어 있던 값을 변경하는 것이 아니라 재할당이 이루어진다. 123let a &#x3D; 5; &#x2F;&#x2F; a &#x3D; 5let b &#x3D; a; &#x2F;&#x2F; b &#x3D; 5;a &#x3D; 6; &#x2F;&#x2F; a">
+<meta property="og:description" content="REST APIREST는 HTTP를 기반으로 클라이언트가 서버의 리소스에 접근하는 방식을 규정한 아키텍쳐이고, REST API는 REST를 기반으로 서비스 API를 구현한 것을 의미한다. REST API의 구성 자원(resource): HTTP URI로 표현, 자원을 내용으로 함. 행위(verb): HTTP METHOD로 표현, 자원에 대한 행위를 내용으로">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-02-20T15:00:00.000Z">
-<meta property="article:modified_time" content="2020-05-22T07:49:29.765Z">
+<meta property="article:published_time" content="2020-05-21T08:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-22T07:49:29.769Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://heejinlee07.github.io/2020/02/20/200222_mutable_immutable/">
+<link rel="canonical" href="https://heejinlee07.github.io/2020/05/21/200521_restapi/">
 
 
 <script id="page-configurations">
@@ -44,7 +44,7 @@
   };
 </script>
 
-  <title>왜 원시타입은 변경불가하고, 객체는 가능할까? | Heejin</title>
+  <title>Rest API | Heejin</title>
   
 
 
@@ -146,7 +146,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/20/200222_mutable_immutable/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/21/200521_restapi/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -159,7 +159,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          왜 원시타입은 변경불가하고, 객체는 가능할까?
+          Rest API
         </h1>
 
         <div class="post-meta">
@@ -169,7 +169,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-21T00:00:00+09:00">2020-02-21</time>
+              <time title="Created: 2020-05-21 17:00:00" itemprop="dateCreated datePublished" datetime="2020-05-21T17:00:00+09:00">2020-05-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -190,26 +190,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-<p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
+        <h2 id="REST-API"><a href="#REST-API" class="headerlink" title="REST API"></a>REST API</h2><p>REST는 HTTP를 기반으로 클라이언트가 서버의 리소스에 접근하는 방식을 규정한 아키텍쳐이고, REST API는 REST를 기반으로 서비스 API를 구현한 것을 의미한다.</p>
+<h2 id="REST-API의-구성"><a href="#REST-API의-구성" class="headerlink" title="REST API의 구성"></a>REST API의 구성</h2><ul>
+<li>자원(resource): HTTP URI로 표현, 자원을 내용으로 함.</li>
+<li>행위(verb): HTTP METHOD로 표현, 자원에 대한 행위를 내용으로 함.</li>
+<li>표현(representations): HTTP 페이로드로 표현, 자원에 대한 행위의 구체적 내용을 담고 있음.</li>
+</ul>
+<h2 id="REST-API-디자인-가이드"><a href="#REST-API-디자인-가이드" class="headerlink" title="REST API 디자인 가이드"></a>REST API 디자인 가이드</h2><ol>
+<li>URI는 자원(resource)를 표현해야 한다. URI는 통합 자원 식별자(Uniform Resource Identifier, URI)로 하나의 리소스를 가리키는 문자열이며, 인터넷 프로토콜에 항상 붙어 다니고, 인터넷에서 요구되는 기본 조건이다. 웹 상에서의 위치로 resource를 식별한다. 웹주소인 URL이 가장 흔한 URI 중 하나이다.</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- resource는 명사형으로 사용</span><br><span class="line">- resource에 대한 행위는 HTTP METHOD로 표현.</span><br><span class="line"></span><br><span class="line">GET &#x2F; getTodos &#x2F; 1; (X)</span><br><span class="line">GET &#x2F; todos &#x2F; 1; (O)</span><br><span class="line">DELETE &#x2F;todos&#x2F;1 (O)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>HTTP METHOD</p>
+<blockquote>
+<p>GET: 데이터 조회<br>POST: 데이터 등록<br>PUT: 데이터 수정<br>DELETE: 데이터 제거</p>
 </blockquote>
-<p><code>원시타입</code>의 값은 <strong>변경불가</strong>의 값이다. 따라서 원래 할당되어 있던 값을 변경하는 것이 아니라 재할당이 이루어진다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">5</span>; <span class="comment">// a = 5</span></span><br><span class="line"><span class="keyword">let</span> b = a; <span class="comment">// b = 5;</span></span><br><span class="line">a = <span class="number">6</span>; <span class="comment">// a = 6;</span></span><br></pre></td></tr></table></figure>
-
-<p>처음 5라는 값을 a라는 변수에 할당하고, 다음으로 5라는 값을 담고 있는 a의 값을 b에 할당하였을 때,<br>b의 값 5는 a의 값 5가 들어있는 메모리 공간을 차지하는 것이 아니라 새로운 공간을 차지하여 값을 할당한다. 그리고 a를 6이라고 재할당하면 이 역시 새로운 공간을 차지한다.</p>
-<p><em>객체의 경우는 어떨까?</em></p>
-<p><code>객체</code>는 <strong>변경가능</strong>한 값이기 때문에 새로운 공간에 값을 재할당하는 것이 아니라 원래 할당된 공간의 값을 변경한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  word: <span class="string">"hello"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line"><span class="comment">//b  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line">a.word = <span class="string">"world"</span>;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"world"&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>{word: &quot;hello&quot;}</code>라는 객체를 a라는 변수에 할당하였고, 그 다음 b에 a의 값을 할당하였을 때,<br>b는 새로운 메모리 공간을 차지하는 대신 처음 a가 만들어 둔 <code>{word: &quot;hello&quot;}</code>라는 값이 든 공간을 바라보게 된다. 즉, a와 b라는 서로 다른 식별자가 <code>{word: &quot;hello&quot;}</code>라는 값이 들어 있는 하나의 공간을 공유하는 것이다.<br>따라서 a의 word라는 프로퍼티를 world로 변경하면 새로운 공간에 <code>{word: &quot;world&quot;}</code>라는 값을 담는 것이 아니라 원래 <code>{word: &quot;hello&quot;}</code>가 있던 공간의 프로퍼티를 <code>{word: &quot;world&quot;}</code>로 변경한다. b.word를 해도 같은 결과가 나온다.</p>
+</li>
+<li><p>주의사항</p>
+</li>
+</ol>
+<ul>
+<li>슬래시 구분자(/)는 계층 관계를 나타내는 데 사용하며, 마지막 문자에는 슬래시(/)를 포함하지 않는다.<br><code>http://restapi.example.com/houses/apartments (0)</code></li>
+<li>가독성을 높이기 위해 하이픈(-)을 사용할 수 있지만 밑줄(_)은 사용하지 않는다.</li>
+<li>URI 경로에는 소문자가 적합하고, 파일 확장자를 포함하지 않는다.</li>
+</ul>
+<h2 id="HTTP-응답-상태-코드"><a href="#HTTP-응답-상태-코드" class="headerlink" title="HTTP 응답 상태 코드"></a>HTTP 응답 상태 코드</h2><ol>
+<li>정상적인 수행<br>200: 클라이언트의 요청을 정상적으로 수행함.</li>
+<li>클라이언트 에러 응답<br>404: 요청받은 리소스를 찾을 수 없음.</li>
+<li>서버 에러 응답<br>500: 서버가 처리 방법을 모르는 상황. 서버에 문제가 있다.</li>
+<li>리다이렉션<br>301: 요청한 리소스의 URI가 변경되었음</li>
+</ol>
 <hr>
-<p><em>그렇다면 변수를 할당할 때 재할당이 불가능한 키워드 <strong>const</strong>를 사용한다면 어떻게 될까?</em></p>
-<p><code>const a = 5;</code>라고 할당한 후, <code>a = 6;</code>이라고 재할당하면 const는 재할당이 되지 않기 때문에 오류가 발생한다. 하지만 객체의 경우라면 어떻게 될까?</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a = &#123;num: 3&#125;</span></span><br><span class="line">a.num = <span class="number">5</span>;</span><br><span class="line"><span class="comment">//a = &#123;num: 5&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>const는 재할당을 할 수 없지만 다음과 같이 객체가 할당되면 객체의 프로퍼티는 변경할 수 있다.<br>처음 const a라는 변수에 <code>{num : 3}</code>를 할당한다. 그러면 이 값은 하나의 메모리 공간을 차지하게 된다.<br>이때 a의 num라는 프로퍼티에 접근하여 <code>a.num = 5;</code>라고 값을 할당한 후 a를 참조하면 값이 5로 바뀌어 있다.</p>
-<p>하지만 다음과 같이 코드를 사용하면 const는 재할당을 할 수 없기 때문에 오류가 발생한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line">a = &#123;</span><br><span class="line">  num: <span class="number">5</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><em>References</em><br><a href="https://developer.mozilla.org/ko/docs/Glossary/URI" target="_blank" rel="noopener">MDN</a><br><a href="https://meetup.toast.com/posts/92" target="_blank" rel="noopener">TOAST</a></p>
 
     </div>
 
@@ -225,13 +238,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/02/15/hello-world/" rel="prev" title="Hello World">
-      <i class="fa fa-chevron-left"></i> Hello World
+    <a href="/2020/05/20/200520_contextApi/" rel="prev" title="Context API">
+      <i class="fa fa-chevron-left"></i> Context API
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/02/20/200221_variables/" rel="next" title="변수 / Variables">
-      변수 / Variables <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -291,6 +301,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#REST-API"><span class="nav-number">1.</span> <span class="nav-text">REST API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REST-API의-구성"><span class="nav-number">2.</span> <span class="nav-text">REST API의 구성</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REST-API-디자인-가이드"><span class="nav-number">3.</span> <span class="nav-text">REST API 디자인 가이드</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-응답-상태-코드"><span class="nav-number">4.</span> <span class="nav-text">HTTP 응답 상태 코드</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
