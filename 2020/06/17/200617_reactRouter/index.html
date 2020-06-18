@@ -28,7 +28,7 @@
 <meta property="og:description" content="SPASingle Page Application. 한 개의 페이지로 이루어진 어플리케이션. 예전에는 웹 페이지가 여러 페이지로 구성되어 있었고, 사용자가 다른 페이지로 이동할 때 마다 새로운 html을 받아오고, 서버에서 리소스를 받아서 해석한 뒤 화면에 렌더링하는 방식이었음. 모던 웹 어플리케이션사용자와의 인터랙션이 자주 발생하는 모던 웹에서는 화면 전환">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-06-17T08:00:00.000Z">
-<meta property="article:modified_time" content="2020-06-18T01:27:48.356Z">
+<meta property="article:modified_time" content="2020-06-18T06:56:05.627Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-18 10:27:48" itemprop="dateModified" datetime="2020-06-18T10:27:48+09:00">2020-06-18</time>
+                <time title="Modified: 2020-06-18 15:56:05" itemprop="dateModified" datetime="2020-06-18T15:56:05+09:00">2020-06-18</time>
               </span>
 
           
@@ -221,7 +221,7 @@
 <p>일반적으로 파라미터는 특정 아이디나 이름을 사용하여 조회할 때 사용. 쿼리는 어떤 키워드를 검색하거나 페이지에 필요한 옵션을 전달할 때 사용.</p>
 <h3 id="URL-파라미터"><a href="#URL-파라미터" class="headerlink" title="URL 파라미터"></a>URL 파라미터</h3><p>라우트로 사용되는 컴포넌트에서 받아오는 <code>match</code>라는 객체 안의 params 값을 참조. 이 객체 안에는 현재 컴포넌트가 어떤 경로 규칙에 의해 보이는지에 대한 정보가 들어있다.</p>
 <blockquote>
-<p>path 사용규칙: /profiles/<code>:username</code> &gt; <code>:username</code>과 같이 사용하면 <code>match.params.username</code> 값을 통해 현재<br>설정된 username값을 조회할 수 있다.</p>
+<p>path 사용규칙: /profiles/<code>:username</code><br><code>:username</code>과 같이 사용하면 <code>match.params.username</code> 값을 통해 현재 설정된 username값을 조회할 수 있다.</p>
 </blockquote>
 <p>위와 같이 설정했다면 profile 컴포넌트에서는 <code>match</code>를 props로 받아와서 유동적인 username에 따라 해당값을 조회할 수 있게 한다.</p>
 <h3 id="useParams"><a href="#useParams" class="headerlink" title="useParams"></a>useParams</h3><p>URL 파라미터의 key/value object를 리턴하는 hook이다. 이를 이용해서 현재 <Route>의 match.params에 접근할 수 있다.</p>
@@ -254,7 +254,10 @@
     <a href="/2020/06/17/200617_review/" rel="prev" title="todo-app review">
       <i class="fa fa-chevron-left"></i> todo-app review
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/18/200618_contextApi/" rel="next" title="Context API">
+      Context API <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -328,7 +331,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
