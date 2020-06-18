@@ -71,8 +71,8 @@ Route를 써서 특정 주소에 컴포넌트 연결. 어떤 규칙에 따라 �
 
 라우트로 사용되는 컴포넌트에서 받아오는 `match`라는 객체 안의 params 값을 참조. 이 객체 안에는 현재 컴포넌트가 어떤 경로 규칙에 의해 보이는지에 대한 정보가 들어있다.
 
-> path 사용규칙: /profiles/`:username` > `:username`과 같이 사용하면 `match.params.username` 값을 통해 현재
-> 설정된 username값을 조회할 수 있다.
+> path 사용규칙: /profiles/`:username`  
+> `:username`과 같이 사용하면 `match.params.username` 값을 통해 현재 설정된 username값을 조회할 수 있다.
 
 위와 같이 설정했다면 profile 컴포넌트에서는 `match`를 props로 받아와서 유동적인 username에 따라 해당값을 조회할 수 있게 한다.
 
