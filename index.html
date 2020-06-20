@@ -167,10 +167,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-06-18 15:00:00 / Modified: 15:56:05" itemprop="dateCreated datePublished" datetime="2020-06-18T15:00:00+09:00">2020-06-18</time>
+              <time title="Created: 2020-06-18 15:00:00" itemprop="dateCreated datePublished" datetime="2020-06-18T15:00:00+09:00">2020-06-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-20 13:39:57" itemprop="dateModified" datetime="2020-06-20T13:39:57+09:00">2020-06-20</time>
+              </span>
 
           
 
@@ -264,7 +270,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-18 15:56:05" itemprop="dateModified" datetime="2020-06-18T15:56:05+09:00">2020-06-18</time>
+                <time title="Modified: 2020-06-20 13:39:57" itemprop="dateModified" datetime="2020-06-20T13:39:57+09:00">2020-06-20</time>
               </span>
 
           
@@ -292,7 +298,7 @@
 <p>여러 개의 path에 같은 컴포넌트를 보여주고 싶을 때 기존에는 아래와 같이 두 번 작성했다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=<span class="string">'/about'</span> component=&#123;About&#125;/&gt;</span><br><span class="line">&lt;Route path=<span class="string">'/info'</span> component=&#123;About&#125;/&gt;</span><br></pre></td></tr></table></figure>
 
-<p>이렇게 하는 대신 path props를 배열로 설정해 주면 여러 경로에서 같은 컴포넌트를 보여줄 수 있다.</p>
+<p>이렇게 하는 대신 path props를 배열로 설정해 주면 여러 경로에서 같은 컴포넌트를 보여줄 수 있다. <em>path를 쓸 때 맨 앞에 <code>/</code> 쓰는 것을 잊지 않도록 한다. <code>/</code>가 빠지면 route의 주소를 제대로 받아올 수 없다. /users/:id에 id로 올 값이 ‘a’, ‘b’가 있다면 어떤 링크를 클릭하느냐에 따라 /user/a, /user/b로 주소가 받아와져야 한다. 만약 <code>/</code>를 빠뜨리면 /user/user/a, /user/user/a/b 이런 식으로 기존 주소에 새로 클릭하는 링크주소가 계속 붙여져서 제대로 된 경로를 찾지 못한다.</em></p>
 <blockquote>
 <p>path: string | string[]</p>
 </blockquote>
@@ -322,7 +328,25 @@
 <h3 id="UseLocation"><a href="#UseLocation" class="headerlink" title="UseLocation"></a>UseLocation</h3><p>현재의 URL을 나타내는 객체를 리턴하는 hook이다. url이 변경될 때마다 useState처럼 새로운 location을 반환하는 것이라고 생각할 수 있다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">usePageViews</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> location = useLocation();</span><br><span class="line">  React.useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    ga.send([<span class="string">"pageview"</span>, location.pathname]);</span><br><span class="line">  &#125;, [location]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  usePageViews();</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Switch</span>&gt;</span>...<span class="tag">&lt;/<span class="name">Switch</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<hr>
+<h2 id="서브라우트"><a href="#서브라우트" class="headerlink" title="서브라우트"></a>서브라우트</h2><p>라우트 내부에서 또 라우트를 정의하는 것.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> &lt;Route</span><br><span class="line">  path=<span class="string">"profiles"</span></span><br><span class="line">  exact</span><br><span class="line">  render=&#123;() =&gt; <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>사용자를 선택해 주세요<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>&#125;</span><br><span class="line">/&gt;</span><br><span class="line">&lt;Route path=<span class="string">"/profiles/:username"</span> component=&#123;Profile&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>첫 번째 라우트 컴포넌트처럼 component 대신 props를 넣어줄 수 있는데, 이는 컴포넌트 자체를 전달하는 것이 아닌, 보여주고 싶은 JSX를 넣어주는 것.</p>
+<h2 id="history"><a href="#history" class="headerlink" title="history"></a>history</h2><p>match, location처럼 라우트로 사용되는 컴포넌트에 전달되는 props 중 하나, 컴포넌트 내에 구현하는 메서드에서 라우터 API를 호출할 수 있다.</p>
+<ul>
+<li>특정 버튼을 눌렀을 때 뒤로가기</li>
+<li>로그인 후 화면 전환</li>
+<li>다른 페이지로 이탈 방지</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//useHistory hook 사용</span></span><br><span class="line"><span class="keyword">import</span> &#123; useHistory &#125; <span class="keyword">from</span> <span class="string">"react-router-dom"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">HomeButton</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> history = useHistory();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">handleClick</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    history.push(<span class="string">"/home"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;button type=<span class="string">"button"</span> onClick=&#123;handleClick&#125;&gt;</span><br><span class="line">      Go home</span><br><span class="line">    &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="withRouter"><a href="#withRouter" class="headerlink" title="withRouter"></a>withRouter</h2><p>HOC로 라우트로 사용된 컴포넌트가 아니어도 match, location, history 객체를 접근할 수 있게 한다.</p>
+<h2 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h2><p>여러 route를 감싸서 그중 일치하는 단 하나의 라우트만 렌더링시켜준다. 모든 규칙과 일치하지 않을 때 보여줄 <code>Not Found</code>도 구현할 수 있다. 아래와 같이구현하면 처음으로 매치되는 항목인 <code>path=&quot;/&quot;</code>을 화면에 보여준다. 만약 이 경로에 <code>exact</code>라는 키워드가 붙어있지 않았다면 <code>path=&quot;/about&quot;, &quot;/info&quot;</code>가 렌더링 되었을 것이다. 만약 지정된 path가 아닌 임의의 경로, 예를 들어 <code>/abc</code>와 같이 입력했다면 Switch 내부에서 일치하는 라우트를 찾지 못하게 되었으므로 가장 마지막에 설정된 <code>Not Found</code> 관련 라우트가 렌더링된다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;Switch&gt;</span><br><span class="line">  &lt;Route path=<span class="string">"/"</span> component=&#123;Home&#125; exact /&gt;</span><br><span class="line">  &lt;Route path=&#123;[<span class="string">"/about"</span>, <span class="string">"/info"</span>]&#125; component=&#123;About&#125; /&gt;</span><br><span class="line">  &lt;Route path=<span class="string">"/profiles"</span> component=&#123;Profiles&#125; /&gt;</span><br><span class="line">  &lt;Route path=<span class="string">"/history"</span> component=&#123;HistorySample&#125; /&gt;</span><br><span class="line">  &#123;<span class="comment">/* &lt;Route path="/profile/:username" component=&#123;Profile&#125; /&gt; */</span>&#125;</span><br><span class="line">  &#123;<span class="comment">/* &lt;Route path="/about" component=&#123;About&#125; /&gt; */</span>&#125;</span><br><span class="line">  &lt;Route</span><br><span class="line">    <span class="comment">// path를 따로 정의하지 않으면 모든 상황에 렌더링됨.</span></span><br><span class="line">    render=&#123;(&#123; location &#125;) =&gt; (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;이 페이지는 존재하지 않습니다.&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">        &lt;p&gt;&#123;location.pathname&#125;&lt;/</span>p&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    )&#125;</span></span><br><span class="line"><span class="regexp">  /</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/Switch&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="NavLink"><a href="#NavLink" class="headerlink" title="NavLink"></a>NavLink</h2><p>Link와 비슷하다. 현재 경로와 Link에서 사용하는 경로가 일치할 때 특정 스타일이나 CSS 클래스를 적용할 수 있는 컴포넌트를 말한다. NavLink가 활성화되었을 때 스타일을 적용하려면 <code>activeStyle</code>을 사용하고, CSS클래스를 적용할 것이면 <code>activeClassName</code>값을 props로 넣어준다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Profiles = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> activeStyle = &#123;</span><br><span class="line">    background: <span class="string">"black"</span>,</span><br><span class="line">    color: <span class="string">"white"</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h3&gt;사용자목록:&lt;<span class="regexp">/h3&gt;</span></span><br><span class="line"><span class="regexp">      &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">        &lt;li&gt;</span></span><br><span class="line"><span class="regexp">          &lt;NavLink activeStyle=&#123;activeStyle&#125; to="/</span>profiles/velopert<span class="string">"&gt;</span></span><br><span class="line"><span class="string">            velopert</span></span><br><span class="line"><span class="string">          &lt;/NavLink&gt;</span></span><br><span class="line"><span class="string">        &lt;/li&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p><em>Reference</em><br><a href="https://reacttraining.com/react-router/web/guides/quick-start" target="_blank" rel="noopener">react-router</a><br>[리액트를 다루는 기술]</p>
 
       
@@ -374,7 +398,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-18 15:56:05" itemprop="dateModified" datetime="2020-06-18T15:56:05+09:00">2020-06-18</time>
+                <time title="Modified: 2020-06-20 13:39:57" itemprop="dateModified" datetime="2020-06-20T13:39:57+09:00">2020-06-20</time>
               </span>
 
           
@@ -441,7 +465,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-18 15:56:05" itemprop="dateModified" datetime="2020-06-18T15:56:05+09:00">2020-06-18</time>
+                <time title="Modified: 2020-06-20 13:39:57" itemprop="dateModified" datetime="2020-06-20T13:39:57+09:00">2020-06-20</time>
               </span>
 
           
@@ -513,7 +537,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-18 15:56:05" itemprop="dateModified" datetime="2020-06-18T15:56:05+09:00">2020-06-18</time>
+                <time title="Modified: 2020-06-20 13:39:57" itemprop="dateModified" datetime="2020-06-20T13:39:57+09:00">2020-06-20</time>
               </span>
 
           
@@ -666,7 +690,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-18 15:56:05" itemprop="dateModified" datetime="2020-06-18T15:56:05+09:00">2020-06-18</time>
+                <time title="Modified: 2020-06-20 13:39:57" itemprop="dateModified" datetime="2020-06-20T13:39:57+09:00">2020-06-20</time>
               </span>
 
           
@@ -763,7 +787,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-18 15:56:05" itemprop="dateModified" datetime="2020-06-18T15:56:05+09:00">2020-06-18</time>
+                <time title="Modified: 2020-06-20 13:39:57" itemprop="dateModified" datetime="2020-06-20T13:39:57+09:00">2020-06-20</time>
               </span>
 
           
@@ -866,7 +890,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-18 15:56:05" itemprop="dateModified" datetime="2020-06-18T15:56:05+09:00">2020-06-18</time>
+                <time title="Modified: 2020-06-20 13:39:57" itemprop="dateModified" datetime="2020-06-20T13:39:57+09:00">2020-06-20</time>
               </span>
 
           
@@ -961,7 +985,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-18 15:56:05" itemprop="dateModified" datetime="2020-06-18T15:56:05+09:00">2020-06-18</time>
+                <time title="Modified: 2020-06-20 13:39:57" itemprop="dateModified" datetime="2020-06-20T13:39:57+09:00">2020-06-20</time>
               </span>
 
           
@@ -1050,7 +1074,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-18 15:56:05" itemprop="dateModified" datetime="2020-06-18T15:56:05+09:00">2020-06-18</time>
+                <time title="Modified: 2020-06-20 13:39:57" itemprop="dateModified" datetime="2020-06-20T13:39:57+09:00">2020-06-20</time>
               </span>
 
           
