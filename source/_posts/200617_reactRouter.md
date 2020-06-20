@@ -36,7 +36,7 @@ Route를 써서 특정 주소에 컴포넌트 연결. 어떤 규칙에 따라 �
 <Route path='/info' component={About}/>
 ```
 
-이렇게 하는 대신 path props를 배열로 설정해 주면 여러 경로에서 같은 컴포넌트를 보여줄 수 있다.
+이렇게 하는 대신 path props를 배열로 설정해 주면 여러 경로에서 같은 컴포넌트를 보여줄 수 있다. _path를 쓸 때 맨 앞에 `/` 쓰는 것을 잊지 않도록 한다. `/`가 빠지면 route의 주소를 제대로 받아올 수 없다. /users/:id에 id로 올 값이 'a', 'b'가 있다면 어떤 링크를 클릭하느냐에 따라 /user/a, /user/b로 주소가 받아와져야 한다. 만약 `/`를 빠뜨리면 /user/user/a, /user/user/a/b 이런 식으로 기존 주소에 새로 클릭하는 링크주소가 계속 붙여져서 제대로 된 경로를 찾지 못한다._
 
 > path: string | string[]
 
@@ -135,7 +135,96 @@ function App() {
 }
 ```
 
----
+## 서브라우트
+
+라우트 내부에서 또 라우트를 정의하는 것.
+
+```javascript
+ <Route
+  path="profiles"
+  exact
+  render={() => <div>사용자를 선택해 주세요</div>}
+/>
+<Route path="/profiles/:username" component={Profile} />
+```
+
+첫 번째 라우트 컴포넌트처럼 component 대신 props를 넣어줄 수 있는데, 이는 컴포넌트 자체를 전달하는 것이 아닌, 보여주고 싶은 JSX를 넣어주는 것.
+
+## history
+
+match, location처럼 라우트로 사용되는 컴포넌트에 전달되는 props 중 하나, 컴포넌트 내에 구현하는 메서드에서 라우터 API를 호출할 수 있다.
+
+- 특정 버튼을 눌렀을 때 뒤로가기
+- 로그인 후 화면 전환
+- 다른 페이지로 이탈 방지
+
+```javascript
+//useHistory hook 사용
+import { useHistory } from "react-router-dom";
+
+function HomeButton() {
+  let history = useHistory();
+
+  function handleClick() {
+    history.push("/home");
+  }
+
+  return (
+    <button type="button" onClick={handleClick}>
+      Go home
+    </button>
+  );
+}
+```
+
+## withRouter
+
+HOC로 라우트로 사용된 컴포넌트가 아니어도 match, location, history 객체를 접근할 수 있게 한다.
+
+## Switch
+
+여러 route를 감싸서 그중 일치하는 단 하나의 라우트만 렌더링시켜준다. 모든 규칙과 일치하지 않을 때 보여줄 `Not Found`도 구현할 수 있다. 아래와 같이구현하면 처음으로 매치되는 항목인 `path="/"`을 화면에 보여준다. 만약 이 경로에 `exact`라는 키워드가 붙어있지 않았다면 `path="/about", "/info"`가 렌더링 되었을 것이다. 만약 지정된 path가 아닌 임의의 경로, 예를 들어 `/abc`와 같이 입력했다면 Switch 내부에서 일치하는 라우트를 찾지 못하게 되었으므로 가장 마지막에 설정된 `Not Found` 관련 라우트가 렌더링된다.
+
+```javascript
+<Switch>
+  <Route path="/" component={Home} exact />
+  <Route path={["/about", "/info"]} component={About} />
+  <Route path="/profiles" component={Profiles} />
+  <Route path="/history" component={HistorySample} />
+  {/* <Route path="/profile/:username" component={Profile} /> */}
+  {/* <Route path="/about" component={About} /> */}
+  <Route
+    // path를 따로 정의하지 않으면 모든 상황에 렌더링됨.
+    render={({ location }) => (
+      <div>
+        <h2>이 페이지는 존재하지 않습니다.</h2>
+        <p>{location.pathname}</p>
+      </div>
+    )}
+  />
+</Switch>
+```
+
+## NavLink
+
+Link와 비슷하다. 현재 경로와 Link에서 사용하는 경로가 일치할 때 특정 스타일이나 CSS 클래스를 적용할 수 있는 컴포넌트를 말한다. NavLink가 활성화되었을 때 스타일을 적용하려면 `activeStyle`을 사용하고, CSS클래스를 적용할 것이면 `activeClassName`값을 props로 넣어준다.
+
+```javascript
+const Profiles = () => {
+  const activeStyle = {
+    background: "black",
+    color: "white"
+  };
+  return (
+    <div>
+      <h3>사용자목록:</h3>
+      <ul>
+        <li>
+          <NavLink activeStyle={activeStyle} to="/profiles/velopert">
+            velopert
+          </NavLink>
+        </li>
+```
 
 _Reference_
 [react-router](https://reacttraining.com/react-router/web/guides/quick-start)
