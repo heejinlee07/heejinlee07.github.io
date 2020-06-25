@@ -28,7 +28,7 @@
 <meta property="og:description" content="동기식 처리task를 순서대로 처리하여 실행 순서가 직관적이지만 앞선 task가 종료되기 전까지 이후 task들은 대기하여야 한다는 단점이 있다. 12345678910&#x2F;&#x2F; 콜백함수는 인수로 함수를 넘겨줄 수 있다.function fakeSetTimeout(callback, delay) &amp;#123;  callback();&amp;#125;console.log(0);">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-08T04:00:00.000Z">
-<meta property="article:modified_time" content="2020-06-24T06:07:07.024Z">
+<meta property="article:modified_time" content="2020-06-25T12:16:02.078Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-24 15:07:07" itemprop="dateModified" datetime="2020-06-24T15:07:07+09:00">2020-06-24</time>
+                <time title="Modified: 2020-06-25 21:16:02" itemprop="dateModified" datetime="2020-06-25T21:16:02+09:00">2020-06-25</time>
               </span>
 
           
@@ -196,7 +196,7 @@
 <p>함수를 호출하면 실행 컨텍스트가 실행되고 이는 스택에 푸시되는데, 함수 코드의 실행이 종료되면 실행 컨텍스트 스택에서도 팝되어 제거된다. 함수의 실행순서는 이 스택으로 관리되는데 자바스크립트 엔진은 <em>단 하나의 실행 컨텍스트 스택을 갖는다.</em>따라서 실행 중인 하나의 함수가 실행될 동안에 다른 함수는 실행할 수 없고, 현재 실행 중인 함수가 모두 종료되어야 다음 함수가 실행될 수 있다. 이처럼 한 번에 하나의 task만 실행할 수 있는 것을 <em>싱글스레드</em>방식이라고 한다. 위의 콜백 함수는 동기식 처리이고, 순차적으로 실행된다. 따라서 메인함수가 호출되어 실행되면 그 함수가 실행되고 종료되면, 그 다음 함수, 또 그 다음 함수 이런 방식으로 순서대로 console.log에 출력된다. 따라서 <code>0,hello,1</code>의 순서대로 console에 표시된다.</p>
 <h2 id="비동기식-처리"><a href="#비동기식-처리" class="headerlink" title="비동기식 처리"></a>비동기식 처리</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"hello"</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 
-<p>반면 비동기식 처리 모델은 싱글스레드인 자바스크립트의 단점을 보완해주는 것으로 현재 실행중인 함수가 아직 종료되지 않았더라도 그 다음 task를 곧바로 실행할 수 있다. setTimeout합수는 일정 시간이 경과한 후에 콜백 함수를 호출하는 것인데, setTimeout 함수를 호출한 후 아직 종료되지 않았어도 곧바로 console.log(1)을 실행할 수 있다. 따라서 위의 콜백함수는 <code>0,1,hello</code>의 순서대로 console에 출력된다. 참고로 setTimeout의 web API의 타이머에게 0초 뒤에 Queuedp 실행할 콜백함수를 넣어달라고 요청하는 것이다.</p>
+<p>반면 비동기식 처리 모델은 싱글스레드인 자바스크립트의 단점을 보완해주는 것으로 현재 실행중인 함수가 아직 종료되지 않았더라도 그 다음 task를 곧바로 실행할 수 있다. setTimeout합수는 일정 시간이 경과한 후에 콜백 함수를 호출하는 것인데, setTimeout 함수를 호출한 후 아직 종료되지 않았어도 곧바로 console.log(1)을 실행할 수 있다. 따라서 위의 콜백함수는 <code>0,1,hello</code>의 순서대로 console에 출력된다. 참고로 setTimeout의 web API의 타이머에게 0초 뒤에 Queue에 실행할 콜백함수를 넣어달라고 요청하는 것이다.</p>
 <hr>
 <p><em>Reference</em><br><a href="https://poiemaweb.com/fastcampus/async-programming" target="_blank" rel="noopener">poiemaweb/fastcampus</a><br><a href="https://www.youtube.com/watch?v=j0Viy3v97gY&t=226s" target="_blank" rel="noopener">코드종</a></p>
 
