@@ -144,6 +144,151 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/22/200223_operator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/22/200223_operator/" class="post-title-link" itemprop="url">연산자 / operator</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-22 21:57:40" itemprop="dateCreated datePublished" datetime="2020-02-22T21:57:40+09:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-27 15:14:09" itemprop="dateModified" datetime="2020-06-27T15:14:09+09:00">2020-06-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="연산자"><a href="#연산자" class="headerlink" title="연산자"></a>연산자</h2><ul>
+<li>하나 이상의 표현식을 대상으로 산술, 할당, 비교, 논리, 타입, 지수 연산(operation) 등을 수행해 하나의 값을 만든다. 이때 연산의 대상을 피연산자(Operand)라 한다.</li>
+<li>변수와 값을 어떻게 작동하게 할 것인지에 관한 것.</li>
+<li>프로그래밍 언어에서 특정 연산을 하도록 하는 문자.</li>
+<li>테스트 수행, 연산, 문자열 합치기 등등에 사용.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">target variable = source value</span><br><span class="line">a = <span class="number">42</span> (<span class="number">42</span> 값을 a에 할당한다.)</span><br><span class="line">값 + 값 = 새로운 값</span><br></pre></td></tr></table></figure>
+
+<p><code>피연산자, 피연산자 + 연산자의 조합으로 이루어진 연산자 표현식 모두 &#39;값&#39;으로 평가될 수 있어야 한다.</code></p>
+<h2 id="산술-연산자-Arithmetic-Operator"><a href="#산술-연산자-Arithmetic-Operator" class="headerlink" title="산술 연산자 (Arithmetic Operator)"></a>산술 연산자 (Arithmetic Operator)</h2><p>피연산자를 대상으로 수학적 계산(사칙 연산)을 수행해 새로운 숫자 값을 만들며, 피연산자의 개수에 따라 이항 산술 연산자 or 단항 산술 연산자로 구분한다. <em>산술 연산이 불가능한 경우, NaN을 반환한다.</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">덧셈(+) : <span class="number">5</span> + <span class="number">2</span>; <span class="comment">// 7</span></span><br><span class="line">뺄셈(-) : <span class="number">5</span> - <span class="number">2</span>; <span class="comment">// 3</span></span><br><span class="line">곱셈(*) : <span class="number">5</span> * <span class="number">2</span>; <span class="comment">// 10</span></span><br><span class="line">나눗셈(<span class="regexp">/) : 5 /</span> <span class="number">2</span>; <span class="comment">// 2.5</span></span><br><span class="line">나머지(%) : <span class="number">5</span> % <span class="number">2</span>; <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="이항-산술-연산자-Binary-operators"><a href="#이항-산술-연산자-Binary-operators" class="headerlink" title="이항 산술 연산자 (Binary operators)"></a>이항 산술 연산자 (Binary operators)</h3><p>2개의 피연산자를 산술 연산하여 숫자 타입의 값을 만든다. <em>피연산자의 값을 변경하는 부수 효과는 없다. 언제나 새로운 값을 만들 뿐이다.</em></p>
+<blockquote>
+<p>operand1 operator operand2 ex) 3 + 4</p>
+</blockquote>
+<h3 id="단항-산술-연산자-Unary-operators"><a href="#단항-산술-연산자-Unary-operators" class="headerlink" title="단항 산술 연산자 (Unary operators)"></a>단항 산술 연산자 (Unary operators)</h3><p>1개의 피연산자를 산술 연산하여 숫자 타입의 값을 만든다. 주로 반복문에서 많이 쓰인다.</p>
+<blockquote>
+<p>operator operand or operand operator ex) a++ or ++a</p>
+</blockquote>
+<p><code>주의: 이항 산술 연산자와 달리 증가/감소(++/–) 연산자는 피연산자의 값을 변경하는 부수 효과가 있다.</code></p>
+<p><code>증가/감소(++/--) 연산자는 위치에 따른 의미</code><br>.전위 증가/감소 연산자: 피연산자의 앞에 위치하여 먼저 피연산자의 값을 증가/감소시킨 후, 다른 연산을 수행한다.<br>.증가/감소(++/–) 연산자: 피연산자의 뒤에 위치하여 먼저 다른 연산을 수행한 후, 피연산자의 값을 증가/감소시킨다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num1 = <span class="number">4</span>;</span><br><span class="line">++num1; <span class="comment">// -&gt; 5;</span></span><br><span class="line">num1 <span class="comment">// -&gt; 5;</span></span><br><span class="line"></span><br><span class="line">++num1는 num1의 값을 먼저 증가시킨 후 할당한다.</span><br><span class="line">(선증가 후할당)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> num2 = <span class="number">4</span>;</span><br><span class="line">num2++; <span class="comment">// -&gt; 4;</span></span><br><span class="line">num2; <span class="comment">//-&gt; 5;</span></span><br><span class="line"></span><br><span class="line">num2++은 num2의 값을 먼저 할당한 후 증가시킨다.</span><br><span class="line">(선할당 후증가)</span><br></pre></td></tr></table></figure>
+
+<h2 id="문자열-연결-연산자-String-operators"><a href="#문자열-연결-연산자-String-operators" class="headerlink" title="문자열 연결 연산자 (String operators)"></a>문자열 연결 연산자 (String operators)</h2><p><code>+</code>연산자는 피연산자 중 하나 이상이 문자열인 경우 문자열 연결 연산자로 동작한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"my "</span> + <span class="string">"string"</span>); <span class="comment">// console logs the string "my string".</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 문자열 연결 연산자</span></span><br><span class="line"><span class="string">"1"</span> + <span class="number">2</span>; <span class="comment">// -&gt; '12'</span></span><br><span class="line"><span class="number">1</span> + <span class="string">"2"</span>; <span class="comment">// -&gt; '12'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// true는 1로 타입 변환된다.</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">true</span>; <span class="comment">// -&gt; 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// false는 0으로 타입 변환된다.</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">false</span>; <span class="comment">// -&gt; 1</span></span><br></pre></td></tr></table></figure>
+
+<p><code>암묵적 타입 변환(Implicit coercion) 또는 타입 강제 변환(Type coercion)</code><br>개발자의 의도와는 상관없이 자바스크립트 엔진에 의해 암묵적으로 타입이 자동 변환되기도 한다. 위 예제에서 1 + true를 연산하면 자바스크립트 엔진은 암묵적으로 불리언 타입의 값인 true를 숫자 타입인 1로 타입을 강제 변환한 후 연산을 수행한다.</p>
+<hr>
+<h2 id="할당-연산자-Assignment-Operator"><a href="#할당-연산자-Assignment-Operator" class="headerlink" title="할당 연산자 (Assignment Operator)"></a>할당 연산자 (Assignment Operator)</h2><ul>
+<li>우항에 있는 피연산자의 평가 결과를 좌항에 있는 변수에 할당한다.</li>
+<li>좌항의 피연산자는 우항의 피연산자의 값에 기초한다.</li>
+<li>x = y는 y의 값을 x에 할당하겠다는 뜻이다.</li>
+</ul>
+<p><code>할당 연산자는 좌항의 변수에 값을 할당하므로 변수의 값이 변하는 부수 효과가 있다.</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">=	: x = <span class="number">5</span>	= x = <span class="number">5</span></span><br><span class="line">+=	: x += <span class="number">5</span>	= x = x + <span class="number">5</span></span><br><span class="line">-=	: x -= <span class="number">5</span>	= x = x - <span class="number">5</span></span><br><span class="line">*=	: x *= <span class="number">5</span>	= x = x * <span class="number">5</span></span><br><span class="line">/=	: x /= <span class="number">5</span>	= x = x / <span class="number">5</span></span><br><span class="line">%=	: x %= <span class="number">5</span>	= x = x % <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//우항의 값을 좌항의 변수값에 할당한 후, 새로운 변수 값을 반환한다.</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">3</span>; <span class="comment">//x는 3이라는 값을 담고 있다.</span></span><br><span class="line"><span class="keyword">var</span> y = <span class="number">4</span>; <span class="comment">//y는 4라는 값을 담고 있다.</span></span><br><span class="line">x *= y; <span class="comment">//x는  12라는 값을 담고 있다.</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="비교-연산자-Comparison-operators"><a href="#비교-연산자-Comparison-operators" class="headerlink" title="비교 연산자 (Comparison operators)"></a>비교 연산자 (Comparison operators)</h2><p>두 값(좌항과 우항)의 피연산자를 비교한 다음 그 결과로 <code>불리언 값을 반환</code>한다. 비교 연산자는 <em>if 문이나 for 문과 같은 제어문의 조건식에서 주로 사용한다.</em></p>
+<h3 id="동등-일치-비교-연산자"><a href="#동등-일치-비교-연산자" class="headerlink" title="동등/일치 비교 연산자"></a>동등/일치 비교 연산자</h3><p>좌항과 우항의 피연산자가 같은 값을 갖는지 비교하여 <code>불리언 값을 반환</code>한다. 동등 비교 연산자는 느슨한 비교를 하지만 일치 비교 연산자는 엄격한 비교를 한다.</p>
+<ul>
+<li>== 동등 비교 // x == y x와 y의 값이 같음</li>
+<li>=== 일치 비교 //x === y x와 y의 값과 타입이 같음</li>
+<li>!= 부동등 비교 x != y //x와 y의 값이 다름</li>
+<li>!== 불일치 비교 x !== y //x와 y의 값과 타입이 다름</li>
+</ul>
+<blockquote>
+<p>동등 비교(==) 연산자는 좌항과 우항의 피연산자를 비교할 때 먼저 암묵적 타입 변환을 통해 타입을 일치시킨 후, 같은 값인지 비교한다.<br>타입은 다르지만 암묵적 타입 변환을 통해 타입을 일치시키면 동등하다.<br>5 == ‘5’; // -&gt; true</p>
+</blockquote>
+<h3 id="대소-관계-비교-연산자"><a href="#대소-관계-비교-연산자" class="headerlink" title="대소 관계 비교 연산자"></a>대소 관계 비교 연산자</h3><p>피연산자의 크기를 비교하여 불리언 값을 반환한다.</p>
+<ul>
+<li><code>&gt;</code>: x &gt; y //x가 y보다 크다</li>
+<li><code>&lt;</code>: x &lt; y //x가 y보다 작다</li>
+<li><code>&gt;=</code>: x &gt;= y //x가 y보다 같거나 크다</li>
+<li><code>&lt;=</code>: x &lt;= y //x가 y보다 같거나 크다</li>
+</ul>
+<hr>
+<h2 id="삼항-조건-연산자-ternary-operator"><a href="#삼항-조건-연산자-ternary-operator" class="headerlink" title="삼항 조건 연산자 (ternary operator)"></a>삼항 조건 연산자 (ternary operator)</h2><p>조건식의 평가 결과에 따라 반환할 값을 결정한다. 건식이 참이면 콜론(:) 앞의 두번째 피연산자가 평가되어 반환되고, 거짓이면 콜론(:) 뒤의 세번째 피연산자가 평가되어 반환된다.아래와 같이 사용한다.</p>
+<p><code>조건식 ? 조건식이 true일때 반환할 값 : 조건식이 false일때 반환할 값</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 % 2는 0이고 0은 false로 암묵적 타입 변환된다.</span></span><br><span class="line"><span class="keyword">var</span> result = x % <span class="number">2</span> ? <span class="string">"홀수"</span> : <span class="string">"짝수"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(result); <span class="comment">// 짝수</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="논리-연산자-Logical-Operator"><a href="#논리-연산자-Logical-Operator" class="headerlink" title="논리 연산자 (Logical Operator)"></a>논리 연산자 (Logical Operator)</h2><p>우항과 좌항의 피연산자(부정 논리 연산자의 경우, 우항의 피연산자)를 논리 연산한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">||	논리합(OR)	✕</span><br><span class="line">&amp;&amp;	논리곱(AND)	✕</span><br><span class="line">!	부정(NOT)</span><br></pre></td></tr></table></figure>
+
+<p>논리 부정(!) 연산자는 언제나 불리언 값을 반환한다. 단, 피연산자가 반드시 불리언 값일 필요는 없다. 논리합(||) 또는 논리곱(&amp;&amp;) 연산자 표현식의 평가 결과는 불리언 값이 아닐 수도 있다. 논리합(||) 또는 논리곱(&amp;&amp;) 연산자 표현식은 언제나 2개의 피연산자 중 어는 한쪽으로 평가된다.</p>
+<h2 id="쉼표-연산자"><a href="#쉼표-연산자" class="headerlink" title="쉼표 연산자"></a>쉼표 연산자</h2><p>왼쪽 피연산자부터 차례대로 피연산자를 평가하고 마지막 피연산자의 평가가 끝나면 마지막 피연산자의 평가 결과를 반환한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x, y, z;</span><br><span class="line"></span><br><span class="line">(x = <span class="number">1</span>), (y = <span class="number">2</span>), (z = <span class="number">3</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="그룹-연산자"><a href="#그룹-연산자" class="headerlink" title="그룹 연산자"></a>그룹 연산자</h2><p>연산자 우선순위(Operator precedence)와 관련있다. 일부 연산자는 합계 (프로그래밍에서 표현식이라고 함)의 결과를 계산할 때 다른 연산자보다 먼저 적용된다. JavaScript의 연산자 우선 순위는 수학 시간에 배운 것처럼 곱하기와 나누기는 항상 먼저 수행 한 다음 더하기와 빼기 (합은 항상 왼쪽에서 오른쪽으로 평가됨) 따라서 먼저 연산하고 싶은 부분을 그룹 연산자로 묶어서 우선 순위를 조절할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span> * <span class="number">2</span> + <span class="number">3</span>; <span class="comment">// -&gt; 23</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 그룹 연산자를 사용하여 우선 순위 조절</span></span><br><span class="line"><span class="number">10</span> * (<span class="number">2</span> + <span class="number">3</span>); <span class="comment">// -&gt; 50</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="typeof-연산자"><a href="#typeof-연산자" class="headerlink" title="typeof 연산자"></a>typeof 연산자</h2><p>피연산자의 데이터 타입을 문자열로 반환한다. typeof 연산자는 7가지 문자열 “string”, “number”, “boolean”, “undefined”, “symbol”, “object”, “function” 중 하나를 반환한다. “null”을 반환하는 경우는 없으며 함수의 경우 “function”을 반환한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typeof</span> foo === <span class="literal">null</span>; <span class="comment">// -&gt; false</span></span><br><span class="line">foo === <span class="literal">null</span>; <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<p>typeof 연산자로 null 값을 연산해 보면 “null”이 아닌 “object”를 반환하는데 이는 자바스크립트의 첫 번째 버전의 버그이다. 따라서 null 타입을 확인할 때는 typeof 연산자 보다는 연산자(===)을 사용하는 것이 좋다. 또한 선언하지 않은 식별자를 typeof 연산자로 연산해 보면 ReferenceError가 발생하지 않고 “undefined”를 반환한다.</p>
+<h2 id="지수-연산자"><a href="#지수-연산자" class="headerlink" title="지수 연산자"></a>지수 연산자</h2><p>ES7에서 새롭게 도입된 지수 연산자는 좌항의 피연산자를 밑으로, 우항의 피연산자를 지수로 거듭 제곱하여 숫자 타입의 값을 반환한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span> ** <span class="number">2</span>; <span class="comment">// -&gt; 4</span></span><br><span class="line"><span class="number">2</span> ** <span class="number">2.5</span>; <span class="comment">// -&gt; 5.65685424949238</span></span><br><span class="line"><span class="number">2</span> ** <span class="number">0</span>; <span class="comment">// -&gt; 1</span></span><br><span class="line"><span class="number">2</span> ** <span class="number">-2</span>; <span class="comment">// -&gt; 0.25</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="연산자의-부수-효과"><a href="#연산자의-부수-효과" class="headerlink" title="연산자의 부수 효과"></a>연산자의 부수 효과</h2><p>대부분의 연산자는 다른 코드에 영향을 주지 않는다. 하지만 일부 연산자는 다른 코드에 영향을 주는 부수 효과가 있다. 부수 효과과 있는 연산자는 할당(=) 연산자, 증가/감소(++/–) 연산자, delete 연산자이다.</p>
+<hr>
+<p><em>Reference</em></p>
+<p><a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/First_steps/Math" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Operator_precedence" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/operator" target="_blank" rel="noopener">Poiemaweb/fastcampus</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/22/200222_expression_statement/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +320,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-25 21:16:02" itemprop="dateModified" datetime="2020-06-25T21:16:02+09:00">2020-06-25</time>
+                <time title="Modified: 2020-06-27 15:14:09" itemprop="dateModified" datetime="2020-06-27T15:14:09+09:00">2020-06-27</time>
               </span>
 
           
@@ -268,7 +413,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-25 21:16:02" itemprop="dateModified" datetime="2020-06-25T21:16:02+09:00">2020-06-25</time>
+                <time title="Modified: 2020-06-27 15:14:09" itemprop="dateModified" datetime="2020-06-27T15:14:09+09:00">2020-06-27</time>
               </span>
 
           
@@ -397,7 +542,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-25 21:16:02" itemprop="dateModified" datetime="2020-06-25T21:16:02+09:00">2020-06-25</time>
+                <time title="Modified: 2020-06-27 15:14:09" itemprop="dateModified" datetime="2020-06-27T15:14:09+09:00">2020-06-27</time>
               </span>
 
           
@@ -528,7 +673,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-25 21:16:02" itemprop="dateModified" datetime="2020-06-25T21:16:02+09:00">2020-06-25</time>
+                <time title="Modified: 2020-06-27 15:14:09" itemprop="dateModified" datetime="2020-06-27T15:14:09+09:00">2020-06-27</time>
               </span>
 
           
@@ -612,7 +757,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-25 21:16:02" itemprop="dateModified" datetime="2020-06-25T21:16:02+09:00">2020-06-25</time>
+                <time title="Modified: 2020-06-27 15:14:09" itemprop="dateModified" datetime="2020-06-27T15:14:09+09:00">2020-06-27</time>
               </span>
 
           
@@ -724,7 +869,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
