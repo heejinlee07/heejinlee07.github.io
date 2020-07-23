@@ -79,26 +79,26 @@ _그런데 만약 specificity가 모두 동일하다면?_
 
 내가 React project를 했을 때의 경험을 예시로 들어보겠다. 당시 SlidingPane이라는 라이브러리를 사용하여 팝업창을 구성했는데, 기본 설정된 배경색을 다른 색으로 변경했어야 했다. 그러나 이 라이브러리는 몹시 간결한 것이어서 그러한 변경에 대한 방법이 따로 설명되어 있지 않았다. 그래서 선택한 방법은 css파일에 변경해야 할 부분을 작성한 후 원래 있던 코드를 `background: #D9DBE0;`로 작성한 후 override하는 것이다.
 
-```
-<!-- 원래 코드: react-sliding-pane.css -->
+```css
+/* 원래 코드: react-sliding-pane.css */
 .slide-pane {
   display: flex;
   flex-direction: column;
   background: #fff;
   min-width: 100px;
   height: 100%;
-  box-shadow: 0 8px 8px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
   transition: transform 0.5s;
   will-change: transform;
 }
 ```
 
-```
-<!-- 내가 작성한 author 코드: Cart.css -->
+```css
+/* 내가 작성한 author 코드: Cart.css */
 .slide-pane {
   display: flex;
   flex-direction: column;
-  background:  #D9DBE0;
+  background: #d9dbe0;
   min-width: 100px;
   height: 100%;
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
