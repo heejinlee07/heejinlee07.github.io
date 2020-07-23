@@ -37,7 +37,7 @@ tags:
 
 서로 다른 stylesheets(different css sources: author, user, browser(user agent))와 css rules와 declarations의 충돌을 해결하고 결합하는 과정으로 어떤 속성이 가중치가 있는지 체크하는 것이고, 특정 element에는 1가지 이상의 rule이 적용된다. cascade를 체크할 때 가장 중요한 것은 css rule이 어떠한 source를 기반으로 하는 것인지와 관련되어 있다.
 
-### dirrerens css sources
+### different css sources
 
 - User-Agent: 브라우저가 elemets에 제공하는 기본 스타일이며, 브라우저 마다 스타일이 다소 다르게 보여질 수 있다. css resets를 사용하여 user-agent styles를 override하는 방법을 쓰는 것이 이러한 차이를 상쇄시키는 방법 중 하나이다.
 
