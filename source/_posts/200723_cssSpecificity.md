@@ -35,7 +35,7 @@ tags:
 
 ## CASCADE
 
-서로 다른 stylesheets(different css sources: author, user, browser(user agent))와 css rules와 declarations의 충돌을 해결하고 결합하는 과정으로 어떤 속성이 가중치가 있는지 체크하는 것이고, 특정 element에는 1가지 이상의 rule이 적용된다. cascade를 체크할 때 가장 중요한 것은 css rule이 어떠한 source를 기반으로 하는 것인지와 관련되어 있다.
+서로 다른 stylesheets[different css sources: author, user, browser(user agent)]와 css rules와 declarations의 충돌을 해결하고 결합하는 과정으로 어떤 속성이 가중치가 있는지 체크하는 것이고, 특정 element에는 1가지 이상의 rule이 적용된다. cascade를 체크할 때 가장 중요한 것은 css rule이 어떠한 source를 기반으로 하는 것인지와 관련되어 있다.
 
 ### different css sources
 
