@@ -38,7 +38,7 @@ tags:
   <head>
     <meta charset="utf-8" />
     <title>My test page</title>
-    <link rel="stylesheed" href="my-css-file.css" />
+    <link rel="stylesheet" href="my-css-file.css" />
   </head>
   <body>
     <p>This is my page</p>
@@ -47,5 +47,6 @@ tags:
 </html>
 ```
 
-https://developer.mozilla.org/ko/docs/Learn/HTML/Introduction_to_HTML/HTML_text_fundamentals
-여기서부터 볼 것.
+## HTML text fundamentals
+
+시멘틱: 브라우저가 텍스트를 올바르게 표시 할 수 있도록 텍스트 구조와 의미를 제공하는 것. HTML의 주요 작업 중 하나.
