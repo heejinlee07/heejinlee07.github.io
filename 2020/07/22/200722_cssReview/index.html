@@ -28,7 +28,7 @@
 <meta property="og:description" content="HTML마크업 언어. 웹페이지는 어떻게 구조화되어 있는지를 브라우저에게 알려줌. elements와 tag로 구성되어 있다. 요소(elements) elements: 각 컨텐츠를 감싸고 마크업한다. 엘리먼트 안에는 내용과 내용을 앞뒤로 감싸는 태그(여는 태그, 닫는 태그)가 있다. 엘리먼트 내부는 &lt;p&gt;My cat is &lt;strong&gt;v">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-22T06:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-26T04:46:46.253Z">
+<meta property="article:modified_time" content="2020-07-26T05:12:18.801Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-26 13:46:46" itemprop="dateModified" datetime="2020-07-26T13:46:46+09:00">2020-07-26</time>
+                <time title="Modified: 2020-07-26 14:12:18" itemprop="dateModified" datetime="2020-07-26T14:12:18+09:00">2020-07-26</time>
               </span>
 
           
@@ -202,14 +202,14 @@
 <h3 id="HTML-메타데이터"><a href="#HTML-메타데이터" class="headerlink" title="HTML 메타데이터"></a>HTML 메타데이터</h3><ul>
 <li><p>head: 페이지를 열 때 웹 브라우저에 표시되지 않는다. metadata를 포함한다.</p>
 </li>
-<li><p>title: <h1>태그와 헷갈릴 수 있는데, <h1>이 페이지를 열 때 페이지 내용의 제목에 쓰인다면, <title>는 문서의 컨텐츠 내부에 쓰이는 것이 아닌 html 문서 전체의 타이틀을 표현하기 위한 메타데이터를 의미한다. 이 <title>는 <em>북마크 이름, 검색결과</em> 로 사용된다.</p>
+<li><p>title: <code>&lt;h1&gt;</code>태그와 헷갈릴 수 있는데, <code>&lt;h1&gt;</code>이 페이지를 열 때 페이지 내용의 제목에 쓰인다면, <code>&lt;title&gt;</code>는 문서의 컨텐츠 내부에 쓰이는 것이 아닌 html 문서 전체의 타이틀을 표현하기 위한 메타데이터를 의미한다. 이 <code>&lt;title&gt;</code>는 <em>북마크 이름, 검색결과</em> 로 사용된다.</p>
 </li>
 <li><p>meta: 문서의 character 인코딩을 특정하는 것으로 문서에서 허용하는 문자 집합을 의미한다. <code>UTF-8</code>은 다양한 언어들을 포함하는 것이므로 일반적으로 이를 사용하도록 한다.</p>
 </li>
 </ul>
 <h3 id="HTML에-CSS와-JavaScript-적용하기"><a href="#HTML에-CSS와-JavaScript-적용하기" class="headerlink" title="HTML에 CSS와 JavaScript 적용하기"></a>HTML에 CSS와 JavaScript 적용하기</h3><ul>
-<li>CSS: <code>&lt;link&gt;</code>를 사용하여 적용하는데, 항상 문서의 head 부분에 위치해야한다. <link>에서 <code>rel</code>은 문서가 stylesheet임을 나타내고, <code>href</code>는 이 파일의 경로를 나타낸다.</li>
-<li>JavaScript: <code>&lt;script&gt;</code> 태그를 사용하여 적용한다. <head>에 들어가도 되지만 꼭 <head>에만 위치해야하는 것은 아니다. 보통은 </body> 태그 바로 앞, 즉 본문의 맨 끝에 넣는 것이 좋다. 또한 <code>&lt;script&gt;</code>태그는 반드시 닫아주어야 한다.</li>
+<li>CSS: <code>&lt;link&gt;</code>를 사용하여 적용하는데, 항상 문서의 head 부분에 위치해야한다. <code>&lt;link&gt;</code>에서 <code>rel</code>은 문서가 stylesheet임을 나타내고, <code>href</code>는 이 파일의 경로를 나타낸다.</li>
+<li>JavaScript: <code>&lt;script&gt;</code> 태그를 사용하여 적용한다. <code>&lt;head&gt;</code>에 들어가도 되지만 꼭 <code>&lt;head&gt;</code>에만 위치해야하는 것은 아니다. 보통은 <code>&lt;/body&gt;</code> 태그 바로 앞, 즉 본문의 맨 끝에 넣는 것이 좋다. 또한 <code>&lt;script&gt;</code>태그는 반드시 닫아주어야 한다.</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>My test page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"my-css-file.css"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This is my page<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"my-js-file.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -295,9 +295,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML"><span class="nav-number">1.</span> <span class="nav-text">HTML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#요소-elements"><span class="nav-number">1.1.</span> <span class="nav-text">요소(elements)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#블럭-레벨-요소-vs-인라인-요소"><span class="nav-number">1.2.</span> <span class="nav-text">블럭 레벨 요소 vs 인라인 요소</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-메타데이터"><span class="nav-number">1.3.</span> <span class="nav-text">HTML 메타데이터</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number"></span> <span class="nav-text">태그와 헷갈릴 수 있는데, 이 페이지를 열 때 페이지 내용의 제목에 쓰인다면, 는 문서의 컨텐츠 내부에 쓰이는 것이 아닌 html 문서 전체의 타이틀을 표현하기 위한 메타데이터를 의미한다. 이 는 북마크 이름, 검색결과 로 사용된다.
-</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number"></span> <span class="nav-text">이 페이지를 열 때 페이지 내용의 제목에 쓰인다면, 는 문서의 컨텐츠 내부에 쓰이는 것이 아닌 html 문서 전체의 타이틀을 표현하기 위한 메타데이터를 의미한다. 이 는 북마크 이름, 검색결과 로 사용된다.
-</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML에-CSS와-JavaScript-적용하기"><span class="nav-number">0.1.</span> <span class="nav-text">HTML에 CSS와 JavaScript 적용하기</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML-text-fundamentals"><span class="nav-number">1.</span> <span class="nav-text">HTML text fundamentals</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML"><span class="nav-number">1.</span> <span class="nav-text">HTML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#요소-elements"><span class="nav-number">1.1.</span> <span class="nav-text">요소(elements)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#블럭-레벨-요소-vs-인라인-요소"><span class="nav-number">1.2.</span> <span class="nav-text">블럭 레벨 요소 vs 인라인 요소</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-메타데이터"><span class="nav-number">1.3.</span> <span class="nav-text">HTML 메타데이터</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML에-CSS와-JavaScript-적용하기"><span class="nav-number">1.4.</span> <span class="nav-text">HTML에 CSS와 JavaScript 적용하기</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML-text-fundamentals"><span class="nav-number">2.</span> <span class="nav-text">HTML text fundamentals</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
