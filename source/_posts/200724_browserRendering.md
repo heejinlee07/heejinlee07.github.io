@@ -6,7 +6,7 @@ tags:
 
 ## 브라우저 structure
 
-![browser components](https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/layers.png)
+<!-- ![browser components](https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/layers.png) -->
 
 1. user interface: 유저가 볼 수 있는 모든 것. 요청한 페이지가 표시되는 창을 제외한 모든 부분(주소창, 책갈피 메뉴 등)을 말한다. 유저는 함부로 조작할 수 없고, ui backend와 함꼐 일한다.
 
@@ -118,7 +118,7 @@ reduce the effort of painting the while thing.(dirty bit system)
 
 ## 요청과 응답 (주소창을 통해 요청)
 
-![URI(Uniform Resource Identifier)](https://poiemaweb.com/assets/fs-images/38-2.png)
+<!-- ![URI(Uniform Resource Identifier)](https://poiemaweb.com/assets/fs-images/38-2.png) -->
 
 요청: 브라우저의 주소창에 url을 입력하고 엔터를 누르면 루트 요청이 서버로 전송되는데, 루트 요청시 명확히 리소스를 요청하지 않으면 암묵적으로 `index.html`을 응답하도록 기본 설정되어 있다. 이때 url의 호스트 이름은 dns를 통해 ip주소로 변환되고 이 ip 주소를 갖는 서버에게 요청을 전송한다.
 
