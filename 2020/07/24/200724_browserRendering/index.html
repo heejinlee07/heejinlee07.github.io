@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/layers.png">
 <meta property="article:published_time" content="2020-07-24T03:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-26T05:12:18.801Z">
+<meta property="article:modified_time" content="2020-07-29T10:23:02.840Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/layers.png">
@@ -178,7 +178,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-26 14:12:18" itemprop="dateModified" datetime="2020-07-26T14:12:18+09:00">2020-07-26</time>
+                <time title="Modified: 2020-07-29 19:23:02" itemprop="dateModified" datetime="2020-07-29T19:23:02+09:00">2020-07-29</time>
               </span>
 
           
@@ -294,9 +294,7 @@
 <li>브라우저 윈도우의 리사이징에 의한 뷰포트(viewport) 크기 변경</li>
 <li>HTML 요소의 레이아웃(위치, 크기)에 변경을 발생시키는 width/height, margin, padding, border, display, position, top/right/bottom/left 등의 스타일 변경</li>
 </ul>
-<h2 id="요청과-응답-주소창을-통해-요청"><a href="#요청과-응답-주소창을-통해-요청" class="headerlink" title="요청과 응답 (주소창을 통해 요청)"></a>요청과 응답 (주소창을 통해 요청)</h2><!-- ![URI(Uniform Resource Identifier)](https://poiemaweb.com/assets/fs-images/38-2.png) -->
-
-<p>요청: 브라우저의 주소창에 url을 입력하고 엔터를 누르면 루트 요청이 서버로 전송되는데, 루트 요청시 명확히 리소스를 요청하지 않으면 암묵적으로 <code>index.html</code>을 응답하도록 기본 설정되어 있다. 이때 url의 호스트 이름은 dns를 통해 ip주소로 변환되고 이 ip 주소를 갖는 서버에게 요청을 전송한다.</p>
+<h2 id="요청과-응답-주소창을-통해-요청"><a href="#요청과-응답-주소창을-통해-요청" class="headerlink" title="요청과 응답 (주소창을 통해 요청)"></a>요청과 응답 (주소창을 통해 요청)</h2><p>요청: 브라우저의 주소창에 url을 입력하고 엔터를 누르면 루트 요청이 서버로 전송되는데, 루트 요청시 명확히 리소스를 요청하지 않으면 암묵적으로 <code>index.html</code>을 응답하도록 기본 설정되어 있다. 이때 url의 호스트 이름은 dns를 통해 ip주소로 변환되고 이 ip 주소를 갖는 서버에게 요청을 전송한다.</p>
 <h3 id="HTTP-1-1과-HTTP-2-0"><a href="#HTTP-1-1과-HTTP-2-0" class="headerlink" title="HTTP 1.1과 HTTP 2.0"></a>HTTP 1.1과 HTTP 2.0</h3><p>HTTP: 웹에서 브라우저와 서버가 통신을 하기 위한 프로토콜(규약)이다.</p>
 <ul>
 <li>HTTP 1.1: 커넥션 당 하나의 요청과 응답만을 처리하는 <code>단방향 구조</code>이다. 따라서 여러 개의 리소스를 요청해도 개별적으로 전송되고, 응답 역시 마찬가지로 개별적으로 전달된다.</li>
@@ -352,7 +350,10 @@
     <a href="/2020/07/23/200723_cssSpecificity/" rel="prev" title="CSS CASCADE">
       <i class="fa fa-chevron-left"></i> CSS CASCADE
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/28/200728_arrayMethods/" rel="next" title="algorithm에 필요한 method 정리">
+      algorithm에 필요한 method 정리 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -426,7 +427,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
