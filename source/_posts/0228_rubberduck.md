@@ -1,5 +1,5 @@
 ---
-title: 200228 패스트캠퍼스 러버덕 정리
+title: 200228 러버덕 정리
 date: 2020-02-28
 tags:
 ---
@@ -57,7 +57,7 @@ function add(x, y) {
 console.dir(sub); // undefined 함수참조
 console.log(sub(2, 5)); // TypeError: sub is not a function 함수호출
 
-var sub = function(x, y) {
+var sub = function (x, y) {
   return x - y;
 };
 ```

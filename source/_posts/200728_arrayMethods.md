@@ -32,8 +32,6 @@ function reverse(str) {
 reverse("hello");
 ```
 
-tostring/join/split/
-
 ## split()
 
 > str.split([separator[, limit]])
@@ -261,12 +259,12 @@ function reverse(str) {
 1. initialValue:""가 주어져 있으므로, index 0에서 시작한다.
 2. 주어진 array는 ["h", "e", "l", "l", "o"]이다.
 3. callback은 주어진 array의 length만큼 호출된다. 예제인 ["h", "e", "l", "l", "o"]의 경우 length는 5이다.
-4. 반환값은 accumulator에 할당 되고 순회하면서 `accumulator + currentValue`의 연산이 이루어진 최종값이 반환된다. 예제의 경우 `olleh`가 반환된다.
+4. 반환값은 accumulator에 할당 되고 순회하면서 `accumulator + currentValue`의 연산이 이루어진 최종값이 반환된다. 예제의 경우 최종적으로 반환되는 값은 `olleh`이다.
 
 | callback | accumulator | currentValue | currentIndex | return |
 | -------- | :---------: | :----------: | :----------: | :----: |
 | 1번 째   |     ""      |      h       |      0       |   h    |
-| 2번 쨰   |      h      |      e       |      1       |   eh   |
+| 2번 째   |      h      |      e       |      1       |   eh   |
 | 3번 째   |     eh      |      l       |      2       |  leh   |
 | 4번 째   |     leh     |      l       |      3       |  lleh  |
 | 5번 째   |    lleh     |      o       |      4       | olleh  |
@@ -278,3 +276,4 @@ _Preferences_
 [Array.prototype.reverse()/MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse)
 [Array.prototype.join()/MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
 [Array.prototype.reduce()/MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
+[KodingKevin](https://youtu.be/LmHHip-RpGw)

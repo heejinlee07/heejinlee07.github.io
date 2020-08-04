@@ -1,5 +1,5 @@
 ---
-title: 200227 패스트캠퍼스 러버덕 정리
+title: 200227 러버덕 정리
 date: 2020-02-27
 tags:
 ---
@@ -96,7 +96,7 @@ score에 새로운 숫자 값 100을 재할당하면 100이라는 값을 가진 
 
 ```javascript
 var person = {
-  name: "lee"
+  name: "lee",
 };
 ```
 
@@ -106,7 +106,7 @@ person이라는 식별자가 붙은 공간에 참조값이 생성되고, 이 참
 
 ```javascript
 var person = {
-  name: "lee"
+  name: "lee",
 };
 
 var copy = person;
