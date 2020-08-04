@@ -28,7 +28,7 @@
 <meta property="og:description" content="연산자하나 이상의 표현식을 대상으로 산술, 할당, 비교, 논리, 타입, 지수 연산(operation) 등을 수행해 하나의 값을 만든다. 이때 연산의 대상을 피연산자(Operand)라 하고, 이는 값으로 평가될 수 있는 표현식이어야 한다.  변수와 값을 어떻게 작동하게 할 것인지에 관한 것. 프로그래밍 언어에서 특정 연산을 하도록 하는 문자. 테스트 수행,">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-22T12:57:40.000Z">
-<meta property="article:modified_time" content="2020-08-04T05:37:37.524Z">
+<meta property="article:modified_time" content="2020-08-04T05:40:59.084Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-04 14:37:37" itemprop="dateModified" datetime="2020-08-04T14:37:37+09:00">2020-08-04</time>
+                <time title="Modified: 2020-08-04 14:40:59" itemprop="dateModified" datetime="2020-08-04T14:40:59+09:00">2020-08-04</time>
               </span>
 
           
@@ -290,17 +290,16 @@
 </blockquote>
 </li>
 <li><p>옵셔널 체이닝을 사용: &amp;&amp;를 사용할 때 처럼 명시적인 테스트가 필요없다.<br><code>?.</code>의 옵셔널 체이닝을 사용함으로써 obj.first.second에 접근하기 전에 obj.first가 null 또는 undefined가 아니라는 것을 암묵적으로 확인한다.</p>
-</li>
-</ol>
 <blockquote>
 <p>let nestedProp = obj.first?.second;</p>
 </blockquote>
-<ol start="3">
-<li>obj.first가 null or undefined라면 undefined가 반환된다. 그렇지 않으면 우항의 프로퍼티 참조를 이어간다.</li>
-</ol>
+</li>
+<li><p>obj.first가 null or undefined라면 undefined가 반환된다. 그렇지 않으면 우항의 프로퍼티 참조를 이어간다.</p>
 <blockquote>
 <p>let nestedProp =<br>obj.first === null || obj.first === undefined ? undefined : obj.first.second;</p>
 </blockquote>
+</li>
+</ol>
 <p>다음과 같이 이벤트 핸들러를 다룰 때 유용하다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Written as of ES2019</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params">onContent, onError</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// ... do something with the data</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    <span class="keyword">if</span> (onError) &#123;</span><br><span class="line">      <span class="comment">// Testing if onError really exists</span></span><br><span class="line">      onError(err.message);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
