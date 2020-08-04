@@ -246,12 +246,12 @@ num **= 2; // ->25
 2. 옵셔널 체이닝을 사용: &&를 사용할 때 처럼 명시적인 테스트가 필요없다.
    `?.`의 옵셔널 체이닝을 사용함으로써 obj.first.second에 접근하기 전에 obj.first가 null 또는 undefined가 아니라는 것을 암묵적으로 확인한다.
 
-> let nestedProp = obj.first?.second;
+   > let nestedProp = obj.first?.second;
 
-3.  obj.first가 null or undefined라면 undefined가 반환된다. 그렇지 않으면 우항의 프로퍼티 참조를 이어간다.
+3. obj.first가 null or undefined라면 undefined가 반환된다. 그렇지 않으면 우항의 프로퍼티 참조를 이어간다.
 
-> let nestedProp =
-> obj.first === null || obj.first === undefined ? undefined : obj.first.second;
+   > let nestedProp =
+   > obj.first === null || obj.first === undefined ? undefined : obj.first.second;
 
 다음과 같이 이벤트 핸들러를 다룰 때 유용하다.
 
