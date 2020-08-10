@@ -124,6 +124,6 @@ _자바스크립트는 대소문자를 구별한다. 따라서 `var abc;`와 `va
 
 ---
 
-_Reference_
+_References_
 
 [Poiemaweb](https://poiemaweb.com/fastcampus/variable)

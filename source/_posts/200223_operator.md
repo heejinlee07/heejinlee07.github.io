@@ -282,7 +282,7 @@ function doSomething(onContent, onError) {
 
 ---
 
-_Reference_
+_References_
 
 [MDN](https://developer.mozilla.org/ko/docs/Learn/JavaScript/First_steps/Math)
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Operator_precedence)

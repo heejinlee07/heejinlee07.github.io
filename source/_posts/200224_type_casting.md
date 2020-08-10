@@ -75,14 +75,16 @@ sum = Number(value1) + value2;
   - 객체와 빈 배열이 아닌 배열, undefined는 변환되지 않으므로 null이 된다.
 
 - 불리언 타입으로 변환: 조건식의 평가 결과를 불리언 타입으로 암묵적 타입 변환.
-  - Boolean 생성자 함수를 new 연산자 없이 호출하는 방법
-  - ! 부정 논리 연산자를 두번 사용하는 방법
+  - Boolean 생성자 함수를 new 연산자 없이 호출하는 방법 ex)Boolean('x') -> true
+  - ! 부정 논리 연산자를 두번 사용하는 방법 ex) !!'x' -> true
   - `falsy값: false, undefined, null, 0, -0, NaN, 빈 문자열`
   - truthy값: false 값을 제외한 모든 값
 
+---
+
 ## 단축 평가
 
-> 논리합(||) 연산자와 논리곱(&&) 연산자 표현식의 평가 결과는 불리언 값이 아닐 수도 있다. 논리합(||), 논리곱(&&) 연산자 표현식은 언제나 2개의 피연산자 중 어느 한쪽으로 평가된다. 표현식을 평가하는 도중 결과가 확정되면 나머지 평가 과정을 중단하는 것이다. 이러한 성질을 이용하여 논리곱(&&)과 논리합(||)연산자는 if문을 대체할 수 있기도 하다.
+> 논리합(||) 연산자와 논리곱(&&) 연산자 표현식의 평가 결과는 불리언 값이 아닐 수도 있다. _논리합(||), 논리곱(&&) 연산자 표현식은 언제나 2개의 피연산자 중 어느 한쪽으로 평가된다._ 표현식을 평가하는 도중 결과가 확정되면 나머지 평가 과정을 중단하는 것이다. 이러한 성질을 이용하여 논리곱(&&)과 논리합(||)연산자는 if문을 대체할 수 있기도 하다.
 
 ```javascript
 true || anything	true
@@ -110,6 +112,10 @@ false && false; // -> false
 
 `'Cat' || 'Dog' // 'Cat'`
 논리합(||) 연산자는 두 개의 피연산자 중 하나만 true여도 true를 반환하기 때문에 첫 번째 피연산자 `Cat`이 true이므로 두번째 피연산자 `Dog`를 평가하지 않고 바로 `Cat`을 반환한다.
+
+---
+
+_References_
 
 [MDN](https://developer.mozilla.org/en-US/docs/Glossary/Type_conversion)
 [MDN](https://developer.mozilla.org/ko/docs/Glossary/Type_coercion)

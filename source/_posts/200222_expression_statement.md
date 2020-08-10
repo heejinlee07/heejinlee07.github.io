@@ -71,7 +71,7 @@ var x = 10; //변수 할당문
 
 ---
 
-_Reference_
+_References_
 
 [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Expressions_and_Operators)
 [2ality](https://2ality.com/2012/09/expressions-vs-statements.html)

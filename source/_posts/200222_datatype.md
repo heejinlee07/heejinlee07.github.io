@@ -176,7 +176,7 @@ C나 Java와 같은 정적 타입(Static/Strong type) 언어는 변수를 선언
 
 ---
 
-_Reference_
+_References_
 [Poiemaweb](https://poiemaweb.com/fastcampus/type)
 [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/typeof)
 [2ality](https://2ality.com/2013/10/typeof-null.html)
