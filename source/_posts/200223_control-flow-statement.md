@@ -12,13 +12,13 @@ tags:
 
 0개 이상의 문을 중괄호로 묶은 것으로 코드 블록 또는 블록이라고 부르기도 한다. 자바스크립트는 블록문을 하나의 실행 단위로 취급한다.
 
-`문의 끝에는 세미 콜론(;)을 붙이는 것이 일반적이지만 블록문의 끝에는 세미콜론을 붙이지 않는다는 것에 주의한다.`
+`문의 끝에는 세미 콜론(;)을 붙이는 것이 일반적이지만 블록문의 끝에는 세미콜론을 붙이지 않는다.`
 
 ```javascript
 // 블록문
 {
   var foo = 10;
-  console.log(foo);
+  console.log(foo); //10
 }
 
 //제어문
@@ -28,6 +28,8 @@ while (x < 10) {
 }
 console.log(x); // 10
 ```
+
+---
 
 ## 조건문 (conditional statement)
 
@@ -81,7 +83,7 @@ if...else문은 아래와 같이 삼항 조건 연산자로 바꿔 쓸 수 있�
 var num = 2;
 
 // 0은 false로 취급된다.
-var kind = num ? (num > 0 ? '양수' : '음수') : '영';
+var kind = num ? (num > 0 ? "양수" : "음수") : "영";
 
 console.log(kind); // 양수
 ```
@@ -92,7 +94,7 @@ console.log(kind); // 양수
 
 먼저 주어진 해당 표현식을 평가하고, 입력한 표현식과 동일한 값으로 평가되는 표현식을 찾는다.(엄격비교가 이루어진다, ===) 그리고 일치하는 case 문으로 실행 순서를 이동시킨 후 해당 case의 문(statement)을 실행한다. case문은 값을 지정한 후 콜론으로 마치고, 그 후에는 실행될 문이 온다.
 
-만약 switch문의 표현식과 일치하는 case를 찾지 못하면 실행 순서는 default문으로 이동하고 해당 문을 실행한다. default는 보통 가장 마지막에 위치하며, 옵션이므로 사용할 수도 있고 사용하지 않을 수도 있다. 만약 default문이 없다면 switch문이 종료될 때까지 계속 실행된다.
+만약 switch문의 표현식과 일치하는 case를 찾지 못하면 실행 순서는 default문으로 이동하고 해당 문을 실행한다. default는 보통 가장 마지막에 위치하며, 옵션이므로 사용할 수도 있고 사용하지 않을 수도 있다. _만약 default문이 없다면 switch문이 종료될 때까지 계속 실행된다._
 
 ```javascript
 switch (표현식) {
@@ -154,7 +156,7 @@ for (var i = 0; i < 5; 1++) {
 ```
 
 - 변수 선언문은 for문을 실행했을 때 처음 단 한번만 실행된다.
-- 선언문 실행 후 조건식으로 순서가 이동한 후 값이 true라면 코드 블록으로 이동하여 코드를 실행한다. false라면 for문의 실행이 종료된다.
+- 선언문 실행 후 조건식으로 순서가 이동한 후 값이 true라면 코드 블록으로 이동하여 코드를 실행한다. _증감문으로 바로 이동하는 것이 아니다._ false라면 for문의 실행이 종료된다.
 - 코드 블록으로 이동하여 실행한 후 실행이 종료되면 증감식으로 이동하여 i를 1 증가한다.
 - 증감식 실행 후 다시 조건식으로 이동하여 값을 평가한다. 조건식이 false가 될 때까지 순서에 따라 실행을 반복한다.
 
@@ -194,6 +196,6 @@ if (true) {
 
 ---
 
-_Reference_
-[Poiemaweb/fastcampus](https://poiemaweb.com/fastcampus/control-flow)
+_References_
+[Poiemaweb](https://poiemaweb.com/fastcampus/control-flow)
 [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/switch)
