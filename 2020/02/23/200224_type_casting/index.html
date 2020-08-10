@@ -28,7 +28,7 @@
 <meta property="og:description" content="타입 변환 하나의 데이터 타입이 다른 데이터 타입으로 자동 또는 암묵적으로 변환되는 것.타입 캐스팅(Type conversion (or typecasting))은 명시적(explicit)과 암묵적(implicit)인 타입 변환이 동시에 이루어진다.  컴파일러가 자동으로 데이터 타입을 할당할 때 암묵적 타입변환이 자동으로 발생하는데, 소스코드에서도 명시적인">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-23T15:00:00.000Z">
-<meta property="article:modified_time" content="2020-08-04T09:33:10.476Z">
+<meta property="article:modified_time" content="2020-08-10T01:41:47.376Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-04 18:33:10" itemprop="dateModified" datetime="2020-08-04T18:33:10+09:00">2020-08-04</time>
+                <time title="Modified: 2020-08-10 10:41:47" itemprop="dateModified" datetime="2020-08-10T10:41:47+09:00">2020-08-10</time>
               </span>
 
           
@@ -215,28 +215,30 @@
 <h2 id="명시적-타입-변환"><a href="#명시적-타입-변환" class="headerlink" title="명시적 타입 변환"></a>명시적 타입 변환</h2><p>개발자의 의도에 의해 명시적으로 타입을 변환한다.</p>
 <ul>
 <li><p>문자열 타입으로 변환</p>
-</li>
-<li><p>String 생성자 함수를 new 연산자 없이 호출하는 방법</p>
-</li>
-<li><p>Object.prototype.toString 메소드를 사용하는 방법</p>
-</li>
-<li><p>문자열 연결 연산자를 이용하는 방법</p>
+<ul>
+<li>String 생성자 함수를 new 연산자 없이 호출하는 방법 ex) String(1); -&gt; “1”</li>
+<li>Object.prototype.toString 메소드를 사용하는 방법 ex) (1).toString(); -&gt; “1”</li>
+<li>문자열 연결 연산자를 이용하는 방법 1 + ‘’; -&gt; “1”</li>
+</ul>
 </li>
 <li><p>숫자 타입으로 변환</p>
+<ul>
+<li>number 생성자 함수를 new 연산자 없이 호출하는 방법 ex) Number(‘0’) -&gt; 0</li>
+<li>parseInt, parseFloat 함수를 사용하는 방법(문자열만 숫자 타입으로 변환 가능) ex) parseInt(‘0’) -&gt; 0</li>
+<li>단항 산술 연산자를 이용하는 방법 ex) +’0’; -&gt; 0</li>
+<li>산술 연산자를 이용하는 방법 ex) ‘0’ * 1 -&gt; 0</li>
+<li>빈 문자열(‘’), 빈 배열([]), null, false는 0으로 변환된다.</li>
+<li>true는 1로 변환된다. ex) true * 1; -&gt; 1</li>
+<li>객체와 빈 배열이 아닌 배열, undefined는 변환되지 않으므로 null이 된다.</li>
+</ul>
 </li>
-<li><p>number 생성자 함수를 new 연산자 없이 호출하는 방법</p>
-</li>
-<li><p>parseInt, parseFloat 함수를 사용하는 방법(문자열만 숫자 타입으로 변환 가능)</p>
-</li>
-<li><p>단항 산술 연산자를 이용하는 방법</p>
-</li>
-<li><p>산술 연산자를 이용하는 방법</p>
-</li>
-<li><p>불리언 타입으로 변환</p>
-</li>
-<li><p>Boolean 생성자 함수를 new 연산자 없이 호출하는 방법</p>
-</li>
-<li><p>! 부정 논리 연산자를 두번 사용하는 방법</p>
+<li><p>불리언 타입으로 변환: 조건식의 평가 결과를 불리언 타입으로 암묵적 타입 변환.</p>
+<ul>
+<li>Boolean 생성자 함수를 new 연산자 없이 호출하는 방법</li>
+<li>! 부정 논리 연산자를 두번 사용하는 방법</li>
+<li><code>falsy값: false, undefined, null, 0, -0, NaN, 빈 문자열</code></li>
+<li>truthy값: false 값을 제외한 모든 값</li>
+</ul>
 </li>
 </ul>
 <h2 id="단축-평가"><a href="#단축-평가" class="headerlink" title="단축 평가"></a>단축 평가</h2><blockquote>
@@ -344,7 +346,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
