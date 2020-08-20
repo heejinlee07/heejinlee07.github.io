@@ -34,7 +34,7 @@ GET /weathers/1 -> O
 ```
 
 3. HTTP Method(GET, POST, PUT, DELETE)
-   리소스에 대한 정의는 다음의 HTTP 요청 메소드를 이용하여 CRUD를 한다. CRUD는 컴퓨터 소프트웨어가 가지는 기본적인 데이터 처리 기능인 Create(생성), Read(읽기), Update(갱신), Delete(삭제)를 묶어서 일컫는 말이다. 사용자 인터페이스가 갖추어야 할 기능(정보의 참조/검색/갱신)을 가리키는 용어로서도 사용된다.
+   리소스에 대한 정의는 다음의 HTTP 요청 메소드를 이용하여 CRUD를 한다. CRUD는 컴퓨터 소프트웨어가 가지는 기본적인 데이터 처리 기능인 *Create(생성), Read(읽기), Update(갱신), Delete(삭제)를 묶어서 일컫는 말*이다. 사용자 인터페이스가 갖추어야 할 기능(정보의 참조/검색/갱신)을 가리키는 용어로서도 사용된다.
 
    | HTTP Method |      종류      |       목적       | 페이로드 |
    | :---------: | :------------: | :--------------: | :------: |
@@ -70,7 +70,7 @@ ex) GET : /users/{userid}/likes/devices
 
 컬렉션과 도큐먼트로 URI에 표현
 
-- Collection: 문서 또는 객체들의 집합. <u>컬렉션은 복수형으로로 사용</u>
+- Collection: 문서 또는 객체들의 집합. <u>컬렉션은 복수형으로 사용</u>
 - Document: 문서
 
 ex) http\_://restapi.example.com/sports(**collection**)/soccer(**Document**)/players(**collection**)/13(**Document**)
