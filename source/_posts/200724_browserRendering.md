@@ -7,6 +7,7 @@ tags:
 ## 브라우저 structure
 
 ![browser components](https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/layers.png)
+[사진출처 - html5rocks]
 
 1. user interface: 유저가 볼 수 있는 모든 것. 요청한 페이지가 표시되는 창을 제외한 모든 부분(주소창, 책갈피 메뉴 등)을 말한다. 유저는 함부로 조작할 수 없고, ui backend와 함꼐 일한다.
 

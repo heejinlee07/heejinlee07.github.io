@@ -18,7 +18,7 @@ tags:
 - 처리 순서: `get 함수 호출` -> `GET 요청을 서버에 전송` -> `onload 이벤트 핸들러 등록` -><u>`undefined반환` -> `즉시 종료`</u>
 
 ```javascript
-// 서버의 응답 결과를 콜솔에 출력하는 코드 ☑️
+// 서버의 응답 결과를 콘솔에 출력하는 코드 ☑️
 // GET 요청을 위한 비동기 함수
 const get = (url) => {
   const xhr = new XMLHttpRequest();
