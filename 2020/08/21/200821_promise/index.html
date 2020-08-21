@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="자바스크립트에서 비동기 처리 : 콜백함수ES6에서 비동기 처리 : 프로미스  자바스크립트에서 비동기 처리 : 콜백함수의 단점비동기 함수 내부에서 비동기로 동작하는 코드가 있다면 코드가 완료되지 않았더라도 기다리지 않고 즉시 종료된다. 즉, 비동기 함수 내부의 비동기로 동작하는 코드는 비동기 함수가 종료된 후에 완료된다.따라서 비동기 함수 내부의 비동기로">
+<meta property="og:type" content="article">
+<meta property="og:title" content="콜백패턴의 문제점">
+<meta property="og:url" content="https://heejinlee07.github.io/2020/08/21/200821_promise/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="자바스크립트에서 비동기 처리 : 콜백함수ES6에서 비동기 처리 : 프로미스  자바스크립트에서 비동기 처리 : 콜백함수의 단점비동기 함수 내부에서 비동기로 동작하는 코드가 있다면 코드가 완료되지 않았더라도 기다리지 않고 즉시 종료된다. 즉, 비동기 함수 내부의 비동기로 동작하는 코드는 비동기 함수가 종료된 후에 완료된다.따라서 비동기 함수 내부의 비동기로">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-21T04:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-21T06:21:51.385Z">
+<meta property="article:author" content="Heejin Lee">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2020/08/21/200821_promise/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>콜백패턴의 문제점 | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/08/21/200821_promise/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          콜백패턴의 문제점
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-08-21 13:00:00 / Modified: 15:21:51" itemprop="dateCreated datePublished" datetime="2020-08-21T13:00:00+09:00">2020-08-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>자바스크립트에서 비동기 처리 : 콜백함수<br>ES6에서 비동기 처리 : 프로미스</p>
+</blockquote>
+<h2 id="자바스크립트에서-비동기-처리-콜백함수의-단점"><a href="#자바스크립트에서-비동기-처리-콜백함수의-단점" class="headerlink" title="자바스크립트에서 비동기 처리 : 콜백함수의 단점"></a>자바스크립트에서 비동기 처리 : 콜백함수의 <strong>단점</strong></h2><p>비동기 함수 내부에서 비동기로 동작하는 코드가 있다면 코드가 완료되지 않았더라도 기다리지 않고 즉시 종료된다. 즉, 비동기 함수 내부의 비동기로 동작하는 코드는 비동기 함수가 종료된 후에 완료된다.<strong>따라서 비동기 함수 내부의 비동기로 동작하는 코드는 처리 결과를 외부로 반환하거나 상위 스코프의 변수에 할당해도 기대한 대로 동작하지 않는다.</strong></p>
+<h3 id="서버의-응답-결과를-콘솔에-출력하는-get-함수-☑️"><a href="#서버의-응답-결과를-콘솔에-출력하는-get-함수-☑️" class="headerlink" title="서버의 응답 결과를 콘솔에 출력하는 get 함수 ☑️"></a>서버의 <code>응답 결과를 콘솔에 출력</code>하는 get 함수 ☑️</h3><ul>
+<li>get 함수: 비동기 함수 (비동기로 동작하는 코드인 이벤트 핸들러 <code>onload</code>를 포함하고 있음.)</li>
+<li>onload: 비동기로 동작</li>
+<li>처리 순서: <code>get 함수 호출</code> -&gt; <code>GET 요청을 서버에 전송</code> -&gt; <code>onload 이벤트 핸들러 등록</code> -&gt;<u><code>undefined반환</code> -&gt; <code>즉시 종료</code></u></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 서버의 응답 결과를 콜솔에 출력하는 코드 ☑️</span></span><br><span class="line"><span class="comment">// GET 요청을 위한 비동기 함수</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">get</span> = (url) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">  xhr.open(<span class="string">"GET"</span>, url);</span><br><span class="line">  xhr.send();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 비동기로 동작하는 onload</span></span><br><span class="line">  xhr.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="comment">// 서버의 응답을 콘솔에 출력한다.</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(xhr.response));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.error(<span class="string">`<span class="subst">$&#123;xhr.status&#125;</span> <span class="subst">$&#123;xhr.statusText&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// id가 1인 post를 취득</span></span><br><span class="line"><span class="keyword">get</span>("https://jsonplaceholder.typicode.com/posts/1");</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="서버의-응답-결과를-반환하는-get-함수-✅"><a href="#서버의-응답-결과를-반환하는-get-함수-✅" class="headerlink" title="서버의 응답 결과를 반환하는 get 함수 ✅"></a>서버의 <code>응답 결과를 반환</code>하는 get 함수 ✅</h3><ul>
+<li>get 함수: 비동기 함수 (비동기로 동작하는 코드인 이벤트 핸들러 <code>onload</code>를 포함하고 있음.)</li>
+<li>onload: 비동기로 동작</li>
+<li>처리순서: <code>get 함수 호출</code> -&gt; <code>GET 요청을 서버에 전송</code> -&gt; <code>onload 이벤트 핸들러 등록</code> -&gt; <u><code>종료</code> -&gt; <code>undefined반환</code></u></li>
+</ul>
+<p>반환문인 <code>return JSON.parse(xhr.response);</code>은 <em>onload 이벤트 핸들러의 반환문이지 get 함수의 반환문이 아니다.</em> 따라서 get 함수에 대한 명시적인 반환문이 없으므로 <code>undefined</code>를 반환한다. 즉 onload 이벤트 핸들러의 반환값은 캐치할 수 없다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 서버의 응답 결과를 반환하는 코드 ✅</span></span><br><span class="line"><span class="comment">// GET 요청을 위한 비동기 함수</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">get</span> = (url) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">  xhr.open(<span class="string">"GET"</span>, url);</span><br><span class="line">  xhr.send();</span><br><span class="line"></span><br><span class="line">  xhr.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="comment">// ① 서버의 응답을 반환한다.</span></span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(xhr.response);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">$&#123;xhr.status&#125;</span> <span class="subst">$&#123;xhr.statusText&#125;</span>`</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ② id가 1인 post를 취득</span></span><br><span class="line"><span class="keyword">const</span> response = <span class="keyword">get</span>("https://jsonplaceholder.typicode.com/posts/1");</span><br><span class="line">console.log(response); // undefined</span><br></pre></td></tr></table></figure>
+
+<p>만약 get 함수의 상위에 변수를 선언한 후 onload 이벤트 내부에서 서버의 응답 결과를 할당하더라도 여전히 결과는 <code>undefined</code>이다. 그 이유는 처리 순서가 보장되지 않기 때문이다. get 함수의 상위에 전역 변수가 있고, onload 이벤트 내에서 서버의 응답 결과를 할당한 경우 처리과정은 아래와 같다.</p>
+<blockquote>
+<p><code>get 함수 호출</code>-&gt; <code>get 함수 평가 및 실행 컨텍스트 생성</code> -&gt; <code>콜 스택에 push</code> -&gt; <code>코드 실행</code> -&gt; <code>xhr.onload에 이벤트 핸들러 바인딩</code> -&gt; <code>get 함수 종료</code> -&gt; <code>콜 스텍에서 pop</code> -&gt; <code>console.log 호출 및 실행</code></p>
+</blockquote>
+<p><strong>xhr.onload의 이벤트 핸들러는 즉시 실행되지 않는다.</strong> load 이벤트 발생 시 태스크 큐에서 대기하가다 콜 스텍이 비었을 때 콜 스텍으로 push 되어 실행된다. 즉 console.log가 종료된 후에야 실행되므로 예상했던 서버의 응답결과가 console.log에 출력되지 않고, <code>undefined</code>가 호출된다.</p>
+<hr>
+<p>위와 같이 비동기 함수는 세 가지 문제가 있다.</p>
+<ol>
+<li><strong>비동기 처리 결과를 외부에 반환할 수 없다.</strong></li>
+<li><strong>상위 스코프의 변수에 할당할 수 없다.</strong></li>
+<li><strong>서버로부터 데이터를 받아오기 전에 데이터를 화면에 표시하려고 하면 오류가 발생</strong></li>
+</ol>
+<p>따라서 서버에 대한 응답을 처리하는 비동기 함수의 처리 결과는 비동기 함수 내부에서 수행해야 하고, 이를 위해 비동기 함수에 <code>콜백 함수</code>를 전달해서 처리한다. 그러나 콜백 패턴도 다음과 같은 문제점을 가지고 있다.</p>
+<ol>
+<li>콜백 헬</li>
+<li>에러 처리의 한계</li>
+</ol>
+<h3 id="콜백-헬"><a href="#콜백-헬" class="headerlink" title="콜백 헬"></a>콜백 헬</h3><p>비동기 처리를 위해 콜백 함수를 연달아 사용할 경우 콜백 헬이 발생하여 가독성을 떨어뜨리고, 유지 보수를 어렵게 한다. 다음과 같이 서버로부터 응답받은 데이터를 활용하여 연속으로 get 요청을 보낼 경우 콜백 헬이 발생한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">get</span>("/step1", (a) =&gt; &#123;</span><br><span class="line">  <span class="keyword">get</span>(`/step2/$&#123;a&#125;<span class="string">`, (b) =&gt; &#123;</span></span><br><span class="line"><span class="string">    get(`</span>/step3/$&#123;b&#125;<span class="string">`, (c) =&gt; &#123;</span></span><br><span class="line"><span class="string">      get(`</span>/step4/$&#123;c&#125;<span class="string">`, (d) =&gt; &#123;</span></span><br><span class="line"><span class="string">        console.log(d);</span></span><br><span class="line"><span class="string">      &#125;);</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string">&#125;);</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/promise" target="_blank" rel="noopener">poiemaweb</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/20/200820_restApi/" rel="prev" title="REST API">
+      <i class="fa fa-chevron-left"></i> REST API
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#자바스크립트에서-비동기-처리-콜백함수의-단점"><span class="nav-number">1.</span> <span class="nav-text">자바스크립트에서 비동기 처리 : 콜백함수의 단점</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#서버의-응답-결과를-콘솔에-출력하는-get-함수-☑️"><span class="nav-number">1.1.</span> <span class="nav-text">서버의 응답 결과를 콘솔에 출력하는 get 함수 ☑️</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#서버의-응답-결과를-반환하는-get-함수-✅"><span class="nav-number">1.2.</span> <span class="nav-text">서버의 응답 결과를 반환하는 get 함수 ✅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#콜백-헬"><span class="nav-number">1.3.</span> <span class="nav-text">콜백 헬</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
