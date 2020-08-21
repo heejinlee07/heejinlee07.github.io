@@ -40,6 +40,8 @@ console.log(1);
 
 ## 비동기식 처리
 
+자바스크립트의 비동기 처리란 특정 코드의 연산이 끝날 때까지 코드의 실행을 멈추지 않고 다음 코드를 먼저 실행하는 것이다. 이러한 처리가 필요한 이유는 화면에서 서버로 데이터를 요청했을 때, 서버에 보낸 용청에 대한 응답이 언제 돌아올지 모르고, 그러한 상황에서 다른 코드를 실행하지 않은 상태에서 마냥 기다릴 수 없기 때문이다.
+
 > 타이머 함수인 setTimeout과 setInterval, HTTP 요청, 이벤트 핸들러는 비동기 처리 방식으로 동작한다.
 
 ```javascript
@@ -58,11 +60,10 @@ console.log(1);
 2. worker에서 실행되는 코드는 차단되지 않지만 `동기적으로 실행`된다.
    순서대로 실행되는 task A, task B가 있다고 했을 때, A에서 작업된 결과를 B에서 return 받아서 써야하는 작업이 필요하다면 A에서의 처리 결과를 반환받기 전에 B가 실행되면 에러가 발생하는 문제점이 있다. 이러한 문제를 없애기 위해 _특정 작업을 비동기로 처리하는 promise를 사용하는 것이다._
 
->
-
 ---
 
 _References_
 [poiemaweb](https://poiemaweb.com/fastcampus/async-programming)
 [코드종](https://www.youtube.com/watch?v=j0Viy3v97gY&t=226s)
 [MDN](https://developer.mozilla.org/ko/docs/Learn/JavaScript/Asynchronous/Concepts)
+[CAPTAIN PANGYO](https://joshua1988.github.io/web-development/javascript/javascript-asynchronous-operation/)
