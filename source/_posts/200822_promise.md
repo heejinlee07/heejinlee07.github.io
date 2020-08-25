@@ -32,11 +32,11 @@ const promise = new Promise((resolve, reject) => {
 - 거부(rejected): 비동기 처리가 실패함.
 - settled: 비동기 처리가 수행되었고, pending이 아니면서 fulfilled 또는 rejected일 때를 말한다. **settled는 상태가 아니다.** 표현의 편의를 위한 언어적 표현일 뿐이다. 일단 settled 상태가 되면 더는 다른 상태로 변화할 수 없다.
 
-|   states    |                            meaning                            |   value    |          condition          | fates                  |
-| :---------: | :-----------------------------------------------------------: | :--------: | :-------------------------: | ---------------------- |
-|  fulfilled  |               비동기 처리가 수행된 상태 (성공)                | 처리결과값 |        resolve 호출         | resolved               |
-| reject 호출 |               비동기 처리가 수행된 상태 (실패)                |    에러    |           reject            | resolved               |
-|   pending   | 비동기 처리 수행 전, fulfilled도 아니고, rejected도 아닌 상태 | undefined  | 프로미스 생성직후 기본 상태 | unresolved or resolved |
+|  states   |                            meaning                            |   value    |          condition          | fates                  |
+| :-------: | :-----------------------------------------------------------: | :--------: | :-------------------------: | ---------------------- |
+| fulfilled |               비동기 처리가 수행된 상태 (성공)                | 처리결과값 |        resolve 호출         | resolved               |
+| rejected  |               비동기 처리가 수행된 상태 (실패)                |    에러    |         reject 호출         | resolved               |
+|  pending  | 비동기 처리 수행 전, fulfilled도 아니고, rejected도 아닌 상태 | undefined  | 프로미스 생성직후 기본 상태 | unresolved or resolved |
 
 ---
 
