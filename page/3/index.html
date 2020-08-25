@@ -144,6 +144,101 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/13/200513_react/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/13/200513_react/" class="post-title-link" itemprop="url">React Props, State</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-13 11:00:00" itemprop="dateCreated datePublished" datetime="2020-05-13T11:00:00+09:00">2020-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="what-is-React"><a href="#what-is-React" class="headerlink" title="what is React?"></a>what is React?</h2><ul>
+<li>사용자 인터페이스를 구축하기 위한 선언적이고 효율적이며 유연한 JavaScript 라이브러리</li>
+<li><code>컴포넌트</code>라고 불리는 작고 고립된 코드의 파편을 이용하여 복잡한 UI를 구성한다.<br>이 컴포넌트를 사용하여 React에게 화면에 표현하고 싶은 것이 무엇인지 알려줌.</li>
+<li>render함수: 화면에서 보고자 하는 내용을 반환. 컴포넌트가 props라는 매개변수를 받아오면 render 함수를 통해 표시할 뷰 계층 구조를 반환한다.<br><em>React 엘리먼트는 JavaScript 객체이며 변수에 저장하거나 프로그램 여기저기에 전달할 수 있다.</em></li>
+</ul>
+<h2 id="props"><a href="#props" class="headerlink" title="props"></a>props</h2><p>부모 컴포넌트에서 자식 컴포넌트로 <code>props를 전달</code>하면 React 앱에서 부모에서 자식으로 정보가 어떻게 흘러가는지 알려준다. 자식 컴포넌트에서 클릭 이벤트 발생에 대한 변화가 필요한데, state는 부모 컴포넌트에 있다면 자식은 부모의 state를 직접 변경할 수 없다. 컴포넌트는 자신이 정의한 state에만 접근할 수 있기 때문이다. 따라서 부모 컴포넌트가 자식 컴포넌트에게 props를 전달하고, 자식 컴포넌트에서는 함수를 호출한다. 아래의 경우 square를 클릭하면 부모 컴포넌트인 Board에서 넘겨받은 함수가 호출된다. 참고로 React에서 이벤트를 나타내는 prop에는 on[Event], 이벤트를 처리하는 함수에는 handle[Event]를 사용하는 것이 일반적이다.</p>
+<p>이렇게 부모 컴포넌트가 자식 컴포넌트로 props를 전달하면 부모 컴포넌트에게 값을 받아 클릭 이벤트와 같은 변화가 생길 때 부모 컴포넌트에게 정보를 전달한다. 이런 경우 자식 컴포넌트를 제어되는 컴포넌트라고 한다. 부모 컴포넌트에 의해 제어되기 때문이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//class component</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button className=<span class="string">"square"</span> onClick=&#123;() =&gt; <span class="keyword">this</span>.props.onClick()&#125;&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.props.value&#125;</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ function component</span></span><br><span class="line"><span class="regexp">function Square(props) &#123;</span></span><br><span class="line"><span class="regexp">  return (</span></span><br><span class="line"><span class="regexp">    &lt;button className="square" onClick=&#123;props.onClick&#125;&gt;</span></span><br><span class="line"><span class="regexp">      &#123;props.value&#125;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>button&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="state"><a href="#state" class="headerlink" title="state"></a>state</h2><p>무엇인가를 기억하기 위해 사용. class 컴포넌트에서는 <code>this.state</code>를 설정하는 것으로 state를 가진다. <em>주의할 것은 하위 클래스의 생성자를 정의할 때 반드시 super를 호출해야한다.</em> 아래와 같이 작성시 Square의 render 함수 내부에서 onClick 핸들러를 통해 this.setState를 호출하는 것으로 React에게 <code>&lt;button&gt;</code>을 클릭할 때 Square를 다시 렌더링해야 한다고 알릴 수 있다. 업데이트 이후에 Square의 this.state.value는 ‘X’가 되어 게임 판에서 X가 나타나는 것을 확인할 수 있다. 어떤 Square를 클릭하던 X가 나타날 것이다. 컴포넌트에서 setState를 호출하면 React는 자동으로 컴포넌트 내부의 자식 컴포넌트 역시 업데이트한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      value: <span class="literal">null</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button className=<span class="string">"square"</span> onClick=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123; <span class="attr">value</span>: <span class="string">"X"</span> &#125;)&#125;&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.state.value&#125;</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>특정값을 유지해야 할 필요가 있을 때 부모 컴포넌트에 상태를 저장하고, 부모 컴포넌트가 자식 컴포넌트에게 props를 전달하는 것으로 무엇을 표시해야 할지 알려줄 수 있다. 여러개의 자식으로부터 데이터를 모으거나 두 개의 자식 컴포넌트들이 서로 통신하게 하려면 부모 컴포넌트에 공유 state를 정의해야 한다. 부모 컴포넌트는 props를 사용하여 자식 컴포넌트에 state를 다시 전달할 수 있다. 이것은 자식 컴포넌트들이 서로 또는 부모 컴포넌트와 동기화 하도록 만든다. 아래의 경우 부모 컴포넌트인 Board에 생성자를 추가하고, 값을 유지해야하는 squares의 null 배열을 초기 state로 설정했다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Board</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      squares: <span class="built_in">Array</span>(<span class="number">9</span>).fill(<span class="literal">null</span>),</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  renderSquare(i) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Square</span> <span class="attr">value</span>=<span class="string">&#123;i&#125;</span> /&gt;</span></span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>array.fill</code><br><code>arr.fill(value[, start[, end]])</code></p>
+<ul>
+<li>value: 배열을 채울 값, start: 시작 인덱스, 기본값 0, end:끝 인덱스, 기본값 this.length</li>
+<li>arr.fill 메서드는 변경자 메서드로, 복사본이 아니라 this 객체를 변형해 반환.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>); <span class="comment">// [4, 4, 4]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">1</span>); <span class="comment">// [1, 4, 4]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// [1, 4, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">1</span>, <span class="number">1</span>); <span class="comment">// [1, 2, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">3</span>, <span class="number">3</span>); <span class="comment">// [1, 2, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">-3</span>, <span class="number">-2</span>); <span class="comment">// [4, 2, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="literal">NaN</span>, <span class="literal">NaN</span>); <span class="comment">// [1, 2, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">3</span>, <span class="number">5</span>); <span class="comment">// [1, 2, 3]</span></span><br><span class="line"><span class="built_in">Array</span>(<span class="number">3</span>).fill(<span class="number">4</span>); <span class="comment">// [4, 4, 4]</span></span><br><span class="line">[].fill.call(&#123; <span class="attr">length</span>: <span class="number">3</span> &#125;, <span class="number">4</span>); <span class="comment">// &#123;0: 4, 1: 4, 2: 4, length: 3&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Objects by reference.</span></span><br><span class="line"><span class="keyword">var</span> arr = <span class="built_in">Array</span>(<span class="number">3</span>).fill(&#123;&#125;); <span class="comment">// [&#123;&#125;, &#123;&#125;, &#123;&#125;]</span></span><br><span class="line">arr[<span class="number">0</span>].hi = <span class="string">"hi"</span>; <span class="comment">// [&#123; hi: "hi" &#125;, &#123; hi: "hi" &#125;, &#123; hi: "hi" &#125;]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="key-선택"><a href="#key-선택" class="headerlink" title="key 선택"></a>key 선택</h2><p>이런 경고가 있다면,</p>
+<blockquote>
+<p>경고 배열이나 이터레이터의 자식들은 고유의 “key” prop을 가지고 있어야 합니다. “Game”의 render 함수를 확인해주세요.</p>
+</blockquote>
+<p>리스트를 렌더링할 때 React는 렌더링하는 리스트 아이템에 대한 정보를 저장한다. 리스트를 업데이트 할 때 React는 무엇이 변했는 지 결정해야 한다.<br>리스트의 아이템들은 추가, 제거, 재배열, 업데이트 될 수 있다. React는 컴퓨터 프로그램이며 사람이 의도한 바가 무엇인지 알지 못한다.<br>그렇기 때문에 리스트 아이템에 <code>key prop</code>을 지정하여 각 아이템이 다른 아이템들과 다르다는 것을 알려주어야 한다.</p>
+<p><code>&lt;li key={user.id}&gt;{user.name}: {user.taskCount} tasks left&lt;/li&gt;</code></p>
+<p>목록을 다시 렌더링하면 React는 각 리스트 아이템의 키를 가져가며 이전 리스트 아이템에서 일치하는 키를 탐색한다.<br>현재 리스트에서 이전에 존재하지 않는 키를 가지고 있다면 React는 새로운 컴포넌트를 생성한다.<br>현재 리스트가 이전 리스트에 존재했던 키를 가지고 있지 않다면 React는 그 키를 가진 컴포넌트를 제거한다.<br>만약 두 키가 일치한다면 해당 구성요소는 이동한다. <em>키는 각 컴포넌트를 구별할 수 있도록 하여 React에게 다시 렌더링할 때 state를 유지할 수 있게 한다.</em><br>만약 컴포넌트의 키가 변한다면 컴포넌트는 제거되고 새로운 state와 함께 다시 생성된다.<strong>동적인 리스트를 만들 때마다 적절한 키를 할당하는 것이 강력하게 추천된다.</strong></p>
+<hr>
+<p><em>Reference</em><br><a href="https://ko.reactjs.org/tutorial/tutorial.html" target="_blank" rel="noopener">React</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/fill" target="_blank" rel="noopener">MDN</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/12/200512_CSBasic/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +270,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -264,7 +359,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -351,7 +446,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -433,7 +528,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -510,7 +605,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -596,7 +691,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -807,7 +902,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -940,7 +1035,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -1058,7 +1153,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -1080,90 +1175,6 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  play() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Video</span>(<span class="params">title</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.title = title;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> v = <span class="keyword">new</span> Video(<span class="string">"a"</span>); <span class="comment">//&#123;&#125;</span></span><br><span class="line"><span class="comment">//Video &#123;title: "a"&#125;</span></span><br><span class="line"><span class="comment">// 생성자 함수는 전역을 참조하는 것이 아니라 new가 생성할 빈 객체를 참조한다.</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  tags: [<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>],</span><br><span class="line">  showTags() &#123;</span><br><span class="line">    <span class="keyword">this</span>.tags.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">tag</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// to get the current object and then get the tags property</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.title, tag);</span><br><span class="line">    &#125;, <span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">video.showTags();</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/14/200315_builtin_object/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/14/200315_builtin_object/" class="post-title-link" itemprop="url">빌트인 객체 / Built-in objects</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-03-15 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-15T00:00:00+09:00">2020-03-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="자바스크립트-객체의-분류"><a href="#자바스크립트-객체의-분류" class="headerlink" title="자바스크립트 객체의 분류"></a>자바스크립트 객체의 분류</h2><ul>
-<li>표준 빌트인 객체: ECMAScript 사양에 정의된 객체이며 자바스크립트 실행 환경(브라우저 또는 Node.js 환경)과 관계없이 언제나 사용할 수 있다. 표준 빌트인 객체는 전역 객체의 프로퍼티로서 제공된다. 따라서 별도의 선언없이 전역 변수처럼 언제나 참조할 수 있다.</li>
-<li>호스트 객체: ECMAScript 사양에 정의되어 있지 않지만 자바스크립트 실행 환경(브라우저 환경 또는 Node.js 환경)에서 추가적으로 제공하는 객체</li>
-<li>사용자 정의 객체: 기본 제공되는 객체가 아닌 사용자가 직접 정의한 객체</li>
-</ul>
-<h2 id="표준-빌트인-객체"><a href="#표준-빌트인-객체" class="headerlink" title="표준 빌트인 객체"></a>표준 빌트인 객체</h2><p>40여개의 표준 빌트인 객체가 있는데 <em>Math, Reflect, JSON을 제외한</em> 표준 빌트인 객체는 모두 인스턴스를 생성할 수 있는 생성자 함수 객체이다. 생성자 함수 객체인 표준 빌트인 객체는 프로토타입 메소드와 정적 메소드를 제공하고 생성자 함수 객체가 아닌 표준 빌트인 객체는 정적 메소드만을 제공한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// String 생성자 함수에 의한 String 객체 생성</span></span><br><span class="line"><span class="keyword">const</span> strObj = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">"Lee"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> strObj); <span class="comment">// object</span></span><br><span class="line"><span class="built_in">console</span>.log(strObj); <span class="comment">// String &#123;"Lee"&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(strObj) === <span class="built_in">String</span>.prototype); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-
-<p>생성자 함수인 표준 빌트인 객체가 생성한 인스턴스의 프로토타입은 표준 빌트인 객체의 prototype 프로퍼티에 바인딩된 객체이다. 예를 들어 표준 빌트인 객체인 String을 생성자 함수로서 호출하여 생성한 String 인스턴스의 프로토타입은 String.prototype이다.</p>
-<h2 id="원시값과-래퍼-객체"><a href="#원시값과-래퍼-객체" class="headerlink" title="원시값과 래퍼 객체"></a>원시값과 래퍼 객체</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">"hello"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 원시 타입인 문자열이 프로퍼티와 메소드를 갖고 있다.</span></span><br><span class="line"><span class="built_in">console</span>.log(str.length); <span class="comment">// 5</span></span><br><span class="line"><span class="built_in">console</span>.log(str.toUpperCase()); <span class="comment">// HELLO</span></span><br></pre></td></tr></table></figure>
-
-<p>원시값은 객체가 아니므로 프로퍼티나 메소드를 가질 수 없지만 위의 예시에서는 원시값인 문자열이 마치 객체처럼 동작한다. 문자열, 숫자, 불리언 값에 대해서는 객체처럼 마침표 표기법이나 대괄호 표기법으로 접근하면 일시적으로 임시 객체가 생성되는데 이를 래퍼객체라 한다. 단, 메소드로 접근하여 호출이 끝나면 다시 원시값으로 돌아간다.</p>
-<h2 id="전역객체"><a href="#전역객체" class="headerlink" title="전역객체"></a>전역객체</h2><p>코드가 실행되기 이전 단계에 자바스크립트 엔진에 의해 어떤 객체보다도 먼저 생성되는 특수한 객체이며 어떤 객체에도 속하지 않은 최상위 객체. 브라우저 상에서는 window, Node.js 환경에서는 global을 말한다.</p>
-<ul>
-<li>개발자가 의도적으로 생성할 수 없고, 전역 객체의 프로퍼티를 참조할 때 window나 global은 생략 가능.</li>
-<li>var는 전역 객체의 프로퍼티이지만 let,const 키워드로 선언한 전역 변수는 전역 객체의 프로퍼티가 아니다.</li>
-</ul>
-<h2 id="암묵적-전역"><a href="#암묵적-전역" class="headerlink" title="암묵적 전역"></a>암묵적 전역</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>; <span class="comment">// 전역 변수</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  y = <span class="number">20</span>; <span class="comment">// 선언하지 않은 식별자에 값을 할당</span></span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 선언하지 않은 식별자 y를 전역에서 참조할 수 있다.</span></span><br><span class="line"><span class="built_in">console</span>.log(x + y); <span class="comment">// 30</span></span><br></pre></td></tr></table></figure>
-
-<p>위의 경우 자바스크립트 엔진은 y = 20을 window.y = 20으로 해석하여 전역 객체에 프로퍼티를 동적 생성한다. 결국 y는 전역 객체의 프로퍼티가 되어 마치 전역 변수처럼 동작한다. 이를 암묵적 전역이라 한다.</p>
 
       
     </div>
@@ -1249,7 +1260,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

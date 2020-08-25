@@ -144,6 +144,123 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/22/200223_control-flow-statement/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/22/200223_control-flow-statement/" class="post-title-link" itemprop="url">제어문 / Control flow statement</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-22 21:58:42" itemprop="dateCreated datePublished" datetime="2020-02-22T21:58:42+09:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="제어문"><a href="#제어문" class="headerlink" title="제어문"></a>제어문</h2><p>주어진 조건에 따라 코드 블록을 실행(조건문)하거나 반복 실행(반복문)할 때 사용한다. 일반적으로 코드는 위에서 아래 방향으로 순차적으로 실행된다. 제어문을 사용하면 코드의 실행 흐름을 인위적으로 제어할 수 있다.</p>
+<h2 id="블록문-Block-statement-Compound-statement"><a href="#블록문-Block-statement-Compound-statement" class="headerlink" title="블록문 (Block statement/Compound statement)"></a>블록문 (Block statement/Compound statement)</h2><p>0개 이상의 문을 중괄호로 묶은 것으로 코드 블록 또는 블록이라고 부르기도 한다. 자바스크립트는 블록문을 하나의 실행 단위로 취급한다.</p>
+<p><code>문의 끝에는 세미 콜론(;)을 붙이는 것이 일반적이지만 블록문의 끝에는 세미콜론을 붙이지 않는다.</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 블록문</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">var</span> foo = <span class="number">10</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(foo); <span class="comment">//10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//제어문</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (x &lt; <span class="number">10</span>) &#123;</span><br><span class="line">  x++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="조건문-conditional-statement"><a href="#조건문-conditional-statement" class="headerlink" title="조건문 (conditional statement)"></a>조건문 (conditional statement)</h2><p>주어진 조건식(conditional expression)의 평가 결과에 따라 코드 블럭(블록문)의 실행을 결정한다. <em>조건식은 불리언 값으로 평가될 수 있는 표현식이다.</em></p>
+<h3 id="if…else문"><a href="#if…else문" class="headerlink" title="if…else문"></a>if…else문</h3><p>주어진 조건식(불리언 값으로 평가될 수 있는 표현식)의 평가 결과, 즉 논리적 참 또는 거짓에 따라 실행할 코드 블록을 결정한다. 조건식의 평가 결과가 참(true)일 경우, if 문 다음의 코드 블록이 실행되고 거짓(false)일 경우, else 문 다음의 코드 블록이 실행된다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식) &#123;</span><br><span class="line">  <span class="comment">// 조건식이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// 조건식이 거짓이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>조건식을 추가하여 조건에 따라 실행될 코드 블록을 늘리고 싶으면 else if 문을 사용한다.</p>
+<h3 id="else-if문"><a href="#else-if문" class="headerlink" title="else if문"></a>else if문</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식<span class="number">1</span>) &#123;</span><br><span class="line">  <span class="comment">// 조건식1이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (조건식<span class="number">2</span>) &#123;</span><br><span class="line">  <span class="comment">// 조건식2이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// 조건식1과 조건식2가 모두 거짓이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>else if 문과 else 문은 옵션이다. 즉, 사용할 수도 있고 사용하지 않을 수도 있다. if 문과 else 문은 2번 이상 사용할 수 없지만 else if 문은 여러 번 사용할 수 있다.</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"양수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (num &lt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"음수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  kind = <span class="string">"영"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">// 양수</span></span><br></pre></td></tr></table></figure>
+
+<p>if…else문은 아래와 같이 삼항 조건 연산자로 바꿔 쓸 수 있다. 삼항 조건 연산자의 구조는 <code>조건식 ? 조건식이 true일때 반환할 값 : 조건식이 false일때 반환할 값</code>이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 0은 false로 취급된다.</span></span><br><span class="line"><span class="keyword">var</span> kind = num ? (num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : <span class="string">"음수"</span>) : <span class="string">"영"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">// 양수</span></span><br></pre></td></tr></table></figure>
+
+<p>단, 삼항 조건 연산자는 값으로 평가되는 표현식을 만들기 때문에 변수에 할당이 가능하고, if…else문은 표현식이 아닌 문이기 때문에 변수에 할당이 불가하다.</p>
+<h3 id="switch문"><a href="#switch문" class="headerlink" title="switch문"></a>switch문</h3><p>먼저 주어진 해당 표현식을 평가하고, 입력한 표현식과 동일한 값으로 평가되는 표현식을 찾는다.(엄격비교가 이루어진다, ===) 그리고 일치하는 case 문으로 실행 순서를 이동시킨 후 해당 case의 문(statement)을 실행한다. case문은 값을 지정한 후 콜론으로 마치고, 그 후에는 실행될 문이 온다.</p>
+<p>만약 switch문의 표현식과 일치하는 case를 찾지 못하면 실행 순서는 default문으로 이동하고 해당 문을 실행한다. default는 보통 가장 마지막에 위치하며, 옵션이므로 사용할 수도 있고 사용하지 않을 수도 있다. <em>만약 default문이 없다면 switch문이 종료될 때까지 계속 실행된다.</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (표현식) &#123;</span><br><span class="line">  <span class="keyword">case</span> 값<span class="number">1</span>:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 값<span class="number">1</span>과 일치하면 실행될 문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> 값<span class="number">2</span>:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 값<span class="number">2</span>와 일치하면 실행될 문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> 값N:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 값N과 일치하면 실행될 문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 일치하는 표현식을 갖는 <span class="keyword">case</span> 문이 없을 때 실행될 문;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> expr = <span class="string">"Papayas"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span> (expr) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"Oranges"</span>:</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Oranges are $0.59 a pound."</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"Mangoes"</span>:</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"Papayas"</span>:</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Mangoes and papayas are $2.79 a pound."</span>);</span><br><span class="line">    <span class="comment">// expected output: "Mangoes and papayas are $2.79 a pound."</span></span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Sorry, we are out of "</span> + expr + <span class="string">"."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위 switch문은 먼저 주어진 표현식 <code>const expr = &quot;Papayas&quot;;</code>를 평가하고, 동일한 값으로 평가되는 표현식을 찾는다. 따라서 값이 일치하는 <code>case &quot;Papayas&quot;:</code>로 실행순서가 이동하며, 지정된 문을 실행한다. 따라서 <code>&quot;Mangoes and papayas are $2.79 a pound.&quot;</code>라는 값을 실행하고, <code>break</code>가 있기 때문에 코드 블록을 탈출한다.</p>
+<p><em><code>break</code>를 쓰지 않으면 어떻게 될까?</em></p>
+<p><code>폴스루(fall through)</code>현상이 발생한다. 표현식과 동일한 case문을 실행한 후 switch문을 탈출하지 않고 switch문이 끝날 때까지 이후의 모든 case문과 default문을 실행하는 것을 말한다.</p>
+<hr>
+<h2 id="반복문-Loop-statement"><a href="#반복문-Loop-statement" class="headerlink" title="반복문 (Loop statement)"></a>반복문 (Loop statement)</h2><p>주어진 조건식의 평가 결과가 참인 경우 코드 블럭을 실행한 후 조건식을 다시 검사하여 여전히 참인 경우 코드 블록을 다시 실행한다. 이는 조건식이 거짓일 때까지 반복된다.</p>
+<h3 id="for문"><a href="#for문" class="headerlink" title="for문"></a>for문</h3><p>조건식이 거짓으로 판별될 때까지 코드 블록을 반복 실행한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (변수 선언문 또는 할당문; 조건식; 증감식) &#123;</span><br><span class="line">  조건식이 참인 경우 반복 실행될 문;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; <span class="number">1</span>++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>변수 선언문은 for문을 실행했을 때 처음 단 한번만 실행된다.</li>
+<li>선언문 실행 후 조건식으로 순서가 이동한 후 값이 true라면 코드 블록으로 이동하여 코드를 실행한다. <em>증감문으로 바로 이동하는 것이 아니다.</em> false라면 for문의 실행이 종료된다.</li>
+<li>코드 블록으로 이동하여 실행한 후 실행이 종료되면 증감식으로 이동하여 i를 1 증가한다.</li>
+<li>증감식 실행 후 다시 조건식으로 이동하여 값을 평가한다. 조건식이 false가 될 때까지 순서에 따라 실행을 반복한다.</li>
+</ul>
+<h3 id="while문"><a href="#while문" class="headerlink" title="while문"></a>while문</h3><p>while 문은 주어진 조건식의 평가 결과가 참이면 코드 블록을 계속해서 반복 실행한다. 조건문의 평가 결과가 거짓이 되면 실행을 종료한다. 단, 조건식의 평가 결과가 언제나 참이면 무한루프가 된다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// count가 3보다 작을 때까지 코드 블록을 계속 반복 실행한다.</span></span><br><span class="line"><span class="keyword">while</span> (count &lt; <span class="number">3</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count);</span><br><span class="line">  count++;</span><br><span class="line">&#125; <span class="comment">// 0 1 2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="do…while문"><a href="#do…while문" class="headerlink" title="do…while문"></a>do…while문</h3><p>코드 블록을 먼저 실행하고 조건식을 평가한다. 따라서 코드 블록은 무조건 한번 이상 실행된다.</p>
+<hr>
+<h2 id="break문"><a href="#break문" class="headerlink" title="break문"></a>break문</h2><p>이블 문, 반복문(for, for…in, for…of, while, do…while) 또는 switch 문의 코드 블록을 탈출한다. 레이블 문, 반복문, switch 문의 코드 블록 이외에 break 문을 사용하면 SyntaxError(문법 에러)가 발생한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">break</span>; <span class="comment">// Uncaught SyntaxError: Illegal break statement</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="continue문"><a href="#continue문" class="headerlink" title="continue문"></a>continue문</h2><p>반복문의 코드 블록 실행을 현 지점에서 중단하고 반복문의 증감식으로 이동한다. break 문처럼 반복문을 탈출하지는 않는다.</p>
+<hr>
+<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/control-flow" target="_blank" rel="noopener">Poiemaweb</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/switch" target="_blank" rel="noopener">MDN</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/22/200223_operator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +292,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -357,7 +474,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -456,7 +573,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -594,7 +711,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -725,7 +842,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -809,7 +926,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 15:21:51" itemprop="dateModified" datetime="2020-08-21T15:21:51+09:00">2020-08-21</time>
+                <time title="Modified: 2020-08-25 15:33:02" itemprop="dateModified" datetime="2020-08-25T15:33:02+09:00">2020-08-25</time>
               </span>
 
           
@@ -921,7 +1038,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
