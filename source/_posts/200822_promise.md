@@ -4,13 +4,6 @@ date: 2020-08-22 13:00
 tags:
 ---
 
----
-
-_References_
-[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-[poiemaweb](https://poiemaweb.com/fastcampus/promise)
-[States and fates](https://github.com/domenic/promises-unwrapping/blob/master/docs/states-and-fates.md)
-
 ## 프로미스의 생성
 
 Promise 생성자 함수를 new 연산자와 함께 호출하면 프로미스(`Promise 객체`)를 생성한다. Promise 객체는 비동기 작업이 맞이할 미래의 완료 또는 실패, 그 결과 값을 나타낸다. 또한 비동기 액션이 종료된 이후, 성공했을 때의 value나 실패 이유를 처리하기 위한 handler를 연결할 수 있도록 한다. 이처럼 프로미스를 사용하면 비동기 메서드에서도 동기 메서드처럼 최종 value를 반환할 수 있다. 다만 즉시 최종 value를 반환하지는 않고, 비동기 메서드가 프로미스를 반환하면 프로미스가 미래의 어떤 시점에 받을 value를 제공한다.
@@ -29,7 +22,7 @@ const promise = new Promise((resolve, reject) => {
 
 ## 프로미스의 상태
 
-프로미스가 생성된 후 기본적으로 pending 상태를 가지고, 비동기 처리 수행의 성공 또는 실패에 따라 아래와 같이 상태가 변경된다.
+프로미스가 생성된 후 기본적으로 pending 상태를 가지고, 비동기 처리 수행의 성공 또는 실패에 따라 아래와 같이 상태가 변경된다. 그리고 필연적으로 아래 상태에 따라 resolved 되거나 unresolved된다.
 
 ![promise](https://mdn.mozillademos.org/files/8633/promises.png)
 [사진출처 - MDN]
@@ -45,16 +38,92 @@ const promise = new Promise((resolve, reject) => {
 | reject 호출 |               비동기 처리가 수행된 상태 (실패)                |    에러    |           reject            | resolved               |
 |   pending   | 비동기 처리 수행 전, fulfilled도 아니고, rejected도 아닌 상태 | undefined  | 프로미스 생성직후 기본 상태 | unresolved or resolved |
 
-프로미스는 필연적으로 아래 상태에 따라 resolved 되거나 unresolved된다.
+---
 
-- `resolved`: 프로미스가 `resolved`되었다는 것은 resolve나 reject를 시도하려 해도 어떠한 효과가 없다는 것인데 이는 즉 프로미스가 다른 프로미스의 상태에 맞춰 처리되거나 상태가 'locked in(고정)'되었음을 의미한다.
-  - fulfilled: non-promise value로 확인되었거나 전달된 fulfillment handler를 최대한 빨리 다시 호출하는 thenable로 해결한 경우, 혹은 또다른 프로미스를 처리하는 경우
-  - Rejected: rejected 되었거나 전달된 rejection handler를 최대한 빨리 다시 호출하여 해결하는 경우, 혹은 또다른 rejected된 프로미스로 해결되는 경우
-  - pending: fulfillment handler 또는 rejection handler를 호출할 수 없는 thenable로 해결된 경우 또는 pending 중인 또다른 프로미스로 해결된 경우
-- `unresolved`: 프로미스가 `unresolved`되었다는 것은 말그대로 `resolved`되지 않았다는 것이다. 따라서 resolve나 reject를 시도하면 프로미스에 영향이 있다.
-  - 프로미스가 unresolved라면 반드시 pending인 것이다.
+## 프로미스의 후속 처리 메서드
 
-프로미스는 프로미스 또는 thenable(then 메소드를 정의하는 객체 또는 함수)로 `해결`할 수 있다. 이 경우 나중에 unwrapping하기 위해 프로미스나 thenable를 저장할 수 있다. 혹은 non-promise value로 `해결`될 수 있고 해당 값으로 fulfilled 된다.
+프로미스가 fulfilled 상태이거나 rejected 상태 일 때 이에 대한 후속 처리가 필요하다. 이처럼 프로미스의 비동기 처리 상태가 변화하면 후속 처리 메서드에 인수로 전달한 콜백 함수를 선택적으로 호출하고, **모든 후속 처리 메서드는 프로미스를 반환하며 비동기로 동작한다.**
 
-이러한 states와 fates의 관계는 재귀적이다.즉 프로미스가 thenable로 해결된 경우 fulfillment handler를 호출하고
-Note that these relations are recursive, e.g. a promise that has been resolved to a thenable which will call its fulfillment handler with a promise that has been rejected is itself rejected.
+### Promise.prototype.then
+
+**언제나 Promise를 return하고, 두 개의 콜백 함수를 인수로 전달받는다.** 그리고 Promise가 이행하거나 거부했을 때, 각각에 해당하는 핸들러 함수(onFulfilled나 onRejected)가 비동기적으로 실행된다.
+
+```javascript
+p.then(onFulfilled, onRejected);
+
+p.then(
+  function (value) {
+    // 이행
+    // onFulfilled: Promise가 수행될 때 호출되는 Function
+    // 인수: 이행 값(fulfillment value)
+  },
+  function (reason) {
+    // 거부
+    // onRejected: Promise가 거부될 때 호출되는 Function
+    // 인수: 거부 이유(rejection reason)
+  }
+);
+```
+
+<u>반환값</u>
+
+- ① fulfilled 상태: 비동기 처리 성공(이행). 프로미스의 비동기 처리 결과를 콜백함수의 인수로 받음.
+- ② rejected 상태: 비동기 처리 실패(거부). 프로미스의 에러를 인수로 전달받음.
+
+```javascript
+// fulfilled ①
+new Promise((resolve) => resolve("fulfilled")).then(
+  (v) => console.log(v),
+  (e) => console.error(e)
+); // fulfilled
+
+// rejected ②
+new Promise((_, reject) => reject(new Error("rejected"))).then(
+  (v) => console.log(v),
+  (e) => console.error(e)
+); // Error: rejected
+```
+
+Promise가 이행하거나 거부했을 때, 각각에 해당하는 핸들러 함수(onFulfilled나 onRejected)가 비동기적으로 실행되는 조건은 다음과 같다.
+
+|         반환조건          |                   반환값                   |
+| :-----------------------: | :----------------------------------------: |
+|     함수가 값을 반환      |     then에서 반환한 프로미스의 반환값      |
+|    값을 반환하지 않음     |                 undefined                  |
+|         오류 발생         |     then에서 반환한 프로미스의 오류값      |
+| 이미 이행한 프로미스 반환 |     then에서 반환한 프로미스의 결과값      |
+| 이미 거부한 프로미스 반환 | then에서 반환한 프로미스의 결과값으로 거부 |
+|  대기 중인 프로미스 반환  |       프로미스의 이행 여부와 결과값        |
+
+### Promise.prototype.catch
+
+**한 개의 콜백 함수를 인수로 전달받고, 프로미스가 `rejected`일 때만 호출된다.** 그리고 언제나 프로미스를 반환한다.
+
+```javascript
+p.catch(onRejected);
+
+p.catch(function (reason) {
+  // rejection
+});
+
+// rejected
+new Promise((_, reject) => reject(new Error("rejected"))).catch((e) =>
+  console.log(e)
+); // Error: rejected
+```
+
+### Promise.prototype.finally
+
+언제나 프로미스를 반환하고, **한 개의 콜백함수를 인수로 전달받으며, 프로미스의 성공, 실패와 상관엇이 무조건 한 번 호출된다.**
+
+```javascript
+new Promise(() => {}).finally(() => console.log("finally")); // finally
+```
+
+---
+
+_References_
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+[MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/then)
+[poiemaweb](https://poiemaweb.com/fastcampus/promise)
+[States and fates](https://github.com/domenic/promises-unwrapping/blob/master/docs/states-and-fates.md)
