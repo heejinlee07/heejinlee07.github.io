@@ -114,7 +114,7 @@ new Promise((_, reject) => reject(new Error("rejected"))).catch((e) =>
 
 ### Promise.prototype.finally
 
-언제나 프로미스를 반환하고, **한 개의 콜백함수를 인수로 전달받으며, 프로미스의 성공, 실패와 상관엇이 무조건 한 번 호출된다.**
+언제나 프로미스를 반환하고, **한 개의 콜백함수를 인수로 전달받으며, 프로미스의 성공, 실패와 상관없이 무조건 한 번 호출된다.**
 
 ```javascript
 new Promise(() => {}).finally(() => console.log("finally")); // finally
