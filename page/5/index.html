@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-25 16:57:35" itemprop="dateModified" datetime="2020-08-25T16:57:35+09:00">2020-08-25</time>
+                <time title="Modified: 2020-08-28 16:28:58" itemprop="dateModified" datetime="2020-08-28T16:28:58+09:00">2020-08-28</time>
               </span>
 
           
@@ -191,11 +191,10 @@
       
           <h2 id="변수의-생명-주기"><a href="#변수의-생명-주기" class="headerlink" title="변수의 생명 주기"></a>변수의 생명 주기</h2><p>변수는 자신이 선언된 위치에서 생성하고 소멸된다.</p>
 <ul>
-<li>전역변수: 전역 변수의 생명 주기 = 어플리케이션의 생명 주기. 전역변수는 런타임 이전에 코드가 어디 있던지 상관 없이 가장 먼저 실행된다.</li>
-<li>지역변수: 함수 내부에 선언된 지역 변수는 함수 호출 시 생성되어 함수가 종료되면 소멸된다. <em>따라서 함수를 호출하지 않으면 함수 내부의 변수 선언문은 실행되지 않는다.</em> 지역변수는 함수가 호출된 직후 함수 몸체의 다른 코드가 실행되기 이전에 먼저 실행된다.</li>
+<li><code>전역변수</code>: <strong>전역 변수의 생명 주기 = 어플리케이션의 생명 주기.</strong> 전역변수는 런타임 이전에 코드가 어디 있던지 상관 없이 가장 먼저 실행된다.</li>
+<li><code>지역변수</code>: 함수 내부에 선언된 지역 변수는 함수 호출 시 생성되어 함수가 종료되면 소멸된다. <em>따라서 함수를 호출하지 않으면 함수 내부의 변수 선언문은 실행되지 않는다.</em> 지역변수는 함수가 호출된 직후 함수 몸체의 다른 코드가 실행되기 이전에 먼저 실행된다.</li>
 </ul>
-<h3 id="지역-변수의-생명-주기"><a href="#지역-변수의-생명-주기" class="headerlink" title="지역 변수의 생명 주기"></a>지역 변수의 생명 주기</h3><p>= 함수의 생명 주기</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="string">"local"</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(x); <span class="comment">// local</span></span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo();</span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// ReferenceError: x is not defined</span></span><br></pre></td></tr></table></figure>
+<h3 id="지역-변수의-생명-주기-함수의-생명-주기"><a href="#지역-변수의-생명-주기-함수의-생명-주기" class="headerlink" title="지역 변수의 생명 주기 = 함수의 생명 주기"></a>지역 변수의 생명 주기 = 함수의 생명 주기</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="string">"local"</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(x); <span class="comment">// local</span></span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo();</span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// ReferenceError: x is not defined</span></span><br></pre></td></tr></table></figure>
 
 <p>함수 내부에 선언된 지역 변수 x는 foo 함수가 호출되어 실행되는 동안에만 유효하다.</p>
 <blockquote>
@@ -203,9 +202,9 @@
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="string">"global"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(x); <span class="comment">//여기 위치한다면 x는 undefined</span></span><br><span class="line">  <span class="keyword">var</span> x = <span class="string">"local"</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(x); <span class="comment">// 여기 위치하면다면 x는 local</span></span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo();</span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// global</span></span><br></pre></td></tr></table></figure>
 
-<p>전역 변수는 런타임 이전에 가장 먼저 실행되고, 지역 변수는 함수 몸체의 다른 문들이 실행되기 전에 변수 x가 선언되어 undefined로 초기화된다. 따라서 변수 할당문이 실행되기 이전에는 undefined, 할당문이 실행된 후에는 할당된 값이 출력된다.</p>
-<h3 id="전역-변수의-생명-주기"><a href="#전역-변수의-생명-주기" class="headerlink" title="전역 변수의 생명 주기"></a>전역 변수의 생명 주기</h3><p>전역 코드는 함수 호출과 같이 전역 코드를 실행하는 특별한 진입점(entry point)이 없고 코드가 로드되자마자 곧바로 해석되고 실행된다. 전역 코드에는 return 문을 사용할 수 없으므로 마지막 문이 실행되어 더 이상 실행할 문이 없을 때 종료한다.</p>
-<p><em>전역 변수는 전역 객체의 프로퍼티가 되기 때문에 전역 변수의 생명 주기는 전역 객체의 생명 주기와 일치한다.</em> 전역 객체(Global Object)는 코드가 실행되기 이전 단계에 자바스크립트 엔진에 의해 생성되는 특수한 객체이다.</p>
+<p>전역 변수는 런타임 이전에 가장 먼저 실행되고, <strong>지역 변수는 함수 몸체의 다른 문들이 실행되기 전에 변수 x가 선언되어 undefined로 초기화된다.</strong> 따라서 변수 할당문이 실행되기 이전에는 <code>undefined</code>, 할당문이 실행된 후에는 할당된 값이 출력된다.</p>
+<hr>
+<h3 id="전역-변수의-생명-주기"><a href="#전역-변수의-생명-주기" class="headerlink" title="전역 변수의 생명 주기"></a>전역 변수의 생명 주기</h3><p>전역 코드는 함수 호출과 같이 전역 코드를 실행하는 특별한 <code>진입점(entry point)</code>이 없고 코드가 로드되자마자 곧바로 해석되고 실행된다. 전역 코드에는 return 문을 사용할 수 없으므로 마지막 문이 실행되어 더 이상 실행할 문이 없을 때 종료한다. <em>전역 변수는 전역 객체의 프로퍼티가 되기 때문에 전역 변수의 생명 주기는 전역 객체의 생명 주기와 일치한다.</em> 전역 객체(Global Object)는 코드가 실행되기 이전 단계에 자바스크립트 엔진에 의해 생성되는 특수한 객체이다.</p>
 <p><code>전역 객체</code><br>코드가 실행되기 이전 단계에 자바스크립트 엔진에 의해 생성되는 특수한 객체</p>
 <ul>
 <li>브라우저: window</li>
@@ -213,24 +212,29 @@
 </ul>
 <p>모든 전역함수는 전역스코프에 등록되고, 복잡한 과정을 거쳐 전역객체의 메소드가 된다.</p>
 <h3 id="전역-변수의-문제점"><a href="#전역-변수의-문제점" class="headerlink" title="전역 변수의 문제점"></a>전역 변수의 문제점</h3><ul>
-<li>암묵적 결합: 모든 코드가 전역 변수를 참조하고 변경할 수 있다.</li>
-<li>긴 생명 주기: 메모리 리소스도 오랜 기간 소비한다.</li>
-<li>느린 검색 속도: 스코프 체인 상에서 종점에 존재하기 때문에 변수를 검색할 때 가장 마지막에 검색된다.</li>
-<li>네임 스페이스 오염: 파일이 분리되어 있어도 하나의 전역 스코프를 공유하므로 다른 파일 내에 동일한 이름의 변수나 함수가 같은 스코프 내에 있다면 예상치 못한 결과가 있을 수 있다.</li>
+<li><code>암묵적 결합</code>: 모든 코드가 전역 변수를 참조하고 변경할 수 있다.</li>
+<li><code>긴 생명 주기</code>: 메모리 리소스를 오랜 기간 소비하므로 의도치않은 재할당이 이루어질 수 있다.</li>
+<li><code>느린 검색 속도</code>: <strong>스코프 체인 상에서 종점에 존재</strong>하기 때문에 변수를 검색할 때 가장 마지막에 검색된다.</li>
+<li><code>네임 스페이스 오염</code>: 파일이 분리되어 있어도 하나의 전역 스코프를 공유하므로 다른 파일 내에 동일한 이름의 변수나 함수가 같은 스코프 내에 있다면 예상치 못한 결과가 있을 수 있다.</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//코드가 여러 줄 있다고 가정.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>, log(x); <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
 
-<p>전역변수는 생명주기가 길고, 전역 어디에서든 참조할 수 있으므로 의도치않게 값을 변경할 가능성이 높다. 위와 같이 <code>var x = 1;</code>이라고 선언한 후, 많은 코드들이 있다고 가정했을 때, <code>var x</code>로 선언된 것을 모르고, 다시 한번 <code>var x</code>를 선언하면, var는 중복선언을 허용하기 때문에 값이 재할당되는 부작용이 발생한다. 즉, <code>var x = 1;</code>이라고 선언한 후 <code>var x =2;</code>라고 다시 한번 중복 선언하게 되면 <code>x =2;</code>인 것처럼 동작하여 기존 변수에 값을 재할당한다. 하지만 <code>var x;</code>와 같이 사용하면 이는 무시된다.</p>
-<h2 id="전역-변수-사용-억제-방법"><a href="#전역-변수-사용-억제-방법" class="headerlink" title="전역 변수 사용 억제 방법"></a>전역 변수 사용 억제 방법</h2><p>전역 변수를 반드시 사용하여야 할 이유를 찾지 못한다면 지역 변수를 사용하여야 한다. 변수의 스코프는 좁을수록 좋다.</p>
-<ul>
-<li>즉시 실행 함수: 모든 코드를 즉시 실행 함수로 감싸면 모든 변수는 즉시 실행 함수의 지역 변수가 된다.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"hello!"</span>);</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="comment">//따로 호출하지 않아도 바로 실행되어 "hello!"라는 값을 반환한다.</span></span><br></pre></td></tr></table></figure>
+<p>전역변수는 생명주기가 길고, 전역 어디에서든 참조할 수 있으므로 의도치않게 값을 변경할 가능성이 높다. 위와 같이 <code>var x = 1;</code>이라고 선언한 후, 여러 줄의 코드를 작성했다고 가정했을 때, <code>var x</code>로 선언된 것을 모르고, 다시 한번 <code>var x</code>를 선언하면, <strong>var는 중복선언을 허용하기 때문에 값이 재할당되는 부작용이 발생한다.</strong> 즉, <code>var x = 1;</code>이라고 선언한 후 <code>var x =2;</code>라고 다시 한번 중복 선언하게 되면 <code>x =2;</code>인 것처럼 동작하여 기존 변수에 값을 재할당한다. 하지만 <code>var x;</code>와 같이 사용하면 이는 무시된다.</p>
+<h2 id="전역-변수-사용-억제-방법"><a href="#전역-변수-사용-억제-방법" class="headerlink" title="전역 변수 사용 억제 방법"></a>전역 변수 사용 억제 방법</h2><p>전역 변수가 필요한 특별한 이유가 없다면 변수의 스코프는 좁을수록 좋기 때문에 <code>지역 변수</code>를 사용한다.</p>
+<ol>
+<li><code>즉시 실행 함수</code>: 함수 정의와 동시에 단 한 번 호출되는 함수. 모든 코드를 즉시 실행 함수로 감싸면 모든 변수는 즉시 실행 함수의 지역 변수가 된다.</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"hello!"</span>);</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="comment">//따로 호출하지 않아도 바로 실행되어 "hello!"라는 값을 반환한다.</span></span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>전역에 네임 스페이스(Namespace) 역할을 담당할 객체를 생성하고 전역 변수처럼 사용하고 싶은 변수를 프로퍼티로 추가</li>
+<ol start="2">
+<li>전역에 네임 스페이스(Namespace) 역할을 담당할 <code>객체를 생성</code>하고 전역 변수처럼 사용하고 싶은 변수를 프로퍼티로 추가</li>
 <li>모듈 패턴: 클래스를 모방하여 관련이 있는 변수와 함수를 모아 즉시 실행 함수로 감싸 하나의 모듈을 만든다.</li>
-</ul>
+<li>ES6 모듈: 파일 자체의 독자적인 모듈 스코프를 제공한다. script태그에 <code>type=&quot;module&quot;</code>를 추가한다.<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span> <span class="attr">src</span>=<span class="string">"app.mjs"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 확장자는 mjs를 쓰는 것이 좋다.  --&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/global-variable" target="_blank" rel="noopener">poiemaweb</a></p>
 
       
     </div>
@@ -281,7 +285,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-25 16:57:35" itemprop="dateModified" datetime="2020-08-25T16:57:35+09:00">2020-08-25</time>
+                <time title="Modified: 2020-08-28 16:28:58" itemprop="dateModified" datetime="2020-08-28T16:28:58+09:00">2020-08-28</time>
               </span>
 
           
@@ -388,7 +392,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-25 16:57:35" itemprop="dateModified" datetime="2020-08-25T16:57:35+09:00">2020-08-25</time>
+                <time title="Modified: 2020-08-28 16:28:58" itemprop="dateModified" datetime="2020-08-28T16:28:58+09:00">2020-08-28</time>
               </span>
 
           
@@ -413,13 +417,42 @@
 <li><code>지역(local)</code>: 함수 몸체 내부, 지역 스코프, 지역 변수</li>
 <li>자신이 선언된 지역과 하위 지역(중첩 함수)에서만 참조할 수 있다.</li>
 </ul>
-<h2 id="스코프-체인"><a href="#스코프-체인" class="headerlink" title="스코프 체인"></a>스코프 체인</h2><p>스코프는 함수의 중첩에 의해 계층적 구조를 갖는다. 모든 지역의 최상위 스코프는 <code>전역 스코프</code>이다.</p>
-<p>자바스크립트 엔진은 스코프 체인을 따라 변수를 참조하는 코드의 스코프에서 상위 스코프 방향으로 이동하며 선언된 변수를 검색한다. 절대 하위 스코프로 내려가면 식별자를 검색하는 일은 없다. 이는 상위 스코프에서 유효한 변수는 하위 스코프에서 자유롭게 참조할 수 있지만 하위 스코프에서 유효한 변수를 상위 스코프에서 참조할 수 없다는 것을 의미한다.</p>
-<h2 id="함수-레벨-스코프"><a href="#함수-레벨-스코프" class="headerlink" title="함수 레벨 스코프"></a>함수 레벨 스코프</h2><p>함수 몸체 만이 아니라 모든 코드 블록(if, for, while, try/catch 등)이 지역 스코프를 만드는 것을 말한다. 단, var 키워드로 선언된 변수는 오로지 함수의 코드 블록 만을 지역 스코프로 인정한다. 이러한 특성을 <code>함수 레벨 스코프(Function level scope)</code>라 한다. 아래 예제를 살펴보자.</p>
+<h2 id="스코프-체인"><a href="#스코프-체인" class="headerlink" title="스코프 체인"></a>스코프 체인</h2><p>스코프는 함수의 중첩에 의해 계층적 구조를 갖고, 모든 지역의 최상위 스코프는 <code>전역 스코프</code>이다. <strong>이처럼 스코프가 계층적으로 연결된 것을 스코프 체인</strong>이라 한다. <u>스코프 체인은 실행 컨텍스트의 렉시컬 환경(코드가 어기서 실행되었고, 주변에 어떤 코드가 있는 지에 관한 context)을 단방향으로 연결한 것이다.</u></p>
+<ul>
+<li><code>외부 함수</code>: 중첩 함수를 포함하는 함수</li>
+<li><code>중첩 함수</code>: 함수 몸체 내부에 정의한 함수</li>
+</ul>
+<p>자바스크립트 엔진은 스코프 체인을 따라 <strong>변수를 참조하는 코드의 스코프에서 상위 스코프 방향으로 이동</strong>하며 선언된 변수를 검색한다. 절대 하위 스코프로 내려가면서 식별자를 검색하는 일은 없다. 이는 상위 스코프에서 유효한 변수는 하위 스코프에서 자유롭게 참조할 수 있지만 <u>하위 스코프에서 유효한 변수를 상위 스코프에서 참조할 수 없다는 것을 의미한다.</u></p>
+<h2 id="함수-레벨-스코프"><a href="#함수-레벨-스코프" class="headerlink" title="함수 레벨 스코프"></a>함수 레벨 스코프</h2><ul>
+<li><code>블록 레벨 스코프</code>: 함수 몸체 만이 아니라 모든 코드 블록(if, for, while, try/catch 등)이 지역 스코프를 만드는 것. e.g. java, c 등</li>
+<li><code>함수 레벨 스코프</code>: 코드 블록이 아닌 <code>함수</code>에 의해서 생선된 코드 블록을 지역 스코프로 인정한다.</li>
+<li>단, var키워드는 함수 내부가 아닌 곳에서 선언하면 코드 블록 내에서 선언되었다 하더라도 <code>전역 변수</code>라서 중복선언을 허용하는데, 함수의 코드 블록만이 <code>지역 스코프</code>로 인정된다.</li>
+</ul>
 <h2 id="렉시컬-스코프"><a href="#렉시컬-스코프" class="headerlink" title="렉시컬 스코프"></a>렉시컬 스코프</h2><ul>
 <li><code>동적 스코프</code>: 함수 정의 시점에는 함수가 어디서 호출될 지 알 수 없다. 따라서 함수가 호출되는 시점에 동적으로 상위 스코프를 결정하는 것을 말한다.</li>
 <li><code>렉시컬 스코프 (정적 스코프)</code>: 함수 정의가 평가되는 시점에 상위 스코프가 정적으로 결정, 자바스크립트는 함수를 어디서 정의했는지에 따라 상위 스코프를 결정하므로 렉시컬 스코프를 따른다.</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th align="center">스코프</th>
+<th align="center">조건</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">동적 스코프</td>
+<td align="center">함수를 <code>호출</code>한 곳</td>
+<td align="left">함수 정의 시점에 함수가 호출될 곳이 어딘지 알 수 없음. <strong>함수가 호출되는 시점에 동적으로 상위 스코프 결정</strong></td>
+</tr>
+<tr>
+<td align="center">정적(렉시컬) 스코프</td>
+<td align="center">함수를 <code>정의</code>한 곳</td>
+<td align="left">함수 정의 시점에 상위 스코프가 정적으로 결정됨. <strong>함수 호출 위치와는 관련없음.</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/scope" target="_blank" rel="noopener">poiemaweb</a></p>
 
       
     </div>
@@ -470,7 +503,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-25 16:57:35" itemprop="dateModified" datetime="2020-08-25T16:57:35+09:00">2020-08-25</time>
+                <time title="Modified: 2020-08-28 16:28:58" itemprop="dateModified" datetime="2020-08-28T16:28:58+09:00">2020-08-28</time>
               </span>
 
           
@@ -648,7 +681,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-25 16:57:35" itemprop="dateModified" datetime="2020-08-25T16:57:35+09:00">2020-08-25</time>
+                <time title="Modified: 2020-08-28 16:28:58" itemprop="dateModified" datetime="2020-08-28T16:28:58+09:00">2020-08-28</time>
               </span>
 
           
@@ -727,7 +760,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-25 16:57:35" itemprop="dateModified" datetime="2020-08-25T16:57:35+09:00">2020-08-25</time>
+                <time title="Modified: 2020-08-28 16:28:58" itemprop="dateModified" datetime="2020-08-28T16:28:58+09:00">2020-08-28</time>
               </span>
 
           
@@ -808,7 +841,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-25 16:57:35" itemprop="dateModified" datetime="2020-08-25T16:57:35+09:00">2020-08-25</time>
+                <time title="Modified: 2020-08-28 16:28:58" itemprop="dateModified" datetime="2020-08-28T16:28:58+09:00">2020-08-28</time>
               </span>
 
           
@@ -936,7 +969,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-25 16:57:35" itemprop="dateModified" datetime="2020-08-25T16:57:35+09:00">2020-08-25</time>
+                <time title="Modified: 2020-08-28 16:28:58" itemprop="dateModified" datetime="2020-08-28T16:28:58+09:00">2020-08-28</time>
               </span>
 
           
@@ -1035,7 +1068,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-25 16:57:35" itemprop="dateModified" datetime="2020-08-25T16:57:35+09:00">2020-08-25</time>
+                <time title="Modified: 2020-08-28 16:28:58" itemprop="dateModified" datetime="2020-08-28T16:28:58+09:00">2020-08-28</time>
               </span>
 
           
@@ -1105,7 +1138,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-25 16:57:35" itemprop="dateModified" datetime="2020-08-25T16:57:35+09:00">2020-08-25</time>
+                <time title="Modified: 2020-08-28 16:28:58" itemprop="dateModified" datetime="2020-08-28T16:28:58+09:00">2020-08-28</time>
               </span>
 
           
