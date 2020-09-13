@@ -1,6 +1,6 @@
 ---
 title: REST API
-date: 2020-08-20 15:00
+date: 2020-08-20
 tags:
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: algorithm에 필요한 method 정리
-date: 2020-07-28 15:00
+date: 2020-07-28
 tags:
 ---
 

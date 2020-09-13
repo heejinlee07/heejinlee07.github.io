@@ -1,6 +1,6 @@
 ---
 title: CSS CASCADE
-date: 2020-07-23 15:00
+date: 2020-07-23
 tags:
 ---
 
