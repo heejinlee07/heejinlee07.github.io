@@ -13,23 +13,25 @@ ECMAScript 사양에 따르면 객체는 다음과 같이 구성된다.
 
 ## 내부 슬롯과 내부 메소드
 
-자바스크립트 엔진의 알고리즘을 설명하기 위해 ECMAScript 사양에서 사용하는 의사 프로퍼티(Pseudo property)와 의사 메소드(Pseudo method). 내부 슬롯과 내부 메소드는 외부로 공개된 객체의 프로퍼티가 아닌 엔진의 내부 로직이기 때문에 간접적으로 접근할 수 있는 일부 경우를 제외하고는 직접 접근하거나 호출할 수 없다. 이중대괄호([[]])로 묶인 이름으로 식별한다.
+> 자바스크립트 엔진의 알고리즘을 설명하기 위해 ECMAScript 사양에서 사용하는 의사 프로퍼티(Pseudo property)와 의사 메소드(Pseudo method).
+
+**내부 슬롯과 내부 메소드는 외부로 공개된 객체의 프로퍼티가 아닌 엔진의 내부 로직이기 때문에 간접적으로 접근할 수 있는 일부 경우를 제외하고는 직접 접근하거나 호출할 수 없고, 이중대괄호(\[[]])로 묶인 이름으로 식별한다.**
 
 - `내부 슬롯(Internal slots)`
 - 메소드 슬롯(Method slot): 객체 조작을 위함 (프로퍼티 가져오기, 설정 등)
-- 데이터 슬롯(Data slot): 저장소(storage)가 있음. [[Prototype]], [[Extensible]], [[PrivateFieldValues]]
+- 데이터 슬롯(Data slot): 저장소(storage)가 있음. \[[Prototype]], \[[Extensible]], \[[PrivateFieldValues]]
 
 ## 프로퍼티 어트리뷰트와 프로퍼티 디스크립터 객체
 
 자바스크립트 엔진은 프로퍼티를 생성할 때, 프로퍼티의 상태[프로퍼티의 값(value), 값의 갱신 가능 여부(writable), 열거 가능 여부(enumerable), 재정의 가능 여부(configurable)]를 나타내는 프로퍼티 어트리뷰트를 기본값으로 자동 정의한다.
 
-- `프로퍼티 어트리뷰트`: 프로퍼티 어트리뷰트는 자바스크립트 엔진이 관리하는 내부 상태 값(meta-property)인 내부 슬롯([[Value]], [[Writable]], [[Enumerable]], [[Configurable]])이다. Object.getOwnPropertyDescriptor 메소드를 사용하여 간접적으로 확인할 수 있다.
+- `프로퍼티 어트리뷰트`: 프로퍼티 어트리뷰트는 자바스크립트 엔진이 관리하는 내부 상태 값(meta-property)인 내부 슬롯(\[[Value]], \[[Writable]], \[[Enumerable]], \[[Configurable]])이다. Object.getOwnPropertyDescriptor 메소드를 사용하여 간접적으로 확인할 수 있다.
 - `프로퍼티 디스크립터`: 어트리뷰트의 특성을 자바스크립트 객체로 인코딩한다. 새로운 프로퍼티를 만들거나 이미 존재하고 있는 프로퍼티를 바꿀 수도 있다.
 - `Object.getOwnPropertyDescriptor 메소드`: 호출 시 첫번째 매개변수에는 객체의 참조를 전달, 두번째 매개변수에는 프로퍼티 키를 문자열로 전달한다.
 
 ```javascript
 const person = {
-  name: "Lee"
+  name: "Lee",
 };
 
 // 프로퍼티 어트리뷰트 정보를 제공하는 프로퍼티 디스크립터 객체를 반환한다.
@@ -39,29 +41,33 @@ console.log(Object.getOwnPropertyDescriptor(person, "name"));
 
 프로퍼티가 여러 개일 때 프로퍼티 어트리뷰트 정보를 알고 싶다면 `getOwnPropertyDescriptors`를 사용한다.
 
+---
+
 ## 데이터 프로퍼티와 접근자 프로퍼티
 
 - `데이터 프로퍼티`: 데이터를 저장. 키와 값으로 구성된 일반적인 프로퍼티. 키에 값을 연결
 - `접근자 프로퍼티`: 자체적으로는 값을 갖지 않고 다른 데이터 프로퍼티의 값을 읽거나 저장할 때 호출되는 접근자 함수(Accessor function)로 구성된 프로퍼티. 값을 가져오거나 저장하기 위해 하나 혹은 두 개의 접근자 함수 (get, set)을 연결짓는다.
   getter/setter 함수가 있는데 getter은 get 어트리뷰트, setter은 set 어트리뷰트에 저장됨.
 
-  ### 데이터 프로퍼티
+## 데이터 프로퍼티
 
-  데이터 프로퍼티는 프로퍼티 어트리뷰트를 갖는데, JS 엔진이 프로퍼티를 생성할 때 기본값으로 자동 정의된다.
+> 데이터 프로퍼티는 프로퍼티 어트리뷰트를 갖는데, JS 엔진이 프로퍼티를 생성할 때 기본값으로 자동 정의된다.
 
-  - [[Value]]: value. 프로퍼티 키로 프로퍼티 값에 접근하면 반환되는 값
-  - [[Writable]]: writable. 프로퍼티 값의 변경 가능 여부를 나타내며 불리언 값을 갖는다. `false`인 경우 [[value]]의 값을 변경할 수 없는 읽기 전용 프로퍼티가 된다.
-  - [[Enumerable]]: enumerable. 프로퍼티의 열거 가능 여부를 나타내며 불리언 값을 갖는다. [[Enumerable]]의 값이 false인 경우, 해당 프로퍼티는 for…in 문이나 Object.keys 메소드 등으로 열거할 수 없다.
-  - [[Configurable]]: configurable. 프로퍼티의 재정의 가능 여부를 나타내며 불리언 값을 갖는다. 값이 false인 경우, 해당 프로퍼티의 삭제, 프로퍼티 어트리뷰트 값의 변경이 금지된다.
+- \[[Value]]: value. 프로퍼티 키로 프로퍼티 값에 접근하면 반환되는 값
+- \[[Writable]]: writable. 프로퍼티 값의 변경 가능 여부를 나타내며 불리언 값을 갖는다. `false`인 경우 \[[value]]의 값을 변경할 수 없는 읽기 전용 프로퍼티가 된다.
+- \[[Enumerable]]: enumerable. 프로퍼티의 열거 가능 여부를 나타내며 불리언 값을 갖는다. \[[Enumerable]]의 값이 false인 경우, 해당 프로퍼티는 for…in 문이나 Object.keys 메소드 등으로 열거할 수 없다.
+- \[[Configurable]]: configurable. 프로퍼티의 재정의 가능 여부를 나타내며 불리언 값을 갖는다. 값이 false인 경우, 해당 프로퍼티의 삭제, 프로퍼티 어트리뷰트 값의 변경이 금지된다.
 
-### 접근자 프로퍼티
+## 접근자 프로퍼티
 
-자체적으로는 값을 갖지 않고 다른 데이터 프로퍼티의 값을 읽거나 저장할 때 사용하는 접근자 함수(Accessor function)로 구성된 프로퍼티다.
+> 자체적으로는 값을 갖지 않고 다른 데이터 프로퍼티의 값을 읽거나 저장할 때 사용하는 접근자 함수(Accessor function)로 구성된 프로퍼티다.
 
-- [[Get]]: get. 데이터 프로퍼티의 값을 읽을 때 호출되는 접근자 함수. 프로퍼티 어트리뷰트 [[Get]]의 값, 즉 getter 함수가 호출되고 그 결과가 프로퍼티 값으로 반환된다.
-- [[Set]]: set. 데이터 프로퍼티의 값을 읽을 때 호출되는 접근자 함수. 프로퍼티 어트리뷰트 [[Set]]의 값, 즉 setter 함수가 호출되고 그 결과가 프로퍼티 값으로 반환된다.
-- [[Enumerable]]: enumerable. 데이터 프로퍼티의 [[Enumerable]]와 같다.
-- [[Configurable]]: configurable. false라면 이 속성은 제거될 수 없고, 데이터 속성을 수정할 수 없다.
+- \[[Get]]: get. 데이터 프로퍼티의 값을 읽을 때 호출되는 접근자 함수. 프로퍼티 어트리뷰트 \[[Get]]의 값, 즉 getter 함수가 호출되고 그 결과가 프로퍼티 값으로 반환된다.
+- \[[Set]]: set. 데이터 프로퍼티의 값을 읽을 때 호출되는 접근자 함수. 프로퍼티 어트리뷰트 \[[Set]]의 값, 즉 setter 함수가 호출되고 그 결과가 프로퍼티 값으로 반환된다.
+- \[[Enumerable]]: enumerable. 데이터 프로퍼티의 \[[Enumerable]]와 같다.
+- \[[Configurable]]: configurable. false라면 이 속성은 제거될 수 없고, 데이터 속성을 수정할 수 없다.
+
+---
 
 ## 프로퍼티 정의
 
@@ -89,7 +95,7 @@ Object.freeze 메소드는 객체를 동결한다. 객체 동결(freeze)이란 �
 
 ---
 
-_Reference_
+_References_
 
 [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Data_structures)
 [2ality](https://2ality.com/2019/11/object-property-attributes.html)

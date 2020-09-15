@@ -1,6 +1,6 @@
 ---
 title: 함수 / Function
-date: 2020-02-26 22:00:00
+date: 2020-02-26
 tags:
 ---
 

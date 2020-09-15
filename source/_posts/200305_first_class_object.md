@@ -16,7 +16,7 @@ tags:
 ```javascript
 // 함수는 무명의 리터럴로 생성할 수 있으며, 변수에 저장할 수 있다.
 // 그리고 런타임에 함수 리터럴이 평가되어 함수 객체가 생성되고 변수에 할당된다.
-const increase = function(num) {
+const increase = function (num) {
   return ++num;
 };
 
@@ -28,7 +28,7 @@ const predicates = { increas, decrease };
 function makeCounter(predicate) {
   let num = 0;
 
-  return function() {
+  return function () {
     num = predicate(num);
     return num;
   };
@@ -42,7 +42,7 @@ console.log(increaser());
 
 ## arguments 프로퍼티
 
-arguments 객체를 프로퍼티 값으로 갖는 함수 객체를 말하며, 함수 호출 시 전달된 인수(argument)들의 정보를 담고 있는 순회 가능한(iterable) 유사 배열 객체(array-like object)이며 함수 내부에서 지역 변수처럼 사용된다. 즉, 함수 외부에서는 사용할 수 없다.
+arguments 객체를 프로퍼티 값으로 갖는 함수 객체를 말하며, 함수 호출 시 전달된 인수(argument)들의 정보를 담고 있는 순회 가능한(iterable) 유사 배열 객체(array-like object)이며 함수 내부에서 지역 변수처럼 사용된다.**즉, 함수 외부에서는 사용할 수 없다.**
 
 함수를 정의할 때 선언한 매개변수는 함수 몸체 내부에서 변수와 동일하게 취급된다. 즉, 함수가 호출되면 함수 몸체 내에서 암묵적으로 매개변수가 선언되고 undefined로 초기화된 이후 인수가 할당된다. 만약 매개변수의 개수보다 인수를 많이 전달한 경우 초과된 인수는 무시된다.
 
@@ -64,8 +64,13 @@ ECMAScript 스펙에 포함되지 않은 비표준 프로퍼티이다. 이후 �
 
 ## `__proto__` 접근자 프로퍼티
 
-모든 객체는 [[Prototype]]이라는 내부 슬롯을 갖는다. [[Prototype]] 내부 슬롯은 객체 지향 프로그래밍의 상속을 구현하는 프로토타입 객체를 가리킨다.
+모든 객체는 \[[Prototype]]이라는 내부 슬롯을 갖는다. \[[Prototype]] 내부 슬롯은 객체 지향 프로그래밍의 상속을 구현하는 프로토타입 객체를 가리킨다.
 
 ## prototype 프로퍼티
 
-함수 객체만이 소유하는 프로퍼티이다. 일반 객체에는 prototype 프로퍼티가 없다. prototype 프로퍼티는 함수가 객체를 생성하는 생성자 함수로 사용될 때, 생성자 함수가 생성할 인스턴스의 프로토타입 객체를 가리킨다.
+**함수 객체만이 소유하는 프로퍼티이다. 일반 객체에는 prototype 프로퍼티가 없다.** prototype 프로퍼티는 함수가 객체를 생성하는 생성자 함수로 사용될 때, 생성자 함수가 생성할 인스턴스의 프로토타입 객체를 가리킨다.
+
+---
+
+_References_
+[poiemaweb](https://poiemaweb.com/fastcampus/first-class-object)

@@ -1,6 +1,6 @@
 ---
 title: 제어문 / Control flow statement
-date: 2020-02-22 21:58:42
+date: 2020-02-22
 tags:
 ---
 

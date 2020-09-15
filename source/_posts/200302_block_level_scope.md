@@ -32,11 +32,18 @@ if (x === 1) {
   // expected output: 2
 }
 
+function test() {
+  var x = 3;
+  console.log(x);
+}
+
+test();
+
 console.log(x);
 // expected output: 2
 ```
 
-위 코드에서 if문 내의 `var x = 2;`는 코드 블록 내에 있어서 `지역 변수`인 것처럼 보이지만 var 키워드는 함수의 코드 블록만을 `지역 스코프`로 인정하기 때문에, `전역변수`이다. 따라서 전역 변수 x가 중복 선언된 것이 되므로 의도치 않게 x의 값이 1에서 2로 변경된다. for문이나 if문 등에서 선언된 var 키워드도 전역 변수이다.
+위 코드에서 if문 내의 `var x = 2;`는 코드 블록 내에 있어서 `지역 변수`인 것처럼 보이지만 var 키워드는 함수의 코드 블록만을 `지역 스코프`로 인정하기 때문에, `전역변수`이다. for문이나 if문 등에서 선언된 var 키워드도 전역 변수이다. 따라서 전역 변수 x가 중복 선언된 것이 되므로 의도치 않게 x의 값이 1에서 2로 변경된다. 하지만 test()는 함수이므로 지역 스코프로 인정되기 때문에 중복선언이 이루어지지 않고, 함수 지역 스코프내의 값인 3이 그대로 출력된다.
 
 3. 변수 호이스팅
 
@@ -120,15 +127,15 @@ console.log(foo); // 1
 
 // let 키워드로 선언한 변수
 
-console.log(foo); // ReferenceError: foo is not defined
+console.log(bar); // ReferenceError: bar is not defined
 //런타임 이전에 선언 단계만 실행된다.
 //변수 초기화가 아직 이루어지지 않았으므로 참조가 불가하다.
 
-let foo; // 변수 선언문에서 초기화 단계가 실행된다.
-console.log(foo); // undefined
+let bar; // 변수 선언문에서 초기화 단계가 실행된다.
+console.log(bar); // undefined
 
-foo = 1; // 할당문에서 할당 단계가 실행된다.
-console.log(foo); // 1
+bar = 1; // 할당문에서 할당 단계가 실행된다.
+console.log(bar); // 1
 ```
 
 선언단계는 scope의 가장 상단에서 실행되며, scope에 식별자를 등록하는 것이다. var의 경우 식별자를 등록하고, undefined라는 초기값을 할당하는 것까지의 과정이 런타임 이전에 이루어진다. 하지만 let은 변수를 선언하여 scope에 식별자를 등록하는 것까지는 동일하게 런타임 이전에 이루어지고, 변수 선언문을 만났을 때 비로소 undefined로 초기화된다. 그 전까지는 undefined도 아니고, 참조도 할 수 없는 일시적 사각지대라는 구간을 가지고 있다. 따라서 참조할 수 있는 값이 존재하지 않는 상태이기 때문에 변수 선언문 이전에 호출하면 referenceError가 발생한다.
@@ -165,13 +172,42 @@ const 키워드는 상수를 선언하기 위해 사용하고, _반드시 선언
 
 const는 재할당이 자유로운 var,let과 달리 재할당이 금지된다. **그러나 변수에 객체를 할당한 후 객체의 프로퍼티 값을 변경(추가, 삭제, 변경 등)하는 것은 가능하다.**
 
+3. const가 마주할 수 있는 에러
+
+```javascript
+console.log(goo); //1️⃣
+
+const goo; //2️⃣
+console.log(goo);
+
+goo = 1; //3️⃣
+
+const goo = 1;
+console.log(goo);
+const goo = 2; //4️⃣
+console.log(goo);
+
+console.log(goo);
+```
+
+- 1️⃣Uncaught SyntaxError: Missing initializer in const declaration
+  선언 전에 참조하면 초기화 되지 않았다는 에러가 발생한다.
+- 2️⃣Uncaught ReferenceError: Cannot access 'goo' before initialization
+  const는 선언과 할당이 동시에 이루어져야 한다. 따라서 선언만 이루어졌을 경우 이러한 에러를 만난다.
+- 3️⃣Uncaught TypeError: Assignment to constant variable
+  앞서 말했듯이 선언과 할당이 동시에 이루어져야 하는데 할당만 이루어지고 있으므로 에러가 발생한다.
+- 4️⃣Uncaught SyntaxError: Identifier 'goo' has already been declared
+  const는 재할당을 금지하므로 에러가 발생한다.
+
 ---
 
 ## var vs let vs const
 
-var: 함수 블록만을 지역 스코프로 인정, 그외의 경우 모두 전역 스코프를 가짐.
-let: 블록 스코프 가지므로, 선언된 블록 내 및 하위 블록에서만 값이 유효.
-const: 재할당 금지, 그러나 객체는 재할당 가능.
+> var: 함수 블록만을 지역 스코프로 인정, 그외의 경우 모두 전역 스코프를 가짐.
+> let: 블록 레벨 스코프를 가지므로, 선언된 블록 내 및 하위 블록에서만 값이 유효.
+> const: 블록 레벨 스코프를 가진다. 재할당 금지, 그러나 객체는 재할당 가능.
+
+세 가지 키워드 모두 `변수 호이스팅`이 발생한다. let, const는 선언 이전에 참조하면 ReferenceError가 발생하여 변수 호이스팅이 발생하지 않는 것처럼 보이지만 사실 변수 호이스팅이 발생하는 것이다.
 
 ```javascript
 function varTest() {

@@ -1,6 +1,6 @@
 ---
 title: 연산자 / operator
-date: 2020-02-22 21:57:40
+date: 2020-02-22
 tags:
 ---
 

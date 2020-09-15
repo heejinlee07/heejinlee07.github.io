@@ -1,6 +1,6 @@
 ---
 title: 표현식과 문 / expression & statement
-date: 2020-02-22 20:07:25
+date: 2020-02-22
 tags:
 ---
 
