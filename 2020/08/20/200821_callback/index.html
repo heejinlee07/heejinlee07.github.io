@@ -28,7 +28,7 @@
 <meta property="og:description" content="자바스크립트에서 비동기 처리 : 콜백함수ES6에서 비동기 처리 : 프로미스  자바스크립트에서 비동기 처리 : 콜백함수의 단점비동기 함수 내부에서 비동기로 동작하는 코드가 있다면 코드가 완료되지 않았더라도 기다리지 않고 즉시 종료된다. 즉, 비동기 함수 내부의 비동기로 동작하는 코드는 비동기 함수가 종료된 후에 완료된다.따라서 비동기 함수 내부의 비동기로">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-08-20T15:00:00.000Z">
-<meta property="article:modified_time" content="2020-09-16T06:00:09.688Z">
+<meta property="article:modified_time" content="2020-09-16T09:24:30.336Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-16 15:00:09" itemprop="dateModified" datetime="2020-09-16T15:00:09+09:00">2020-09-16</time>
+                <time title="Modified: 2020-09-16 18:24:30" itemprop="dateModified" datetime="2020-09-16T18:24:30+09:00">2020-09-16</time>
               </span>
 
           
@@ -228,8 +228,8 @@
 </ol>
 <p>따라서 서버에 대한 응답을 처리하는 비동기 함수의 처리 결과는 비동기 함수 내부에서 수행해야 하고, 이를 위해 비동기 함수에 <code>콜백 함수</code>를 전달해서 처리한다. 그러나 콜백 패턴도 <code>비동기 함수 처리 결과</code> -&gt; <code>비동기 함수 호출</code>과 같은 패턴이 반복된다면 콜백 함수가 중첩되어 복잡해지는 다음과 같은 문제점을 가지고 있다.</p>
 <ol>
-<li>콜백 헬</li>
-<li>에러 처리의 한계</li>
+<li><strong>콜백 헬</strong></li>
+<li><strong>에러 처리의 한계</strong></li>
 </ol>
 <h3 id="콜백-헬"><a href="#콜백-헬" class="headerlink" title="콜백 헬"></a>콜백 헬</h3><p>비동기 처리를 위해 콜백 함수를 연달아 사용할 경우 콜백 헬이 발생하여 가독성을 떨어뜨리고, 유지 보수를 어렵게 한다. 다음과 같이 서버로부터 응답받은 데이터를 활용하여 연속으로 get 요청을 보낼 경우 콜백 헬이 발생한다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">get</span>("/step1", (a) =&gt; &#123;</span><br><span class="line">  <span class="keyword">get</span>(`/step2/$&#123;a&#125;<span class="string">`, (b) =&gt; &#123;</span></span><br><span class="line"><span class="string">    get(`</span>/step3/$&#123;b&#125;<span class="string">`, (c) =&gt; &#123;</span></span><br><span class="line"><span class="string">      get(`</span>/step4/$&#123;c&#125;<span class="string">`, (d) =&gt; &#123;</span></span><br><span class="line"><span class="string">        console.log(d);</span></span><br><span class="line"><span class="string">      &#125;);</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string">&#125;);</span></span><br></pre></td></tr></table></figure>
@@ -258,8 +258,8 @@
       <i class="fa fa-chevron-left"></i> REST API
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/08/23/200824_promise/" rel="next" title="Promise">
-      Promise <i class="fa fa-chevron-right"></i>
+    <a href="/2020/08/23/200823_event_propa_del/" rel="next" title="이벤트 전파와 위임">
+      이벤트 전파와 위임 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -334,7 +334,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
