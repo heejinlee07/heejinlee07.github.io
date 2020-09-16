@@ -20,16 +20,16 @@
     var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="프로미스의 생성Promise 생성자 함수를 new 연산자와 함께 호출하면 프로미스(Promise 객체)를 생성한다. Promise 객체는 비동기 작업이 맞이할 미래의 완료 또는 실패, 그 결과 값을 나타낸다. 또한 비동기 액션이 종료된 이후, 성공했을 때의 value나 실패 이유를 처리하기 위한 handler를 연결할 수 있도록 한다. 이처럼 프로미스를 사">
+  <meta name="description" content="프로미스의 등장자바스크립트는 비동기 처리를 위한 하나의 패턴으로 콜백 함수를 사용한다. 하지만 전통적인 콜백 패턴은 콜백 헬로 인해 가독성이 나쁘고 비동기 처리 중 발생한 에러의 처리가 곤란하며 여러 개의 비동기 처리를 한번에 처리하는 데도 한계가 있다. ES6에서는 비동기 처리를 위한 또 다른 패턴으로 프로미스(Promise)를 도입했다. 프로미스는 전통">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Promise">
 <meta property="og:url" content="https://heejinlee07.github.io/2020/08/23/200824_promise/index.html">
 <meta property="og:site_name" content="Heejin">
-<meta property="og:description" content="프로미스의 생성Promise 생성자 함수를 new 연산자와 함께 호출하면 프로미스(Promise 객체)를 생성한다. Promise 객체는 비동기 작업이 맞이할 미래의 완료 또는 실패, 그 결과 값을 나타낸다. 또한 비동기 액션이 종료된 이후, 성공했을 때의 value나 실패 이유를 처리하기 위한 handler를 연결할 수 있도록 한다. 이처럼 프로미스를 사">
+<meta property="og:description" content="프로미스의 등장자바스크립트는 비동기 처리를 위한 하나의 패턴으로 콜백 함수를 사용한다. 하지만 전통적인 콜백 패턴은 콜백 헬로 인해 가독성이 나쁘고 비동기 처리 중 발생한 에러의 처리가 곤란하며 여러 개의 비동기 처리를 한번에 처리하는 데도 한계가 있다. ES6에서는 비동기 처리를 위한 또 다른 패턴으로 프로미스(Promise)를 도입했다. 프로미스는 전통">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://mdn.mozillademos.org/files/8633/promises.png">
 <meta property="article:published_time" content="2020-08-23T15:00:00.000Z">
-<meta property="article:modified_time" content="2020-09-16T05:13:55.705Z">
+<meta property="article:modified_time" content="2020-09-16T06:00:09.688Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://mdn.mozillademos.org/files/8633/promises.png">
@@ -178,7 +178,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-16 14:13:55" itemprop="dateModified" datetime="2020-09-16T14:13:55+09:00">2020-09-16</time>
+                <time title="Modified: 2020-09-16 15:00:09" itemprop="dateModified" datetime="2020-09-16T15:00:09+09:00">2020-09-16</time>
               </span>
 
           
@@ -192,7 +192,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="프로미스의-생성"><a href="#프로미스의-생성" class="headerlink" title="프로미스의 생성"></a>프로미스의 생성</h2><p>Promise 생성자 함수를 new 연산자와 함께 호출하면 프로미스(<code>Promise 객체</code>)를 생성한다. Promise 객체는 비동기 작업이 맞이할 미래의 완료 또는 실패, 그 결과 값을 나타낸다. 또한 비동기 액션이 종료된 이후, 성공했을 때의 value나 실패 이유를 처리하기 위한 handler를 연결할 수 있도록 한다. 이처럼 프로미스를 사용하면 비동기 메서드에서도 동기 메서드처럼 최종 value를 반환할 수 있다. 다만 즉시 최종 value를 반환하지는 않고, 비동기 메서드가 프로미스를 반환하면 프로미스가 미래의 어떤 시점에 받을 value를 제공한다.</p>
+        <h2 id="프로미스의-등장"><a href="#프로미스의-등장" class="headerlink" title="프로미스의 등장"></a>프로미스의 등장</h2><p>자바스크립트는 비동기 처리를 위한 하나의 패턴으로 콜백 함수를 사용한다. 하지만 전통적인 콜백 패턴은 콜백 헬로 인해 가독성이 나쁘고 비동기 처리 중 발생한 에러의 처리가 곤란하며 여러 개의 비동기 처리를 한번에 처리하는 데도 한계가 있다. ES6에서는 비동기 처리를 위한 또 다른 패턴으로 프로미스(Promise)를 도입했다. <strong>프로미스는 전통적인 콜백 패턴이 가진 단점을 보완하며 비동기 처리 시점을 명확하게 표현할 수 있다는 장점이 있다.</strong></p>
+<h2 id="프로미스의-생성"><a href="#프로미스의-생성" class="headerlink" title="프로미스의 생성"></a>프로미스의 생성</h2><p>Promise 생성자 함수를 new 연산자와 함께 호출하면 프로미스(<code>Promise 객체</code>)를 생성한다. Promise 객체는 비동기 작업이 맞이할 미래의 완료 또는 실패, 그 결과 값을 나타낸다. 또한 비동기 액션이 종료된 이후, 성공했을 때의 value나 실패 이유를 처리하기 위한 handler를 연결할 수 있도록 한다. 이처럼 프로미스를 사용하면 비동기 메서드에서도 동기 메서드처럼 최종 value를 반환할 수 있다. 다만 즉시 최종 value를 반환하지는 않고, 비동기 메서드가 프로미스를 반환하면 프로미스가 미래의 어떤 시점에 받을 value를 제공한다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 프로미스 생성</span></span><br><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// Promise 함수의 콜백 함수 내부에서 비동기 처리를 수행한다.</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* 비동기 처리 성공 */</span>) &#123;</span><br><span class="line">    resolve(<span class="string">'result'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123; <span class="comment">/* 비동기 처리 실패 */</span></span><br><span class="line">    reject(<span class="string">'failure reason'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <h2 id="프로미스의-상태"><a href="#프로미스의-상태" class="headerlink" title="프로미스의 상태"></a>프로미스의 상태</h2><p>프로미스가 생성된 후 기본적으로 pending 상태를 가지고, 비동기 처리 수행의 성공 또는 실패에 따라 아래와 같이 상태가 변경된다. 그리고 필연적으로 아래 상태에 따라 resolved 되거나 unresolved된다.</p>
@@ -369,7 +370,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#프로미스의-생성"><span class="nav-number">1.</span> <span class="nav-text">프로미스의 생성</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#프로미스의-상태"><span class="nav-number">2.</span> <span class="nav-text">프로미스의 상태</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#프로미스의-후속-처리-메서드"><span class="nav-number">3.</span> <span class="nav-text">프로미스의 후속 처리 메서드</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-prototype-then"><span class="nav-number">3.1.</span> <span class="nav-text">Promise.prototype.then</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-prototype-catch"><span class="nav-number">3.2.</span> <span class="nav-text">Promise.prototype.catch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-prototype-finally"><span class="nav-number">3.3.</span> <span class="nav-text">Promise.prototype.finally</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#프로미스의-등장"><span class="nav-number">1.</span> <span class="nav-text">프로미스의 등장</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#프로미스의-생성"><span class="nav-number">2.</span> <span class="nav-text">프로미스의 생성</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#프로미스의-상태"><span class="nav-number">3.</span> <span class="nav-text">프로미스의 상태</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#프로미스의-후속-처리-메서드"><span class="nav-number">4.</span> <span class="nav-text">프로미스의 후속 처리 메서드</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-prototype-then"><span class="nav-number">4.1.</span> <span class="nav-text">Promise.prototype.then</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-prototype-catch"><span class="nav-number">4.2.</span> <span class="nav-text">Promise.prototype.catch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-prototype-finally"><span class="nav-number">4.3.</span> <span class="nav-text">Promise.prototype.finally</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
