@@ -9,7 +9,7 @@ tags:
 ES6 이전의 함수는 일반함수, 생성자 함수, 메소드의 호출 등 동일한 함수도 다양한 형태로 호출할 수 있었다. 즉 callable이면서 constructor이다. 객체에 바인딩 된 메소드 역시 일반 함수 또는 생성자 함수로 호출 가능하다. 그런데 이와 같은 경우 불필요한 프로토타입 객체를 생성한다.
 
 ```javascript
-var foo = function() {};
+var foo = function () {};
 
 foo(); //일반함수로 호출
 new foo(); //생성자 함수로 호출
@@ -25,7 +25,7 @@ ES6에서는 함수 호출방식에 제약이 없어 생기는 문제를 방지�
 
 ## 메소드
 
-ES6 사양에서 메소드는 메소드 축약 표현으로 정의된 함수 만을 의미한다. 따라서 메소드는 생성자 함수로 호출할 수 없고, 인스턴스 생성, 프로퍼타입 프로퍼티, 프로토타입 등을 생성하지 않는다. 또한 메소드가 바인딩된 객체를 가리키는 내부 슬롯 [[HomeObject]]를 갖고, 이를 이용하여 super키워드를 사용할 수 있다.
+ES6 사양에서 메소드는 메소드 축약 표현으로 정의된 함수 만을 의미한다. 따라서 메소드는 생성자 함수로 호출할 수 없고, 인스턴스 생성, 프로퍼타입 프로퍼티, 프로토타입 등을 생성하지 않는다. 또한 메소드가 바인딩된 객체를 가리키는 내부 슬롯 \[\[HomeObject\]\]를 갖고, 이를 이용하여 super키워드를 사용할 수 있다.
 
 ```javascript
 const obj = {
@@ -35,9 +35,9 @@ const obj = {
     return this.x;
   },
   // bar에 바인딩된 함수는 메소드가 아닌 일반 함수이다.
-  bar: function() {
+  bar: function () {
     return this.x;
-  }
+  },
 };
 
 console.log(obj.foo()); // 1
@@ -50,9 +50,9 @@ console.log(obj.bar()); // 1
 // ES5
 var obj = {
   name: "Lee",
-  sayHi: function() {
+  sayHi: function () {
     console.log("Hi! " + this.name);
-  }
+  },
 };
 
 obj.sayHi(); // Hi! Lee
@@ -63,7 +63,7 @@ const obj = {
   // 메소드 축약 표현
   sayHi() {
     console.log("Hi! " + this.name);
-  }
+  },
 };
 
 obj.sayHi(); // Hi! Lee
