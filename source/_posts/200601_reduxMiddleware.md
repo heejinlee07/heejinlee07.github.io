@@ -1,6 +1,6 @@
 ---
 title: What is Redux middleware?
-date: 2020-06-01 15:00
+date: 2020-06-01
 tags:
 ---
 
@@ -49,7 +49,9 @@ redux-thunk를 사용하여 동기화된 액션을 네트워크 요청과 함께
 
 ```javascript
 const thunk = (store) => (next) => (action) =>
-  typeof action === "function" ? action(store.dispatch, store.getState) : next(action);
+  typeof action === "function"
+    ? action(store.dispatch, store.getState)
+    : next(action);
 
 //dispatch할 때
 const myThunk = () => (dispatch, getState) => {

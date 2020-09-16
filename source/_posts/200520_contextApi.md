@@ -1,6 +1,6 @@
 ---
 title: Context API
-date: 2020-05-20 11:00
+date: 2020-05-20
 tags:
 ---
 

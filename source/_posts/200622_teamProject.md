@@ -1,6 +1,6 @@
 ---
 title: Team Project
-date: 2020-06-22 11:00
+date: 2020-06-22
 tags:
 ---
 

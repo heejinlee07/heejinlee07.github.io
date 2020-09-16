@@ -1,6 +1,6 @@
 ---
 title: MDN basic HTML
-date: 2020-07-22 15:00
+date: 2020-07-22
 tags:
 ---
 

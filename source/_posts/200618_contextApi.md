@@ -1,6 +1,6 @@
 ---
 title: Context API
-date: 2020-06-18 15:00
+date: 2020-06-18
 tags:
 ---
 
@@ -31,7 +31,9 @@ export default ColorContext;
 
 ```javascript
 <ColorContext.Consumer>
-  {(value) => <div style={{ width: "64px", height: "64px", background: value.color }} />}
+  {(value) => (
+    <div style={{ width: "64px", height: "64px", background: value.color }} />
+  )}
 </ColorContext.Consumer>
 ```
 
