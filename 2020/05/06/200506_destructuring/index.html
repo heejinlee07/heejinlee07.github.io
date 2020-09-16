@@ -28,7 +28,7 @@
 <meta property="og:description" content="디스트럭처링(구조 분해 할당)구조화된 배열 또는 객체를 파괴하여 1개 이상의 변수에 개별적으로 할당하는 것. 객체 또는 배열에서 필요한 값만을 추출하여 변수에 할당할 때 유용. 왜 디스트럭처링이 필요한가?객체에서 값을 찾거나 복제하고 싶을 때 ES5에서는 중복이 발생한다. 1234567var expense &#x3D; &amp;#123;  type: &quot;Business&quot;,">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-06T03:00:00.000Z">
-<meta property="article:modified_time" content="2020-09-13T05:33:13.197Z">
+<meta property="article:modified_time" content="2020-09-16T01:36:51.025Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-13 14:33:13" itemprop="dateModified" datetime="2020-09-13T14:33:13+09:00">2020-09-13</time>
+                <time title="Modified: 2020-09-16 10:36:51" itemprop="dateModified" datetime="2020-09-16T10:36:51+09:00">2020-09-16</time>
               </span>
 
           
@@ -200,7 +200,7 @@
 <h3 id="객체에서-디스트럭처링-할당"><a href="#객체에서-디스트럭처링-할당" class="headerlink" title="객체에서 디스트럭처링 할당"></a>객체에서 디스트럭처링 할당</h3><p>파라미터로 받아온 file로 내부의 값을 조회하여 return할 때 매번 <code>file.</code>이라고 입력해야 하는데,디스트럭처링 할당을 하면 그럴 필요가 없다.</p>
 <p><em>객체 디스트럭처링 할당 방법</em></p>
 <ul>
-<li>객체의 각 프로퍼티를 추춣하여 1개 이상의 변수에 할당하는데 여러 개의 변수를 객체 리터럴{} 형태로 선언한다. 할당 기준은 프로퍼티 키이다. 이때 주의할 점은 반드시 변수명은 프로퍼티 키의 이름과 동일해야 한다.</li>
+<li>객체의 각 프로퍼티를 추출하여 1개 이상의 변수에 할당하는데 여러 개의 변수를 객체 리터럴{} 형태로 선언한다. 할당 기준은 프로퍼티 키이다. 이때 주의할 점은 반드시 변수명은 프로퍼티 키의 이름과 동일해야 한다.</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> savedFiled = &#123;</span><br><span class="line">  extension: <span class="string">"jpg"</span>,</span><br><span class="line">  name: <span class="string">"repost"</span>,</span><br><span class="line">  size: <span class="number">14040</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ES5</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">es5FileSummary</span>(<span class="params">file</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`The fils <span class="subst">$&#123;file.name&#125;</span>.<span class="subst">$&#123;file.extension&#125;</span> is of size <span class="subst">$&#123;file.size&#125;</span>`</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(es5FileSummary(savedFiled));</span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">es6FileSummary</span>(<span class="params">&#123; name, extension, size &#125;, &#123; color &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;color&#125;</span> The fils <span class="subst">$&#123;name&#125;</span>.<span class="subst">$&#123;extension&#125;</span> is of size <span class="subst">$&#123;size&#125;</span>`</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(es6FileSummary(savedFiled, &#123; <span class="attr">color</span>: <span class="string">"red"</span> &#125;));</span><br></pre></td></tr></table></figure>
 
@@ -307,7 +307,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">63</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
