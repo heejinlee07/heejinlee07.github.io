@@ -9,6 +9,11 @@ tags:
 ![react-lifecycle-methods-diagram](https://i.imgur.com/cNfpEph.png)
 <a href='https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/'>출처: react-lifecycle-methods-diagram</a>
 
+- 리액트는 코드 재사용에 대한 논의가 많았다. 컴포지션 -> 컴포넌트의 합성을 통한 재사용 희망
+- 클래스 컴포넌트가 가진 단점이 많았다. 보일러 플레이트 너무 많기 때문이다.
+- 라이프 사이클 세부적으로 관리해야하는 것이 많았다.
+- 컴포넌트 재사용도 쉽지 않았다.
+
 1. **컴포넌트 사이에서 상태와 관련된 로직을 재사용하기 어려움**
    class 컴포넌트가 주류로 사용되던 시기에 React 컴포넌트를 재사용하기 쉬울 것이라고 생각했으나 하나의 컴포넌트 안에 UI와 기능과 관련된 로직들이 함께 섞여있으니 재사용이 어려웠다. 그래서
    `Presentational 컴포넌트와 Container 컴포넌트`패턴을 사용하였는데 간략히 설명하자면 Presentational 컴포넌트에는 UI관련 로직을 담고, Container 컴포넌트에서는 기능과 관련된 로직을 담는 것이다. 그런데 Container 컴포넌트는 Presentational 컴포넌트와 달리 기본적인 UI 뿐 아니라 state나 effect 또는 특정 기능을 위한 로직 등을 가지고 있기 떄문에 이 패턴 역시 컴포넌트의 재사용이 어렵다.
@@ -59,11 +64,6 @@ class FriendStatus extends React.Component {
 ### 결론
 
 이처럼 class 컴포넌트가 가지고 있는 문제점을 해결하면서 더욱 간결하고 명료한 React 사용을 위해 hook이 나오게 된다. **useEffect, useState, custum hook 등의 hook은 컴포넌트 내에 class 없이 React의 기능을 사용할 수 있도록 한다.**
-
-- 리액트는 코드 재사용에 대한 논의가 많았다. 컴포지션 -> 컴포넌트의 합성을 통한 재사용희망
-- 클래스 컴포넌트가 가진 단점이 많음. 보일러 플레이트 너무 많다.
-- 라이프 사이클 세부적으로 관리해야하는 것이 많았다.
-- 컴포넌트 재사용도 쉽지않았다.
 
 ---
 

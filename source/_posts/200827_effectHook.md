@@ -22,7 +22,9 @@ tags:
 
 리액트가 DOM을 업데이트한 뒤 추가로 코드를 실행해야 하는 경우. (e.g. 네트워크 리퀘스트, DOM 수동 조작, 로깅 등)
 
-- class 컴포넌트 : render()는 side effect를 발생시키지 않음. 이펙트는 DOM을 업데이트하고 난 이후 발생. 따라서 side effect를 componentDidMount와 componentDidUpdate 둠. 그래서 class 안에서 두 개의 생명주기 메서드에 같은 코드가 중복되기도 한다. **그 이유는 componentDidMount인지 componentDidUpdate와 상관없이 렌더링 이후에 항상 같은 코드가 수행되어야 하기 때문이지만 class 컴포넌트에서는 이러한 기능을 하는 메서드를 지원하지 않으므로 아래 코드와 같이 각각의 생명주기 메서드 안에서 함수를 호출해야 한다..**
+<u>class 컴포넌트</u>
+
+> render()는 side effect를 발생시키지 않음. 이펙트는 DOM을 업데이트하고 난 이후 발생. 따라서 side effect를 componentDidMount와 componentDidUpdate 둠. 그래서 class 안에서 두 개의 생명주기 메서드에 같은 코드가 중복되기도 한다. **그 이유는 componentDidMount인지 componentDidUpdate와 상관없이 렌더링 이후에 항상 같은 코드가 수행되어야 하기 때문이지만 class 컴포넌트에서는 이러한 기능을 하는 메서드를 지원하지 않으므로 아래 코드와 같이 각각의 생명주기 메서드 안에서 함수를 호출해야 한다..**
 
 ```javascript
 class Example extends React.Component {
@@ -56,8 +58,9 @@ class Example extends React.Component {
 }
 ```
 
-- 함수 컴포넌트: useEffect hook 사용
-  > useEffect hook은 리액트에게 컴포넌트가 렌더링 된 후 어떤 일을 수행해야하는지 알려준다. effect를 기억해두었다가 DOM 어데이트 수행 후 불러낸다. useEffect는 컴포넌트 안에서 호출되기 때문에 아래 예제와 같이 count 변수(또는 그 어떤 prop)에도 접근할 수 있다. 함수 범위 안에 존재하기 때문이다.
+<u>함수 컴포넌트: useEffect hook 사용</u>
+
+> useEffect hook은 리액트에게 컴포넌트가 렌더링 된 후 어떤 일을 수행해야하는지 알려준다. effect를 기억해두었다가 DOM 어데이트 수행 후 불러낸다. useEffect는 컴포넌트 안에서 호출되기 때문에 아래 예제와 같이 count 변수(또는 그 어떤 prop)에도 접근할 수 있다. 함수 범위 안에 존재하기 때문이다.
 
 ```javascript
 import React, { useState, useEffect } from "react";
@@ -113,9 +116,10 @@ class 컴포넌트에서는 렌더링 이후 어떤 일을 수행할 것인지�
 
 외부 데이터에 구독(subscription)을 설정해야 하는 경우와 같이 메모리 누수가 발생하지 않도록 정리(clean-up)가 필요한 경우
 
-- class 컴포넌트
-  - componentDidMount: 구독(subscription) 설정
-  - componentWillUnmount: 구독 설정 된 내용을 정리(clean-up)
+<u>class 컴포넌트</u>
+
+- componentDidMount: 구독(subscription) 설정
+- componentWillUnmount: 구독 설정 된 내용을 정리(clean-up)
 
 ```javascript
 class FriendStatus extends React.Component {
@@ -152,8 +156,8 @@ class FriendStatus extends React.Component {
 }
 ```
 
-- 함수 컴포넌트
-  위의 class 컴포넌트에서 componentDidMount(), componentWillUnmount()로 분리된 생명주기 메서드 내에 동일한 effect 관련 코드가 있다. 이처럼 subscribe와 unsubscribe는 일반적으로 밀접한 관련을 맺고 있기 때문에 함수형 컴포넌트에서 useEffect는 이 두 가지 설정을 class에서 처럼 분리하지 않고 함께 다룰 수 있도록 한다. **useEffect 내에서 함수를 반환하면 그 함수를 정리가 필요할 때 실행시키는 것이다.**
+<u>함수 컴포넌트</u>
+위의 class 컴포넌트에서 componentDidMount(), componentWillUnmount()로 분리된 생명주기 메서드 내에 동일한 effect 관련 코드가 있다. 이처럼 subscribe와 unsubscribe는 일반적으로 밀접한 관련을 맺고 있기 때문에 함수형 컴포넌트에서 useEffect는 이 두 가지 설정을 class에서 처럼 분리하지 않고 함께 다룰 수 있도록 한다. **useEffect 내에서 함수를 반환하면 그 함수를 정리가 필요할 때 실행시키는 것이다.**
 
 ```javascript
 import React, { useState, useEffect } from "react";
@@ -259,15 +263,15 @@ function FriendStatusWithCounter(props) {
 
 2.  effect가 업데이트 시마다 실행되는 이유는?
 
-    - class 컴포넌트
-      class 컴포넌트에서는 effect 정리가 componentWillUnmount()를 사용하여 마운트가 해제될 때만 실행된다. 그런데 class 컴포넌트에서 componentDidUpdate를 제대로 수행하지 않을 경우 componentWillUnmount()가 제대로 수행되지 않는 버그가 발생한다. 위의 FriendStatusWithCounter 예시에서 만약 componentDidUpdate()가 없었다고 가정한다면 마운트 이후 업데이트가 발생했을 때 이에 대한 처리를 할 로직이 없는 채 마운트 해제 시 subscribe가 해제된다. friend prop에 변화가 없다면 별 문제 없을 수 있지만 **만약 friend prop이 화면에 표시되어 있는 동안 변한다면 friend의 subscribe를 해지하지 못하고 계속해서 화면에 표시하게 된다. 마운트 해제가 일어나더라도 unsubscribe 정확한 타겟 아이디에 수행하지 못하고 잘못된 id에 대해 수행하게 될 수도 있다.** 결론적으로 이러한 버그를 발생시키지 않으려면 반드시 componentDidUpdate()를 사용해야 한다는 것이다.
+<u>class 컴포넌트</u>
+class 컴포넌트에서는 effect 정리가 componentWillUnmount()를 사용하여 마운트가 해제될 때만 실행된다. 그런데 class 컴포넌트에서 componentDidUpdate를 제대로 수행하지 않을 경우 componentWillUnmount()가 제대로 수행되지 않는 버그가 발생한다. 위의 FriendStatusWithCounter 예시에서 만약 componentDidUpdate()가 없었다고 가정한다면 마운트 이후 업데이트가 발생했을 때 이에 대한 처리를 할 로직이 없는 채 마운트 해제 시 subscribe가 해제된다. friend prop에 변화가 없다면 별 문제 없을 수 있지만 **만약 friend prop이 화면에 표시되어 있는 동안 변한다면 friend의 subscribe를 해지하지 못하고 계속해서 화면에 표시하게 된다. 마운트 해제가 일어나더라도 unsubscribe 정확한 타겟 아이디에 수행하지 못하고 잘못된 id에 대해 수행하게 될 수도 있다.** 결론적으로 이러한 버그를 발생시키지 않으려면 반드시 componentDidUpdate()를 사용해야 한다는 것이다.
 
-    - 함수형 컴포넌트의 useEffect
-      **useEffect는 class에서처럼 생명주기 메서드에 의해 업데이트가 발생하는 것이 아니라 렌더링 될 때마다 실행된다.** 즉 componentDidUpdate()와 같은 별도의 메서드를 사용하지 않아도 렌더링 될 때마다 업데이트가 실행되고, componentWillUnmount()를 사용하지 않아도 return에 함수를 반환하면 다음의 effect를 적용하기 이전의 effect는 정리된다.
+<u>함수형 컴포넌트의 useEffect</u>
+**useEffect는 class에서처럼 생명주기 메서드에 의해 업데이트가 발생하는 것이 아니라 렌더링 될 때마다 실행된다.** 즉 componentDidUpdate()와 같은 별도의 메서드를 사용하지 않아도 렌더링 될 때마다 업데이트가 실행되고, componentWillUnmount()를 사용하지 않아도 return에 함수를 반환하면 다음의 effect를 적용하기 이전의 effect는 정리된다.
 
 3.  렌더링 이후 effect를 정리하는 것은 때때로 성능 저하를 발생시키는 경우가 있다. 이를 개선하려면?
 
-- class 컴포넌트: componentDidUpdate에서 prevProps나 prevState와의 비교를 통해 문제 해결
+**class 컴포넌트: componentDidUpdate에서 prevProps나 prevState와의 비교를 통해 문제 해결**
 
 ```javascript
 componentDidUpdate(prevProps, prevState) {
@@ -278,8 +282,8 @@ componentDidUpdate(prevProps, prevState) {
 }
 ```
 
-- 함수형 컴포넌트: dependency array
-  useEffect의 두 번째 인수에 배열을 넘겨서 특정 값이 변경되지 않을 경우 건너뛰도록 설정한다. 아래와 같이 사용한다면 `count`의 값에 변화가 있을 때만 effect가 실행되고, 그렇지 않을 경우 건너뛴다. **단 두 번째 인수의 배열은 컴포넌트 범위 내에서 바뀌는 값들과 effect에 의해 사용되는 값들을 모두 포함한다. 즉 useEffect 내부에서 의존성을 가지고 있는 값들은 모두 이 배열에 포함되어야 하므로 이를 의존성 배열(dependency array)라 한다.**
+**함수형 컴포넌트: dependency array**
+useEffect의 두 번째 인수에 배열을 넘겨서 특정 값이 변경되지 않을 경우 건너뛰도록 설정한다. 아래와 같이 사용한다면 `count`의 값에 변화가 있을 때만 effect가 실행되고, 그렇지 않을 경우 건너뛴다. **단 두 번째 인수의 배열은 컴포넌트 범위 내에서 바뀌는 값들과 effect에 의해 사용되는 값들을 모두 포함한다. 즉 useEffect 내부에서 의존성을 가지고 있는 값들은 모두 이 배열에 포함되어야 하므로 이를 의존성 배열(dependency array)라 한다.**
 
 ```javascript
 useEffect(() => {
