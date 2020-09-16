@@ -62,7 +62,7 @@ console.log(1);
 
 ---
 
-## 동시성 모델과 Event Loop, 자바스크립트 엔진의 구조
+## 동시성 모델과 Event Loop, 자바스크립트 엔진과 브라우저 환경의 구조
 
 ![MDN](https://developer.mozilla.org/files/4617/default.svg)
 [출처]:MDN
@@ -78,7 +78,7 @@ LIFO: Last In First Out
 객체가 저장되는 곳이다. 동적인 데이터를 저장하는 규모가 큰 구조화되지 않은 자료구조라고 볼 수 있다. Heap에 의해 점유된 메모리는 Javascript Code가 실행이 완료된 후에도 존재하며, 이후 JS Garbage Collector에 의해 제거된다.
 
 > Call Stack, Heap: 동기적 처리
-> Queue, Event Loop: 비동기적 처리(브라우저 또는 Node.js가 담당)
+> Web API, Queue, Event Loop: 비동기적 처리(브라우저 또는 Node.js가 담당)
 
 ## Web API
 
