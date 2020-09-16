@@ -10,7 +10,7 @@ tags:
 
 ## 프로미스의 생성
 
-Promise 생성자 함수를 new 연산자와 함께 호출하면 프로미스(`Promise 객체`)를 생성한다. Promise 객체는 비동기 작업이 맞이할 미래의 완료 또는 실패, 그 결과 값을 나타낸다. 또한 비동기 액션이 종료된 이후, 성공했을 때의 value나 실패 이유를 처리하기 위한 handler를 연결할 수 있도록 한다. 이처럼 프로미스를 사용하면 비동기 메서드에서도 동기 메서드처럼 최종 value를 반환할 수 있다. 다만 즉시 최종 value를 반환하지는 않고, 비동기 메서드가 프로미스를 반환하면 프로미스가 미래의 어떤 시점에 받을 value를 제공한다.
+Promise 생성자 함수를 new 연산자와 함께 호출하면 프로미스(`Promise 객체: 비동기 처리 상태와 처리 결과를 관리`)를 생성한다. Promise 객체는 비동기 작업이 맞이할 미래의 완료 또는 실패, 그 결과 값을 나타낸다. 또한 비동기 액션이 종료된 이후, 성공했을 때의 value나 실패 이유를 처리하기 위한 handler를 연결할 수 있도록 한다. **이처럼 프로미스를 사용하면 비동기 메서드에서도 동기 메서드처럼 최종 value를 반환할 수 있다.** 다만 즉시 최종 value를 반환하지는 않고, 비동기 메서드가 프로미스를 반환하면 프로미스가 미래의 어떤 시점에 받을 value를 제공한다.
 
 ```javascript
 // 프로미스 생성
@@ -122,6 +122,29 @@ new Promise((_, reject) => reject(new Error("rejected"))).catch((e) =>
 
 ```javascript
 new Promise(() => {}).finally(() => console.log("finally")); // finally
+```
+
+---
+
+## 프로미스 체이닝
+
+후속처리 메서드인 then, catch, finally는 언제나 프로미스를 반환하므로 연속적으로 호출할 수 있다. 이를 프로미스 체이닝이라 한다. 만약 후속 처리 메서드의 콜백 함수가 프로미스가 아닌 값을 반환하더라도 그 값을 암묵적으로 resolve 또는 reject하여 프로미스를 생성하여 반환한다.
+
+```javascript
+const url = "https://jsonplaceholder.typicode.com";
+
+// id가 1인 post의 userId를 취득
+promiseGet(`${url}/posts/1`)
+  // 취득한 post의 userId로 user 정보를 취득
+  //userId: promiseGet 함수가 반환한 프로미스가 resolve한 값
+  .then(({ userId }) => promiseGet(`${url}/users/${userId}`))
+  //return: 콜백 함수가 반환한 프로미스
+  //userInfo: 첫 번째 then 메서드가 반한한 프로미스가 resolve한 값
+  .then((userInfo) => console.log(userInfo))
+  //return: 콜백 함수가 반환한 값(undefined)을 resolve한 프로미스
+  //err: promiseGet 함수 또는 앞선 후속 처리 메서드가 반환한 프로미스가 reject한 값
+  .catch((err) => console.error(err));
+//return: 콜백 함수가 반환한 값(undefined)을 resolve한 프로미스
 ```
 
 ---
