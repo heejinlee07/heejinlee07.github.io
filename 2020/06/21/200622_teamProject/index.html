@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="soft development life cycle소프트웨어를 계획&#x2F;개발&#x2F;시험&#x2F;배포하는 과정요구사항 분석 -&gt; 설계 -&gt; 구현 -&gt; 테스트 -&gt; 유지 및 보수  build&amp;fix: 일단 만들고 고침. Prototype: 최소한의 요구사항 분석 후 프로토타입을 제작하여 고객의 요구를 개발에 적극적으로 도입. 고객 평가가 중요한 프로">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Team Project">
+<meta property="og:url" content="https://heejinlee07.github.io/2020/06/21/200622_teamProject/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="soft development life cycle소프트웨어를 계획&#x2F;개발&#x2F;시험&#x2F;배포하는 과정요구사항 분석 -&gt; 설계 -&gt; 구현 -&gt; 테스트 -&gt; 유지 및 보수  build&amp;fix: 일단 만들고 고침. Prototype: 최소한의 요구사항 분석 후 프로토타입을 제작하여 고객의 요구를 개발에 적극적으로 도입. 고객 평가가 중요한 프로">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-21T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-09-16T05:13:55.705Z">
+<meta property="article:author" content="Heejin Lee">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2020/06/21/200622_teamProject/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Team Project | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/06/21/200622_teamProject/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Team Project
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-22 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-22T00:00:00+09:00">2020-06-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-16 14:13:55" itemprop="dateModified" datetime="2020-09-16T14:13:55+09:00">2020-09-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="soft-development-life-cycle"><a href="#soft-development-life-cycle" class="headerlink" title="soft development life cycle"></a>soft development life cycle</h2><p>소프트웨어를 계획/개발/시험/배포하는 과정<br>요구사항 분석 -&gt; 설계 -&gt; 구현 -&gt; 테스트 -&gt; 유지 및 보수</p>
+<ul>
+<li>build&amp;fix: 일단 만들고 고침.</li>
+<li>Prototype: 최소한의 요구사항 분석 후 프로토타입을 제작하여 고객의 요구를 개발에 적극적으로 도입. 고객 평가가 중요한 프로덕트에 도입하는 모델. 외주의 느낌. 핵심기능을 모두 구현 + 부가기능을 붙이는 방식</li>
+<li>Waterfall: 요구사항 분석 -&gt; 설계 -&gt; 구현 -&gt; 운용이 순차적으로 진행. 대규모 팁에 적합. 각 단계를 완료하기 전까지 다음 단계로 넘어가지 않음. 분석이나 설계에서 빠진 사항이 있을 때 다음 단계에서 보충하기 어려움. 다시 cycle를 돌려야함.</li>
+<li>Spiral: 목표설정 -&gt; 위험분석 -&gt; 개발 및 검증 -&gt; 고객평가/다음단계수립을 반복. 점진적으로 단계를 반복수행하여 위험을 최소화. 대형 시스템 구축에 유리. 안정성.</li>
+<li>Agile software development:<ul>
+<li>프로젝트의 생명주기동안 반복적인 개발을 촉진하는 모델</li>
+<li>리스크에 대한 고민은 최소화. 분석 최소화. 문서화 생략. 속도와 코드가 핵심.</li>
+<li>TMP(Too Much Plan) TLP(Too Less Plan)의 타협.</li>
+<li>Code-oriented Methodology</li>
+<li>XP(eXtreme Programming), Scrum 등의 상세 방법론 존재. 흔히 사용되며, 최근엔 이 두가지를 섞어서 쓰는 방법이 많이 쓰임.</li>
+<li>직위체계가 사라지는 현상이 있어서 많이 안쓰기도 함.</li>
+</ul>
+</li>
+</ul>
+<h2 id="eXtreme-Programming"><a href="#eXtreme-Programming" class="headerlink" title="eXtreme Programming"></a>eXtreme Programming</h2><ul>
+<li>클라이언트 중심: 고객 중심의 양질의 소프트웨어를 빠른 시간 안에 전달한다.</li>
+<li>Business Requirements의 변동이 심한 경우 적합.</li>
+<li>Test Driven Development. 모듈에 대한 Test가 핵심.</li>
+</ul>
+<h3 id="XP-Key-Process"><a href="#XP-Key-Process" class="headerlink" title="XP - Key Process"></a>XP - Key Process</h3><ul>
+<li>Role: Project Manager, Technical writer, Interaction Designer, Architect, Tester, Programmer, User(stakeholder). 롤이 부여되고, 각자의 역할이 존재.</li>
+<li>planning: 2주 주기로 계획을 세우고 , 프로토타입을 통해 개발 방향 점검</li>
+<li>Test Driven Development: test code를 먼저 작성하고 기능을 개발한 뒤, 테스트를 통해 검증.</li>
+<li>pair programming: 2인 이상의 팀을 이뤄 한명이 drive하고, 한명은 QA 또는 navigator로 참여.</li>
+</ul>
+<h2 id="Scrum"><a href="#Scrum" class="headerlink" title="Scrum"></a>Scrum</h2><ul>
+<li>상호, 점진적 개발방법론</li>
+<li>개발할 기능, 수정사항에 대해 우선순위를 부여한 뒤, 이 순서대로 Task 진행</li>
+<li>매일 15분의 회의 진행</li>
+<li>1<del>4주의 Sprint(기획</del>리뷰)</li>
+<li>데일리 스크럼 필요: 내가 어떤 것을 하고 있는지, 어떤 것을 보충해야하는지에 대해 서로 논의.</li>
+</ul>
+<h3 id="Scrum-Key-Process"><a href="#Scrum-Key-Process" class="headerlink" title="Scrum - Key Process"></a>Scrum - Key Process</h3><ul>
+<li>Role: produce owner, scrum master, developer</li>
+<li>product backlog: 제품 전체의 요구사항</li>
+<li>planning meeting: sprint 목표와 sprint backlog 계획</li>
+<li>sprint backlog</li>
+<li>daily scrum: 어제 한 일, 오늘 할 일, issue 등 공유</li>
+</ul>
+<ol>
+<li>sprint 주기: 2주(deadline:중간발표, 최종발표일). 릴리즈 가능한 상태일 것</li>
+<li>requirement analysis -&gt; design -&gt; implementation(scrum with XP)</li>
+</ol>
+<ul>
+<li>planning meeting: sprint 기간 중 구현할 내용계획</li>
+<li>sprint backlog 작성: m/h 추산 및 분배를 통해 task분배</li>
+<li>daily scrum</li>
+<li>test-driven development(optional): 테스트코드 먼저 작성해 본 후 코드 작성</li>
+</ul>
+<h2 id="Before-Implementation"><a href="#Before-Implementation" class="headerlink" title="Before Implementation"></a>Before Implementation</h2><p>요구사항 분석을 통한 specification 작성. 필요한 기능에 대한 기획(사이트맵의 느낌)</p>
+<ul>
+<li><p>requirement analysis</p>
+<ul>
+<li>client</li>
+<li>functional</li>
+<li>external interface</li>
+</ul>
+</li>
+<li><p>wireframe, usecase(user flow), stroyboard(각 페이지가 어떻게 유기적으로 움직이는가)</p>
+</li>
+<li><p>design prototype(FE)</p>
+</li>
+<li><p>ERD(Entity Relationship Diagram)(BE)</p>
+</li>
+<li><p>API Design (FE + BE)</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/17/200618_contextApi/" rel="prev" title="Context API">
+      <i class="fa fa-chevron-left"></i> Context API
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/26/200627_styledComponents/" rel="next" title="Styled-Components">
+      Styled-Components <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#soft-development-life-cycle"><span class="nav-number">1.</span> <span class="nav-text">soft development life cycle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#eXtreme-Programming"><span class="nav-number">2.</span> <span class="nav-text">eXtreme Programming</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#XP-Key-Process"><span class="nav-number">2.1.</span> <span class="nav-text">XP - Key Process</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scrum"><span class="nav-number">3.</span> <span class="nav-text">Scrum</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrum-Key-Process"><span class="nav-number">3.1.</span> <span class="nav-text">Scrum - Key Process</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Before-Implementation"><span class="nav-number">4.</span> <span class="nav-text">Before Implementation</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
