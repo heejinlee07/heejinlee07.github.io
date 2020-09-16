@@ -56,9 +56,9 @@ tags:
 식별자와 스코프를 관리한다.
 |Lexical Environment|역할|
 |-----------------|-------------------|
-|<u>Execution Context</u>|Execution Context가 생성되면서 Lexical Environment를 생성함. |
+|Execution Context|Execution Context가 생성되면서 Lexical Environment를 생성함.|
 |Lexical Environment| 실행컨텍스트의 Lexical Environment와 렉시컬 환경을 연결|
-|<u>Lexical Environment</u>|실행컨텍스트의 Lexical Environment와 바인딩됨.|
+|Lexical Environment|실행컨텍스트의 Lexical Environment와 바인딩됨.|
 |Environment Record|식별자 등록, this 바인딩 된 값을 관리|
 |Outer Lexical Environment Reference|상위 스코프를 관리. 이를 통해 스코프 체인 구성|
 
