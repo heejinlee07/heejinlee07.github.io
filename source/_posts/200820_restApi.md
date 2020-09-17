@@ -55,16 +55,14 @@ GET /weathers/1 -> O
 
 ### 리소스 간의 관계를 표현
 
-```
 /리소스명/리소스 ID/관계가 있는 다른 리소스명
 
-ex)    GET : /users/{userid}/devices
+ex) GET : /users/{userid}/devices
 (일반적으로 소유 ‘has’의 관계를 표현할 때)
 
 서브 리소스에 명시적으로 표현
 ex) GET : /users/{userid}/likes/devices
 (관계명이 애매하거나 구체적 표현이 필요할 때)
-```
 
 ### 자원을 표현
 
@@ -75,9 +73,25 @@ ex) GET : /users/{userid}/likes/devices
 
 ex) http\_://restapi.example.com/sports(**collection**)/soccer(**Document**)/players(**collection**)/13(**Document**)
 
+## HTTP 응답 상태 코드
+
+1. 정상적인 수행
+   200: 클라이언트의 요청을 정상적으로 수행함.
+2. 클라이언트 에러 응답
+   404: 요청받은 리소스를 찾을 수 없음.
+3. 서버 에러 응답
+   500: 서버가 처리 방법을 모르는 상황. 서버에 문제가 있다.
+4. 리다이렉션
+   301: 요청한 리소스의 URI가 변경되었음
+
 ---
 
 _References_
 [TOAST](https://meetup.toast.com/posts/92)
 [CRUD](https://ko.wikipedia.org/wiki/CRUD)
+[MDN](https://developer.mozilla.org/ko/docs/Glossary/URI)
 [poiemaweb](https://poiemaweb.com/fastcampus/rest-api)
+
+```
+
+```

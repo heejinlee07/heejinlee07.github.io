@@ -80,4 +80,5 @@ useContext를 사용하면 Context를 편하게 사용할 수 있다. _단, 이�
 
 _Reference_
 [react](https://ko.reactjs.org/docs/render-props.html#gatsby-focus-wrapper)
-[Udemy][리액트를 다루는 기술]
+Udemy
+리액트를 다루는 기술

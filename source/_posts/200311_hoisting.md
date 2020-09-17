@@ -44,7 +44,7 @@ function add(x, y) {
 console.dir(sub); //undefined
 console.log(sub(2, 5)); //typeError
 
-var sub = function(x, y) {
+var sub = function (x, y) {
   return x - y;
 };
 ```
@@ -81,17 +81,3 @@ console.log(foo); // 1
 
 `var와 let의 차이점`
 var와 let 모두 런타임 이전에 암묵적으로 선언단계가 실행된다. 그런데 var는 런타임 이전에 선언을 하고 undefined라는 값으로 초기화하는 단계까지 진행된다. 따라서 런타임 이전에 값을 호출하면 undefined라는 값이 출력되는 것이다. 그러나 let은 런타임 이전에 선언 단계만 실행된다. 초기화는 런타임 때 변수 선언문을 만났을 때 이루어지기 때문에 스코프의 시작 지점부터 변수 선언문을 만나 초기화가 이루어지는 단계까지는 변수에 접근하려고 해도 참조 에러가 발생하게 되는 것이다. 이를 일시적 사각지대라고 한다.
-
----
-
-`수업시간 rubberduck 키워드`
-
-`전역변수의 문제점`
-
-`var 키워드의 문제점`
-
-`var/let/const`
-
-`프로퍼티 어트리뷰트`
-
-`접근자 프로퍼티`

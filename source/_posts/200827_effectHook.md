@@ -60,7 +60,7 @@ class Example extends React.Component {
 
 <u>함수 컴포넌트: useEffect hook 사용</u>
 
-> useEffect hook은 리액트에게 컴포넌트가 렌더링 된 후 어떤 일을 수행해야하는지 알려준다. effect를 기억해두었다가 DOM 어데이트 수행 후 불러낸다. useEffect는 컴포넌트 안에서 호출되기 때문에 아래 예제와 같이 count 변수(또는 그 어떤 prop)에도 접근할 수 있다. 함수 범위 안에 존재하기 때문이다.
+> useEffect hook은 리액트에게 컴포넌트가 렌더링 된 후 어떤 일을 수행해야하는지 알려준다. effect를 기억해두었다가 DOM 업데이트 수행 후 불러낸다. useEffect는 컴포넌트 안에서 호출되기 때문에 아래 예제와 같이 count 변수(또는 그 어떤 prop)에도 접근할 수 있다. 함수 범위 안에 존재하기 때문이다.
 
 ```javascript
 import React, { useState, useEffect } from "react";
