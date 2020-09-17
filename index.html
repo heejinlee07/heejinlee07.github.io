@@ -169,7 +169,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-09-17 00:00:00 / Modified: 10:14:55" itemprop="dateCreated datePublished" datetime="2020-09-17T00:00:00+09:00">2020-09-17</time>
+              <time title="Created: 2020-09-17 00:00:00 / Modified: 10:24:04" itemprop="dateCreated datePublished" datetime="2020-09-17T00:00:00+09:00">2020-09-17</time>
             </span>
 
           
@@ -234,7 +234,7 @@
 <h2 id="클로저와-렉시컬-환경"><a href="#클로저와-렉시컬-환경" class="headerlink" title="클로저와 렉시컬 환경"></a>클로저와 렉시컬 환경</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> name = <span class="string">"Mozilla"</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">displayName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(name);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> displayName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myFunc = makeFunc();</span><br><span class="line"><span class="comment">//myFunc변수에 displayName을 리턴함</span></span><br><span class="line"><span class="comment">//유효범위의 어휘적 환경을 유지</span></span><br><span class="line">myFunc();</span><br><span class="line"><span class="comment">//리턴된 displayName 함수를 실행(name 변수에 접근)</span></span><br></pre></td></tr></table></figure>
 
 <p>위 함수에서 makeFunc()가 실행되어 displayName을 리턴하게 되면, 함수의 호출이 종료되어 생명 주기가 다하였기 때문에 더이상 makeFunc()함수 내부의 지역변수에 접근할 수 없을 것으로 생각된다. <strong>그러나 클로저는 이와 같은 생명 주기가 끝난 외부의 변수도 참조할 수 있다.</strong> 외부함수인 makeFunc()가 종료되었으나 myFunc에 makeFunc()를 할당하였기 때문에 myFunc()를 호출하면 displayName을 리턴하고, 이미 함수의 실행이 끝나 접근할 수 없을 것이라 생각했던 name 변수의 값이 return 된다.</p>
-<p><strong>이처럼 외부함수가 중첩함수보다 더 오래 유지되는 경우 외부 함수 밖에서 중첩 함수를 호출하더라도 외부 함수의 지역 변수에 접근할 수 있고, 이를 클로저라 한다. <em>단, 중첩 함수가 외부 함수보다 더 오래 유지되는데, 상위 스코프의 어떠한 식별자도 참조하지 않는 경우는 클로저가 아니다.</em></strong></p>
+<p><strong>이처럼 중첩함수가 외부함수보다 더 오래 유지되는 경우 외부 함수 밖에서 중첩 함수를 호출하더라도 외부 함수의 지역 변수에 접근할 수 있고, 이를 클로저라 한다. <em>단, 중첩 함수가 외부 함수보다 더 오래 유지되는데, 상위 스코프의 어떠한 식별자도 참조하지 않는 경우는 클로저가 아니다.</em></strong></p>
 <h2 id="클로저의-작동-원리"><a href="#클로저의-작동-원리" class="headerlink" title="클로저의 작동 원리"></a>클로저의 작동 원리</h2><p>앞서 <strong>클로저는 함수와 함수가 선언된 렉시컬 환경의 조합</strong>이라고 하였기 때문에 이 점을 다시 생각해보면 클로저의 작동원리가 명확해진다.</p>
 <p><strong>다시 말해 함수가 선언(정의)된 위치의 스코프와 이 시점에 정적으로 결정된 상위 스코프(렉시컬 스코프)의 렉시컬 환경을 클로저라 한다.</strong></p>
 <ul>
@@ -298,7 +298,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-17 10:14:55" itemprop="dateModified" datetime="2020-09-17T10:14:55+09:00">2020-09-17</time>
+                <time title="Modified: 2020-09-17 10:24:04" itemprop="dateModified" datetime="2020-09-17T10:24:04+09:00">2020-09-17</time>
               </span>
 
           
@@ -406,7 +406,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-17 10:14:55" itemprop="dateModified" datetime="2020-09-17T10:14:55+09:00">2020-09-17</time>
+                <time title="Modified: 2020-09-17 10:24:04" itemprop="dateModified" datetime="2020-09-17T10:24:04+09:00">2020-09-17</time>
               </span>
 
           
@@ -598,7 +598,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-17 10:14:55" itemprop="dateModified" datetime="2020-09-17T10:14:55+09:00">2020-09-17</time>
+                <time title="Modified: 2020-09-17 10:24:04" itemprop="dateModified" datetime="2020-09-17T10:24:04+09:00">2020-09-17</time>
               </span>
 
           
@@ -702,7 +702,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-17 10:14:55" itemprop="dateModified" datetime="2020-09-17T10:14:55+09:00">2020-09-17</time>
+                <time title="Modified: 2020-09-17 10:24:04" itemprop="dateModified" datetime="2020-09-17T10:24:04+09:00">2020-09-17</time>
               </span>
 
           
@@ -789,7 +789,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-17 10:14:55" itemprop="dateModified" datetime="2020-09-17T10:14:55+09:00">2020-09-17</time>
+                <time title="Modified: 2020-09-17 10:24:04" itemprop="dateModified" datetime="2020-09-17T10:24:04+09:00">2020-09-17</time>
               </span>
 
           
@@ -954,7 +954,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-17 10:14:55" itemprop="dateModified" datetime="2020-09-17T10:14:55+09:00">2020-09-17</time>
+                <time title="Modified: 2020-09-17 10:24:04" itemprop="dateModified" datetime="2020-09-17T10:24:04+09:00">2020-09-17</time>
               </span>
 
           
@@ -1067,7 +1067,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-17 10:14:55" itemprop="dateModified" datetime="2020-09-17T10:14:55+09:00">2020-09-17</time>
+                <time title="Modified: 2020-09-17 10:24:04" itemprop="dateModified" datetime="2020-09-17T10:24:04+09:00">2020-09-17</time>
               </span>
 
           
@@ -1180,7 +1180,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-17 10:14:55" itemprop="dateModified" datetime="2020-09-17T10:14:55+09:00">2020-09-17</time>
+                <time title="Modified: 2020-09-17 10:24:04" itemprop="dateModified" datetime="2020-09-17T10:24:04+09:00">2020-09-17</time>
               </span>
 
           
@@ -1322,7 +1322,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-17 10:14:55" itemprop="dateModified" datetime="2020-09-17T10:14:55+09:00">2020-09-17</time>
+                <time title="Modified: 2020-09-17 10:24:04" itemprop="dateModified" datetime="2020-09-17T10:24:04+09:00">2020-09-17</time>
               </span>
 
           
