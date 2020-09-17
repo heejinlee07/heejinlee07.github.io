@@ -91,7 +91,3 @@ _References_
 [CRUD](https://ko.wikipedia.org/wiki/CRUD)
 [MDN](https://developer.mozilla.org/ko/docs/Glossary/URI)
 [poiemaweb](https://poiemaweb.com/fastcampus/rest-api)
-
-```
-
-```
