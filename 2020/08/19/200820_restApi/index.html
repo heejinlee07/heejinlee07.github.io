@@ -28,7 +28,7 @@
 <meta property="og:description" content="REST(Representational State Transfer)2000년도에 로이 필딩 (Roy Fielding)의 박사학위 논문에서 최초로 소개된 개념  REST: HTTP를 기반으로 클라이언트가 서버의 리소스에 접근하는 방식을 규정한 아키텍처 REST API: REST를 기반으로 서비스 API를 구현한 것  REST API의 구성 자원(RESOURC">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-08-19T15:00:00.000Z">
-<meta property="article:modified_time" content="2020-09-17T01:57:58.676Z">
+<meta property="article:modified_time" content="2020-09-17T14:33:03.632Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-17 10:57:58" itemprop="dateModified" datetime="2020-09-17T10:57:58+09:00">2020-09-17</time>
+                <time title="Modified: 2020-09-17 23:33:03" itemprop="dateModified" datetime="2020-09-17T23:33:03+09:00">2020-09-17</time>
               </span>
 
           
@@ -258,16 +258,24 @@
 <li>URI 경로에는 소문자가 적합하다.</li>
 <li>파일 확장자는 URI에 포함시키지 않는다.</li>
 </ol>
-<h3 id="리소스-간의-관계를-표현"><a href="#리소스-간의-관계를-표현" class="headerlink" title="리소스 간의 관계를 표현"></a>리소스 간의 관계를 표현</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;리소스명&#x2F;리소스 ID&#x2F;관계가 있는 다른 리소스명</span><br><span class="line"></span><br><span class="line">ex)    GET : &#x2F;users&#x2F;&#123;userid&#125;&#x2F;devices</span><br><span class="line">(일반적으로 소유 ‘has’의 관계를 표현할 때)</span><br><span class="line"></span><br><span class="line">서브 리소스에 명시적으로 표현</span><br><span class="line">ex) GET : &#x2F;users&#x2F;&#123;userid&#125;&#x2F;likes&#x2F;devices</span><br><span class="line">(관계명이 애매하거나 구체적 표현이 필요할 때)</span><br></pre></td></tr></table></figure>
-
+<h3 id="리소스-간의-관계를-표현"><a href="#리소스-간의-관계를-표현" class="headerlink" title="리소스 간의 관계를 표현"></a>리소스 간의 관계를 표현</h3><p>/리소스명/리소스 ID/관계가 있는 다른 리소스명</p>
+<p>ex) GET : /users/{userid}/devices<br>(일반적으로 소유 ‘has’의 관계를 표현할 때)</p>
+<p>서브 리소스에 명시적으로 표현<br>ex) GET : /users/{userid}/likes/devices<br>(관계명이 애매하거나 구체적 표현이 필요할 때)</p>
 <h3 id="자원을-표현"><a href="#자원을-표현" class="headerlink" title="자원을 표현"></a>자원을 표현</h3><p>컬렉션과 도큐먼트로 URI에 표현</p>
 <ul>
 <li>Collection: 문서 또는 객체들의 집합. <u>컬렉션은 복수형으로 사용</u></li>
 <li>Document: 문서</li>
 </ul>
 <p>ex) http_://restapi.example.com/sports(<strong>collection</strong>)/soccer(<strong>Document</strong>)/players(<strong>collection</strong>)/13(<strong>Document</strong>)</p>
+<h2 id="HTTP-응답-상태-코드"><a href="#HTTP-응답-상태-코드" class="headerlink" title="HTTP 응답 상태 코드"></a>HTTP 응답 상태 코드</h2><ol>
+<li>정상적인 수행<br>200: 클라이언트의 요청을 정상적으로 수행함.</li>
+<li>클라이언트 에러 응답<br>404: 요청받은 리소스를 찾을 수 없음.</li>
+<li>서버 에러 응답<br>500: 서버가 처리 방법을 모르는 상황. 서버에 문제가 있다.</li>
+<li>리다이렉션<br>301: 요청한 리소스의 URI가 변경되었음</li>
+</ol>
 <hr>
-<p><em>References</em><br><a href="https://meetup.toast.com/posts/92" target="_blank" rel="noopener">TOAST</a><br><a href="https://ko.wikipedia.org/wiki/CRUD" target="_blank" rel="noopener">CRUD</a><br><a href="https://poiemaweb.com/fastcampus/rest-api" target="_blank" rel="noopener">poiemaweb</a></p>
+<p><em>References</em><br><a href="https://meetup.toast.com/posts/92" target="_blank" rel="noopener">TOAST</a><br><a href="https://ko.wikipedia.org/wiki/CRUD" target="_blank" rel="noopener">CRUD</a><br><a href="https://developer.mozilla.org/ko/docs/Glossary/URI" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/rest-api" target="_blank" rel="noopener">poiemaweb</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -349,7 +357,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#REST-Representational-State-Transfer"><span class="nav-number">1.</span> <span class="nav-text">REST(Representational State Transfer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REST-API의-구성"><span class="nav-number">2.</span> <span class="nav-text">REST API의 구성</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REST-API-설계-원칙"><span class="nav-number">3.</span> <span class="nav-text">REST API 설계 원칙</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URI-설계-시-주의사항"><span class="nav-number">4.</span> <span class="nav-text">URI 설계 시 주의사항</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#리소스-간의-관계를-표현"><span class="nav-number">4.1.</span> <span class="nav-text">리소스 간의 관계를 표현</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#자원을-표현"><span class="nav-number">4.2.</span> <span class="nav-text">자원을 표현</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#REST-Representational-State-Transfer"><span class="nav-number">1.</span> <span class="nav-text">REST(Representational State Transfer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REST-API의-구성"><span class="nav-number">2.</span> <span class="nav-text">REST API의 구성</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REST-API-설계-원칙"><span class="nav-number">3.</span> <span class="nav-text">REST API 설계 원칙</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URI-설계-시-주의사항"><span class="nav-number">4.</span> <span class="nav-text">URI 설계 시 주의사항</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#리소스-간의-관계를-표현"><span class="nav-number">4.1.</span> <span class="nav-text">리소스 간의 관계를 표현</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#자원을-표현"><span class="nav-number">4.2.</span> <span class="nav-text">자원을 표현</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-응답-상태-코드"><span class="nav-number">5.</span> <span class="nav-text">HTTP 응답 상태 코드</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -363,7 +371,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

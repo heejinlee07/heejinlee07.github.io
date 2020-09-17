@@ -23,16 +23,16 @@
   <meta name="description" content="변수 호이스팅변수 선언: 변수를 생성하는 것. 자바스크립트 엔진은 선언-초기화의 2단계에 걸쳐 변수 선언을 수행한다.  선언 단계: 변수 이름을 등록하여 자바스크립트 엔진에 변수의 존재를 알린다. 초기화 단계: 값을 저장하기 위한 메모리 공간을 확보하고 암묵적으로 undefined를 할당.  12console.log(score); &#x2F;&#x2F;undefinedvar">
 <meta property="og:type" content="article">
 <meta property="og:title" content="변수 호이스팅">
-<meta property="og:url" content="https://heejinlee07.github.io/2020/03/10/0311_rubberduck/index.html">
+<meta property="og:url" content="https://heejinlee07.github.io/2020/03/10/200311_hoisting/index.html">
 <meta property="og:site_name" content="Heejin">
 <meta property="og:description" content="변수 호이스팅변수 선언: 변수를 생성하는 것. 자바스크립트 엔진은 선언-초기화의 2단계에 걸쳐 변수 선언을 수행한다.  선언 단계: 변수 이름을 등록하여 자바스크립트 엔진에 변수의 존재를 알린다. 초기화 단계: 값을 저장하기 위한 메모리 공간을 확보하고 암묵적으로 undefined를 할당.  12console.log(score); &#x2F;&#x2F;undefinedvar">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-10T15:00:00.000Z">
-<meta property="article:modified_time" content="2020-09-17T01:57:58.672Z">
+<meta property="article:modified_time" content="2020-09-17T14:33:03.632Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://heejinlee07.github.io/2020/03/10/0311_rubberduck/">
+<link rel="canonical" href="https://heejinlee07.github.io/2020/03/10/200311_hoisting/">
 
 
 <script id="page-configurations">
@@ -146,7 +146,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/10/0311_rubberduck/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/10/200311_hoisting/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-17 10:57:58" itemprop="dateModified" datetime="2020-09-17T10:57:58+09:00">2020-09-17</time>
+                <time title="Modified: 2020-09-17 23:33:03" itemprop="dateModified" datetime="2020-09-17T23:33:03+09:00">2020-09-17</time>
               </span>
 
           
@@ -207,7 +207,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dir(add); <span class="comment">//f add(x,y)</span></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">//7</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>변수 호이스팅</code><br>함수 표현식은 변수 할당문의 값이 함수 리터럴인 문이다. 따라서 변수 선언문과 변수 할당문의 축약 표현과 동일하게 동작한다. 따라서 함수 표현식을 표현식 이전에 호출하면 typeError, 참조하면 undefined가 발생한다. 변수 할당문의 값은 할당문이 실행되는 런타임에 평가되기 때문에 런타임 때 비로소 평가되어 함수 객체가 된다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dir(sub); <span class="comment">//undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(sub(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">//typeError</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sub = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x - y;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dir(sub); <span class="comment">//undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(sub(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">//typeError</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sub = <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x - y;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p><code>var 키워드의 변수 호이스팅</code><br>var 키워드는 변수 호이스팅에 의해 변수 선언문 이전에 참조 가능하다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// var 키워드로 선언한 변수</span></span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// undefined 런타임 이전에 참조가능</span></span><br><span class="line"><span class="comment">//선언과 초기화가 런타임 이전에 동시에 이루어진다.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo;</span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">foo = <span class="number">1</span>; <span class="comment">// 할당문에서 할당 단계가 실행된다.</span></span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
@@ -216,13 +216,6 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// ReferenceError: foo is not defined</span></span><br><span class="line"><span class="comment">//런타임 이전에 선언 단계만 실행된다.</span></span><br><span class="line"><span class="comment">//변수 초기화가 아직 이루어지지 않았으므로 참조가 불가하다.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> foo; <span class="comment">// 변수 선언문에서 초기화 단계가 실행된다.</span></span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">foo = <span class="number">1</span>; <span class="comment">// 할당문에서 할당 단계가 실행된다.</span></span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
 
 <p><code>var와 let의 차이점</code><br>var와 let 모두 런타임 이전에 암묵적으로 선언단계가 실행된다. 그런데 var는 런타임 이전에 선언을 하고 undefined라는 값으로 초기화하는 단계까지 진행된다. 따라서 런타임 이전에 값을 호출하면 undefined라는 값이 출력되는 것이다. 그러나 let은 런타임 이전에 선언 단계만 실행된다. 초기화는 런타임 때 변수 선언문을 만났을 때 이루어지기 때문에 스코프의 시작 지점부터 변수 선언문을 만나 초기화가 이루어지는 단계까지는 변수에 접근하려고 해도 참조 에러가 발생하게 되는 것이다. 이를 일시적 사각지대라고 한다.</p>
-<hr>
-<p><code>수업시간 rubberduck 키워드</code></p>
-<p><code>전역변수의 문제점</code></p>
-<p><code>var 키워드의 문제점</code></p>
-<p><code>var/let/const</code></p>
-<p><code>프로퍼티 어트리뷰트</code></p>
-<p><code>접근자 프로퍼티</code></p>
 
     </div>
 
@@ -318,7 +311,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
