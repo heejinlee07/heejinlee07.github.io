@@ -91,7 +91,7 @@ setTimeout이나 setInterval과 같은 비동기 함수의 콜백 함수 또는 
 
 ## Event Loop
 
-Call Stack과 Queue를 반복해서 확인하는 감시자 역할. 감시하다가 Call Stack이 비어있고, Queue에 대기 중인 함수가 있다면 FIFO로 Queue에 있는 함수를 Call Stack로 이동시켜 실행한다.
+Call Stack과 Queue를 반복해서 확인하는 감시자 역할. 감시하다가 Call Stack이 비어있고, Queue에 대기 중인 함수가 있다면 Queue에 있는 함수를 Call Stack로 이동시켜 실행한다.
 
 ---
 
