@@ -144,6 +144,124 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/25/200225_scope/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/25/200225_scope/" class="post-title-link" itemprop="url">스코프 / Scope</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-26 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-26T00:00:00+09:00">2020-02-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-21 15:50:46" itemprop="dateModified" datetime="2020-09-21T15:50:46+09:00">2020-09-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="스코프"><a href="#스코프" class="headerlink" title="스코프"></a>스코프</h2><p>모든 식별자(변수 이름, 함수 이름, 클래스 이름 등)는 자신이 선언된 위치에 의해 다른 코드가 식별자 자신을 참조할 수 있는 유효 범위가 결정된다. 이를 스코프(Scope, 유효범위)라 한다. <em>즉, 스코프는 식별자가 유효한 범위를 말한다.</em></p>
+<p>스코프(유효 범위)를 통해 식별자인 변수 이름의 충돌을 방지하여 같은 이름의 변수를 사용할 수 있도록 한다. 스코프 내에서 식별자는 유일한 것으로 중복되어선 안된다. 따라서 만약 한 스코프 내에 ‘variable’라는 이름의 식별자가 있다면, 이 스코프 내에서는 한 번만 사용할 수 있다. 그러나 다른 스코프에서 동일한 이름의 ‘variable’라는 식별자를 사용하는 것은 가능하다.</p>
+<h2 id="스코프가-왜-중요한가"><a href="#스코프가-왜-중요한가" class="headerlink" title="스코프가 왜 중요한가?"></a>스코프가 왜 중요한가?</h2><ul>
+<li>네임스페이스 충돌을 방지할 수 있다.</li>
+<li>변수가 임의 수정되는 현상을 방지할 수 있다.</li>
+</ul>
+<h2 id="스코프의-종류"><a href="#스코프의-종류" class="headerlink" title="스코프의 종류"></a>스코프의 종류</h2><p>변수는 자신이 선언된 위치(전역 or 지역)에 의해 자신이 유효한 범위인 스코프가 결정됨.</p>
+<ul>
+<li><code>전역(global)</code>: 코드의 가장 바깥 영역, 전역 스코프, 전역 변수<ul>
+<li>전역 변수는 어디에서나 참조할 수 있다.</li>
+<li>함수나 블록 안에 들어 있지 않은 모든 변수를 의미한다.</li>
+</ul>
+</li>
+<li><code>지역(local)</code>: 함수 몸체 내부, 지역 스코프, 지역 변수<ul>
+<li>자신이 선언된 지역과 하위 지역(중첩 함수)에서만 참조할 수 있다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="스코프-체인"><a href="#스코프-체인" class="headerlink" title="스코프 체인"></a>스코프 체인</h2><p>스코프는 함수의 중첩에 의해 계층적 구조를 갖고, 모든 지역의 최상위 스코프는 <code>전역 스코프</code>이다. <strong>이처럼 스코프가 계층적으로 연결된 것을 스코프 체인</strong>이라 한다. <u>스코프 체인은 실행 컨텍스트의 렉시컬 환경(코드가 어기서 실행되었고, 주변에 어떤 코드가 있는 지에 관한 context)을 단방향으로 연결한 것이다.</u></p>
+<ul>
+<li><code>외부 함수</code>: 중첩 함수를 포함하는 함수</li>
+<li><code>중첩 함수</code>: 함수 몸체 내부에 정의한 함수</li>
+</ul>
+<p>자바스크립트 엔진은 스코프 체인을 따라 <strong>변수를 참조하는 코드의 스코프에서 상위 스코프 방향으로 이동</strong>하며 선언된 변수를 검색한다. 절대 하위 스코프로 내려가면서 식별자를 검색하는 일은 없다. 이는 상위 스코프에서 유효한 변수는 하위 스코프에서 자유롭게 참조할 수 있지만 <u>하위 스코프에서 유효한 변수를 상위 스코프에서 참조할 수 없다는 것을 의미한다.</u></p>
+<h2 id="함수-레벨-스코프"><a href="#함수-레벨-스코프" class="headerlink" title="함수 레벨 스코프"></a>함수 레벨 스코프</h2><ul>
+<li><code>함수 레벨 스코프</code>: 코드 블록이 아닌 <code>함수</code>에 의해서 생성된 코드 블록을 지역 스코프로 인정한다.</li>
+<li><code>블록 레벨 스코프</code>: 함수 몸체 만이 아니라 모든 코드 블록(if, for, while, try/catch 등)이 지역 스코프를 만든다. e.g. java, c 등</li>
+<li>단, var키워드는 함수 내부가 아닌 곳에서 선언하면 코드 블록 내에서 선언되었다 하더라도 <code>전역 변수</code>라서 중복선언을 허용하는데, 함수의 코드 블록만이 <code>지역 스코프</code>로 인정된다.</li>
+</ul>
+<h2 id="렉시컬-스코프"><a href="#렉시컬-스코프" class="headerlink" title="렉시컬 스코프"></a>렉시컬 스코프</h2><ul>
+<li><code>동적 스코프</code>: 함수 정의 시점에는 함수가 어디서 호출될 지 알 수 없다. 따라서 함수가 호출되는 시점에 동적으로 상위 스코프를 결정하는 것을 말한다.</li>
+<li><code>렉시컬 스코프 (정적 스코프)</code>: 함수 정의가 평가되는 시점에 상위 스코프가 정적으로 결정, 자바스크립트는 함수를 어디서 정의했는지에 따라 상위 스코프를 결정하므로 렉시컬 스코프를 따른다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">스코프</th>
+<th align="center">조건</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">동적 스코프</td>
+<td align="center">함수를 <code>호출</code>한 곳</td>
+<td align="left">함수 정의 시점에 함수가 호출될 곳이 어딘지 알 수 없음. <strong>함수가 호출되는 시점에 동적으로 상위 스코프 결정</strong></td>
+</tr>
+<tr>
+<td align="center">정적(렉시컬) 스코프</td>
+<td align="center">함수를 <code>정의</code>한 곳</td>
+<td align="left">함수 정의 시점에 상위 스코프가 정적으로 결정됨. <strong>함수 호출 위치와는 관련없음.</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/scope" target="_blank" rel="noopener">poiemaweb</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/25/200226_scope_ex/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +293,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 23:49:37" itemprop="dateModified" datetime="2020-09-18T23:49:37+09:00">2020-09-18</time>
+                <time title="Modified: 2020-09-21 15:50:46" itemprop="dateModified" datetime="2020-09-21T15:50:46+09:00">2020-09-21</time>
               </span>
 
           
@@ -251,7 +369,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 23:49:37" itemprop="dateModified" datetime="2020-09-18T23:49:37+09:00">2020-09-18</time>
+                <time title="Modified: 2020-09-21 15:50:46" itemprop="dateModified" datetime="2020-09-21T15:50:46+09:00">2020-09-21</time>
               </span>
 
           
@@ -332,7 +450,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 23:49:37" itemprop="dateModified" datetime="2020-09-18T23:49:37+09:00">2020-09-18</time>
+                <time title="Modified: 2020-09-21 15:50:46" itemprop="dateModified" datetime="2020-09-21T15:50:46+09:00">2020-09-21</time>
               </span>
 
           
@@ -402,7 +520,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 23:49:37" itemprop="dateModified" datetime="2020-09-18T23:49:37+09:00">2020-09-18</time>
+                <time title="Modified: 2020-09-21 15:50:46" itemprop="dateModified" datetime="2020-09-21T15:50:46+09:00">2020-09-21</time>
               </span>
 
           
@@ -530,7 +648,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 23:49:37" itemprop="dateModified" datetime="2020-09-18T23:49:37+09:00">2020-09-18</time>
+                <time title="Modified: 2020-09-21 15:50:46" itemprop="dateModified" datetime="2020-09-21T15:50:46+09:00">2020-09-21</time>
               </span>
 
           
@@ -629,7 +747,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 23:49:37" itemprop="dateModified" datetime="2020-09-18T23:49:37+09:00">2020-09-18</time>
+                <time title="Modified: 2020-09-21 15:50:46" itemprop="dateModified" datetime="2020-09-21T15:50:46+09:00">2020-09-21</time>
               </span>
 
           
@@ -728,7 +846,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 23:49:37" itemprop="dateModified" datetime="2020-09-18T23:49:37+09:00">2020-09-18</time>
+                <time title="Modified: 2020-09-21 15:50:46" itemprop="dateModified" datetime="2020-09-21T15:50:46+09:00">2020-09-21</time>
               </span>
 
           
@@ -845,7 +963,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 23:49:37" itemprop="dateModified" datetime="2020-09-18T23:49:37+09:00">2020-09-18</time>
+                <time title="Modified: 2020-09-21 15:50:46" itemprop="dateModified" datetime="2020-09-21T15:50:46+09:00">2020-09-21</time>
               </span>
 
           
@@ -954,7 +1072,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 23:49:37" itemprop="dateModified" datetime="2020-09-18T23:49:37+09:00">2020-09-18</time>
+                <time title="Modified: 2020-09-21 15:50:46" itemprop="dateModified" datetime="2020-09-21T15:50:46+09:00">2020-09-21</time>
               </span>
 
           
@@ -1057,188 +1175,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/21/200223_operator/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/21/200223_operator/" class="post-title-link" itemprop="url">연산자 / operator</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-22 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-22T00:00:00+09:00">2020-02-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 23:49:37" itemprop="dateModified" datetime="2020-09-18T23:49:37+09:00">2020-09-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="연산자"><a href="#연산자" class="headerlink" title="연산자"></a>연산자</h2><p>하나 이상의 표현식을 대상으로 산술, 할당, 비교, 논리, 타입, 지수 연산(operation) 등을 수행해 하나의 값을 만든다. 이때 연산의 대상을 피연산자(Operand)라 하고, 이는 값으로 평가될 수 있는 표현식이어야 한다.</p>
-<ul>
-<li>변수와 값을 어떻게 작동하게 할 것인지에 관한 것.</li>
-<li>프로그래밍 언어에서 특정 연산을 하도록 하는 문자.</li>
-<li>테스트 수행, 연산, 문자열 합치기 등등에 사용.</li>
-<li><code>연산자의 부수 효과:</code>s 대부분의 연산자는 다른 코드에 영향을 주지 않는다. 하지만 일부 연산자는 부수 효과가 있다. 부수 효과가 있는 연산자는 할당(=) 연산자, 증가/감소(++/–) 연산자, delete 연산자이다.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">target variable = source value</span><br><span class="line">a = <span class="number">42</span> (<span class="number">42</span> 값을 a에 할당한다.)</span><br><span class="line">값 + 값 = 새로운 값</span><br></pre></td></tr></table></figure>
-
-<p><code>피연산자, 피연산자 + 연산자의 조합으로 이루어진 연산자 표현식 모두 &#39;값&#39;으로 평가될 수 있어야 한다.</code></p>
-<h2 id="산술-연산자-Arithmetic-Operator"><a href="#산술-연산자-Arithmetic-Operator" class="headerlink" title="산술 연산자 (Arithmetic Operator)"></a>산술 연산자 (Arithmetic Operator)</h2><p>피연산자를 대상으로 수학적 계산(사칙 연산)을 수행해 새로운 숫자 값을 만들며, 피연산자의 개수에 따라 이항 산술 연산자 or 단항 산술 연산자로 구분한다. <em>산술 연산이 불가능한 경우, NaN을 반환한다.</em></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">덧셈(+) : <span class="number">5</span> + <span class="number">2</span>; <span class="comment">// 7</span></span><br><span class="line">뺄셈(-) : <span class="number">5</span> - <span class="number">2</span>; <span class="comment">// 3</span></span><br><span class="line">곱셈(*) : <span class="number">5</span> * <span class="number">2</span>; <span class="comment">// 10</span></span><br><span class="line">나눗셈(<span class="regexp">/) : 5 /</span> <span class="number">2</span>; <span class="comment">// 2.5</span></span><br><span class="line">나머지(%) : <span class="number">5</span> % <span class="number">2</span>; <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="이항-산술-연산자-Binary-operators"><a href="#이항-산술-연산자-Binary-operators" class="headerlink" title="이항 산술 연산자 (Binary operators)"></a>이항 산술 연산자 (Binary operators)</h3><p>2개의 피연산자를 산술 연산하여 숫자 타입의 값을 만든다. <em>피연산자의 값을 변경하는 부수 효과는 없다. 언제나 새로운 값을 만들 뿐이다.</em></p>
-<blockquote>
-<p>operand1 operator operand2 ex) 3 + 4</p>
-</blockquote>
-<h3 id="단항-산술-연산자-Unary-operators"><a href="#단항-산술-연산자-Unary-operators" class="headerlink" title="단항 산술 연산자 (Unary operators)"></a>단항 산술 연산자 (Unary operators)</h3><p>1개의 피연산자를 산술 연산하여 숫자 타입의 값을 만든다. 주로 반복문에서 많이 쓰인다.</p>
-<blockquote>
-<p>operator operand or operand operator ex) a++ or ++a</p>
-</blockquote>
-<p><code>주의: 이항 산술 연산자와 달리 증가/감소(++/–) 연산자는 피연산자의 값을 변경하는 부수 효과가 있다.</code></p>
-<p><code>증가/감소(++/--) 연산자는 위치에 따른 의미</code><br>.전위 증가/감소 연산자: 피연산자의 앞에 위치하여 먼저 피연산자의 값을 증가/감소시킨 후, 다른 연산을 수행한다.<br>.증가/감소(++/–) 연산자: 피연산자의 뒤에 위치하여 먼저 다른 연산을 수행한 후, 피연산자의 값을 증가/감소시킨다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num1 = <span class="number">4</span>;</span><br><span class="line">++num1; <span class="comment">// -&gt; 5;</span></span><br><span class="line">num1; <span class="comment">// -&gt; 5;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* ++num1는 num1의 값을 먼저 증가시킨 후 할당한다.</span></span><br><span class="line"><span class="comment">(선증가 후할당) */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> num2 = <span class="number">4</span>;</span><br><span class="line">num2++; <span class="comment">// -&gt; 4;</span></span><br><span class="line">num2; <span class="comment">//-&gt; 5;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* num2++은 num2의 값을 먼저 할당한 후 증가시킨다.</span></span><br><span class="line"><span class="comment">(선할당 후증가) */</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="문자열-연결-연산자-String-operators"><a href="#문자열-연결-연산자-String-operators" class="headerlink" title="문자열 연결 연산자 (String operators)"></a>문자열 연결 연산자 (String operators)</h2><p><code>+</code>연산자는 피연산자 중 하나 이상이 문자열인 경우 문자열 연결 연산자로 동작한다. 참고로 javascript에서 true는 1, false는 0과 같다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"my "</span> + <span class="string">"string"</span>); <span class="comment">// console logs the string "my string".</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 문자열 연결 연산자</span></span><br><span class="line"><span class="string">"1"</span> + <span class="number">2</span>; <span class="comment">// -&gt; '12'</span></span><br><span class="line"><span class="number">1</span> + <span class="string">"2"</span>; <span class="comment">// -&gt; '12'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// true는 1로 타입 변환된다.</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">true</span>; <span class="comment">// -&gt; 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// false는 0으로 타입 변환된다.</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">false</span>; <span class="comment">// -&gt; 1</span></span><br></pre></td></tr></table></figure>
-
-<p><code>암묵적 타입 변환(Implicit coercion) 또는 타입 강제 변환(Type coercion)</code><br>개발자의 의도와는 상관없이 자바스크립트 엔진에 의해 암묵적으로 타입이 자동 변환되기도 한다. 위 예제에서 1 + true를 연산하면 자바스크립트 엔진은 암묵적으로 불리언 타입의 값인 true를 숫자 타입인 1로 타입을 강제 변환한 후 연산을 수행한다.</p>
-<hr>
-<h2 id="할당-연산자-Assignment-Operator"><a href="#할당-연산자-Assignment-Operator" class="headerlink" title="할당 연산자 (Assignment Operator)"></a>할당 연산자 (Assignment Operator)</h2><ul>
-<li>우항에 있는 피연산자의 평가 결과를 좌항에 있는 변수에 할당한다.</li>
-<li>좌항의 피연산자는 우항의 피연산자의 값에 기초한다.</li>
-<li>x = y는 y의 값을 x에 할당하겠다는 뜻이다.</li>
-</ul>
-<p><code>할당 연산자는 좌항의 변수에 값을 할당하므로 변수의 값이 변하는 부수 효과가 있다.</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">=	: x = <span class="number">5</span>	    = x = <span class="number">5</span></span><br><span class="line">+=	: x += <span class="number">5</span>	= x = x + <span class="number">5</span></span><br><span class="line">-=	: x -= <span class="number">5</span>	= x = x - <span class="number">5</span></span><br><span class="line">*=	: x *= <span class="number">5</span>	= x = x * <span class="number">5</span></span><br><span class="line">/=	: x /= <span class="number">5</span>	= x = x / <span class="number">5</span></span><br><span class="line">%=	: x %= <span class="number">5</span>	= x = x % <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//우항의 값을 좌항의 변수값에 할당한 후, 새로운 변수 값을 반환한다.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">3</span>; <span class="comment">//x는 3이라는 값을 담고 있다.</span></span><br><span class="line"><span class="keyword">var</span> y = <span class="number">4</span>; <span class="comment">//y는 4라는 값을 담고 있다.</span></span><br><span class="line"></span><br><span class="line">x *= y; <span class="comment">//x는  12라는 값을 담고 있다.</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="비교-연산자-Comparison-operators"><a href="#비교-연산자-Comparison-operators" class="headerlink" title="비교 연산자 (Comparison operators)"></a>비교 연산자 (Comparison operators)</h2><p>두 값(좌항과 우항)의 피연산자를 비교한 다음 그 결과로 <code>불리언 값을 반환</code>한다. 비교 연산자는 <em>if 문이나 for 문과 같은 제어문의 조건식에서 주로 사용한다.</em></p>
-<h3 id="동등-일치-비교-연산자"><a href="#동등-일치-비교-연산자" class="headerlink" title="동등/일치 비교 연산자"></a>동등/일치 비교 연산자</h3><p>좌항과 우항의 피연산자가 같은 값을 갖는지 비교하여 <code>불리언 값을 반환</code>한다. 동등 비교 연산자는 느슨한 비교를 하지만 일치 비교 연산자는 엄격한 비교를 한다.</p>
-<ul>
-<li>== 동등 비교: x == y x와 y의 값이 같음</li>
-<li>=== 일치 비교: x === y x와 y의 값과 타입이 같음</li>
-<li>!= 부동등 비교: x != y //x와 y의 값이 다름</li>
-<li>!== 불일치 비교: x !== y //x와 y의 값과 타입이 다름</li>
-</ul>
-<blockquote>
-<p>동등 비교(==) 연산자는 좌항과 우항의 피연산자를 비교할 때 먼저 암묵적 타입 변환을 통해 타입을 일치시킨 후, 같은 값인지 비교한다.<br>타입은 다르지만 암묵적 타입 변환을 통해 타입을 일치시키면 동등하다.<br>5 == ‘5’; // -&gt; true</p>
-</blockquote>
-<p>다음을 주의하여야 한다.</p>
-<ul>
-<li>NaN === NaN; : false;</li>
-<li>0 === -0; : true;</li>
-<li>0 == -0 : true;</li>
-</ul>
-<h3 id="대소-관계-비교-연산자"><a href="#대소-관계-비교-연산자" class="headerlink" title="대소 관계 비교 연산자"></a>대소 관계 비교 연산자</h3><p>피연산자의 크기를 비교하여 불리언 값을 반환한다.</p>
-<ul>
-<li><code>&gt;</code>: x &gt; y : x가 y보다 크다</li>
-<li><code>&lt;</code>: x &lt; y : x가 y보다 작다</li>
-<li><code>&gt;=</code>: x &gt;= y : x가 y보다 같거나 크다</li>
-<li><code>&lt;=</code>: x &lt;= y : x가 y보다 같거나 크다</li>
-</ul>
-<hr>
-<h2 id="삼항-조건-연산자-ternary-operator"><a href="#삼항-조건-연산자-ternary-operator" class="headerlink" title="삼항 조건 연산자 (ternary operator)"></a>삼항 조건 연산자 (ternary operator)</h2><blockquote>
-<p>조건식 ? 조건식이 true일때 반환할 값 : 조건식이 false일때 반환할 값</p>
-</blockquote>
-<p>조건식의 평가 결과에 따라 반환할 값을 결정한다. 조건식이 참이면 콜론(:) 앞의 두번째 피연산자가 평가되어 반환되고, 거짓이면 콜론(:) 뒤의 세번째 피연산자가 평가되어 반환된다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 % 2는 0이고 0은 false로 암묵적 타입 변환된다.</span></span><br><span class="line"><span class="keyword">var</span> result = x % <span class="number">2</span> ? <span class="string">"홀수"</span> : <span class="string">"짝수"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(result); <span class="comment">// 짝수</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="논리-연산자-Logical-Operator"><a href="#논리-연산자-Logical-Operator" class="headerlink" title="논리 연산자 (Logical Operator)"></a>논리 연산자 (Logical Operator)</h2><p>우항과 좌항의 피연산자(부정 논리 연산자의 경우, 우항의 피연산자)를 논리 연산한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">||	논리합(OR)	✕</span><br><span class="line">&amp;&amp;	논리곱(AND)	✕</span><br><span class="line">!	  부정(NOT)  ✕</span><br></pre></td></tr></table></figure>
-
-<p>논리 부정(!) 연산자는 언제나 불리언 값을 반환한다. 단, 피연산자가 반드시 불리언 값일 필요는 없다. 논리합(||) 또는 논리곱(&amp;&amp;) 연산자 표현식의 평가 결과는 불리언 값이 아닐 수도 있다. 논리합(||) 또는 논리곱(&amp;&amp;) 연산자 표현식은 언제나 2개의 피연산자 중 어느 한쪽으로 평가된다.</p>
-<h2 id="쉼표-연산자"><a href="#쉼표-연산자" class="headerlink" title="쉼표 연산자"></a>쉼표 연산자</h2><p>왼쪽 피연산자부터 차례대로 피연산자를 평가하고 마지막 피연산자의 평가가 끝나면 마지막 피연산자의 평가 결과를 반환한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x, y, z;</span><br><span class="line"></span><br><span class="line">(x = <span class="number">1</span>), (y = <span class="number">2</span>), (z = <span class="number">3</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="그룹-연산자"><a href="#그룹-연산자" class="headerlink" title="그룹 연산자"></a>그룹 연산자</h2><p>연산자 우선순위(Operator precedence)와 관련있다. 일부 연산자는 합계 (프로그래밍에서 표현식이라고 함)의 결과를 계산할 때 다른 연산자보다 먼저 적용된다. JavaScript의 연산자 우선 순위는 수학 시간에 배운 것처럼 곱하기와 나누기는 항상 먼저 수행 한 다음 더하기와 빼기 (합은 항상 왼쪽에서 오른쪽으로 평가됨) 따라서 먼저 연산하고 싶은 부분을 그룹 연산자<code>()</code>로 묶어서 우선 순위를 조절할 수 있다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span> * <span class="number">2</span> + <span class="number">3</span>; <span class="comment">// -&gt; 23</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 그룹 연산자를 사용하여 우선 순위 조절</span></span><br><span class="line"><span class="number">10</span> * (<span class="number">2</span> + <span class="number">3</span>); <span class="comment">// -&gt; 50</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="typeof-연산자"><a href="#typeof-연산자" class="headerlink" title="typeof 연산자"></a>typeof 연산자</h2><p>피연산자의 데이터 타입을 문자열로 반환한다. typeof 연산자는 7가지 문자열 “string”, “number”, “boolean”, “undefined”, “symbol”, “object”, “function” 중 하나를 반환한다. “null”을 반환하는 경우는 없으며 함수의 경우 “function”을 반환한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typeof</span> foo === <span class="literal">null</span>; <span class="comment">// -&gt; false</span></span><br><span class="line">foo === <span class="literal">null</span>; <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
-
-<p>typeof 연산자로 null 값을 연산해 보면 “null”이 아닌 “object”를 반환하는데 이는 자바스크립트의 첫 번째 버전의 버그이다. 따라서 null 타입을 확인할 때는 typeof 연산자 보다는 연산자(===)을 사용하는 것이 좋다. 또한 선언하지 않은 식별자를 typeof 연산자로 연산해 보면 ReferenceError가 발생하지 않고 “undefined”를 반환한다.</p>
-<h2 id="지수-연산자"><a href="#지수-연산자" class="headerlink" title="지수 연산자"></a>지수 연산자</h2><p>ES7에서 새롭게 도입된 지수 연산자는 좌항의 피연산자를 밑으로, 우항의 피연산자를 지수로 거듭 제곱하여 숫자 타입의 값을 반환한다. 이항 연산자 중 우선순위가 가장 높다. 참고로 지수 연산자 이전에는 Math.pow(2,2)와 같이 사용하였다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span> ** <span class="number">2</span>; <span class="comment">// -&gt; 4</span></span><br><span class="line"><span class="number">2</span> ** <span class="number">2.5</span>; <span class="comment">// -&gt; 5.65685424949238</span></span><br><span class="line"><span class="number">2</span> ** <span class="number">0</span>; <span class="comment">// -&gt; 1</span></span><br><span class="line"><span class="number">2</span> ** <span class="number">-2</span>; <span class="comment">// -&gt; 0.25</span></span><br><span class="line">(<span class="number">-5</span>) ** <span class="number">2</span>; <span class="comment">// -&gt; 25</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">5</span>;</span><br><span class="line">num **= <span class="number">2</span>; <span class="comment">// -&gt;25</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="옵셔널-체이닝-optional-chaining"><a href="#옵셔널-체이닝-optional-chaining" class="headerlink" title="옵셔널 체이닝(optional chaining)"></a>옵셔널 체이닝(optional chaining)</h2><blockquote>
-<p>obj?.prop<br>obj?.[expr]<br>arr?.[index]<br>func?.(args)</p>
-</blockquote>
-<p>좌항의 피연산자가 null 또는 undefined인 경우 undefined를 반환, 그렇지 않으면 우항의 프로퍼티 참조를 이어간다. <em>논리 연산자 &amp;&amp;와 같은 기능이다.</em></p>
-<ol>
-<li><p>&amp;&amp;를 사용할 때: 중첩된 구조의 객체 obj에서 하위 중첩된 하위 속성을 찾을 때 다음과 같이 사용한다. obj.first는 태스트 없이 obj.first.second에 직접 접근할 때 생기는 에러를 방지하기 위해서 값에 접근하기 전에 null 또는 undefined가 아니라는 점을 검증하는 것이다.</p>
-<blockquote>
-<p>let nestedProp = obj.first &amp;&amp; obj.first.second;</p>
-</blockquote>
-</li>
-<li><p>옵셔널 체이닝을 사용: &amp;&amp;를 사용할 때 처럼 명시적인 테스트가 필요없다.<br><code>?.</code>의 옵셔널 체이닝을 사용함으로써 obj.first.second에 접근하기 전에 obj.first가 null 또는 undefined가 아니라는 것을 암묵적으로 확인한다.</p>
-<blockquote>
-<p>let nestedProp = obj.first?.second;</p>
-</blockquote>
-</li>
-<li><p>obj.first가 null or undefined라면 undefined가 반환된다. 그렇지 않으면 우항의 프로퍼티 참조를 이어간다.</p>
-<blockquote>
-<p>let nestedProp =<br>obj.first === null || obj.first === undefined ? undefined : obj.first.second;</p>
-</blockquote>
-</li>
-</ol>
-<p>다음과 같이 이벤트 핸들러를 다룰 때 유용하다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Written as of ES2019</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params">onContent, onError</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// ... do something with the data</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    <span class="keyword">if</span> (onError) &#123;</span><br><span class="line">      <span class="comment">// Testing if onError really exists</span></span><br><span class="line">      onError(err.message);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Using optional chaining with function calls</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params">onContent, onError</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// ... do something with the data</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    onError?.(err.message); <span class="comment">// no exception if onError is undefined</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><em>References</em></p>
-<p><a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/First_steps/Math" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Operator_precedence" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Optional_chaining" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/operator" target="_blank" rel="noopener">Poiemaweb</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1309,7 +1245,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
