@@ -8,7 +8,7 @@ tags:
 
 구조화된 배열 또는 객체를 파괴하여 1개 이상의 변수에 개별적으로 할당하는 것. 객체 또는 배열에서 필요한 값만을 추출하여 변수에 할당할 때 유용.
 
-### 왜 디스트럭처링이 필요한가?
+## 왜 디스트럭처링이 필요한가?
 
 객체에서 값을 찾거나 복제하고 싶을 때 ES5에서는 중복이 발생한다.
 
@@ -33,9 +33,11 @@ const { type, amount } = expense;
 console.log(type, amount); //Business $45 USD
 ```
 
-### 객체에서 디스트럭처링 할당
+---
 
-파라미터로 받아온 file로 내부의 값을 조회하여 return할 때 매번 `file.`이라고 입력해야 하는데,디스트럭처링 할당을 하면 그럴 필요가 없다.
+## 객체에서 디스트럭처링 할당
+
+아래 예제에서 파라미터로 받아온 file로 내부의 값을 조회하여 return할 때 매번 `file.`이라고 입력해야 하는데,디스트럭처링 할당을 하면 그럴 필요가 없다.
 
 _객체 디스트럭처링 할당 방법_
 
@@ -63,7 +65,50 @@ function es6FileSummary({ name, extension, size }, { color }) {
 console.log(es6FileSummary(savedFiled, { color: "red" }));
 ```
 
-### 배열의 디스트럭처링 할당
+## 중첩된 객체의 디스트럭처링 할당
+
+```javascript
+const person = {
+  name: "Lee",
+  address: {
+    zipCode: "03068",
+    city: "Seoul",
+  },
+};
+
+const {
+  address: { city },
+} = person;
+console.log(city); // 'Seoul'
+```
+
+```javascript
+var metadata = {
+  title: "Scratchpad",
+  translations: [
+    {
+      locale: "de",
+      localization_tags: [],
+      last_edit: "2014-04-14T08:43:37",
+      url: "/de/docs/Tools/Scratchpad",
+      title: "JavaScript-Umgebung",
+    },
+  ],
+  url: "/en-US/docs/Tools/Scratchpad",
+};
+
+var {
+  title: englishTitle,
+  translations: [{ title: localeTitle }],
+} = metadata;
+
+console.log(englishTitle); // "Scratchpad"
+console.log(localeTitle); // "JavaScript-Umgebung"
+```
+
+---
+
+## 배열의 디스트럭처링 할당
 
 ```javascript
 // ES5
@@ -91,5 +136,6 @@ console.log(one, two, three); // 1 2 3
 ---
 
 _Reference_
-[poiemaweb/fastcampus](https://poiemaweb.com/fastcampus/destructuring)
+[poiemaweb](https://poiemaweb.com/fastcampus/destructuring)
 [ES6 Javascript:The Complete Developer's Guide](https://www.udemy.com/course/javascript-es6-tutorial/)
+[Destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
