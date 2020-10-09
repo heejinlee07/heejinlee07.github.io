@@ -23,7 +23,7 @@ tags:
 2. **복잡하고 중복되는 로직**
    아래의 class 컴포넌트에서는 데이터를 가져오기, subscibe/unsubscribe를 수행, state 관리 등 다양한 로직이 life cycle 메서드 내에 흩어져 있다. 게다가 같은 로직을 각각의 생명주기 메서드에서 중복하여 사용하기도 한다. 이렇게 복잡하고 중복되는 로직이 많은 컴포넌트는 이해하기 어렵고, 가독성이 떨어지는 복잡한 코드를 만들어낸다.
 
-```javascript
+```jsx
 class FriendStatus extends React.Component {
   constructor(props) {
     super(props);
@@ -79,7 +79,7 @@ class FriendStatus extends React.Component {
 
 > hook을 사용할 때는 반드시 위의 2가지 규칙을 지켜야 한다. 그 이유는 React가 hook이 호출되는 순서에 의존하기 때문이다.
 
-```javascript
+```jsx
 function Form() {
   //useState1️⃣
   // 1. name이라는 state 변수를 사용
@@ -109,7 +109,7 @@ function Form() {
 
 > React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render react-hooks/rules-of-hooks
 
-```javascript
+```jsx
 function Form() {
   //useState1️⃣
   const [name, setName] = useState("Mary");
