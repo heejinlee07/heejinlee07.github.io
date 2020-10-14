@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-09 17:03:21" itemprop="dateModified" datetime="2020-10-09T17:03:21+09:00">2020-10-09</time>
+                <time title="Modified: 2020-10-14 10:05:56" itemprop="dateModified" datetime="2020-10-14T10:05:56+09:00">2020-10-14</time>
               </span>
 
           
@@ -189,8 +189,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="async-await"><a href="#async-await" class="headerlink" title="async/await"></a>async/await</h2><p>프로미스를 기반으로 동작한다. async/await를 사용하면 프로미스의 후속 처리 메서드 없이 동기 처리처럼 프로미스가 처리 결과를 반환하도록 구현할 수 있다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fetch = <span class="built_in">require</span>(<span class="string">"node-fetch"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fetchTodo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> url = <span class="string">"https://jsonplaceholder.typicode.com/todos/1"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(url);</span><br><span class="line">  <span class="keyword">const</span> todo = <span class="keyword">await</span> response.json();</span><br><span class="line">  <span class="built_in">console</span>.log(todo);</span><br><span class="line">  <span class="comment">// &#123;userId: 1, id: 1, title: 'delectus aut autem', completed: false&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fetchTodo();</span><br></pre></td></tr></table></figure>
+          <h2 id="async-await"><a href="#async-await" class="headerlink" title="async/await"></a>async/await</h2><p>프로미스를 기반으로 동작하는데, async/await를 사용하면 프로미스의 후속 처리 메서드 없이 동기 처리처럼 프로미스가 처리 결과를 반환하도록 구현할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fetch = <span class="built_in">require</span>(<span class="string">'node-fetch'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fetchTodo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> url = <span class="string">'https://jsonplaceholder.typicode.com/todos/1'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(url)</span><br><span class="line">    <span class="keyword">const</span> todo = <span class="keyword">await</span> response.json()</span><br><span class="line">    <span class="built_in">console</span>.log(todo)</span><br><span class="line">    <span class="comment">// &#123;userId: 1, id: 1, title: 'delectus aut autem', completed: false&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fetchTodo()</span><br></pre></td></tr></table></figure>
 
 <h2 id="async-함수"><a href="#async-함수" class="headerlink" title="async 함수"></a>async 함수</h2><p><strong>async 키워드를 사용해 정의하고 언제나 프로미스를 반환한다.</strong> async function()은 await 키워드가 비동기 코드를 호출할 수 있게 해주는 함수이다. 명시적으로 프로미스를 반환하지 않아도 암묵적으로 반환값을 resolve하는 프로미스를 반환한다.</p>
 <h2 id="await-키워드"><a href="#await-키워드" class="headerlink" title="await 키워드"></a>await 키워드</h2><p>프로미스가 settled 상태(비동기 처리가 수행된 상태)가 될 때까지 대기하다가 settled 상태가 되면 프로미스가 resolve한 처리 결과를 반환한다. <strong>await 키워드는 반드시 async 함수 안에서, 프로미스 앞에서 사용해야 한다.</strong></p>
@@ -247,7 +247,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-09 17:03:21" itemprop="dateModified" datetime="2020-10-09T17:03:21+09:00">2020-10-09</time>
+                <time title="Modified: 2020-10-14 10:05:56" itemprop="dateModified" datetime="2020-10-14T10:05:56+09:00">2020-10-14</time>
               </span>
 
           
@@ -454,7 +454,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-09 17:03:21" itemprop="dateModified" datetime="2020-10-09T17:03:21+09:00">2020-10-09</time>
+                <time title="Modified: 2020-10-14 10:05:56" itemprop="dateModified" datetime="2020-10-14T10:05:56+09:00">2020-10-14</time>
               </span>
 
           
@@ -583,7 +583,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-09 17:03:21" itemprop="dateModified" datetime="2020-10-09T17:03:21+09:00">2020-10-09</time>
+                <time title="Modified: 2020-10-14 10:05:56" itemprop="dateModified" datetime="2020-10-14T10:05:56+09:00">2020-10-14</time>
               </span>
 
           
@@ -691,7 +691,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-09 17:03:21" itemprop="dateModified" datetime="2020-10-09T17:03:21+09:00">2020-10-09</time>
+                <time title="Modified: 2020-10-14 10:05:56" itemprop="dateModified" datetime="2020-10-14T10:05:56+09:00">2020-10-14</time>
               </span>
 
           
@@ -883,7 +883,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-09 17:03:21" itemprop="dateModified" datetime="2020-10-09T17:03:21+09:00">2020-10-09</time>
+                <time title="Modified: 2020-10-14 10:05:56" itemprop="dateModified" datetime="2020-10-14T10:05:56+09:00">2020-10-14</time>
               </span>
 
           
@@ -987,7 +987,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-09 17:03:21" itemprop="dateModified" datetime="2020-10-09T17:03:21+09:00">2020-10-09</time>
+                <time title="Modified: 2020-10-14 10:05:56" itemprop="dateModified" datetime="2020-10-14T10:05:56+09:00">2020-10-14</time>
               </span>
 
           
@@ -1074,7 +1074,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-09 17:03:21" itemprop="dateModified" datetime="2020-10-09T17:03:21+09:00">2020-10-09</time>
+                <time title="Modified: 2020-10-14 10:05:56" itemprop="dateModified" datetime="2020-10-14T10:05:56+09:00">2020-10-14</time>
               </span>
 
           
@@ -1239,7 +1239,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-09 17:03:21" itemprop="dateModified" datetime="2020-10-09T17:03:21+09:00">2020-10-09</time>
+                <time title="Modified: 2020-10-14 10:05:56" itemprop="dateModified" datetime="2020-10-14T10:05:56+09:00">2020-10-14</time>
               </span>
 
           
@@ -1352,7 +1352,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-09 17:03:21" itemprop="dateModified" datetime="2020-10-09T17:03:21+09:00">2020-10-09</time>
+                <time title="Modified: 2020-10-14 10:05:56" itemprop="dateModified" datetime="2020-10-14T10:05:56+09:00">2020-10-14</time>
               </span>
 
           
