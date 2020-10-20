@@ -6,21 +6,21 @@ tags:
 
 ## async/await
 
-프로미스를 기반으로 동작한다. async/await를 사용하면 프로미스의 후속 처리 메서드 없이 동기 처리처럼 프로미스가 처리 결과를 반환하도록 구현할 수 있다.
+프로미스를 기반으로 동작하는데, async/await를 사용하면 프로미스의 후속 처리 메서드 없이 동기 처리처럼 프로미스가 처리 결과를 반환하도록 구현할 수 있다.
 
 ```javascript
-const fetch = require("node-fetch");
+const fetch = require('node-fetch')
 
 async function fetchTodo() {
-  const url = "https://jsonplaceholder.typicode.com/todos/1";
+    const url = 'https://jsonplaceholder.typicode.com/todos/1'
 
-  const response = await fetch(url);
-  const todo = await response.json();
-  console.log(todo);
-  // {userId: 1, id: 1, title: 'delectus aut autem', completed: false}
+    const response = await fetch(url)
+    const todo = await response.json()
+    console.log(todo)
+    // {userId: 1, id: 1, title: 'delectus aut autem', completed: false}
 }
 
-fetchTodo();
+fetchTodo()
 ```
 
 ## async 함수
