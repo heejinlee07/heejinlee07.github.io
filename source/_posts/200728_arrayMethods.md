@@ -176,7 +176,7 @@ function reverse(str) {
 > return accumulator + currentValue;
 > });
 
-배열의 각 요소에 대해 주어진 reduce 함수를 실행하고, 결과값을 반환한다. reduce함수는 아래와 같이 네 개의 인자를 가지는데, 함수의 반환 값은 누산기에 할당되고, 누산기는 순회 중 유지되고, 최종 결과는 하나의 값이 된다. 이때 원본 배열은 변경되지 않는다. accumulator, currentValuef를 제외한 나머지 매개변수는 option이다.
+배열의 각 요소에 대해 주어진 reduce 함수를 실행하고, 결과값을 반환한다. reduce함수는 아래와 같이 네 개의 인자를 가지는데, 함수의 반환 값은 누산기에 할당되고, 누산기는 순회 중 유지되고, 최종 결과는 하나의 값이 된다. 이때 원본 배열은 변경되지 않는다. accumulator, currentValue를 제외한 나머지 매개변수는 option이다.
 
 > 1. 누산기 accumulator (acc)
 >    콜백의 반환값을 누적한다.
