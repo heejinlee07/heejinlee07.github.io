@@ -1,5 +1,5 @@
 ---
-title: Next.js 10
+title: Next.js next.images
 date: 2020-11-24
 tags:
 ---
@@ -179,3 +179,35 @@ export default Home
     - fixed: 이미지의 크기가 뷰포트의 변화에 따라 변화되어도 이미지 크기가 변경되지 않는다.(반응형 아님) HTML의 img 태그와 유사하다.
     - responsive: 이미지는 작은 뷰포트 크기에서는 축소되고, 큰 뷰포트에서는 확대된다.
     - fill: 이미지가 부모 요소의 width와 height의 크기에 따라 stretch된다. 보통 `object-fit`과 함께 사용된다.
+2. sizes
+   device sizes를 미디어 쿼리로 매핑하는 문자열. 기본값은 device sizes이다.
+3. quality
+   최적화 된 이미지의 품질. 1~100 사이의 정수이며, 100이 최고의 품질이다. 기본값은 75이다.
+4. priority
+   `true`이면 이미지가 높은 우선 순위로 간주되며, 미리 로드된다. 단, 이미지가 스크롤 없이 볼 수 있는 부분에만 표시되었을 때 사용해야 한다. 기본값은 `false`이다.
+
+### Advanced Props
+
+1. objectFit
+   `layout="fill"`을 사용할 때 이미지가 fit된다.
+2. objectPosition
+   `layout="fill"`을 사용할 때 이미지의 위치를 말한다.
+3. loading
+   이미지가 로드될 때의 동작을 의미. 기본값은 `lazy`이다. `lazy`일 때 뷰포트로부터 계산된 거리에 도달할 때까지 이미지의 로드를 연기한다. `eager`라면 이미지를 즉시 로드한다.
+4. unoptimized
+   true인 경우 소스 이미지의 퀄리티, 사이즈 포맷이 변경 되는 대신 그대로 제공된다. 기본값은 false이다.
+
+### Other Props
+
+img 컴포넌트의 다른 요소들은 아래를 제외하고는 기본 요소로 전달된다.
+
+-   style 대신 className을 사용.
+-   srcSet 대신 Device Sizes를 사용.
+-   decoding은 항상 async이다.
+
+---
+
+_References_
+[Next.js 10](https://nextjs.org/blog/next-10#built-in-image-component-and-automatic-image-optimization)
+[next/image](https://nextjs.org/docs/api-reference/next/image)
+[Image Component and Image Optimization](https://nextjs.org/docs/basic-features/image-optimization)
