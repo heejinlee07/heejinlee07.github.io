@@ -144,6 +144,144 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/11/23/201124_next_image/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/23/201124_next_image/" class="post-title-link" itemprop="url">Next.js v10 - next/images</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-11-24 00:00:00" itemprop="dateCreated datePublished" datetime="2020-11-24T00:00:00+09:00">2020-11-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-30 17:59:55" itemprop="dateModified" datetime="2020-11-30T17:59:55+09:00">2020-11-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Images-on-the-Web"><a href="#Images-on-the-Web" class="headerlink" title="Images on the Web"></a>Images on the Web</h2><p>이미지는 웹 페이지이에서 50%의 바이트를 차지하는데, 보통 페이지가 로드될 때 표시되는 가장 큰 요소인 경우가 많기 때문에 Largest Contentful Paint에 영향을 미친다. 모든 이미지의 절반은 그 사이즈가 1MB를 초과하기 때문에 웹에 디스플레이 될 때 최적화되지 않는다. 요즘에는 사용자들이 웹을 모바일, 태블릿, 컴퓨터 등 다양한 방식으로 웹을 탐색하는데 이미지는 아직도 one size로 고정되어 있다. 예를 들어 웹 사이트가 2000 x 2000 픽셀의 이미지를 로드한다고 하면, 모바일에서는 100 x 100 픽셀로만 표시한다. 더욱이 웹 페이지 이미지의 30%는 초기에 뷰포트 외부에 존재한다. 이는 브라우저가 유저가 스크롤을 내려서 아래에 있는 내용을 보기 전에도 브라우저가 이미지를 로드한다는 것이다.</p>
+<p>웹페이지에서 이미지를 성능을 최적화하는 방식으로 사용하려면 size, weight, lazy loading, and modern image formats 등 고려해야 할 요소가 많다. 개발자는 이미지를 최적화하기 위해서 복잡한 빌드 도구를 설정해야 하는데 이러한 도구들이 일반적으로 외부 데이터 소스로부터 가져온 사용자가 제출한 이미지를 다루지는 않기 때문에 모든 이미지를 최적화할 수는 없다. 이는 필연적으로 사용자 경험을 저해시킨다.</p>
+<h2 id="Next-js-Image-Component"><a href="#Next-js-Image-Component" class="headerlink" title="Next.js Image Component"></a>Next.js Image Component</h2><p>가장 기본적인 Next.js 이미지 컴포넌트는 모던 웹을 위해 진화한 HTML의 &lt;img&gt; 요소의 대체물이다.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">    <span class="attr">src</span>=<span class="string">"/profile-picture.jpg"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">width</span>=<span class="string">"400"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">height</span>=<span class="string">"400"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">alt</span>=<span class="string">"Profile Picture"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Image <span class="keyword">from</span> <span class="string">'next/image'</span></span><br><span class="line"></span><br><span class="line">&lt;Image src=<span class="string">"/profile-picture.jpg"</span> width=<span class="string">"400"</span> height=<span class="string">"400"</span> alt=<span class="string">"Profile Picture"</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>next/image</code> 컴포넌트를 사용하면 이미지가 자동으로 lazy-load되고, 이는 유저가 이미지를 실제로 보는 상황에 가까워졌을 때 비로소 렌더링됨을 의미한다. 이렇게 하면 초기 뷰포트 외부에 있는 이미지의 30%가 로딩되는 것을 방지할 수 있다. 이미지 사이즈는 강제적으로 적용되어, 브라우저가 로드될 당시에 이미지에 필요한 공간을 건너뛰어 레이아웃이 이동되는 현상을 막고 즉시 렌더링할 수 있다.</p>
+<p><code>width</code>와 <code>height</code>는 HTML의 &lt;img&gt; 요소에서는 <em>반응형 레이아웃</em>에서 문제가 발생할 수 있다. 하지만 <code>next/image</code>를 쓰면 제공된 <code>width</code>와 <code>height</code>의 비율에 따라서 자동으로 반응형 사이즈에 맞출 수 있다. 개발자는 초기 뷰포트에 이미지를 표시하여, Next.js가 자동으로 이 이미지를 사전에 로드하도록 할 수 있다.</p>
+<h2 id="Automatic-Image-Optimization"><a href="#Automatic-Image-Optimization" class="headerlink" title="Automatic Image Optimization"></a>Automatic Image Optimization</h2><p><code>next/image</code> 컴포넌트는 built-in Image Optimization을 통해 자동으로 가장 작은 사이즈의 이미지를 생성한다. 이는 모든 이미지 소스에서 작동하므로, 외부 데이터 소스로 부터 가져온 CMS와 같은 이미지에도 최적화된다.</p>
+<h3 id="사용방법"><a href="#사용방법" class="headerlink" title="사용방법"></a>사용방법</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Image <span class="keyword">from</span> <span class="string">'next/image'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Home</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;&gt;</span><br><span class="line">            &lt;h1&gt;My Homepage&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">            &lt;Image</span></span><br><span class="line"><span class="regexp">                src='/m</span>e.png<span class="string">'</span></span><br><span class="line"><span class="string">                alt='</span>Picture <span class="keyword">of</span> the author<span class="string">'</span></span><br><span class="line"><span class="string">                width=&#123;500&#125;</span></span><br><span class="line"><span class="string">                height=&#123;500&#125;</span></span><br><span class="line"><span class="string">            /&gt;</span></span><br><span class="line"><span class="string">            &lt;p&gt;Welcome to my homepage!&lt;/p&gt;</span></span><br><span class="line"><span class="string">        &lt;/&gt;</span></span><br><span class="line"><span class="string">    )</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">export default Home</span></span><br></pre></td></tr></table></figure>
+
+<p>위와 같이 <code>next/image</code>를 사용하는 것 외에 <code>next.config.js</code>을 통해 Image Optimization에 대한 보다 advanced use case를 적용할 수도 있다.</p>
+<h3 id="Domains"><a href="#Domains" class="headerlink" title="Domains"></a>Domains</h3><p>외부 웹사이트에서 호스팅되는 이미지에 대해 죄적화를 사용하려면 이미지에 절대경로 url을 src로 사용하고, 어떤 도메인의 최적화를 허용할 것인지 설정한다. 이는 외부 url이 남용되지 않도록 하기 위해 필요한 것이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    images: &#123;</span><br><span class="line">        domains: [<span class="string">'example.com'</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Loader"><a href="#Loader" class="headerlink" title="Loader"></a>Loader</h3><p>Next js의 빌트인 이미지 최적화 기능 대신 클라우드 provider를 이용하여 이미지를 최적화하려면 로더와 path를 구성할 수 있다. 이는 이미지 src에 상대경로 url을 사용하여 provider가 올바른 절대 경로 url을 구성할 수 있도록 돕는다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    images: &#123;</span><br><span class="line">        loader: <span class="string">'imgix'</span>,</span><br><span class="line">        path: <span class="string">'https://example.com/myaccount/'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>아래와 같은 클라우드 provider가 제공된다.</p>
+<ul>
+<li>Vercel: Works automatically when you deploy on Vercel, no configuration necessary. Learn more</li>
+<li>Imgix: loader: ‘imgix’</li>
+<li>Cloudinary: loader: ‘cloudinary’</li>
+<li>Akamai: loader: ‘akamai’</li>
+<li><em>Default: Works automatically with next dev, next start, or a custom server</em></li>
+</ul>
+<h3 id="Loader-1"><a href="#Loader-1" class="headerlink" title="Loader"></a>Loader</h3><p>The following describes the caching algorithm for the default loader. For all other loaders, please refer to your cloud provider’s documentation.</p>
+<p>Images are optimized dynamically upon request and stored in the <distDir>/cache/images directory. The optimized image file will be served for subsequent requests until the expiration is reached. When a request is made that matches a cached but expired file, the cached file is deleted before generating a new optimized image and caching the new file.</p>
+<p>The expiration (or rather Max Age) is defined by the upstream server’s Cache-Control header.</p>
+<p>If s-maxage is found in Cache-Control, it is used. If no s-maxage is found, then max-age is used. If no max-age is found, then 60 seconds is used.</p>
+<p>You can configure deviceSizes and imageSizes to reduce the total number of possible generated images.</p>
+<h3 id="Advanced"><a href="#Advanced" class="headerlink" title="Advanced"></a>Advanced</h3><h3 id="Device-Sizes"><a href="#Device-Sizes" class="headerlink" title="Device Sizes"></a>Device Sizes</h3><p>웹 사이트 사용자로부터 예상되는 장치의 width를 알고 있는 경우에 <code>deviceSizes</code> 프로퍼티를 사용하여 특정 장치 사이즈의 breackpoint를 지정할 수 있다. 이 width는 <code>next/image</code> 컴포넌트가 <code>layout=&quot;responsive&quot;</code> 또는 <code>layout=&quot;fill&quot;</code>을 사용할 때나 장치에 따른 올바른 이미지가 제공된다. 만약 따로 <code>deviceSizes</code> 프로퍼티를 지정하지 않으면 아래 값이 default로 사용된다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    images: &#123;</span><br><span class="line">        deviceSizes: [<span class="number">640</span>, <span class="number">750</span>, <span class="number">828</span>, <span class="number">1080</span>, <span class="number">1200</span>, <span class="number">1920</span>, <span class="number">2048</span>, <span class="number">3840</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Image-Sizes"><a href="#Image-Sizes" class="headerlink" title="Image Sizes"></a>Image Sizes</h3><p><code>imageSizes</code> 프로퍼티를 이용하여 특정 이미지 width 목록을 지정할 수 있다. 이러한 width는 <code>deviceSizes</code>의 배열과 연결되어 있으므로 <code>deviceSizes</code>배열에 정의 된 width와 달라야하고, 일반적으로 그 배열의 width보다 작아야 한다. 이 width는 <code>next/image</code> 컴포넌트가 <code>layout=&quot;fixed&quot;</code>또는 <code>layout=&quot;intrinsic&quot;</code>를 사용해야한다. 만약 따로 <code>imageSizes</code> 프로퍼티를 지정하지 않으면 아래 값이 default로 사용된다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    images: &#123;</span><br><span class="line">        imageSizes: [<span class="number">16</span>, <span class="number">32</span>, <span class="number">48</span>, <span class="number">64</span>, <span class="number">96</span>, <span class="number">128</span>, <span class="number">256</span>, <span class="number">384</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="next-image"><a href="#next-image" class="headerlink" title="next/image"></a>next/image</h2><p>아래와 같이 사용한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Image <span class="keyword">from</span> <span class="string">'next/image'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Home</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;&gt;</span><br><span class="line">            &lt;h1&gt;My Homepage&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">            &lt;Image</span></span><br><span class="line"><span class="regexp">                src='/m</span>e.png<span class="string">'</span></span><br><span class="line"><span class="string">                alt='</span>Picture <span class="keyword">of</span> the author<span class="string">'</span></span><br><span class="line"><span class="string">                width=&#123;500&#125;</span></span><br><span class="line"><span class="string">                height=&#123;500&#125;</span></span><br><span class="line"><span class="string">            /&gt;</span></span><br><span class="line"><span class="string">            &lt;p&gt;Welcome to my homepage!&lt;/p&gt;</span></span><br><span class="line"><span class="string">        &lt;/&gt;</span></span><br><span class="line"><span class="string">    )</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">export default Home</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="props"><a href="#props" class="headerlink" title="props"></a>props</h3><p>아래와 같은 속성들을 필요로 한다.</p>
+<ol>
+<li>src<br>: 소스 이미지의 경로 또는 url을 말하며, 필수이다. 외부 url을 사용한다면 반드시 <code>next.config.js</code>에서 domains를 추가해주어야 한다.</li>
+<li>width<br>: 이미지의 width를 말하며, 픽셀이다. 반드시 단위가 없는 정수이어야 한다. (layout=’fill’)이 아닌 경우에 필요하다.</li>
+<li>height<br>:이미지의 height를 말하며, 픽셀이다. 반드시 단위가 없는 정수이어야 한다. (layout=’fill’)이 아닌 경우에 필요하다.</li>
+</ol>
+<h3 id="optional-props"><a href="#optional-props" class="headerlink" title="optional props"></a>optional props</h3><ol>
+<li>layout<br>뷰포트 사이즈가 변화될 때 이미지의 layout behavior이다.<ul>
+<li>intrinsic: <em>기본값.</em> 이미지는 작은 뷰포트 크기에서는 축소되는데 큰 뷰포트에서는 원래 크기를 유지한다.</li>
+<li>fixed: 이미지의 크기가 뷰포트의 변화에 따라 변화되어도 이미지 크기가 변경되지 않는다.(반응형 아님) HTML의 img 태그와 유사하다.</li>
+<li>responsive: 이미지는 작은 뷰포트 크기에서는 축소되고, 큰 뷰포트에서는 확대된다.</li>
+<li>fill: 이미지가 부모 요소의 width와 height의 크기에 따라 stretch된다. 보통 <code>object-fit</code>과 함께 사용된다.</li>
+</ul>
+</li>
+<li>sizes<br>device sizes를 미디어 쿼리로 매핑하는 문자열. 기본값은 device sizes이다.</li>
+<li>quality<br>최적화 된 이미지의 품질. 1~100 사이의 정수이며, 100이 최고의 품질이다. 기본값은 75이다.</li>
+<li>priority<br><code>true</code>이면 이미지가 높은 우선 순위로 간주되며, 미리 로드된다. 단, 이미지가 스크롤 없이 볼 수 있는 부분에만 표시되었을 때 사용해야 한다. 기본값은 <code>false</code>이다.</li>
+</ol>
+<h3 id="Advanced-Props"><a href="#Advanced-Props" class="headerlink" title="Advanced Props"></a>Advanced Props</h3><ol>
+<li>objectFit<br><code>layout=&quot;fill&quot;</code>을 사용할 때 이미지가 fit된다.</li>
+<li>objectPosition<br><code>layout=&quot;fill&quot;</code>을 사용할 때 이미지의 위치를 말한다.</li>
+<li>loading<br>이미지가 로드될 때의 동작을 의미. 기본값은 <code>lazy</code>이다. <code>lazy</code>일 때 뷰포트로부터 계산된 거리에 도달할 때까지 이미지의 로드를 연기한다. <code>eager</code>라면 이미지를 즉시 로드한다.</li>
+<li>unoptimized<br>true인 경우 소스 이미지의 퀄리티, 사이즈 포맷이 변경 되는 대신 그대로 제공된다. 기본값은 false이다.</li>
+</ol>
+<h3 id="Other-Props"><a href="#Other-Props" class="headerlink" title="Other Props"></a>Other Props</h3><p>img 컴포넌트의 다른 요소들은 아래를 제외하고는 기본 요소로 전달된다.</p>
+<ul>
+<li>style 대신 className을 사용.</li>
+<li>srcSet 대신 Device Sizes를 사용.</li>
+<li>decoding은 항상 async이다.</li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://nextjs.org/blog/next-10#built-in-image-component-and-automatic-image-optimization" target="_blank" rel="noopener">Next.js 10</a><br><a href="https://nextjs.org/docs/api-reference/next/image" target="_blank" rel="noopener">next/image</a><br><a href="https://nextjs.org/docs/basic-features/image-optimization" target="_blank" rel="noopener">Image Component and Image Optimization</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/10/25/201026_whatIsHttp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +313,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-26 17:10:09" itemprop="dateModified" datetime="2020-11-26T17:10:09+09:00">2020-11-26</time>
+                <time title="Modified: 2020-11-30 17:59:55" itemprop="dateModified" datetime="2020-11-30T17:59:55+09:00">2020-11-30</time>
               </span>
 
           
@@ -336,7 +474,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-26 17:10:09" itemprop="dateModified" datetime="2020-11-26T17:10:09+09:00">2020-11-26</time>
+                <time title="Modified: 2020-11-30 17:59:55" itemprop="dateModified" datetime="2020-11-30T17:59:55+09:00">2020-11-30</time>
               </span>
 
           
@@ -408,7 +546,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-26 17:10:09" itemprop="dateModified" datetime="2020-11-26T17:10:09+09:00">2020-11-26</time>
+                <time title="Modified: 2020-11-30 17:59:55" itemprop="dateModified" datetime="2020-11-30T17:59:55+09:00">2020-11-30</time>
               </span>
 
           
@@ -615,7 +753,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-26 17:10:09" itemprop="dateModified" datetime="2020-11-26T17:10:09+09:00">2020-11-26</time>
+                <time title="Modified: 2020-11-30 17:59:55" itemprop="dateModified" datetime="2020-11-30T17:59:55+09:00">2020-11-30</time>
               </span>
 
           
@@ -744,7 +882,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-26 17:10:09" itemprop="dateModified" datetime="2020-11-26T17:10:09+09:00">2020-11-26</time>
+                <time title="Modified: 2020-11-30 17:59:55" itemprop="dateModified" datetime="2020-11-30T17:59:55+09:00">2020-11-30</time>
               </span>
 
           
@@ -852,7 +990,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-26 17:10:09" itemprop="dateModified" datetime="2020-11-26T17:10:09+09:00">2020-11-26</time>
+                <time title="Modified: 2020-11-30 17:59:55" itemprop="dateModified" datetime="2020-11-30T17:59:55+09:00">2020-11-30</time>
               </span>
 
           
@@ -1044,7 +1182,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-26 17:10:09" itemprop="dateModified" datetime="2020-11-26T17:10:09+09:00">2020-11-26</time>
+                <time title="Modified: 2020-11-30 17:59:55" itemprop="dateModified" datetime="2020-11-30T17:59:55+09:00">2020-11-30</time>
               </span>
 
           
@@ -1148,7 +1286,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-26 17:10:09" itemprop="dateModified" datetime="2020-11-26T17:10:09+09:00">2020-11-26</time>
+                <time title="Modified: 2020-11-30 17:59:55" itemprop="dateModified" datetime="2020-11-30T17:59:55+09:00">2020-11-30</time>
               </span>
 
           
@@ -1235,7 +1373,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-26 17:10:09" itemprop="dateModified" datetime="2020-11-26T17:10:09+09:00">2020-11-26</time>
+                <time title="Modified: 2020-11-30 17:59:55" itemprop="dateModified" datetime="2020-11-30T17:59:55+09:00">2020-11-30</time>
               </span>
 
           
@@ -1365,119 +1503,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/08/23/200823_event_propa_del/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/23/200823_event_propa_del/" class="post-title-link" itemprop="url">이벤트 전파와 위임</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-08-23 13:00:00" itemprop="dateCreated datePublished" datetime="2020-08-23T13:00:00+09:00">2020-08-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-26 17:10:09" itemprop="dateModified" datetime="2020-11-26T17:10:09+09:00">2020-11-26</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="이벤트-전파"><a href="#이벤트-전파" class="headerlink" title="이벤트 전파"></a>이벤트 전파</h2><p>특정 요소를 클릭해서 클릭 이벤트가 발생했을 때 생성된 이벤트 객체가 이벤트를 발생시킨 DOM 요소인 이벤트 타겟을 중심으로 DOM 트리를 통해 전파되는 현상을 말한다. DOM 트리 상에 존재하는 DOM 요소 노드에서 발생한 이벤트는 DOM 트리를 통해 전파된다.</p>
-<ul>
-<li>1️⃣캡처링 단계(capturing phase) : 이벤트가 <code>상위 요소(window)</code>에서 <code>하위 요소</code> 방향으로 전파</li>
-<li>2️⃣타깃 단계(target phase) : 이벤트가 이벤트 타깃에 도달</li>
-<li>3️⃣버블링 단계(bubbling phase) : 이벤트가 <code>하위 요소</code>에서 <code>상위 요소(window)</code> 방향으로 전파</li>
-</ul>
-<h3 id="이벤트-핸들러-어트리뷰트-프로퍼티-방식에서의-이벤트-전파"><a href="#이벤트-핸들러-어트리뷰트-프로퍼티-방식에서의-이벤트-전파" class="headerlink" title="이벤트 핸들러 어트리뷰트/프로퍼티 방식에서의 이벤트 전파"></a>이벤트 핸들러 어트리뷰트/프로퍼티 방식에서의 이벤트 전파</h3><p>이벤트 핸들러 어트리뷰트/프로퍼티 방식으로 등록한 이벤트 핸들러는 <code>타깃 단계, 버블링 단계</code>의 이벤트만 캐치한다. 캡처링 단계는 캐치하지 못한다.</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"fruits"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"apple"</span>&gt;</span>Apple<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"banana"</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"orange"</span>&gt;</span>Orange<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $fruits = <span class="built_in">document</span>.getElementById(<span class="string">"fruits"</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $banana = <span class="built_in">document</span>.getElementById(<span class="string">"banana"</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// #fruits 요소의 하위 요소인 li 요소를 클릭한 경우 캡처링 단계의 이벤트를 캐치한다.</span></span></span><br><span class="line"><span class="actionscript">      <span class="comment">// 그러나 이벤트 핸들러 어트리뷰트/프로퍼티 방식으로 등록하였기 때문에 캡처링 단계를 캡처하지 못한다.</span></span></span><br><span class="line"><span class="javascript">      $fruits.onclick = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 3: 버블링 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLUListElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.composedPath());</span></span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 타깃 단계의 이벤트를 캐치한다.</span></span></span><br><span class="line"><span class="javascript">      $banana.onclick = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 2: 타깃 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.composedPath());</span></span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 버블링 단계의 이벤트를 캐치한다.</span></span></span><br><span class="line"><span class="javascript">      $fruits.onclick = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 3: 버블링 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLUListElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.composedPath());</span></span><br><span class="line">      &#125;;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="addEventListener-메서드-방식에서의-이벤트-전파"><a href="#addEventListener-메서드-방식에서의-이벤트-전파" class="headerlink" title="addEventListener 메서드 방식에서의 이벤트 전파"></a>addEventListener 메서드 방식에서의 이벤트 전파</h3><p><em>addEventListener 메서드 방식</em>으로 등록하면 <code>타깃 단계, 버블링 단계, 캡처링 단계를 선별적으로 캐치</code>할 수 있다. 캡처링 단계의 이벤트를 캐치하려면 addEventListener 메서드의 3번째 인수로 true를 전달한다. 3번째 인수를 생략하거나 false를 전달하면 타깃 단계와 버블링 단계의 이벤트만 캐치할 수 있다.</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"fruits"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"apple"</span>&gt;</span>Apple<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"banana"</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"orange"</span>&gt;</span>Orange<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $fruits = <span class="built_in">document</span>.getElementById(<span class="string">"fruits"</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $banana = <span class="built_in">document</span>.getElementById(<span class="string">"banana"</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// #fruits 요소의 하위 요소인 li 요소를 클릭한 경우 캡처링 단계의 이벤트를 캐치한다.</span></span></span><br><span class="line">      $fruits.addEventListener(</span><br><span class="line"><span class="actionscript">        <span class="string">"click"</span>,</span></span><br><span class="line">        (e) =&gt; &#123;</span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 1: 캡처링 단계</span></span></span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLUListElement]</span></span></span><br><span class="line">        &#125;,</span><br><span class="line"><span class="actionscript">        <span class="literal">true</span></span></span><br><span class="line">      );</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 타깃 단계의 이벤트를 캐치한다.</span></span></span><br><span class="line"><span class="actionscript">      $banana.addEventListener(<span class="string">"click"</span>, (e) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 2: 타깃 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 버블링 단계의 이벤트를 캐치한다.</span></span></span><br><span class="line"><span class="actionscript">      $fruits.addEventListener(<span class="string">"click"</span>, (e) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 3: 버블링 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLUListElement]</span></span></span><br><span class="line">      &#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>대부분의 이벤트는 캡처링과 버블링을 통해 전파되는데, 아래 이벤트는 버블링을 통해 전파되지 않는다. 필요할 가능성은 희박하지만 만약 아래 이벤트를 상위 요소에서 캐치해야 한다면 다른 이벤트를 통해 대체해야 한다.</p>
-<ul>
-<li>포커스 이벤트: focus/blur</li>
-<li>리소스 이벤트: load/unload/abort/error</li>
-<li>마우스 이벤트: mouseenter/mouseleave</li>
-</ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"fruits"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"apple"</span>&gt;</span>Apple<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"banana"</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"orange"</span>&gt;</span>Orange<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $fruits = <span class="built_in">document</span>.getElementById(<span class="string">"fruits"</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $banana = <span class="built_in">document</span>.getElementById(<span class="string">"banana"</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 1️⃣click</span></span></span><br><span class="line"><span class="actionscript">      $fruits.addEventListener(<span class="string">"click"</span>, (e) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 3: 버블링 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLUListElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.bubbles); <span class="comment">//true</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.composedPath()); <span class="comment">//[li#orange, ul#fruits, body, html, document, Window]</span></span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 2️⃣mouseleave</span></span></span><br><span class="line"><span class="actionscript">      $fruits.addEventListener(<span class="string">"mouseleave"</span>, (e) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 2: 타깃 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLUListElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.bubbles); <span class="comment">//false</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.composedPath()); <span class="comment">// [ul#fruits, body, html, document, Window]</span></span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">//3️⃣mouseover</span></span></span><br><span class="line"><span class="actionscript">      $fruits.addEventListener(<span class="string">"mouseover"</span>, (e) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 3: 버블링 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLUListElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.bubbles); <span class="comment">//true</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.composedPath()); <span class="comment">//[li#orange, ul#fruits, body, html, document, Window]</span></span></span><br><span class="line">      &#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<ul>
-<li>event.bubbles: 버블링을 통해 이벤트를 전파하는지 여부를 불리언으로 나타냄.</li>
-<li>event.composedPath(): 이벤트가 통과하는 DOM 트리 상의 경로 확인</li>
-</ul>
-</blockquote>
-<ul>
-<li>1️⃣click: 버블링 단계의 이벤트를 캐치한다. event.bubbles = true;</li>
-<li>2️⃣mouseleave: 이 이벤트는 버블링을 통해 전파되지 않으므로 버블링 단계의 이벤트를 캐치하지 못한다. event.bubbles = false;</li>
-<li>3️⃣mouseover: mouseleave를 mouseover로 변경하면 버블링 단계의 이벤트를 캐치할 수 있다. event.bubbles = true;</li>
-</ul>
-<hr>
-<h2 id="이벤트-위임"><a href="#이벤트-위임" class="headerlink" title="이벤트 위임"></a>이벤트 위임</h2><p>이벤트는 전파되므로 이벤트 타깃은 물론 상위 DOM에서도 캐치할 수 있다. 이 점을 이용하여 여러 개의 하위 DOM 요소에 각각 이벤트 핸들러를 등록하는 대신 하나의 상위 DOM 요소에 이벤트 핸들러를 등록하는 방법이다. 이렇게 하면 동적으로 하위 DOM 요소를 추가하더라도 여기에 이벤트 핸들러를 일일이 등록할 필요가 없다.</p>
-<blockquote>
-<p><u>이벤트 위임의 장점</u></p>
-<ul>
-<li>동적인 엘리먼트에 대한 이벤트 처리가 수월하다.</li>
-<li>이벤트 핸들러 관리가 쉽다.</li>
-<li>메모리 사용량이 줄어들고, 메모리 누수 가능성도 줄어든다.</li>
-</ul>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">      <span class="selector-id">#fruits</span> &#123;</span></span><br><span class="line">        display: flex;</span><br><span class="line">        list-style-type: none;</span><br><span class="line">        padding: 0;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">      <span class="selector-id">#fruits</span> <span class="selector-tag">li</span> &#123;</span></span><br><span class="line">        width: 100px;</span><br><span class="line">        cursor: pointer;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">      <span class="selector-id">#fruits</span> <span class="selector-class">.active</span> &#123;</span></span><br><span class="line">        color: red;</span><br><span class="line">        text-decoration: underline;</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"fruits"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"apple"</span> <span class="attr">class</span>=<span class="string">"active"</span>&gt;</span>Apple<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"banana"</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"orange"</span>&gt;</span>Orange<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>선택된 내비게이션 아이템: <span class="tag">&lt;<span class="name">em</span> <span class="attr">class</span>=<span class="string">"msg"</span>&gt;</span>apple<span class="tag">&lt;/<span class="name">em</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $fruits = <span class="built_in">document</span>.getElementById(<span class="string">"fruits"</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $msg = <span class="built_in">document</span>.querySelector(<span class="string">".msg"</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 사용자 클릭에 의해 선택된 내비게이션 아이템(li 요소)에 active 클래스를 추가하고</span></span></span><br><span class="line"><span class="actionscript">      <span class="comment">// 그 외의 모든 내비게이션 아이템의 active 클래스를 제거한다.</span></span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="function"><span class="keyword">function</span> <span class="title">activate</span><span class="params">(&#123; target &#125;)</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">        [...$fruits.children].forEach(<span class="function">(<span class="params">$fruit</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="actionscript">          $fruit.classList.toggle(<span class="string">"active"</span>, $fruit === target);</span></span><br><span class="line">          $msg.textContent = target.id;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 모든 내비게이션 아이템(li 요소)에 이벤트 핸들러를 등록한다.</span></span></span><br><span class="line"><span class="javascript">      <span class="built_in">document</span>.getElementById(<span class="string">"apple"</span>).onclick = activate;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">document</span>.getElementById(<span class="string">"banana"</span>).onclick = activate;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">document</span>.getElementById(<span class="string">"orange"</span>).onclick = activate;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>만약 이벤트 위임을 하지 않으면 위와 같이 이벤트 핸들러 등록이 필요한 모든 요소에 일일이 이벤트 핸들러를 등록해주어야 한다. 이는 메모리 누수와 같은 성능 저하의 원인이 되고, 유지보수에도 적합하지 않다. 이벤트 위임의 장점은 같은 코드를 이벤트 위임으로 변경한 아래 예제에서 확인할 수 있다.</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">      <span class="comment">// &#123;...위와 동일한 코드&#125;</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $fruits = <span class="built_in">document</span>.getElementById(<span class="string">"fruits"</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $msg = <span class="built_in">document</span>.querySelector(<span class="string">".msg"</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">     <span class="function"><span class="keyword">function</span> <span class="title">activate</span><span class="params">(&#123; target &#125;)</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">      <span class="comment">// 이벤트를 발생시킨 요소(target)가 ul#fruits의 자식 요소가 아니라면 무시한다.</span></span></span><br><span class="line"></span><br><span class="line">      /*</span><br><span class="line">      상위 요소에 이벤트 핸들러를 등록할 때, 이벤트 타깃이 내가 기대한 DOM요소가 아닐 수도 있기 때문에</span><br><span class="line">      matches로 해당하는 이벤트 타깃이 있는지 확인한다.</span><br><span class="line">      matches: 인수로 전달된 선택자에 의해 특정 노드가 탐색 가능한지 확인한다.</span><br><span class="line">      */</span><br><span class="line"><span class="actionscript">      <span class="keyword">if</span> (!target.matches(<span class="string">'#fruits &gt; li'</span>)) <span class="keyword">return</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">      [...$fruits.children].forEach(<span class="function"><span class="params">$fruit</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="actionscript">        $fruit.classList.toggle(<span class="string">'active'</span>, $fruit === target);</span></span><br><span class="line">        $msg.textContent = target.id;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">    <span class="comment">// 이벤트 위임: 상위 요소(ul#fruits)는 하위 요소의 이벤트를 캐치할 수 있다.</span></span></span><br><span class="line">    /*</span><br><span class="line">    이벤트 객체의 currentTarget: 언제나 $fruits 요소</span><br><span class="line">    target 프로퍼티: 실제로 이벤트를 발생시킨 DOM 요소</span><br><span class="line">    두 가지가 서로 다른 DOM 요소를 가리킬 수도 있으므로 확실하게 하기 위해 $fruits에 이벤트를 바인딩한다.</span><br><span class="line">    */</span><br><span class="line">    $fruits.onclick = activate;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/event" target="_blank" rel="noopener">이벤트</a><br><a href="https://ui.toast.com/weekly-pick/ko_20160826/" target="_blank" rel="noopener">왜 이벤트 위임(delegation)을 해야 하는가?</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1548,7 +1573,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
