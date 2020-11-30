@@ -1,5 +1,5 @@
 ---
-title: Next.js next.images
+title: Next.js v10 - next/images
 date: 2020-11-24
 tags:
 ---
