@@ -144,6 +144,90 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/14/200315_builtin_object/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/14/200315_builtin_object/" class="post-title-link" itemprop="url">빌트인 객체 / Built-in objects</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-15 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-15T00:00:00+09:00">2020-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="자바스크립트-객체의-분류"><a href="#자바스크립트-객체의-분류" class="headerlink" title="자바스크립트 객체의 분류"></a>자바스크립트 객체의 분류</h2><ul>
+<li>표준 빌트인 객체: ECMAScript 사양에 정의된 객체이며 자바스크립트 실행 환경(브라우저 또는 Node.js 환경)과 관계없이 언제나 사용할 수 있다. 표준 빌트인 객체는 전역 객체의 프로퍼티로서 제공된다. 따라서 별도의 선언없이 전역 변수처럼 언제나 참조할 수 있다.</li>
+<li>호스트 객체: ECMAScript 사양에 정의되어 있지 않지만 자바스크립트 실행 환경(브라우저 환경 또는 Node.js 환경)에서 추가적으로 제공하는 객체</li>
+<li>사용자 정의 객체: 기본 제공되는 객체가 아닌 사용자가 직접 정의한 객체</li>
+</ul>
+<h2 id="표준-빌트인-객체"><a href="#표준-빌트인-객체" class="headerlink" title="표준 빌트인 객체"></a>표준 빌트인 객체</h2><p>40여개의 표준 빌트인 객체가 있는데 <em>Math, Reflect, JSON을 제외한</em> 표준 빌트인 객체는 모두 인스턴스를 생성할 수 있는 생성자 함수 객체이다. 생성자 함수 객체인 표준 빌트인 객체는 프로토타입 메소드와 정적 메소드를 제공하고 생성자 함수 객체가 아닌 표준 빌트인 객체는 정적 메소드만을 제공한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// String 생성자 함수에 의한 String 객체 생성</span></span><br><span class="line"><span class="keyword">const</span> strObj = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">"Lee"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> strObj); <span class="comment">// object</span></span><br><span class="line"><span class="built_in">console</span>.log(strObj); <span class="comment">// String &#123;"Lee"&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(strObj) === <span class="built_in">String</span>.prototype); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>생성자 함수인 표준 빌트인 객체가 생성한 인스턴스의 프로토타입은 표준 빌트인 객체의 prototype 프로퍼티에 바인딩된 객체이다. 예를 들어 표준 빌트인 객체인 String을 생성자 함수로서 호출하여 생성한 String 인스턴스의 프로토타입은 String.prototype이다.</p>
+<h2 id="원시값과-래퍼-객체"><a href="#원시값과-래퍼-객체" class="headerlink" title="원시값과 래퍼 객체"></a>원시값과 래퍼 객체</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">"hello"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 원시 타입인 문자열이 프로퍼티와 메소드를 갖고 있다.</span></span><br><span class="line"><span class="built_in">console</span>.log(str.length); <span class="comment">// 5</span></span><br><span class="line"><span class="built_in">console</span>.log(str.toUpperCase()); <span class="comment">// HELLO</span></span><br></pre></td></tr></table></figure>
+
+<p>원시값은 객체가 아니므로 프로퍼티나 메소드를 가질 수 없지만 위의 예시에서는 원시값인 문자열이 마치 객체처럼 동작한다. 문자열, 숫자, 불리언 값에 대해서는 객체처럼 마침표 표기법이나 대괄호 표기법으로 접근하면 일시적으로 임시 객체가 생성되는데 이를 래퍼객체라 한다. 단, 메소드로 접근하여 호출이 끝나면 다시 원시값으로 돌아간다.</p>
+<h2 id="전역객체"><a href="#전역객체" class="headerlink" title="전역객체"></a>전역객체</h2><p>코드가 실행되기 이전 단계에 자바스크립트 엔진에 의해 어떤 객체보다도 먼저 생성되는 특수한 객체이며 어떤 객체에도 속하지 않은 최상위 객체. 브라우저 상에서는 window, Node.js 환경에서는 global을 말한다.</p>
+<ul>
+<li>개발자가 의도적으로 생성할 수 없고, 전역 객체의 프로퍼티를 참조할 때 window나 global은 생략 가능.</li>
+<li>var는 전역 객체의 프로퍼티이지만 let,const 키워드로 선언한 전역 변수는 전역 객체의 프로퍼티가 아니다.</li>
+</ul>
+<h2 id="암묵적-전역"><a href="#암묵적-전역" class="headerlink" title="암묵적 전역"></a>암묵적 전역</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>; <span class="comment">// 전역 변수</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  y = <span class="number">20</span>; <span class="comment">// 선언하지 않은 식별자에 값을 할당</span></span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 선언하지 않은 식별자 y를 전역에서 참조할 수 있다.</span></span><br><span class="line"><span class="built_in">console</span>.log(x + y); <span class="comment">// 30</span></span><br></pre></td></tr></table></figure>
+
+<p>위의 경우 자바스크립트 엔진은 y = 20을 window.y = 20으로 해석하여 전역 객체에 프로퍼티를 동적 생성한다. 결국 y는 전역 객체의 프로퍼티가 되어 마치 전역 변수처럼 동작한다. 이를 암묵적 전역이라 한다.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/14/200315_this/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +259,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 00:36:35" itemprop="dateModified" datetime="2021-05-10T00:36:35+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
               </span>
 
           
@@ -247,7 +331,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 00:36:35" itemprop="dateModified" datetime="2021-05-10T00:36:35+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
               </span>
 
           
@@ -318,7 +402,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 00:36:35" itemprop="dateModified" datetime="2021-05-10T00:36:35+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
               </span>
 
           
@@ -408,7 +492,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 00:36:35" itemprop="dateModified" datetime="2021-05-10T00:36:35+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
               </span>
 
           
@@ -506,7 +590,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 00:36:35" itemprop="dateModified" datetime="2021-05-10T00:36:35+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
               </span>
 
           
@@ -677,7 +761,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 00:36:35" itemprop="dateModified" datetime="2021-05-10T00:36:35+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
               </span>
 
           
@@ -761,7 +845,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 00:36:35" itemprop="dateModified" datetime="2021-05-10T00:36:35+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
               </span>
 
           
@@ -888,7 +972,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 00:36:35" itemprop="dateModified" datetime="2021-05-10T00:36:35+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
               </span>
 
           
@@ -1008,7 +1092,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 00:36:35" itemprop="dateModified" datetime="2021-05-10T00:36:35+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
               </span>
 
           
@@ -1124,104 +1208,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/27/0228_rubberduck/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/27/0228_rubberduck/" class="post-title-link" itemprop="url">200228 러버덕 정리</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-28T00:00:00+09:00">2020-02-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 00:36:35" itemprop="dateModified" datetime="2021-05-10T00:36:35+09:00">2021-05-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="함수란"><a href="#함수란" class="headerlink" title="함수란?"></a>함수란?</h2><p>함수는 함수 정의와 호출, 실행의 일련의 과정을 거쳐 값을 반환하는 것으로 이 일련의 과정은 문(statement)들로 구현하고, 코드 븍록으로 감싸서 하나의 실행단위로 정의한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> 함수명 (<span class="params">매개변수</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> 반환값;</span><br><span class="line">&#125; <span class="comment">//함수 정의(함수 몸체)</span></span><br><span class="line">함수명(인수) <span class="comment">//함수 호출</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x,y</span>) </span>&#123;</span><br><span class="line">  returen x + y;</span><br><span class="line">&#125;</span><br><span class="line">add(<span class="number">2</span>,<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>함수 정의를 통해 함수를 생성한다. 위와 같이 호출하기 이전에 인수를 전달받을 매개변수와 실행할 문들, 반환할 값을 지정하는 것을 말한다.</li>
-</ol>
-<ul>
-<li>함수 선언문</li>
-<li>함수 표현식</li>
-<li>생성자 함수</li>
-<li>화살표 함수</li>
-</ul>
-<ol start="2">
-<li>함수 객체를 가리키는 식별자(함수 이름으로 호출 x)로 호출한다.</li>
-<li>함수 외부에서 내부로 값을 전달할 필요가 있다면, 인수(argument)는 매개변수(parameter)를 통해 전달된다.</li>
-<li>값을 전달받으면 함수 내부에서 미리 정의된 문들을 실행하여 값을 반환한다.</li>
-</ol>
-<ul>
-<li>반환문은 함수의 실행을 중단하고, 함수 몸체를 빠져나간다.</li>
-<li>return 키워드 뒤에 지정한 값을 반환한다.</li>
-</ul>
-<h2 id="함수선언문과-함수표현식"><a href="#함수선언문과-함수표현식" class="headerlink" title="함수선언문과 함수표현식"></a>함수선언문과 함수표현식</h2><p>함수선언문과 함수표현식은 <code>함수 호이스팅 vs 변수 호이스팅</code>의 차이가 있다. 또한 생성시점이 다르기 때문에 함수선언문은 선언문 이전에 호출이 가능하고, 함수표현식은 표현식 이전에 호출이 불가능한다.</p>
-<ul>
-<li><code>함수선언문</code>: 런타임 이전에 함수 객체가 먼저 생성되고, 함수 이름과 동일한 이름의 식별자를 암묵적으로 생성하고 생성된 함수 객체를 할당한다. 따라서 <em>선언문 이전에 함수의 참조와 호출 모두 가능하다.</em></li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dir(add); <span class="comment">// ƒ add(x, y) 함수참조</span></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">// 7 함수호출</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>위와 같이 함수를 선언하면, 런타임 이전에 이미 함수 객체가 생성되어 할당까지 완료된 상태이므로, 선언문을 실행하는 런타임 이전에 값을 참조 또는 호출하여도 값이 반환된다.</p>
-<ul>
-<li><code>함수표현식</code>: 함수표현식은 변수 호이스팅과 동일하다. 변수 선언문과 할당문의 축약표현과 동일하게 동작한다. 런타임 이전에 <code>함수표현식</code>은 함수 객체가 아닌 <code>undefined</code>로 초기화된다. 그리고 런타임 때 평가되어 함수 리터럴은 할당문이 실행되는 시점에 비로소 함수 객체가 된다.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dir(sub); <span class="comment">// undefined 함수참조</span></span><br><span class="line"><span class="built_in">console</span>.log(sub(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">// TypeError: sub is not a function 함수호출</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sub = <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x - y;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>위와 같이 런타임 이전에 함수를 참조하면 <code>undefined</code>가 반환된다. 런타임 이전에 함수표현식은 <code>undefined</code>라는 값으로 초기화되어 있기 때문이다. 또한 값의 할당은 런타임 때 이루어지기 때문에 표현식 이전에 함수를 호출하면 <code>TypeError</code>가 발생한다.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1292,7 +1278,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

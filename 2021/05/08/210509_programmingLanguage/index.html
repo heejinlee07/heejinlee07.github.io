@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="고수준 언어, 저수준 언어가 고급, 저급의 개념이 아니다. 저수준 언어, 고수준 언어의 정의는 상대적이다. 저수준 언어 컴퓨터가 이해하기 쉬운 언어에 가깝다. 0과 1로만 이루어졌다. 기계어 컴퓨터가 바로 이해할 수 있으므로 변환 과정이 필요 없다.  기계어 네이티브 코드라고도 부른다. 2진수, 0과 1 원조 저수준 언어 모든 프로그래밍 언어는 이 기계어로">
+<meta property="og:type" content="article">
+<meta property="og:title" content="프로그래밍 언어의 분류">
+<meta property="og:url" content="https://heejinlee07.github.io/2021/05/08/210509_programmingLanguage/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="고수준 언어, 저수준 언어가 고급, 저급의 개념이 아니다. 저수준 언어, 고수준 언어의 정의는 상대적이다. 저수준 언어 컴퓨터가 이해하기 쉬운 언어에 가깝다. 0과 1로만 이루어졌다. 기계어 컴퓨터가 바로 이해할 수 있으므로 변환 과정이 필요 없다.  기계어 네이티브 코드라고도 부른다. 2진수, 0과 1 원조 저수준 언어 모든 프로그래밍 언어는 이 기계어로">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-08T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-05-10T14:36:43.983Z">
+<meta property="article:author" content="Heejin Lee">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2021/05/08/210509_programmingLanguage/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>프로그래밍 언어의 분류 | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/05/08/210509_programmingLanguage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          프로그래밍 언어의 분류
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-05-09 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-09T00:00:00+09:00">2021-05-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>고수준 언어, 저수준 언어가 고급, 저급의 개념이 아니다. 저수준 언어, 고수준 언어의 정의는 상대적이다.</p>
+<h2 id="저수준-언어"><a href="#저수준-언어" class="headerlink" title="저수준 언어"></a>저수준 언어</h2><ul>
+<li>컴퓨터가 이해하기 쉬운 언어에 가깝다.</li>
+<li>0과 1로만 이루어졌다.</li>
+<li>기계어</li>
+<li>컴퓨터가 바로 이해할 수 있으므로 변환 과정이 필요 없다.</li>
+</ul>
+<h3 id="기계어"><a href="#기계어" class="headerlink" title="기계어"></a>기계어</h3><ul>
+<li>네이티브 코드라고도 부른다.</li>
+<li>2진수, 0과 1</li>
+<li>원조 저수준 언어</li>
+<li>모든 프로그래밍 언어는 이 기계어로 번역되어야 한다.</li>
+</ul>
+<h2 id="고수준-언어"><a href="#고수준-언어" class="headerlink" title="고수준 언어"></a>고수준 언어</h2><ul>
+<li>인간이 이해하기 쉬운 언어에 가깝다.</li>
+<li>인간이 사용하는 언어로 이루어졌다.(for, while, if…)</li>
+<li>어셈블리어, c, c++, java, c#</li>
+<li>컴퓨터가 이해하는 <code>기계어</code>로 변환하는 과정이 필요하다.</li>
+</ul>
+<h3 id="어셈블리어"><a href="#어셈블리어" class="headerlink" title="어셈블리어"></a>어셈블리어</h3><ul>
+<li>사람이 읽기에 조금 더 편하기 때문에 엄밀히 말하면 고수준 언어이다.</li>
+<li>대부분 기계어랑 일대일로 대응한다. 그렇기 때문에 저수준 언어라고 하기도 한다.</li>
+</ul>
+<h2 id="고수준-프로그래밍-언어"><a href="#고수준-프로그래밍-언어" class="headerlink" title="고수준 프로그래밍 언어"></a>고수준 프로그래밍 언어</h2><p>어셈블리어는 기계어보다는 사람에게 친숙하지만 여전히 불편하다. 그래서 보다 사람에게 친근한 <code>고수준 프로그래밍 언어</code>가 나왔다. e.g. int addResult = 3 + 4; 3과 4를 더한 후 addResult에 저장한다.</p>
+<ul>
+<li>사람이 쓰는 말에 매우 가까워졌다.</li>
+<li>어셈블리어처럼 기계와어 일대일 대응은 불가능하다.</li>
+<li>c, c++, java, c#, javascript 등.</li>
+<li>메모리를 누가 관리하는지에 따라 매니지드 언어, 언매니지드 언어로 나뉜다.</li>
+</ul>
+<hr>
+<h2 id="컴파일-언어"><a href="#컴파일-언어" class="headerlink" title="컴파일 언어"></a>컴파일 언어</h2><ul>
+<li>소스 코드 -&gt; 컴파일러 -&gt; 기계어 -&gt; 실행</li>
+<li>소스 코드를 기계가 이해할 수 있는 기계어로 바꿔준다.</li>
+<li>c, c++</li>
+<li>오프라인 컴파일러가 고수준 언어를 네이티브 코드로 컴파일</li>
+<li>다양한 최적화 가능</li>
+<li>플랫폼(e.g. mac OS, 32비트 윈도우, 아이폰)마다 다른 exe 파일을 컴파일 해야한다.</li>
+</ul>
+<h2 id="JIT-컴파일-언어"><a href="#JIT-컴파일-언어" class="headerlink" title="JIT 컴파일 언어"></a>JIT 컴파일 언어</h2><ul>
+<li>컴파일 언어와 인터프리터 언어의 중간단계</li>
+<li>소스코드 -&gt; 컴파일러 -&gt; 중간언어 코드(기계처럼 보이게 프로그램을 짜고, 그 프로그램이 이해하는 코드) -&gt; JIT 컴파일러 -&gt; 기계어 -&gt; 실행</li>
+<li>c#, java, WASM(webAssembly)</li>
+<li>오프라인 컴파일러가 소스 코드를 중간 언어로 컴파일</li>
+<li>플랫폼 별로 VM(가상 머신, vitual machine)를 설치해야 함.</li>
+<li>프로그램 실행 중 VM이 중간 언어를 기계가 이해하는 언어로 바꿔서 실행.</li>
+<li>java, c#은 플랫폼에 종속적이지 않고 VM에 종송적이다.</li>
+</ul>
+<h2 id="인터프리터-언어"><a href="#인터프리터-언어" class="headerlink" title="인터프리터 언어"></a>인터프리터 언어</h2><ul>
+<li>소스 코드 -&gt; 인터프리터 언어 -&gt; 기계어 -&gt; 실행</li>
+<li>컴파일 단계가 없다</li>
+<li>javascript, python, lua, php</li>
+<li>실행 중에 고수준 언어를 네이티브 코드로 바꿔서 실행한다.</li>
+<li>실제로 실행하기 전까지 코드의 문제를 잡아낼 수 없다.</li>
+</ul>
+<h2 id="강한-타입-약한-타입-언어"><a href="#강한-타입-약한-타입-언어" class="headerlink" title="강한 타입, 약한 타입 언어"></a>강한 타입, 약한 타입 언어</h2><p>변수선언(변수 용도)와 관련이 있다.</p>
+<ul>
+<li>약한 타입:변수형을 선언한 후 변수형을 변경할 수 있다 e.g. javascript</li>
+<li>강한 타입: 변수형을 선언한 후 변수형을 변경할 수 없다 e.g. c, c++, c#(약한타입도 지원), java 등</li>
+</ul>
+<p>상용 코드를 작성할 때는 강한 타입 언어들이 일반적으로 더 낫다.</p>
+<hr>
+<h2 id="매니지드-언어-언매니지드-언어"><a href="#매니지드-언어-언매니지드-언어" class="headerlink" title="매니지드 언어, 언매니지드 언어"></a>매니지드 언어, 언매니지드 언어</h2><ul>
+<li>누가 메모리의 수명(라이프사이클)을 관리하는지가 핵심</li>
+<li>프로그램에서 큰 데이터를 사용하려면 운영체제(OS)로부터 독점적으로 사용할 메모리를 확보해야 한다.</li>
+<li>데이터를 다 사용한 뒤에는 OS에 메모리는 반환해야 한다.</li>
+</ul>
+<blockquote>
+<p>매니지드 언어: 프로그래머가 책임지고 메모리를 반환한다.<br>언매니지드 언어: 프로그래밍 언어가 더 이상 메모리를 사용 안 하는 상황을 판단하여 메모리를 반환해 준다.</p>
+</blockquote>
+<p>매니지드 언어가 실수가 적고 편하지만 효율적이지는 않다. 언매니지드 언어를 배우면 하드웨어 지식을 쌓을 수 있다.</p>
+<p><u>성능이 중요하지 않은 프로그램을 만들 때</u><br>매니지드 언어를 많이 사용한다. e.g. java, c#, javascript, lua</p>
+<p><u>성능이 중요한 프로그램을 만들 때</u><br>언매니지드 언어를 많이 사용한다. e.g. c, c++</p>
+<p><u>언매니지드 언어를 배워야 하는 이유</u></p>
+<ul>
+<li>메모리 동작원리</li>
+<li>CPU 동작원리</li>
+<li>컴퓨터처럼 생각하는 방법</li>
+<li>매니지드 언어에서 지원하는 모든 마법같은 기능들의 동작원리</li>
+</ul>
+<hr>
+<h2 id="프로그래밍-패러다임-절차적-언어"><a href="#프로그래밍-패러다임-절차적-언어" class="headerlink" title="프로그래밍 패러다임 - 절차적 언어"></a>프로그래밍 패러다임 - 절차적 언어</h2><ul>
+<li>가장 단순한 형태의 프로그래밍 언어</li>
+<li>함수를 실행하면 결과가 바로 반횐된다.</li>
+<li>그 결과를 저장하고 싶으면 별도의 공간에 보관한다</li>
+<li>기능과 자료저장의 분리</li>
+<li>순서에 따라 코드를 실행한다.</li>
+<li>대표적인 언어: c언어</li>
+</ul>
+<h2 id="프로그래밍-패러다임-OOP-언어"><a href="#프로그래밍-패러다임-OOP-언어" class="headerlink" title="프로그래밍 패러다임 - OOP 언어"></a>프로그래밍 패러다임 - OOP 언어</h2><ul>
+<li>사람에게 직관적</li>
+<li>기능과 자료를 하나의 개체(object)에 합쳤다.<ul>
+<li>물체의 개념</li>
+<li>오역으로 인해 주로 객체하고 부른다.</li>
+</ul>
+</li>
+<li>가장 널리 쓰이는 프로그래밍 패러다임<ul>
+<li>사람에게 매우 직관적이다.</li>
+<li>복잡한 프로그램의 구조를 잡기 쉽다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="프로그래밍-패러다임-함수형-언어"><a href="#프로그래밍-패러다임-함수형-언어" class="headerlink" title="프로그래밍 패러다임 - 함수형 언어"></a>프로그래밍 패러다임 - 함수형 언어</h2><ul>
+<li>절차적 언어랑 비슷하게 함수가 있다.</li>
+<li></li>
+<li>그러나 상태의 변화가 없다(불변성)</li>
+</ul>
+<h2 id="C"><a href="#C" class="headerlink" title="C#"></a>C#</h2><ul>
+<li>강한 타입 언어</li>
+<li>매니지드 언어</li>
+<li>OOP</li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/04/210105_pseudoClass/" rel="prev" title="pseudo-class vs pseudo-element">
+      <i class="fa fa-chevron-left"></i> pseudo-class vs pseudo-element
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#저수준-언어"><span class="nav-number">1.</span> <span class="nav-text">저수준 언어</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#기계어"><span class="nav-number">1.1.</span> <span class="nav-text">기계어</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#고수준-언어"><span class="nav-number">2.</span> <span class="nav-text">고수준 언어</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#어셈블리어"><span class="nav-number">2.1.</span> <span class="nav-text">어셈블리어</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#고수준-프로그래밍-언어"><span class="nav-number">3.</span> <span class="nav-text">고수준 프로그래밍 언어</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#컴파일-언어"><span class="nav-number">4.</span> <span class="nav-text">컴파일 언어</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JIT-컴파일-언어"><span class="nav-number">5.</span> <span class="nav-text">JIT 컴파일 언어</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#인터프리터-언어"><span class="nav-number">6.</span> <span class="nav-text">인터프리터 언어</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#강한-타입-약한-타입-언어"><span class="nav-number">7.</span> <span class="nav-text">강한 타입, 약한 타입 언어</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#매니지드-언어-언매니지드-언어"><span class="nav-number">8.</span> <span class="nav-text">매니지드 언어, 언매니지드 언어</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#프로그래밍-패러다임-절차적-언어"><span class="nav-number">9.</span> <span class="nav-text">프로그래밍 패러다임 - 절차적 언어</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#프로그래밍-패러다임-OOP-언어"><span class="nav-number">10.</span> <span class="nav-text">프로그래밍 패러다임 - OOP 언어</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#프로그래밍-패러다임-함수형-언어"><span class="nav-number">11.</span> <span class="nav-text">프로그래밍 패러다임 - 함수형 언어</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C"><span class="nav-number">12.</span> <span class="nav-text">C#</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
