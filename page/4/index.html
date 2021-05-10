@@ -144,6 +144,159 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/31/200601_reduxIntro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/31/200601_reduxIntro/" class="post-title-link" itemprop="url">What is Redux?</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-01 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-01T00:00:00+09:00">2020-06-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-05-11 00:32:19" itemprop="dateModified" datetime="2021-05-11T00:32:19+09:00">2021-05-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h2><p>리덕스 생태계에서 가장 사용률이 높은 상태관리 라이브러리. 상태관리 로직들을 다른 파일로 분리해서 효율적으로 관리할 수 있고, 글로벌 상태도 관리할 수 있음.</p>
+<blockquote>
+<p>Context API + useReducer를 사용해도 글로벌 상태를 관리할 수 있는데 Redux는 이보다 이전에 존재했던 라이브러리.</p>
+</blockquote>
+<p>리덕스가 무조건 필요한 것은 아니다. 단순히 글로벌 상태를 관리하기 위한 것인데, 글로벌 상태가 별로 없다면 Context API를 사용하는 것으로도 충분히 가능함.</p>
+<h2 id="Context-API를-쓰는-것과-Redux의-차이점"><a href="#Context-API를-쓰는-것과-Redux의-차이점" class="headerlink" title="Context API를 쓰는 것과 Redux의 차이점"></a>Context API를 쓰는 것과 Redux의 차이점</h2><ol>
+<li>미들웨어</li>
+</ol>
+<blockquote>
+<p>주요 기능: 비동기 작업을 더욱 체계적으로 관리 가능.</p>
+</blockquote>
+<ul>
+<li>특정 조건에 따라 액션이 무시되게 만들 수 있디.</li>
+<li>액션을 콘솔에 출력하거나 서버쪽에 로깅할 수 있게 한다.</li>
+<li>액션이 디스패치 됐을 때 이를 수정해서 리듀서에 전달되도록 할 수 있다.</li>
+<li>특정 액션이 발생했을 때 이에 기반하여 다른 액션이 발생되도록 할 수 있다.</li>
+<li>특정 액션이 발생했을 때 특정 자바스크립트 함수를 실행시킬 수 있다.</li>
+</ul>
+<ol start="2">
+<li>유용한 함수와 Hooks를 지원받음.</li>
+</ol>
+<ul>
+<li>connect: 전역적인 상태, action을 디스패치하는 함수들을 props로 받아와서 사용할 수 있다.</li>
+<li>useSelector, useDispatch, useStore: Redux에서 관리하고 있는 상태를 쉽게 조회하고, action을 쉽게 디스패치할 수 있다.</li>
+<li>만약 Context API를 사용한다면 위와 같은 hooks를 쓰는 것이 아니라 직접 만들어줘야 한다.</li>
+</ul>
+<ol start="3">
+<li>기본적인 최적화가 이미 되어있어서 필요한 상태가 바뀔 때만 리렌더링 된다.</li>
+<li>하나의 커다란 상태<br>Context API를 사용해서 글로벌 상태를 관리하게 되면 기능별로 Context를 만들어서 사용해야 한다. 반면 Redux에서는 모든 글로벌 상태를 하나의 커다란 객체에 넣어서 사용하는 것이 필수이다. 따라서 매번 Context를 만들어서 사용하지 않아도 됨.</li>
+<li>DevTools: 개발자 도구가 있어서 현재상태를 한 눈에 볼 수 있다.</li>
+<li>Redux를 사용하고 있는 프로젝트가 이미 많다.</li>
+</ol>
+<h2 id="Redux는-언제-써야하는가"><a href="#Redux는-언제-써야하는가" class="headerlink" title="Redux는 언제 써야하는가?"></a>Redux는 언제 써야하는가?</h2><blockquote>
+<p>프로젝트의 규모가 큰가? Y-Redux, N-Context API<br>비동기 작업을 자주 하는가? Y-Redux, N-Context API<br>Redux가 편하게 느껴지는가? Y-Redux, N-Context API or MobX</p>
+</blockquote>
+<h2 id="Redux에서-사용되는-키워드"><a href="#Redux에서-사용되는-키워드" class="headerlink" title="Redux에서 사용되는 키워드"></a>Redux에서 사용되는 키워드</h2><ol>
+<li>액션(Action)<br>상태에 어떤 변화가 필요할 때 액션을 발생시킨다. 하나의 객체이며 type이라는 값이 필수적으로 있어야함. 그외 필요한 값을 추가할 수도 있음. 상태 업데이트 시에 <code>type</code>을 보고 어떻게 업데이트할지 정하는 것.</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  type: <span class="string">"TOGGLE_VALUE"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 필수적인 type 값 외에 필요한 값을 넣어줄 수 있다.</span></span><br><span class="line"><span class="comment">// 새로운 할 일을 만드는 액션이며, 이 data를 추가하겠다는 의미.</span></span><br><span class="line">&#123;</span><br><span class="line">  type: <span class="string">"ADD_TODO"</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    id: <span class="number">0</span>,</span><br><span class="line">    text: <span class="string">"리덕스 배우기"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>액션 생성함수 (Action Creator)<br>액션을 만드는 함수. 단순히 파라미터를 받아와서 액션 객체 형태로 만든다. 필수로 사용해야 하는 것은 아니지만 이렇게 하면 액션 객체를 만드는 것이 훨씬 편하다. 즉 컴포넌트에서 쉽게 액션을 발생시키기 위함이므로 보통 함수 앞에 <code>export</code> 키워드를 붙여서 다른 파일에서 불러와서 사용한다.</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// data라는 파라미터를 받아와서 객체를 만들어준다.</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">addTodo</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    type: <span class="string">"ADD_TODO"</span>,</span><br><span class="line">    data,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 화살표 함수로도 만들 수 있다.</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> changeInput = <span class="function">(<span class="params">text</span>) =&gt;</span> (&#123;</span><br><span class="line">  type: <span class="string">"CHANGE_INPUT"</span>,</span><br><span class="line">  text,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>리듀서 (Reducer)<br>useReducer랑 완전히 같은 형태. <em>변화를 일으키는 함수.</em> 리듀서는 두가지의 파라미터를 받아온다. action.type를 가지고 그 type이 무엇이냐에 따라 다른 업데이트 작업을 한다.</p>
+<blockquote>
+<p>리듀서는 이전 상태와 액션을 받아서 다음 상태를 반환하는 순수 함수<br><code>(previousState, action) =&gt; newState</code></p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">counter</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"INCREASE"</span>:</span><br><span class="line">      <span class="keyword">return</span> state + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"DECREASE"</span>:</span><br><span class="line">      <span class="keyword">return</span> state - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>주의</code></p>
+<ul>
+<li><p>위와 같이 단순히 숫자를 더하거나 빼는 경우가 아닌 객체 또는 배열이라면 스프레드 연산자 등으로 불변성을 반드시 지켜준다.</p>
+</li>
+<li><p><code>default:</code> 부분에서 <code>state</code>를 그대로 반환한다. (useReducer에서는 default: 부분에 throw new Error(‘Unhandled Action’)처럼 에러를 발생시키도록 처리했다.)</p>
+</li>
+<li><p>API 호출이나 라우팅 전환같은 사이드이펙트를 일으키지 않도록 한다.</p>
+</li>
+<li><p>Date.now()나 Math.random() 같이 순수하지 않은 함수를 호출하지 않는다.</p>
+</li>
+</ul>
+<ol start="4">
+<li><p>스토어 (Store)<br><em>리덕스에서는 한 애플리케이션당 하나의 스토어를 만든다.</em> 스토어 안에는, 현재의 앱 상태와, 리듀서가 들어가있고, 추가적으로 몇가지 내장 함수들이 있다.</p>
+</li>
+<li><p>디스패치 (dispatch)<br>디스패치는 스토어의 내장함수 중 하나. 디스패치는 액션을 발생 시키는 것(액션을 스토어에게 전달)</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dispatch(&#123; <span class="attr">type</span>: <span class="string">"INCREASE"</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>액션을 만들어서 dispatch의 파라미터로 넣어서 호출한다. 이렇게 호출하면 스토어가 리듀서 함수를 실행시켜서 해당 액션을 처리하는 로직이 있다면 이를 참고하여 새로운 상태를 만들어준다.</p>
+<ol start="6">
+<li>구독 (subscribe)<br>구독 또한 스토어의 내장함수 중 하나. subscribe 함수는, 함수 형태의 값을 파라미터로 받아온다. subscribe 함수에 특정 함수를 전달해주면, 액션이 디스패치 되었을 때 마다 전달해준 함수가 호출된다. <em>스토어의 상태가 업데이트 될 때마다 특정함수를 호출할 수 있다.</em> 리액트에서 리덕스를 사용하게 될 때 보통 이 함수를 직접 사용하는 일은 별로 없다. 그 대신에 react-redux 라는 라이브러리에서 제공하는 connect 함수 또는 useSelector Hook 을 사용하여 리덕스 스토어의 상태에 구독한다.</li>
+</ol>
+<h2 id="리덕스의-3가지-규칙"><a href="#리덕스의-3가지-규칙" class="headerlink" title="리덕스의 3가지 규칙"></a>리덕스의 3가지 규칙</h2><ol>
+<li>하나의 애플리케이션 안에는 하나의 스토어.<br>여러 개의 스토어를 사용할 수도 있지만 권장되지 않는다.</li>
+<li>상태는 읽기전용이므로 불변성을 지켜준다.</li>
+<li>변화를 일으키는 함수인 리듀서는 순수한 함수여야 한다. 동일한 인풋에는 동일한 아웃풋이 있어야 한다. new Date()와 같은 함수는 순수하지 않은 함수이다.</li>
+</ol>
+<ul>
+<li>리듀서 함수는 이전 상태와, 액션 객체를 파라미터로 받는다.</li>
+<li>이전의 상태는 절대로 건드리지 않고, 변화를 일으킨 새로운 상태 객체를 만들어서 반환한다.</li>
+<li>똑같은 파라미터로 호출된 리듀서 함수는 언제나 똑같은 결과값을 반환해야만 한다.</li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://lunit.gitbook.io/redux-in-korean/basics/reducers" target="_blank" rel="noopener">Redux</a><br><a href="https://react.vlpt.us/redux/01-keywords.html" target="_blank" rel="noopener">모던리액트</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/19/200520_contextApi/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +328,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-11 00:32:19" itemprop="dateModified" datetime="2021-05-11T00:32:19+09:00">2021-05-11</time>
               </span>
 
           
@@ -278,7 +431,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-11 00:32:19" itemprop="dateModified" datetime="2021-05-11T00:32:19+09:00">2021-05-11</time>
               </span>
 
           
@@ -373,7 +526,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-11 00:32:19" itemprop="dateModified" datetime="2021-05-11T00:32:19+09:00">2021-05-11</time>
               </span>
 
           
@@ -462,7 +615,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-11 00:32:19" itemprop="dateModified" datetime="2021-05-11T00:32:19+09:00">2021-05-11</time>
               </span>
 
           
@@ -564,7 +717,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-11 00:32:19" itemprop="dateModified" datetime="2021-05-11T00:32:19+09:00">2021-05-11</time>
               </span>
 
           
@@ -646,7 +799,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-11 00:32:19" itemprop="dateModified" datetime="2021-05-11T00:32:19+09:00">2021-05-11</time>
               </span>
 
           
@@ -723,7 +876,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-11 00:32:19" itemprop="dateModified" datetime="2021-05-11T00:32:19+09:00">2021-05-11</time>
               </span>
 
           
@@ -784,6 +937,139 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/18/200319_es6_arrow_function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/18/200319_es6_arrow_function/" class="post-title-link" itemprop="url">ES6 함수의 추가 기능</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-19 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-19T00:00:00+09:00">2020-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-05-11 00:32:19" itemprop="dateModified" datetime="2021-05-11T00:32:19+09:00">2021-05-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="함수의-구분"><a href="#함수의-구분" class="headerlink" title="함수의 구분"></a>함수의 구분</h2><p>ES6 이전의 함수는 일반함수, 생성자 함수, 메소드의 호출 등 동일한 함수도 다양한 형태로 호출할 수 있었다. 즉 callable이면서 constructor이다. 객체에 바인딩 된 메소드 역시 일반 함수 또는 생성자 함수로 호출 가능하다. 그런데 이와 같은 경우 불필요한 프로토타입 객체를 생성한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line">foo(); <span class="comment">//일반함수로 호출</span></span><br><span class="line"><span class="keyword">new</span> foo(); <span class="comment">//생성자 함수로 호출</span></span><br></pre></td></tr></table></figure>
+
+<p>ES6에서는 함수 호출방식에 제약이 없어 생기는 문제를 방지하고자 함수를 사용 목적에 따라 3가지로 구분한다.</p>
+<table>
+<thead>
+<tr>
+<th>ES6 함수의 구분</th>
+<th>constructor</th>
+<th>prototype</th>
+<th>super</th>
+<th>arguments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>일반함수</td>
+<td>O</td>
+<td>O</td>
+<td>X</td>
+<td>O</td>
+</tr>
+<tr>
+<td>메소드</td>
+<td>X</td>
+<td>X</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr>
+<td>화살표 함수</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+</tbody></table>
+<h2 id="메소드"><a href="#메소드" class="headerlink" title="메소드"></a>메소드</h2><p>ES6 사양에서 메소드는 메소드 축약 표현으로 정의된 함수 만을 의미한다. 따라서 메소드는 생성자 함수로 호출할 수 없고, 인스턴스 생성, 프로퍼타입 프로퍼티, 프로토타입 등을 생성하지 않는다. 또한 메소드가 바인딩된 객체를 가리키는 내부 슬롯 [[HomeObject]]를 갖고, 이를 이용하여 super키워드를 사용할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  x: <span class="number">1</span>,</span><br><span class="line">  <span class="comment">// foo는 메소드이다.</span></span><br><span class="line">  foo() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.x;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// bar에 바인딩된 함수는 메소드가 아닌 일반 함수이다.</span></span><br><span class="line">  bar: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.x;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj.foo()); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.bar()); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="메소드-축약-표현"><a href="#메소드-축약-표현" class="headerlink" title="메소드 축약 표현"></a>메소드 축약 표현</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span>,</span><br><span class="line">  sayHi: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hi! "</span> + <span class="keyword">this</span>.name);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.sayHi(); <span class="comment">// Hi! Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span>,</span><br><span class="line">  <span class="comment">// 메소드 축약 표현</span></span><br><span class="line">  sayHi() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hi! "</span> + <span class="keyword">this</span>.name);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.sayHi(); <span class="comment">// Hi! Lee</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="화살표-함수"><a href="#화살표-함수" class="headerlink" title="화살표 함수"></a>화살표 함수</h2><p>기존의 함수 정의 방법보다 간략하게 정의할 수 있고, 콜백 함수 내부에서 this가 전역 객체를 가리키는 문제를 해결하는 데 유용하다. 항상 익명이며, 생성자로 사용할 수 없다.</p>
+<h3 id="화살표-함수-정의"><a href="#화살표-함수-정의" class="headerlink" title="화살표 함수 정의"></a>화살표 함수 정의</h3><ol>
+<li>매개변수 선언</li>
+</ol>
+<ul>
+<li><p>매개변수가 여러 개면 소괄호 안에 매개 변수를 선언한다. 한개인 경우 소괄호를 생략할 수 있다.<br><code>(x,y) =&gt; {...}</code></p>
+</li>
+<li><p>매개 변수가 없을 때 소괄호를 생략할 수 없다.<br><code>() =&gt; {...}</code></p>
+</li>
+</ul>
+<ol start="2">
+<li>함수 몸체 정의</li>
+</ol>
+<ul>
+<li>함수 몸체가 한 줄의 문으로 구성된다면 함수 몸체를 감싸는 중괄호 {}를 생략할 수 있다. 이때 문은 암묵적으로 반환된다. 몸체가 여러 줄로 구성된다면 중괄호를 생략할 수 없고, 반환값이 있다면 명시적으로 반환한다.<br><code>x =&gt; x * x; // 왼쪽의 표현과 동일하다. x =&gt; { return x * x; }</code></li>
+<li>객체 리터럴을 반환할 때는 소괄호로 감싸준다.<br><code>() =&gt; { return { a: 1 }; } // 왼쪽표현과 동일하다. () =&gt; ({ a: 1 })</code></li>
+<li>즉시실행함수로 사용할 수 있다.</li>
+<li>고차 함수에 인수로 전달할 수 있다.</li>
+</ul>
+<h3 id="화살표-함수와-일반-함수의-차이"><a href="#화살표-함수와-일반-함수의-차이" class="headerlink" title="화살표 함수와 일반 함수의 차이"></a>화살표 함수와 일반 함수의 차이</h3><ol>
+<li>화살표 함수는 인스턴스를 생성할 수 없는 non-constructor이다.</li>
+<li>화살표 함수는 인스턴스를 생성할 수 없으므로 prototype 프로퍼티가 없고 프로토타입도 생성하지 않는다.</li>
+<li>중복된 매개 변수 이름을 선언할 수 없다.<br><code>const arrow = (a, a) =&gt; a + a; // SyntaxError: Duplicate parameter name not allowed in this context</code></li>
+<li>화살표 함수는 함수 자체의 this, arguments, super, new.target 바인딩을 갖지 않는다. 따라서 화살표 함수 내부에서 this, arguments, super, new.target를 참조하면 스코프 체인을 통해 상위 컨텍스트의 this, arguments, super, new.target를 참조한다.</li>
+</ol>
+<h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><p>화살표 함수는 함수 자체의 this 바인딩이 없다. 화살표 함수 내부에서 this를 참조하면 상위 컨텍스트의 this를 그대로 참조한다. 이를 Lexical this라 한다. 이는 마치 렉시컬 스코프(“12.7. 렉시컬 스코프” 참고)와 같이 화살표 함수의 this가 함수가 정의된 위치에 의해 결정된다는 것을 의미한다.</p>
+<hr>
+<p><em>Reference</em><br><a href="https://poiemaweb.com/fastcampus/es6-function" target="_blank" rel="noopener">poiemaweb/fastcampus</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/%EC%95%A0%EB%A1%9C%EC%9A%B0_%ED%8E%91%EC%85%98S" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/es6-enhanced-object-property#3-%EB%A9%94%EC%86%8C%EB%93%9C-%EC%B6%95%EC%95%BD-%ED%91%9C%ED%98%84" target="_blank" rel="noopener">poiemaweb</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/18/200319_array/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -815,7 +1101,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
+                <time title="Modified: 2021-05-11 00:32:19" itemprop="dateModified" datetime="2021-05-11T00:32:19+09:00">2021-05-11</time>
               </span>
 
           
@@ -1064,257 +1350,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/18/200319_es6_arrow_function/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/18/200319_es6_arrow_function/" class="post-title-link" itemprop="url">ES6 함수의 추가 기능</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-03-19 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-19T00:00:00+09:00">2020-03-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="함수의-구분"><a href="#함수의-구분" class="headerlink" title="함수의 구분"></a>함수의 구분</h2><p>ES6 이전의 함수는 일반함수, 생성자 함수, 메소드의 호출 등 동일한 함수도 다양한 형태로 호출할 수 있었다. 즉 callable이면서 constructor이다. 객체에 바인딩 된 메소드 역시 일반 함수 또는 생성자 함수로 호출 가능하다. 그런데 이와 같은 경우 불필요한 프로토타입 객체를 생성한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line">foo(); <span class="comment">//일반함수로 호출</span></span><br><span class="line"><span class="keyword">new</span> foo(); <span class="comment">//생성자 함수로 호출</span></span><br></pre></td></tr></table></figure>
-
-<p>ES6에서는 함수 호출방식에 제약이 없어 생기는 문제를 방지하고자 함수를 사용 목적에 따라 3가지로 구분한다.</p>
-<table>
-<thead>
-<tr>
-<th>ES6 함수의 구분</th>
-<th>constructor</th>
-<th>prototype</th>
-<th>super</th>
-<th>arguments</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>일반함수</td>
-<td>O</td>
-<td>O</td>
-<td>X</td>
-<td>O</td>
-</tr>
-<tr>
-<td>메소드</td>
-<td>X</td>
-<td>X</td>
-<td>O</td>
-<td>O</td>
-</tr>
-<tr>
-<td>화살표 함수</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-</tbody></table>
-<h2 id="메소드"><a href="#메소드" class="headerlink" title="메소드"></a>메소드</h2><p>ES6 사양에서 메소드는 메소드 축약 표현으로 정의된 함수 만을 의미한다. 따라서 메소드는 생성자 함수로 호출할 수 없고, 인스턴스 생성, 프로퍼타입 프로퍼티, 프로토타입 등을 생성하지 않는다. 또한 메소드가 바인딩된 객체를 가리키는 내부 슬롯 [[HomeObject]]를 갖고, 이를 이용하여 super키워드를 사용할 수 있다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  x: <span class="number">1</span>,</span><br><span class="line">  <span class="comment">// foo는 메소드이다.</span></span><br><span class="line">  foo() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.x;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// bar에 바인딩된 함수는 메소드가 아닌 일반 함수이다.</span></span><br><span class="line">  bar: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.x;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj.foo()); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.bar()); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="메소드-축약-표현"><a href="#메소드-축약-표현" class="headerlink" title="메소드 축약 표현"></a>메소드 축약 표현</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span>,</span><br><span class="line">  sayHi: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hi! "</span> + <span class="keyword">this</span>.name);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.sayHi(); <span class="comment">// Hi! Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span>,</span><br><span class="line">  <span class="comment">// 메소드 축약 표현</span></span><br><span class="line">  sayHi() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hi! "</span> + <span class="keyword">this</span>.name);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.sayHi(); <span class="comment">// Hi! Lee</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="화살표-함수"><a href="#화살표-함수" class="headerlink" title="화살표 함수"></a>화살표 함수</h2><p>기존의 함수 정의 방법보다 간략하게 정의할 수 있고, 콜백 함수 내부에서 this가 전역 객체를 가리키는 문제를 해결하는 데 유용하다. 항상 익명이며, 생성자로 사용할 수 없다.</p>
-<h3 id="화살표-함수-정의"><a href="#화살표-함수-정의" class="headerlink" title="화살표 함수 정의"></a>화살표 함수 정의</h3><ol>
-<li>매개변수 선언</li>
-</ol>
-<ul>
-<li><p>매개변수가 여러 개면 소괄호 안에 매개 변수를 선언한다. 한개인 경우 소괄호를 생략할 수 있다.<br><code>(x,y) =&gt; {...}</code></p>
-</li>
-<li><p>매개 변수가 없을 때 소괄호를 생략할 수 없다.<br><code>() =&gt; {...}</code></p>
-</li>
-</ul>
-<ol start="2">
-<li>함수 몸체 정의</li>
-</ol>
-<ul>
-<li>함수 몸체가 한 줄의 문으로 구성된다면 함수 몸체를 감싸는 중괄호 {}를 생략할 수 있다. 이때 문은 암묵적으로 반환된다. 몸체가 여러 줄로 구성된다면 중괄호를 생략할 수 없고, 반환값이 있다면 명시적으로 반환한다.<br><code>x =&gt; x * x; // 왼쪽의 표현과 동일하다. x =&gt; { return x * x; }</code></li>
-<li>객체 리터럴을 반환할 때는 소괄호로 감싸준다.<br><code>() =&gt; { return { a: 1 }; } // 왼쪽표현과 동일하다. () =&gt; ({ a: 1 })</code></li>
-<li>즉시실행함수로 사용할 수 있다.</li>
-<li>고차 함수에 인수로 전달할 수 있다.</li>
-</ul>
-<h3 id="화살표-함수와-일반-함수의-차이"><a href="#화살표-함수와-일반-함수의-차이" class="headerlink" title="화살표 함수와 일반 함수의 차이"></a>화살표 함수와 일반 함수의 차이</h3><ol>
-<li>화살표 함수는 인스턴스를 생성할 수 없는 non-constructor이다.</li>
-<li>화살표 함수는 인스턴스를 생성할 수 없으므로 prototype 프로퍼티가 없고 프로토타입도 생성하지 않는다.</li>
-<li>중복된 매개 변수 이름을 선언할 수 없다.<br><code>const arrow = (a, a) =&gt; a + a; // SyntaxError: Duplicate parameter name not allowed in this context</code></li>
-<li>화살표 함수는 함수 자체의 this, arguments, super, new.target 바인딩을 갖지 않는다. 따라서 화살표 함수 내부에서 this, arguments, super, new.target를 참조하면 스코프 체인을 통해 상위 컨텍스트의 this, arguments, super, new.target를 참조한다.</li>
-</ol>
-<h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><p>화살표 함수는 함수 자체의 this 바인딩이 없다. 화살표 함수 내부에서 this를 참조하면 상위 컨텍스트의 this를 그대로 참조한다. 이를 Lexical this라 한다. 이는 마치 렉시컬 스코프(“12.7. 렉시컬 스코프” 참고)와 같이 화살표 함수의 this가 함수가 정의된 위치에 의해 결정된다는 것을 의미한다.</p>
-<hr>
-<p><em>Reference</em><br><a href="https://poiemaweb.com/fastcampus/es6-function" target="_blank" rel="noopener">poiemaweb/fastcampus</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/%EC%95%A0%EB%A1%9C%EC%9A%B0_%ED%8E%91%EC%85%98S" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/es6-enhanced-object-property#3-%EB%A9%94%EC%86%8C%EB%93%9C-%EC%B6%95%EC%95%BD-%ED%91%9C%ED%98%84" target="_blank" rel="noopener">poiemaweb</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/15/200316_class/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/15/200316_class/" class="post-title-link" itemprop="url">클래스 / Class</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-03-16 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-16T00:00:00+09:00">2020-03-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-10 23:36:43" itemprop="dateModified" datetime="2021-05-10T23:36:43+09:00">2021-05-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>ES6에 새로 도입되었으면 프로토타입 기반 객체지향 모델의 syntactic sugar라고 할 수 있다. 클래스는 생성자 함수와 비슷하게 동작하지만 보다 엄격하다. 일종의 새로운 객체 생성 매커니즘 이라고 할 수 있다.</p>
-<h2 id="클래스와-생성자-함수의-차이점"><a href="#클래스와-생성자-함수의-차이점" class="headerlink" title="클래스와 생성자 함수의 차이점"></a>클래스와 생성자 함수의 차이점</h2><ol>
-<li>클래스는 new연산자 없이 호출하면 에러가 발생한다.</li>
-<li>클래스는 상속을 지원하는 extends와 super 키워드를 제공한다.</li>
-<li>클래스는 let, const처럼 호이스팅이 발생하지 않는 것처럼 동작한다. 생성자 함수의 경우 함수 선언문으로 정의되었으면 함수 호이스팅, 함수 표현식으로 정의되었으면 변수 호이스팅이 발생한다.</li>
-<li>클래스 내의 모든 코드는 암묵적으로 strict 모드가 지정되어 실행된다.</li>
-<li>클래스의 constructor, 프로토타입 메소드, 정적 메소드는 모두 프로퍼티 어트리뷰트 [[Enumerable]]의 값이 false이다. 다시 말해, 열거되지 않는다.</li>
-</ol>
-<h2 id="클래스-정의"><a href="#클래스-정의" class="headerlink" title="클래스 정의"></a>클래스 정의</h2><ol>
-<li>파스칼 케이스를 사용한다.(사용하지 않아도 에러가 발생하지는 않음.)</li>
-<li>표현식으로 정의할 수 있고, 기명 또는 믹명으로 정의할 수 있다. 이는 클래스가 일급 객체라는 것을 의미한다.</li>
-<li>클래스 몸체에는 0개 이상의 <code>메소드</code>만 정의할 수 있다. 메소드의 종류는 construnctor(생성자), 프로토타입 메소드, 정적 메소드 3가지가 있다.</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 클래스 선언문</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 생성자</span></span><br><span class="line">  <span class="keyword">constructor</span>(name) &#123;</span><br><span class="line">    <span class="comment">// 인스턴스 생성 및 초기화</span></span><br><span class="line">    <span class="keyword">this</span>.name = name; <span class="comment">// name 프로퍼티는 public하다.</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 프로토타입 메소드</span></span><br><span class="line">  sayHi() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`Hi! My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 정적 메소드</span></span><br><span class="line">  <span class="keyword">static</span> sayHello() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hello!"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 인스턴스 생성</span></span><br><span class="line"><span class="keyword">const</span> me = <span class="keyword">new</span> Person(<span class="string">"Lee"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 인스턴스의 프로퍼티 참조</span></span><br><span class="line"><span class="built_in">console</span>.log(me.name); <span class="comment">// Lee</span></span><br><span class="line"><span class="comment">// 프로토타입 메소드 호출</span></span><br><span class="line">me.sayHi(); <span class="comment">// Hi! My name is Lee</span></span><br><span class="line"><span class="comment">// 정적 메소드 호출</span></span><br><span class="line">Person.sayHello(); <span class="comment">// Hello!</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="클래스-호이스팅"><a href="#클래스-호이스팅" class="headerlink" title="클래스 호이스팅"></a>클래스 호이스팅</h2><ol>
-<li>클래스 정의 이전에 참조할 수 없다.</li>
-<li>클래스 선언문도 변수 선언, 함수 정의와 마찬가지로 호이스팅이 발생한다. 단, 클래스는 let, const 키워드로 선언한 변수처럼 호이스팅된다. 따라서 클래스 선언문 이전에 일시적 사각지대(Temporal Dead Zone; TDZ)에 빠지기 때문에 호이스팅이 발생하지 않는 것처럼 동작한다.</li>
-</ol>
-<h2 id="인스턴스-생성"><a href="#인스턴스-생성" class="headerlink" title="인스턴스 생성"></a>인스턴스 생성</h2><p>클래스는 함수로 평가되므로 생성자 함수이며 new 연산자와 함께 호출되어 인스턴스를 생성한다. new 연산자를 절대 생략하면 안된다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 인스턴스 생성</span></span><br><span class="line"><span class="keyword">const</span> me = <span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(me); <span class="comment">// Person &#123;&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h2><p>클래스는 인스턴스를 생성하기 위한 생성자 함수이며, constructor는 인스턴스를 생성하고 초기화하기 위한 특수한 메소드이다. 클래스 내에 한 개만 존재해야 하며, 생략도 가능하다 생략하여도 디폴트 constructor가 암묵적으로 정의된다ㅇ.constructor는 이름을 변경할 수 없다. constructor 내부의 this는 클래스가 생성할 인스턴스를 가리킨다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 생성자</span></span><br><span class="line">  <span class="keyword">constructor</span>(name) &#123;</span><br><span class="line">    <span class="comment">// 인스턴스 생성 및 초기화</span></span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>constructor 내에서는 인스턴스의 생성과 동시에 인스턴스 프로퍼티 추가를 통해 인스턴스의 초기화를 실행한다. 따라서 인스턴스를 초기화하려면 constructor를 생략해서는 안된다. 또한 별도의 반환문을 갖지 않아야 한다. 생성자 함수와 마찬가지로 암묵적으로 this를 반환하기 때문이다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 명시적으로 원시 값을 반환하면 원시 타입의 반환은 무시되고 암묵적으로 this가 반환된다.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">100</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> me = <span class="keyword">new</span> Person(<span class="string">"Lee"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(me); <span class="comment">// Person &#123; name: "Lee" &#125;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="프로토타입-메소드"><a href="#프로토타입-메소드" class="headerlink" title="프로토타입 메소드"></a>프로토타입 메소드</h2><p>생성자 함수는 프로토타입 메소드를 생성하고자 할 때 명시적으로 프로토타입 메소드를 추가해야 한다. 클래스 몸체에서 정의한 메소드는 생성자 함수에 의한 객체 생성 방식과는 다르게 클래스의 prototype 프로퍼티에 메소드를 추가하지 않아도 기본적으로 프로토타입 메소드가 된다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//생성자함수의 프로토타입 메소드</span></span><br><span class="line">Person.prototype.sayHi = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`Hi! My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//클래스의 프로토타입 메소드</span></span><br><span class="line">sayHi() &#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`Hi! My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="정적-메소드"><a href="#정적-메소드" class="headerlink" title="정적 메소드"></a>정적 메소드</h2><p>정적 메소드는 인스턴스를 생성하지 않아도 호출할 수 있는 메소드를 말하는데, 생성자 함수의 경우 명시적으로 메소드를 추가해야 한다. 하지만 class에서는 메소드에 static 키워드를 붙이면 정적 메소드(클래스 메소드)가 된다. 정적 메소드는 클래스 자신의 메소드가 되며, 인스턴스를 생성하지 않아도 호출할 수 있다. 또한 인스턴스의 프로토타입 체인 상에 존재하지 않으므로 인스턴스로 호출할 수 없다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 생성자 함수의 정적 메소드</span></span><br><span class="line">Person.sayHi = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Hi!'</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 클래스의 정적 메소드</span></span><br><span class="line">  <span class="keyword">static</span> sayHi() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Hi!'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="정적-메소드와-프로토타입-메소드의-차이"><a href="#정적-메소드와-프로토타입-메소드의-차이" class="headerlink" title="정적 메소드와 프로토타입 메소드의 차이"></a>정적 메소드와 프로토타입 메소드의 차이</h3><ol>
-<li>정적 메소드와 프로토타입 메소드는 소속해 있는 프로토타입 체인이 다르기 때문에 정적 메소드는 클래스로 호출, 프로토타입 메소드는 인스턴스로 호출한다.</li>
-<li>정적 메소드는 인스턴스 프로퍼티를 참조할 수 없지만 프로토타입 메소드는 인스턴스 프로퍼티를 참조할 수 있다.</li>
-<li>정적 메소드와 프로토타입 메소드는 내부의 this바인딩이 다르다. this를 사용하지 않는 메소드는 정적 메소드, 인스턴스 프로퍼티를 참조할 필요가 있어 this를 사용해야 한다면 프로토타입 메소드로 정의한다.</li>
-</ol>
-<ul>
-<li>정적 메소드의 내부는 클래스를 가리킨다.</li>
-<li>프로토타입 메소드의 내부는 메소드를 호출한 객체, 즉 메소드 이름 앞의 마침표(.) 연산자 앞에 기술한 객체에 바인딩된다.</li>
-</ul>
-<h3 id="클래스에서-정의한-메소드의-특징"><a href="#클래스에서-정의한-메소드의-특징" class="headerlink" title="클래스에서 정의한 메소드의 특징"></a>클래스에서 정의한 메소드의 특징</h3><ol>
-<li>function 키워드를 생략한 메소드 축약 표현을 사용한다.</li>
-<li>객체 리터럴과는 다르게 클래스에 메소드를 정의할 때는 콤마가 필요 없다.</li>
-<li>암묵적으로 strict 모드로 실행된다.</li>
-<li>for…in 문이나 Object.keys 메소드 등으로 열거할 수 없다. 즉, 프로퍼티의 열거 가능 여부를 나타내며 불리언 값을 갖는 프로퍼티 어트리뷰트 [[Enumerable]]의 값이 false이다.</li>
-<li>내부 메소드 [[Construct]]를 갖지 않는 non-constructor이다. 따라서 new 연산자와 함께 호출할 수 없다.</li>
-</ol>
-<h3 id="클래스-필드-정의-제안"><a href="#클래스-필드-정의-제안" class="headerlink" title="클래스 필드 정의 제안"></a>클래스 필드 정의 제안</h3><p>클래스 필드(필드 또는 멤버)는 클래스 기반 객체지향 언어에서 클래스가 생성할 인스턴스의 프로퍼티를 가리키는 용어이다. 자바스크립트는 인스턴스 프로퍼티를 선언하고 초기화하려면 반드시 생성자 함수 몸체 또는 클래스의 constructor 내부에서 this에 프로퍼티를 추가해야 한다. 인스턴스 프로퍼티를 참조할 때도 this를 사용해서 참조한다. 또한 클래스 몸체에는 메소만 선언할 수 있으므로 클래스 필드를 선언하면 에러가 발생한다. 클래스 필드에 초기값을 할당하지 않으면 undefined가 된다. 만약 외부의 초기값으로 클래스 필드를 초기화해야 한다면 constructor에서 초기화한다.</p>
-<blockquote>
-<p>constructor 내부에서 this를 통해 정의한 인스턴스 프로퍼티는 인스턴스를 통해 클래스 외부에서 언제나 참조할 수 있다. 즉, 언제나 public이다.</p>
-</blockquote>
-<h2 id="상속에-의한-클래스-확장"><a href="#상속에-의한-클래스-확장" class="headerlink" title="상속에 의한 클래스 확장"></a>상속에 의한 클래스 확장</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1385,7 +1420,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
