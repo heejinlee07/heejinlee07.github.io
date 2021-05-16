@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="변수 변할 수 있는 값 숫자, 문자, 문자열 등을 사용할 수 있다. 문자는 작은따옴표(‘’), 문자열은 큰따옴표(“”)를 사용해야 한다. 어딘 가에 저장한 값을 다시 재사용하기 위해서 사용한다. (상태변화를 기억) 변수명은 의미있게 지어야 한다. 명사로 정확하게 어떤 정보를 담는지 알려주는 단어를 사용한다. 여러 명사가 들어갈 경우 카멜케이스를 사용한다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="변수, 기본 자료형">
+<meta property="og:url" content="https://heejinlee07.github.io/2021/05/13/210514_variableTypes/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="변수 변할 수 있는 값 숫자, 문자, 문자열 등을 사용할 수 있다. 문자는 작은따옴표(‘’), 문자열은 큰따옴표(“”)를 사용해야 한다. 어딘 가에 저장한 값을 다시 재사용하기 위해서 사용한다. (상태변화를 기억) 변수명은 의미있게 지어야 한다. 명사로 정확하게 어떤 정보를 담는지 알려주는 단어를 사용한다. 여러 명사가 들어갈 경우 카멜케이스를 사용한다.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-13T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-05-16T07:25:49.038Z">
+<meta property="article:author" content="Heejin Lee">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2021/05/13/210514_variableTypes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>변수, 기본 자료형 | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/05/13/210514_variableTypes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          변수, 기본 자료형
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-05-14 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-14T00:00:00+09:00">2021-05-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-05-16 16:25:49" itemprop="dateModified" datetime="2021-05-16T16:25:49+09:00">2021-05-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="변수"><a href="#변수" class="headerlink" title="변수"></a>변수</h2><ul>
+<li>변할 수 있는 값</li>
+<li>숫자, 문자, 문자열 등을 사용할 수 있다.</li>
+<li>문자는 작은따옴표(‘’), 문자열은 큰따옴표(“”)를 사용해야 한다.</li>
+<li>어딘 가에 저장한 값을 다시 재사용하기 위해서 사용한다. (상태변화를 기억)</li>
+<li><strong>변수명은 의미있게 지어야 한다.</strong><ul>
+<li>명사로 정확하게 어떤 정보를 담는지 알려주는 단어를 사용한다.</li>
+<li>여러 명사가 들어갈 경우 카멜케이스를 사용한다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="코딩-표준"><a href="#코딩-표준" class="headerlink" title="코딩 표준"></a>코딩 표준</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>변수</th>
+<th>상수</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>단일 명사 이름</td>
+<td>명사 소문자</td>
+<td>명사 대문자</td>
+</tr>
+<tr>
+<td>복수 명사 이름</td>
+<td>카멜케이스 (e.g. mathScore)</td>
+<td>대문자로 이루어진 스네이크 케이스(e.g. MATH_SCORE)</td>
+</tr>
+</tbody></table>
+<h2 id="기본-자료형"><a href="#기본-자료형" class="headerlink" title="기본 자료형"></a>기본 자료형</h2><table>
+<thead>
+<tr>
+<th>자료형 이름</th>
+<th>자료형 크기</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>8bit 정수</td>
+</tr>
+<tr>
+<td>char</td>
+<td>16bit 문자</td>
+</tr>
+<tr>
+<td>short</td>
+<td>16bit 정수</td>
+</tr>
+<tr>
+<td>int</td>
+<td>32bit 정수</td>
+</tr>
+<tr>
+<td>long</td>
+<td>64bit 정수</td>
+</tr>
+<tr>
+<td>float</td>
+<td>32bit 실수</td>
+</tr>
+<tr>
+<td>double</td>
+<td>64bit 실수</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>컴퓨터가 이해할 수 있는 가장 자연스러운 형태의 데이터</p>
+<ul>
+<li>int, float가 가장 많이 쓰이고, 필요에 따라 다른 자료형을 사용한다.</li>
+<li>숫자(컴퓨터는 0과 1을 사용해서 표현해야 이해할 수 있다.)</li>
+<li>10진수(0~9 10개의 수)</li>
+<li>2진수 (0~1 2개의 수)</li>
+</ul>
+</li>
+<li><p>비트(bit): 최소단위. 1 또는 0을 하나만 담을 수 있다. 비트수에 따라 몇 가지 수를 표현할 수 있느냐를 알 수 있다. (bit가 한개면 두 가지 숫자, 두 개면 네 가지 숫자 표현 가능)</p>
+<ul>
+<li>8bit = 1byte</li>
+<li>1024 bit = 1KB</li>
+<li>1024KB = 1MB</li>
+</ul>
+</li>
+</ul>
+<h2 id="정수형"><a href="#정수형" class="headerlink" title="정수형"></a>정수형</h2><ul>
+<li>0,1,2와 같은 <code>정수(자연수)</code>를 담을 수 있는 자료형</li>
+<li>C#에서 각 자료형의 크기(프로그래밍 언어마다 크기는 다름)<table>
+<thead>
+<tr>
+<th>자료형 이름</th>
+<th>자료형 크기</th>
+<th>표현할 수 있는 숫자</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>8bit</td>
+<td>2^8(256개)</td>
+</tr>
+<tr>
+<td>short</td>
+<td>16bit</td>
+<td>2^16(65,536개)</td>
+</tr>
+<tr>
+<td>int</td>
+<td>32bit</td>
+<td>2^32(4,294,967,296개)</td>
+</tr>
+<tr>
+<td>long</td>
+<td>64bit</td>
+<td>2^64(18,446,744,073,709,551,616개)</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="부동소수점형"><a href="#부동소수점형" class="headerlink" title="부동소수점형"></a>부동소수점형</h2><ul>
+<li>3.14와 같은 <code>실수</code>를 담을 수 있는 자료형</li>
+<li>C#에서 각 자료형의 크기(프로그래밍 언어마다 크기는 다름)<table>
+<thead>
+<tr>
+<th>자료형 이름</th>
+<th>자료형 크기</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>float</td>
+<td>32bit</td>
+</tr>
+<tr>
+<td>double</td>
+<td>64bit</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<blockquote>
+<p>실수인데 실수형이라고 부르지 않고 부동소수점형이라 부르는 이유는?<br>컴퓨터에서 숫자를 표현할 때 <code>0.01</code>을 <code>1 * 10^-2</code>라고 표현하는데 지수의 숫자에 따라 0.01과 같은 숫자의 소수점이 움직이게 된다. 그래서 고정되지 않고 움직인다는 의미에서 부동소수점형이라 부른다.</p>
+</blockquote>
+<h2 id="문자형"><a href="#문자형" class="headerlink" title="문자형"></a>문자형</h2><ul>
+<li><code>하나</code>의 문자를 담는 자료형</li>
+<li>알파벳, 숫자, 특수문자 등</li>
+<li>문자는 작은 따옴표(‘)를 사용한다. e.g. ‘a’</li>
+<li>자료형 이름은 <code>char</code>이고, <code>16bit</code>이다.</li>
+<li>C#에서 char는 유니코드이고, C/C++은 ASCII코드(8bit)이다.</li>
+</ul>
+<h2 id="불리언형"><a href="#불리언형" class="headerlink" title="불리언형"></a>불리언형</h2><ul>
+<li>정수형이라고 볼 수도 있다.(C++과 같은 일부 언어는 false를 0, ture를 0이 아닌 값으로 표현할 수 있다. <strong>하지만 C#에서는 불가능하다.</strong>)</li>
+<li><code>참(ture)/거짓(false)</code>을 표현한다.</li>
+<li>bool</li>
+</ul>
+<h2 id="기본-자료형으로-선언한-변수"><a href="#기본-자료형으로-선언한-변수" class="headerlink" title="기본 자료형으로 선언한 변수"></a>기본 자료형으로 선언한 변수</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> int1 = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//(뒤에 붙는 f는 float형의 값을 대입할 때 사용. 3.14를 의미)</span></span><br><span class="line"><span class="keyword">float</span> float1 = <span class="number">3.14f</span>;</span><br><span class="line"><span class="comment">//(뒤에 f 안붙음.)</span></span><br><span class="line"><span class="keyword">double</span> double1 = <span class="number">5.245</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> char1 = <span class="string">'a'</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="음수-표현법"><a href="#음수-표현법" class="headerlink" title="음수 표현법"></a>음수 표현법</h2><p>|최상위 비트|—|—|—|—|—|—|최하위 비트|<br>이미 7비틀 양수가 다 가져갔고, 은수를 쓰려면 bit 첫 글자를 1로 쓸 수 밖에 없다.<br><code>최상위 비트</code>를 이용하여 이 값이 0이면 양수, 1이면 음수</p>
+<ul>
+<li>양수: 0000 0001 ~ 0111 1111</li>
+<li>0: 0000 0000</li>
+<li>음수: 1000 0000 ~ 1111 1111</li>
+</ul>
+<hr>
+<ul>
+<li><strong>부호 있는</strong> 자료형: 음수, 양수를 모두 표현(<code>sbyte</code>, short, int, long)</li>
+<li><strong>부호 없는</strong> 자료형: 양수만 표현, 보통 부호 없는 자료형 이름 앞에 <code>u</code>를 붙인다.(<code>byte</code>, ushort, uint, ulong)<ul>
+<li>문자를 담는 8bit 문자형은 기본적으로 unsigned가 말이 된다. 따라서 C#에서 byte는 <code>unsigned</code>, sbyte는 음수, 양수를 모두 담는 <code>signed</code>를 의미한다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="부호-있는-또는-부호-없는-변수는-언제쓰는가"><a href="#부호-있는-또는-부호-없는-변수는-언제쓰는가" class="headerlink" title="부호 있는, 또는 부호 없는 변수는 언제쓰는가?"></a>부호 있는, 또는 부호 없는 변수는 언제쓰는가?</h2><blockquote>
+<p>프로그래머의 명백한 의도를 보여줄 때</p>
+</blockquote>
+<p>예를 들어 <code>int age = 17;</code>과 같은 변수가 있을 때, 부호 있는 자료형 int를 썼다. 프로그램상 int를 사용해서 나이를 처리하는 코드를 만들었는데, 상식적으로 나이는 음수가 될 수 없지만 프로그램 상 처리과정에서<code>음수</code>가 들어온다면 버그가 발생하는 등 문제가 있을 수 있다. 이럴 때 음수값이 들어오지 않도록 예외처리를 해줄 수 있지만 <code>uint age = 17;</code>과 같이 음수를 받을 수 없는 자료형을 사용하면 <code>음수</code>가 들어올 수 없도록 처리할 수 있다.</p>
+<h2 id="uint-0-4-294-967-295-의-범위를-넘어서는-코드는-어떤-값을-출력할까"><a href="#uint-0-4-294-967-295-의-범위를-넘어서는-코드는-어떤-값을-출력할까" class="headerlink" title="uint(0 ~ 4,294,967,295)의 범위를 넘어서는 코드는 어떤 값을 출력할까?"></a>uint(0 ~ 4,294,967,295)의 범위를 넘어서는 코드는 어떤 값을 출력할까?</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uint</span> num1 = <span class="number">4294967295</span>;</span><br><span class="line"><span class="keyword">uint</span> num2 = <span class="number">1</span>;</span><br><span class="line">unit result = num1 + num2;</span><br><span class="line"></span><br><span class="line">Console.WriteLiner(result);</span><br></pre></td></tr></table></figure>
+
+<p>위의 코드에서 result는 0이 나오게 된다.num1의 숫자 4294967295는 부호없는 정수의 최대값이므로 이를 2진수로 나타내면 1111이 연속된 형태의 숫자이고, 여기에 1을 더하는 것이므로 결과는 <code>10000000...</code>과 같은 형태가 나오게 된다. 그런데 unit는 32bit이고, 이미 num1이 32bit의 최대값이었으므로 여기에 1을 더하면 33bit가 된다. 하지만 unit의 최대 저장공간이 32bit였기 때문에 33bit가 되는 최상위비트 1은 버려지게 된다. 그래서 0만 남게 되어서 결과값이 0이 출력되는 것이다. <u>이와 같은 현상을 <code>오버플로우</code>라 한다.</u></p>
+<h2 id="오버플로우"><a href="#오버플로우" class="headerlink" title="오버플로우"></a>오버플로우</h2><ul>
+<li>위의 예시처럼 연산의 결과로 자료형보다 큰 수가 나온다.</li>
+<li>자료형의 크기는 변하지 않기 때문에 자료형의 범위를 넘어간 비트는 버리게 된다.</li>
+<li>오버플로우가 발생하면 위의 예시에서 0이라는 결과가 출력된 것처럼 원치않는 값을 얻을 수 있다.</li>
+<li>언더플로우: 오버플로우와 반대개념이다. 예를 들어 최소값(최하위비트) 0에서 -1로 가면 uint일 경우 표현할 수 없으니까 최대값으로 표현되는 현상이 발생한다.</li>
+</ul>
+<blockquote>
+<p>변수의 역할에 알맞은 자료형을 선택해야 한다.<br>오버플로우를 고려해서 내가 쓰고 있는 자료형이 데이터를 충분히 담을 수 있는지 고려해야 한다.</p>
+</blockquote>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/09/210510_inputOutput/" rel="prev" title="출력, 상수">
+      <i class="fa fa-chevron-left"></i> 출력, 상수
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#변수"><span class="nav-number">1.</span> <span class="nav-text">변수</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#코딩-표준"><span class="nav-number">2.</span> <span class="nav-text">코딩 표준</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#기본-자료형"><span class="nav-number">3.</span> <span class="nav-text">기본 자료형</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#정수형"><span class="nav-number">4.</span> <span class="nav-text">정수형</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#부동소수점형"><span class="nav-number">5.</span> <span class="nav-text">부동소수점형</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#문자형"><span class="nav-number">6.</span> <span class="nav-text">문자형</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#불리언형"><span class="nav-number">7.</span> <span class="nav-text">불리언형</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#기본-자료형으로-선언한-변수"><span class="nav-number">8.</span> <span class="nav-text">기본 자료형으로 선언한 변수</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#음수-표현법"><span class="nav-number">9.</span> <span class="nav-text">음수 표현법</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#부호-있는-또는-부호-없는-변수는-언제쓰는가"><span class="nav-number">10.</span> <span class="nav-text">부호 있는, 또는 부호 없는 변수는 언제쓰는가?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#uint-0-4-294-967-295-의-범위를-넘어서는-코드는-어떤-값을-출력할까"><span class="nav-number">11.</span> <span class="nav-text">uint(0 ~ 4,294,967,295)의 범위를 넘어서는 코드는 어떤 값을 출력할까?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#오버플로우"><span class="nav-number">12.</span> <span class="nav-text">오버플로우</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
