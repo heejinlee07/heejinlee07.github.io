@@ -69,10 +69,6 @@ static int Main(string[] args)
 
 ---
 
-## Console.WriteLine();
-
-화면에 글자를 출력할 때 사용하는 함수
-
 ## using System;
 
 - using은 c#에서 지시어라고 부른다.
@@ -112,6 +108,8 @@ static int Main(string[] args)
 
 ## 여러값을 출력하기
 
+> 화면에 글자를 출력할 때 사용하는 함수
+
 - Console.WriteLine : 줄바꿈
 - Console.Write : 같은 줄
 
@@ -121,7 +119,40 @@ static int Main(string[] args)
 - 블록: 여러 줄의 코드로 이루어졌다.
 - 블록은 범위라고도 부르고, 코드를 `({})` 로 감싼다.
 - 주석: 코드와 관련된 내용을 메모할 때 사용, 컴파일할 때 무시되는 문장.
+  - 코드와 마찬가지로 계속 관리해야한다. (바뀐 내용이 있다면 업데이트 필요)
+  - 너무 많이 쓰지 않도록 한다. 코드 자체가 그 자체로 이해되도록 작성할 것.
+
+---
 
 ## 상수
 
-int 형, double형, float형, bool형, char형
+- 절대 변하지 않는 값, 매직 넘버.
+- 숫자, 문자 등을 포함
+- int 형, double형, float형, bool형, char형
+
+## 선언과 대입(정의)
+
+- 선언: 변수, 상수의 자료형과 이름을 컴퓨터에게 알려줌
+- 대입: 변수, 상수의 실제 값을 컴퓨터에게 알려줌.
+- 선언과 대입은 동시에 할 수 있다.
+- `const` 변수는 선언과 대입이 항상 동시에 일어난다.
+  - 한번 값을 대입 한 후 값을 바꾸고 싶지 않을 때 사용한다.
+  - 선언과 대입이 이루어진 후 값을 변경하면 컴파일 오류가 발생한다.
+
+```c#
+// 선언
+float number;
+//대입
+number = 1.5;
+
+//선언과 대입을 동시에
+float number = 1.5;
+
+//const를 쓰는 경우
+const float NUMBER = 1.5;
+```
+
+---
+
+_References_
+[실무 프로그래밍 입문(C#)](https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/)
