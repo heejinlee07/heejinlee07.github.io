@@ -144,6 +144,114 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/08/27/200828_stateHook/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/27/200828_stateHook/" class="post-title-link" itemprop="url">State Hook이란?</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-28T00:00:00+09:00">2020-08-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-05-16 17:04:02" itemprop="dateModified" datetime="2021-05-16T17:04:02+09:00">2021-05-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h2><p>React state를 함수 컴포넌트 안에서 사용할 수 있게 해주는 함수.</p>
+<blockquote>
+<p>const [state, setState] = useState(initialState); -&gt; 상태 유지값과 그 값을 갱신하는 함수 반환<br>첫 번째 렌더링: state(state) = initialState의 값 -&gt; <u>initialState는 첫 번째 렌더링에만 사용되고, 그 이후로 무시된다.</u><br>setState(newState); -&gt; state를 갱신할 때 사용 -&gt; 새 state의 값을 받아서 리렌더링 큐에 등록<br>두 번째 렌더링(리렌더링): setState()로 갱신된 state 값</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//class에서 state의 사용</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      count: <span class="number">0</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//함수 컴포넌트에서 state의 사용</span></span><br><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//함수 컴포넌트는 this를 가질 수 없으므로 useState hook을 직접 호춡</span></span><br><span class="line">  <span class="comment">// 새로운 state 변수를 선언하고, 이것을 count라 부른다.</span></span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>useState(): useState의 호출은 <code>state 변수 선언</code>을 의미. 함수가 종료되면 사라지는 일반 변수와 달리 React에 의해 사라지지 않는 특징이 있다. (class 컴포넌트의 this.state와 동일한 기능)</li>
+<li>useState(인자):<ul>
+<li>class 컴포넌트: <code>&lt;button onClick={() =&gt; this.setState({ count: this.state.count + 1 })}&gt;</code> 이와 같이 <code>객체</code>로 인자를 넘겨주어야했다. 그러나 함수 컴포넌트에서는 객체 뿐 아니라 숫자, 문자도 넘겨줄 수 있다.</li>
+<li>함수형 컴포넌트: <code>state의 초기값</code>. <strong>첫 번째 렌더링 시 딱 한 번만 사용된다.</strong> <em>다음 렌더링을 하는 동안 useState는 현재 state를 준다.</em></li>
+</ul>
+</li>
+<li><strong>useState의 반환값: state 변수, 해당 변수를 갱신할 수 있는 함수의 두 가지 쌍.</strong></li>
+<li>state 가져오기<ul>
+<li>class 컴포넌트: this.state.count로 state를 가져온다.</li>
+<li>함수형 컴포넌트: count를 직접 사용한다.</li>
+</ul>
+</li>
+<li>state 갱신<ul>
+<li>class 컴포넌트: this.setState() 호출.</li>
+<li>함수형 컴포넌트: this 호출이 필요 없음.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//class 컴포넌트</span></span><br><span class="line">&lt;button onClick=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123; <span class="attr">count</span>: <span class="keyword">this</span>.state.count + <span class="number">1</span> &#125;)&#125;&gt;</span><br><span class="line">    Click me</span><br><span class="line">&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/함수형 컴포넌트</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/이미 setCount, count 변수를 가지고 있다.</span></span><br><span class="line"><span class="regexp">&lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;</span></span><br><span class="line"><span class="regexp">    Click me</span></span><br><span class="line"><span class="regexp">&lt;/</span>button&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="useState의-변수-선언"><a href="#useState의-변수-선언" class="headerlink" title="useState의 변수 선언"></a>useState의 변수 선언</h2><blockquote>
+<p>const [count, setCount] = useState(0);</p>
+</blockquote>
+<p>배열 디스트럭처링을 이용하여 <code>state 변수, 해당 변수를 갱신할 수 있는 함수</code>로 구성된 두 가지 쌍을 가진 <code>배열</code>을 반환하도록 정의한다. 이 배열의 첫번째 요소는 초기값, 두 번째 요소는 초기값으로 설정된 변수를 갱신해주는 함수이다. 아래와 같은 구조로 fake useState함수를 구성해보고, useState 함수에 인자 0을 전달하여 <code>useState(0)</code>와 같이 호출하면 [0,ƒ]의 값이 반환된다. 각각을 살펴보면, 배열의 첫번 째 요소인 <code>0</code>은 초기값이고, 두 번째 요소인 <code>ƒ</code>는 첫 번째 요소에 전달된 초기값을 전달받아서 새로운 값으로 갱신해 주는 함수이다. 이와 같은 useState hook은 컴포넌트 내에서 여러 개 선언할 수 있고, 개별적으로 갱신할 수 있다. 단, 렌더링 될 때 useState가 사용된 순서대로 실행된다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useState</span>(<span class="params">initialValue</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> value = initialValue;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> setValue = <span class="function">(<span class="params">newValue</span>) =&gt;</span> &#123;</span><br><span class="line">    value = newValue;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> [value, setValue];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">useState(<span class="number">0</span>);</span><br><span class="line"><span class="comment">// [0,ƒ]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> result = useState(<span class="number">0</span>);</span><br><span class="line">result[<span class="number">0</span>]; <span class="comment">//0</span></span><br><span class="line">result[<span class="number">1</span>];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">(newValue) =&gt; &#123;</span></span><br><span class="line"><span class="comment">        value = newValue</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Functional-updates"><a href="#Functional-updates" class="headerlink" title="Functional updates"></a>Functional updates</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params">&#123; initialCount &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(initialCount);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      Count: &#123;count&#125;</span><br><span class="line">      <span class="comment">//1️⃣</span></span><br><span class="line">      &lt;button onClick=&#123;() =&gt; setCount(initialCount)&#125;&gt;Reset&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">      /</span><span class="regexp">/2️⃣</span></span><br><span class="line"><span class="regexp">      &lt;button onClick=&#123;() =&gt; setCount((prevCount) =&gt; prevCount - 1)&#125;&gt;-&lt;/</span>button&gt;</span><br><span class="line">      <span class="comment">//3️⃣</span></span><br><span class="line">      &lt;button onClick=&#123;() =&gt; setCount(<span class="function">(<span class="params">prevCount</span>) =&gt;</span> prevCount + <span class="number">1</span>)&#125;&gt;+&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>1️⃣Reset count: 클릭했을 때 0으로 설정되어야 하므로 <code>setCount(newValue)</code>의 일반적인 형식 사용</li>
+<li>2️⃣/3️⃣: <code>setCount(newValue)</code>를 했을 때 newValue는 갱신되기 이전의 값을 바탕으로 - 또는 + 되어야 함. 즉 <code>setCount((갱신되기 이전 값) =&gt; 갱신되기 이전 값 -1 또는 +1 )</code>와 같이 함수로 갱신되기 이전 값을 넘겨준 후 그 값에서 - 또는 +를 하여 newValue로 갱신한다. 이때 만약 이와 같은 함수가 이전 값을 받아서 +나 -를 수행했는데도 현재의 값과 동일한 값을 반환한다면 리렌더링이 이루어지지 않는다.</li>
+<li>class의 setState는 자동으로 객체를 합쳐서 갱신하는데, useState는 그렇지 않다. 대신 스프레드 문법을 사용<code>(e.g. return {...prevState, ...updatedValues};)</code>하여 class와 같은 동작을 수행할 수 있다.</li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://ko.reactjs.org/docs/hooks-intro.html" target="_blank" rel="noopener">Hook 소개</a><br><a href="https://ko.reactjs.org/docs/hooks-overview.html" target="_blank" rel="noopener">Hook 개요</a><br><a href="https://ko.reactjs.org/docs/hooks-state.html" target="_blank" rel="noopener">Using the State Hook</a><br><a href="https://ko.reactjs.org/docs/hooks-reference.html" target="_blank" rel="noopener">Hook API 참고서</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/08/26/200827_effectHook/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +283,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-16 16:43:01" itemprop="dateModified" datetime="2021-05-16T16:43:01+09:00">2021-05-16</time>
+                <time title="Modified: 2021-05-16 17:04:02" itemprop="dateModified" datetime="2021-05-16T17:04:02+09:00">2021-05-16</time>
               </span>
 
           
@@ -367,7 +475,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-16 16:43:01" itemprop="dateModified" datetime="2021-05-16T16:43:01+09:00">2021-05-16</time>
+                <time title="Modified: 2021-05-16 17:04:02" itemprop="dateModified" datetime="2021-05-16T17:04:02+09:00">2021-05-16</time>
               </span>
 
           
@@ -471,7 +579,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-16 16:43:01" itemprop="dateModified" datetime="2021-05-16T16:43:01+09:00">2021-05-16</time>
+                <time title="Modified: 2021-05-16 17:04:02" itemprop="dateModified" datetime="2021-05-16T17:04:02+09:00">2021-05-16</time>
               </span>
 
           
@@ -558,7 +666,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-16 16:43:01" itemprop="dateModified" datetime="2021-05-16T16:43:01+09:00">2021-05-16</time>
+                <time title="Modified: 2021-05-16 17:04:02" itemprop="dateModified" datetime="2021-05-16T17:04:02+09:00">2021-05-16</time>
               </span>
 
           
@@ -723,7 +831,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-16 16:43:01" itemprop="dateModified" datetime="2021-05-16T16:43:01+09:00">2021-05-16</time>
+                <time title="Modified: 2021-05-16 17:04:02" itemprop="dateModified" datetime="2021-05-16T17:04:02+09:00">2021-05-16</time>
               </span>
 
           
@@ -836,7 +944,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-16 16:43:01" itemprop="dateModified" datetime="2021-05-16T16:43:01+09:00">2021-05-16</time>
+                <time title="Modified: 2021-05-16 17:04:02" itemprop="dateModified" datetime="2021-05-16T17:04:02+09:00">2021-05-16</time>
               </span>
 
           
@@ -949,7 +1057,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-16 16:43:01" itemprop="dateModified" datetime="2021-05-16T16:43:01+09:00">2021-05-16</time>
+                <time title="Modified: 2021-05-16 17:04:02" itemprop="dateModified" datetime="2021-05-16T17:04:02+09:00">2021-05-16</time>
               </span>
 
           
@@ -1098,7 +1206,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-16 16:43:01" itemprop="dateModified" datetime="2021-05-16T16:43:01+09:00">2021-05-16</time>
+                <time title="Modified: 2021-05-16 17:04:02" itemprop="dateModified" datetime="2021-05-16T17:04:02+09:00">2021-05-16</time>
               </span>
 
           
@@ -1238,7 +1346,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-16 16:43:01" itemprop="dateModified" datetime="2021-05-16T16:43:01+09:00">2021-05-16</time>
+                <time title="Modified: 2021-05-16 17:04:02" itemprop="dateModified" datetime="2021-05-16T17:04:02+09:00">2021-05-16</time>
               </span>
 
           
@@ -1301,136 +1409,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/08/04/0804_rubberduck/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/04/0804_rubberduck/" class="post-title-link" itemprop="url">200804 러버덕 정리</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-08-04 15:00:00" itemprop="dateCreated datePublished" datetime="2020-08-04T15:00:00+09:00">2020-08-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-16 16:43:01" itemprop="dateModified" datetime="2021-05-16T16:43:01+09:00">2021-05-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="프로그래밍"><a href="#프로그래밍" class="headerlink" title="프로그래밍"></a>프로그래밍</h2><p>컴퓨터에게 실행을 요구하는 일종의 커뮤니케이션</p>
-<p>프로그래밍 언어: 컴퓨터가 이해할 수 있는 언어(기계어)</p>
-<blockquote>
-<p>사람 -&gt; 프로그래밍 언어 -&gt; 기계어 -&gt; 컴퓨터<br>리터럴 -&gt; 자바스크립트 -&gt; 인터프리터(정적언어는 컴파일러)-&gt; 2진수 변환 -&gt; 메모리에 저장</p>
-</blockquote>
-<h2 id="자바스크립트"><a href="#자바스크립트" class="headerlink" title="자바스크립트"></a>자바스크립트</h2><p>시작: 넷스케이프 커뮤니케이션즈가 웹페이지의 보조적인 기능을 수행하기 위해 브라우저에서 동작하는 경량 프로그래밍 언어를 개발 -&gt; 브랜던 아이크의 자바스크립트: 모카로 명명</p>
-<p><strong>표준화</strong><br>MS에서도 자바스크립트의 파생버전 JScript를 개발하면서 넷스케이프와 경쟁구도. 자사 브라우저에서만 작동하는 기능을 추가하기 시작하면서 호환되지 않는 문제가 생겨남(크로스 브라우징 이슈). 따라서 표준화에 대한 필요성 대두.</p>
-<p><strong>ECMAScript</strong><br>1997: 표준화된 자바스크립트 초판(ECMAScript 1) 사양(specification)이 완성되었고, 상표권 문제로 자바스크립트는 ECMAScript로 명명<br>1999: ECMAScript 3(ES3)<br>2009: ECMAScript 5(ES5)는 HTML5와 함께 출현한 표준 사양<br>2015: ECMAScript 6(ECMAScript 2015, ES6)는 let/const 키워드, 화살표 함수, 클래스, 모듈 등과 같이 범용 프로그래밍 언어로서 갖춰야 할 기능들을 대거 도입</p>
-<hr>
-<p><strong>자바스크립트의 발전 과정</strong></p>
-<blockquote>
-<p>렌더링 -&gt; AJAX(XMLHttpRequest) -&gt; jQuery -&gt; V8 -&gt; Node.js -&gt; 프레임 워크</p>
-</blockquote>
-<p>초창기는 웹페지이의 보조기능을 수행하면서 브라우저에 단순 렌더링하는 역할, AJAX의 등장으로 비동기 처리가 가능해지면서 성능이 빨라지고 화면전환이 부드러워짐.</p>
-<p><strong>HOW?</strong></p>
-<ul>
-<li><p>기존방식: <code>&lt;html&gt;&lt;/html&gt;</code>의 완전한 html을 서버에서 전송받아 웹페이지 전체를 렌더링, 화면 전환 시 이 과정이 처음부터 다시 이루어지면서 화면이 깜빡이는 현상이 발생.<br>불필요한 데이터 통신, 성능도 좋지 않음.</p>
-</li>
-<li><p>AJAX: 변경필요 없는 부분은 그대로 두고, 서버에서 필요한 데이터만 전송받아 변경이 필요한 부분만 렌더링.</p>
-</li>
-</ul>
-<p><strong>JQuery</strong><br>DOM을 쉽게 제어할 수 있고, 크로스 브라우징 이슈도 해결. 배우기 쉽고 직관적.</p>
-<p><strong>V8 자바스크립트 엔진</strong><br>구글에서 개발. 자바스크립트가 웹 어플리케이션 개발 프로그래밍 언어로 정착하게 함. 웹 서버에서 수행되던 로직이 클라이언트 사이드로 이동.</p>
-<p><strong>Node.js</strong><br>라이언 달. V8로 빌드된 자바스크립트 런타임 환경. 브라우저의 자바스크립트 엔진에서만 동작하던 js를 다른 환경에서도 동작할 수 있도록 함.</p>
-<p><strong>프레임워크</strong><br>Angular, React, Vue.js, Svelte 등</p>
-<p>ECMAScript: 자바스크립트의 표준 사양인 ECMA-262를 말하며, 프로그래밍 언어의 값, 타입, 객체와 프로퍼티, 함수, 표준 빌트인 객체(standard built-in object) 등 핵심 문법을 규정</p>
-<p>javascript: 웹 브라우저에서 동작하는 유일한 프로그래밍 언어. 인터프리터 언어.</p>
-<hr>
-<ul>
-<li>ECMAScript: core역할, 표준화, spec관리 등등.</li>
-<li>Node.js: host APIs(server-side javascript). 브라우저 외부에서 js 개발 환경을 제공하는 것이 주된 목적. DOM api 제공 안함. 파일을 create/read/update/delete할 수 있는 파일 시스템을 기본 제공.</li>
-<li>javascript: client-side. 화면 렌더링이 주된 목적. DOM api 제공. 파일을 create/read/update/delete할 수 있는 파일 시스템을 기본 제공안함.</li>
-</ul>
-<hr>
-<h2 id="변수"><a href="#변수" class="headerlink" title="변수"></a>변수</h2><ul>
-<li>변수 선언: 값을 저장하기 위한 메모리 공간을 할당, 주소값을 연결하여 값을 저장할 수 있도록 한다.</li>
-<li>초기화: 선언 후 값을 할당하지 않았을 때 undefined가 암묵적으로 할당된다.</li>
-</ul>
-<p><strong>변수 호이스팅</strong><br>변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작. 런타임 이전에 변수 선언문을 찾아 실행한 후 런타임 때 할당이 이루어짐.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(result); <span class="comment">//undefined</span></span><br><span class="line"><span class="keyword">var</span> result;</span><br></pre></td></tr></table></figure>
-
-<p>할당 할 때, undefined로 초기화 된 값을 지운 후 그 자리에 값을 할당하는 것이 아니라, 새로운 메모리 공간을 확보한 후 그 곳에 값을 저장한다. 재할당의 경우도 마찬가지이다. 재할당이 이루어지면 기존의 변수는 가비지 컬렉터에 의해 언젠가 메모리 해제된다.</p>
-<p><strong>식별자 네이밍 규칙</strong></p>
-<ul>
-<li>변수나 함수의 이름: 카멜 케이스를 사용. (ex. var firstName;)</li>
-<li>생성자 함수, 클래스의 이름: 파스칼 케이스를 사용 (ex. var FirstName;)</li>
-</ul>
-<hr>
-<h2 id="표현식과-문"><a href="#표현식과-문" class="headerlink" title="표현식과 문"></a>표현식과 문</h2><p><strong>표현식</strong><br>값으로 평가될 수 있는 문. 표현식이 평가되면 값을 생성하거나 참조한다.<br>become a value. 값이 생성되거나 문의 일부가 될 수 있다.</p>
-<p><strong>문</strong><br>perform action. 값이 생성되지 않고, 실행문이나 코드블록의 action을 컨트롤할 뿐이다.<br>프로그램을 구성하는 기본 단위, 최소 실행 단위. 여러 토큰들로 구성된다. 특정 액션을 수행하는 역할을 한다.<strong>문은 반드시 세미콜론으로 끝나야 하는데, 중괄호로 묶은 코드 블록 뒤에는 세미콜론을 붙이지 않는다. ex. if문, for문, 함수 등)</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">문: 실행되거나 특정한 action을 수행할 수 있는 코드의 조각을 말한다.</span><br><span class="line">표현식: 평가되어 값을 생성할 수 있는 코드의 조각을 말한다.</span><br><span class="line">표현식인 문: 값으로 평가될 수 있는 문. ex.변수 할당문</span><br><span class="line">표현식이 아닌 문: 값으로 평가될 수 없는 문 ex.변수 선언문</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="데이터-타입"><a href="#데이터-타입" class="headerlink" title="데이터 타입"></a>데이터 타입</h2><p>원시타입 / 객체 타입</p>
-<p>데이터 타입은 메모리 공간을 확보하고 참조하기 위해 필요하다. 변수에 할당되는 값의 데이터 타입에 따라 확보해야 할 메모리 공간의 크기가 결정되기 때문이다.</p>
-<ul>
-<li><p>정적 타입: 명시적으로 어떤 타입인지 사전에 선언해야 하고, 컴파일 시점에 타입체크를 수행한다.</p>
-</li>
-<li><p>동적 타입: 값을 할당하는 런타임에 변수의 타입이 결정되고, 언제든지 변경할 수 있다.</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1496,7 +1479,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
