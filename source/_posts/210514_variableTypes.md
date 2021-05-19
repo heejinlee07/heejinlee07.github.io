@@ -140,6 +140,26 @@ Console.WriteLiner(result);
 > 변수의 역할에 알맞은 자료형을 선택해야 한다.
 > 오버플로우를 고려해서 내가 쓰고 있는 자료형이 데이터를 충분히 담을 수 있는지 고려해야 한다.
 
+## 상수의 접두사와 접미사
+
+상수의 앞이나 뒤에 상수를 꾸미는 기호
+
+### 상수 접두사
+
+> 상수 앞에 붙는 기호로 진법을 나타낸다.
+
+- 2진수: `0b-` e.g. int num1 = 0b10;
+- 16진수: `0x-` e.g. int num2 = 0x10;
+
+### 상수 접미사
+
+> 상수 뒤에 붙는 기호로 상수의 형을 나타낸다. 대문자로 써도 되지만 거의 안쓰고, `소문자형`으로 나타낸다.
+
+- 부호 여부: `-u` e.g. int num1 = 10; uint num2 = 10u; uint num3 = 0x10u;
+- long: `-i` e.g. **int num1 = 1l;(컴파일 오류)**, long num2 = 10l; **long num3 = 10lu;(컴파일 오류)**, ulong num4 = 10lu;
+- float: `-f` e.g. float num1 = 10.0f; **float num2 = 10.0(컴파일 오류)**
+- double: `-d` e.g. double num1 = 10.0; double num2 = 10.0d;
+
 ---
 
 _References_
