@@ -28,7 +28,7 @@
 <meta property="og:description" content="묵시적 변환 기본 자료형 간의 변환을 컴파일러가 알아서 해준다.(모든 기본 자료형 간의 변환이 가능한 것은 아니다.) int&#x2F;long -&gt; float 또는 long -&gt; double로 변환할 때는 손실이 있을 수 있다. (정밀도의 문제가 있다.)  승격(promotion)변환과 승격은 엄밀히 따지면 다른 것이지만 프로그래머가 프로그램을 짤 떄 이">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-05-18T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-05-20T14:57:37.409Z">
+<meta property="article:modified_time" content="2021-05-20T15:31:20.664Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-20 23:57:37" itemprop="dateModified" datetime="2021-05-20T23:57:37+09:00">2021-05-20</time>
+                <time title="Modified: 2021-05-21 00:31:20" itemprop="dateModified" datetime="2021-05-21T00:31:20+09:00">2021-05-21</time>
               </span>
 
           
@@ -270,11 +270,11 @@
 <h3 id="또는-–-연산자를-부동소수점형에-쓴다면-어떻게-될까"><a href="#또는-–-연산자를-부동소수점형에-쓴다면-어떻게-될까" class="headerlink" title="++ 또는 – 연산자를 부동소수점형에 쓴다면 어떻게 될까?"></a>++ 또는 – 연산자를 부동소수점형에 쓴다면 어떻게 될까?</h3><p>부동소수점형도 증감연산자를 사용할 수 있는데, 예상한 결과를 얻지 못할 수 있으므로 추천되지 않는다. 예를 들어 3.14라는 값을 1증가시켜 4.13로 만들기 위해서 ++연산자를 사용했다고 하면, 기대하던 값과 달리 3.24 또는 3.15와 같은 값이 나올 수 있다. 따라서 웬만하면 <code>증감연산자는 정수형(char, int, long)에 사용하는 것이 좋다.</code></p>
 <hr>
 <h2 id="진법"><a href="#진법" class="headerlink" title="진법"></a>진법</h2><ul>
-<li>10진법: 0~9<br>e.g. 1024 = 1 * 10^3 + 0 * 10^2 + 2 * 10^1 + 4 *10^0</li>
-<li>2진법: 0,1<br>e.g. 1101 = 1 * 2^3 + 1 * 2^2 + 0 * 2^1 + 1 * 2^0</li>
-<li>8진법: 0~7<br>e.g. 1703 = 1 * 8^3 + 7 * 8^2 + 0 * 8^1 + 3 * 8^0</li>
+<li>10진법: 0~9<br>e.g. 1024 = 1 * 10<sup>3</sup> + 0 * 10<sup>2</sup> + 2 * 10<sup>1</sup> + 4 *10<sup>0</sup></li>
+<li>2진법: 0,1<br>e.g. 1101 = 1 * 2<sup>3</sup> + 1 * 2<sup>2</sup> + 0 * 2<sup>1</sup> + 1 * 2<sup>0</sup></li>
+<li>8진법: 0~7<br>e.g. 1703 = 1 * 8<sup>3</sup> + 7 * 8<sup>2</sup> + 0 * 8<sup>1</sup> + 3 * 8<sup>0</sup></li>
 <li>16진법: 0<del>9, a</del>f<ul>
-<li>0<del>9 다음 a</del>f는 10~15이다.<br>e.g. 1a2 = 1 * 16^2 + 10 * 16^1 + 4</li>
+<li>(0<del>9) 다음 (a</del>f)는 10~15이다.<br>e.g. 1a2 = 1 * 16<sup>2</sup> + 10 * 16<sup>1</sup> + 4</li>
 </ul>
 </li>
 </ul>
