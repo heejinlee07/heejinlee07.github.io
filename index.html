@@ -167,10 +167,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-05-19 00:00:00 / Modified: 19:36:47" itemprop="dateCreated datePublished" datetime="2021-05-19T00:00:00+09:00">2021-05-19</time>
+              <time title="Created: 2021-05-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-19T00:00:00+09:00">2021-05-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-05-20 23:57:37" itemprop="dateModified" datetime="2021-05-20T23:57:37+09:00">2021-05-20</time>
+              </span>
 
           
 
@@ -262,6 +268,35 @@
 </ul>
 <h3 id="또는-–-연산자를-부동소수점형에-쓴다면-어떻게-될까"><a href="#또는-–-연산자를-부동소수점형에-쓴다면-어떻게-될까" class="headerlink" title="++ 또는 – 연산자를 부동소수점형에 쓴다면 어떻게 될까?"></a>++ 또는 – 연산자를 부동소수점형에 쓴다면 어떻게 될까?</h3><p>부동소수점형도 증감연산자를 사용할 수 있는데, 예상한 결과를 얻지 못할 수 있으므로 추천되지 않는다. 예를 들어 3.14라는 값을 1증가시켜 4.13로 만들기 위해서 ++연산자를 사용했다고 하면, 기대하던 값과 달리 3.24 또는 3.15와 같은 값이 나올 수 있다. 따라서 웬만하면 <code>증감연산자는 정수형(char, int, long)에 사용하는 것이 좋다.</code></p>
 <hr>
+<h2 id="진법"><a href="#진법" class="headerlink" title="진법"></a>진법</h2><ul>
+<li>10진법: 0~9<br>e.g. 1024 = 1 * 10^3 + 0 * 10^2 + 2 * 10^1 + 4 *10^0</li>
+<li>2진법: 0,1<br>e.g. 1101 = 1 * 2^3 + 1 * 2^2 + 0 * 2^1 + 1 * 2^0</li>
+<li>8진법: 0~7<br>e.g. 1703 = 1 * 8^3 + 7 * 8^2 + 0 * 8^1 + 3 * 8^0</li>
+<li>16진법: 0<del>9, a</del>f<ul>
+<li>0<del>9 다음 a</del>f는 10~15이다.<br>e.g. 1a2 = 1 * 16^2 + 10 * 16^1 + 4</li>
+</ul>
+</li>
+</ul>
+<h2 id="진법-변환"><a href="#진법-변환" class="headerlink" title="진법 변환"></a>진법 변환</h2><p>바꾸고자 하는 진법의 수를 몫이 0이 될때까지 나눈다. 몫이 0이 된 수의 나머지부터 차례대로 숫자로 표기한다.<br>e.g. 십진수 3을 2진수로 바꾸고 싶으면, 3을 바꾸고자 2로 나눈다. 10을 2진수로 표기하면 11이다.</p>
+<p><strong>어떤 숫자를 각 진법별로 나타내고 싶을 때는 8진수로 먼저 변환한 후 2진수나 16진수로 바꾸는 것이 가장 빠르게 변환하는 방법이다.</strong></p>
+<p>비트가 상태를 나타내는데 비트가 1개만 있을 때는 2<sup>1</sup>이고, 2가지 상태를 나타낼 수 있다.<br>8진수 단위 숫자 하나로 0~7까지 8가지를 표현할 수 있고, 2진수 단위 숫자가 3개가 필요하다.(2<sup>3</sup> = 8)<br>2진수에서 4개의 단위 숫자는 16진수 한 개의 단위 숫자로 표현할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2^1 &#x3D; 2</span><br><span class="line">2^2 &#x3D; 4</span><br><span class="line">2^3 &#x3D; 8</span><br><span class="line">2^4 &#x3D; 16</span><br></pre></td></tr></table></figure>
+
+<p>e.g. 277<sub>8</sub> -&gt; 010111111<sub>2</sub> -&gt; fb<sub>16</sub></p>
+<h2 id="비트-연산자"><a href="#비트-연산자" class="headerlink" title="비트 연산자"></a>비트 연산자</h2><blockquote>
+<p>이진수 피연산자를 비트 단위로 연산할 때 사용<br>&amp;(and), |(or), ^(xor), ~(not)</p>
+</blockquote>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> op1 = <span class="number">12</span>; <span class="comment">// 0000 0000 0000 0000 0000 0000 0000 1100</span></span><br><span class="line"><span class="keyword">int</span> op2 = <span class="number">9</span>; <span class="comment">// 0000 0000 0000 0000 0000 0000 0000 1001</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> andResult = op1 &amp; op2; <span class="comment">//8(0000 ... 1000)</span></span><br><span class="line"><span class="keyword">int</span> orResult = op1 | op2; <span class="comment">//13(0000 ... 1101)</span></span><br><span class="line"><span class="keyword">int</span> xorResult = op1 ^ op2; <span class="comment">//5(0000 ... 1101)</span></span><br><span class="line"><span class="keyword">int</span> notResult = ~op1; <span class="comment">// -13(1111 ... 0011)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="amp-and"><a href="#amp-and" class="headerlink" title="&amp;(and)"></a>&amp;(and)</h3><p>숫자끼리 비교할 때 둘 중 하나라도 0이 있으면 최종 결과는 0이 된다. 둘 다 1일 경우는 1이 된다.</p>
+<p>|op1|1|1|0|0|<br>|op2|1|0|0|1|<br>|<code>AND</code>|1|0|0|0|</p>
+<h3 id="or"><a href="#or" class="headerlink" title="|(or)"></a>|(or)</h3><p>숫자끼리 비교할 때 둘 중 하나라도 1이 있으면 최종 결과는 1이 된다. 둘 다 0일 경우는 0이 된다.</p>
+<p>|op1|1|1|0|0|<br>|op2|1|0|0|1|<br>|<code>OR</code>|1|1|0|1|</p>
+<h3 id="xor"><a href="#xor" class="headerlink" title="^(xor)"></a>^(xor)</h3><p>숫자끼리 비교할 때 두 숫자가 같을 경우는 0이 되고, 다를 경우 1이 된다.</p>
+<p>|op1|1|1|0|0|<br>|op2|1|0|0|1|<br>|<code>XOR</code>|0|1|0|1|</p>
+<h3 id="not"><a href="#not" class="headerlink" title="~(not)"></a>~(not)</h3><p>해당하는 숫자를 뒤집는다. 1이면 0, 0이면 1이 된다.</p>
+<p>|op1|0|1|1|0|0|<br>|<code>NOT</code>|1|0|0|1|1|</p>
+<h2 id="비트-이동-연산자"><a href="#비트-이동-연산자" class="headerlink" title="비트 이동 연산자"></a>비트 이동 연산자</h2><hr>
 <p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
 
       
@@ -313,7 +348,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-19 19:36:47" itemprop="dateModified" datetime="2021-05-19T19:36:47+09:00">2021-05-19</time>
+                <time title="Modified: 2021-05-20 23:57:37" itemprop="dateModified" datetime="2021-05-20T23:57:37+09:00">2021-05-20</time>
               </span>
 
           
@@ -579,7 +614,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-19 19:36:47" itemprop="dateModified" datetime="2021-05-19T19:36:47+09:00">2021-05-19</time>
+                <time title="Modified: 2021-05-20 23:57:37" itemprop="dateModified" datetime="2021-05-20T23:57:37+09:00">2021-05-20</time>
               </span>
 
           
@@ -752,7 +787,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-19 19:36:47" itemprop="dateModified" datetime="2021-05-19T19:36:47+09:00">2021-05-19</time>
+                <time title="Modified: 2021-05-20 23:57:37" itemprop="dateModified" datetime="2021-05-20T23:57:37+09:00">2021-05-20</time>
               </span>
 
           
@@ -930,7 +965,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-19 19:36:47" itemprop="dateModified" datetime="2021-05-19T19:36:47+09:00">2021-05-19</time>
+                <time title="Modified: 2021-05-20 23:57:37" itemprop="dateModified" datetime="2021-05-20T23:57:37+09:00">2021-05-20</time>
               </span>
 
           
@@ -1054,7 +1089,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-19 19:36:47" itemprop="dateModified" datetime="2021-05-19T19:36:47+09:00">2021-05-19</time>
+                <time title="Modified: 2021-05-20 23:57:37" itemprop="dateModified" datetime="2021-05-20T23:57:37+09:00">2021-05-20</time>
               </span>
 
           
@@ -1187,7 +1222,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-19 19:36:47" itemprop="dateModified" datetime="2021-05-19T19:36:47+09:00">2021-05-19</time>
+                <time title="Modified: 2021-05-20 23:57:37" itemprop="dateModified" datetime="2021-05-20T23:57:37+09:00">2021-05-20</time>
               </span>
 
           
@@ -1348,7 +1383,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-19 19:36:47" itemprop="dateModified" datetime="2021-05-19T19:36:47+09:00">2021-05-19</time>
+                <time title="Modified: 2021-05-20 23:57:37" itemprop="dateModified" datetime="2021-05-20T23:57:37+09:00">2021-05-20</time>
               </span>
 
           
@@ -1420,7 +1455,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-19 19:36:47" itemprop="dateModified" datetime="2021-05-19T19:36:47+09:00">2021-05-19</time>
+                <time title="Modified: 2021-05-20 23:57:37" itemprop="dateModified" datetime="2021-05-20T23:57:37+09:00">2021-05-20</time>
               </span>
 
           
@@ -1627,7 +1662,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-19 19:36:47" itemprop="dateModified" datetime="2021-05-19T19:36:47+09:00">2021-05-19</time>
+                <time title="Modified: 2021-05-20 23:57:37" itemprop="dateModified" datetime="2021-05-20T23:57:37+09:00">2021-05-20</time>
               </span>
 
           
