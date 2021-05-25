@@ -63,8 +63,8 @@ index_generator:
 
 # Category & Tag
 default_category: uncategorized
-category_map:
-tag_map:
+category_map: C#: c-sharp, JavaScript:JavaScript
+tag_map: C#: c-sharp,JavaScript:JavaScript
 
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
