@@ -1,7 +1,7 @@
 ---
 title: pseudo-class vs pseudo-element
 date: 2021-01-05
-tags:
+tags: CSS
 ---
 
 ## pseudo-class
@@ -108,12 +108,12 @@ p::first-line {
 ```css
 /* a 태그 뒤에 삽입 */
 a::after {
-  content: "♥";
+  content: '♥';
 }
 
 /* a 태그 뒤에 삽입 */
 a::before {
-  content: "♥";
+  content: '♥';
 }
 ```
 

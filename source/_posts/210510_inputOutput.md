@@ -1,7 +1,7 @@
 ---
 title: 출력, 상수
 date: 2021-05-10
-tags:
+tags: C#
 ---
 
 ```c#
@@ -9,14 +9,14 @@ using system;
 
 namespace HelloWorld
 {
-    class Program
+  class Program
+  {
+    // 메인 함수
+    static void Main(string[] args)
     {
-        // 메인 함수
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello world!");
-        }
+        Console.WriteLine("Hello world!");
     }
+  }
 }
 ```
 
@@ -63,7 +63,7 @@ namespace HelloWorld
 ```c#
 static int Main(string[] args)
 {
-    return 0; //0을 돌려보낸다.
+  return 0; //0을 돌려보낸다.
 }
 ```
 
