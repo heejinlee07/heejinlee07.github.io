@@ -187,5 +187,35 @@ static void Main(string[] args)
 
 ---
 
+## 키보드 입력으로부터 숫자 읽어오기
+
+> Console.ReadLine();
+
+- 명령 프롬프트에서 한 줄의 글을 읽는 기능. `string name = Console.ReadLine()`처럼 사용하면 `Console.ReadLine()`을 통해 키보드로부터 받은 입력을 문자열 변수인 name에 대입하는 것이다.
+- 엔터키가 입력되기 전까지의 값을 반환.
+- 키보드로부터 받은 값은 반드시 <u>`문자열`형으로 반환</u>. 문자열은 문자, 숫자도 모두 담을 수 있는 포괄적인 형태이기 때문이다.
+- **문자열을 묵시적/명시적 정수형으로 변환할 수 없다.**
+  - `int num1 = Console.ReadLine();`처럼 사용하면 에러 발생. (CS0029. **암시적으로** string 형식을 int 형식으로 변환할 수 없다.)
+  - `int num2 = (int)Console.ReadLine();` 처럼 사용해도 에러 발생. 타입캐스팅은 서로 호환될 수 있는 숫자끼리 가능하다.(e.g. double => int) 객체 지향 프로그램을 보면 꼭 숫자끼리 가능한 것은 아니지만 현 시점에서 문자와 숫자간에 명시적 변환은 가능하지 않다고 간주하도록 한다. (CS0030. string 형식을 int 형식으로 변환할 수 없다.)
+- `Parse()`를 통해 문자열을 정수형으로 변환할 수 있다.(e.g. int.Parse();)
+
+  ```c#
+  using System;
+
+  namespace AddNumbers
+  {
+    class Program
+    {
+      static void Main(string[] args)
+      {
+        string numStr1 = Console.ReadLine();
+        int num1 = int.Parse(numStr1);
+      }
+    }
+  }
+  ```
+
+---
+
 _References_
 [실무 프로그래밍 입문(C#)](https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/)
