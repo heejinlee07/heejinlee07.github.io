@@ -15,6 +15,7 @@ tags: C#
 - 더하기 외의 빼기, 나누기 곱하기는 할 수 없다.
 - `==`으로 같은 문자열인지 확인할 수 있다.
 - 큰따옴표만 출력하려면 역슬래시(\\) 또는 한국 키보드일 경우 원화(₩)기호를 사용해서 나타낸다. e.g. Console.WriteLine("\\"")
+- 적은 문자 그대로 출력하고 싶을 때 `@`기호를 사용한다. e.g. Console.WriteLine(@"\x61") // \x61 출력
 
 ```c#
 using System;
@@ -39,12 +40,12 @@ namespace StringOperator
 
 ## 문자열 포맷팅
 
-- `+` 기호를 이용해서 문자열을 만들 수 있다.
+- `+`연산자: 기호를 이용해서 문자열을 만들 수 있다.
   - 문자열 + 문자열 e.g. "hello" + "world" => "helloworld"
   - 정수형 + 문자열, 문자열 + 정수형 e.g."hello" + 100=> hello100
   - 부동소수점형 + 문자열, 문자열 + 부동소수점 e.g."hello" + 77.7 => hello77.7
   - 결합해야 할 문자열이 길어질수록 가독성이 떨어지고, 임시 문자열이 발생하면서 성능 저하가 발생함.
-- `string.Format` 또는 `중괄호`를 사용하여 포맷팅
+- 인덱싱 사용: `string.Format` 또는 `중괄호`를 사용하여 포맷팅
   - 소괄호 안에 있는 데이터를 특정 서식에 맞춰 결합
   - 소괄호 안에 있는 데이터를 서식에 맞춰 문자열로 바꿈.
 
@@ -76,6 +77,33 @@ namespace StringOperator
 	}
 }
 ```
+
+- 문자열 보간: `$` 사인을 이용하여 뒤에 따라오는 매개변수 없이도 사용할 수 있다.
+
+```c#
+using System;
+
+namespace StringOperator
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			string name = 'Lulu';
+			int id = 210525;
+
+			//방법1
+			string message1 = string.Format($"student name: {name}/ student id: {id}");
+			Console.WriteLine(message1)
+
+			//방법2
+			Console.WriteLine($"student name: {name}/ student id: {id}")
+		}
+	}
+}
+```
+
+---
 
 ### 문자열 정렬
 
@@ -123,6 +151,37 @@ static void Main(string[] args)
 	Console.WriteLine("{0:f1}", 3.14159265359); //3.1
 
 	Console.WriteLine("{0:f2}", 10.1); //10.10
+}
+```
+
+### 소수점 이하 자릿수 제어하기
+
+> {인덱스:f소수점 이하 자릿수}
+
+- string.Format()에서 동일하게 사용 가능
+- 정수형 가능
+- `반올림` 된다.
+- `F`, `f` 둘 다 사용가능.
+- **데이터를 바꾸는 것이 아니라** 소수점 이하 자릿수를 제어하여 출력하는 것 뿐이다.
+
+### 10진수를 16진수로 출력하기
+
+> {인덱스:x자릿수}
+
+- string.Format()에서 동일하게 사용 가능
+- **<u>정수형만 가능</u>**
+- 소문자 x => 소문자, 대문자 X => 대문자로 출력된다.
+
+```c#
+static void Main(string[] args)
+{
+	Console.WriteLine("{0}", 10); //10
+	Console.WriteLine("{0}:x", 10); //a
+	Console.WriteLine("{0}:X", 10); //A
+	Console.WriteLine("{0}:x1", 10); //a
+	Console.WriteLine("{0}:x2", 10); //0a
+	Console.WriteLine("{0}:x3", 10); //00a
+	Console.WriteLine("{0}:x4", 10); //000a
 }
 ```
 
