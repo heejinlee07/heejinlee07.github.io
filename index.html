@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-27 00:06:54" itemprop="dateModified" datetime="2021-05-27T00:06:54+09:00">2021-05-27</time>
+                <time title="Modified: 2021-05-27 01:02:40" itemprop="dateModified" datetime="2021-05-27T01:02:40+09:00">2021-05-27</time>
               </span>
 
           
@@ -272,6 +272,28 @@
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Console.WriteLine(<span class="string">"&#123;0&#125;"</span>, <span class="number">10</span>); <span class="comment">//10</span></span><br><span class="line">	Console.WriteLine(<span class="string">"&#123;0&#125;:x"</span>, <span class="number">10</span>); <span class="comment">//a</span></span><br><span class="line">	Console.WriteLine(<span class="string">"&#123;0&#125;:X"</span>, <span class="number">10</span>); <span class="comment">//A</span></span><br><span class="line">	Console.WriteLine(<span class="string">"&#123;0&#125;:x1"</span>, <span class="number">10</span>); <span class="comment">//a</span></span><br><span class="line">	Console.WriteLine(<span class="string">"&#123;0&#125;:x2"</span>, <span class="number">10</span>); <span class="comment">//0a</span></span><br><span class="line">	Console.WriteLine(<span class="string">"&#123;0&#125;:x3"</span>, <span class="number">10</span>); <span class="comment">//00a</span></span><br><span class="line">	Console.WriteLine(<span class="string">"&#123;0&#125;:x4"</span>, <span class="number">10</span>); <span class="comment">//000a</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <hr>
+<h2 id="키보드-입력으로부터-숫자-읽어오기"><a href="#키보드-입력으로부터-숫자-읽어오기" class="headerlink" title="키보드 입력으로부터 숫자 읽어오기"></a>키보드 입력으로부터 숫자 읽어오기</h2><blockquote>
+<p>Console.ReadLine();</p>
+</blockquote>
+<ul>
+<li><p>명령 프롬프트에서 한 줄의 글을 읽는 기능. <code>string name = Console.ReadLine()</code>처럼 사용하면 <code>Console.ReadLine()</code>을 통해 키보드로부터 받은 입력을 문자열 변수인 name에 대입하는 것이다.</p>
+</li>
+<li><p>엔터키가 입력되기 전까지의 값을 반환.</p>
+</li>
+<li><p>키보드로부터 받은 값은 반드시 <u><code>문자열</code>형으로 반환</u>. 문자열은 문자, 숫자도 모두 담을 수 있는 포괄적인 형태이기 때문이다.</p>
+</li>
+<li><p><strong>문자열을 묵시적/명시적 정수형으로 변환할 수 없다.</strong></p>
+<ul>
+<li><code>int num1 = Console.ReadLine();</code>처럼 사용하면 에러 발생. (CS0029. <strong>암시적으로</strong> string 형식을 int 형식으로 변환할 수 없다.)</li>
+<li><code>int num2 = (int)Console.ReadLine();</code> 처럼 사용해도 에러 발생. 타입캐스팅은 서로 호환될 수 있는 숫자끼리 가능하다.(e.g. double =&gt; int) 객체 지향 프로그램을 보면 꼭 숫자끼리 가능한 것은 아니지만 현 시점에서 문자와 숫자간에 명시적 변환은 가능하지 않다고 간주하도록 한다. (CS0030. string 형식을 int 형식으로 변환할 수 없다.)</li>
+</ul>
+</li>
+<li><p><code>Parse()</code>를 통해 문자열을 정수형으로 변환할 수 있다.(e.g. int.Parse();)</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">AddNumbers</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">      <span class="keyword">string</span> numStr1 = Console.ReadLine();</span><br><span class="line">      <span class="keyword">int</span> num1 = <span class="keyword">int</span>.Parse(numStr1);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
 <p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
 
       
@@ -323,7 +345,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-27 00:06:54" itemprop="dateModified" datetime="2021-05-27T00:06:54+09:00">2021-05-27</time>
+                <time title="Modified: 2021-05-27 01:02:40" itemprop="dateModified" datetime="2021-05-27T01:02:40+09:00">2021-05-27</time>
               </span>
 
           
@@ -656,7 +678,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-27 00:06:54" itemprop="dateModified" datetime="2021-05-27T00:06:54+09:00">2021-05-27</time>
+                <time title="Modified: 2021-05-27 01:02:40" itemprop="dateModified" datetime="2021-05-27T01:02:40+09:00">2021-05-27</time>
               </span>
 
           
@@ -922,7 +944,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-27 00:06:54" itemprop="dateModified" datetime="2021-05-27T00:06:54+09:00">2021-05-27</time>
+                <time title="Modified: 2021-05-27 01:02:40" itemprop="dateModified" datetime="2021-05-27T01:02:40+09:00">2021-05-27</time>
               </span>
 
           
@@ -1095,7 +1117,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-27 00:06:54" itemprop="dateModified" datetime="2021-05-27T00:06:54+09:00">2021-05-27</time>
+                <time title="Modified: 2021-05-27 01:02:40" itemprop="dateModified" datetime="2021-05-27T01:02:40+09:00">2021-05-27</time>
               </span>
 
           
@@ -1273,7 +1295,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-27 00:06:54" itemprop="dateModified" datetime="2021-05-27T00:06:54+09:00">2021-05-27</time>
+                <time title="Modified: 2021-05-27 01:02:40" itemprop="dateModified" datetime="2021-05-27T01:02:40+09:00">2021-05-27</time>
               </span>
 
           
@@ -1397,7 +1419,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-27 00:06:54" itemprop="dateModified" datetime="2021-05-27T00:06:54+09:00">2021-05-27</time>
+                <time title="Modified: 2021-05-27 01:02:40" itemprop="dateModified" datetime="2021-05-27T01:02:40+09:00">2021-05-27</time>
               </span>
 
           
@@ -1530,7 +1552,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-27 00:06:54" itemprop="dateModified" datetime="2021-05-27T00:06:54+09:00">2021-05-27</time>
+                <time title="Modified: 2021-05-27 01:02:40" itemprop="dateModified" datetime="2021-05-27T01:02:40+09:00">2021-05-27</time>
               </span>
 
           
@@ -1691,7 +1713,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-27 00:06:54" itemprop="dateModified" datetime="2021-05-27T00:06:54+09:00">2021-05-27</time>
+                <time title="Modified: 2021-05-27 01:02:40" itemprop="dateModified" datetime="2021-05-27T01:02:40+09:00">2021-05-27</time>
               </span>
 
           
@@ -1763,7 +1785,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-27 00:06:54" itemprop="dateModified" datetime="2021-05-27T00:06:54+09:00">2021-05-27</time>
+                <time title="Modified: 2021-05-27 01:02:40" itemprop="dateModified" datetime="2021-05-27T01:02:40+09:00">2021-05-27</time>
               </span>
 
           
