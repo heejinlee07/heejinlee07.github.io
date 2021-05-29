@@ -61,18 +61,18 @@ namespace StringOperator
 			string name = 'Lulu';
 			int id = 210525;
 
-			//방법1
-			//{0}, {1}과 같은 인덱싱으로 원하는 값을 대입.
+			// 방법1
+			// {0}, {1}과 같은 인덱싱으로 원하는 값을 대입.
 			string message1 = string.Format("student name: {0}/ student id: {1}", name, id);
 			Console.WriteLine(message1)
 
-			//방법2
+			// 방법2
 			Console.WriteLine("student name: {0}/ student id: {1}", name, id)
 
-			//0을 두 군데에 쓴다면?
+			// 0을 두 군데에 쓴다면?
 			Console.WriteLine("hello! {0} student name: {0}/ student id: {1}", name, id)
-			//{0}, {1}은 뒤에 이어지는 매개변수. 따라서 0번째에 해당하는 매개변수 name, 1번째에 해당하는 매개변수 id가 작성된 곳에 출력된다.
-			//hello! Lule student name: Lulu/ student id: {1}
+			// {0}, {1}은 뒤에 이어지는 매개변수. 따라서 0번째에 해당하는 매개변수 name, 1번째에 해당하는 매개변수 id가 작성된 곳에 출력된다.
+			// hello! Lule student name: Lulu/ student id: {1}
 		}
 	}
 }
@@ -92,11 +92,11 @@ namespace StringOperator
 			string name = 'Lulu';
 			int id = 210525;
 
-			//방법1
+			// 방법1
 			string message1 = string.Format($"student name: {name}/ student id: {id}");
 			Console.WriteLine(message1)
 
-			//방법2
+			// 방법2
 			Console.WriteLine($"student name: {name}/ student id: {id}")
 		}
 	}
@@ -152,6 +152,7 @@ static void Main(string[] args)
 
 	Console.WriteLine("{0:f2}", 10.1); //10.10
 }
+
 ```
 
 ### 소수점 이하 자릿수 제어하기
