@@ -113,14 +113,14 @@
     <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
 
   </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
-
-  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
 
   </li>
   </ul>
@@ -163,7 +163,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/06/02/210603_switch/" class="post-title-link" itemprop="url">switch문</a>
+            <a href="/2021/06/02/210603_switch/" class="post-title-link" itemprop="url">switch문, 배열</a>
         </h1>
 
         <div class="post-meta">
@@ -172,10 +172,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-06-03 00:00:00 / Modified: 23:17:12" itemprop="dateCreated datePublished" datetime="2021-06-03T00:00:00+09:00">2021-06-03</time>
+              <time title="Created: 2021-06-03 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-03T00:00:00+09:00">2021-06-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-06-04 00:46:44" itemprop="dateModified" datetime="2021-06-04T00:46:44+09:00">2021-06-04</time>
+              </span>
 
           
 
@@ -188,27 +194,48 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
+          <h2 id="switch문"><a href="#switch문" class="headerlink" title="switch문"></a>switch문</h2><blockquote>
 <p>매치 표현식의 결과 값에 따라 실행할 구문을 선택</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">switch(매치 표현식)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  case &lt;상수 라벨1&gt;:</span><br><span class="line">    매치 표현식의 반환값이 상수 라벨 1과 일치할 때 실행하는 구문</span><br><span class="line">    break;</span><br><span class="line">  case &lt;상수 라벨2&gt;:</span><br><span class="line">    매치 표현식의 반환값이 상수 라벨 2와 일치할 때 실행하는 구문</span><br><span class="line">  break;</span><br><span class="line">  case &lt;상수 라벨n&gt;:</span><br><span class="line">    매치 표현식의 반환값이 상수 라벨 n과 일치할 때 실행하는 구문</span><br><span class="line">  break;</span><br><span class="line">  default:</span><br><span class="line">  매치 표현식의 반환값이 위의 상수 라벨과 하나도 일치하지 않을 때 실행하는 구문</span><br><span class="line">  break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(매치 표현식)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">case</span> &lt;상수 라벨<span class="number">1</span>&gt;:</span><br><span class="line">    매치 표현식의 반환값이 상수 라벨 <span class="number">1</span>과 일치할 때 실행하는 구문</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> &lt;상수 라벨<span class="number">2</span>&gt;:</span><br><span class="line">    매치 표현식의 반환값이 상수 라벨 <span class="number">2</span>와 일치할 때 실행하는 구문</span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> &lt;상수 라벨n&gt;:</span><br><span class="line">    매치 표현식의 반환값이 상수 라벨 n과 일치할 때 실행하는 구문</span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">  매치 표현식의 반환값이 위의 상수 라벨과 하나도 일치하지 않을 때 실행하는 구문</span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>모든 case 구문 다음에는 break 구문을 넣아야 한다. 없으면 컴파일 오류가 난다.</p>
+<li><code>모든 case 구문 다음에는 break 구문을 넣아야 한다.</code> 없으면 컴파일 오류가 난다. (case를 여러개 묶은 경우는 break를 쓰지 않아도 된다.)</li>
+<li>해당하는 case 구문이 없으면 default로 가서 실행된다.</li>
+<li>case에서 기본으로 사용한 수 있는 상수<ul>
+<li>int(기본), long, char, bool, string(c#), 부동소수점형들은 사용 불가.</li>
+</ul>
 </li>
-<li><p>해당하는 case 구문이 없으면 default로 가서 실행된다.</p>
-</li>
-<li><p>case에서 기본으로 사용한 수 있는 상수</p>
+<li>case를 여러 개 묶을 수 있다.</li>
+</ul>
+<hr>
+<h2 id="배열"><a href="#배열" class="headerlink" title="배열"></a>배열</h2><p><em>중복된 코드, 변수의 수를 동적으로 선언하지 못하는 문제</em>와 같은 비효율적인 문제를 해결하기 위한 방법으로 <code>배열</code>이 나오게 되었다.</p>
 <ul>
-<li>int(기본), long, char, bool, string(c#), 부동소수점형들 사용 불가.</li>
+<li>동일한 자료형을 여럿 담을 수 있는 구조</li>
+<li>배열 안에 있는 각 데이터를 <code>요소(element)</code>라고 부른다.</li>
+<li>몇 개의 데이터를 담을지 결정한 뒤에 수는 바꿀 수 없고, 내용은 변경 가능하다.</li>
+<li>반복문과 합쳐서 쓰면 매우 유용하다.</li>
+</ul>
+<h3 id="배열-선언"><a href="#배열-선언" class="headerlink" title="배열 선언"></a>배열 선언</h3><blockquote>
+<p>&lt;자료형&gt;[] &lt;변수명&gt; = new &lt;자료형&gt;[&lt;개수&gt;];</p>
+</blockquote>
+<ul>
+<li>e.g. float[] heights = new float[3];</li>
+<li>&lt;개수&gt;개의 &lt;자료형&gt;자료를 담은 배열을 만든다.</li>
+<li>선언과 동시에 대입하기<ul>
+<li>기본형: <strong>&lt;자료형&gt;[] &lt;변수명&gt; = new &lt;자료형&gt;[]{&lt;데이터(콤마로 구분)&gt;};</strong> e.g. int[] ages = new int[]{30,14,27};</li>
+<li>단축형: <strong>&lt;자료형&gt;[] &lt;변수명&gt; = {&lt;데이터(콤마로 구분)&gt;};</strong> e.g. int[] ages = {30, 14,27};</li>
 </ul>
 </li>
-<li><p>여러개를 묶을 수 있다.</p>
-</li>
-<li><pre><code>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- case 2:</span><br><span class="line">- case 3;</span><br><span class="line">- Console.WriteLine(#1.50)</span><br><span class="line">-</span><br></pre></td></tr></table></figure>
-</code></pre></li>
+<li>요소에 접근하기: []안에 접근하고자 하는 데이터의 색인을 넣음.</li>
 </ul>
+<h3 id="char-배열과-문자열"><a href="#char-배열과-문자열" class="headerlink" title="char 배열과 문자열"></a>char 배열과 문자열</h3><ul>
+<li>기본적으로 같은 데이터 방식</li>
+<li>일부 언어에서는 char 배열을 쓰면 되니까 문자열을 지원안한다.</li>
+<li><strong>배열은 고정 길이를 가지고 있다.</strong></li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
 
       
     </div>
@@ -259,7 +286,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-04 00:46:44" itemprop="dateModified" datetime="2021-06-04T00:46:44+09:00">2021-06-04</time>
               </span>
 
           
@@ -347,7 +374,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-04 00:46:44" itemprop="dateModified" datetime="2021-06-04T00:46:44+09:00">2021-06-04</time>
               </span>
 
           
@@ -486,7 +513,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-04 00:46:44" itemprop="dateModified" datetime="2021-06-04T00:46:44+09:00">2021-06-04</time>
               </span>
 
           
@@ -607,7 +634,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-04 00:46:44" itemprop="dateModified" datetime="2021-06-04T00:46:44+09:00">2021-06-04</time>
               </span>
 
           
@@ -777,7 +804,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-04 00:46:44" itemprop="dateModified" datetime="2021-06-04T00:46:44+09:00">2021-06-04</time>
               </span>
 
           
@@ -1110,7 +1137,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-04 00:46:44" itemprop="dateModified" datetime="2021-06-04T00:46:44+09:00">2021-06-04</time>
               </span>
 
           
@@ -1376,7 +1403,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-04 00:46:44" itemprop="dateModified" datetime="2021-06-04T00:46:44+09:00">2021-06-04</time>
               </span>
 
           
@@ -1549,7 +1576,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-04 00:46:44" itemprop="dateModified" datetime="2021-06-04T00:46:44+09:00">2021-06-04</time>
               </span>
 
           
@@ -1726,7 +1753,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-04 00:46:44" itemprop="dateModified" datetime="2021-06-04T00:46:44+09:00">2021-06-04</time>
               </span>
 
           
