@@ -113,6 +113,11 @@
     <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
@@ -169,7 +174,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-06-03 00:00:00 / Modified: 22:54:42" itemprop="dateCreated datePublished" datetime="2021-06-03T00:00:00+09:00">2021-06-03</time>
+              <time title="Created: 2021-06-03 00:00:00 / Modified: 23:17:12" itemprop="dateCreated datePublished" datetime="2021-06-03T00:00:00+09:00">2021-06-03</time>
             </span>
 
           
@@ -183,7 +188,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <blockquote>
+<p>매치 표현식의 결과 값에 따라 실행할 구문을 선택</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">switch(매치 표현식)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  case &lt;상수 라벨1&gt;:</span><br><span class="line">    매치 표현식의 반환값이 상수 라벨 1과 일치할 때 실행하는 구문</span><br><span class="line">    break;</span><br><span class="line">  case &lt;상수 라벨2&gt;:</span><br><span class="line">    매치 표현식의 반환값이 상수 라벨 2와 일치할 때 실행하는 구문</span><br><span class="line">  break;</span><br><span class="line">  case &lt;상수 라벨n&gt;:</span><br><span class="line">    매치 표현식의 반환값이 상수 라벨 n과 일치할 때 실행하는 구문</span><br><span class="line">  break;</span><br><span class="line">  default:</span><br><span class="line">  매치 표현식의 반환값이 위의 상수 라벨과 하나도 일치하지 않을 때 실행하는 구문</span><br><span class="line">  break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>모든 case 구문 다음에는 break 구문을 넣아야 한다. 없으면 컴파일 오류가 난다.</p>
+</li>
+<li><p>해당하는 case 구문이 없으면 default로 가서 실행된다.</p>
+</li>
+<li><p>case에서 기본으로 사용한 수 있는 상수</p>
+<ul>
+<li>int(기본), long, char, bool, string(c#), 부동소수점형들 사용 불가.</li>
+</ul>
+</li>
+<li><p>여러개를 묶을 수 있다.</p>
+</li>
+<li><pre><code>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- case 2:</span><br><span class="line">- case 3;</span><br><span class="line">- Console.WriteLine(#1.50)</span><br><span class="line">-</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+</ul>
+
       
     </div>
 
@@ -233,7 +259,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 22:54:42" itemprop="dateModified" datetime="2021-06-03T22:54:42+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
               </span>
 
           
@@ -321,7 +347,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 22:54:42" itemprop="dateModified" datetime="2021-06-03T22:54:42+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
               </span>
 
           
@@ -460,7 +486,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 22:54:42" itemprop="dateModified" datetime="2021-06-03T22:54:42+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
               </span>
 
           
@@ -581,7 +607,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 22:54:42" itemprop="dateModified" datetime="2021-06-03T22:54:42+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
               </span>
 
           
@@ -751,7 +777,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 22:54:42" itemprop="dateModified" datetime="2021-06-03T22:54:42+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
               </span>
 
           
@@ -1084,7 +1110,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 22:54:42" itemprop="dateModified" datetime="2021-06-03T22:54:42+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
               </span>
 
           
@@ -1350,7 +1376,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 22:54:42" itemprop="dateModified" datetime="2021-06-03T22:54:42+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
               </span>
 
           
@@ -1523,7 +1549,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 22:54:42" itemprop="dateModified" datetime="2021-06-03T22:54:42+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
               </span>
 
           
@@ -1700,7 +1726,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-03 22:54:42" itemprop="dateModified" datetime="2021-06-03T22:54:42+09:00">2021-06-03</time>
+                <time title="Modified: 2021-06-03 23:17:12" itemprop="dateModified" datetime="2021-06-03T23:17:12+09:00">2021-06-03</time>
               </span>
 
           
