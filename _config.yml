@@ -63,7 +63,7 @@ index_generator:
 
 # Category & Tag
 default_category: uncategorized
-category_map: C#: [C#, JavaScript, TypeScript]
+category_map: [C#, JavaScript, TypeScript]
 tag_map: [C#, JavaScript, TypeScript]
 
 # Metadata elements
