@@ -229,4 +229,7 @@ float.Parse();
 - 함수 `실행 후`에 보장되는 조건 e.g. 두 정수를 더하면 정수의 결과가 나온다.
 - 함수 이름과 반환형으로 유추 가능
 
-## 함수 시그니처가 약속하는 것
+---
+
+_References_
+[실무 프로그래밍 입문(C#)](https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/)
