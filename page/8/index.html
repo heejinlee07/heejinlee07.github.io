@@ -144,6 +144,175 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/200224_object_literal/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/23/200224_object_literal/" class="post-title-link" itemprop="url">객체 리터럴 / Object</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-24T00:00:00+09:00">2020-02-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-06-13 22:48:40" itemprop="dateModified" datetime="2021-06-13T22:48:40+09:00">2021-06-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="객체란"><a href="#객체란" class="headerlink" title="객체란?"></a>객체란?</h2><p>객체는 다양한 타입의 값(원시 값 또는 다른 객체)들을 하나의 단위로 구성한 복합적인 자료 구조이다. 0개 이상인 속성명(property)과 객체의 관련된 값이 중괄호({})로 묶여진다. 즉 <em>키(key)과 값(value)으로 구성된 프로퍼티(Property)들의 집합</em>이라고 할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">키워드 식별자 = &#123;</span><br><span class="line">  key(속성) : value(값)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> counter = &#123;</span><br><span class="line">  number : <span class="number">0</span>, <span class="comment">//프로퍼티</span></span><br><span class="line">  increase: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.num++; <span class="comment">//메소드</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>자바스크립트에 사용할 수 있는 모든 값이 프로퍼티 값이 될 수 있고, 함수도 사용할 수 있다. 이 경우 일반 함수와 구분하기 위해 메소드(Method)라 부른다.</p>
+<p><code>프로퍼티와 메소드의 역할</code></p>
+<ul>
+<li>프로퍼티: key와 value를 통해 객체의 상태를 나타낸다.</li>
+<li>메소드: 프로퍼티를 참조하고 조작할 수 있는 동작을 말한다.</li>
+</ul>
+<hr>
+<h2 id="객체-리터럴에-의한-객체-생성"><a href="#객체-리터럴에-의한-객체-생성" class="headerlink" title="객체 리터럴에 의한 객체 생성"></a>객체 리터럴에 의한 객체 생성</h2><p>클래스 기반 객체지향 언어: 클래스 사전정의, 필요한 시점에 new연산자와 생성자를 호출하여 인스턴스를 생성하여 객체 생성 (C++, java 등)<br>프로토타입 기반 객체지향 언어: 자바스크립트. <code>객체 리터럴</code>, Object 생성자 함수, 생성자 함수, Object.create 메소드, 클래스 (ES6) 등의 방법으로 객체 생성</p>
+<p><code>객체 리터럴</code><br>객체를 생성하는 표기법이며, 변수에 할당이 이루어지는 시점에 자바스크립트 엔진은 객체 리터럴을 해석하여 객체를 생성한다. <code>var empty = {};</code>와 같이 프로퍼티를 정의하지 않으면 빈 객체가 생성된다. 서버에게 주소를 넣어달라고 요청하는 것처럼 연속된 구조체나 연관된 데이터를 일정한 방법으로 변환하고자 할 때 많이 쓰인다.</p>
+<blockquote>
+<p>객체 리터럴의 중괄호({})는 코드블록이 아니다. 코드블록에는 중괄호 뒤이 세미콜론이 붙지 않지만, 객체 리터럴은 값으로 평가되는 표현식이므로 중괄호 뒤에 세미콜론을 붙인다.</p>
+</blockquote>
+<hr>
+<h2 id="프로퍼티"><a href="#프로퍼티" class="headerlink" title="프로퍼티"></a>프로퍼티</h2><ul>
+<li>프로퍼티 키 : 빈 문자열을 포함하는 모든 문자열 또는 symbol 값</li>
+<li>프로퍼티 값 : 자바스크립트에서 사용할 수 있는 모든 값</li>
+</ul>
+<p>프로퍼티 키는 프로퍼티 값에 접근할 수 있는 이름이며, 식별자 역할을 하며 식별자 네이밍 규칙을 준수하는 것이 권장된다.</p>
+<h2 id="프로퍼티-접근"><a href="#프로퍼티-접근" class="headerlink" title="프로퍼티 접근"></a>프로퍼티 접근</h2><p>마침표(.)를 사용하는 마침표 표기법(Dot notation) 또는 대괄호([…])를 사용하는 대괄호 표기법(Bracket notation)을 사용한다. 대괄호 표기법을 사용하는 경우, 대괄호 내부에 지정하는 프로퍼티 키는 반드시 따옴표로 감싼 문자열이어야 한다. 자바스크립트에서 사용 가능한 유효한 이름이 아닐 때도 반드시 대괄호 표기법을 사용하며, 대괄호 내의 프로퍼티 키는 따옴표로 감싼 문자열이어야 한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 마침표 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="comment">// 객체이름.접근하고자 하는 항목</span></span><br><span class="line"><span class="built_in">console</span>.log(person.name); <span class="comment">// Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 대괄호 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"name"</span>]); <span class="comment">// Lee</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li><code>존재하지 않는 프로퍼티에 접근</code>: undefined를 반환. <em>referenceError가 발생하지 않는다.</em></li>
+<li><code>프로퍼티 값 갱신</code>: 이미 존재하는 프로퍼티에 값을 할당한다. <em>나중에 선언한 프로퍼티가 먼저 선언한 프로퍼티를 덮어쓴다.</em></li>
+<li><code>프로퍼티 동적 생성</code>: 존재하지 않는 프로퍼티에 값을 할당한다.</li>
+<li><code>프로퍼티 삭제</code>: delete 연산자를 사용한다. 이때 delete 연산자의 피연산자는 프로퍼티 값에 접근할 수 있는 표현식이어야 한다. 만약 존재하지 않는 프로퍼티를 삭제하면 아무런 에러없이 무시된다.</li>
+<li><code>프로퍼티 키 생략</code>: ES6에서 프로퍼티 값으로 변수를 사용할 때 변수 이름과 프로퍼티 키가 동일한 이름이면 프로퍼티 키를 생략할 수 있다.</li>
+</ul>
+<hr>
+<p><em>References</em></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Object_literals" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Basics" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/object-literal" target="_blank" rel="noopener">Poiemaweb</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/0224_rubberduck/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/23/0224_rubberduck/" class="post-title-link" itemprop="url">200224 러버덕 정리</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-24T00:00:00+09:00">2020-02-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-06-13 22:48:40" itemprop="dateModified" datetime="2021-06-13T22:48:40+09:00">2021-06-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="리터럴"><a href="#리터럴" class="headerlink" title="리터럴"></a>리터럴</h2><p>값을 생성하는 가장 간단한 방법<br>사람이 이해할 수 있는 문자로 값을 생성<br>런타임 때 값을 평가하여 생성함</p>
+<h2 id="표현식인-문과-표현식이-아닌-문"><a href="#표현식인-문과-표현식이-아닌-문" class="headerlink" title="표현식인 문과 표현식이 아닌 문"></a>표현식인 문과 표현식이 아닌 문</h2><p>값: 표현식이 평가되어 생성된 결과<br>표현식: 값으로 평가될 수 있는 문<br>문: 컴퓨터에 내리는 명령. 선언문, 할당문, 조건 문 등<br>표현식인 문: 변수에 할당할 수 있는 문으로 값을 생성한다.<br>표현식이 아닌 문: 변수에 할당할 수 없다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//example</span></span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">-&gt;<span class="literal">undefined</span></span><br><span class="line"><span class="comment">//변수 선언문은 표현식이 아닌 문이기 때문에</span></span><br><span class="line"><span class="comment">//평가할 수 없어서 완료된 평가값이 나올 자리에</span></span><br><span class="line"><span class="comment">//평가값 대신 undefined가 출력된다.</span></span><br><span class="line"><span class="comment">//undefined는 평가된 값이 아닌 완료값이다.</span></span><br><span class="line"> a = <span class="number">1</span>;</span><br><span class="line">-&gt;<span class="number">2</span></span><br><span class="line"><span class="comment">//변수 할당문은 표현식인 문이기 때문에 평가된 값 2가 출력된다.</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="데이터-타입"><a href="#데이터-타입" class="headerlink" title="데이터 타입"></a>데이터 타입</h2><p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
+<p>원시타입은 변경불가하고, 객체는 변경가능하다.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/200224_type_casting/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +344,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-09 00:52:11" itemprop="dateModified" datetime="2021-06-09T00:52:11+09:00">2021-06-09</time>
+                <time title="Modified: 2021-06-13 22:48:40" itemprop="dateModified" datetime="2021-06-13T22:48:40+09:00">2021-06-13</time>
               </span>
 
           
@@ -303,7 +472,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-09 00:52:11" itemprop="dateModified" datetime="2021-06-09T00:52:11+09:00">2021-06-09</time>
+                <time title="Modified: 2021-06-13 22:48:40" itemprop="dateModified" datetime="2021-06-13T22:48:40+09:00">2021-06-13</time>
               </span>
 
           
@@ -402,7 +571,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-09 00:52:11" itemprop="dateModified" datetime="2021-06-09T00:52:11+09:00">2021-06-09</time>
+                <time title="Modified: 2021-06-13 22:48:40" itemprop="dateModified" datetime="2021-06-13T22:48:40+09:00">2021-06-13</time>
               </span>
 
           
@@ -511,7 +680,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-09 00:52:11" itemprop="dateModified" datetime="2021-06-09T00:52:11+09:00">2021-06-09</time>
+                <time title="Modified: 2021-06-13 22:48:40" itemprop="dateModified" datetime="2021-06-13T22:48:40+09:00">2021-06-13</time>
               </span>
 
           
@@ -628,7 +797,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-09 00:52:11" itemprop="dateModified" datetime="2021-06-09T00:52:11+09:00">2021-06-09</time>
+                <time title="Modified: 2021-06-13 22:48:40" itemprop="dateModified" datetime="2021-06-13T22:48:40+09:00">2021-06-13</time>
               </span>
 
           
@@ -810,7 +979,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-09 00:52:11" itemprop="dateModified" datetime="2021-06-09T00:52:11+09:00">2021-06-09</time>
+                <time title="Modified: 2021-06-13 22:48:40" itemprop="dateModified" datetime="2021-06-13T22:48:40+09:00">2021-06-13</time>
               </span>
 
           
@@ -948,7 +1117,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-09 00:52:11" itemprop="dateModified" datetime="2021-06-09T00:52:11+09:00">2021-06-09</time>
+                <time title="Modified: 2021-06-13 22:48:40" itemprop="dateModified" datetime="2021-06-13T22:48:40+09:00">2021-06-13</time>
               </span>
 
           
@@ -1032,7 +1201,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-09 00:52:11" itemprop="dateModified" datetime="2021-06-09T00:52:11+09:00">2021-06-09</time>
+                <time title="Modified: 2021-06-13 22:48:40" itemprop="dateModified" datetime="2021-06-13T22:48:40+09:00">2021-06-13</time>
               </span>
 
           
@@ -1128,88 +1297,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/15/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-15 12:07:25" itemprop="dateCreated datePublished" datetime="2020-02-15T12:07:25+09:00">2020-02-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-09 00:52:11" itemprop="dateModified" datetime="2021-06-09T00:52:11+09:00">2021-06-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1275,7 +1367,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
