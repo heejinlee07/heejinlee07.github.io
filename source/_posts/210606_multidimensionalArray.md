@@ -19,7 +19,7 @@ static void Main(string[] args)
     for (int j = 0; j < 9; ++j)
     {
       table[i, j] = (i + 1) * (j + 1);
-      Console.Write($" {(i + 2), 2} * {j + 1, -2} = {table[i, j], -3}");
+      Console.Write($" {(i + 1), 2} * {j + 1, -2} = {table[i, j], -3}");
     }
     Console.WriteLine("");
   }
