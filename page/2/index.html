@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-16 20:51:49" itemprop="dateModified" datetime="2021-06-16T20:51:49+09:00">2021-06-16</time>
+                <time title="Modified: 2021-06-21 23:41:26" itemprop="dateModified" datetime="2021-06-21T23:41:26+09:00">2021-06-21</time>
               </span>
 
           
@@ -345,7 +345,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-16 20:51:49" itemprop="dateModified" datetime="2021-06-16T20:51:49+09:00">2021-06-16</time>
+                <time title="Modified: 2021-06-21 23:41:26" itemprop="dateModified" datetime="2021-06-21T23:41:26+09:00">2021-06-21</time>
               </span>
 
           
@@ -678,7 +678,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-16 20:51:49" itemprop="dateModified" datetime="2021-06-16T20:51:49+09:00">2021-06-16</time>
+                <time title="Modified: 2021-06-21 23:41:26" itemprop="dateModified" datetime="2021-06-21T23:41:26+09:00">2021-06-21</time>
               </span>
 
           
@@ -768,7 +768,7 @@
 <li>2진수 (0~1 2개의 수)</li>
 </ul>
 <blockquote>
-<p>비트(bit): 최소단위. 1 또는 0을 하나만 담을 수 있다. 비트수에 따라 몇 가지 수를 표현할 수 있느냐를 알 수 있다. (bit가 한개면 두 가지 숫자, 두 개면 네 가지 숫자 표현 가능)</p>
+<p>비트(bit): 2진수의 최소단위. 1 또는 0을 하나만 담을 수 있다. 비트수에 따라 몇 가지 수를 표현할 수 있느냐를 알 수 있다. (bit가 한개면 두 가지 숫자, 두 개면 네 가지 숫자 표현 가능)</p>
 </blockquote>
 <ul>
 <li>8bit = 1byte</li>
@@ -788,22 +788,22 @@
 <tbody><tr>
 <td>byte</td>
 <td>8bit</td>
-<td>2^8(256개)</td>
+<td>2<sup>8</sup>(256개)</td>
 </tr>
 <tr>
 <td>short</td>
 <td>16bit</td>
-<td>2^16(65,536개)</td>
+<td>2<sup>16</sup>(65,536개)</td>
 </tr>
 <tr>
 <td>int</td>
 <td>32bit</td>
-<td>2^32(4,294,967,296개)</td>
+<td>2<sup>32</sup>(4,294,967,296개)</td>
 </tr>
 <tr>
 <td>long</td>
 <td>64bit</td>
-<td>2^64(18,446,744,073,709,551,616개)</td>
+<td>2<sup>64</sup>(18,446,744,073,709,551,616개)</td>
 </tr>
 </tbody></table>
 </li>
@@ -829,7 +829,7 @@
 </li>
 </ul>
 <blockquote>
-<p>실수인데 실수형이라고 부르지 않고 부동소수점형이라 부르는 이유는?<br>컴퓨터에서 숫자를 표현할 때 <code>0.01</code>을 <code>1 * 10^-2</code>라고 표현하는데 지수의 숫자에 따라 0.01과 같은 숫자의 소수점이 움직이게 된다. 그래서 고정되지 않고 움직인다는 의미에서 부동소수점형이라 부른다.</p>
+<p>실수인데 실수형이라고 부르지 않고 부동소수점형이라 부르는 이유는?<br>컴퓨터에서 숫자를 표현할 때 <code>0.01</code>을 1 * 10<sup>-2</sup>라고 표현하는데 지수의 숫자에 따라 0.01과 같은 숫자의 소수점이 움직이게 된다. 그래서 고정되지 않고 움직인다는 의미에서 부동소수점형이라 부른다.</p>
 </blockquote>
 <h2 id="문자형"><a href="#문자형" class="headerlink" title="문자형"></a>문자형</h2><ul>
 <li><code>하나</code>의 문자를 담는 자료형</li>
@@ -845,11 +845,11 @@
 </ul>
 <h2 id="기본-자료형으로-선언한-변수"><a href="#기본-자료형으로-선언한-변수" class="headerlink" title="기본 자료형으로 선언한 변수"></a>기본 자료형으로 선언한 변수</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> int1 = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//(뒤에 붙는 f는 float형의 값을 대입할 때 사용. 3.14를 의미)</span></span><br><span class="line"><span class="keyword">float</span> float1 = <span class="number">3.14f</span>;</span><br><span class="line"><span class="comment">//(뒤에 f 안붙음.)</span></span><br><span class="line"><span class="keyword">double</span> double1 = <span class="number">5.245</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> char1 = <span class="string">'a'</span>;</span><br></pre></td></tr></table></figure>
 
-<h2 id="음수-표현법"><a href="#음수-표현법" class="headerlink" title="음수 표현법"></a>음수 표현법</h2><p>|최상위 비트|—|—|—|—|—|—|최하위 비트|<br>이미 7비틀 양수가 다 가져갔고, 은수를 쓰려면 bit 첫 글자를 1로 쓸 수 밖에 없다.<br><code>최상위 비트</code>를 이용하여 이 값이 0이면 양수, 1이면 음수</p>
+<h2 id="음수-표현법"><a href="#음수-표현법" class="headerlink" title="음수 표현법"></a>음수 표현법</h2><p>|최상위 비트|—|—|—|—|—|—|최하위 비트|<br>이미 7비트를 양수가 다 가져갔고, 음수를 쓰려면 bit 첫 글자를 1로 쓸 수 밖에 없다.<br><code>최상위 비트</code>를 이용하여 이 값이 0이면 양수, 1이면 음수</p>
 <ul>
-<li>양수: 0000 0001 ~ 0111 1111</li>
+<li>양수: <code>0</code>000 0001 ~ <code>0</code>111 1111</li>
 <li>0: 0000 0000</li>
-<li>음수: 1000 0000 ~ 1111 1111</li>
+<li>음수: <code>1</code>000 0000 ~ <code>1</code>111 1111</li>
 </ul>
 <hr>
 <ul>
@@ -944,7 +944,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-16 20:51:49" itemprop="dateModified" datetime="2021-06-16T20:51:49+09:00">2021-06-16</time>
+                <time title="Modified: 2021-06-21 23:41:26" itemprop="dateModified" datetime="2021-06-21T23:41:26+09:00">2021-06-21</time>
               </span>
 
           
@@ -1117,7 +1117,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-16 20:51:49" itemprop="dateModified" datetime="2021-06-16T20:51:49+09:00">2021-06-16</time>
+                <time title="Modified: 2021-06-21 23:41:26" itemprop="dateModified" datetime="2021-06-21T23:41:26+09:00">2021-06-21</time>
               </span>
 
           
@@ -1294,7 +1294,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-16 20:51:49" itemprop="dateModified" datetime="2021-06-16T20:51:49+09:00">2021-06-16</time>
+                <time title="Modified: 2021-06-21 23:41:26" itemprop="dateModified" datetime="2021-06-21T23:41:26+09:00">2021-06-21</time>
               </span>
 
           
@@ -1418,7 +1418,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-16 20:51:49" itemprop="dateModified" datetime="2021-06-16T20:51:49+09:00">2021-06-16</time>
+                <time title="Modified: 2021-06-21 23:41:26" itemprop="dateModified" datetime="2021-06-21T23:41:26+09:00">2021-06-21</time>
               </span>
 
           
@@ -1551,7 +1551,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-16 20:51:49" itemprop="dateModified" datetime="2021-06-16T20:51:49+09:00">2021-06-16</time>
+                <time title="Modified: 2021-06-21 23:41:26" itemprop="dateModified" datetime="2021-06-21T23:41:26+09:00">2021-06-21</time>
               </span>
 
           
@@ -1712,7 +1712,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-16 20:51:49" itemprop="dateModified" datetime="2021-06-16T20:51:49+09:00">2021-06-16</time>
+                <time title="Modified: 2021-06-21 23:41:26" itemprop="dateModified" datetime="2021-06-21T23:41:26+09:00">2021-06-21</time>
               </span>
 
           
@@ -1784,7 +1784,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-16 20:51:49" itemprop="dateModified" datetime="2021-06-16T20:51:49+09:00">2021-06-16</time>
+                <time title="Modified: 2021-06-21 23:41:26" itemprop="dateModified" datetime="2021-06-21T23:41:26+09:00">2021-06-21</time>
               </span>
 
           
