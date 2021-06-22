@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-22 21:02:26" itemprop="dateModified" datetime="2021-06-22T21:02:26+09:00">2021-06-22</time>
+                <time title="Modified: 2021-06-22 21:33:24" itemprop="dateModified" datetime="2021-06-22T21:33:24+09:00">2021-06-22</time>
               </span>
 
           
@@ -345,7 +345,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-22 21:02:26" itemprop="dateModified" datetime="2021-06-22T21:02:26+09:00">2021-06-22</time>
+                <time title="Modified: 2021-06-22 21:33:24" itemprop="dateModified" datetime="2021-06-22T21:33:24+09:00">2021-06-22</time>
               </span>
 
           
@@ -450,8 +450,12 @@
 <h2 id="진법-변환"><a href="#진법-변환" class="headerlink" title="진법 변환"></a>진법 변환</h2><p>바꾸고자 하는 진법의 수를 몫이 0이 될때까지 나눈다. 몫이 0이 된 수의 나머지부터 차례대로 숫자로 표기한다.<br>e.g. 십진수 3을 2진수로 바꾸고 싶으면, 3을 바꾸고자 2로 나눈다. 10을 2진수로 표기하면 11이다.</p>
 <p><strong>어떤 숫자를 각 진법별로 나타내고 싶을 때는 8진수로 먼저 변환한 후 2진수나 16진수로 바꾸는 것이 가장 빠르게 변환하는 방법이다.</strong></p>
 <p>비트가 상태를 나타내는데 비트가 1개만 있을 때는 2<sup>1</sup>이고, 2가지 상태를 나타낼 수 있다.<br>8진수 단위 숫자 하나로 0~7까지 8가지를 표현할 수 있고, 2진수 단위 숫자가 3개가 필요하다.(2<sup>3</sup> = 8)<br>2진수에서 4개의 단위 숫자는 16진수 한 개의 단위 숫자로 표현할 수 있다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2^1 &#x3D; 2</span><br><span class="line">2^2 &#x3D; 4</span><br><span class="line">2^3 &#x3D; 8</span><br><span class="line">2^4 &#x3D; 16</span><br></pre></td></tr></table></figure>
-
+<ul>
+<li>2<sup>1</sup> = 2</li>
+<li>2<sup>2</sup> = 4</li>
+<li>2<sup>3</sup> = 8</li>
+<li>2<sup>4</sup> = 16</li>
+</ul>
 <p>e.g. 277<sub>8</sub> -&gt; 010111111<sub>2</sub> -&gt; fb<sub>16</sub></p>
 <h2 id="비트-연산자"><a href="#비트-연산자" class="headerlink" title="비트 연산자"></a>비트 연산자</h2><blockquote>
 <p>이진수 피연산자를 비트 단위로 연산할 때 사용<br>&amp;(and), |(or), ^(xor), ~(not)</p>
@@ -678,7 +682,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-22 21:02:26" itemprop="dateModified" datetime="2021-06-22T21:02:26+09:00">2021-06-22</time>
+                <time title="Modified: 2021-06-22 21:33:24" itemprop="dateModified" datetime="2021-06-22T21:33:24+09:00">2021-06-22</time>
               </span>
 
           
@@ -936,10 +940,44 @@
 </ul>
 </li>
 </ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>부호 있는 자료형</th>
+<th>부호 없는 자료형</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>음수, 양수를 모두 표현</td>
+<td>양수만 표현 (보통 <code>u</code>가 자료형 앞에 붙음)</td>
+</tr>
+<tr>
+<td>자료형</td>
+<td>sbyte (-128 ~ 127)</td>
+<td>byte (0 ~ 255)</td>
+</tr>
+<tr>
+<td></td>
+<td>short (-32,768 ~ 23,767)</td>
+<td>ushort (0 ~ 65,535)</td>
+</tr>
+<tr>
+<td></td>
+<td>int (-2,147,483,648 ~ 2,147,483,647 )</td>
+<td>uint (0 ~ 4,294,967,295)</td>
+</tr>
+<tr>
+<td></td>
+<td>long (-9,223,372,036,854,775,808 ~ 9,233,372,036,854,775,807)</td>
+<td>ulong (0 ~ 18,446,744,073,709,551,615)</td>
+</tr>
+</tbody></table>
 <h2 id="부호-있는-또는-부호-없는-변수는-언제쓰는가"><a href="#부호-있는-또는-부호-없는-변수는-언제쓰는가" class="headerlink" title="부호 있는, 또는 부호 없는 변수는 언제쓰는가?"></a>부호 있는, 또는 부호 없는 변수는 언제쓰는가?</h2><blockquote>
 <p>프로그래머의 명백한 의도를 보여줄 때</p>
 </blockquote>
-<p>예를 들어 <code>int age = 17;</code>과 같은 변수가 있을 때, 부호 있는 자료형 int를 썼다. 프로그램상 int를 사용해서 나이를 처리하는 코드를 만들었는데, 상식적으로 나이는 음수가 될 수 없지만 프로그램 상 처리과정에서<code>음수</code>가 들어온다면 버그가 발생하는 등 문제가 있을 수 있다. 이럴 때 음수값이 들어오지 않도록 예외처리를 해줄 수 있지만 <code>uint age = 17;</code>과 같이 음수를 받을 수 없는 자료형을 사용하면 <code>음수</code>가 들어올 수 없도록 처리할 수 있다.</p>
+<p>예를 들어 <code>int age = 17;</code>과 같은 변수가 있을 때, 부호 있는 자료형 int를 썼다. 프로그램상 int를 사용해서 나이를 처리하는 코드를 만들었는데, 상식적으로 나이는 음수가 될 수 없지만 프로그램 상 처리과정에서 <code>음수</code>가 들어온다면 버그가 발생하는 등 문제가 있을 수 있다. 이럴 때 음수값이 들어오지 않도록 예외처리를 해줄 수 있지만 <code>uint age = 17;</code>과 같이 음수를 받을 수 없는 자료형을 사용하면 <code>음수</code>가 들어올 수 없도록 처리할 수 있다.</p>
 <h2 id="uint-0-4-294-967-295-의-범위를-넘어서는-코드는-어떤-값을-출력할까"><a href="#uint-0-4-294-967-295-의-범위를-넘어서는-코드는-어떤-값을-출력할까" class="headerlink" title="uint(0 ~ 4,294,967,295)의 범위를 넘어서는 코드는 어떤 값을 출력할까?"></a>uint(0 ~ 4,294,967,295)의 범위를 넘어서는 코드는 어떤 값을 출력할까?</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uint</span> num1 = <span class="number">4294967295</span>;</span><br><span class="line"><span class="keyword">uint</span> num2 = <span class="number">1</span>;</span><br><span class="line">unit result = num1 + num2;</span><br><span class="line"></span><br><span class="line">Console.WriteLiner(result);</span><br></pre></td></tr></table></figure>
 
 <p>위의 코드에서 result는 0이 나오게 된다.num1의 숫자 4294967295는 부호없는 정수의 최대값이므로 이를 2진수로 나타내면 1111이 연속된 형태의 숫자이고, 여기에 1을 더하는 것이므로 결과는 <code>10000000...</code>과 같은 형태가 나오게 된다. 그런데 unit는 32bit이고, 이미 num1이 32bit의 최대값이었으므로 여기에 1을 더하면 33bit가 된다. 하지만 unit의 최대 저장공간이 32bit였기 때문에 33bit가 되는 최상위비트 1은 버려지게 된다. 그래서 0만 남게 되어서 결과값이 0이 출력되는 것이다. <u>이와 같은 현상을 <code>오버플로우</code>라 한다.</u></p>
@@ -965,9 +1003,9 @@
 </blockquote>
 <ul>
 <li>부호 여부: <code>-u</code> e.g. int num1 = 10; uint num2 = 10u; uint num3 = 0x10u;</li>
-<li>long: <code>-i</code> e.g. <strong>int num1 = 1l;(컴파일 오류)</strong>, long num2 = 10l; <strong>long num3 = 10lu;(컴파일 오류)</strong>, ulong num4 = 10lu;</li>
+<li>long: <code>-l</code> e.g. <strong>int num1 = 1l;(컴파일 오류)</strong>, long num2 = 10l; <strong>long num3 = 10lu;(컴파일 오류)</strong>, ulong num4 = 10lu;</li>
 <li>float: <code>-f</code> e.g. float num1 = 10.0f; <strong>float num2 = 10.0(컴파일 오류)</strong></li>
-<li>double: <code>-d</code> e.g. double num1 = 10.0; double num2 = 10.0d;</li>
+<li>double: <code>-d</code>. 거의 쓰지않음. e.g. double num1 = 10.0; double num2 = 10.0d;</li>
 </ul>
 <hr>
 <p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
@@ -1021,7 +1059,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-22 21:02:26" itemprop="dateModified" datetime="2021-06-22T21:02:26+09:00">2021-06-22</time>
+                <time title="Modified: 2021-06-22 21:33:24" itemprop="dateModified" datetime="2021-06-22T21:33:24+09:00">2021-06-22</time>
               </span>
 
           
@@ -1194,7 +1232,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-22 21:02:26" itemprop="dateModified" datetime="2021-06-22T21:02:26+09:00">2021-06-22</time>
+                <time title="Modified: 2021-06-22 21:33:24" itemprop="dateModified" datetime="2021-06-22T21:33:24+09:00">2021-06-22</time>
               </span>
 
           
@@ -1371,7 +1409,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-22 21:02:26" itemprop="dateModified" datetime="2021-06-22T21:02:26+09:00">2021-06-22</time>
+                <time title="Modified: 2021-06-22 21:33:24" itemprop="dateModified" datetime="2021-06-22T21:33:24+09:00">2021-06-22</time>
               </span>
 
           
@@ -1495,7 +1533,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-22 21:02:26" itemprop="dateModified" datetime="2021-06-22T21:02:26+09:00">2021-06-22</time>
+                <time title="Modified: 2021-06-22 21:33:24" itemprop="dateModified" datetime="2021-06-22T21:33:24+09:00">2021-06-22</time>
               </span>
 
           
@@ -1628,7 +1666,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-22 21:02:26" itemprop="dateModified" datetime="2021-06-22T21:02:26+09:00">2021-06-22</time>
+                <time title="Modified: 2021-06-22 21:33:24" itemprop="dateModified" datetime="2021-06-22T21:33:24+09:00">2021-06-22</time>
               </span>
 
           
@@ -1789,7 +1827,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-22 21:02:26" itemprop="dateModified" datetime="2021-06-22T21:02:26+09:00">2021-06-22</time>
+                <time title="Modified: 2021-06-22 21:33:24" itemprop="dateModified" datetime="2021-06-22T21:33:24+09:00">2021-06-22</time>
               </span>
 
           
@@ -1861,7 +1899,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-22 21:02:26" itemprop="dateModified" datetime="2021-06-22T21:02:26+09:00">2021-06-22</time>
+                <time title="Modified: 2021-06-22 21:33:24" itemprop="dateModified" datetime="2021-06-22T21:33:24+09:00">2021-06-22</time>
               </span>
 
           
