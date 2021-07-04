@@ -144,6 +144,145 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/05/28/210529_logicalConfitionStatement/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/28/210529_logicalConfitionStatement/" class="post-title-link" itemprop="url">논리 및 조건 연산자</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-29T00:00:00+09:00">2021-05-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-04 17:50:17" itemprop="dateModified" datetime="2021-07-04T17:50:17+09:00">2021-07-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="논리-연산자"><a href="#논리-연산자" class="headerlink" title="논리 연산자"></a>논리 연산자</h2><blockquote>
+<p>논리연산자 AND와 OR은 비트 연산자 &amp;, |와 비슷하다.</p>
+</blockquote>
+<ul>
+<li><code>&amp;&amp;</code>: 좌항과 우항이 모두 참인가? =&gt; <strong>좌항, 우항이 모두 참이면 참</strong>, 하나라도 참이 아니면 거짓</li>
+<li><code>||</code>: 좌항 혹은 우항이 하나라도 참인가? =&gt; <strong>좌항, 우항 하나라도 참이면 참</strong>, 둘 다 참이 아니면 거짓</li>
+<li><code>!</code>: 단항 연산자, 우항의 불리언 결과를 반대로 만든다 =&gt; 우항이 거짓이면 참, 참이면 거짓이다.</li>
+</ul>
+<h3 id="OR-연산자"><a href="#OR-연산자" class="headerlink" title="OR(||) 연산자"></a>OR(||) 연산자</h3><blockquote>
+<p>주의: if문 안의 표현식들이 종종 평가되지 않을 때가 있다.</p>
+</blockquote>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="number">1</span> + <span class="number">1</span> == <span class="number">2</span>) || (<span class="number">1</span> + <span class="number">2</span> == <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>if(1 + 1 == 2)</code>를 평가하면 <code>참</code>이므로 두번 째 표현식 <code>(1 + 2 == 2)</code>는 실행되지 않는다. OR 연산자는 <code>참 | 참 = 참</code>이거나 <code>참 | 거짓 = 참</code>이다. 따라서 앞의 결과가 참이면 뒤의 코드인 <code>1 + 2 == 2</code>는 실행하지 않는다. 즉 표현식 평가를 하지 않는다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="number">1</span> + <span class="number">2</span> == <span class="number">2</span>) || (<span class="number">1</span> + <span class="number">1</span> == <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>위와 같이 순서를 바꾸었을 때 <code>(1 + 2 == 2)</code>를 평가하면 <code>거짓</code>이다. 위의 경우 OR연산자(||)는 <code>거짓 | 참 = 참</code> 또는 <code>거짓 | 거짓 = 거짓</code>의 조건이 가능하다. 즉 뒤의 코드인 <code>if(1 + 1 == 2)</code>를 평가해야 그 평가 결과에 따라 참 또는 거짓이 될 수 있다. 이 경우에는 뒤의 코드까지 표현식 평가를 진행해야 한다.</p>
+<h3 id="AND-amp-연산자"><a href="#AND-amp-연산자" class="headerlink" title="AND(&amp;) 연산자"></a>AND(&amp;) 연산자</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="number">1</span> + <span class="number">1</span> == <span class="number">2</span> &amp;&amp; <span class="number">1</span> + <span class="number">2</span> == <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>(1 + 1 == 2)</code>는 표현식 평가 결과가 참이다. 하지만 AND연산자(&amp;)는 <code>참 &amp; 참 = 참</code> 또는 <code>참 &amp; 거짓 = 거짓</code>의 조건이 가능한다. 즉 뒤의 코드인 <code>1 + 2 == 2</code>를 평가해야 그 평가 결과에 따라 참 또는 거짓이 될 수 있다. 따라서 뒤의 코드까지 표현식 평가를 진행해야 한다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="number">1</span> + <span class="number">2</span> == <span class="number">2</span> &amp;&amp; <span class="number">1</span> + <span class="number">1</span> == <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>1 + 2 == 2</code>의 결과가 거짓이다. AND 연산자는 <code>거짓 &amp; 참 = 거짓</code>이거나 <code>거짓 &amp; 거짓 = 거짓</code>이다. 따라서 앞의 결과가 거짓이면 뒤의 코드인 <code>1 + 1 == 2</code>는 평가하지 않아도 된다.</p>
+<h3 id="if문의-다른-표현법"><a href="#if문의-다른-표현법" class="headerlink" title="if문의 다른 표현법"></a>if문의 다른 표현법</h3><p>아래 if 문의 <code>(!(a == b || c == d))</code>의 코드를 다른 방식으로 표현하면 <code>(a != b &amp;&amp; c != d)</code>이다. 이것이 가능한 이유는 아래와 같다.</p>
+<blockquote>
+<p><code>!(a == b) !(||) !(c==d)</code> =&gt; <code>!(a == b) == (a !== b)</code> =&gt; <code>!(||) == &amp;&amp;</code> =&gt; <code>!(c == d) == (c !== d)</code> =&gt; <code>(a != b &amp;&amp; c != d)</code></p>
+</blockquote>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!(a == b || c == d))</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(a != b &amp;&amp; c != d)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="if-else-if-if-문과-논리"><a href="#if-else-if-if-문과-논리" class="headerlink" title="if/else if/if 문과 논리"></a>if/else if/if 문과 논리</h2><p><strong><u>불필요한 연산을 피한다.</u></strong></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> scoreString = Console.ReadLine();</span><br><span class="line"><span class="keyword">int</span> score = <span class="keyword">int</span>.Parse(scoreString);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(score &gt;= <span class="number">90</span>)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(<span class="string">"hello1"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(score &lt; <span class="number">90</span> &amp;&amp; score &gt;= <span class="number">80</span>)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(<span class="string">"hello2"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(score &lt; <span class="number">80</span> &amp;&amp; score &gt;= <span class="number">70</span>)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(<span class="string">"hello3"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위의 코드는 아래와 같은 형태로 바꿀 수 있다. 첫 번째 if문의 조건 <code>score &gt;= 90</code>를 통과했다면 이미 90점 이상은 아닌, 미만이라는 뜻이다. 따라서 두번째 평가식에서 <code>score &lt; 90 &amp;&amp; score &gt;= 80</code>와 같은 코드를 짤 필요가 없다. 참고로 Console.ReadLine();은 아래와 같이 변수 할당하지 않고 사용해도 된다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> scoreString = Console.ReadLine();</span><br><span class="line"><span class="keyword">int</span> score = <span class="keyword">int</span>.Parse(scoreString);</span><br><span class="line"></span><br><span class="line"><span class="comment">// score에서 바로 사용한다.</span></span><br><span class="line"><span class="keyword">int</span> score = <span class="keyword">int</span>.Parse(Console.ReadLine());</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> scoreString = Console.ReadLine();</span><br><span class="line"><span class="keyword">int</span> score = <span class="keyword">int</span>.Parse(scoreString);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(score &gt;= <span class="number">90</span>)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(<span class="string">"hello1"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(score &gt;= <span class="number">80</span>)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(<span class="string">"hello2"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(score &gt;= <span class="number">70</span>)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(<span class="string">"hello3"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>아래의 코드도 <code>else if</code>가 불필요하게 사용되었다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> scoreString = Console.ReadLine();</span><br><span class="line"><span class="keyword">int</span> score = <span class="keyword">int</span>.Parse(scoreString);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( score &gt;= <span class="number">90</span> )</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(<span class="string">"hello1"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (score &lt; <span class="number">90</span> &amp;&amp; score &gt;= <span class="number">80</span>)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(<span class="string">"hello2"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (score &lt; <span class="number">80</span> &amp;&amp; score &gt;= <span class="number">70</span>)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(<span class="string">"hello3"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>아래의 코드는 완전히 잘못 구현한 조건식이다. score에 두 번째 조건식에 해당하는 80보다 크거나 같은 숫자, 세번 째 조건식에 해당하는 90보다 크거나 같은 숫자가 입력되면 두 숫자 모두 <code>score &gt;= 70</code>의 조건을 만족하기 때문에 첫 번째 조건문에서 평가가 끝나버린다. 따라서 실행되고자 원했던 예상하는 if 조건문에 도달하지 못하게 된다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> scoreString = Console.ReadLine();</span><br><span class="line"><span class="keyword">int</span> score = <span class="keyword">int</span>.Parse(scoreString);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(score &gt;= <span class="number">70</span>)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(<span class="string">"hello1"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(score &gt;= <span class="number">80</span>)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(<span class="string">"hello2"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(score &gt;= <span class="number">90</span>)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(<span class="string">"hello3"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="조건-연산자"><a href="#조건-연산자" class="headerlink" title="조건 연산자"></a>조건 연산자</h2><blockquote>
+<p>(불리언 표현식) ? 반환값1(불리언 표현식이 참) : 반환값2(불리언 표현식이 거짓)</p>
+</blockquote>
+<ul>
+<li><strong>조건 연산자를 다른 말로 삼항 연산자라 한다.</strong></li>
+<li><code>?</code>와 <code>!</code>의 두 가지 기호를 사용한다.</li>
+<li>불리언 표현식을 평가하여 참과 거짓일 때 서로 다른 반환값을 반환한다.</li>
+<li>매우 간단한 비교를 할 때는 if/else 구문보다 훨씬 빠르다.</li>
+<li><strong>남용하면 가독성이 떨어지기 때문에 삼항 연산자 안에 삼항 연산자를 사용하는 식의 구조로 사용하지 않도록 한다.</strong></li>
+</ul>
+<h2 id="연산자-우선순위"><a href="#연산자-우선순위" class="headerlink" title="연산자 우선순위"></a>연산자 우선순위</h2><ul>
+<li>수학과 마찬가지로 대부분 연산자 결합 순서는 왼쪽에서 오른쪽으로 결합한다.(결합법칙)</li>
+<li>소수 연산자만이 오른쪽에서 왼쪽으로 대입한다. e.g. a = b = c + d 는 c + d부터 더한 후 b에 대입하고, 그것을 최종적으로 a에 대입한다.</li>
+<li>증감 연산자는 곱셈에 우선한다.</li>
+<li>*, / 는 +, - 에 우선한다.</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = ++a * d; <span class="comment">// x = (++a) * d</span></span><br><span class="line">x = a++ * d; <span class="comment">// x = (a++) * d</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>주의 : 우선순위와 평가 순서는 다르다.</p>
+</blockquote>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="number">1</span> + <span class="number">1</span> == <span class="number">2</span> || <span class="number">3</span> + <span class="number">2</span> == <span class="number">5</span> &amp;&amp; <span class="number">1</span> + <span class="number">2</span> == <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>우선순위는 <code>&amp;&amp;</code>가 <code>||</code>보다 높다.</li>
+<li>하지만 <code>3 + 2 == 5</code>, <code>1 + 2 == 2</code>는 실행조차 되지 않는다.</li>
+<li><strong><code>||</code> 및 <code>&amp;&amp;</code> 연산자는 왼쪽에 있는 표현식의 평가를 강제하기 때문이다.</strong></li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/05/27/210528_conditionStatement/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +314,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-04 16:43:06" itemprop="dateModified" datetime="2021-07-04T16:43:06+09:00">2021-07-04</time>
+                <time title="Modified: 2021-07-04 17:50:17" itemprop="dateModified" datetime="2021-07-04T17:50:17+09:00">2021-07-04</time>
               </span>
 
           
@@ -296,7 +435,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-04 16:43:06" itemprop="dateModified" datetime="2021-07-04T16:43:06+09:00">2021-07-04</time>
+                <time title="Modified: 2021-07-04 17:50:17" itemprop="dateModified" datetime="2021-07-04T17:50:17+09:00">2021-07-04</time>
               </span>
 
           
@@ -466,7 +605,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-04 16:43:06" itemprop="dateModified" datetime="2021-07-04T16:43:06+09:00">2021-07-04</time>
+                <time title="Modified: 2021-07-04 17:50:17" itemprop="dateModified" datetime="2021-07-04T17:50:17+09:00">2021-07-04</time>
               </span>
 
           
@@ -803,7 +942,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-04 16:43:06" itemprop="dateModified" datetime="2021-07-04T16:43:06+09:00">2021-07-04</time>
+                <time title="Modified: 2021-07-04 17:50:17" itemprop="dateModified" datetime="2021-07-04T17:50:17+09:00">2021-07-04</time>
               </span>
 
           
@@ -1180,7 +1319,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-04 16:43:06" itemprop="dateModified" datetime="2021-07-04T16:43:06+09:00">2021-07-04</time>
+                <time title="Modified: 2021-07-04 17:50:17" itemprop="dateModified" datetime="2021-07-04T17:50:17+09:00">2021-07-04</time>
               </span>
 
           
@@ -1353,7 +1492,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-04 16:43:06" itemprop="dateModified" datetime="2021-07-04T16:43:06+09:00">2021-07-04</time>
+                <time title="Modified: 2021-07-04 17:50:17" itemprop="dateModified" datetime="2021-07-04T17:50:17+09:00">2021-07-04</time>
               </span>
 
           
@@ -1530,7 +1669,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-04 16:43:06" itemprop="dateModified" datetime="2021-07-04T16:43:06+09:00">2021-07-04</time>
+                <time title="Modified: 2021-07-04 17:50:17" itemprop="dateModified" datetime="2021-07-04T17:50:17+09:00">2021-07-04</time>
               </span>
 
           
@@ -1654,7 +1793,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-04 16:43:06" itemprop="dateModified" datetime="2021-07-04T16:43:06+09:00">2021-07-04</time>
+                <time title="Modified: 2021-07-04 17:50:17" itemprop="dateModified" datetime="2021-07-04T17:50:17+09:00">2021-07-04</time>
               </span>
 
           
@@ -1787,7 +1926,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-04 16:43:06" itemprop="dateModified" datetime="2021-07-04T16:43:06+09:00">2021-07-04</time>
+                <time title="Modified: 2021-07-04 17:50:17" itemprop="dateModified" datetime="2021-07-04T17:50:17+09:00">2021-07-04</time>
               </span>
 
           
@@ -1913,78 +2052,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/09/20/200921_asyncawait/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/20/200921_asyncawait/" class="post-title-link" itemprop="url">async/await</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-09-21 00:00:00" itemprop="dateCreated datePublished" datetime="2020-09-21T00:00:00+09:00">2020-09-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-04 16:43:06" itemprop="dateModified" datetime="2021-07-04T16:43:06+09:00">2021-07-04</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="async-await"><a href="#async-await" class="headerlink" title="async/await"></a>async/await</h2><p>프로미스를 기반으로 동작하는데, async/await를 사용하면 프로미스의 후속 처리 메서드 없이 동기 처리처럼 프로미스가 처리 결과를 반환하도록 구현할 수 있다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fetch = <span class="built_in">require</span>(<span class="string">'node-fetch'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fetchTodo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> url = <span class="string">'https://jsonplaceholder.typicode.com/todos/1'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(url)</span><br><span class="line">    <span class="keyword">const</span> todo = <span class="keyword">await</span> response.json()</span><br><span class="line">    <span class="built_in">console</span>.log(todo)</span><br><span class="line">    <span class="comment">// &#123;userId: 1, id: 1, title: 'delectus aut autem', completed: false&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fetchTodo()</span><br></pre></td></tr></table></figure>
-
-<h2 id="async-함수"><a href="#async-함수" class="headerlink" title="async 함수"></a>async 함수</h2><p><strong>async 키워드를 사용해 정의하고 언제나 프로미스를 반환한다.</strong> async function()은 await 키워드가 비동기 코드를 호출할 수 있게 해주는 함수이다. 명시적으로 프로미스를 반환하지 않아도 암묵적으로 반환값을 resolve하는 프로미스를 반환한다.</p>
-<h2 id="await-키워드"><a href="#await-키워드" class="headerlink" title="await 키워드"></a>await 키워드</h2><p>프로미스가 settled 상태(비동기 처리가 수행된 상태)가 될 때까지 대기하다가 settled 상태가 되면 프로미스가 resolve한 처리 결과를 반환한다. <strong>await 키워드는 반드시 async 함수 안에서, 프로미스 앞에서 사용해야 한다.</strong></p>
-<h2 id="에러처리"><a href="#에러처리" class="headerlink" title="에러처리"></a>에러처리</h2><p>try…catch 문을 사용할 수 있다. 콜백 함수를 인수로 전달받는 비동기 함수와는 달리 프로미스를 반환하는 비동기 함수는 명시적으로 호출할 수 있기 때문에 호출자가 명확하다. async 함수 내에서 catch 문을 사용해서 에러 처리를 하지 않으면 async 함수는 발생한 에러를 reject하는 프로미스를 반환한다. 따라서 async 함수를 호출하고 Promise.prototype.catch 후속 처리 메서드를 사용해 에러를 캐치할 수도 있다.</p>
-<hr>
-<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/generator#52-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%B2%98%EB%A6%AC" target="_blank" rel="noopener">제너레이터와 async/await</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -2055,7 +2122,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -28,7 +28,7 @@
 <meta property="og:description" content="2차원 배열이 없는 언어에서 배열의 배열을 써야할 때가 있고, 2차원 배열을 쓸 수 있더라도 배열의 배열을 쓰는 것이 더 좋을 때가 있다. 2D 배열의 문제  직사각형 형태의 데이터만 지원 가능 하지만 각 행마다 열 수가 달라져야 한다면? 작동은 하지만 깔끔하지 않다.   배열의 배열 배열이 2개 있는 것.   바깥 배열(다른 배열을 포함하는 배열) 2차원">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-06-28T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-04T07:43:06.013Z">
+<meta property="article:modified_time" content="2021-07-04T08:50:17.365Z">
 <meta property="article:author" content="Heejin Lee">
 <meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary">
@@ -177,7 +177,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-04 16:43:06" itemprop="dateModified" datetime="2021-07-04T16:43:06+09:00">2021-07-04</time>
+                <time title="Modified: 2021-07-04 17:50:17" itemprop="dateModified" datetime="2021-07-04T17:50:17+09:00">2021-07-04</time>
               </span>
 
           
@@ -283,6 +283,7 @@
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">string</span>[][] classrooms = <span class="keyword">new</span> <span class="keyword">string</span>[<span class="number">3</span>][];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> classIndex = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">string</span>[] studentNames = classrooms[classIndex];</span><br><span class="line"></span><br><span class="line">  Console.WriteLine(studentNames.Length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>위 코드의 경우 0이 나오지 않을까 생각하기 쉬운데, 0이 아닌 <code>null</code>이 나온다. <code>아무것도 없음</code>을 의미한다. classrooms 배열 안에 3만큼의 문자열 배열을 문자열 배열을 담을 공간을 만드는 역할을 할 뿐이며, 현재 텅텅 비어있는 상태이다.</p>
+<hr>
 <h2 id="안쪽배열-만들기"><a href="#안쪽배열-만들기" class="headerlink" title="안쪽배열 만들기"></a>안쪽배열 만들기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;바깥배열이름&gt;[&lt;색인&gt;] &#x3D; new &lt;자료형&gt;[&lt;안쪽 배열 원소 개수&gt;];</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> CLASS_COUNT = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">string</span>[][] classrooms = <span class="keyword">new</span> <span class="keyword">string</span>[CLASS_COUNT][];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>[] STUDENT_COUNT_PER_CLASS = &#123;<span class="number">3</span>, <span class="number">2</span>, <span class="number">5</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; CLASS_COUNT; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  classrooms[i] = <span class="keyword">new</span> <span class="keyword">string</span>[ STUDENT_COUNT_PER_CLASS[i]];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//위의 코드와 동일</span></span><br><span class="line">classrooms[<span class="number">0</span>] = <span class="keyword">new</span> <span class="keyword">string</span>[<span class="number">3</span>];</span><br><span class="line">classrooms[<span class="number">1</span>] = <span class="keyword">new</span> <span class="keyword">string</span>[<span class="number">2</span>];</span><br><span class="line">classrooms[<span class="number">2</span>] = <span class="keyword">new</span> <span class="keyword">string</span>[<span class="number">5</span>];</span><br></pre></td></tr></table></figure>
@@ -361,10 +362,13 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/06/12/210613_functionArray/" rel="prev" title="값에 의한 전달, 참조에 의한 전달">
-      <i class="fa fa-chevron-left"></i> 값에 의한 전달, 참조에 의한 전달
+    <a href="/2021/06/12/210613_cFunction2/" rel="prev" title="함수의 범위">
+      <i class="fa fa-chevron-left"></i> 함수의 범위
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/07/03/210704_stringSeparated/" rel="next" title="문자열 분할">
+      문자열 분할 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -438,7 +442,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
