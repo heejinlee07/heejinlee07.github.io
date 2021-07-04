@@ -116,5 +116,92 @@ char ch = HPMessage[4]; // '1'
 
 ---
 
+## 문자열 토크나이저
+
+## Split()
+
+> <문자열 변수 이름>.Split(char);
+
+```c#
+string text = "pokemon,1,10000";
+string[] tokens = text.Split(','); // {"pokemon", "1", "10000"}
+```
+
+- char는 문자열을 쪼갤 때 사용할 구분 문자
+- **원본 문자열은 변경 없이 그대로 유지**
+- 쪼갠 문자열을 문자열 배열로 반환
+- 여러 버전의 Split() 함수가 존재
+
+### 여러 개의 구분 문자가 문자열에 있을 때
+
+> <문자열 변수 이름>.Split(char[]);
+
+문자형 배열(char[])에 여러 개의 구분 문자를 대입한다.
+
+```c#
+string text = "pokemon,1:10000";
+
+char[] delimiters = {',', ':'};
+string[] tokens = text.Split(delimiters); // {"pokemon", "1", "10000"}
+```
+
+### 구분 문자 사이가 비어 있을 때
+
+```c#
+string text = "pokemon, 1, 10000:, 10";
+
+char[] delimiters = {',', ':'};
+string[] tokens = text.Split(delimiters); // {"pokemon", "1", "10000", "", "10"}
+```
+
+',' 또는 ':'를 기준으로 문자열을 쪼개고 있기 때문에 '10000:,'과 같은 케이스에서 `""`가 나온다. 이럴 때 `String.IsNullOrEmpty(String)`나 for문을 사용하여 빈 문자열을 걸러줄 수 있다. 또는 `StringSplitOptions.RemoveEmptyEntries`를 사용하여 걸러줄 수 있다.
+
+```c#
+string text = "pokemon, 1, 10000:, 10";
+
+char[] delimiters = {',', ':'};
+string[] tokens = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries); // {"pokemon", "1", "10000", "10"}
+```
+
+---
+
+## Trim()
+
+> <문자열 변수 이름>.Trim();
+
+```c#
+string firstName = "              Leon";
+string lastName = "kim                ";
+
+//문자열 앞뒤 공백 제거
+string trimmedFirstName = firstName.Trim(); //"Leon"
+string trimmedLastName = lastName.Trim(); //"kim"
+
+//문자열 앞 공백 제거
+string trimmedFirstName = firstName.TrimStart(); //"Leon"
+string trimmedLastName = lastName.TrimStart(); //"kim
+
+//문자열 뒤 공백 제거
+string trimmedFirstName = firstName.TrimEnd(); //"              Leon"
+string trimmedLastName = lastName.TrimEnd(); //"kim"
+```
+
+**<u>Trim()</u>**
+
+- `문자열 앞뒤`로 있는 공백을 없앤 후 문자열을 반환
+- **원본 문자열은 변경 없이 그대로 유지**
+
+**<u>TrimStart()</u>**
+
+- `문자열 시작`에서 공백을 제거 후 문자열을 반환
+- **원본 문자열은 변경 없이 그대로 유지**
+
+**<u>TrimEnd()</u>**
+
+- `문자열 뒤`에서 공백을 제거 후 문자열을 반환
+- **원본 문자열은 변경 없이 그대로 유지**
+
+---
+
 _References_
 [실무 프로그래밍 입문(C#)](https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/)
