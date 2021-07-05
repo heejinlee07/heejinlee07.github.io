@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="함수 오버로딩 동일한 이름을 가진 함수 구현을 허용 단, 매개변수 목록이 달라야 한다. 하나의 시그니처를 가진 함수는 하나만 있어야 하고, 시그니처는 함수의 이름과 매개변수를 포함한다. 즉 매개변수와 함수의 이름이 전부 같지 않으면 다른 함수로 여긴다. 반환형은 시그니처의 일부가 아니므로 다르더라도 오버로딩이 허용이 안된다. e.g. void A(), in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="함수 오버로딩">
+<meta property="og:url" content="https://heejinlee07.github.io/2021/07/03/210704_functionOverLoad/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="함수 오버로딩 동일한 이름을 가진 함수 구현을 허용 단, 매개변수 목록이 달라야 한다. 하나의 시그니처를 가진 함수는 하나만 있어야 하고, 시그니처는 함수의 이름과 매개변수를 포함한다. 즉 매개변수와 함수의 이름이 전부 같지 않으면 다른 함수로 여긴다. 반환형은 시그니처의 일부가 아니므로 다르더라도 오버로딩이 허용이 안된다. e.g. void A(), in">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-03T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-07-05T15:11:55.741Z">
+<meta property="article:author" content="Heejin Lee">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2021/07/03/210704_functionOverLoad/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>함수 오버로딩 | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Developer</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/03/210704_functionOverLoad/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          함수 오버로딩
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-04 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-04T00:00:00+09:00">2021-07-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-06 00:11:55" itemprop="dateModified" datetime="2021-07-06T00:11:55+09:00">2021-07-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="함수-오버로딩"><a href="#함수-오버로딩" class="headerlink" title="함수 오버로딩"></a>함수 오버로딩</h2><ul>
+<li>동일한 이름을 가진 함수 구현을 허용</li>
+<li>단, 매개변수 목록이 달라야 한다.</li>
+<li>하나의 시그니처를 가진 함수는 하나만 있어야 하고, 시그니처는 함수의 이름과 매개변수를 포함한다. 즉 매개변수와 함수의 이름이 전부 같지 않으면 다른 함수로 여긴다. <strong>반환형은 시그니처의 일부가 아니므로 다르더라도 오버로딩이 허용이 안된다.</strong> e.g. void A(), int A()는 허용되지 않는다.</li>
+<li>매개변수가 다르다 =&gt; <code>오버로딩OK</code></li>
+<li>승격/묵시적 변환을 해도 상관없다 =&gt; <code>오버로딩OK</code></li>
+<li>매개변수가 아예 승격이 불가능 한 경우 =&gt; <code>오버로딩OK</code><ul>
+<li>static string[] GetStudents(string name) //함수 바디 생략</li>
+<li>static string[] GestStudents(int age) //함수 바디 생략</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="keyword">int</span> score</span>)</span>;               <span class="comment">// (1)</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="keyword">string</span> name</span>)</span>;             <span class="comment">// (2)</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="keyword">float</span> gpa, <span class="keyword">string</span> name</span>)</span>;  <span class="comment">// (3)</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Print</span>(<span class="params"><span class="keyword">int</span> score</span>)</span>;                <span class="comment">// (4)</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Print</span>(<span class="params"><span class="keyword">float</span> gpa</span>)</span>;                <span class="comment">// (5)</span></span><br></pre></td></tr></table></figure>
+
+<p>(4)에서 컴파일 오류가 발생하고 나머지는 모두 문제 없다. (4)는 반환형이 오버로딩을 허용하지 않기 때문에 컴파일 오류가 발생한다.</p>
+<h2 id="함수-오버로딩의-장점"><a href="#함수-오버로딩의-장점" class="headerlink" title="함수 오버로딩의 장점"></a>함수 오버로딩의 장점</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">float</span> <span class="title">AverageFromInts</span>(<span class="params"><span class="keyword">int</span>[] scores</span>)</span>; <span class="comment">//함수 바디 생략</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">float</span> <span class="title">AverageFromFloats</span>(<span class="params"><span class="keyword">float</span>[] floats</span>) <span class="comment">//함수 바디 생략</span></span></span><br></pre></td></tr></table></figure>
+
+<p>위 두 함수의 경우 FromInts, Fromfloat가 없어도 매개변수 형에서 어떤 함수인지 유추 가능하다.</p>
+<h2 id="함수-오버로딩의-문제점"><a href="#함수-오버로딩의-문제점" class="headerlink" title="함수 오버로딩의 문제점"></a>함수 오버로딩의 문제점</h2><blockquote>
+<p>잘못된 함수 호출이 일어날 수 있다.</p>
+</blockquote>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">string</span>[] <span class="title">GetStudents</span>(<span class="params"><span class="keyword">float</span> height</span>)</span>; <span class="comment">// 함수 바디 생략</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">string</span>[] <span class="title">GetStudents</span>(<span class="params"><span class="keyword">int</span> age</span>)</span>; <span class="comment">//함수 바디 생략</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 메인 함수</span></span><br><span class="line"><span class="keyword">int</span> height = <span class="number">175</span>;</span><br><span class="line">GetStudents(height); <span class="comment">//GetStudents(int age)가 호출됨.</span></span><br><span class="line">GetStudents(<span class="number">175</span>); <span class="comment">//GetStudents(int age)가 호출됨.</span></span><br></pre></td></tr></table></figure>
+
+<p>동일한 매개변수 함수가 없다면 승격/묵시적 형변환을 통해 일치하는 함수를 찾는다. 만약 원래 있던 코드 <code>static string[] GetStudents(int age); //함수 바디 생략</code>가 더이상 필요치 않게 되어 삭제했다고 가정한다. 그런데 알고보니 GetStudents(age);와 같이 나이를 호출하던 코드가 남아있었던 것이다. <strong>이때 int age는 float height로 묵시적 변환이 된다.</strong> 따라서 예상치 못하게 age가 아닌 heigth가 17인 학생을 찾게 된다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">string</span>[] <span class="title">GetStudents</span>(<span class="params"><span class="keyword">float</span> height</span>)</span>; <span class="comment">//함수 바디 생략</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//메인 함수</span></span><br><span class="line"><span class="keyword">int</span> age = <span class="number">17</span>;</span><br><span class="line">GetStudents(age); <span class="comment">//GetStudents(float height)가 호출됨.</span></span><br><span class="line">GetStudents(<span class="number">17</span>); <span class="comment">//GetStudents(float height)가 호출됨.</span></span><br></pre></td></tr></table></figure>
+
+<p>잘못된 함수 호출을 방지하기 위해서 위와 같은 경우에서는 오버로딩을 쓰지 않는 것이 더 좋다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">string</span>[] <span class="title">GetStudentsByHeight</span>(<span class="params"><span class="keyword">float</span> height</span>)</span>; <span class="comment">//함수 바디 생략</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">string</span>[] <span class="title">GetStudentsByAge</span>(<span class="params"><span class="keyword">int</span> age</span>)</span>; <span class="comment">//함수 바디 생략</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//메인 함수</span></span><br><span class="line"><span class="keyword">int</span> height = <span class="number">180</span>;</span><br><span class="line">GetStudentsByHeight(height); <span class="comment">//int가 float로 컴파일 됨</span></span><br><span class="line">GetStudentsByHeight(<span class="number">170.3f</span>); <span class="comment">//float니까 문제없이 컴파일 됨</span></span><br><span class="line">GetStudentsByAge(<span class="number">17</span>); <span class="comment">//int니까 컴파일 됨</span></span><br><span class="line">GetStudentsByAge(<span class="number">170.3f</span>); <span class="comment">//float에서 int는 불가능하므로 컴파일 에러 발생</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="기본값-인자"><a href="#기본값-인자" class="headerlink" title="기본값 인자"></a>기본값 인자</h2><ul>
+<li><p>중복되는 매개변수가 많거나 약간의 차이만 가지고 있는 함수는 기본값 인자를 사용할 수 있다.</p>
+</li>
+<li><p>매개변수를 선언할 때 미리 기본값을 정해둔다.</p>
+</li>
+<li><p>매개변수는 히나 이상 가능하다.</p>
+<ul>
+<li>매개변수의 목록 중간에 기본값 인자가 아닌 것이 오면 안된다.</li>
+<li>매개변수의 기본값 인자는 가장 마지막에 있어야 한다.</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//기본값 인자 difficulty = 0이 마지막이 아니라 중간에 있으므로 컴파일 에러 발생</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">string</span> <span class="title">GetHP</span>(<span class="params"><span class="keyword">int</span> level, <span class="keyword">int</span> mapID, <span class="keyword">int</span> difficulty = <span class="number">0</span>, <span class="keyword">string</span> name</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//OK</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">string</span> <span class="title">GetHP</span>(<span class="params"><span class="keyword">int</span> level, <span class="keyword">int</span> mapID, <span class="keyword">string</span> name, <span class="keyword">int</span> difficulty = <span class="number">0</span></span>)</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//함수 호출 시 선택적 호출</span></span><br><span class="line"><span class="comment">//GetFullAddress에 state가 있으면 그 매개변수를 쓰고, 없으면 ""를 쓴다.</span></span><br><span class="line"><span class="comment">//GetHP에 difficulty가 있으면 그 매개변수를 쓰고, 없으면 0을 쓴다.</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">string</span> <span class="title">GetFullAddress</span>(<span class="params"><span class="keyword">string</span> street, <span class="keyword">string</span> city, <span class="keyword">string</span> state = <span class="string">""</span></span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">float</span> <span class="title">GetHP</span>(<span class="params"><span class="keyword">int</span> level, <span class="keyword">int</span> mapID, <span class="keyword">int</span> difficulty = <span class="number">0</span></span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//메인함수</span></span><br><span class="line">GetFullAddress(<span class="string">"123 main street"</span>, <span class="string">"big city"</span>, <span class="string">"big state"</span>); <span class="comment">//ok</span></span><br><span class="line">GetFullAddress(<span class="string">"456 main street"</span>, <span class="string">"seoul"</span>); <span class="comment">//ok</span></span><br><span class="line"></span><br><span class="line">GetHP(<span class="number">1</span>, <span class="number">1234</span>, <span class="number">10</span>); <span class="comment">// OK</span></span><br><span class="line">GetHP(<span class="number">1</span>, <span class="number">1234</span>); <span class="comment">// OK</span></span><br><span class="line">GetHP(<span class="number">1</span>, <span class="number">1234</span>, <span class="number">0</span>); <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="기본갑-인자의-문제점"><a href="#기본갑-인자의-문제점" class="headerlink" title="기본갑 인자의 문제점"></a>기본갑 인자의 문제점</h2><p><u>나중에 누군가 기본값 인자를 중간에 추가할 때 이상한 일이 일어날 수 있다.</u></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//원래코드</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">float</span> <span class="title">GetHP</span>(<span class="params"><span class="keyword">int</span> level, <span class="keyword">int</span> mapID, <span class="keyword">int</span> difficulty = <span class="number">0</span></span>)</span>;</span><br><span class="line"><span class="comment">//추가된 코드</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">float</span> <span class="title">GetHP</span>(<span class="params"><span class="keyword">int</span> level, <span class="keyword">int</span> mapID, <span class="keyword">int</span> decimalPoint = <span class="number">1</span>, <span class="keyword">int</span> difficulty = <span class="number">0</span></span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>int difficulty = 0</code>이 한 자리 뒤로 밀리고, 그 자리에 <code>int decimalPoint = 1</code>이 들어왔다. 이렇게 되면 difficulty의 숫자를 바꾸어도 수치가 눈에 띄게 안바뀐다. 즉 예상치 못한 값을 얻게 된다. <code>GetHP(10, 2456, 2);</code>를 호출했을 때 <strong>level: 10, mapID: 2456, difficulty:2</strong>인 결과를 의도했는데, <strong>level: 10, mapID: 2456, <code>difficulty:0</code></strong>, HP는 소수점 둘째자리에서 반올림 된다.</p>
+<p><u>기본값 인자가 도중에 변경될 경우, 기존에 사용중인 코드에서 문제가 발생할 수 있다.</u></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//원래코드</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">float</span> <span class="title">GetHP</span>(<span class="params"><span class="keyword">int</span> level, <span class="keyword">int</span> mapID, <span class="keyword">int</span> difficulty = <span class="number">0</span></span>)</span>;</span><br><span class="line"><span class="comment">//추가된 코드</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">float</span> <span class="title">GetHP</span>(<span class="params"><span class="keyword">int</span> level, <span class="keyword">int</span> mapID, <span class="keyword">int</span> difficulty = <span class="number">1</span></span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>GetHP(10, 2456);</code>이나 <code>GetHP(10, 2456, 1);</code> 모두 동일한 HP를 반환한다.</p>
+<h2 id="기본인자값의-코딩표준"><a href="#기본인자값의-코딩표준" class="headerlink" title="기본인자값의 코딩표준"></a>기본인자값의 코딩표준</h2><ul>
+<li>새 기본 매개변수는 언제나 가장 뒤에 위치해야 한다.(중간에 삽입하지 않는다.)</li>
+<li>기본값은 언제나 0으로 한다. 0이 아닌 경우 기본 매개변수로 사용하지 않는다.</li>
+<li>함수 오버로딩 대신 실제 함수 이름을 제대로 써주는 것이 좋을 때도 있음을 기억한다.(매개변수를 직접 넣어준다.)</li>
+</ul>
+<hr>
+<h2 id="out-매개변수"><a href="#out-매개변수" class="headerlink" title="out 매개변수"></a>out 매개변수</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">Trydivide</span>(<span class="params"><span class="keyword">float</span> numerator, <span class="keyword">float</span> denominator, <span class="keyword">ref</span> <span class="keyword">float</span> result</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (denominator == <span class="number">0.0f</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">//result에 어떤 값을 대입하는데, 오타나 다른 어떤 이유로 값의 대입이 제대로 되지 않았다면</span></span><br><span class="line"> <span class="comment">//result의 값이 바뀐 값으로 반영되지 않고, 원래 값 그대로 남아있게 된다.</span></span><br><span class="line">  result = numerator / denominator;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">//result1이나 result2는 실질적으로 쓰이지 않는 값이지만 ref result1, ref result2의 값을 출력하기 위해 문법상 필요하다.</span></span><br><span class="line">  <span class="comment">//ref 매개변수로 쓸 수 있는 변수는 반드시 초기화를 해야하기 때문이다.</span></span><br><span class="line">  <span class="keyword">float</span> result1 = <span class="number">0.0f</span>;</span><br><span class="line">  <span class="keyword">bool</span> bSuccess1 = TryDivide(<span class="number">10.0f</span>, <span class="number">0.0f</span>, <span class="keyword">ref</span> result1);</span><br><span class="line">  <span class="keyword">float</span> result2 = <span class="number">0.0f</span>;</span><br><span class="line">  <span class="keyword">bool</span> bSuccess2 = TryDivide(<span class="number">10.0f</span>, <span class="number">5.0f</span>, <span class="keyword">ref</span> result2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ref를 썼을 때 아쉬운 점을 보완하기 위해 out 키워드를 사용한다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">Trydivide</span>(<span class="params"><span class="keyword">float</span> numerator, <span class="keyword">float</span> denominator, <span class="keyword">out</span> <span class="keyword">float</span> result</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (denominator == <span class="number">0.0f</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    result = <span class="number">0.0f</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  result = numerator / denominator;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">//result1, result2는 어차피 안에서 쓰이지 않으니 초기화 할 필요가 없다.</span></span><br><span class="line">  <span class="comment">//명시적으로 result1, result2를 출력할 값이라고 알려준다.</span></span><br><span class="line">  <span class="keyword">float</span> result1;</span><br><span class="line">  <span class="keyword">bool</span> bSuccess1 = TryDivide(<span class="number">10.0f</span>, <span class="number">0</span>, <span class="keyword">out</span> result1);</span><br><span class="line">  <span class="keyword">float</span> result2;</span><br><span class="line">  <span class="keyword">bool</span> bSuccess2 = TryDivide(<span class="number">10.0f</span>, <span class="number">5.0f</span>, <span class="keyword">out</span> result2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>out 키워드를 쓸 때 함수 안에서 대입을 하지 않으면 컴파일 오류가 발생한다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//대입하지 않았으므로 컴파일 에러</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">TryAdd</span>(<span class="params"><span class="keyword">float</span> num1, <span class="keyword">float</span> num2, <span class="keyword">out</span> <span class="keyword">float</span> result</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//OK</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">TryAdd</span>(<span class="params"><span class="keyword">float</span> num1, <span class="keyword">float</span> num2, <span class="keyword">out</span> <span class="keyword">float</span> result</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  result = <span class="number">0.0f</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>if/else if 문에서 대입하지 않은 곳이 있어도 오류가 발생한다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//컴파일 오류</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">TryDivide</span>(<span class="params"><span class="keyword">float</span> numerator, <span class="keyword">float</span> denominator, <span class="keyword">out</span> <span class="keyword">float</span> result</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(denominator == <span class="number">0.0f</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//중략</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//OK</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">TryDivide</span>(<span class="params"><span class="keyword">float</span> numerator, <span class="keyword">float</span> denominator, <span class="keyword">out</span> <span class="keyword">float</span> result</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(denominator == <span class="number">0.0f</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    result = <span class="number">0.0f</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//중략</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="키보드-입력-예외처리"><a href="#키보드-입력-예외처리" class="headerlink" title="키보드 입력 예외처리"></a>키보드 입력 예외처리</h2><p>아래 코드에서 숫자 이외의 값을 입력하는 예외 상황이 생기면 에러가 발생한다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> num = <span class="keyword">int</span>.Parse(Console.ReadLine());</span><br></pre></td></tr></table></figure>
+
+<p>이는 <code>TryParse()</code>로 해결할 수 있다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> num;</span><br><span class="line"><span class="keyword">bool</span> bSuccess = <span class="keyword">int</span>.TryParse(Console.ReadLine(), <span class="keyword">out</span> num);</span><br><span class="line"><span class="comment">//bSuccess의 값에 따라 코드를 작성</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C#</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/28/210629_arrayInArray/" rel="prev" title="배열의 배열">
+      <i class="fa fa-chevron-left"></i> 배열의 배열
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/07/03/210704_stringSeparated/" rel="next" title="문자열 분할">
+      문자열 분할 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#함수-오버로딩"><span class="nav-number">1.</span> <span class="nav-text">함수 오버로딩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#함수-오버로딩의-장점"><span class="nav-number">2.</span> <span class="nav-text">함수 오버로딩의 장점</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#함수-오버로딩의-문제점"><span class="nav-number">3.</span> <span class="nav-text">함수 오버로딩의 문제점</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#기본값-인자"><span class="nav-number">4.</span> <span class="nav-text">기본값 인자</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#기본갑-인자의-문제점"><span class="nav-number">5.</span> <span class="nav-text">기본갑 인자의 문제점</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#기본인자값의-코딩표준"><span class="nav-number">6.</span> <span class="nav-text">기본인자값의 코딩표준</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#out-매개변수"><span class="nav-number">7.</span> <span class="nav-text">out 매개변수</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#키보드-입력-예외처리"><span class="nav-number">8.</span> <span class="nav-text">키보드 입력 예외처리</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
