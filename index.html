@@ -144,6 +144,169 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/05/210706_recursive/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/05/210706_recursive/" class="post-title-link" itemprop="url">재귀 함수</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-07-06 00:00:00 / Modified: 21:53:00" itemprop="dateCreated datePublished" datetime="2021-07-06T00:00:00+09:00">2021-07-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="재귀-함수"><a href="#재귀-함수" class="headerlink" title="재귀 함수"></a>재귀 함수</h2><p>함수 A가 <code>매개변수</code>만 바꾸어 다시 함수 A(자기자신)을 호출하는 방법으로 구현</p>
+<h2 id="재귀-함수의-구성요소"><a href="#재귀-함수의-구성요소" class="headerlink" title="재귀 함수의 구성요소"></a>재귀 함수의 구성요소</h2><h3 id="종료조건"><a href="#종료조건" class="headerlink" title="종료조건"></a>종료조건</h3><ul>
+<li><strong>더이상 재귀 함수를 호출하지 않고 값을 반환하는 조건</strong></li>
+<li>매우 간단히 함수의 반환 값을 찾을 수 있는 경우</li>
+<li>종료조건이 없으면 함수를 무한히 재귀적으로 호출한다.</li>
+</ul>
+<h3 id="재귀적-함수-호출"><a href="#재귀적-함수-호출" class="headerlink" title="재귀적 함수 호출"></a>재귀적 함수 호출</h3><ul>
+<li>종료조건이 아닌 경우</li>
+<li>함수의 인자를 바꿔서 스스로를 다시 호출</li>
+<li>이때 함수의 인자는 현재 문제보다 작은 문제를 대표해야 한다. (매개변수를 바꿔서 지금 현재의 문제보다 조금 작은 범위의 문제에서 함수를 호출한다. 즉 함수가 바뀌는 것이 아니라 함수의 대상의 되는 문제의 범위가 작아지는 것이다.)</li>
+<li>즉 동일한 동작을 보다 작은 문제에 적용한다.</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//종료조건이 있는 경우</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">uint</span> <span class="title">SumRecursive</span>(<span class="params"><span class="keyword">uint</span> num</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">//종료조건</span></span><br><span class="line">  <span class="keyword">if</span> (num == <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">//재귀적 함수 호출</span></span><br><span class="line">    <span class="keyword">return</span> SumRecursive(num - <span class="number">1</span>) + num;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//종료조건이 없는 경우</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">uint</span> <span class="title">SumRecursive</span>(<span class="params"><span class="keyword">uint</span> num</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> SumRecursive(num - <span class="number">1</span>) + num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Console.WriteLine(SumRecursive(<span class="number">3</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="반복문-vs-재귀함수"><a href="#반복문-vs-재귀함수" class="headerlink" title="반복문 vs 재귀함수"></a>반복문 vs 재귀함수</h2><p>모든 재귀 함수는 반복문으로 해결 가능하다. 간단한 문제의 경우 반복문으로 해결하는 것이 더 편하지만 <em>복잡한 문제일수록 재귀 함수를 사용하는 것이 더 편하다.</em></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//반복문 - 피보나치 수열</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">FibonacciIterative</span>(<span class="params"><span class="keyword">uint</span> number</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">uint</span>[] list = <span class="keyword">new</span> <span class="keyword">uint</span>[number + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">  list[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">  list[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">uint</span> i = <span class="number">2</span>; i &lt;=number; ++i)</span><br><span class="line">  &#123;</span><br><span class="line">    list[i] = list[i - <span class="number">2</span>] + list[i - <span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> list[number]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//재귀 함수 - 피보나치 수열</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">FibonacciRecursive</span>(<span class="params"><span class="keyword">uint</span> number</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (number == <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (number == <span class="number">1</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> FibonacciRecursive(number - <span class="number">2</span>) + FibonacciRecursive(number - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>폴더의 목록을 가져오는 처리가 필요하다면 반복문보다 재귀문으로 표현하는 것이 더욱 쉽다. 폴더의 목록을 가져오는 함수(의사코드)는 다음과 같다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// GetDirectoryNames(path): path 안에 있는 모든 폴더의 이름을 가져오는 함수</span></span><br><span class="line"><span class="comment">// GetFilesNames(path): path 안에 있는 모든 파일의 이름을 가져오는 함수</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">string</span>[] <span class="title">GetFileNamesRecursive</span>(<span class="params"><span class="keyword">string</span> path</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">string</span>[] filesNames;</span><br><span class="line">  <span class="keyword">string</span>[] directoryNames = GetDitectoryNames(path);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; directoryNames.Length; ++i)</span><br><span class="line">  &#123;</span><br><span class="line">    filesNames += GetFileNamesRecursive(directoryNames[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  filesNames += GetFilesNames(path);</span><br><span class="line">  <span class="keyword">return</span> filesNames;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="재귀함수의-사용"><a href="#재귀함수의-사용" class="headerlink" title="재귀함수의 사용"></a>재귀함수의 사용</h2><p>수학적 귀납법이기 때문에 종료 조건에 반드시 예상되는 값이 반환될 것을 가정하고 신뢰하며, 그 후의 수는 종료 조건에 기초하여 값을 계산할 수 있도록 한다.</p>
+<table>
+<thead>
+<tr>
+<th>재귀 함수의 <code>장점</code></th>
+<th>재귀 함수의 <code>단점</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>개념상(이론상)으로 훌륭하다.</td>
+<td>효율성이 떨어진다.</td>
+</tr>
+<tr>
+<td>증명이 가능하다.</td>
+<td>함수 호출 깊이에 제한이 있기 때문에 스택오버플로우가 발생할 수 있다.</td>
+</tr>
+<tr>
+<td>캐싱 없이 간단한 반복문으로 작성 가능한 문제는 반복문을 사용하지만 그 외의 경우에는 설계와 이해가 용이한 재귀 함수로 작성한다.</td>
+<td>재귀 함수로 작성했는데 함수 호출의 최대 깊이를 확정할 수 없거나 성능상의 문제를 발견했다면 반복문으로 리팩토링한다.</td>
+</tr>
+</tbody></table>
+<h2 id="수학적-귀납법-예시"><a href="#수학적-귀납법-예시" class="headerlink" title="수학적 귀납법 예시"></a>수학적 귀납법 예시</h2><blockquote>
+<p>모든 자연수 n에 대하여 아래 조건이 항상 성립하는지 증명하라.</p>
+</blockquote>
+<p>0 + 1 + 2 + … + n =<br>$$ \frac {n(n+1)} {2} $$</p>
+<ol>
+<li>n이 0일 때 위의 조건이 성립하는지 본다.(종료조건)<br>$$ \frac {0 . (0 + 1)}{2} $$<br>= 0</li>
+<li>자연수 0부터 k까지 합이 아래 조건에 성립한다고 가정한다.<br>$$ \frac {k(k+1)}{2}$$</li>
+<li>0부터 k까지 합 다음 자연수인 (k+1)의 합도 이 공식을 만족하는지 증명한다.<br>(0 + 1 + 2 + … + k) + (k + 1) =<br>$$ \frac {(k+1)((k+1)+1)}{2}$$</li>
+</ol>
+<hr>
+<h3 id="피보나치의-수열"><a href="#피보나치의-수열" class="headerlink" title="피보나치의 수열"></a>피보나치의 수열</h3><blockquote>
+<p>제 0항은 0, 제 1항은 1, 그 뒤의 모든 항은 바로 앞 두 항의 합인 수열<br>0 1 1 2 3 5 8 13 21 34 55…</p>
+</blockquote>
+<p><u>수학적 정의</u></p>
+<ul>
+<li>F<sub>0</sub> = 0,</li>
+<li>F<sub>1</sub> = 1,</li>
+<li>F<sub>n</sub> = F<sub>n-1</sub> + F<sub>n-2</sub>(n &gt; 1)</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">FibonacciRecursive</span>(<span class="params"><span class="keyword">uint</span> number</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (number == <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (number == <span class="number">1</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> FibonacciRecursive(number - <span class="number">2</span>) + FibonacciRecursive(number - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//FibonacciRecursive 함수 호출</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  FibonacciRecursive(<span class="number">10</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="하노이의-탑"><a href="#하노이의-탑" class="headerlink" title="하노이의 탑"></a>하노이의 탑</h3><blockquote>
+<p>64개의 황금 원판이 있다. 브리흐마의 규칙에 따르면 한 번에 원판 하나씩만 옮길 수 있고, 작은 원판 위에 그보다 큰 원판은 옮길 수 없다.</p>
+</blockquote>
+<ol>
+<li>막대 3개가 있고, 한 막대에 <code>n개</code>의 원판이 있다.<ul>
+<li><strong>n개의 원판의 <code>상위 n-1개</code>를 다른 막대에 옮길 수 있다고 가정한다.</strong><ul>
+<li><code>상위 n-1개</code>의 원판을 중간 막대로 옮긴다.</li>
+<li><code>마지막 n번째</code> 원판은 목적지 막대에 옮긴다.</li>
+<li>중간 막대에 있던 <code>상위 n-1개</code>의 원판을 목적지 막대에 옮긴다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>막대 3개가 있고, 한 막대에 <code>n-1개</code>의 원판이 있다.<ul>
+<li><strong><code>n-1개</code>의 원판에서 <code>상위 n-2개</code>를 다른 막대에 옮길 수 있다고 가정한다.</strong><ul>
+<li><code>상위 n-2개</code>의 원판을 중간 막대로 옮긴다.</li>
+<li><code>마지막 n-1번째</code> 원판은 목적지 막대에 옮긴다.</li>
+<li>중간 막대에 있던 <code>n-2개</code>의 원판을 목적지 막대에 옮긴다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>n-3, n-4, …을 거쳐서 마지막 <code>n-(n-2)</code>개까지 도달한다. <code>n-(n-2)</code>는 <code>n - n + 2</code>로 전개되므로 <code>2</code>가 된다.</li>
+<li>막대 3개가 있고, 한 막대에 <code>2개</code>의 원판이 있다.<ul>
+<li><strong>2개의 원판에서 <code>상위 1개</code>를 다른 막대에 옮길 수 있다고 가정한다.</strong><ul>
+<li><code>1개</code>의 원판을 중간 막대로 옮긴다.</li>
+<li><code>마지막 2번째</code> 원판은 목적지 막대에 옮긴다.</li>
+<li>중간 막대에 있던 <code>1개</code>의 원판을 목적지 막대에 옮긴다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>막대 3개가 있고, 한 막대에 <code>1개</code>의 원판이 있다.<ul>
+<li><strong><code>1개</code>의 원판을 다른 막대에 옮길 수 있다.</strong></li>
+<li>1개의 원판을 목적지 막대로 옮긴다. 즉 종료 조건이 참이므로 위의 모든 과정도 참이 된다.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/03/210704_stringSeparated/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +338,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-06 00:11:55" itemprop="dateModified" datetime="2021-07-06T00:11:55+09:00">2021-07-06</time>
+                <time title="Modified: 2021-07-06 21:53:00" itemprop="dateModified" datetime="2021-07-06T21:53:00+09:00">2021-07-06</time>
               </span>
 
           
@@ -354,7 +517,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-06 00:11:55" itemprop="dateModified" datetime="2021-07-06T00:11:55+09:00">2021-07-06</time>
+                <time title="Modified: 2021-07-06 21:53:00" itemprop="dateModified" datetime="2021-07-06T21:53:00+09:00">2021-07-06</time>
               </span>
 
           
@@ -497,7 +660,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-06 00:11:55" itemprop="dateModified" datetime="2021-07-06T00:11:55+09:00">2021-07-06</time>
+                <time title="Modified: 2021-07-06 21:53:00" itemprop="dateModified" datetime="2021-07-06T21:53:00+09:00">2021-07-06</time>
               </span>
 
           
@@ -714,7 +877,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-06 00:11:55" itemprop="dateModified" datetime="2021-07-06T00:11:55+09:00">2021-07-06</time>
+                <time title="Modified: 2021-07-06 21:53:00" itemprop="dateModified" datetime="2021-07-06T21:53:00+09:00">2021-07-06</time>
               </span>
 
           
@@ -828,7 +991,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-06 00:11:55" itemprop="dateModified" datetime="2021-07-06T00:11:55+09:00">2021-07-06</time>
+                <time title="Modified: 2021-07-06 21:53:00" itemprop="dateModified" datetime="2021-07-06T21:53:00+09:00">2021-07-06</time>
               </span>
 
           
@@ -975,7 +1138,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-06 00:11:55" itemprop="dateModified" datetime="2021-07-06T00:11:55+09:00">2021-07-06</time>
+                <time title="Modified: 2021-07-06 21:53:00" itemprop="dateModified" datetime="2021-07-06T21:53:00+09:00">2021-07-06</time>
               </span>
 
           
@@ -1120,7 +1283,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-06 00:11:55" itemprop="dateModified" datetime="2021-07-06T00:11:55+09:00">2021-07-06</time>
+                <time title="Modified: 2021-07-06 21:53:00" itemprop="dateModified" datetime="2021-07-06T21:53:00+09:00">2021-07-06</time>
               </span>
 
           
@@ -1298,7 +1461,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-06 00:11:55" itemprop="dateModified" datetime="2021-07-06T00:11:55+09:00">2021-07-06</time>
+                <time title="Modified: 2021-07-06 21:53:00" itemprop="dateModified" datetime="2021-07-06T21:53:00+09:00">2021-07-06</time>
               </span>
 
           
@@ -1499,7 +1662,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-06 00:11:55" itemprop="dateModified" datetime="2021-07-06T00:11:55+09:00">2021-07-06</time>
+                <time title="Modified: 2021-07-06 21:53:00" itemprop="dateModified" datetime="2021-07-06T21:53:00+09:00">2021-07-06</time>
               </span>
 
           
@@ -1612,112 +1775,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/02/210603_switch/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/02/210603_switch/" class="post-title-link" itemprop="url">switch문, 배열</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-06-03 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-03T00:00:00+09:00">2021-06-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-06 00:11:55" itemprop="dateModified" datetime="2021-07-06T00:11:55+09:00">2021-07-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="switch문"><a href="#switch문" class="headerlink" title="switch문"></a>switch문</h2><blockquote>
-<p>매치 표현식의 결과 값에 따라 실행할 구문을 선택</p>
-</blockquote>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(매치 표현식)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">case</span> &lt;상수 라벨<span class="number">1</span>&gt;:</span><br><span class="line">    매치 표현식의 반환값이 상수 라벨 <span class="number">1</span>과 일치할 때 실행하는 구문</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> &lt;상수 라벨<span class="number">2</span>&gt;:</span><br><span class="line">    매치 표현식의 반환값이 상수 라벨 <span class="number">2</span>와 일치할 때 실행하는 구문</span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> &lt;상수 라벨n&gt;:</span><br><span class="line">    매치 표현식의 반환값이 상수 라벨 n과 일치할 때 실행하는 구문</span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">  매치 표현식의 반환값이 위의 상수 라벨과 하나도 일치하지 않을 때 실행하는 구문</span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>모든 case 구문 다음에는 break 구문을 넣아야 한다.</code> 없으면 컴파일 오류가 난다. (case를 여러개 묶은 경우는 break를 쓰지 않아도 된다.)</li>
-<li>해당하는 case 구문이 없으면 default로 가서 실행된다.</li>
-<li>case에서 기본으로 사용한 수 있는 상수<ul>
-<li>int(기본), long, char, bool, string(c#), 부동소수점형들은 사용 불가.</li>
-</ul>
-</li>
-<li>case를 여러 개 묶을 수 있다.</li>
-</ul>
-<hr>
-<h2 id="배열"><a href="#배열" class="headerlink" title="배열"></a>배열</h2><p><em>중복된 코드, 변수의 수를 동적으로 선언하지 못하는 문제</em>와 같은 비효율적인 문제를 해결하기 위한 방법으로 <code>배열</code>이 나오게 되었다.</p>
-<ul>
-<li>동일한 자료형을 여럿 담을 수 있는 구조</li>
-<li>배열 안에 있는 각 데이터를 <code>요소(element)</code>라고 부른다.</li>
-<li>몇 개의 데이터를 담을지 결정한 뒤에 수는 바꿀 수 없고, 내용은 변경 가능하다.</li>
-<li>반복문과 합쳐서 쓰면 매우 유용하다.</li>
-</ul>
-<h3 id="배열-선언"><a href="#배열-선언" class="headerlink" title="배열 선언"></a>배열 선언</h3><blockquote>
-<p>&lt;자료형&gt;[] &lt;변수명&gt; = new &lt;자료형&gt;[&lt;개수&gt;];</p>
-</blockquote>
-<ul>
-<li>e.g. float[] heights = new float[3];</li>
-<li>&lt;개수&gt;개의 &lt;자료형&gt;자료를 담은 배열을 만든다.</li>
-<li>선언과 동시에 대입하기<ul>
-<li>기본형: <strong>&lt;자료형&gt;[] &lt;변수명&gt; = new &lt;자료형&gt;[]{&lt;데이터(콤마로 구분)&gt;};</strong> e.g. int[] ages = new int[]{30,14,27};</li>
-<li>단축형: <strong>&lt;자료형&gt;[] &lt;변수명&gt; = {&lt;데이터(콤마로 구분)&gt;};</strong> e.g. int[] ages = {30, 14,27};</li>
-</ul>
-</li>
-<li>요소에 접근하기: []안에 접근하고자 하는 데이터의 색인을 넣음.</li>
-</ul>
-<h3 id="char-배열과-문자열"><a href="#char-배열과-문자열" class="headerlink" title="char 배열과 문자열"></a>char 배열과 문자열</h3><ul>
-<li>기본적으로 같은 데이터 방식</li>
-<li>일부 언어에서는 char 배열을 쓰면 되니까 문자열을 지원안한다.</li>
-<li><strong>배열은 고정 길이를 가지고 있다.</strong></li>
-</ul>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1788,7 +1845,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
