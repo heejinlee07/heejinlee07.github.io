@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="함수란?함수는 함수 정의와 호출, 실행의 일련의 과정을 거쳐 값을 반환하는 것으로 이 일련의 과정은 문(statement)들로 구현하고, 코드 븍록으로 감싸서 하나의 실행단위로 정의한다. 123456789function 함수명 (매개변수) &amp;#123;  return 반환값;&amp;#125; &#x2F;&#x2F;함수 정의(함수 몸체)함수명(인수) &#x2F;&#x2F;함수 호출function ad">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-27T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-08T13:06:17.757Z">
+<meta property="article:modified_time" content="2021-07-08T14:03:19.045Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -192,7 +192,6 @@
       
         <h2 id="함수란"><a href="#함수란" class="headerlink" title="함수란?"></a>함수란?</h2><p>함수는 함수 정의와 호출, 실행의 일련의 과정을 거쳐 값을 반환하는 것으로 이 일련의 과정은 문(statement)들로 구현하고, 코드 븍록으로 감싸서 하나의 실행단위로 정의한다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> 함수명 (<span class="params">매개변수</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> 반환값;</span><br><span class="line">&#125; <span class="comment">//함수 정의(함수 몸체)</span></span><br><span class="line">함수명(인수) <span class="comment">//함수 호출</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x,y</span>) </span>&#123;</span><br><span class="line">  returen x + y;</span><br><span class="line">&#125;</span><br><span class="line">add(<span class="number">2</span>,<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
-
 <ol>
 <li>함수 정의를 통해 함수를 생성한다. 위와 같이 호출하기 이전에 인수를 전달받을 매개변수와 실행할 문들, 반환할 값을 지정하는 것을 말한다.</li>
 </ol>
@@ -202,7 +201,7 @@
 <li>생성자 함수</li>
 <li>화살표 함수</li>
 </ul>
-<ol start="2">
+<ol>
 <li>함수 객체를 가리키는 식별자(함수 이름으로 호출 x)로 호출한다.</li>
 <li>함수 외부에서 내부로 값을 전달할 필요가 있다면, 인수(argument)는 매개변수(parameter)를 통해 전달된다.</li>
 <li>값을 전달받으면 함수 내부에서 미리 정의된 문들을 실행하여 값을 반환한다.</li>
@@ -216,13 +215,11 @@
 <li><code>함수선언문</code>: 런타임 이전에 함수 객체가 먼저 생성되고, 함수 이름과 동일한 이름의 식별자를 암묵적으로 생성하고 생성된 함수 객체를 할당한다. 따라서 <em>선언문 이전에 함수의 참조와 호출 모두 가능하다.</em></li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dir(add); <span class="comment">// ƒ add(x, y) 함수참조</span></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">// 7 함수호출</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>위와 같이 함수를 선언하면, 런타임 이전에 이미 함수 객체가 생성되어 할당까지 완료된 상태이므로, 선언문을 실행하는 런타임 이전에 값을 참조 또는 호출하여도 값이 반환된다.</p>
 <ul>
 <li><code>함수표현식</code>: 함수표현식은 변수 호이스팅과 동일하다. 변수 선언문과 할당문의 축약표현과 동일하게 동작한다. 런타임 이전에 <code>함수표현식</code>은 함수 객체가 아닌 <code>undefined</code>로 초기화된다. 그리고 런타임 때 평가되어 함수 리터럴은 할당문이 실행되는 시점에 비로소 함수 객체가 된다.</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dir(sub); <span class="comment">// undefined 함수참조</span></span><br><span class="line"><span class="built_in">console</span>.log(sub(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">// TypeError: sub is not a function 함수호출</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sub = <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x - y;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <p>위와 같이 런타임 이전에 함수를 참조하면 <code>undefined</code>가 반환된다. 런타임 이전에 함수표현식은 <code>undefined</code>라는 값으로 초기화되어 있기 때문이다. 또한 값의 할당은 런타임 때 이루어지기 때문에 표현식 이전에 함수를 호출하면 <code>TypeError</code>가 발생한다.</p>
 
     </div>
@@ -355,7 +352,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1

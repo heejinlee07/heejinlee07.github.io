@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="reverseString Pseudocode string를 배열로 만든다. 배열 method를 사용하면 array 내부의 요소의 순서를 뒤집는다. 순서가 뒤집힌 배열을 다시 string로 변환한다.   example“hello” -&gt; [‘h’, ‘e’, ‘l’, ‘l’, ‘o’] -&gt; [‘o’, ‘l’, ‘l’, ‘e’, ‘h’] -&gt; ‘o">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-27T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-08T13:06:17.761Z">
+<meta property="article:modified_time" content="2021-07-08T14:03:19.045Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -199,14 +199,12 @@
 <p>example<br>“hello” -&gt; [‘h’, ‘e’, ‘l’, ‘l’, ‘o’] -&gt; [‘o’, ‘l’, ‘l’, ‘e’, ‘h’] -&gt; ‘olleh’</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(str); <span class="comment">//hello</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> splits = str.split(<span class="string">""</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(splits); <span class="comment">// ["h", "e", "l", "l", "o"]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> reversed = splits.reverse();</span><br><span class="line">  <span class="built_in">console</span>.log(reversed); <span class="comment">// ["o", "l", "l", "e", "h"]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> result = reversed.join(<span class="string">""</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(result); <span class="comment">//olleh</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reverse(<span class="string">"hello"</span>);</span><br></pre></td></tr></table></figure>
-
 <h2 id="split"><a href="#split" class="headerlink" title="split()"></a>split()</h2><blockquote>
 <p>str.split([separator[, limit]])</p>
 </blockquote>
 <p>string을 구분자를 이용하여 여러 개의 문자열로 나눈다.</p>
 <ul>
-<li><p>매개변수: separator, limit 두 가지를 전달할 수 있다.</p>
-<ul>
+<li>매개변수: separator, limit 두 가지를 전달할 수 있다.<ul>
 <li>separator: 끊어야 할 부분을 나타내는 문자열로 실제 문자열이나 정규표현식을 받을 수 있다.</li>
 <li>limit: 끊어진 문자열의 최대 개수를 나타낸다. limit이 존재하면, 배열의 원소가 limit개가 되었을 때 split메소드가 중지된다.</li>
 </ul>
@@ -220,7 +218,6 @@
 </li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hi = <span class="string">"hello there"</span>;</span><br><span class="line">hi.split(); <span class="comment">// ['hello there']</span></span><br><span class="line">hi.split(<span class="string">""</span>); <span class="comment">// ['h', 'e', 'l', 'o', 'o', 't', 'h', 'e', 'r', 'e']</span></span><br><span class="line"><span class="keyword">const</span> result = hi.split(<span class="string">" "</span>); <span class="comment">// ['hello', 'there']</span></span><br><span class="line"><span class="built_in">console</span>.log(result[<span class="number">1</span>]); <span class="comment">// there</span></span><br><span class="line">hi.split(<span class="string">" "</span>, <span class="number">3</span>); <span class="comment">// ['h', 'e', 'l']</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 정규 표현식 사용</span></span><br><span class="line"><span class="keyword">var</span> myString = <span class="string">"Hello 1 word. Sentence number 2."</span>;</span><br><span class="line"><span class="keyword">var</span> splits = myString.split(<span class="regexp">/(\d)/</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(splits); <span class="comment">// [ "Hello ", "1", " word. Sentence number ", "2", "." ]</span></span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="reverse"><a href="#reverse" class="headerlink" title="reverse()"></a>reverse()</h2><blockquote>
 <p>a.reverse()</p>
@@ -241,7 +238,6 @@
 <li>반환값: 배열의 모든 요소를 연결한 하나의 문자열 반환. arr.length가 0이면 빈 문자열 반환되고, 요소가 undefined나 null이면 빈 문자열로 변환됨.</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> elements = [<span class="string">"Fire"</span>, <span class="string">"Air"</span>, <span class="string">"Water"</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join());</span><br><span class="line"><span class="comment">// expected output: "Fire,Air,Water"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join(<span class="string">""</span>));</span><br><span class="line"><span class="comment">// expected output: "FireAirWater"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join(<span class="string">" "</span>));</span><br><span class="line"><span class="comment">// expected output: "Fire Air Water"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join(<span class="string">"-"</span>));</span><br><span class="line"><span class="comment">// expected output: "Fire-Air-Water"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> emptyArray = [];</span><br><span class="line">emptyArray.join(); <span class="comment">//''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> nullInArray = [<span class="literal">null</span>];</span><br><span class="line">nullInArray.join(); <span class="comment">//''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> undefinedInArray = [<span class="literal">undefined</span>];</span><br><span class="line">undefinedInArray.join(); <span class="comment">//''</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="method-chaining"><a href="#method-chaining" class="headerlink" title="method chaining"></a>method chaining</h2><p>return str.split(“”).reverse().join(“”);</p>
 <p>이렇게 method를 연결하여 한줄로 구현할 수도 있지만, 문자열에 grapheme clusters가 있을 경우, 유니코드 플래그를 설정해도 오류를 일으킬 수 있어서 esrever 등의 라이브러리를 쓰는 것이 권장된다.</p>
 <hr>
@@ -249,7 +245,6 @@
 <li>for문을 이용</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> res = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; str.length; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> char = str[i];</span><br><span class="line">    res = char + res;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line">reverse(<span class="string">"hello"</span>);</span><br></pre></td></tr></table></figure>
-
 <p>argument로 전달된 ‘hello’의 length는 5이고, 총 5번 반복문을 돈다. 원리는 다음과 같다. ‘hello’가 있다면, h를 캐치하여 res의 첫번째 요소로 보내고, 그 다음 e를 캐치하여 res의 첫 번째 요소로 보낸다. 이를 구현하기 위해 <code>res = char + res;</code>로 코드를 구현한다. 이 코드에 따라 hello가 ‘olleh’가 될 때까지 반복문을 돈다.</p>
 <blockquote>
 <p>‘hello’ + ‘’<br>‘ello’ + ‘h’<br>‘llo’ + ‘eh’<br>‘lo’ + ‘leh’<br>‘o’ + ‘lleh’<br>‘’ + ‘olleh’</p>
@@ -261,11 +256,10 @@
 <li>4회차<br>char = l;<br>res = l + leh -&gt; lleh가 된다.</li>
 <li>5회차<br>char = o;<br>res = lleh + 0 -&gt; olleh가 된다.</li>
 </ul>
-<ol start="2">
+<ol>
 <li>reduce method 이용하기</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(<span class="string">""</span>).reduce(<span class="function">(<span class="params">output, char</span>) =&gt;</span> &#123;</span><br><span class="line">    output = char + output;</span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">  &#125;, <span class="string">""</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h2 id="reduce"><a href="#reduce" class="headerlink" title="reduce()"></a>reduce()</h2><blockquote>
 <p>arr.reduce(callback[, initialvalue])<br>[0,1,2,3,4].reduce(function(accumulator, currentValue, currentIndex, array) {<br>return accumulator + currentValue;<br>});</p>
 </blockquote>
@@ -283,8 +277,7 @@
 </ul>
 <p>callback의 최초 호출에서 첫 번째 인수에 제공하는 값. <em>빈 배열에서 초기값 없이 reduce()를 호출하면 오류가 발생한다.</em></p>
 <ul>
-<li><p>initialValue가 <em>있는</em> 경우: <code>인덱스 0</code>에서 시작. accumulator = initialValue(콜백의 최초 호출 시)</p>
-</li>
+<li>initialValue가 <em>있는</em> 경우: <code>인덱스 0</code>에서 시작. accumulator = initialValue(콜백의 최초 호출 시)</li>
 <li><p>initialValue가 <em>없는</em> 경우: <code>인덱스 1</code>에서 시작, 첫 번째 인덱스는 건너뛴다.</p>
 <ul>
 <li>accumulator !== initialValue</li>
@@ -307,14 +300,10 @@
 </li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> maxCallback = <span class="function">(<span class="params">acc, cur</span>) =&gt;</span> <span class="built_in">Math</span>.max(acc.x, cur.x);</span><br><span class="line"></span><br><span class="line"><span class="comment">// initialValue 없이 reduce()</span></span><br><span class="line">[].reduce(maxCallback); <span class="comment">// TypeError</span></span><br><span class="line">[&#123; <span class="attr">x</span>: <span class="number">22</span> &#125;].reduce(maxCallback); <span class="comment">// &#123; x: 22 &#125;</span></span><br><span class="line">[&#123; <span class="attr">x</span>: <span class="number">22</span> &#125;, &#123; <span class="attr">x</span>: <span class="number">42</span> &#125;].reduce(maxCallback); <span class="comment">// 42</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="reduce-작동-방식"><a href="#reduce-작동-방식" class="headerlink" title="reduce() 작동 방식"></a>reduce() 작동 방식</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>].reduce(<span class="function"><span class="keyword">function</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  accumulator,</span></span></span><br><span class="line"><span class="function"><span class="params">  currentValue,</span></span></span><br><span class="line"><span class="function"><span class="params">  currentIndex,</span></span></span><br><span class="line"><span class="function"><span class="params">  array</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> accumulator + currentValue;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 화살표 함수를 사용</span></span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>].reduce(<span class="function">(<span class="params">prev, curr</span>) =&gt;</span> prev + curr);</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(<span class="string">""</span>).reduce(<span class="function">(<span class="params">output, char</span>) =&gt;</span> &#123;</span><br><span class="line">    output = char + output;</span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">  &#125;, <span class="string">""</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reverse(<span class="string">"hello"</span>);</span><br></pre></td></tr></table></figure>
-
 <p>위의 함수는 아래의 구조와 같고, 아래와 같이 작동한다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> array = str.split(<span class="string">""</span>); <span class="comment">// ["h", "e", "l", "l", "o"]</span></span><br><span class="line">  <span class="keyword">return</span> array.reduce(<span class="function">(<span class="params">output, char</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// return ["h", "e", "l", "l", "o"].reduce((output, char) =&gt; &#123;</span></span><br><span class="line">    output = char + output;</span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">  &#125;, <span class="string">""</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>구체적인 작동방식을 살펴보면 아래와 같다.</p>
 <ol>
 <li>initialValue:””가 주어져 있으므로, index 0에서 시작한다.</li>
@@ -322,52 +311,56 @@
 <li>callback은 주어진 array의 length만큼 호출된다. 예제인 [“h”, “e”, “l”, “l”, “o”]의 경우 length는 5이다.</li>
 <li>반환값은 accumulator에 할당 되고 순회하면서 <code>accumulator + currentValue</code>의 연산이 이루어진 최종값이 반환된다. 예제의 경우 최종적으로 반환되는 값은 <code>olleh</code>이다.</li>
 </ol>
+<div class="table-container">
 <table>
 <thead>
 <tr>
 <th>callback</th>
-<th align="center">accumulator</th>
-<th align="center">currentValue</th>
-<th align="center">currentIndex</th>
-<th align="center">return</th>
+<th style="text-align:center">accumulator</th>
+<th style="text-align:center">currentValue</th>
+<th style="text-align:center">currentIndex</th>
+<th style="text-align:center">return</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>1번 째</td>
-<td align="center">“”</td>
-<td align="center">h</td>
-<td align="center">0</td>
-<td align="center">h</td>
+<td style="text-align:center">“”</td>
+<td style="text-align:center">h</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">h</td>
 </tr>
 <tr>
 <td>2번 째</td>
-<td align="center">h</td>
-<td align="center">e</td>
-<td align="center">1</td>
-<td align="center">eh</td>
+<td style="text-align:center">h</td>
+<td style="text-align:center">e</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">eh</td>
 </tr>
 <tr>
 <td>3번 째</td>
-<td align="center">eh</td>
-<td align="center">l</td>
-<td align="center">2</td>
-<td align="center">leh</td>
+<td style="text-align:center">eh</td>
+<td style="text-align:center">l</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">leh</td>
 </tr>
 <tr>
 <td>4번 째</td>
-<td align="center">leh</td>
-<td align="center">l</td>
-<td align="center">3</td>
-<td align="center">lleh</td>
+<td style="text-align:center">leh</td>
+<td style="text-align:center">l</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">lleh</td>
 </tr>
 <tr>
 <td>5번 째</td>
-<td align="center">lleh</td>
-<td align="center">o</td>
-<td align="center">4</td>
-<td align="center">olleh</td>
+<td style="text-align:center">lleh</td>
+<td style="text-align:center">o</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">olleh</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <hr>
 <p><em>Preferences</em><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/split" target="_blank" rel="noopener">Array.protorype.split()/MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse" target="_blank" rel="noopener">Array.prototype.reverse()/MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/join" target="_blank" rel="noopener">Array.prototype.join()/MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noopener">Array.prototype.reduce()/MDN</a><br><a href="https://youtu.be/LmHHip-RpGw" target="_blank" rel="noopener">KodingKevin</a></p>
 
@@ -501,7 +494,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1

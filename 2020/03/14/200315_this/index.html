@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="the object that is executing the current function. 123456789101112131415161718&#x2F;&#x2F;method -&gt; object itself.const video &#x3D; &amp;#123;  title: &quot;a&quot;,  play() &amp;#123;    console.log(this);  &amp;#125;&amp;#125;;video.pl">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-14T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-08T13:06:17.761Z">
+<meta property="article:modified_time" content="2021-07-08T14:03:19.045Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -192,11 +192,8 @@
       
         <p>the object that is executing the current function.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//method -&gt; object itself.</span></span><br><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  play() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">video.play(); <span class="comment">// &#123;title: "a", play: f&#125;</span></span><br><span class="line"><span class="comment">// play는 video의 메소드이므로 this는 video 객체를 참조한다.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//video 객체가 끝난 후에 메소드를 사용해도 같은 결과가 나온다.</span></span><br><span class="line"></span><br><span class="line">video.stop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">video.stop(); <span class="comment">//&#123;title: "a", play: ƒ, stop: ƒ&#125;</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//function -&gt; global(window, global)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  play() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">playVideo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">playVideo();</span><br><span class="line"><span class="comment">//Window &#123;parent: Window, opener: null, top: Window, length: 0, frames: Window, …&#125;</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  play() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Video</span>(<span class="params">title</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.title = title;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> v = <span class="keyword">new</span> Video(<span class="string">"a"</span>); <span class="comment">//&#123;&#125;</span></span><br><span class="line"><span class="comment">//Video &#123;title: "a"&#125;</span></span><br><span class="line"><span class="comment">// 생성자 함수는 전역을 참조하는 것이 아니라 new가 생성할 빈 객체를 참조한다.</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  tags: [<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>],</span><br><span class="line">  showTags() &#123;</span><br><span class="line">    <span class="keyword">this</span>.tags.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">tag</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// to get the current object and then get the tags property</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.title, tag);</span><br><span class="line">    &#125;, <span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">video.showTags();</span><br></pre></td></tr></table></figure>
 
     </div>
@@ -328,7 +325,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1

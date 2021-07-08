@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="변수 변할 수 있는 값 숫자, 문자, 문자열 등을 사용할 수 있다. 문자는 작은따옴표(‘’), 문자열은 큰따옴표(“”)를 사용해야 한다. 어딘 가에 저장한 값을 다시 재사용하기 위해서 사용한다. (상태변화를 기억) 변수명은 의미있게 지어야 한다. 명사로 정확하게 어떤 정보를 담는지 알려주는 단어를 사용한다. 여러 명사가 들어갈 경우 카멜케이스를 사용한다.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-05-13T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-08T13:06:17.761Z">
+<meta property="article:modified_time" content="2021-07-08T14:03:19.049Z">
 <meta property="article:author" content="Heejin Lee">
 <meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary">
@@ -177,7 +177,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -202,7 +202,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="코딩-표준"><a href="#코딩-표준" class="headerlink" title="코딩 표준"></a>코딩 표준</h2><table>
+<h2 id="코딩-표준"><a href="#코딩-표준" class="headerlink" title="코딩 표준"></a>코딩 표준</h2><div class="table-container">
+<table>
 <thead>
 <tr>
 <th></th>
@@ -210,7 +211,8 @@
 <th>상수</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>단일 명사 이름</td>
 <td>명사 소문자</td>
 <td>명사 대문자</td>
@@ -220,15 +222,19 @@
 <td>카멜케이스 (e.g. mathScore)</td>
 <td>대문자로 이루어진 스네이크 케이스(e.g. MATH_SCORE)</td>
 </tr>
-</tbody></table>
-<h2 id="기본-자료형"><a href="#기본-자료형" class="headerlink" title="기본 자료형"></a>기본 자료형</h2><table>
+</tbody>
+</table>
+</div>
+<h2 id="기본-자료형"><a href="#기본-자료형" class="headerlink" title="기본 자료형"></a>기본 자료형</h2><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>자료형 이름</th>
 <th>자료형 크기</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>byte</td>
 <td>8bit 정수</td>
 </tr>
@@ -256,7 +262,9 @@
 <td>double</td>
 <td>64bit 실수</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <blockquote>
 <p>컴퓨터가 이해할 수 있는 가장 자연스러운 형태의 데이터</p>
 </blockquote>
@@ -276,56 +284,11 @@
 </ul>
 <h2 id="정수형"><a href="#정수형" class="headerlink" title="정수형"></a>정수형</h2><ul>
 <li>0,1,2와 같은 <code>정수(자연수)</code>를 담을 수 있는 자료형</li>
-<li>C#에서 각 자료형의 크기(프로그래밍 언어마다 크기는 다름)<table>
-<thead>
-<tr>
-<th>자료형 이름</th>
-<th>자료형 크기</th>
-<th>표현할 수 있는 숫자</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>byte</td>
-<td>8bit</td>
-<td>2<sup>8</sup>(256개)</td>
-</tr>
-<tr>
-<td>short</td>
-<td>16bit</td>
-<td>2<sup>16</sup>(65,536개)</td>
-</tr>
-<tr>
-<td>int</td>
-<td>32bit</td>
-<td>2<sup>32</sup>(4,294,967,296개)</td>
-</tr>
-<tr>
-<td>long</td>
-<td>64bit</td>
-<td>2<sup>64</sup>(18,446,744,073,709,551,616개)</td>
-</tr>
-</tbody></table>
-</li>
+<li>C#에서 각 자료형의 크기(프로그래밍 언어마다 크기는 다름)<br>| 자료형 이름 | 자료형 크기 |표현할 수 있는 숫자|<br>| ———— | ————— |———|<br>| byte | 8bit |2<sup>8</sup>(256개)|<br>| short | 16bit |2<sup>16</sup>(65,536개)|<br>|int|32bit|2<sup>32</sup>(4,294,967,296개)|<br>|long|64bit|2<sup>64</sup>(18,446,744,073,709,551,616개)|</li>
 </ul>
 <h2 id="부동소수점형"><a href="#부동소수점형" class="headerlink" title="부동소수점형"></a>부동소수점형</h2><ul>
 <li>3.14와 같은 <code>실수</code>를 담을 수 있는 자료형</li>
-<li>C#에서 각 자료형의 크기(프로그래밍 언어마다 크기는 다름)<table>
-<thead>
-<tr>
-<th>자료형 이름</th>
-<th>자료형 크기</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>float</td>
-<td>32bit</td>
-</tr>
-<tr>
-<td>double</td>
-<td>64bit</td>
-</tr>
-</tbody></table>
-</li>
+<li>C#에서 각 자료형의 크기(프로그래밍 언어마다 크기는 다름)<br>| 자료형 이름 | 자료형 크기 |<br>| ———— | ————— |<br>|float|32bit|<br>|double|64bit|</li>
 </ul>
 <blockquote>
 <p>실수인데 실수형이라고 부르지 않고 부동소수점형이라 부르는 이유는?<br>컴퓨터에서 숫자를 표현할 때 <code>0.01</code>을 1 * 10<sup>-2</sup>라고 표현하는데 지수의 숫자에 따라 0.01과 같은 숫자의 소수점이 움직이게 된다. 그래서 고정되지 않고 움직인다는 의미에서 부동소수점형이라 부른다.</p>
@@ -342,13 +305,13 @@
 <li><code>참(ture)/거짓(false)</code>을 표현한다.</li>
 <li>bool</li>
 </ul>
-<h2 id="기본-자료형으로-선언한-변수"><a href="#기본-자료형으로-선언한-변수" class="headerlink" title="기본 자료형으로 선언한 변수"></a>기본 자료형으로 선언한 변수</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> int1 = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//(뒤에 붙는 f는 float형의 값을 대입할 때 사용. 3.14를 의미)</span></span><br><span class="line"><span class="keyword">float</span> float1 = <span class="number">3.14f</span>;</span><br><span class="line"><span class="comment">//(뒤에 f 안붙음.)</span></span><br><span class="line"><span class="keyword">double</span> double1 = <span class="number">5.245</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> char1 = <span class="string">'a'</span>;</span><br></pre></td></tr></table></figure>
-
+<h2 id="기본-자료형으로-선언한-변수"><a href="#기본-자료형으로-선언한-변수" class="headerlink" title="기본 자료형으로 선언한 변수"></a>기본 자료형으로 선언한 변수</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int int1 &#x3D; 1;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;(뒤에 붙는 f는 float형의 값을 대입할 때 사용. 3.14를 의미)</span><br><span class="line">float float1 &#x3D; 3.14f;</span><br><span class="line">&#x2F;&#x2F;(뒤에 f 안붙음.)</span><br><span class="line">double double1 &#x3D; 5.245;</span><br><span class="line"></span><br><span class="line">char char1 &#x3D; &#39;a&#39;;</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="각-자료형마다-비트-수가-다른-이유는-byte와-int는-어떤-차이가-있을까"><a href="#각-자료형마다-비트-수가-다른-이유는-byte와-int는-어떤-차이가-있을까" class="headerlink" title="각 자료형마다 비트 수가 다른 이유는? byte와 int는 어떤 차이가 있을까?"></a>각 자료형마다 비트 수가 다른 이유는? byte와 int는 어떤 차이가 있을까?</h2><p>컴퓨터처럼 생각해본다. 컴퓨터는 2진수로 생각한다. 10진수는 0~9까지 담을 수 있다. 9 다음 오는 숫자인 10의 일의 자리 숫자는 무엇인가? 0이다. 받아올림되었기 때문이다. 2진수도 마찬가지다. 2진수는 더 이상 올라갈 수 없을 때 10진수처럼 옆으로 한자리씩 올라간다. 이 자릿수 하나하나가 비트다.</p>
-<h3 id="2비트수개"><a href="#2비트수개" class="headerlink" title="2비트수개"></a>2<sup>비트수</sup>개</h3><p>한 개의 비트로는 2개의 수(0,1)을 표현할 수 있고, 두 개의 비트로는 4개(0<del>3), 세개의 비트로는 8개(0</del>7)개가 표현 가능하다</p>
+<h3 id="2비트수개"><a href="#2비트수개" class="headerlink" title="2비트수개"></a>2<sup>비트수</sup>개</h3><p>한 개의 비트로는 2개의 수(0,1)을 표현할 수 있고, 두 개의 비트로는 4개(0~3), 세개의 비트로는 8개(0~7)개가 표현 가능하다</p>
 <hr>
-<h2 id="음수-표현법"><a href="#음수-표현법" class="headerlink" title="음수 표현법"></a>음수 표현법</h2><table>
+<h2 id="음수-표현법"><a href="#음수-표현법" class="headerlink" title="음수 표현법"></a>음수 표현법</h2><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>7</th>
@@ -361,7 +324,8 @@
 <th>0</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>최상위 비트</td>
 <td></td>
 <td></td>
@@ -371,8 +335,11 @@
 <td></td>
 <td>최하위 비트</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>1byte는 8bit. byte는 총 256개의 숫자를 표현할 수 있다. 음수, 양수를 반반으로 배분하면 좋은데 0 때문에 값이 정확하게 반반이 될 수 없다. 그래서 <code>범위</code>를 정한다. 0을 기준으로 양수는 [1, 127], 음수는 [-128, -1]로 정해서 적용한다. 그런데 비트가 하나씩 증가할 때마다 표현 가능한 수는 두 배씩 증가한다. 여기서는 반으로 나누겠다고 했고 반은 두배의 반대개념이다. 그리고 127을 이진수로 나타내면 아래와 같다.</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -387,7 +354,8 @@
 <th>0</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td></td>
 <td>최상위 비트</td>
 <td></td>
@@ -420,7 +388,9 @@
 <td>0</td>
 <td>0</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>이미 7비트를 양수가 다 가져갔기 때문에 그 다음 음수를 쓰려면 bit 첫 글자를 1로 쓸 수 밖에 없다. <code>최상위 비트</code>를 이용하여 이 값이 0이면 양수, 1이면 음수</p>
 <ul>
 <li>양수: <code>0</code>000 0001 ~ <code>0</code>111 1111</li>
@@ -435,6 +405,7 @@
 </ul>
 </li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -443,7 +414,8 @@
 <th>부호 없는 자료형</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td></td>
 <td>음수, 양수를 모두 표현</td>
 <td>양수만 표현 (보통 <code>u</code>가 자료형 앞에 붙음)</td>
@@ -468,13 +440,14 @@
 <td>long (-9,223,372,036,854,775,808 ~ 9,233,372,036,854,775,807)</td>
 <td>ulong (0 ~ 18,446,744,073,709,551,615)</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h2 id="부호-있는-또는-부호-없는-변수는-언제쓰는가"><a href="#부호-있는-또는-부호-없는-변수는-언제쓰는가" class="headerlink" title="부호 있는, 또는 부호 없는 변수는 언제쓰는가?"></a>부호 있는, 또는 부호 없는 변수는 언제쓰는가?</h2><blockquote>
 <p>프로그래머의 명백한 의도를 보여줄 때</p>
 </blockquote>
 <p>예를 들어 <code>int age = 17;</code>과 같은 변수가 있을 때, 부호 있는 자료형 int를 썼다. 프로그램상 int를 사용해서 나이를 처리하는 코드를 만들었는데, 상식적으로 나이는 음수가 될 수 없지만 프로그램 상 처리과정에서 <code>음수</code>가 들어온다면 버그가 발생하는 등 문제가 있을 수 있다. 이럴 때 음수값이 들어오지 않도록 예외처리를 해줄 수 있지만 <code>uint age = 17;</code>과 같이 음수를 받을 수 없는 자료형을 사용하면 <code>음수</code>가 들어올 수 없도록 처리할 수 있다.</p>
-<h2 id="uint-0-4-294-967-295-의-범위를-넘어서는-코드는-어떤-값을-출력할까"><a href="#uint-0-4-294-967-295-의-범위를-넘어서는-코드는-어떤-값을-출력할까" class="headerlink" title="uint(0 ~ 4,294,967,295)의 범위를 넘어서는 코드는 어떤 값을 출력할까?"></a>uint(0 ~ 4,294,967,295)의 범위를 넘어서는 코드는 어떤 값을 출력할까?</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uint</span> num1 = <span class="number">4294967295</span>;</span><br><span class="line"><span class="keyword">uint</span> num2 = <span class="number">1</span>;</span><br><span class="line">unit result = num1 + num2;</span><br><span class="line"></span><br><span class="line">Console.WriteLiner(result);</span><br></pre></td></tr></table></figure>
-
+<h2 id="uint-0-4-294-967-295-의-범위를-넘어서는-코드는-어떤-값을-출력할까"><a href="#uint-0-4-294-967-295-의-범위를-넘어서는-코드는-어떤-값을-출력할까" class="headerlink" title="uint(0 ~ 4,294,967,295)의 범위를 넘어서는 코드는 어떤 값을 출력할까?"></a>uint(0 ~ 4,294,967,295)의 범위를 넘어서는 코드는 어떤 값을 출력할까?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">uint num1 &#x3D; 4294967295;</span><br><span class="line">uint num2 &#x3D; 1;</span><br><span class="line">unit result &#x3D; num1 + num2;</span><br><span class="line"></span><br><span class="line">Console.WriteLiner(result);</span><br></pre></td></tr></table></figure>
 <p>위의 코드에서 result는 0이 나오게 된다. num1의 숫자 4294967295는 부호없는 정수의 최대값이므로 이를 2진수로 나타내면 1111이 연속된 형태의 숫자이고, 여기에 1을 더하는 것이므로 결과는 <code>10000000...</code>과 같은 형태가 나오게 된다. 그런데 unit는 32bit이고, 이미 num1이 32bit의 최대값이었으므로 여기에 1을 더하면 33bit가 된다. 하지만 unit의 최대 저장공간이 32bit였기 때문에 33bit가 되는 최상위비트 1은 버려지게 된다. 그래서 0만 남게 되어서 결과값이 0이 출력되는 것이다. <u>이와 같은 현상을 <code>오버플로우</code>라 한다.</u></p>
 <h2 id="오버플로우"><a href="#오버플로우" class="headerlink" title="오버플로우"></a>오버플로우</h2><ul>
 <li>위의 예시처럼 연산의 결과로 자료형보다 큰 수가 나온다.</li>
@@ -638,7 +611,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1

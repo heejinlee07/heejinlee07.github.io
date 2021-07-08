@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="타입 변환 하나의 데이터 타입이 다른 데이터 타입으로 자동 또는 암묵적으로 변환되는 것.타입 캐스팅(Type conversion (or typecasting))은 명시적(explicit)과 암묵적(implicit)인 타입 변환이 동시에 이루어진다.  컴파일러가 자동으로 데이터 타입을 할당할 때 암묵적 타입변환이 자동으로 발생하는데, 소스코드에서도 명시적인">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-23T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-08T13:06:17.761Z">
+<meta property="article:modified_time" content="2021-07-08T14:03:19.045Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -197,10 +197,8 @@
 <p><code>5+2.0</code>에서 부동소수점 <code>2.0</code>은 암묵적으로 정수로 타입변환되는데, Number(“0x11”)에서 문자열인 “0x11”은 숫자 17로 명시적으로 변환된다.(16진수로 계산하여 17 (1 * 16 + 1 = 17)</p>
 <p>타입 강제변환(type coercion)은 암묵적인 타입 변환이 이루어진다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> value1 = <span class="string">"5"</span>;</span><br><span class="line"><span class="keyword">const</span> value2 = <span class="number">9</span>;</span><br><span class="line"><span class="keyword">let</span> sum = value1 + value2;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(sum);</span><br></pre></td></tr></table></figure>
-
 <p>숫자 리터럴 <code>9</code>는 문자열로 변환되고, value1과 value2의 값이 연결되어 문자열 <code>59</code>가 출력된다. 자바스크립트는 문자열과 숫자가 있을 때 문자열을 이용하기 때문이다. 따라서 만약 숫자 <code>5 + 9</code>를 더한 <code>14</code>의 결과를 출력하고 싶다면 number() 메소드를 통해서 명시적인 타입 변환을 해주어야 한다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum = <span class="built_in">Number</span>(value1) + value2;</span><br></pre></td></tr></table></figure>
-
 <hr>
 <ul>
 <li>명시적 타입 변환(Explicit coercion) 또는 타입 캐스팅(Type casting)<br>개발자가 의도적으로 값의 타입을 변환하는 것</li>
@@ -208,10 +206,8 @@
 </ul>
 <p>이러한 명시적 또는 암묵적 타입 변환이 기존 원시값을 직접 변경하는 것은 아니다. 원시값은 변경불가이기 때문이다. 타입 변환이란 기존 원시값을 사용하여 다른 타입의 새로운 원시값을 생성하는 것이다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 원시값 1이 '1'로 직접 변경되는 것이 아니다.</span></span><br><span class="line"><span class="comment">// 1을 사용해 타입이 다른 '1'을 새롭게 생성하여 '1' + ''을 평가한다.</span></span><br><span class="line"><span class="number">1</span> + <span class="string">""</span>; <span class="comment">// '1'</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="암묵적-타입-변환"><a href="#암묵적-타입-변환" class="headerlink" title="암묵적 타입 변환"></a>암묵적 타입 변환</h2><p>표현식을 평가할 때 코드 문맥에 부합하지 않더라도 자바스크립트는 암묵적 타입 변환을 통해 표현식을 평가하고, 문자열, 숫자, 불리언과 같은 원시 타입 중 하나로 타입을 자동 변환한다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + <span class="string">"2"</span>; <span class="comment">//"12" 문자열 타입으로 변환</span></span><br><span class="line"><span class="number">1</span> - <span class="string">"1"</span>; <span class="comment">//0 숫자열 타입으로 변환</span></span><br><span class="line"><span class="comment">//불리언 타입으로 변환</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="명시적-타입-변환"><a href="#명시적-타입-변환" class="headerlink" title="명시적 타입 변환"></a>명시적 타입 변환</h2><p>개발자의 의도에 의해 명시적으로 타입을 변환한다.</p>
 <ul>
 <li><p>문자열 타입으로 변환</p>
@@ -246,9 +242,7 @@
 <p>논리합(||) 연산자와 논리곱(&amp;&amp;) 연산자 표현식의 평가 결과는 불리언 값이 아닐 수도 있다. <em>논리합(||), 논리곱(&amp;&amp;) 연산자 표현식은 언제나 2개의 피연산자 중 어느 한쪽으로 평가된다.</em> 표현식을 평가하는 도중 결과가 확정되면 나머지 평가 과정을 중단하는 것이다. 이러한 성질을 이용하여 논리곱(&amp;&amp;)과 논리합(||)연산자는 if문을 대체할 수 있기도 하다.</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> || anything	<span class="literal">true</span></span><br><span class="line"><span class="literal">false</span> || anything	anything</span><br><span class="line"><span class="literal">true</span> &amp;&amp; anything	anything</span><br><span class="line"><span class="literal">false</span> &amp;&amp; anything	<span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 논리합(||) 연산자</span></span><br><span class="line"><span class="literal">true</span> || <span class="literal">true</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="literal">true</span> || <span class="literal">false</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="literal">false</span> || <span class="literal">true</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="literal">false</span> || <span class="literal">false</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 논리곱(&amp;&amp;) 연산자</span></span><br><span class="line"><span class="literal">true</span> &amp;&amp; <span class="literal">true</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="literal">true</span> &amp;&amp; <span class="literal">false</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="literal">false</span> &amp;&amp; <span class="literal">true</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="literal">false</span> &amp;&amp; <span class="literal">false</span>; <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
-
 <p><code>&#39;Cat&#39; &amp;&amp; &#39;Dog&#39; // &#39;Dog&#39;</code><br>논리곱(&amp;&amp;)연산자는 두 개의 피연산자 모두 true일 때 true를 반환한다. 첫 번째 피연산자 <code>Cat</code>을 평가했을 때 true로 평가되지만 두번째 피연산자까지 평가해보아야 완전한 평가가 이루어진다. 따라서 두번째 피연산자인 <code>Dog</code>까지 평가한 후 <code>Dog</code>를 반환한다.</p>
 <p><code>&#39;Cat&#39; || &#39;Dog&#39; // &#39;Cat&#39;</code><br>논리합(||) 연산자는 두 개의 피연산자 중 하나만 true여도 true를 반환하기 때문에 첫 번째 피연산자 <code>Cat</code>이 true이므로 두번째 피연산자 <code>Dog</code>를 평가하지 않고 바로 <code>Cat</code>을 반환한다.</p>
 <hr>
@@ -385,7 +379,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1

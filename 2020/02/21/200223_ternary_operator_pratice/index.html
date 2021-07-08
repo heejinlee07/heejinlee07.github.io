@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="삼항조건연산자-&gt; 조건식 ? 조건식이 true일때 반환할 값 : 조건식이 false일때 반환할 값   양수 또는 음수를 출력하는 if문  123456789var num &#x3D; 2;var kind &#x3D; &quot;&quot;;if (num &gt; 0) &amp;#123;  kind &#x3D; &quot;양수&quot;;&amp;#125; else &amp;#123;  kind &#x3D; &quot;음수&quot;;&amp;#125;console.lo">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-21T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-08T13:06:17.761Z">
+<meta property="article:modified_time" content="2021-07-08T14:03:19.045Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -197,41 +197,33 @@
 <li>양수 또는 음수를 출력하는 if문</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"양수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  kind = <span class="string">"음수"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>if문을 삼항조건연산자로 써보기</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">kind = num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : <span class="string">"음수"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(kind);</span><br></pre></td></tr></table></figure>
-
 <p><em>양수, 음수 외에 ‘0’이라는 숫자가 출력되는 조건도 추가하고 싶다면? (0은 음수도 양수도 아니다.)</em></p>
-<ol start="3">
+<ol>
 <li>양수, 음수 또는 ‘0’을 출력하는 if문</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"양수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (num &lt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"음수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  kind = <span class="string">"영"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>if문을 삼항조건연산자로 써보기</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">kind = num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : num &lt; <span class="number">0</span> ? <span class="string">"음수"</span> : <span class="string">"영"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">kind = num ? (num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : <span class="string">"음수"</span>) : <span class="string">"영"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>술 구매 가능 여부를 출력하는 if문</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">19</span>;</span><br><span class="line"><span class="keyword">var</span> canDrinkAlcohol = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (age &gt; <span class="number">19</span>) &#123;</span><br><span class="line">  canDrinkAlcohol = <span class="string">"OK. You can buy alcohol."</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  canDrinkAlcohol = <span class="string">"No. You can't buy alcohol."</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(canDrinkAlcohol);</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<ol>
 <li>if문을 삼항조건연산자로 써보기</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">19</span>;</span><br><span class="line"><span class="keyword">var</span> canDrinkAlcohol = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">canDrinkAlcohol =</span><br><span class="line">  age &gt; <span class="number">19</span> ? <span class="string">"OK. You can buy alcohol."</span> : <span class="string">"No. You can't buy alcohol."</span>;</span><br><span class="line"><span class="built_in">console</span>.log(canDrinkAlcohol);</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
+<ol>
 <li>신장을 출력하는 if문</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> height = <span class="number">169</span>;</span><br><span class="line"><span class="keyword">var</span> result = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result =</span><br><span class="line">  height &gt; <span class="number">169</span></span><br><span class="line">    ? <span class="string">"wow, you are taller than me"</span></span><br><span class="line">    : height &lt; <span class="number">169</span></span><br><span class="line">    ? <span class="string">"You are little bit shorter than me."</span></span><br><span class="line">    : <span class="string">"You and me are the same height."</span>;</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br></pre></td></tr></table></figure>
-
-<ol start="8">
+<ol>
 <li>if문을 삼항조건연산자로 써보기</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> height = <span class="number">169</span>;</span><br><span class="line"><span class="keyword">var</span> result = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (height &gt; <span class="number">169</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"wow, you are taller than me"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (height &lt; <span class="number">169</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"You are little bit shorter than me."</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"You and me are the same height."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -365,7 +357,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1

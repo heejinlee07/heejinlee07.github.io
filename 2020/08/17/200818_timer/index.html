@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="호출 스케줄링함수를 명시적으로 호출하지 않고, 일정 시간이 경과된 이후 호출되도록 타이머 함수를 사용하여 함수 호출을 예약한다.  타이머를 생성할 수 있는 함수: setsetTimeout,setInterval 일정 시간이 경과된 이후 콜백 함수가 호출되도록 타이머 생성. 생성된 타이머가 만료되면 콜백함수가 호출됨. setTimeout: 이 함수가 생성한 타">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-08-17T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-08T13:06:17.761Z">
+<meta property="article:modified_time" content="2021-07-08T14:03:19.045Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -213,15 +213,12 @@
 </li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 익명함수 실행</span></span><br><span class="line"><span class="keyword">let</span> myGreeting = setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">"Hello, Mr. Universe!"</span>);</span><br><span class="line">&#125;, <span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// setTimeout()에 함수 참조를 전달.</span></span><br><span class="line"><span class="comment">// timeout 함수와 이벤트에 의해 중복 호출되는 함수를 사용하려면 이 방법이 유용할 수 있다.</span></span><br><span class="line"><span class="comment">// 이 방법은 코드라인을 깔끔하게  정리하는 데 도움을 준다.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// With a named function</span></span><br><span class="line"><span class="keyword">let</span> myGreeting = setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">"Hello, Mr. Universe!"</span>);</span><br><span class="line">&#125;, <span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// With a function defined separately</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">"Hello Mr. Universe!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> myGreeting = setTimeout(sayHi, <span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
-
 <h2 id="clearTimeout"><a href="#clearTimeout" class="headerlink" title="clearTimeout()"></a>clearTimeout()</h2><p>타임아웃이 생성되면(setTimeout()이 실행되면) 특정시간이 경과하기 전에 clearTimeout()을 호출하여 타임아웃을 취소할 수 있다. clearTimeout()은 setTimeout()콜의 식별자를 매개변수로 setTimeout()에 전달한다.</p>
 <hr>
 <h2 id="setInterval"><a href="#setInterval" class="headerlink" title="setInterval()"></a>setInterval()</h2><p>지정된 시간이 경과 후, 두 번째 매개 변수에 주어진 시간까지 <code>반복적</code>으로 실행됨.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">displayTime</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">  <span class="keyword">let</span> time = date.toLocaleTimeString();</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"demo"</span>).textContent = time;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> createClock = setInterval(displayTime, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-
 <h2 id="clearInterval"><a href="#clearInterval" class="headerlink" title="clearInterval()"></a>clearInterval()</h2><p>위와 같이 별다른 중지 사항을 명시하지 않으면 계속 반복해서 실행됨. 아래와 같이 setInterval()에 의해 반환된 식별자를 clearInterval()에 전달하여 작업을 취소할 수 있다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">displayTime</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">  <span class="keyword">let</span> time = date.toLocaleTimeString();</span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">".clock"</span>).textContent = time;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">displayTime();</span><br><span class="line"><span class="keyword">const</span> createClock = setInterval(displayTime, <span class="number">1000</span>);</span><br><span class="line"><span class="comment">// clearInterval 사용 시 setInterval 작업 취소</span></span><br><span class="line">clearInterval(createClock);</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p><em>Preferences</em><br><a href="https://poiemaweb.com/fastcampus/timer#22-setinterval--clearinterval" target="_blank" rel="noopener">poiemaweb</a><br><a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/Asynchronous/Timeouts_and_intervals" target="_blank" rel="noopener">MDN</a></p>
 
@@ -355,7 +352,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1

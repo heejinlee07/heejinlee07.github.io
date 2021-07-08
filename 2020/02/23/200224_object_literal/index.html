@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="객체란?객체는 다양한 타입의 값(원시 값 또는 다른 객체)들을 하나의 단위로 구성한 복합적인 자료 구조이다. 0개 이상인 속성명(property)과 객체의 관련된 값이 중괄호({})로 묶여진다. 즉 키(key)과 값(value)으로 구성된 프로퍼티(Property)들의 집합이라고 할 수 있다. 12345678910키워드 식별자 &#x3D; &amp;#123;  key(속성">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-23T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-08T13:06:17.761Z">
+<meta property="article:modified_time" content="2021-07-08T14:03:19.045Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -192,7 +192,6 @@
       
         <h2 id="객체란"><a href="#객체란" class="headerlink" title="객체란?"></a>객체란?</h2><p>객체는 다양한 타입의 값(원시 값 또는 다른 객체)들을 하나의 단위로 구성한 복합적인 자료 구조이다. 0개 이상인 속성명(property)과 객체의 관련된 값이 중괄호({})로 묶여진다. 즉 <em>키(key)과 값(value)으로 구성된 프로퍼티(Property)들의 집합</em>이라고 할 수 있다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">키워드 식별자 = &#123;</span><br><span class="line">  key(속성) : value(값)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> counter = &#123;</span><br><span class="line">  number : <span class="number">0</span>, <span class="comment">//프로퍼티</span></span><br><span class="line">  increase: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.num++; <span class="comment">//메소드</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>자바스크립트에 사용할 수 있는 모든 값이 프로퍼티 값이 될 수 있고, 함수도 사용할 수 있다. 이 경우 일반 함수와 구분하기 위해 메소드(Method)라 부른다.</p>
 <p><code>프로퍼티와 메소드의 역할</code></p>
 <ul>
@@ -213,7 +212,6 @@
 <p>프로퍼티 키는 프로퍼티 값에 접근할 수 있는 이름이며, 식별자 역할을 하며 식별자 네이밍 규칙을 준수하는 것이 권장된다.</p>
 <h2 id="프로퍼티-접근"><a href="#프로퍼티-접근" class="headerlink" title="프로퍼티 접근"></a>프로퍼티 접근</h2><p>마침표(.)를 사용하는 마침표 표기법(Dot notation) 또는 대괄호([…])를 사용하는 대괄호 표기법(Bracket notation)을 사용한다. 대괄호 표기법을 사용하는 경우, 대괄호 내부에 지정하는 프로퍼티 키는 반드시 따옴표로 감싼 문자열이어야 한다. 자바스크립트에서 사용 가능한 유효한 이름이 아닐 때도 반드시 대괄호 표기법을 사용하며, 대괄호 내의 프로퍼티 키는 따옴표로 감싼 문자열이어야 한다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 마침표 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="comment">// 객체이름.접근하고자 하는 항목</span></span><br><span class="line"><span class="built_in">console</span>.log(person.name); <span class="comment">// Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 대괄호 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"name"</span>]); <span class="comment">// Lee</span></span><br></pre></td></tr></table></figure>
-
 <hr>
 <ul>
 <li><code>존재하지 않는 프로퍼티에 접근</code>: undefined를 반환. <em>referenceError가 발생하지 않는다.</em></li>
@@ -356,7 +354,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1

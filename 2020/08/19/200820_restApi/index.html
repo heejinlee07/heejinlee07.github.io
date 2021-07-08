@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="REST(Representational State Transfer)2000년도에 로이 필딩 (Roy Fielding)의 박사학위 논문에서 최초로 소개된 개념  REST: HTTP를 기반으로 클라이언트가 서버의 리소스에 접근하는 방식을 규정한 아키텍처 REST API: REST를 기반으로 서비스 API를 구현한 것  REST API의 구성 자원(RESOURC">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-08-19T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-08T13:06:17.761Z">
+<meta property="article:modified_time" content="2021-07-08T14:03:19.045Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -205,49 +205,9 @@
 <li><strong>리소스에 대한 행위는 HTTP Method(GET, POST, PUT, DELETE)로 표현한다. 클라이언트가 서버에게 요청의 종류와 목적(리소스에 대한 행위)를 알리는 방법을 말한다.</strong></li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">URI는 리소스를 표현하는 데 중점을 두고 있으므로 명사형으로 명시</span><br><span class="line">&#96;delete&#96;처럼 리소스에 대한 행위를 표현하면 안된다.</span><br><span class="line"></span><br><span class="line">GET &#x2F;weathers&#x2F;delete&#x2F;1 -&gt; X</span><br><span class="line"></span><br><span class="line">리소스에 대한 행위는 가장 앞에 있는 &#96;GET&#96;과 같은 HTTP Method로</span><br><span class="line">어떠한 행위를 할 것인지를 표현한다.</span><br><span class="line">GET &#x2F;weathers&#x2F;1 -&gt; O</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li><p>HTTP Method(GET, POST, PUT, DELETE)<br>리소스에 대한 정의는 다음의 HTTP 요청 메소드를 이용하여 CRUD를 한다. CRUD는 컴퓨터 소프트웨어가 가지는 기본적인 데이터 처리 기능인 <em>Create(생성), Read(읽기), Update(갱신), Delete(삭제)를 묶어서 일컫는 말</em>이다. 사용자 인터페이스가 갖추어야 할 기능(정보의 참조/검색/갱신)을 가리키는 용어로서도 사용된다.</p>
-<table>
-<thead>
-<tr>
-<th align="center">HTTP Method</th>
-<th align="center">종류</th>
-<th align="center">목적</th>
-<th align="center">페이로드</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">GET</td>
-<td align="center">index/retrieve</td>
-<td align="center">리소스 조회/취득</td>
-<td align="center"><strong>X</strong></td>
-</tr>
-<tr>
-<td align="center">POST</td>
-<td align="center">create</td>
-<td align="center">리소스 생성</td>
-<td align="center"><strong>O</strong></td>
-</tr>
-<tr>
-<td align="center">PUT</td>
-<td align="center">replace</td>
-<td align="center">리소스 전체교체</td>
-<td align="center"><strong>O</strong></td>
-</tr>
-<tr>
-<td align="center">PATCH</td>
-<td align="center">update</td>
-<td align="center">리소스 일부 수정</td>
-<td align="center"><strong>O</strong></td>
-</tr>
-<tr>
-<td align="center">DELETE</td>
-<td align="center">delete</td>
-<td align="center">리소스 삭제</td>
-<td align="center"><strong>X</strong></td>
-</tr>
-</tbody></table>
+<p>| HTTP Method |      종류      |       목적       | 페이로드 |<br>| :————-: | :——————: | :———————: | :———: |<br>|     GET     | index/retrieve | 리소스 조회/취득 |  <strong>X</strong>   |<br>|    POST     |     create     |   리소스 생성    |  <strong>O</strong>   |<br>|     PUT     |    replace     | 리소스 전체교체  |  <strong>O</strong>   |<br>|    PATCH    |     update     | 리소스 일부 수정 |  <strong>O</strong>   |<br>|   DELETE    |     delete     |   리소스 삭제    |  <strong>X</strong>   |</p>
 </li>
 </ol>
 <h2 id="URI-설계-시-주의사항"><a href="#URI-설계-시-주의사항" class="headerlink" title="URI 설계 시 주의사항"></a>URI 설계 시 주의사항</h2><ol>
@@ -406,7 +366,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1

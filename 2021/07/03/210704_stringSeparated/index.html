@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="문자열 분할게임 몬스터 데이터를 읽어와야한다고 가정한다. 각 몬스터는 어떤 특정한 정형화된 형식을 만들어야 프로그램으로 읽을 수 있다. 1. 키와 값키가 어떤 용도의 데이터인지 알려준다. 파일 안에서 순서가 바뀌어도 상관없다. 1234&#x2F;&#x2F;name, HP, MP의 키값으로 데이터를 찾기 때문에 순서가 바뀌어도 상관없다.name: &quot;Pokemon&quot;HP:1MP:">
+  <meta name="description" content="문자열 분할게임 몬스터 데이터를 읽어와야한다고 가정한다. 각 몬스터는 어떤 특정한 정형화된 형식을 만들어야 프로그램으로 읽을 수 있다. 1. 키와 값키가 어떤 용도의 데이터인지 알려준다. 파일 안에서 순서가 바뀌어도 상관없다. 1234&#x2F;&#x2F;name, HP, MP의 키값으로 데이터를 찾기 때문에 순서가 바뀌어도 상관없다.name: &quot;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="문자열 분할">
 <meta property="og:url" content="https://heejinlee07.github.io/2021/07/03/210704_stringSeparated/index.html">
 <meta property="og:site_name" content="Heejin">
-<meta property="og:description" content="문자열 분할게임 몬스터 데이터를 읽어와야한다고 가정한다. 각 몬스터는 어떤 특정한 정형화된 형식을 만들어야 프로그램으로 읽을 수 있다. 1. 키와 값키가 어떤 용도의 데이터인지 알려준다. 파일 안에서 순서가 바뀌어도 상관없다. 1234&#x2F;&#x2F;name, HP, MP의 키값으로 데이터를 찾기 때문에 순서가 바뀌어도 상관없다.name: &quot;Pokemon&quot;HP:1MP:">
+<meta property="og:description" content="문자열 분할게임 몬스터 데이터를 읽어와야한다고 가정한다. 각 몬스터는 어떤 특정한 정형화된 형식을 만들어야 프로그램으로 읽을 수 있다. 1. 키와 값키가 어떤 용도의 데이터인지 알려준다. 파일 안에서 순서가 바뀌어도 상관없다. 1234&#x2F;&#x2F;name, HP, MP의 키값으로 데이터를 찾기 때문에 순서가 바뀌어도 상관없다.name: &quot;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-07-03T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-08T13:06:17.765Z">
+<meta property="article:modified_time" content="2021-07-08T14:03:19.049Z">
 <meta property="article:author" content="Heejin Lee">
 <meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary">
@@ -177,7 +177,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -193,16 +193,15 @@
       
         <h2 id="문자열-분할"><a href="#문자열-분할" class="headerlink" title="문자열 분할"></a>문자열 분할</h2><p>게임 몬스터 데이터를 읽어와야한다고 가정한다. 각 몬스터는 어떤 특정한 정형화된 형식을 만들어야 프로그램으로 읽을 수 있다.</p>
 <p><strong><u>1. 키와 값</u></strong><br>키가 어떤 용도의 데이터인지 알려준다. 파일 안에서 순서가 바뀌어도 상관없다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//name, HP, MP의 키값으로 데이터를 찾기 때문에 순서가 바뀌어도 상관없다.</span></span><br><span class="line">name: <span class="string">"Pokemon"</span></span><br><span class="line">HP:<span class="number">1</span></span><br><span class="line">MP: <span class="number">1000</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;name, HP, MP의 키값으로 데이터를 찾기 때문에 순서가 바뀌어도 상관없다.</span><br><span class="line">name: &quot;Pokemon&quot;</span><br><span class="line">HP:1</span><br><span class="line">MP: 1000</span><br></pre></td></tr></table></figure>
 <p>위의 경우 보통 한 몬스터의 데이터만 한 파일 안에 저장한다. 만약 여러 몬스터 데이터를 저장해야 한다면 방법은 아래 두 가지가 있다.</p>
 <ul>
 <li>몬스터 하나당 파일 하나: 파일이 너무 많아진다는 단점이 있고, 이는 성능저하의 원인이 된다.</li>
 <li>한 파일에 배열과 같은 형태로 집어 넣는다: XML 또는 아래 코드와 같은 JSON 형태<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"monstars"</span>: [</span><br><span class="line">    &#123;<span class="attr">"name"</span>: <span class="string">"Pokemon1"</span>, <span class="attr">"HP"</span>:<span class="number">1</span>, <span class="attr">"MP"</span>: <span class="number">1000</span>&#125;</span><br><span class="line">    &#123;<span class="attr">"name"</span>: <span class="string">"Pokemon2"</span>, <span class="attr">"HP"</span>:<span class="number">2</span>, <span class="attr">"MP"</span>: <span class="number">2000</span>&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <p><strong><u>2. 표</u></strong><br>정형화된 다수의 데이터를 한 곳에 저장하기 용이하다. 아래 표처럼 엑셀과 같은 형태. 열 색인으로 어떤 용도의 데이터인지 결정한다. 순서를 바꿀 수는 없다.</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -211,7 +210,8 @@
 <th>MP</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>pokemon1</td>
 <td>1</td>
 <td>1000</td>
@@ -221,13 +221,13 @@
 <td>2</td>
 <td>2000</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>표의 형태를 사용하는 경우 흔히 <code>엑셀파일</code>을 이용한다. 엑셀파일은 텍스트 파일이 아니기 때문에 CSV(comma-separated values)파일로 저장 가능하다. CSV는 텍스트 파일이며 각 값은 아래와 같이 쉼표로 분리된다.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name, HP, MP</span><br><span class="line">pokemon1, 1, 1000</span><br><span class="line">pokemon2, 2, 2000</span><br></pre></td></tr></table></figure>
-
 <p>몬스터 CSV데이터를 읽는 의사 코드</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span>[] lines =</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"pokemon1,1,1000"</span>,</span><br><span class="line">  <span class="string">"pokemon2,2,2000"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;lines; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">string</span> line = lines[i];</span><br><span class="line"></span><br><span class="line">  <span class="comment">//for 문을 써서 문자열을 읽어온 뒤 string[] tokens에 저장</span></span><br><span class="line"></span><br><span class="line">  Console.WriteLine(<span class="string">$"몬스터 경고: tokens[0] (HP: <span class="subst">&#123;tokens[<span class="number">1</span>]&#125;</span>, MP: <span class="subst">&#123;tokens[<span class="number">2</span>]&#125;</span>)"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">string[] lines &#x3D;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;pokemon1,1,1000&quot;,</span><br><span class="line">  &quot;pokemon2,2,2000&quot;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt;lines; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  string line &#x3D; lines[i];</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;for 문을 써서 문자열을 읽어온 뒤 string[] tokens에 저장</span><br><span class="line"></span><br><span class="line">  Console.WriteLine($&quot;몬스터 경고: tokens[0] (HP: &#123;tokens[1]&#125;, MP: &#123;tokens[2]&#125;)&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="토큰을-읽어오는-법"><a href="#토큰을-읽어오는-법" class="headerlink" title="토큰을 읽어오는 법"></a>토큰을 읽어오는 법</h2><blockquote>
 <p>토큰: 연속된 데이터에서 쪼갤 수 있는 가장 작은 단위</p>
@@ -239,8 +239,7 @@
 <h3 id="IndexOf"><a href="#IndexOf" class="headerlink" title="IndexOf()"></a>IndexOf()</h3><blockquote>
 <p>&lt;문자열 변수 이름&gt;.IndexOf(char);</p>
 </blockquote>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> message = <span class="string">"C# is very very fun!"</span>;</span><br><span class="line"><span class="keyword">int</span> index = message.IndexOf(<span class="string">'v'</span>); <span class="comment">//6 반환</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string message &#x3D; &quot;C# is very very fun!&quot;;</span><br><span class="line">int index &#x3D; message.IndexOf(&#39;v&#39;); &#x2F;&#x2F;6 반환</span><br></pre></td></tr></table></figure>
 <p><strong>char의 위치를 찾아서 색인을 반환하는 함수</strong></p>
 <ul>
 <li>문자가 문자열에 여러 번 나타나면 가장 처음에 나타난 곳의 색인을 반환한다.</li>
@@ -250,22 +249,19 @@
 <h3 id="Substring"><a href="#Substring" class="headerlink" title="Substring()"></a>Substring()</h3><blockquote>
 <p>&lt;문자열 변수 이름&gt;.Substring(&lt;색인&gt;);</p>
 </blockquote>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> nameMessage = <span class="string">"name: pokeMon"</span>;</span><br><span class="line"><span class="keyword">string</span> name = namemessage.Substring(<span class="number">6</span>); <span class="comment">//pokeMon 반환</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string nameMessage &#x3D; &quot;name: pokeMon&quot;;</span><br><span class="line">string name &#x3D; namemessage.Substring(6); &#x2F;&#x2F;pokeMon 반환</span><br></pre></td></tr></table></figure>
 <p><strong>지정된 문자 위치(&lt;색인&gt;)에서부터의 문자열을 반환하는 함수</strong></p>
 <h3 id="첨자-연산자"><a href="#첨자-연산자" class="headerlink" title="첨자 연산자([])"></a>첨자 연산자([])</h3><blockquote>
 <p>&lt;문자열 변수 이름&gt;[&lt;색인&gt;];</p>
 </blockquote>
 <p>for문을 돌린다고 가정하면 각 문자열이 어느 위치에 들어있는 지 알아야 하고, 이럴 때 첨자 연산자를 사용한다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> HPMessage = <span class="string">"HP: 100"</span>;</span><br><span class="line"><span class="keyword">char</span> ch = HPMessage[<span class="number">4</span>]; <span class="comment">// '1'</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string HPMessage &#x3D; &quot;HP: 100&quot;;</span><br><span class="line">char ch &#x3D; HPMessage[4]; &#x2F;&#x2F; &#39;1&#39;</span><br></pre></td></tr></table></figure>
 <p><strong>&lt;색인&gt; 위치에 있는 문자 하나를 반환한다.</strong></p>
 <hr>
 <h2 id="문자열-토크나이저"><a href="#문자열-토크나이저" class="headerlink" title="문자열 토크나이저"></a>문자열 토크나이저</h2><h2 id="Split"><a href="#Split" class="headerlink" title="Split()"></a>Split()</h2><blockquote>
 <p>&lt;문자열 변수 이름&gt;.Split(char);</p>
 </blockquote>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> text = <span class="string">"pokemon,1,10000"</span>;</span><br><span class="line"><span class="keyword">string</span>[] tokens = text.Split(<span class="string">','</span>); <span class="comment">// &#123;"pokemon", "1", "10000"&#125;</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string text &#x3D; &quot;pokemon,1,10000&quot;;</span><br><span class="line">string[] tokens &#x3D; text.Split(&#39;,&#39;); &#x2F;&#x2F; &#123;&quot;pokemon&quot;, &quot;1&quot;, &quot;10000&quot;&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>char는 문자열을 쪼갤 때 사용할 구분 문자</li>
 <li><strong>원본 문자열은 변경 없이 그대로 유지</strong></li>
@@ -276,19 +272,15 @@
 <p>&lt;문자열 변수 이름&gt;.Split(char[]);</p>
 </blockquote>
 <p>문자형 배열(char[])에 여러 개의 구분 문자를 대입한다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> text = <span class="string">"pokemon,1:10000"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span>[] delimiters = &#123;<span class="string">','</span>, <span class="string">':'</span>&#125;;</span><br><span class="line"><span class="keyword">string</span>[] tokens = text.Split(delimiters); <span class="comment">// &#123;"pokemon", "1", "10000"&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="구분-문자-사이가-비어-있을-때"><a href="#구분-문자-사이가-비어-있을-때" class="headerlink" title="구분 문자 사이가 비어 있을 때"></a>구분 문자 사이가 비어 있을 때</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> text = <span class="string">"pokemon, 1, 10000:, 10"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span>[] delimiters = &#123;<span class="string">','</span>, <span class="string">':'</span>&#125;;</span><br><span class="line"><span class="keyword">string</span>[] tokens = text.Split(delimiters); <span class="comment">// &#123;"pokemon", "1", "10000", "", "10"&#125;</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string text &#x3D; &quot;pokemon,1:10000&quot;;</span><br><span class="line"></span><br><span class="line">char[] delimiters &#x3D; &#123;&#39;,&#39;, &#39;:&#39;&#125;;</span><br><span class="line">string[] tokens &#x3D; text.Split(delimiters); &#x2F;&#x2F; &#123;&quot;pokemon&quot;, &quot;1&quot;, &quot;10000&quot;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="구분-문자-사이가-비어-있을-때"><a href="#구분-문자-사이가-비어-있을-때" class="headerlink" title="구분 문자 사이가 비어 있을 때"></a>구분 문자 사이가 비어 있을 때</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string text &#x3D; &quot;pokemon, 1, 10000:, 10&quot;;</span><br><span class="line"></span><br><span class="line">char[] delimiters &#x3D; &#123;&#39;,&#39;, &#39;:&#39;&#125;;</span><br><span class="line">string[] tokens &#x3D; text.Split(delimiters); &#x2F;&#x2F; &#123;&quot;pokemon&quot;, &quot;1&quot;, &quot;10000&quot;, &quot;&quot;, &quot;10&quot;&#125;</span><br></pre></td></tr></table></figure>
 <p>‘,’ 또는 ‘:’를 기준으로 문자열을 쪼개고 있기 때문에 ‘10000:,’과 같은 케이스에서 <code>&quot;&quot;</code>가 나온다. 이럴 때 <code>String.IsNullOrEmpty(String)</code>나 for문을 사용하여 빈 문자열을 걸러줄 수 있다. 또는 <code>StringSplitOptions.RemoveEmptyEntries</code>를 사용하여 걸러줄 수 있다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> text = <span class="string">"pokemon, 1, 10000:, 10"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span>[] delimiters = &#123;<span class="string">','</span>, <span class="string">':'</span>&#125;;</span><br><span class="line"><span class="keyword">string</span>[] tokens = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries); <span class="comment">// &#123;"pokemon", "1", "10000", "10"&#125;</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string text &#x3D; &quot;pokemon, 1, 10000:, 10&quot;;</span><br><span class="line"></span><br><span class="line">char[] delimiters &#x3D; &#123;&#39;,&#39;, &#39;:&#39;&#125;;</span><br><span class="line">string[] tokens &#x3D; text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries); &#x2F;&#x2F; &#123;&quot;pokemon&quot;, &quot;1&quot;, &quot;10000&quot;, &quot;10&quot;&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="Trim"><a href="#Trim" class="headerlink" title="Trim()"></a>Trim()</h2><blockquote>
 <p>&lt;문자열 변수 이름&gt;.Trim();</p>
 </blockquote>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> firstName = <span class="string">"              Leon"</span>;</span><br><span class="line"><span class="keyword">string</span> lastName = <span class="string">"kim                "</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//문자열 앞뒤 공백 제거</span></span><br><span class="line"><span class="keyword">string</span> trimmedFirstName = firstName.Trim(); <span class="comment">//"Leon"</span></span><br><span class="line"><span class="keyword">string</span> trimmedLastName = lastName.Trim(); <span class="comment">//"kim"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//문자열 앞 공백 제거</span></span><br><span class="line"><span class="keyword">string</span> trimmedFirstName = firstName.TrimStart(); <span class="comment">//"Leon"</span></span><br><span class="line"><span class="keyword">string</span> trimmedLastName = lastName.TrimStart(); <span class="comment">//"kim</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//문자열 뒤 공백 제거</span></span><br><span class="line"><span class="keyword">string</span> trimmedFirstName = firstName.TrimEnd(); <span class="comment">//"              Leon"</span></span><br><span class="line"><span class="keyword">string</span> trimmedLastName = lastName.TrimEnd(); <span class="comment">//"kim"</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">string firstName &#x3D; &quot;              Leon&quot;;</span><br><span class="line">string lastName &#x3D; &quot;kim                &quot;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;문자열 앞뒤 공백 제거</span><br><span class="line">string trimmedFirstName &#x3D; firstName.Trim(); &#x2F;&#x2F;&quot;Leon&quot;</span><br><span class="line">string trimmedLastName &#x3D; lastName.Trim(); &#x2F;&#x2F;&quot;kim&quot;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;문자열 앞 공백 제거</span><br><span class="line">string trimmedFirstName &#x3D; firstName.TrimStart(); &#x2F;&#x2F;&quot;Leon&quot;</span><br><span class="line">string trimmedLastName &#x3D; lastName.TrimStart(); &#x2F;&#x2F;&quot;kim</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;문자열 뒤 공백 제거</span><br><span class="line">string trimmedFirstName &#x3D; firstName.TrimEnd(); &#x2F;&#x2F;&quot;              Leon&quot;</span><br><span class="line">string trimmedLastName &#x3D; lastName.TrimEnd(); &#x2F;&#x2F;&quot;kim&quot;</span><br></pre></td></tr></table></figure>
 <p><strong><u>Trim()</u></strong></p>
 <ul>
 <li><code>문자열 앞뒤</code>로 있는 공백을 없앤 후 문자열을 반환</li>
@@ -440,7 +432,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1

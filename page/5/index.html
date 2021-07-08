@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -204,7 +204,7 @@
 <li>Correct units</li>
 <li>Desktop-first vs mobile-first</li>
 </ul>
-<ol start="2">
+<ol>
 <li>Maintainable and scalable code<br>it’s important for the developer and final user of the website.</li>
 </ol>
 <h3 id="keywords-clean-reusable"><a href="#keywords-clean-reusable" class="headerlink" title="keywords: clean, reusable"></a>keywords: clean, reusable</h3><p>need to care and think about CSS architecture. writing maintainable code.</p>
@@ -215,7 +215,7 @@
 <li>how to name classes</li>
 <li>how to structure HTML</li>
 </ul>
-<ol start="3">
+<ol>
 <li>Web Performance<br>make faster and to make it smaller in size, so that user has to download less data. <em>making as little HTTP requests as possible.</em> but the biggest impact we can have on performance is to actually reduce the use of images.</li>
 </ol>
 <ul>
@@ -278,7 +278,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -295,16 +295,11 @@
           <h2 id="CSS-in-JS"><a href="#CSS-in-JS" class="headerlink" title="CSS in JS"></a>CSS in JS</h2><p>자바스크립트 파일 안에 스타일을 선언하는 방식</p>
 <h2 id="Template-literal"><a href="#Template-literal" class="headerlink" title="Template literal"></a>Template literal</h2><p>문자열 안에 특정 js값을 넣어서 조합할 수 있게 해주는 문법</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> name = <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">const</span> message = <span class="string">`hello <span class="subst">$&#123;name&#125;</span>`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br><span class="line"></span><br><span class="line"><span class="comment">//hello react</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//객체는 Template literal로 표현해도</span></span><br><span class="line"><span class="comment">//원하는 결과물이 나타나지 않음.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> object = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> text = <span class="string">`<span class="subst">$&#123;object&#125;</span>`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(text);</span><br><span class="line"><span class="comment">//[object Object]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//함수도 마찬가지로 함수의 형태가</span></span><br><span class="line"><span class="comment">// 그대로 나타남.</span></span><br><span class="line"><span class="keyword">const</span> fn = <span class="function"><span class="params">()</span> =&gt;</span> <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">const</span> msg = <span class="string">`<span class="subst">$&#123;fn&#125;</span>`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(msg);</span><br><span class="line"></span><br><span class="line"><span class="comment">//() =&gt; true</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="Tagged-Template-Literal"><a href="#Tagged-Template-Literal" class="headerlink" title="Tagged Template Literal"></a>Tagged Template Literal</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Box = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">  color: black;</span></span><br><span class="line"><span class="string">`</span>;</span><br></pre></td></tr></table></figure>
-
 <p>props를 사용했을 때 그 props를 읽기 위하여 사용.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> StyledDive = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">  background: <span class="subst">$&#123;(props) =&gt; props.color&#125;</span>;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MyComponent = <span class="function"><span class="params">()</span> =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">StyledDiv</span> <span class="attr">color</span>=<span class="string">"black"</span> /&gt;</span></span>;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> red = <span class="string">"빨간색"</span>;</span><br><span class="line"><span class="keyword">const</span> blue = <span class="string">"파란색"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">favoriteColors</span>(<span class="params">texts, ...values</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(texts);</span><br><span class="line">  <span class="built_in">console</span>.log(values);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">favoriteColors<span class="string">`제가 좋아하는 색은 <span class="subst">$&#123;red&#125;</span>과 <span class="subst">$&#123;blue&#125;</span>입니다.`</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ['제가 좋아하는 색은', '과', '입니다' , raw: Array(3)]</span></span><br><span class="line"><span class="comment">//['빨간색','파란색']</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//또다른 예시</span></span><br><span class="line"><span class="keyword">const</span> red = <span class="string">"빨간색"</span>;</span><br><span class="line"><span class="keyword">const</span> blue = <span class="string">"파란색"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">favoriteColors</span>(<span class="params">texts, ...values</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> texts.reduce(</span><br><span class="line">    (result, text, i) =&gt;</span><br><span class="line">      <span class="string">`<span class="subst">$&#123;result&#125;</span><span class="subst">$&#123;text&#125;</span><span class="subst">$&#123;values[i] ? <span class="string">`&lt;b&gt;<span class="subst">$&#123;values[i]&#125;</span>&lt;/b&gt;`</span> : <span class="string">""</span>&#125;</span>`</span>,</span><br><span class="line">    <span class="string">""</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">favoriteColors<span class="string">`제가 좋아하는 색은 <span class="subst">$&#123;red&#125;</span>과 <span class="subst">$&#123;blue&#125;</span>입니다.`</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//제가 좋아하는 색은 &lt;b&gt;빨간색&lt;/b&gt;과 &lt;b&gt;파란색&lt;/b&gt;입니다.</span></span><br></pre></td></tr></table></figure>
-
 <hr>
 <p><em>Refetences</em><br><a href="https://react.vlpt.us/styling/03-styled-components.html" target="_blank" rel="noopener">modern react -velopert</a></p>
 
@@ -357,7 +352,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -402,7 +397,7 @@
 <li>상호, 점진적 개발방법론</li>
 <li>개발할 기능, 수정사항에 대해 우선순위를 부여한 뒤, 이 순서대로 Task 진행</li>
 <li>매일 15분의 회의 진행</li>
-<li>1<del>4주의 Sprint(기획</del>리뷰)</li>
+<li>1~4주의 Sprint(기획~리뷰)</li>
 <li>데일리 스크럼 필요: 내가 어떤 것을 하고 있는지, 어떤 것을 보충해야하는지에 대해 서로 논의.</li>
 </ul>
 <h3 id="Scrum-Key-Process"><a href="#Scrum-Key-Process" class="headerlink" title="Scrum - Key Process"></a>Scrum - Key Process</h3><ul>
@@ -433,12 +428,9 @@
 </li>
 <li><p>wireframe, usecase(user flow), stroyboard(각 페이지가 어떻게 유기적으로 움직이는가)</p>
 </li>
-<li><p>design prototype(FE)</p>
-</li>
-<li><p>ERD(Entity Relationship Diagram)(BE)</p>
-</li>
-<li><p>API Design (FE + BE)</p>
-</li>
+<li>design prototype(FE)</li>
+<li>ERD(Entity Relationship Diagram)(BE)</li>
+<li>API Design (FE + BE)</li>
 </ul>
 
       
@@ -490,7 +482,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -517,21 +509,17 @@
 <li><code>createContext</code> 함수를 이용하여 context를 만들고, 파라미터에는 Context의 기본 상태를 지정한다.</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createContext &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ColorContext = createContext(&#123; <span class="attr">color</span>: <span class="string">"black"</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> ColorContext;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li><code>Consumer</code> 사이에 중괄호를 열어 함수를 넣어준다. 컴포넌트의 children이 있어야 할 자리에 JSX 또는 문자열이 아닌 함수를 전달하는 것.</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ColorContext.Consumer&gt;</span><br><span class="line">  &#123;(value) =&gt; (</span><br><span class="line">    &lt;div style=&#123;&#123; <span class="attr">width</span>: <span class="string">"64px"</span>, <span class="attr">height</span>: <span class="string">"64px"</span>, <span class="attr">background</span>: value.color &#125;&#125; /&gt;</span><br><span class="line">  )&#125;</span><br><span class="line">&lt;<span class="regexp">/ColorContext.Consumer&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li><code>Provider</code>를 사용하면 Context의 value를 변경할 수 있다.</li>
 </ol>
 <p>원래 cerateContext 생성시 만든 value는 black이었으나 Provider를 red로 변경하였다. 이전에 createContext 함수를 사용할 때 파라미터로 지정해 둔 <code>createContext({ color: &quot;black&quot; });</code>은 별도로 Provider를 사용하지 않았을 때 사용한다. <em>만약 Provider를 사용하면서 value는 지정하지 않았다면 오류가 발생한다.</em></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;ColorContext.Provider value=&#123;&#123; <span class="attr">color</span>: <span class="string">"red"</span> &#125;&#125;&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;ColorBox /&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>ColorContext.Provider&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <p>Context의 value는 상태 값이 아닌 함수를 전달할 수도 있다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// createContext의 기본값은 실제 Provider의 value에 넣는 객체의 형태와 일치시킨다.</span></span><br><span class="line"><span class="keyword">const</span> ColorContext = createContext(&#123;</span><br><span class="line">  state: &#123; <span class="attr">color</span>: <span class="string">"black"</span>, <span class="attr">subcolor</span>: <span class="string">"red"</span> &#125;,</span><br><span class="line">  action: &#123;</span><br><span class="line">    setColor: <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;,</span><br><span class="line">    setSubcolor: <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//상태는 state, 함수는 acions로 묶은 value를 전달받았다.</span></span><br><span class="line"><span class="keyword">const</span> value = &#123;</span><br><span class="line">    state: &#123; color, subColor &#125;,</span><br><span class="line">    actions: &#123; setColor, setSubcolor &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;ColorContext.Provider value=&#123;value&#125;&gt;&#123;children&#125;&lt;<span class="regexp">/ColorContext.Provider&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>useContext를 사용하면 Context를 편하게 사용할 수 있다. <em>단, 이는 함수형 컴포넌트에서만 사용할 수 있다.</em></p>
 <hr>
 <p><em>Reference</em><br><a href="https://ko.reactjs.org/docs/render-props.html#gatsby-focus-wrapper" target="_blank" rel="noopener">react</a><br>Udemy<br>리액트를 다루는 기술</p>
@@ -585,7 +573,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -610,19 +598,15 @@
 <p>BrowserRouter를 사용하면 페이지 새로고침 없이 주소를 변경하고, 이 주소에 관련된 정보를 props로 쉽게 조회하거나 사용할 수 있다.</p>
 <h2 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h2><p>Route를 써서 특정 주소에 컴포넌트 연결. 어떤 규칙에 따라 어떤 컴포넌트를 보여줄지 지정하는 것.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=<span class="string">'주소규칙'</span> component=&#123;보여 줄 컴포넌트&#125;/&gt;</span><br></pre></td></tr></table></figure>
-
 <p>여러 개의 path에 같은 컴포넌트를 보여주고 싶을 때 기존에는 아래와 같이 두 번 작성했다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=<span class="string">'/about'</span> component=&#123;About&#125;/&gt;</span><br><span class="line">&lt;Route path=<span class="string">'/info'</span> component=&#123;About&#125;/&gt;</span><br></pre></td></tr></table></figure>
-
 <p>이렇게 하는 대신 path props를 배열로 설정해 주면 여러 경로에서 같은 컴포넌트를 보여줄 수 있다. <em>path를 쓸 때 맨 앞에 <code>/</code> 쓰는 것을 잊지 않도록 한다. <code>/</code>가 빠지면 route의 주소를 제대로 받아올 수 없다. /users/:id에 id로 올 값이 ‘a’, ‘b’가 있다면 어떤 링크를 클릭하느냐에 따라 /user/a, /user/b로 주소가 받아와져야 한다. 만약 <code>/</code>를 빠뜨리면 /user/user/a, /user/user/a/b 이런 식으로 기존 주소에 새로 클릭하는 링크주소가 계속 붙여져서 제대로 된 경로를 찾지 못한다.</em></p>
 <blockquote>
 <p>path: string | string[]</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=<span class="string">"/users/:id"</span>&gt;</span><br><span class="line">  &lt;User /&gt;</span><br><span class="line">&lt;<span class="regexp">/Route&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;Route path=&#123;["/users/:id", "/profile/:id"]&#125;&gt;</span></span><br><span class="line"><span class="regexp">  &lt;User /</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/Route&gt;</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2><p><strong>클릭하면 다른 주소로 이동시켜 주는 컴포넌트.</strong> 일반 웹 어플리케이션에서는 <code>a태그</code>를 사용하여 페이지를 전환하는데 리액트 라우터에서는 a태그를 사용하지 않는다. a 태그를 사용하면 페이지를 전환하는 과정에서 새로 페이지를 불러오기 때문에 어플리케이션이 들고 있던 상태들을 모두 날려버린다. <em>따라서 컴포넌트들이 처음부터 다시 렌더링된다.</em></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link to=<span class="string">"주소"</span>&gt;내용&lt;<span class="regexp">/Link&gt;</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="URL-파라미터와-쿼리"><a href="#URL-파라미터와-쿼리" class="headerlink" title="URL 파라미터와 쿼리"></a>URL 파라미터와 쿼리</h2><p>페이지 주소 정의시 유동적인 값을 전달해야 할 때 사용.</p>
 <ul>
 <li>파라미터: /profiles/velopert</li>
@@ -636,17 +620,13 @@
 <p>위와 같이 설정했다면 profile 컴포넌트에서는 <code>match</code>를 props로 받아와서 유동적인 username에 따라 해당값을 조회할 수 있게 한다.</p>
 <h3 id="useParams"><a href="#useParams" class="headerlink" title="useParams"></a>useParams</h3><p>URL 파라미터의 key/value object를 리턴하는 hook이다. 이를 이용해서 현재 <Route>의 match.params에 접근할 수 있다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">BlogPost</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> &#123; slug &#125; = useParams();</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Now showing post &#123;slug&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;Router&gt;</span><br><span class="line">    &lt;Switch&gt;</span><br><span class="line">      &lt;Route exact path=<span class="string">"/"</span>&gt;</span><br><span class="line">        &lt;HomePage /&gt;</span><br><span class="line">      &lt;<span class="regexp">/Route&gt;</span></span><br><span class="line"><span class="regexp">      &lt;Route path="/</span>blog/:slug<span class="string">"&gt;</span></span><br><span class="line"><span class="string">        &lt;BlogPost /&gt;</span></span><br><span class="line"><span class="string">      &lt;/Route&gt;</span></span><br><span class="line"><span class="string">    &lt;/Switch&gt;</span></span><br><span class="line"><span class="string">  &lt;/Router&gt;,</span></span><br><span class="line"><span class="string">  node</span></span><br><span class="line"><span class="string">);</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="URL-쿼리"><a href="#URL-쿼리" class="headerlink" title="URL 쿼리"></a>URL 쿼리</h3><p>location 객체에 들어 있는 search 값에서 조회할 수 있고, Route로 사용된 컴포넌트에게 props로 전달된다. search 값은 문자열 형태이기 때문에 <code>qs</code>라이브러리를 설치해서 객체로 변환해서 읽어올 수 있도록 한다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> About = <span class="function">(<span class="params">&#123; location &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> query = qs.parse(location.search, &#123;</span><br><span class="line">    ignoreQueryPrefix: <span class="literal">true</span></span><br><span class="line">    <span class="comment">//문자열 맨 앞의 ?를 생략</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> showDetail = query.detail === <span class="string">"true"</span>;</span><br><span class="line">  <span class="comment">//쿼리 파싱 결과 값은 문자열</span></span><br></pre></td></tr></table></figure>
-
 <p>쿼리 문자열을 객체로 파싱하는 과정에서 결과 값은 언제나 문자열이다. 따라서 만약 숫자를 받아와야 한다면 <code>parseInt</code>를 통해 꼭 숫자로 변환시켜줘야 한다. 혹은 value =1 또는 value=true와 같은 형태를 사용한다면 ‘true’와 문자열이 일치하는지 비교한다.</p>
 <h3 id="UseLocation"><a href="#UseLocation" class="headerlink" title="UseLocation"></a>UseLocation</h3><p>현재의 URL을 나타내는 객체를 리턴하는 hook이다. url이 변경될 때마다 useState처럼 새로운 location을 반환하는 것이라고 생각할 수 있다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">usePageViews</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> location = useLocation();</span><br><span class="line">  React.useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    ga.send([<span class="string">"pageview"</span>, location.pathname]);</span><br><span class="line">  &#125;, [location]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  usePageViews();</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Switch</span>&gt;</span>...<span class="tag">&lt;/<span class="name">Switch</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h2 id="서브라우트"><a href="#서브라우트" class="headerlink" title="서브라우트"></a>서브라우트</h2><p>라우트 내부에서 또 라우트를 정의하는 것.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> &lt;Route</span><br><span class="line">  path=<span class="string">"profiles"</span></span><br><span class="line">  exact</span><br><span class="line">  render=&#123;() =&gt; <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>사용자를 선택해 주세요<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>&#125;</span><br><span class="line">/&gt;</span><br><span class="line">&lt;Route path=<span class="string">"/profiles/:username"</span> component=&#123;Profile&#125; /&gt;</span><br></pre></td></tr></table></figure>
-
 <p>첫 번째 라우트 컴포넌트처럼 component 대신 props를 넣어줄 수 있는데, 이는 컴포넌트 자체를 전달하는 것이 아닌, 보여주고 싶은 JSX를 넣어주는 것.</p>
 <h2 id="history"><a href="#history" class="headerlink" title="history"></a>history</h2><p>match, location처럼 라우트로 사용되는 컴포넌트에 전달되는 props 중 하나, 컴포넌트 내에 구현하는 메서드에서 라우터 API를 호출할 수 있다.</p>
 <ul>
@@ -655,14 +635,11 @@
 <li>다른 페이지로 이탈 방지</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//useHistory hook 사용</span></span><br><span class="line"><span class="keyword">import</span> &#123; useHistory &#125; <span class="keyword">from</span> <span class="string">"react-router-dom"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">HomeButton</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> history = useHistory();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">handleClick</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    history.push(<span class="string">"/home"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;button type=<span class="string">"button"</span> onClick=&#123;handleClick&#125;&gt;</span><br><span class="line">      Go home</span><br><span class="line">    &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="withRouter"><a href="#withRouter" class="headerlink" title="withRouter"></a>withRouter</h2><p>HOC로 라우트로 사용된 컴포넌트가 아니어도 match, location, history 객체를 접근할 수 있게 한다.</p>
 <h2 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h2><p>여러 route를 감싸서 그중 일치하는 단 하나의 라우트만 렌더링시켜준다. 모든 규칙과 일치하지 않을 때 보여줄 <code>Not Found</code>도 구현할 수 있다. 아래와 같이구현하면 처음으로 매치되는 항목인 <code>path=&quot;/&quot;</code>을 화면에 보여준다. 만약 이 경로에 <code>exact</code>라는 키워드가 붙어있지 않았다면 <code>path=&quot;/about&quot;, &quot;/info&quot;</code>가 렌더링 되었을 것이다. 만약 지정된 path가 아닌 임의의 경로, 예를 들어 <code>/abc</code>와 같이 입력했다면 Switch 내부에서 일치하는 라우트를 찾지 못하게 되었으므로 가장 마지막에 설정된 <code>Not Found</code> 관련 라우트가 렌더링된다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;Switch&gt;</span><br><span class="line">  &lt;Route path=<span class="string">"/"</span> component=&#123;Home&#125; exact /&gt;</span><br><span class="line">  &lt;Route path=&#123;[<span class="string">"/about"</span>, <span class="string">"/info"</span>]&#125; component=&#123;About&#125; /&gt;</span><br><span class="line">  &lt;Route path=<span class="string">"/profiles"</span> component=&#123;Profiles&#125; /&gt;</span><br><span class="line">  &lt;Route path=<span class="string">"/history"</span> component=&#123;HistorySample&#125; /&gt;</span><br><span class="line">  &#123;<span class="comment">/* &lt;Route path="/profile/:username" component=&#123;Profile&#125; /&gt; */</span>&#125;</span><br><span class="line">  &#123;<span class="comment">/* &lt;Route path="/about" component=&#123;About&#125; /&gt; */</span>&#125;</span><br><span class="line">  &lt;Route</span><br><span class="line">    <span class="comment">// path를 따로 정의하지 않으면 모든 상황에 렌더링됨.</span></span><br><span class="line">    render=&#123;(&#123; location &#125;) =&gt; (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;이 페이지는 존재하지 않습니다.&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">        &lt;p&gt;&#123;location.pathname&#125;&lt;/</span>p&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    )&#125;</span></span><br><span class="line"><span class="regexp">  /</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/Switch&gt;</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="NavLink"><a href="#NavLink" class="headerlink" title="NavLink"></a>NavLink</h2><p>Link와 비슷하다. 현재 경로와 Link에서 사용하는 경로가 일치할 때 특정 스타일이나 CSS 클래스를 적용할 수 있는 컴포넌트를 말한다. NavLink가 활성화되었을 때 스타일을 적용하려면 <code>activeStyle</code>을 사용하고, CSS클래스를 적용할 것이면 <code>activeClassName</code>값을 props로 넣어준다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Profiles = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> activeStyle = &#123;</span><br><span class="line">    background: <span class="string">"black"</span>,</span><br><span class="line">    color: <span class="string">"white"</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h3&gt;사용자목록:&lt;<span class="regexp">/h3&gt;</span></span><br><span class="line"><span class="regexp">      &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">        &lt;li&gt;</span></span><br><span class="line"><span class="regexp">          &lt;NavLink activeStyle=&#123;activeStyle&#125; to="/</span>profiles/velopert<span class="string">"&gt;</span></span><br><span class="line"><span class="string">            velopert</span></span><br><span class="line"><span class="string">          &lt;/NavLink&gt;</span></span><br><span class="line"><span class="string">        &lt;/li&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p><em>Reference</em><br><a href="https://reacttraining.com/react-router/web/guides/quick-start" target="_blank" rel="noopener">react-router</a><br>리액트를 다루는 기술</p>
 
       
@@ -714,7 +691,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -781,7 +758,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -813,7 +790,7 @@
 <li>특정 액션이 발생했을 때 이에 기반하여 다른 액션이 발생되도록 할 수 있다.</li>
 <li>특정 액션이 발생했을 때 특정 자바스크립트 함수를 실행시킬 수 있다.</li>
 </ul>
-<ol start="2">
+<ol>
 <li>유용한 함수와 Hooks를 지원받음.</li>
 </ol>
 <ul>
@@ -821,7 +798,7 @@
 <li>useSelector, useDispatch, useStore: Redux에서 관리하고 있는 상태를 쉽게 조회하고, action을 쉽게 디스패치할 수 있다.</li>
 <li>만약 Context API를 사용한다면 위와 같은 hooks를 쓰는 것이 아니라 직접 만들어줘야 한다.</li>
 </ul>
-<ol start="3">
+<ol>
 <li>기본적인 최적화가 이미 되어있어서 필요한 상태가 바뀔 때만 리렌더링 된다.</li>
 <li>하나의 커다란 상태<br>Context API를 사용해서 글로벌 상태를 관리하게 되면 기능별로 Context를 만들어서 사용해야 한다. 반면 Redux에서는 모든 글로벌 상태를 하나의 커다란 객체에 넣어서 사용하는 것이 필수이다. 따라서 매번 Context를 만들어서 사용하지 않아도 됨.</li>
 <li>DevTools: 개발자 도구가 있어서 현재상태를 한 눈에 볼 수 있다.</li>
@@ -834,13 +811,11 @@
 <li>액션(Action)<br>상태에 어떤 변화가 필요할 때 액션을 발생시킨다. 하나의 객체이며 type이라는 값이 필수적으로 있어야함. 그외 필요한 값을 추가할 수도 있음. 상태 업데이트 시에 <code>type</code>을 보고 어떻게 업데이트할지 정하는 것.</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  type: <span class="string">"TOGGLE_VALUE"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 필수적인 type 값 외에 필요한 값을 넣어줄 수 있다.</span></span><br><span class="line"><span class="comment">// 새로운 할 일을 만드는 액션이며, 이 data를 추가하겠다는 의미.</span></span><br><span class="line">&#123;</span><br><span class="line">  type: <span class="string">"ADD_TODO"</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    id: <span class="number">0</span>,</span><br><span class="line">    text: <span class="string">"리덕스 배우기"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>액션 생성함수 (Action Creator)<br>액션을 만드는 함수. 단순히 파라미터를 받아와서 액션 객체 형태로 만든다. 필수로 사용해야 하는 것은 아니지만 이렇게 하면 액션 객체를 만드는 것이 훨씬 편하다. 즉 컴포넌트에서 쉽게 액션을 발생시키기 위함이므로 보통 함수 앞에 <code>export</code> 키워드를 붙여서 다른 파일에서 불러와서 사용한다.</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// data라는 파라미터를 받아와서 객체를 만들어준다.</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">addTodo</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    type: <span class="string">"ADD_TODO"</span>,</span><br><span class="line">    data,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 화살표 함수로도 만들 수 있다.</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> changeInput = <span class="function">(<span class="params">text</span>) =&gt;</span> (&#123;</span><br><span class="line">  type: <span class="string">"CHANGE_INPUT"</span>,</span><br><span class="line">  text,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li><p>리듀서 (Reducer)<br>useReducer랑 완전히 같은 형태. <em>변화를 일으키는 함수.</em> 리듀서는 두가지의 파라미터를 받아온다. action.type를 가지고 그 type이 무엇이냐에 따라 다른 업데이트 작업을 한다.</p>
 <blockquote>
 <p>리듀서는 이전 상태와 액션을 받아서 다음 상태를 반환하는 순수 함수<br><code>(previousState, action) =&gt; newState</code></p>
@@ -848,7 +823,6 @@
 </li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">counter</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"INCREASE"</span>:</span><br><span class="line">      <span class="keyword">return</span> state + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"DECREASE"</span>:</span><br><span class="line">      <span class="keyword">return</span> state - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><code>주의</code></p>
 <ul>
 <li><p>위와 같이 단순히 숫자를 더하거나 빼는 경우가 아닌 객체 또는 배열이라면 스프레드 연산자 등으로 불변성을 반드시 지켜준다.</p>
@@ -857,19 +831,17 @@
 </li>
 <li><p>API 호출이나 라우팅 전환같은 사이드이펙트를 일으키지 않도록 한다.</p>
 </li>
-<li><p>Date.now()나 Math.random() 같이 순수하지 않은 함수를 호출하지 않는다.</p>
-</li>
+<li>Date.now()나 Math.random() 같이 순수하지 않은 함수를 호출하지 않는다.</li>
 </ul>
-<ol start="4">
+<ol>
 <li><p>스토어 (Store)<br><em>리덕스에서는 한 애플리케이션당 하나의 스토어를 만든다.</em> 스토어 안에는, 현재의 앱 상태와, 리듀서가 들어가있고, 추가적으로 몇가지 내장 함수들이 있다.</p>
 </li>
 <li><p>디스패치 (dispatch)<br>디스패치는 스토어의 내장함수 중 하나. 디스패치는 액션을 발생 시키는 것(액션을 스토어에게 전달)</p>
 </li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dispatch(&#123; <span class="attr">type</span>: <span class="string">"INCREASE"</span> &#125;);</span><br></pre></td></tr></table></figure>
-
 <p>액션을 만들어서 dispatch의 파라미터로 넣어서 호출한다. 이렇게 호출하면 스토어가 리듀서 함수를 실행시켜서 해당 액션을 처리하는 로직이 있다면 이를 참고하여 새로운 상태를 만들어준다.</p>
-<ol start="6">
+<ol>
 <li>구독 (subscribe)<br>구독 또한 스토어의 내장함수 중 하나. subscribe 함수는, 함수 형태의 값을 파라미터로 받아온다. subscribe 함수에 특정 함수를 전달해주면, 액션이 디스패치 되었을 때 마다 전달해준 함수가 호출된다. <em>스토어의 상태가 업데이트 될 때마다 특정함수를 호출할 수 있다.</em> 리액트에서 리덕스를 사용하게 될 때 보통 이 함수를 직접 사용하는 일은 별로 없다. 그 대신에 react-redux 라는 라이브러리에서 제공하는 connect 함수 또는 useSelector Hook 을 사용하여 리덕스 스토어의 상태에 구독한다.</li>
 </ol>
 <h2 id="리덕스의-3가지-규칙"><a href="#리덕스의-3가지-규칙" class="headerlink" title="리덕스의 3가지 규칙"></a>리덕스의 3가지 규칙</h2><ol>
@@ -934,7 +906,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -958,19 +930,14 @@
 </ul>
 <p>함수를 연달아서 두번 리턴하는 함수.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> middleware = <span class="function">(<span class="params">store</span>) =&gt;</span> <span class="function">(<span class="params">next</span>) =&gt;</span> <span class="function">(<span class="params">action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 하고 싶은 작업...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">middleware</span>(<span class="params">store</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//store: 리덕스 스토어의 인스턴스, dispatch, getState, subscribe 내장함수들이 들어있다.</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">next</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// next: next(action)의 형태로 액션을 다음 미들웨어에게 전달.</span></span><br><span class="line">    <span class="comment">// 다음 미들웨어가 없다면 리듀서에게 전달한다.</span></span><br><span class="line">    <span class="comment">//next를 호출하지 않으면 액션이 무시처리되어 리듀서에게 전달안됨.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">action</span>) </span>&#123;</span><br><span class="line">      <span class="comment">//action: 현재 처리하고 있는 액션 객체</span></span><br><span class="line">      <span class="comment">// 하고 싶은 작업...</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><em>리덕스 스토어에 여러 개의 미들웨어 등록 가능</em> 새로운 액션이 디스패치되면 첫 번째 등록한 미들웨어가 호출되고, next(action)을 호출하면 다음 미들웨어로 액션이 넘어간다. 미들웨어에서 store.dispatch를 사용하면 다른 액션을 추가로 발생시킬 수 있다.</p>
 <h2 id="redux-thunk"><a href="#redux-thunk" class="headerlink" title="redux-thunk"></a>redux-thunk</h2><p>redux-thunk를 사용하여 동기화된 액션을 네트워크 요청과 함께 사용할 수 있다. 이를 통해 action creator는 액션 객체 대신 함수를 반환할 수 있다. 이를 통해 action creator가 thunk가 되는 것이다. action creator가 함수를 반환하면 thunk middleware에 읳해 실행되는데, 이는 순수할 필요가 없다. 비동기 api 호출과 같은 사이드 이펙트가 허용되고, 동기적인 action을 보낸다.</p>
 <p>객체 대신 함수를 생성하는 액션 생성함수를 작성. 미들웨어 안에서는 액션 값을 객체가 아닌 함수로 받아오게 하여 액션이 함수타입이면 실행시키게 만들 수 있다. <em>즉, 액션 객체가 아닌 함수를 디스패치 할 수 있다.</em></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> thunk = <span class="function">(<span class="params">store</span>) =&gt;</span> <span class="function">(<span class="params">next</span>) =&gt;</span> <span class="function">(<span class="params">action</span>) =&gt;</span></span><br><span class="line">  <span class="keyword">typeof</span> action === <span class="string">"function"</span></span><br><span class="line">    ? action(store.dispatch, store.getState)</span><br><span class="line">    : next(action);</span><br><span class="line"></span><br><span class="line"><span class="comment">//dispatch할 때</span></span><br><span class="line"><span class="keyword">const</span> myThunk = <span class="function"><span class="params">()</span> =&gt;</span> <span class="function">(<span class="params">dispatch, getState</span>) =&gt;</span> &#123;</span><br><span class="line">  dispatch(&#123; <span class="attr">type</span>: <span class="string">"HELLO"</span> &#125;);</span><br><span class="line">  dispatch(&#123; <span class="attr">type</span>: <span class="string">"BYE"</span> &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">dispatch(myThunk());</span><br></pre></td></tr></table></figure>
-
 <p>미들웨어를 사용하면 함수를 디스패치 할 수 있는데, 이때 dispatch와 getState를 파라미터로 받아와야 한다. 이 함수를 만들어주는 함수를 thunk라 부른다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getComments = <span class="function"><span class="params">()</span> =&gt;</span> <span class="function">(<span class="params">dispatch, getState</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 액션을 dispatch할 수 있고,</span></span><br><span class="line">  <span class="comment">// getState를 사용하여 현재 상태를 조회할 수 있다.</span></span><br><span class="line">  <span class="keyword">const</span> id = getState().post.activeId;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 요청이 시작했음을 알리는 액션</span></span><br><span class="line">  dispatch(&#123;<span class="attr">type</span>: <span class="string">'GET_COMMENTS&#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  // 댓글을 조회하는 프로미스를 반환하는 getCommets가 있다고 가정했을 때</span></span><br><span class="line"><span class="string">  api</span></span><br><span class="line"><span class="string">    .getComments(id) //요청</span></span><br><span class="line"><span class="string">    .then(comments =&gt; dispatch(&#123;type:'</span>GET_COMMENTS_SUCCESS<span class="string">', id, comments&#125;))</span></span><br><span class="line"><span class="string">    //성공시</span></span><br><span class="line"><span class="string">    .catch(e =&gt; dispatch(&#123;type:'</span>GET_COMMENTS_ERROR<span class="string">',error: e&#125;)); //실패시</span></span><br><span class="line"><span class="string">&#125;;</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//thunk 내에서 async/await 사용 가능</span></span><br><span class="line"><span class="keyword">const</span> getComments = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">async</span> (dispatch, getState) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> id = getState().post.activeId;</span><br><span class="line">  dispatch(&#123; <span class="attr">type</span>: <span class="string">"GET_COMMENTS"</span> &#125;);</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> comments = <span class="keyword">await</span> api.getComments(id);</span><br><span class="line">    dispatch(&#123; <span class="attr">type</span>: <span class="string">"GET_COMMENTS_SUCCESS"</span>, id, comments &#125;);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    dispatch(&#123; <span class="attr">type</span>: <span class="string">"GET_COMMENTS_ERROR"</span>, <span class="attr">error</span>: e &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <h3 id="프로미스를-다룰-때-고려해야-할-사항"><a href="#프로미스를-다룰-때-고려해야-할-사항" class="headerlink" title="프로미스를 다룰 때 고려해야 할 사항"></a>프로미스를 다룰 때 고려해야 할 사항</h3><ul>
 <li>프로미스가 시작, 성공, 실패했을때 다른 액션을 디스패치해야합니다.</li>
 <li>각 프로미스마다 thunk 함수를 만들어주어야 합니다.</li>
@@ -1028,7 +995,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -1052,32 +1019,28 @@
 <li>React.CreateContext</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MyContext = React.createContext(defaultValue);</span><br></pre></td></tr></table></figure>
-
 <p>context 객체를 만든다. Context 객체를 구독하고 있는 컴포넌트를 렌더링할 때 React는 트리 상위에서 가장 가까이 있는 짝이 맞는 <code>Provider</code>로부터 현재값을 읽는다.</p>
 <ul>
 <li>defaultValue: 트리 안에서 적절한 <code>Provider</code>를 찾지 못했을 때 쓰임. <code>Provider</code>를 통해 <code>undefined</code>를 값으로 보내도 구독 컴포넌트들이 <code>defaultValue</code>를 읽지 않음.</li>
 </ul>
-<ol start="2">
+<ol>
 <li>Context.Provider</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//상위 컴포넌트에서의 정의</span></span><br><span class="line">&lt;MyContext.Provider value=&#123;<span class="comment">/* 어떤 값 */</span>&#125;&gt;</span><br><span class="line">  &#123;하위 컴포넌트&#125;</span><br><span class="line">&lt;<span class="regexp">/MyContext.Provider&gt;</span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>Provider: Context 오브젝트에 포함된 React컴포넌트로 context를 구독하는 컴포넌트들에게 context의 변화를 알리는 역할을 한다.</li>
 </ul>
 <p>Context 변경 사항을 자손들에게 제공한다. Provider 의 Value는 하위의 모든 Consumer 에서 사용할 수 있으며, Provider 하위의 모든 Consumer 는 Provider 의 value가 변경 될 때마다 리렌더링 된다. Privider가 받은 value를 하위 컴포넌트에 넘길 때, 값을 전달 받을 수 있는 컴포넌트의 수 제한은 없다.</p>
-<ol start="3">
+<ol>
 <li>Context.Consumer</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//하위 컴포넌트에서 정의</span></span><br><span class="line">&lt;MyContext.Consumer&gt;&#123;(value) =&gt;</span><br><span class="line"><span class="comment">//render something based on the context value</span></span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/MyContext.Consumer&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>MyContext Provide의 Value의 변경 사항을 구독하며, Context 에서 가장 가까운 Provider 의 Value 를 참조한다.</p>
 <p>함수 컴포넌트 안에서 context를 읽기 위해 쓸 수 있고, Context.Consumer의 자식은 <code>함수</code>여야 한다. 이 함수는 context의 현재값을 받고 React 노드를 반환한다.</p>
-<ol start="4">
+<ol>
 <li>Hook의 useContext</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> value = useContext(MyContext);</span><br></pre></td></tr></table></figure>
-
 <p>Hook의 useContext로 Context 객체의 value를 가져올 수 있다.</p>
 <hr>
 <p><em>Reference</em><br><a href="https://ko.reactjs.org/docs/context.html#gatsby-focus-wrapper" target="_blank" rel="noopener">React</a><br><a href="https://glenncy.s3.ap-northeast-2.amazonaws.com/lecture/reactjs/chapter10.html" target="_blank" rel="noopener">fastCampusDocument</a></p>
@@ -1131,7 +1094,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -1153,20 +1116,16 @@
 <h2 id="props"><a href="#props" class="headerlink" title="props"></a>props</h2><p>부모 컴포넌트에서 자식 컴포넌트로 <code>props를 전달</code>하면 React 앱에서 부모에서 자식으로 정보가 어떻게 흘러가는지 알려준다. 자식 컴포넌트에서 클릭 이벤트 발생에 대한 변화가 필요한데, state는 부모 컴포넌트에 있다면 자식은 부모의 state를 직접 변경할 수 없다. 컴포넌트는 자신이 정의한 state에만 접근할 수 있기 때문이다. 따라서 부모 컴포넌트가 자식 컴포넌트에게 props를 전달하고, 자식 컴포넌트에서는 함수를 호출한다. 아래의 경우 square를 클릭하면 부모 컴포넌트인 Board에서 넘겨받은 함수가 호출된다. 참고로 React에서 이벤트를 나타내는 prop에는 on[Event], 이벤트를 처리하는 함수에는 handle[Event]를 사용하는 것이 일반적이다.</p>
 <p>이렇게 부모 컴포넌트가 자식 컴포넌트로 props를 전달하면 부모 컴포넌트에게 값을 받아 클릭 이벤트와 같은 변화가 생길 때 부모 컴포넌트에게 정보를 전달한다. 이런 경우 자식 컴포넌트를 제어되는 컴포넌트라고 한다. 부모 컴포넌트에 의해 제어되기 때문이다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//class component</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button className=<span class="string">"square"</span> onClick=&#123;() =&gt; <span class="keyword">this</span>.props.onClick()&#125;&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.props.value&#125;</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ function component</span></span><br><span class="line"><span class="regexp">function Square(props) &#123;</span></span><br><span class="line"><span class="regexp">  return (</span></span><br><span class="line"><span class="regexp">    &lt;button className="square" onClick=&#123;props.onClick&#125;&gt;</span></span><br><span class="line"><span class="regexp">      &#123;props.value&#125;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>button&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h2 id="state"><a href="#state" class="headerlink" title="state"></a>state</h2><p>무엇인가를 기억하기 위해 사용. class 컴포넌트에서는 <code>this.state</code>를 설정하는 것으로 state를 가진다. <em>주의할 것은 하위 클래스의 생성자를 정의할 때 반드시 super를 호출해야한다.</em> 아래와 같이 작성시 Square의 render 함수 내부에서 onClick 핸들러를 통해 this.setState를 호출하는 것으로 React에게 <code>&lt;button&gt;</code>을 클릭할 때 Square를 다시 렌더링해야 한다고 알릴 수 있다. 업데이트 이후에 Square의 this.state.value는 ‘X’가 되어 게임 판에서 X가 나타나는 것을 확인할 수 있다. 어떤 Square를 클릭하던 X가 나타날 것이다. 컴포넌트에서 setState를 호출하면 React는 자동으로 컴포넌트 내부의 자식 컴포넌트 역시 업데이트한다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      value: <span class="literal">null</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button className=<span class="string">"square"</span> onClick=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123; <span class="attr">value</span>: <span class="string">"X"</span> &#125;)&#125;&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.state.value&#125;</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
-
 <p>특정값을 유지해야 할 필요가 있을 때 부모 컴포넌트에 상태를 저장하고, 부모 컴포넌트가 자식 컴포넌트에게 props를 전달하는 것으로 무엇을 표시해야 할지 알려줄 수 있다. 여러개의 자식으로부터 데이터를 모으거나 두 개의 자식 컴포넌트들이 서로 통신하게 하려면 부모 컴포넌트에 공유 state를 정의해야 한다. 부모 컴포넌트는 props를 사용하여 자식 컴포넌트에 state를 다시 전달할 수 있다. 이것은 자식 컴포넌트들이 서로 또는 부모 컴포넌트와 동기화 하도록 만든다. 아래의 경우 부모 컴포넌트인 Board에 생성자를 추가하고, 값을 유지해야하는 squares의 null 배열을 초기 state로 설정했다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Board</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      squares: <span class="built_in">Array</span>(<span class="number">9</span>).fill(<span class="literal">null</span>),</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  renderSquare(i) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Square</span> <span class="attr">value</span>=<span class="string">&#123;i&#125;</span> /&gt;</span></span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
 <p><code>array.fill</code><br><code>arr.fill(value[, start[, end]])</code></p>
 <ul>
 <li>value: 배열을 채울 값, start: 시작 인덱스, 기본값 0, end:끝 인덱스, 기본값 this.length</li>
 <li>arr.fill 메서드는 변경자 메서드로, 복사본이 아니라 this 객체를 변형해 반환.</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>); <span class="comment">// [4, 4, 4]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">1</span>); <span class="comment">// [1, 4, 4]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// [1, 4, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">1</span>, <span class="number">1</span>); <span class="comment">// [1, 2, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">3</span>, <span class="number">3</span>); <span class="comment">// [1, 2, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">-3</span>, <span class="number">-2</span>); <span class="comment">// [4, 2, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="literal">NaN</span>, <span class="literal">NaN</span>); <span class="comment">// [1, 2, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">3</span>, <span class="number">5</span>); <span class="comment">// [1, 2, 3]</span></span><br><span class="line"><span class="built_in">Array</span>(<span class="number">3</span>).fill(<span class="number">4</span>); <span class="comment">// [4, 4, 4]</span></span><br><span class="line">[].fill.call(&#123; <span class="attr">length</span>: <span class="number">3</span> &#125;, <span class="number">4</span>); <span class="comment">// &#123;0: 4, 1: 4, 2: 4, length: 3&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Objects by reference.</span></span><br><span class="line"><span class="keyword">var</span> arr = <span class="built_in">Array</span>(<span class="number">3</span>).fill(&#123;&#125;); <span class="comment">// [&#123;&#125;, &#123;&#125;, &#123;&#125;]</span></span><br><span class="line">arr[<span class="number">0</span>].hi = <span class="string">"hi"</span>; <span class="comment">// [&#123; hi: "hi" &#125;, &#123; hi: "hi" &#125;, &#123; hi: "hi" &#125;]</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="key-선택"><a href="#key-선택" class="headerlink" title="key 선택"></a>key 선택</h2><p>이런 경고가 있다면,</p>
 <blockquote>
 <p>경고 배열이나 이터레이터의 자식들은 고유의 “key” prop을 가지고 있어야 합니다. “Game”의 render 함수를 확인해주세요.</p>
@@ -1297,7 +1256,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1

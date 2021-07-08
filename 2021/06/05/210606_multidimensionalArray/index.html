@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="1차원 배열: [x] 2차원 배열: 1차원 배열들의 모임. [x,y] e.g. 엑셀의 테이블형 데이터, 구구단 3차원 배열: 2차원 배열들의 모임. [x,y,z]  123456789101112131415static void Main(string[] args)&amp;#123;  &#x2F;&#x2F;배열을 만드는데 콤마가 하나 있다. 2개가 들어온다.  int[,] table &#x3D;">
+  <meta name="description" content="1차원 배열: [x] 2차원 배열: 1차원 배열들의 모임. [x,y] e.g. 엑셀의 테이블형 데이터, 구구단 3차원 배열: 2차원 배열들의 모임. [x,y,z]  123456789101112131415static void Main(string[] args)&amp;#123;  &#x2F;&#x2F;배열을 만드는데 콤마가 하나 있다. 2개가 들어온다.  int[">
 <meta property="og:type" content="article">
 <meta property="og:title" content="다차원 배열">
 <meta property="og:url" content="https://heejinlee07.github.io/2021/06/05/210606_multidimensionalArray/index.html">
 <meta property="og:site_name" content="Heejin">
-<meta property="og:description" content="1차원 배열: [x] 2차원 배열: 1차원 배열들의 모임. [x,y] e.g. 엑셀의 테이블형 데이터, 구구단 3차원 배열: 2차원 배열들의 모임. [x,y,z]  123456789101112131415static void Main(string[] args)&amp;#123;  &#x2F;&#x2F;배열을 만드는데 콤마가 하나 있다. 2개가 들어온다.  int[,] table &#x3D;">
+<meta property="og:description" content="1차원 배열: [x] 2차원 배열: 1차원 배열들의 모임. [x,y] e.g. 엑셀의 테이블형 데이터, 구구단 3차원 배열: 2차원 배열들의 모임. [x,y,z]  123456789101112131415static void Main(string[] args)&amp;#123;  &#x2F;&#x2F;배열을 만드는데 콤마가 하나 있다. 2개가 들어온다.  int[">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-06-05T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-08T13:06:17.761Z">
+<meta property="article:modified_time" content="2021-07-08T14:03:19.049Z">
 <meta property="article:author" content="Heejin Lee">
 <meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary">
@@ -177,7 +177,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-08 22:06:17" itemprop="dateModified" datetime="2021-07-08T22:06:17+09:00">2021-07-08</time>
+                <time title="Modified: 2021-07-08 23:03:19" itemprop="dateModified" datetime="2021-07-08T23:03:19+09:00">2021-07-08</time>
               </span>
 
           
@@ -196,10 +196,8 @@
 <li>2차원 배열: 1차원 배열들의 모임. [x,y] e.g. 엑셀의 테이블형 데이터, 구구단</li>
 <li>3차원 배열: 2차원 배열들의 모임. [x,y,z]</li>
 </ul>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">//배열을 만드는데 콤마가 하나 있다. 2개가 들어온다.</span></span><br><span class="line">  <span class="keyword">int</span>[,] table = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">9</span>,<span class="number">9</span>];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; ++i)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; ++j)</span><br><span class="line">    &#123;</span><br><span class="line">      table[i, j] = (i + <span class="number">1</span>) * (j + <span class="number">1</span>);</span><br><span class="line">      Console.Write(<span class="string">$" <span class="subst">&#123;(i + <span class="number">1</span>), <span class="number">2</span>&#125;</span> * <span class="subst">&#123;j + <span class="number">1</span>, <span class="number">-2</span>&#125;</span> = <span class="subst">&#123;table[i, j], <span class="number">-3</span>&#125;</span>"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine(<span class="string">""</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;배열을 만드는데 콤마가 하나 있다. 2개가 들어온다.</span><br><span class="line">  int[,] table &#x3D; new int[9,9];</span><br><span class="line"></span><br><span class="line">  for (int i &#x3D; 0; i &lt; 9; ++i)</span><br><span class="line">  &#123;</span><br><span class="line">    for (int j &#x3D; 0; j &lt; 9; ++j)</span><br><span class="line">    &#123;</span><br><span class="line">      table[i, j] &#x3D; (i + 1) * (j + 1);</span><br><span class="line">      Console.Write($&quot; &#123;(i + 1), 2&#125; * &#123;j + 1, -2&#125; &#x3D; &#123;table[i, j], -3&#125;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine(&quot;&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="2차원-배열-선언하기"><a href="#2차원-배열-선언하기" class="headerlink" title="2차원 배열 선언하기"></a>2차원 배열 선언하기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int[,] table &#x3D; new int[2,4];</span><br><span class="line">&lt;자료형&gt;[,] &lt;변수명&gt; &#x3D; new &lt;자료형&gt;[&lt;행의 개수&gt;, &lt;열의 개수&gt;];</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>[,]은 2차원을 의미: int[,]은 int형 2차원 배열.([,]와 같은 형태는 다른 언어에는 없다.)</li>
 <li>&lt;행의 개수&gt; * &lt;열의 개수&gt; 개의 &lt;자료형&gt; 데이터를 담을 2D배열[,]을 만든다.<ul>
@@ -212,9 +210,8 @@
 </li>
 </ul>
 <h2 id="2차원-배열의-선언과-동시에-대입하기"><a href="#2차원-배열의-선언과-동시에-대입하기" class="headerlink" title="2차원 배열의 선언과 동시에 대입하기"></a>2차원 배열의 선언과 동시에 대입하기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;자료형&gt;[,] &lt;변수명&gt; &#x3D; new &lt;자료형&gt;[,]&#123;&#123;&lt;데이터&gt;&#125;, &#123;&lt;데이터&gt;&#125;&#125;;</span><br><span class="line">&lt;자료형&gt;[,] &lt;변수명&gt; &#x3D; new &lt;자료형&gt;[&lt;행의 개수&gt;, &lt;열의 개수&gt;]&#123;&#123;&lt;데이터&gt;&#125;, &#123;&lt;데이터&gt;&#125;&#125;;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[,] table1 = <span class="keyword">new</span> <span class="keyword">int</span>[,] &#123; &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;, &#123;<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>&#125; &#125;;</span><br><span class="line"><span class="keyword">int</span>[,] table2 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>, <span class="number">3</span>] &#123; &#123;<span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>&#125;, &#123;<span class="number">4</span>, <span class="number">8</span>, <span class="number">12</span>&#125; &#125;;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int[,] table1 &#x3D; new int[,] &#123; &#123;1, 2, 3&#125;, &#123;2, 4, 6&#125; &#125;;</span><br><span class="line">int[,] table2 &#x3D; new int[2, 3] &#123; &#123;3, 6, 9&#125;, &#123;4, 8, 12&#125; &#125;;</span><br></pre></td></tr></table></figure>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -224,7 +221,8 @@
 <th>[2]</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>[0]</td>
 <td>1</td>
 <td>2</td>
@@ -236,7 +234,10 @@
 <td>4</td>
 <td>6</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -246,7 +247,8 @@
 <th>[2]</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>[0]</td>
 <td>3</td>
 <td>6</td>
@@ -258,7 +260,9 @@
 <td>8</td>
 <td>12</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <hr>
 <h2 id="for문-속-for문"><a href="#for문-속-for문" class="headerlink" title="for문 속 for문"></a>for문 속 for문</h2><blockquote>
 <p>2차원 배열을 순차적으로 접근하기 위해서는 for문이 2개 필요</p>
@@ -267,8 +271,8 @@
 <li><code>행</code>을 위한 for문</li>
 <li><code>열</code>을 위한 for문</li>
 </ul>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[,] table = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; ++i) <span class="comment">//행을 위한 for 문</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; ++j) <span class="comment">//열을 위한 for 문</span></span><br><span class="line">  &#123;</span><br><span class="line">    table[i, j] = (i + <span class="number">1</span>) * (j + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int[,] table &#x3D; new int[2, 3];</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt; 2; ++i) &#x2F;&#x2F;행을 위한 for 문</span><br><span class="line">&#123;</span><br><span class="line">  for (int j &#x3D; 0; j &lt; 3; ++j) &#x2F;&#x2F;열을 위한 for 문</span><br><span class="line">  &#123;</span><br><span class="line">    table[i, j] &#x3D; (i + 1) * (j + 1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -278,7 +282,8 @@
 <th>[2]</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>[0]</td>
 <td>1</td>
 <td>2</td>
@@ -290,7 +295,9 @@
 <td>4</td>
 <td>6</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <ol>
 <li>table[0,0] = (0 + 1) * (0 + 1) = 1;</li>
 <li>table[0,1] = (0 + 1) * (1 + 1) = 2;</li>
@@ -462,7 +469,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
