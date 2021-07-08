@@ -91,7 +91,7 @@ exclude:
 ignore:
 
 # Extensions
-Plugins: hexo-math
+# Plugins: hexo-math
 ## Themes: https://hexo.io/themes/
 theme: next
 
@@ -99,3 +99,6 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: ''
+
+mathjax:
+  enable: true
