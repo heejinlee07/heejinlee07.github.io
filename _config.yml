@@ -91,7 +91,7 @@ exclude:
 ignore:
 
 # Extensions
-## Plugins: https://hexo.io/plugins/
+Plugins: hexo-math
 ## Themes: https://hexo.io/themes/
 theme: next
 
