@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="타입스크립트란? TypeScript is Typed JavaScript at Any Scale   JS에 타입을 부여한 언어 JS와 달리 브라우저에서 실행하려면 파일을 변환하는 컴파일 과정이 필요하다.  왜 타입스크립트를 써야하는가?1234567891011121314151617181920212223&amp;#123;  &quot;id&quot;: 1,  &quot;name&quot;: &quot;Leanne">
+<meta property="og:type" content="article">
+<meta property="og:title" content="타입스크립트를 왜 써야하는가?">
+<meta property="og:url" content="https://heejinlee07.github.io/2021/07/12/210713_whyTypesctipt/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="타입스크립트란? TypeScript is Typed JavaScript at Any Scale   JS에 타입을 부여한 언어 JS와 달리 브라우저에서 실행하려면 파일을 변환하는 컴파일 과정이 필요하다.  왜 타입스크립트를 써야하는가?1234567891011121314151617181920212223&amp;#123;  &quot;id&quot;: 1,  &quot;name&quot;: &quot;Leanne">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-12T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-07-13T12:16:07.517Z">
+<meta property="article:author" content="Heejin Lee">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2021/07/12/210713_whyTypesctipt/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>타입스크립트를 왜 써야하는가? | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Developer</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/12/210713_whyTypesctipt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          타입스크립트를 왜 써야하는가?
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-07-13 00:00:00 / Modified: 21:16:07" itemprop="dateCreated datePublished" datetime="2021-07-13T00:00:00+09:00">2021-07-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="타입스크립트란"><a href="#타입스크립트란" class="headerlink" title="타입스크립트란?"></a>타입스크립트란?</h2><blockquote>
+<p>TypeScript is Typed JavaScript at Any Scale</p>
+</blockquote>
+<ul>
+<li>JS에 <code>타입</code>을 부여한 언어</li>
+<li>JS와 달리 브라우저에서 실행하려면 파일을 변환하는 <code>컴파일</code> 과정이 필요하다.</li>
+</ul>
+<h2 id="왜-타입스크립트를-써야하는가"><a href="#왜-타입스크립트를-써야하는가" class="headerlink" title="왜 타입스크립트를 써야하는가?"></a>왜 타입스크립트를 써야하는가?</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"id"</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"Leanne Graham"</span>,</span><br><span class="line">  <span class="attr">"username"</span>: <span class="string">"Bret"</span>,</span><br><span class="line">  <span class="attr">"email"</span>: <span class="string">"Sincere@april.biz"</span>,</span><br><span class="line">  <span class="attr">"address"</span>: &#123;</span><br><span class="line">    <span class="attr">"street"</span>: <span class="string">"Kulas Light"</span>,</span><br><span class="line">    <span class="attr">"suite"</span>: <span class="string">"Apt. 556"</span>,</span><br><span class="line">    <span class="attr">"city"</span>: <span class="string">"Gwenborough"</span>,</span><br><span class="line">    <span class="attr">"zipcode"</span>: <span class="string">"92998-3874"</span>,</span><br><span class="line">    <span class="attr">"geo"</span>: &#123;</span><br><span class="line">      <span class="attr">"lat"</span>: <span class="string">"-37.3159"</span>,</span><br><span class="line">      <span class="attr">"lng"</span>: <span class="string">"81.1496"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"phone"</span>: <span class="string">"1-770-736-8031 x56442"</span>,</span><br><span class="line">  <span class="attr">"website"</span>: <span class="string">"hildegard.org"</span>,</span><br><span class="line">  <span class="attr">"company"</span>: &#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"Romaguera-Crona"</span>,</span><br><span class="line">    <span class="attr">"catchPhrase"</span>: <span class="string">"Multi-layered client-server neural-net"</span>,</span><br><span class="line">    <span class="attr">"bs"</span>: <span class="string">"harness real-time e-markets"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>API 호출을 통해 위와 같은 데이터를 response로 받아왔고, <code>const user = {}</code>와 같은 변수에 저장한다. 그리고, <code>name</code>, <code>email</code>, <code>address</code>를 화면에 출력하고자 한다면, <code>user.name</code>, <code>user.email</code>, <code>user.address</code>와 같은 방식으로 사용될 것이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// user.name</span></span><br><span class="line">Leanne Graham</span><br><span class="line"></span><br><span class="line"><span class="comment">//user.email</span></span><br><span class="line">Sincere@april.biz</span><br><span class="line"></span><br><span class="line"><span class="comment">//user.address</span></span><br><span class="line">[object <span class="built_in">Object</span>]</span><br></pre></td></tr></table></figure>
+<p>그런데 다른 값들과 달리 address는 값이 객체이기 때문에 기대했던 값이 <code>Kulas Light</code>라면 이 값 대신 <code>[object Object]</code>가 반환된다. 또는 작성하는 과정에서 오탈자가 있어서 <code>user.adress</code>와 같이 사용했다면 <code>undefined</code>를 반환하게 된다. <strong>이처럼 내가 작성한 코드의 결과가 제대로 출력되는지 여부는 화면에 표시된 데이터를 보고 나서야 알 수 있다.</strong></p>
+<h2 id="타입스크립트를-쓰면-좋은-점"><a href="#타입스크립트를-쓰면-좋은-점" class="headerlink" title="타입스크립트를 쓰면 좋은 점"></a>타입스크립트를 쓰면 좋은 점</h2><ul>
+<li><p>에러의 사전 방지<br>위 예시는 브라우저 실행 후 화면에 그려지고 나서야 어떠한 에러가 있는지 알 수 있었지만, TypeScript를 쓰면 브라우저 실행 전에 코드 상에서 미리 에러를 잡을 수 있고, 의도치 않은 값을 반환하지 않도록 수정할 수 있다.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//type으로 지정된 number 대신 스트링 '20'을 넣었기 때문에 아래와 같은 에러 표시</span></span><br><span class="line"><span class="comment">//Argument of type 'string' is not assignable to parameter of type 'number'.</span></span><br><span class="line">add(<span class="number">10</span>, <span class="string">'20'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//브라우저 실행 전에 에러를 확인하고 올바르게 고칠 수 있다.</span></span><br><span class="line">add(<span class="number">10</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>코드 가이드 및 자동 완성<br>일반 javaScript 코드였다면 toLocaleString()과 같은 api를 사용하고자 할 때 <code>toLocaleString()</code>을 한 자씩 입력해야 한다. typeScript는 vscode의 IntelliSense를 이용해서 <code>toL</code>까지만 입력해도 <code>toLocaleString()</code>를 리스트에서 확인할 수 있고 이를 선택시 바로 자동완성 되어 입력이 된다. IntelliSense는 코드 완성, 매개 변수 정보, 빠른 정보 및 구성원 목록을 비롯한 다양한 코드 편집 기능을 나타내는 일반적인 용어를 말한다. IntelliSense 기능은 때때로 “코드 완성”, “콘텐츠 지원” 및 “코드 힌트”와 같은 다른 이름으로 호출된다.</p>
+</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = add(<span class="number">10</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//result.까지만 입력해도 자동완성으로 api 사용가능</span></span><br><span class="line">result.toLocaleString();</span><br></pre></td></tr></table></figure>
+<h2 id="JS에서-JSDoc과-ts-check로-ts처럼-사용하기"><a href="#JS에서-JSDoc과-ts-check로-ts처럼-사용하기" class="headerlink" title="JS에서 JSDoc과 @ts-check로 ts처럼 사용하기"></a>JS에서 JSDoc과 @ts-check로 ts처럼 사용하기</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @ts-check</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> </span>a 첫번째 숫자</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> </span>b 두번째 숫자</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum(<span class="number">10</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+<p>위의 코드처럼 사용하면 javaScript에서도 TypeScript처럼 브라우저 실행 전에 타입체크를 할 수 있다.</p>
+<hr>
+<p><em>References</em><br><a href="https://inf.run/zNPx" target="_blank" rel="noopener">타입스크립트 입문 - 기초부터 실전까지</a><br><a href="https://joshua1988.github.io/ts/why-ts.html#%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%9E%80" target="_blank" rel="noopener">타입스크립트 핸드북</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/TypeScript/" rel="tag"># TypeScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/05/210706_recursive/" rel="prev" title="재귀 함수">
+      <i class="fa fa-chevron-left"></i> 재귀 함수
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#타입스크립트란"><span class="nav-number">1.</span> <span class="nav-text">타입스크립트란?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#왜-타입스크립트를-써야하는가"><span class="nav-number">2.</span> <span class="nav-text">왜 타입스크립트를 써야하는가?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#타입스크립트를-쓰면-좋은-점"><span class="nav-number">3.</span> <span class="nav-text">타입스크립트를 쓰면 좋은 점</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS에서-JSDoc과-ts-check로-ts처럼-사용하기"><span class="nav-number">4.</span> <span class="nav-text">JS에서 JSDoc과 @ts-check로 ts처럼 사용하기</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
