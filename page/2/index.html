@@ -144,6 +144,173 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/07/210608_cFunction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/06/07/210608_cFunction/" class="post-title-link" itemprop="url">함수</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-06-08 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-08T00:00:00+09:00">2021-06-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-14 09:52:43" itemprop="dateModified" datetime="2021-07-14T09:52:43+09:00">2021-07-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="함수"><a href="#함수" class="headerlink" title="함수"></a>함수</h2><ul>
+<li>입력이 들어가면 어떤 결과가 출력된다.</li>
+<li>중복되는 코드를 줄이는데 사용한다.</li>
+<li>자주 사용하는 코드의 재활용성이 올라간다.</li>
+</ul>
+<h2 id="함수-정의"><a href="#함수-정의" class="headerlink" title="함수 정의"></a>함수 정의</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static &lt;반환형&gt; &lt;함수명&gt;(&lt;매개변수 목록&gt;)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;함수 body</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>함수 시그니처(함수명(필수), static, 매개변수 목록)을 포함해야 한다.</li>
+<li>반환형, 함수 body는 필수이다.</li>
+</ul>
+<h3 id="반환형"><a href="#반환형" class="headerlink" title="반환형"></a>반환형</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;반환형이 있는 함수</span><br><span class="line">static int Add(int op1, int op2) &#x2F;&#x2F;반환형 int를 생략하면 안된다.</span><br><span class="line">&#123;</span><br><span class="line">  return op1 + op2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 없는 함수 return을 쓰지 않아도 된다.</span><br><span class="line">static void PrintHello(string name)</span><br><span class="line">&#123;</span><br><span class="line">Console.WriteLine($&quot;Hello, &#123;name&#125;!&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>프로그래밍 세계에세 함수의 출력</strong></li>
+<li><code>반환형은 반드시 선언해야한다.</code> (선언하지 않으면 컴파일 오류 발생.)</li>
+<li>반환값이 없을 수 있다. 없다면 <code>void</code> 사용.</li>
+<li>반환형이 <code>void</code>가 아니면 함수 body에 <code>return</code> 키워드를 사용하여 데이터를 반환한다.</li>
+<li>데이터를 반환하지 않으면 컴파일 오류 발생.</li>
+</ul>
+<h3 id="매개변수-목록"><a href="#매개변수-목록" class="headerlink" title="매개변수 목록"></a>매개변수 목록</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;2개의 매개변수가 있는 함수</span><br><span class="line">static int Add(int op1, int op2)</span><br><span class="line">&#123;</span><br><span class="line">  return op1 + op2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;매개변수가 없는 함수</span><br><span class="line">static void PrintHello()</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLonr(&#39;hello!;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>프로그래밍 세계에서의 임력</li>
+<li>int, byte와 같은 자료형 외에 int[], string과 같은 배열도 매개변수로 사용 가능.</li>
+<li><strong>필수가 아니다.</strong></li>
+<li>매개변수와 인자는 엄밀히 말하면 다르다.<ul>
+<li>매개변수: 함수를 정의할 때 함수의 입력값을 선언</li>
+<li>인자: 함수를 호출할 떄 함수로 전달하는 실제값</li>
+</ul>
+</li>
+</ul>
+<h3 id="메인함수의-매개변수에-데이터-전달하기"><a href="#메인함수의-매개변수에-데이터-전달하기" class="headerlink" title="메인함수의 매개변수에 데이터 전달하기"></a>메인함수의 매개변수에 데이터 전달하기</h3><p>메인함수는 프로그램을 실행할 때 자동으로 호출되는 함수로 이 메인함수에 매개변수를 넘기고 싶으면 visual studio 내부의 <strong><code>프로젝트 옵션</code> =&gt; <code>실행 구성</code> =&gt; <code>Default</code> =&gt; <code>인수</code></strong>에 전달하고 싶은 데이터를 입력한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  for (int i &#x3D; 0; i &lt; args.Length; ++i)</span><br><span class="line">  &#123;</span><br><span class="line">    Consol.WriteLine($&quot;args[&#123;i&#125;] &#x3D; &#123;args[i]&#125;&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위에서 설명한 방법대로 <code>Hello, C# is fun!</code>이라고 데이터를 입력했다면 실행했을 때 아래와 같은 결과를 얻을 수 있다. args 요소 하나에 여러 단어를 넣고 싶을 때는 <code>&quot;Hello, C# is fun!&quot; Bye!</code>과 같이 문장을 큰따옴표로 감싼다.</p>
+<ul>
+<li>args[0] = Hello,</li>
+<li>args[1] = C#,</li>
+<li>args[2] = is,</li>
+<li>args[3] = fun!</li>
+</ul>
+<p>큰따옴표로 감싼 문장은 아래와 같이 출력된다.</p>
+<ul>
+<li>args[0] = Hello, C# is fun!</li>
+<li>args[1] = Bye!</li>
+</ul>
+<h3 id="배열의-길이-Length"><a href="#배열의-길이-Length" class="headerlink" title="배열의 길이 Length"></a>배열의 길이 Length</h3><blockquote>
+<p>&lt;배열 변수명&gt;.Length</p>
+</blockquote>
+<p>배열의 길이를 알려준다.</p>
+<h3 id="함수-Body"><a href="#함수-Body" class="headerlink" title="함수 Body"></a>함수 Body</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static int Add(int op1, int op2)</span><br><span class="line">&#123;</span><br><span class="line">  return op1 + op2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>함수의 기능을 구현한 코드 블록, 그 함수의 범위를 나타냄.</li>
+<li>중괄호를 이용하여 표현</li>
+<li><em>void가 아닌 반환형을 가지고 있다면</em> 반드시 <code>return</code> 키워드를 사용하여 데이터를 반환한다.</li>
+</ul>
+<h3 id="함수-이름"><a href="#함수-이름" class="headerlink" title="함수 이름"></a>함수 이름</h3><ul>
+<li>함수명은 어떻게 짓든지 상관없다.</li>
+<li>하지만 이해하기 쉽고, 가독성을 좋게 하기 위해 함수가 어떤 기능을 가졌는지 알 수 있도록 함수명을 정한다.</li>
+<li>호출자가 함수 내부를 알 필요가 없게 <strong>함수명을 명확하게</strong> 지어야 한다.</li>
+</ul>
+<h3 id="함수-호출"><a href="#함수-호출" class="headerlink" title="함수 호출"></a>함수 호출</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 있는 경우</span><br><span class="line">static int Add(int op1, int op2)</span><br><span class="line">&#123;</span><br><span class="line">  return op1 + op2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 있는 함수 호출</span><br><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  int result &#x3D; Add(123, 589);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 없는 경우</span><br><span class="line">static void PrintHello()</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;just hello!&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 없는 함수 호출</span><br><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  PrintHello();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>반환형이 있는 경우: <code>Add</code>함수의 반환형이 int이므로, return 되는 값을 int result에 저장하고, 함수를 소괄호를 써서 호출한다. 매개변수가 있을 경우 소괄호 내에 적어준다.</li>
+<li>반환형이 없는 경우: 변수에 할당할 필요없이 소괄호를 써서 호출하기만 하면 된다.</li>
+<li>함수 호출 시 인자는 변수, 상수 모두 가능하다. <code>int result = Add(123, 589);</code>에서 상수 123, 589 대신 변수를 이용하여(num1, num2 가 변수라 가정) <code>int result = Add(num1, num2);</code>처럼 사용할 수 있다.</li>
+</ul>
+<hr>
+<h2 id="메인-함수"><a href="#메인-함수" class="headerlink" title="메인 함수"></a>메인 함수</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="콘솔-화면-출력-함수"><a href="#콘솔-화면-출력-함수" class="headerlink" title="콘솔 화면 출력 함수"></a>콘솔 화면 출력 함수</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Console.Write();</span><br><span class="line">Console.WriteLine();</span><br></pre></td></tr></table></figure>
+<h2 id="키보드-입력-함수"><a href="#키보드-입력-함수" class="headerlink" title="키보드 입력 함수"></a>키보드 입력 함수</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Console.ReadLind();</span><br></pre></td></tr></table></figure>
+<h2 id="변환-함수"><a href="#변환-함수" class="headerlink" title="변환 함수"></a>변환 함수</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int.Parse();</span><br><span class="line">double.Parse();</span><br><span class="line">float.Parse();</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="코딩-표준"><a href="#코딩-표준" class="headerlink" title="코딩 표준"></a>코딩 표준</h2><h3 id="함수-1"><a href="#함수-1" class="headerlink" title="함수"></a>함수</h3><blockquote>
+<p>정확하게 어떤 기능을 하는지 알려주는 단어를 사용한다.</p>
+</blockquote>
+<ul>
+<li>동사로 시작</li>
+<li>제일 첫 글자는 대문자 혹은 소문자(회사마다 코딩 표준은 다름)</li>
+<li>여러 단어를 연결한다면 파스칼 표기법으로 사용.</li>
+</ul>
+<h3 id="매개변수와-지역변수"><a href="#매개변수와-지역변수" class="headerlink" title="매개변수와 지역변수"></a>매개변수와 지역변수</h3><blockquote>
+<p>정확하게 어떤 정보를 담는지 알려주는 단어 사용</p>
+</blockquote>
+<ul>
+<li>명사 사용</li>
+<li>제일 첫 글자는 소문자로 시작</li>
+<li>여러 단어를 연결한다면 카멜케이스 사용</li>
+</ul>
+<hr>
+<h2 id="선조건-후조건"><a href="#선조건-후조건" class="headerlink" title="선조건 후조건"></a>선조건 후조건</h2><blockquote>
+<p>함수가 무슨 일을 하는지에 대한 약속. 선조건을 만족하지 못하면 후조건을 보장할 수 없다.</p>
+</blockquote>
+<p><u>선조건</u></p>
+<ul>
+<li><code>함수 실행 시작 전</code>에 참으로 가정한 조건 e.g. Divede() 함수는 분모가 0이 아니어야 한다.</li>
+<li>함수 이름, 매개변수로 유추 가능하지만 부족하면 주석으로 추가 설명 (슬래시(/) 세번이면 자동으로 주석이 생성된다.)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;param name &#x3D; &quot;numerator&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">static float Divede(float number, float denominator)</span><br><span class="line">&#123;</span><br><span class="line">  return numerator &#x2F; denominator;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><u>후조건</u></p>
+<ul>
+<li>함수 <code>실행 후</code>에 보장되는 조건 e.g. 두 정수를 더하면 정수의 결과가 나온다.</li>
+<li>함수 이름과 반환형으로 유추 가능</li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/05/210606_multidimensionalArray/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +342,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-13 23:20:26" itemprop="dateModified" datetime="2021-07-13T23:20:26+09:00">2021-07-13</time>
+                <time title="Modified: 2021-07-14 09:52:43" itemprop="dateModified" datetime="2021-07-14T09:52:43+09:00">2021-07-14</time>
               </span>
 
           
@@ -383,7 +550,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-13 23:20:26" itemprop="dateModified" datetime="2021-07-13T23:20:26+09:00">2021-07-13</time>
+                <time title="Modified: 2021-07-14 09:52:43" itemprop="dateModified" datetime="2021-07-14T09:52:43+09:00">2021-07-14</time>
               </span>
 
           
@@ -525,7 +692,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-13 23:20:26" itemprop="dateModified" datetime="2021-07-13T23:20:26+09:00">2021-07-13</time>
+                <time title="Modified: 2021-07-14 09:52:43" itemprop="dateModified" datetime="2021-07-14T09:52:43+09:00">2021-07-14</time>
               </span>
 
           
@@ -599,93 +766,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/05/31/210602_typescriptIntro/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/31/210602_typescriptIntro/" class="post-title-link" itemprop="url">기본 타입</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-06-01 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-01T00:00:00+09:00">2021-06-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-13 23:20:26" itemprop="dateModified" datetime="2021-07-13T23:20:26+09:00">2021-07-13</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Javascript는 예기치 않은 동작을 유발하게 하는 몇 가지 문제점을 가지고 있다. 예를 들어 <code>==</code>을 사용하면 인수를 강제변환한다거나(e.g. ‘’ == 0 =&gt; 참이다) 존재하지 않는 객체의 프로퍼티 값에 접근하려고 했을 때 접근을 허용하는 점이다. c나 c++ 같은 컴파일 언어는 실행 전 컴파일 단계에서 오류를 미리 확인하고 고칠 수 있다. <strong>이렇게 프로그램을 실행시키지 않으면서 코드의 오류를 검출하는 것을 정적 검사라 하고, 어떤 것이 오류인지와 어떤 것이 연산 되는 값에 기인하지 않음을 정하는 것을 정적 타입 검사라 한다.</strong></p>
-<blockquote>
-<p>그러나 JavaScript는 인터프리터 언어이기 때문에 컴파일 단계가 없고, 곧바로 실행되기 때문에 실제로 실행하기 전까지 코드의 문제를 잡아낼 수 없다. 하지만 TypeScript는 정적 타입 검사자로써 프로그램 실행 전 값의 종류를 기반으로 프로그램의 오류를 찾아낸다.</p>
-</blockquote>
-<h2 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h2><blockquote>
-<p>TypeScript는 JS의 구문이 허용되는, JavaScript의 상위 집합 언어</p>
-</blockquote>
-<ul>
-<li>TS는 JS 위의 레이어: JS의 기능을 제공하면서 그 위에 자체 레이어를 추가한다.</li>
-<li>JS가 가진 <code>런타임 특성</code>을 변화시키지 않는다.</li>
-<li>TS의 컴파일러가 코드 검사를 마치면 타입 삭제 후 <code>컴파일된 코드</code>를 만들어낸다.</li>
-</ul>
-<h3 id="타입-추론"><a href="#타입-추론" class="headerlink" title="타입 추론"></a>타입 추론</h3><p>JavaScript가 동작하는 방식을 이해함으로써 TypeScript는 JavaScript 코드를 받아들이면서 타입을 가지는 타입 시스템을 구축할 수 있다.</p>
-<h3 id="타입-정의"><a href="#타입-정의" class="headerlink" title="타입 정의"></a>타입 정의</h3><p>JavaScript는 다양한 디자인 패턴을 가능하게 하는 동적 언어인데, 몇몇 디자인 패턴은 자동으로 타입을 제공하기 힘들다. 이럴 때는 TSㅇ에게 타입이 무엇이 되어야 하는지 명시 가능한 JS언어의 확장을 지원한다. 예를 들어 아래 예시에서 객체의 형태를 명시적으로 사용하기 위해 <code>interface</code> 선언했다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> user = &#123;</span><br><span class="line">  name: <span class="string">'Hayes'</span>,</span><br><span class="line">  id: <span class="number">0</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> User &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  id: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="타입-구성"><a href="#타입-구성" class="headerlink" title="타입 구성"></a>타입 구성</h3><p>객체들을 조합하여 더 크고 복잡한 체계를 만드는 것처럼 TS는 유니언과 제네릭이 있다.</p>
-<ul>
-<li>유니언: 타입이 여러 타입 중 하나일 수 있음을 설명한다. e.g. type MyBool = true | false;</li>
-<li>제네릭: 타입에 변수를 제공하는 방법이다. 배열이 일반적인 예시이며, 제네릭이 없는 배열은 어떤 것이든 포함할 수 있다. 제네릭이 있는 배열은 배열 안의 값을 설명할 수 있다.</li>
-</ul>
-<h3 id="구조적-타입-시스템"><a href="#구조적-타입-시스템" class="headerlink" title="구조적 타입 시스템"></a>구조적 타입 시스템</h3><p>TS의 핵심 원칙 중 하나로 타입 검사가 값이 있는 형태에 집중한다는 것이다. 만약 두 객체가 같은 형태를 가지면 같은 것으로 간주된다.</p>
-<hr>
-<p><em>References</em><br><a href="https://typescript-kr.github.io/pages/tutorials/ts-for-the-new-programmer.html" target="_blank" rel="noopener">TS for the New Programmer</a><br><a href="https://typescript-kr.github.io/pages/tutorials/ts-for-js-programmers.html" target="_blank" rel="noopener">TS for the JS Programmers</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/05/28/210529_logicalConfitionStatement/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -717,7 +797,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-13 23:20:26" itemprop="dateModified" datetime="2021-07-13T23:20:26+09:00">2021-07-13</time>
+                <time title="Modified: 2021-07-14 09:52:43" itemprop="dateModified" datetime="2021-07-14T09:52:43+09:00">2021-07-14</time>
               </span>
 
           
@@ -844,7 +924,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-13 23:20:26" itemprop="dateModified" datetime="2021-07-13T23:20:26+09:00">2021-07-13</time>
+                <time title="Modified: 2021-07-14 09:52:43" itemprop="dateModified" datetime="2021-07-14T09:52:43+09:00">2021-07-14</time>
               </span>
 
           
@@ -957,7 +1037,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-13 23:20:26" itemprop="dateModified" datetime="2021-07-13T23:20:26+09:00">2021-07-13</time>
+                <time title="Modified: 2021-07-14 09:52:43" itemprop="dateModified" datetime="2021-07-14T09:52:43+09:00">2021-07-14</time>
               </span>
 
           
@@ -1116,7 +1196,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-13 23:20:26" itemprop="dateModified" datetime="2021-07-13T23:20:26+09:00">2021-07-13</time>
+                <time title="Modified: 2021-07-14 09:52:43" itemprop="dateModified" datetime="2021-07-14T09:52:43+09:00">2021-07-14</time>
               </span>
 
           
@@ -1446,7 +1526,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-13 23:20:26" itemprop="dateModified" datetime="2021-07-13T23:20:26+09:00">2021-07-13</time>
+                <time title="Modified: 2021-07-14 09:52:43" itemprop="dateModified" datetime="2021-07-14T09:52:43+09:00">2021-07-14</time>
               </span>
 
           
@@ -1796,7 +1876,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-13 23:20:26" itemprop="dateModified" datetime="2021-07-13T23:20:26+09:00">2021-07-13</time>
+                <time title="Modified: 2021-07-14 09:52:43" itemprop="dateModified" datetime="2021-07-14T09:52:43+09:00">2021-07-14</time>
               </span>
 
           
