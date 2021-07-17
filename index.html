@@ -144,7 +144,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/15/210716_essentialType/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/15/210716_decimal/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -158,7 +158,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/07/15/210716_essentialType/" class="post-title-link" itemprop="url">부동소수점형의 정밀도 문제와 decimal형</a>
+            <a href="/2021/07/15/210716_decimal/" class="post-title-link" itemprop="url">부동소수점형의 정밀도 문제와 decimal형</a>
         </h1>
 
         <div class="post-meta">
@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-17 18:37:56" itemprop="dateModified" datetime="2021-07-17T18:37:56+09:00">2021-07-17</time>
+                <time title="Modified: 2021-07-17 22:09:21" itemprop="dateModified" datetime="2021-07-17T22:09:21+09:00">2021-07-17</time>
               </span>
 
           
@@ -295,7 +295,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-17 18:37:56" itemprop="dateModified" datetime="2021-07-17T18:37:56+09:00">2021-07-17</time>
+                <time title="Modified: 2021-07-17 22:09:21" itemprop="dateModified" datetime="2021-07-17T22:09:21+09:00">2021-07-17</time>
               </span>
 
           
@@ -452,7 +452,7 @@
 <p><code>배열</code>이나 <code>List&lt;T&gt;</code>가 매배견수가 된다.</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddRange(IEnumerable&lt;T&gt; collection);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int[] dummy &#x3D; &#123;10, 20&#125;;</span><br><span class="line"></span><br><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3);</span><br><span class="line">scores.AddRange(dummy);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 배열이 아닌 다른 리스트가 있을 때 그 리스트를 다른 리스트에 삽입.</span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5);</span><br><span class="line">names.Add(&quot;Bob&quot;);</span><br><span class="line">names.Add(&quot;Bobby&quot;);</span><br><span class="line"></span><br><span class="line">List&lt;string&gt; names1 &#x3D; new List&lt;string&gt;();</span><br><span class="line">names1.AddRange(names)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">int[] dummy &#x3D; &#123;10, 20&#125;;</span><br><span class="line"></span><br><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3);</span><br><span class="line">scores.AddRange(dummy);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 배열이 아닌 다른 리스트가 있을 때 그 리스트를 다른 리스트에 삽입.</span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5);</span><br><span class="line">names.Add(&quot;Bob&quot;);</span><br><span class="line">names.Add(&quot;Bobby&quot;);</span><br><span class="line"></span><br><span class="line">List&lt;string&gt; names1 &#x3D; new List&lt;string&gt;();</span><br><span class="line">&#x2F;&#x2F; 리스트 생성시 길이가 0이므로 임의의 크기 배열을 자동으로 생성</span><br><span class="line">names1.AddRange(names)</span><br></pre></td></tr></table></figure>
 <div class="table-container">
 <table>
 <thead>
@@ -531,7 +531,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-17 18:37:56" itemprop="dateModified" datetime="2021-07-17T18:37:56+09:00">2021-07-17</time>
+                <time title="Modified: 2021-07-17 22:09:21" itemprop="dateModified" datetime="2021-07-17T22:09:21+09:00">2021-07-17</time>
               </span>
 
           
@@ -700,7 +700,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-17 18:37:56" itemprop="dateModified" datetime="2021-07-17T18:37:56+09:00">2021-07-17</time>
+                <time title="Modified: 2021-07-17 22:09:21" itemprop="dateModified" datetime="2021-07-17T22:09:21+09:00">2021-07-17</time>
               </span>
 
           
@@ -810,7 +810,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-17 18:37:56" itemprop="dateModified" datetime="2021-07-17T18:37:56+09:00">2021-07-17</time>
+                <time title="Modified: 2021-07-17 22:09:21" itemprop="dateModified" datetime="2021-07-17T22:09:21+09:00">2021-07-17</time>
               </span>
 
           
@@ -1005,7 +1005,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-17 18:37:56" itemprop="dateModified" datetime="2021-07-17T18:37:56+09:00">2021-07-17</time>
+                <time title="Modified: 2021-07-17 22:09:21" itemprop="dateModified" datetime="2021-07-17T22:09:21+09:00">2021-07-17</time>
               </span>
 
           
@@ -1176,7 +1176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-17 18:37:56" itemprop="dateModified" datetime="2021-07-17T18:37:56+09:00">2021-07-17</time>
+                <time title="Modified: 2021-07-17 22:09:21" itemprop="dateModified" datetime="2021-07-17T22:09:21+09:00">2021-07-17</time>
               </span>
 
           
@@ -1302,7 +1302,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-17 18:37:56" itemprop="dateModified" datetime="2021-07-17T18:37:56+09:00">2021-07-17</time>
+                <time title="Modified: 2021-07-17 22:09:21" itemprop="dateModified" datetime="2021-07-17T22:09:21+09:00">2021-07-17</time>
               </span>
 
           
@@ -1513,7 +1513,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-17 18:37:56" itemprop="dateModified" datetime="2021-07-17T18:37:56+09:00">2021-07-17</time>
+                <time title="Modified: 2021-07-17 22:09:21" itemprop="dateModified" datetime="2021-07-17T22:09:21+09:00">2021-07-17</time>
               </span>
 
           
@@ -1659,7 +1659,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-17 18:37:56" itemprop="dateModified" datetime="2021-07-17T18:37:56+09:00">2021-07-17</time>
+                <time title="Modified: 2021-07-17 22:09:21" itemprop="dateModified" datetime="2021-07-17T22:09:21+09:00">2021-07-17</time>
               </span>
 
           
