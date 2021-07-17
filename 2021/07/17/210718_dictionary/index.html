@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="딕셔너리 List&lt;T&gt;와 달리 색인이 0~n 사이의 수가 아니라 임의의 데이터형이다. 사전과 비슷하게 키를 이용해 그 키에 해당하는 값을 찾는다.  키(key): 임의의 데이터형. 어떠한 데이터형도 키로 쓸 수 있다.값(value): 실제 저장되는 값    딕셔너리는 배열처럼 연속된 메모리에 내부 데이터를 저장할 수 없다. 따라서 배열이 더 효율">
+<meta property="og:type" content="article">
+<meta property="og:title" content="컬렉션 - 딕셔너리">
+<meta property="og:url" content="https://heejinlee07.github.io/2021/07/17/210718_dictionary/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="딕셔너리 List&lt;T&gt;와 달리 색인이 0~n 사이의 수가 아니라 임의의 데이터형이다. 사전과 비슷하게 키를 이용해 그 키에 해당하는 값을 찾는다.  키(key): 임의의 데이터형. 어떠한 데이터형도 키로 쓸 수 있다.값(value): 실제 저장되는 값    딕셔너리는 배열처럼 연속된 메모리에 내부 데이터를 저장할 수 없다. 따라서 배열이 더 효율">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-17T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-07-17T16:45:55.848Z">
+<meta property="article:author" content="Heejin Lee">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2021/07/17/210718_dictionary/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>컬렉션 - 딕셔너리 | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Developer</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/17/210718_dictionary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          컬렉션 - 딕셔너리
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-07-18 00:00:00 / Modified: 01:45:55" itemprop="dateCreated datePublished" datetime="2021-07-18T00:00:00+09:00">2021-07-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="딕셔너리"><a href="#딕셔너리" class="headerlink" title="딕셔너리"></a>딕셔너리</h2><blockquote>
+<p><code>List&lt;T&gt;</code>와 달리 색인이 0~n 사이의 수가 아니라 <code>임의의 데이터형</code>이다. 사전과 비슷하게 키를 이용해 그 키에 해당하는 값을 찾는다.</p>
+<blockquote>
+<p>키(key): 임의의 데이터형. 어떠한 데이터형도 키로 쓸 수 있다.<br>값(value): 실제 저장되는 값</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>딕셔너리는 배열처럼 연속된 메모리에 내부 데이터를 저장할 수 없다. 따라서 배열이 더 효율적이다.</li>
+<li>다른 언어에서는 맵(map)이라고 한다.</li>
+<li>배열처럼 0, 1, 2… 이런 식으로 순서대로 저장하기 힘든 경우에 쓰면 좋다.</li>
+<li>데이터 저장 공간이 크고, 배열 중간에 데이터를 삽입 및 삭제를 자주해야하는 경우 쓰면 좋다.</li>
+</ul>
+<h3 id="딕셔너리-생성"><a href="#딕셔너리-생성" class="headerlink" title="딕셔너리 생성"></a>딕셔너리 생성</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;TKey, TValue&gt; &lt;변수명&gt; &#x3D; new Dictionary&lt;TKey, TValue&gt;();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;int, string&gt; students &#x3D; new Dictionary&lt;int, string&gt;();</span><br><span class="line">Dictionary&lt;int, int&gt; scores &#x3D; new Dictionary&lt;int, int&gt;();</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>TKey</code>: 어떤 자료형의 키를 담을지 표현</li>
+<li><code>TValue</code>: 어떤 자료형의 값을 담을지 표현</li>
+</ul>
+<h3 id="딕셔너리에-데이터-추가하기"><a href="#딕셔너리에-데이터-추가하기" class="headerlink" title="딕셔너리에 데이터 추가하기"></a>딕셔너리에 데이터 추가하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dictionary.Add(TKey, TValue);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>키와 매핑되는 값을 딕셔너리에 추가</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">students.Add(&quot;A1&quot;,&quot;Bob&quot;);</span><br><span class="line">students.Add(&quot;A2&quot;,&quot;Bobby&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;이미 들어 있는 키로 새로운 데이터를 추가하면?</span><br><span class="line">students.Add(&quot;A2&quot;,&quot;Alex&quot;); &#x2F;&#x2F; 에러 발생</span><br></pre></td></tr></table></figure>
+<h3 id="중복된-키를-확인-후-데이터-추가하기"><a href="#중복된-키를-확인-후-데이터-추가하기" class="headerlink" title="중복된 키를 확인 후 데이터 추가하기"></a>중복된 키를 확인 후 데이터 추가하기</h3><blockquote>
+<p>이미 있는 키를 가지고 새로운 데이터를 추가하려고 하면 에러가 발생하기 때문에 이를 해결하기 위해 중복된 키가 있는지 확인 후 추가한다.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; Dictionary&lt;TKey, TValue&gt;.TryAdd(Tkey key, TValue value);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">bool bSuccess1 &#x3D; students.TryAdd(&quot;A1&quot;, &quot;Bob&quot;); &#x2F;&#x2F;거짓</span><br><span class="line">bool bSuccess1 &#x3D; students.TryAdd(&quot;A3&quot;, &quot;Alex&quot;); &#x2F;&#x2F;참</span><br></pre></td></tr></table></figure>
+<ul>
+<li>딕셔너리 안에 키가 이미 있으면 거짓 반환</li>
+<li><strong>딕셔너리 안에 키가 없으면 새로운 값을 넣고 참을 반환</strong></li>
+</ul>
+<hr>
+<h3 id="딕셔너리-안에-키가-있는지-확인하기"><a href="#딕셔너리-안에-키가-있는지-확인하기" class="headerlink" title="딕셔너리 안에 키가 있는지 확인하기"></a>딕셔너리 안에 키가 있는지 확인하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bContain &#x3D; Dictionary&lt;TKey, TValue&gt;.ContainsKey(TKey, key);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>딕셔너리 안에 키가 있으면 참, 없으면 거짓 반환</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">bool bContain1 &#x3D; students.ContainKey(&quot;A1&quot;); &#x2F;&#x2F;참</span><br><span class="line">bool bContain2 &#x3D; students.ContainKey(&quot;Bob&quot;); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
+<h3 id="딕셔너리-안에-밸류가-있는지-확인하기"><a href="#딕셔너리-안에-밸류가-있는지-확인하기" class="headerlink" title="딕셔너리 안에 밸류가 있는지 확인하기"></a>딕셔너리 안에 밸류가 있는지 확인하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bContain &#x3D; Dictionary&lt;TKey, TValue&gt;.ContainsValue(TKey, key);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>딕셔너리 안에 키가 있으면 참, 없으면 거짓 반환</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">bool bContain1 &#x3D; students.ContainsValue(&quot;Bob&quot;); &#x2F;&#x2F;참</span><br><span class="line">bool bContain2 &#x3D; students.ContainsValue(&quot;Alex&quot;); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="딕셔너리의-모든-요소-삭제하기"><a href="#딕셔너리의-모든-요소-삭제하기" class="headerlink" title="딕셔너리의 모든 요소 삭제하기"></a>딕셔너리의 모든 요소 삭제하기</h3><blockquote>
+<p>딕셔너리의 모든 요소를 삭제</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;TKey, TValue&gt;.Clear();</span><br></pre></td></tr></table></figure>
+<h3 id="딕셔너리-안에-있는-요소-삭제"><a href="#딕셔너리-안에-있는-요소-삭제" class="headerlink" title="딕셔너리 안에 있는 요소 삭제"></a>딕셔너리 안에 있는 요소 삭제</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bRemoved &#x3D; Dictionary&lt;TKey, TValue&gt;.Remove(TKey, key);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>딕셔너리 안에 키가 있으면 <strong>요소를 삭제 후 참</strong>, 없으면 거짓 반환</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">bool bRemoved1 &#x3D; students.Remove(&quot;A1&quot;); &#x2F;&#x2F;참</span><br><span class="line">bool bRemoved2 &#x3D; students.Remove(&quot;A3&quot;); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="딕셔너리에서-키와-매핑된-값-가져오기"><a href="#딕셔너리에서-키와-매핑된-값-가져오기" class="headerlink" title="딕셔너리에서 키와 매핑된 값 가져오기"></a>딕셔너리에서 키와 매핑된 값 가져오기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bFound &#x3D; Dictionary&lt;TKey, TValue&gt;.TryGetValue(TKey, key, out TValue value);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>딕셔너리 안에 키가 있으면 값을 <code>out 매개변수에 대입하고 참을 반환</code></li>
+<li>딕셔너리 안에 키가 없으면 거짓 반환</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">string value;</span><br><span class="line">bool bFound &#x3D; students.TryGetValue(&quot;A1&quot;, out value)</span><br></pre></td></tr></table></figure>
+<h3 id="요소-추가-접근법"><a href="#요소-추가-접근법" class="headerlink" title="요소 추가/접근법 - []"></a>요소 추가/접근법 - []</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;TKey, TValue&gt;[key] &#x3D; value;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>키가 이미 있다면 연결된 값 변경</li>
+<li><strong>키가 없다면 키와 값을 새로운 원소로 추가</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">students[&quot;A1&quot;] &#x3D; &quot;Tomas&quot;</span><br><span class="line">string student &#x3D; students[&quot;A3&quot;] &#x2F;&#x2F; throws an exception</span><br><span class="line">students[&quot;A2&quot;] &#x3D; &quot;Jason&quot;</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>[] 사용</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td>A1</td>
+<td>A2</td>
+<td><code>A3</code></td>
+</tr>
+<tr>
+<td>value</td>
+<td><del>Bob</del> -&gt; <code>Tomas</code></td>
+<td>Bobby</td>
+<td><code>Jason</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C#</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/15/210716_decimal/" rel="prev" title="부동소수점형의 정밀도 문제와 decimal형">
+      <i class="fa fa-chevron-left"></i> 부동소수점형의 정밀도 문제와 decimal형
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#딕셔너리"><span class="nav-number">1.</span> <span class="nav-text">딕셔너리</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#딕셔너리-생성"><span class="nav-number">1.1.</span> <span class="nav-text">딕셔너리 생성</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#딕셔너리에-데이터-추가하기"><span class="nav-number">1.2.</span> <span class="nav-text">딕셔너리에 데이터 추가하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#중복된-키를-확인-후-데이터-추가하기"><span class="nav-number">1.3.</span> <span class="nav-text">중복된 키를 확인 후 데이터 추가하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#딕셔너리-안에-키가-있는지-확인하기"><span class="nav-number">1.4.</span> <span class="nav-text">딕셔너리 안에 키가 있는지 확인하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#딕셔너리-안에-밸류가-있는지-확인하기"><span class="nav-number">1.5.</span> <span class="nav-text">딕셔너리 안에 밸류가 있는지 확인하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#딕셔너리의-모든-요소-삭제하기"><span class="nav-number">1.6.</span> <span class="nav-text">딕셔너리의 모든 요소 삭제하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#딕셔너리-안에-있는-요소-삭제"><span class="nav-number">1.7.</span> <span class="nav-text">딕셔너리 안에 있는 요소 삭제</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#딕셔너리에서-키와-매핑된-값-가져오기"><span class="nav-number">1.8.</span> <span class="nav-text">딕셔너리에서 키와 매핑된 값 가져오기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#요소-추가-접근법"><span class="nav-number">1.9.</span> <span class="nav-text">요소 추가&#x2F;접근법 - []</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
