@@ -254,13 +254,13 @@ bool bSuccess2 = names.Remove("Tom"); //거짓
 | scores               | ~~10~~ -> `30` | `40`   |         |     |
 | names                | `Bob`          | `Alex` | `Bobby` |     |
 
-### List\<T\>의 모든 요소를 삭제하기
+### List\<T>의 모든 요소를 삭제하기
 
 ```c#
 list.Clear(); //list는 List<T>
 ```
 
-> List\<T\>의 요소를 모두 지운다. _단, 용량을 지우는 것은 아니다._
+> List\<T>의 요소를 모두 지운다. _단, 용량을 지우는 것은 아니다._
 
 ```c#
 List<string> names = new List<string>(5);
