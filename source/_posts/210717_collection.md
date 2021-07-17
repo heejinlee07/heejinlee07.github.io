@@ -115,6 +115,7 @@ names.Add("Bob");
 names.Add("Bobby");
 
 List<string> names1 = new List<string>();
+// 리스트 생성시 길이가 0이므로 임의의 크기 배열을 자동으로 생성
 names1.AddRange(names)
 ```
 
