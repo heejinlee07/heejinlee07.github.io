@@ -6,8 +6,7 @@ tags: C#
 
 - 딕셔너리와 매우 비슷하다. **차이점은 해시셋은 키만 있다는 점이다.**
 - 리스트와 딕셔너리를 쓰는 경우가 거의 90%이므로 거의 쓸 일이 없고, 특별할 때만 쓴다.
-- 중복 데이터를 제거할 때 가장 쓰기 편하다
--
+- 중복 데이터를 제거할 때 가장 쓰기 편하다.
 
 ```c#
 HashSet<T> <변수명> = new HastSet <T>(); //T는 저장할 키의 자료형
@@ -16,9 +15,6 @@ HashSet<T> <변수명> = new HastSet <T>(); //T는 저장할 키의 자료형
 ```c#
 HashSet<int> studentIDs = new HashSet <int> ();
 HastSet<string> studentNames = new HashSet <string> ();
-
-## 해시셋은 언제 사용하면 좋은가?
-- 중복 데이터를 제거한
 ```
 
 ## 해시셋에 요소 추가하기
