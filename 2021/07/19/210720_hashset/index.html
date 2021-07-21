@@ -22,13 +22,13 @@
 
   <meta name="description" content="딕셔너리와 매우 비슷하다. 차이점은 해시셋은 키만 있다는 점이다. 리스트와 딕셔너리를 쓰는 경우가 거의 90%이므로 거의 쓸 일이 없고, 특별할 때만 쓴다. 중복 데이터를 제거할 때 가장 쓰기 편하다-  1HashSet&lt;T&gt; &lt;변수명&gt; &#x3D; new HastSet &lt;T&gt;(); &#x2F;&#x2F;T는 저장할 키의 자">
 <meta property="og:type" content="article">
-<meta property="og:title" content="컬렉션 - 해시셋">
+<meta property="og:title" content="컬렉션 - 해시셋, 컬렉션과 같이 쓰면 유용한 것들">
 <meta property="og:url" content="https://heejinlee07.github.io/2021/07/19/210720_hashset/index.html">
 <meta property="og:site_name" content="Heejin">
 <meta property="og:description" content="딕셔너리와 매우 비슷하다. 차이점은 해시셋은 키만 있다는 점이다. 리스트와 딕셔너리를 쓰는 경우가 거의 90%이므로 거의 쓸 일이 없고, 특별할 때만 쓴다. 중복 데이터를 제거할 때 가장 쓰기 편하다-  1HashSet&lt;T&gt; &lt;변수명&gt; &#x3D; new HastSet &lt;T&gt;(); &#x2F;&#x2F;T는 저장할 키의 자">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-07-19T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-20T14:33:39.995Z">
+<meta property="article:modified_time" content="2021-07-21T12:51:44.713Z">
 <meta property="article:author" content="Heejin Lee">
 <meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>컬렉션 - 해시셋 | Heejin</title>
+  <title>컬렉션 - 해시셋, 컬렉션과 같이 쓰면 유용한 것들 | Heejin</title>
   
 
 
@@ -160,7 +160,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          컬렉션 - 해시셋
+          컬렉션 - 해시셋, 컬렉션과 같이 쓰면 유용한 것들
         </h1>
 
         <div class="post-meta">
@@ -169,10 +169,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-07-20 00:00:00 / Modified: 23:33:39" itemprop="dateCreated datePublished" datetime="2021-07-20T00:00:00+09:00">2021-07-20</time>
+              <time title="Created: 2021-07-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-20T00:00:00+09:00">2021-07-20</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-21 21:51:44" itemprop="dateModified" datetime="2021-07-21T21:51:44+09:00">2021-07-21</time>
+              </span>
 
           
 
@@ -237,6 +243,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line"></span><br><span class="line">foreach (KeyValuePair&lt;string, string&gt; score in students)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WrtieLine($&quot;key: &#123;score.key&#125;, value: &#123;score.Value&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="배열-과-foreach문"><a href="#배열-과-foreach문" class="headerlink" title="배열([])과 foreach문"></a>배열([])과 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreach (T &lt;변수명&gt; in T[])</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">float scores &#x3D; &#123;30.5f, 41.0f&#125;</span><br><span class="line"></span><br><span class="line">foreach (float score in scores)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(score);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="var"><a href="#var" class="headerlink" title="var"></a>var</h3><p>딕셔너리 foreach문이 작성해야하는 코드가 길고, 매번 keyValuePair<TKey, TValue>를 써야한다는 문제점을 var가 해결해준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line"></span><br><span class="line">foreach (var score in students)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Key: &#123;score.key&#125;, value: &#123;score.value&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>묵시적 자료형 : 컴파일러가 알아서 자료형을 추론해줌.</li>
+<li><strong>지역 변수</strong>에서만 사용 가능.</li>
+<li>긴 자료형을 짧게 줄여준다.</li>
+<li><strong>반드시 선언과 동시에 대입해주어야 한다.</strong></li>
+<li>대입하는 값을 통해 명백하게 자료형을 알 수 있을 때만 사용한다.</li>
+</ul>
 <hr>
 <p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
 
@@ -260,7 +275,10 @@
     <a href="/2021/07/18/210720_tsInterface/" rel="prev" title="타입스크립트의 인터페이스, 함수">
       <i class="fa fa-chevron-left"></i> 타입스크립트의 인터페이스, 함수
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/07/20/210721_react-table/" rel="next" title="react-table">
+      react-table <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -320,7 +338,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#해시셋에-요소-추가하기"><span class="nav-number">1.</span> <span class="nav-text">해시셋에 요소 추가하기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#이-요소가-해시셋에-있나요"><span class="nav-number">2.</span> <span class="nav-text">이 요소가 해시셋에 있나요?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#해시셋-요소-삭제"><span class="nav-number">3.</span> <span class="nav-text">해시셋 요소 삭제</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#해시셋의-모든-요소-삭제"><span class="nav-number">4.</span> <span class="nav-text">해시셋의 모든 요소 삭제</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#해시셋의-요소-가져오기"><span class="nav-number">5.</span> <span class="nav-text">해시셋의 요소 가져오기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#컬렉션과-같이-쓰면-유용한-것들"><span class="nav-number">6.</span> <span class="nav-text">컬렉션과 같이 쓰면 유용한 것들</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#foreach"><span class="nav-number">6.1.</span> <span class="nav-text">foreach</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#리스트와-foreach문"><span class="nav-number">6.2.</span> <span class="nav-text">리스트와 foreach문</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#딕셔너리와-foreach문"><span class="nav-number">6.3.</span> <span class="nav-text">딕셔너리와 foreach문</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#배열-과-foreach문"><span class="nav-number">6.4.</span> <span class="nav-text">배열([])과 foreach문</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#해시셋에-요소-추가하기"><span class="nav-number">1.</span> <span class="nav-text">해시셋에 요소 추가하기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#이-요소가-해시셋에-있나요"><span class="nav-number">2.</span> <span class="nav-text">이 요소가 해시셋에 있나요?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#해시셋-요소-삭제"><span class="nav-number">3.</span> <span class="nav-text">해시셋 요소 삭제</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#해시셋의-모든-요소-삭제"><span class="nav-number">4.</span> <span class="nav-text">해시셋의 모든 요소 삭제</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#해시셋의-요소-가져오기"><span class="nav-number">5.</span> <span class="nav-text">해시셋의 요소 가져오기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#컬렉션과-같이-쓰면-유용한-것들"><span class="nav-number">6.</span> <span class="nav-text">컬렉션과 같이 쓰면 유용한 것들</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#foreach"><span class="nav-number">6.1.</span> <span class="nav-text">foreach</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#리스트와-foreach문"><span class="nav-number">6.2.</span> <span class="nav-text">리스트와 foreach문</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#딕셔너리와-foreach문"><span class="nav-number">6.3.</span> <span class="nav-text">딕셔너리와 foreach문</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#배열-과-foreach문"><span class="nav-number">6.4.</span> <span class="nav-text">배열([])과 foreach문</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var"><span class="nav-number">6.5.</span> <span class="nav-text">var</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -334,7 +352,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">93</span>
+          <span class="site-state-item-count">94</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
