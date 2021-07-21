@@ -1,5 +1,5 @@
 ---
-title: 컬렉션 - 해시셋
+title: 컬렉션 - 해시셋, 컬렉션과 같이 쓰면 유용한 것들
 date: 2021-07-20
 tags: C#
 ---
@@ -167,6 +167,25 @@ foreach (float score in scores)
   Console.WriteLine(score);
 }
 ```
+
+### var
+
+딕셔너리 foreach문이 작성해야하는 코드가 길고, 매번 keyValuePair<TKey, TValue>를 써야한다는 문제점을 var가 해결해준다.
+
+```c#
+Dictionary<string, string> students = new Dictionary<string, string>();
+
+foreach (var score in students)
+{
+  Console.WriteLine($"Key: {score.key}, value: {score.value}");
+}
+```
+
+- 묵시적 자료형 : 컴파일러가 알아서 자료형을 추론해줌.
+- **지역 변수**에서만 사용 가능.
+- 긴 자료형을 짧게 줄여준다.
+- **반드시 선언과 동시에 대입해주어야 한다.**
+- 대입하는 값을 통해 명백하게 자료형을 알 수 있을 때만 사용한다.
 
 ---
 
