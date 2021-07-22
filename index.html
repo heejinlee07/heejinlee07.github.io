@@ -158,7 +158,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/07/20/210721_react-table/" class="post-title-link" itemprop="url">react-table</a>
+            <a href="/2021/07/20/210721_react-table/" class="post-title-link" itemprop="url">React Table</a>
         </h1>
 
         <div class="post-meta">
@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 00:21:42" itemprop="dateModified" datetime="2021-07-22T00:21:42+09:00">2021-07-22</time>
+                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
               </span>
 
           
@@ -191,7 +191,7 @@
       
           <h2 id="headless-UI"><a href="#headless-UI" class="headerlink" title="headless UI"></a>headless UI</h2><p>실제 UI 요소를 제공하거나 렌더하지 않지만 라이브러리가 제공하는 state와 callback hooks를 통해서 테이블 마크업을 커스텀할 수 있다.</p>
 <p>headless user interface component는 아무런 인터페이스를 제공하지 않음으로써 최대의 시각적 유연성을 제공하는 컴포넌트이다. <em>유저 인터페이스가 없는 유저 인터페이스</em>라고 할 수 있다. 이는 컴포넌트의 로직과 동작을 시각적 표현에서 분리하는 것이다.</p>
-<p><CoinFlip/>를 예로 들자면 이 컴포넌트를 child component의 함수로 쓰거나 prop을 렌더하는 식으로 사용한다.</p>
+<p><code>&lt;CoinFlip/&gt;</code>를 예로 들자면 이 컴포넌트를 child component의 함수로 쓰거나 prop을 렌더하는 식으로 사용한다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> flip = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">  flipResults: <span class="built_in">Math</span>.random(),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CoinFlip</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  state = flip();</span><br><span class="line"></span><br><span class="line">  handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(flip);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.props.children(&#123;</span><br><span class="line">      rerun: <span class="keyword">this</span>.handleClick,</span><br><span class="line">      isHeads: <span class="keyword">this</span>.state.flipResults &lt; <span class="number">0.5</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>위 함수는 headless이다. 아무것도 렌더하지 않기 때문이다. 이 함수는 다양한 consumer들이 여러 논리적인 처리를 하면서 프레젠테이션 작업도 할 것을 기대하고 있다. 따라서 어플리케이션 코드는 다음과 같다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;CoinFlip&gt;</span><br><span class="line">  &#123;(&#123; rerun, isHeads &#125;) =&gt; (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;button onClick=&#123;rerun&#125;&gt;Reflip&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">      &#123;isHeads ? (</span></span><br><span class="line"><span class="regexp">        &lt;div&gt;</span></span><br><span class="line"><span class="regexp">          &lt;img src='/</span>heads.svg<span class="string">' alt='</span>Heads<span class="string">' /&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">      ) : (</span></span><br><span class="line"><span class="string">        &lt;div&gt;</span></span><br><span class="line"><span class="string">          &lt;img src='</span>/tails.svg<span class="string">' alt='</span>Tails<span class="string">' /&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">      )&#125;</span></span><br><span class="line"><span class="string">    &lt;/&gt;</span></span><br><span class="line"><span class="string">  )&#125;</span></span><br><span class="line"><span class="string">&lt;/CoinFlip&gt;</span></span><br></pre></td></tr></table></figure>
@@ -205,7 +205,7 @@
 <h3 id="Using-the-useTable-hook"><a href="#Using-the-useTable-hook" class="headerlink" title="Using the useTable hook"></a>Using the useTable hook</h3><p>위에서 작성한 data와 column에 대한 정의를 가지고 useTable hook에 전달하여 새로운 table instance를 생성할 수 있다. 즉 useTable은 최소 메모제이션된 columns와 data를 포함한 객체를 제공받아야 한다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> tableInstance = useTable(&#123; columns, data &#125;);</span><br></pre></td></tr></table></figure>
 <h3 id="Building-a-basic-table-UI"><a href="#Building-a-basic-table-UI" class="headerlink" title="Building a basic table UI"></a>Building a basic table UI</h3><p>table instance는 만들었지만 아직 테이블 마크업과 스타일은 하지 않은 상태이므로 기본적인 테이블 구조를 작성해준다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> (</span><br><span class="line">  &lt;table&gt;</span><br><span class="line">    &lt;thead&gt;</span><br><span class="line">      &lt;tr&gt;</span><br><span class="line">        &lt;th&gt;&lt;<span class="regexp">/th&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>tr&gt;</span><br><span class="line">    &lt;<span class="regexp">/thead&gt;</span></span><br><span class="line"><span class="regexp">    &lt;tbody&gt;</span></span><br><span class="line"><span class="regexp">      &lt;tr&gt;</span></span><br><span class="line"><span class="regexp">        &lt;td&gt;&lt;/</span>td&gt;</span><br><span class="line">      &lt;<span class="regexp">/tr&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>tbody&gt;</span><br><span class="line">  &lt;<span class="regexp">/table&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">th</span>&gt;</span><span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <h3 id="Applying-the-table-instance-to-markup"><a href="#Applying-the-table-instance-to-markup" class="headerlink" title="Applying the table instance to markup"></a>Applying the table instance to markup</h3><p>이제 기본적인 테이블 구조를 작성했으니 이를 이용해서 tableInstance를 얻을 수 있다. 이를 이용해 테이블 작성을 완료할 수 있다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> tableInstance = useTable(&#123; columns, data &#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; getTableProps, getTableBodyProps, headerGroups, rows, prepareRow &#125; =</span><br><span class="line">  tableInstance;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line">  <span class="comment">// apply the table props</span></span><br><span class="line">  &lt;table &#123;...getTableProps()&#125;&gt;</span><br><span class="line">    &lt;thead&gt;</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// Loop over the header rows</span></span><br><span class="line">        headerGroups.map(<span class="function">(<span class="params">headerGroup</span>) =&gt;</span> (</span><br><span class="line">          <span class="comment">// Apply the header row props</span></span><br><span class="line">          &lt;tr &#123;...headerGroup.getHeaderGroupProps()&#125;&gt;</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="comment">// Loop over the headers in each row</span></span><br><span class="line">              headerGroup.headers.map(<span class="function">(<span class="params">column</span>) =&gt;</span> (</span><br><span class="line">                <span class="comment">// Apply the header cell props</span></span><br><span class="line">                &lt;th &#123;...column.getHeaderProps()&#125;&gt;</span><br><span class="line">                  &#123;</span><br><span class="line">                    <span class="comment">// Render the header</span></span><br><span class="line">                    column.render(<span class="string">'Header'</span>)</span><br><span class="line">                  &#125;</span><br><span class="line">                &lt;<span class="regexp">/th&gt;</span></span><br><span class="line"><span class="regexp">              ))</span></span><br><span class="line"><span class="regexp">            &#125;</span></span><br><span class="line"><span class="regexp">          &lt;/</span>tr&gt;</span><br><span class="line">        ))</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;<span class="regexp">/thead&gt;</span></span><br><span class="line"><span class="regexp">    &#123;/</span>* Apply the table body props *<span class="regexp">/&#125;</span></span><br><span class="line"><span class="regexp">    &lt;tbody &#123;...getTableBodyProps()&#125;&gt;</span></span><br><span class="line"><span class="regexp">      &#123;</span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/ Loop over the table rows</span></span><br><span class="line"><span class="regexp">        rows.map((row) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">          /</span><span class="regexp">/ Prepare the row for display</span></span><br><span class="line"><span class="regexp">          prepareRow(row);</span></span><br><span class="line"><span class="regexp">          return (</span></span><br><span class="line"><span class="regexp">            /</span><span class="regexp">/ Apply the row props</span></span><br><span class="line"><span class="regexp">            &lt;tr &#123;...row.getRowProps()&#125;&gt;</span></span><br><span class="line"><span class="regexp">              &#123;</span></span><br><span class="line"><span class="regexp">                /</span><span class="regexp">/ Loop over the rows cells</span></span><br><span class="line"><span class="regexp">                row.cells.map((cell) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">                  /</span><span class="regexp">/ Apply the cell props</span></span><br><span class="line"><span class="regexp">                  return (</span></span><br><span class="line"><span class="regexp">                    &lt;td &#123;...cell.getCellProps()&#125;&gt;</span></span><br><span class="line"><span class="regexp">                      &#123;</span></span><br><span class="line"><span class="regexp">                        /</span><span class="regexp">/ Render the cell contents</span></span><br><span class="line"><span class="regexp">                        cell.render('Cell')</span></span><br><span class="line"><span class="regexp">                      &#125;</span></span><br><span class="line"><span class="regexp">                    &lt;/</span>td&gt;</span><br><span class="line">                  );</span><br><span class="line">                &#125;)</span><br><span class="line">              &#125;</span><br><span class="line">            &lt;<span class="regexp">/tr&gt;</span></span><br><span class="line"><span class="regexp">          );</span></span><br><span class="line"><span class="regexp">        &#125;)</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>tbody&gt;</span><br><span class="line">  &lt;<span class="regexp">/table&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure>
 <h3 id="Final-Result"><a href="#Final-Result" class="headerlink" title="Final Result"></a>Final Result</h3><p>앞의 모든 과정을 한번에 표현해보면 다음과 같다.</p>
@@ -275,7 +275,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 00:21:42" itemprop="dateModified" datetime="2021-07-22T00:21:42+09:00">2021-07-22</time>
+                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
               </span>
 
           
@@ -402,7 +402,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 00:21:42" itemprop="dateModified" datetime="2021-07-22T00:21:42+09:00">2021-07-22</time>
+                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
               </span>
 
           
@@ -543,7 +543,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 00:21:42" itemprop="dateModified" datetime="2021-07-22T00:21:42+09:00">2021-07-22</time>
+                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
               </span>
 
           
@@ -659,7 +659,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 00:21:42" itemprop="dateModified" datetime="2021-07-22T00:21:42+09:00">2021-07-22</time>
+                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
               </span>
 
           
@@ -734,7 +734,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 00:21:42" itemprop="dateModified" datetime="2021-07-22T00:21:42+09:00">2021-07-22</time>
+                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
               </span>
 
           
@@ -892,7 +892,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 00:21:42" itemprop="dateModified" datetime="2021-07-22T00:21:42+09:00">2021-07-22</time>
+                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
               </span>
 
           
@@ -1057,7 +1057,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 00:21:42" itemprop="dateModified" datetime="2021-07-22T00:21:42+09:00">2021-07-22</time>
+                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
               </span>
 
           
@@ -1414,7 +1414,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 00:21:42" itemprop="dateModified" datetime="2021-07-22T00:21:42+09:00">2021-07-22</time>
+                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
               </span>
 
           
@@ -1524,7 +1524,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 00:21:42" itemprop="dateModified" datetime="2021-07-22T00:21:42+09:00">2021-07-22</time>
+                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
               </span>
 
           
