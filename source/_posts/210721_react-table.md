@@ -1,5 +1,5 @@
 ---
-title: react-table
+title: React Table
 date: 2021-07-21
 tags: TypeScript
 ---
@@ -10,7 +10,7 @@ tags: TypeScript
 
 headless user interface component는 아무런 인터페이스를 제공하지 않음으로써 최대의 시각적 유연성을 제공하는 컴포넌트이다. *유저 인터페이스가 없는 유저 인터페이스*라고 할 수 있다. 이는 컴포넌트의 로직과 동작을 시각적 표현에서 분리하는 것이다.
 
-<CoinFlip/>를 예로 들자면 이 컴포넌트를 child component의 함수로 쓰거나 prop을 렌더하는 식으로 사용한다.
+`<CoinFlip/>`를 예로 들자면 이 컴포넌트를 child component의 함수로 쓰거나 prop을 렌더하는 식으로 사용한다.
 
 ```javascript
 const flip = () => ({
@@ -119,20 +119,20 @@ const tableInstance = useTable({ columns, data });
 
 table instance는 만들었지만 아직 테이블 마크업과 스타일은 하지 않은 상태이므로 기본적인 테이블 구조를 작성해준다.
 
-```javascript
+```html
 return (
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
 );
 ```
 
