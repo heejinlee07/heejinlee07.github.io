@@ -1,5 +1,5 @@
 ---
-title: Redux-tookit
+title: Redux-tookit 원문 번역
 date: 2021-07-30
 tags: React
 ---
