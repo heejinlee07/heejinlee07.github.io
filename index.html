@@ -144,6 +144,370 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/08/18/210819_rtkQuery/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/18/210819_rtkQuery/" class="post-title-link" itemprop="url">RTK Query Overview 원문 번역</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-08-19 00:00:00 / Modified: 22:53:28" itemprop="dateCreated datePublished" datetime="2021-08-19T00:00:00+09:00">2021-08-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a href="https://redux-toolkit.js.org/rtk-query/overview" target="_blank" rel="noopener">https://redux-toolkit.js.org/rtk-query/overview</a></p>
+</blockquote>
+<p>RTK Query는 강력한 data fetching과 caching 툴이다. 웹 어플리케이션 내에서 데이터를 로딩할 때 사용되는 common case들을 단순화 하기 위해 고안되었기 때문에 data fetching과 캐싱 로직을 직접 작성할 필요가 없다. Redux Tookit 패키지에서 선택적 옵션으로 포함되어 있고, Redux Tookit 기능적으로 다른 api위에 구축된다.</p>
+<h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><p>웹 어플리케이션은 보통 data를 화면에 그리기 위해 서버로부터 data를 fetch해서 가져와야 한다. 또 이 data를 업데이트 하거나 업데이트할 내용을 서버에 보내고, 서버의 데이터와 싱크를 맞추기 위해 client측에서 데이터를 캐시해서 가지고 있기도 한다. 오늘날을 어플리케이션 내에서 아래와 같은 다양한 행동이 실행되기 때문에 이 과정이 더욱 복잡하다.</p>
+<ul>
+<li>UI spinners를 보여주기 위해 loading 상태일 때를 추적한다.</li>
+<li>같은 데이터를 사용할 때 중복 요청을 막는다</li>
+<li>UI가 보다 빠르게 느끼도록 하는 updates</li>
+<li>UI와 유저 인터페이스의 상호작용을 위한 캐시 수명(사이클) 매니징</li>
+</ul>
+<p>Redux 코어는 늘 최소화되어 왔기 때문에 실제 로직을 작성하는 것은 개발자에게 달려있다. 이는 리덕스가 위와 같은 사용 사례를 해결하기 위한 어떠한 것도 내부에 포함하고 있지 않다는 의미이다. 리덕스 도큐먼트에서는 로딩 스테이트와 요청 결과를 트래킹하기 위한 요청 수명(사이클)이 몇 가지 일반적인 패턴이 있다고 가르쳐왔다. 그리고 Redux Toolkit의 createAsyncThunk는 이러한 전형적인 패턴을 추상화하여 고안된 것이다. 그러나 유저는 아직도 상당한 리듀서 로직을 로딩 스테이트와 데이터 캐시를 위해 사용해야 한다.</p>
+<p>지난 몇 년간, 리액트 커뮤니티는 “data fetching과 캐싱’이 state management와 완전히 다른 관심사라는 것을 깨달았다. Redux와 같은 상태관리 라이브러리를 사용해서 데이터를 캐시할 수 있자만, 데이터 fetching과 같은 상황에서 쓸 목적으로 만들어진 별도의 툴을 사용해도 될 만큼 의미있다.</p>
+<p>RTK Query는 Apollo Client, React Query, Urql 및 SWR과 같이 data fetching을 위한 선구적인 솔루션 툴들로부터 영감을 받았지만, API 디자인에 고유한 접근 방식을 추가했다.</p>
+<ul>
+<li>data fetching과 캐싱 로직은 Redux toolkit의 createSlice와 createAsyncThunk api를 기반으로 구축된다.</li>
+<li>왜냐하면 redux toolkit은 UI에 구애받지 않는 UI-agnostic이기 때문에, RTK 쿼리는 모든 UI layer에서 사용할 수 있다.</li>
+<li>api endpoint는 인수를 통해 어떻케 쿼리 파라미터를 생성할 것인지와 캐싱을 위해 어떻게 응답을 변환할 것인지를 포함하여 미리 정의된다.</li>
+<li>RTK Query는 react hook을 생성하여 전체 data fetching과정을 캡슐화하고, 컴포넌트에 data와 isLoading필드를 제공하고, 컴포넌트가 마운트되거나 언마운트될 때 캐시된 데이터의 수명을 관리한다.</li>
+<li>RTK Query는 “cache entry lifecycle”옵션을 제공하는데, 이 옵션을 사용하면 초기 데이터를 fetching한 후에 웹소켓 메세지를 통해 스트리밍 캐시 업데이트 등과 같은 경우에 사용할 수 있도록 활성화 된다.</li>
+<li>openAPI 또는 GraphQL 스키마에서 API slice의 코드 생성에 대한 예를 찾을 수 있다.</li>
+<li>RTK Query는 완전히 TypeScript로 쓰여져 있기 때문에 TS 사용에 대한 좋은 경험을 제공할 수 있다.</li>
+</ul>
+<hr>
+<h1 id="포함된-것"><a href="#포함된-것" class="headerlink" title="포함된 것"></a>포함된 것</h1><h2 id="APIs"><a href="#APIs" class="headerlink" title="APIs"></a>APIs</h2><p>RTK Query는 Redux Toolkit 패키지의 코어를 설치하면 그곳에 포함되어 있다. 아래 두 엔트리 포인트 중 한 가지로 사용할 수 있다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* React-specific entry point that automatically generates</span></span><br><span class="line"><span class="comment">   hooks corresponding to the defined endpoints */</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApi &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span>;</span><br></pre></td></tr></table></figure>
+<p>RTK Query에는 다음의 API가 포함된다.</p>
+<ul>
+<li>createApi(): RTK Query의 핵심기능이다. 여러 엔드포인트들로부터 데이터를 어떻게 회수할 것인지가 작성된 여러 엔드포인트들을 정의하고, 여기에는 데이터를 어떻게 fetch하거나 변환할 것인지에 대한 내용이 담긴다. 대부분의 경우 app에서 “하나의 base URL 당 하나의 API 슬라이스”를 사용하여 한 번만 작성되어야 한다.</li>
+<li>fetchBaseQuery(): 요청을 단순화하는 것을 목표로 하는 fetch를 감싸는 작은 Wrapper이다. 대부분의 사용자에게는 createApi에서 baseQuery로 사용할 것이 권장된다.</li>
+<li><ApiProvider/>: Redux 스토어가 없는 경우에도 Provider로써 사용할 수 있다.</li>
+<li>setupListeners(): refetchOnMounte와 refetchOnReconnect를 사용할 수 있게 하는 유틸리티이다.</li>
+</ul>
+<h3 id="번들-크기"><a href="#번들-크기" class="headerlink" title="번들 크기"></a>번들 크기</h3><p>RTK 쿼리는 앱의 번들 사이즈에 고정된 일회성 사이즈로 추가된다. RTK Query는 Redux Toolkit과 React-Redux의 가장 상단에서 빌드되기 때문에 이렇게 추가된 사이즈는 이미 사용자가 app에서 이것을 쓰고 있는지 아닌지에 따라 다르다. 예상되는 min+gzip 번들 크기는 다음과 같다.</p>
+<ul>
+<li>RTK를 이미 사용하고 있는 경우: RTK 쿼리의 경우 ~9kb, hooks의 경우 ~2kb.</li>
+<li>RTK를 이미 사용하지 않는 경우:<ul>
+<li>React 없음: RTK+dependencies+RTK 쿼리의 경우 17kB</li>
+<li>React 사용 시: 19kB + React-Redux, which is a peer dependency</li>
+</ul>
+</li>
+</ul>
+<p>endpoint들의 정의를 추가적으로 포함하고자 하면 보통 몇 바이트에 불과한 endpoints 정의 내부의 실제 코드에 근거하여 크기만 증가해야 한다</p>
+<p>RTK 쿼리에 포함된 기능은 추가된 번들 크기에 대한 비용을 빠르게 지불하는 것을 포함하기 때문에 직접 작성한 data fetching 로직을 제거하면 대부분의 의미있는 응용 프로그램에서 size가 향상된다.</p>
+<hr>
+<h2 id="기본-사용법"><a href="#기본-사용법" class="headerlink" title="기본 사용법"></a>기본 사용법</h2><h3 id="Create-an-API-Slice"><a href="#Create-an-API-Slice" class="headerlink" title="Create an API Slice"></a>Create an API Slice</h3><p>RTK Query는 Redux Toolkit 패키지의 코어를 설치하면 그곳에 포함되어 있다. 아래 두 엔트리 포인트 중 한 가지로 사용할 수 있다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* React-specific entry point that automatically generates</span></span><br><span class="line"><span class="comment">   hooks corresponding to the defined endpoints */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// export hooks를 쓰려면 반드시 /react로 사용</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApi &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span>;</span><br></pre></td></tr></table></figure>
+<p>React에서 일반적인 사용법은 createApi를 임포트하는 것으로 시작하여 서버의 base url을 정리하고, 접근하고자 하는 엔드포인트를 정리하기 위한 “API slice”를 정의한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Pokemon &#125; <span class="keyword">from</span> <span class="string">'./types'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Define a service using a base URL and expected endpoints</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> pokemonApi = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'pokemonApi'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'https://pokeapi.co/api/v2/'</span> &#125;),</span><br><span class="line">  endpoints: <span class="function">(<span class="params">builder</span>) =&gt;</span> (&#123;</span><br><span class="line">    getPokemonByName: builder.query&lt;Pokemon, string&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">name</span>) =&gt;</span> <span class="string">`pokemon/<span class="subst">$&#123;name&#125;</span>`</span>,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Export hooks for usage in functional components, which are</span></span><br><span class="line"><span class="comment">// auto-generated based on the defined endpoints</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123; useGetPokemonByNameQuery &#125; = pokemonApi</span><br></pre></td></tr></table></figure>
+<h2 id="스토어-구성"><a href="#스토어-구성" class="headerlink" title="스토어 구성"></a>스토어 구성</h2><p>“API slice”에는 자동으로 생성되는 slice 리듀서와 구독 수명주기를 매니지 할 수 있는 커스텀 미들웨어를 포함하고 있다. 이 두 가지 모두 Redux 스토어에 추가해야 한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; configureStore &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit'</span>;</span><br><span class="line"><span class="comment">// Or from '@reduxjs/toolkit/query/react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; setupListeners &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; pokemonApi &#125; <span class="keyword">from</span> <span class="string">'./services/pokemon'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> store = configureStore(&#123;</span><br><span class="line">  reducer: &#123;</span><br><span class="line">    <span class="comment">// Add the generated reducer as a specific top-level slice</span></span><br><span class="line">    [pokemonApi.reducerPath]: pokemonApi.reducer,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// Adding the api middleware enables caching, invalidation, polling,</span></span><br><span class="line">  <span class="comment">// and other useful features of `rtk-query`.</span></span><br><span class="line">  middleware: <span class="function">(<span class="params">getDefaultMiddleware</span>) =&gt;</span></span><br><span class="line">    getDefaultMiddleware().concat(pokemonApi.middleware),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// optional, but required for refetchOnFocus/refetchOnReconnect behaviors</span></span><br><span class="line"><span class="comment">// see `setupListeners` docs - takes an optional callback as the 2nd arg for customization</span></span><br><span class="line">setupListeners(store.dispatch);</span><br></pre></td></tr></table></figure>
+<h2 id="컴포넌트에-hooks사용"><a href="#컴포넌트에-hooks사용" class="headerlink" title="컴포넌트에 hooks사용"></a>컴포넌트에 hooks사용</h2><p>마지막으로 API slice에서 자동 생성된 react hook을 컴포넌트 파일로 임포트 하고, 컴포넌트에서 필요한 파라미터를 사용하여 hooks를 호출한다. RTK Query는 mount될 때 자동으로 data를 fetch하고, 파라미터가 변경될때 re-fetch하며, 결과에 {data, isFetching} 값을 제공한다. 그리고 이 값들이 변경되면 컴포넌트를 리렌더링한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useGetPokemonByNameQuery &#125; <span class="keyword">from</span> <span class="string">'./services/pokemon'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Using a query hook automatically fetches data and returns query values</span></span><br><span class="line">  <span class="keyword">const</span> &#123; data, error, isLoading &#125; = useGetPokemonByNameQuery(<span class="string">'bulbasaur'</span>);</span><br><span class="line">  <span class="comment">// Individual hooks are also accessible under the generated endpoints:</span></span><br><span class="line">  <span class="comment">// const &#123; data, error, isLoading &#125; = pokemonApi.endpoints.getPokemonByName.useQuery('bulbasaur')</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// render UI based on data and loading state</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="사용예시"><a href="#사용예시" class="headerlink" title="사용예시"></a>사용예시</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//dosApiSlice.ts</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> DOGS_API_KEY = <span class="string">'4902a53c-cfda-44e4-a5d7-35b9bd5b6cb9'</span>;</span><br><span class="line"></span><br><span class="line">interface Breed &#123;</span><br><span class="line">  id: string;</span><br><span class="line">  name: string;</span><br><span class="line">  image: &#123;</span><br><span class="line">    url: string;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//api slice</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> apiSlice = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'api'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123;</span><br><span class="line">    baseUrl: <span class="string">'https://api.thedogapi.com/v1'</span>,</span><br><span class="line">    prepareHeaders(headers) &#123;</span><br><span class="line">      headers.set(<span class="string">'x-api-key'</span>, DOGS_API_KEY);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> headers;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="comment">//builder에 의해 엔트리 포인트 생성</span></span><br><span class="line">  endpoints(builder) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      fetchBreeds: builder.query&lt;Breed[], number | <span class="keyword">void</span>&gt;(&#123;</span><br><span class="line">        query(limit = <span class="number">10</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="string">`/breeds?limit=<span class="subst">$&#123;limit&#125;</span>`</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;),</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123; useFetchBreedsQuery &#125; = apiSlice;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//store.ts</span></span><br><span class="line"><span class="comment">//configureStore: basic redux create store function의 wrapper</span></span><br><span class="line"><span class="comment">//create store</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; configureStore, getDefaultMiddleware &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit'</span>;</span><br><span class="line"><span class="keyword">import</span> counterReducer <span class="keyword">from</span> <span class="string">'../features/counter/counter-slice'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; apiSlice &#125; <span class="keyword">from</span> <span class="string">'../features/dogs/dogsApiSlice'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//combine reducer</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> store = configureStore(&#123;</span><br><span class="line">  reducer: &#123;</span><br><span class="line">    counter: counterReducer,</span><br><span class="line">    [apiSlice.reducerPath]: apiSlice.reducer,</span><br><span class="line">  &#125;,</span><br><span class="line">  middleware: <span class="function">(<span class="params">getDefaultMiddleware</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> getDefaultMiddleware().concat(apiSlice.middleware);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//ts thing</span></span><br><span class="line"><span class="keyword">export</span> type AppDispatch = <span class="keyword">typeof</span> store.dispatch;</span><br><span class="line"><span class="keyword">export</span> type RootState = ReturnType&lt;<span class="keyword">typeof</span> store.getState&gt;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//사용하고자 하는 곳에서 사용</span></span><br><span class="line"><span class="keyword">import</span> &#123; useFetchBreedsQuery &#125; <span class="keyword">from</span> <span class="string">'./features/dogs/dogsApiSlice'</span>;</span><br><span class="line"><span class="keyword">import</span> logo <span class="keyword">from</span> <span class="string">'./logo.svg'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./App.css'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//take selector function</span></span><br><span class="line">  <span class="keyword">const</span> count = useAppSelector(<span class="function">(<span class="params">state</span>) =&gt;</span> state.counter.value);</span><br><span class="line">  <span class="keyword">const</span> dispatch = useAppDispatch();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [numDogs, setNumDogs] = useState(<span class="number">10</span>);</span><br><span class="line">  <span class="keyword">const</span> &#123; data = [], isFetching &#125; = useFetchBreedsQuery(numDogs);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(useFetchBreedsQuery);</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://redux-toolkit.js.org/rtk-query/overview" target="_blank" rel="noopener">RTK Query Overview</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/30/210731_reduxToolkit-Ts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/30/210731_reduxToolkit-Ts/" class="post-title-link" itemprop="url">Redux-tookit-typescript 원문 번역</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-31 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-31T00:00:00+09:00">2021-07-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Redux-toolkit-typescript-원문-번역"><a href="#Redux-toolkit-typescript-원문-번역" class="headerlink" title="Redux-toolkit-typescript 원문 번역"></a>Redux-toolkit-typescript 원문 번역</h2><blockquote>
+<p><a href="https://redux-toolkit.js.org/tutorials/typescript" target="_blank" rel="noopener">https://redux-toolkit.js.org/tutorials/typescript</a></p>
+</blockquote>
+<h2 id="Usage-With-TypeScript"><a href="#Usage-With-TypeScript" class="headerlink" title="Usage With TypeScript"></a>Usage With TypeScript</h2><p>Redux Toolkit은 이미 TypeScript로 작성되었으므로 TS 유형 정의가 내장되어 있다. React Redux 는 NPM 의 별도 @types/react-reduxtypedef 패키지 에 type에 대한 정의가 있다. 라이브러리 함수를 작성하는 것 외에도 type은 리덕스 스토어와 리액트 컴포넌트 사이의 인터페이스를 보다 typesage하게 작성하는 것을 쉽게ㅐ 하도록 도와주는 helper를 export한다.</p>
+<p>React Redux v7.2.3부터는 react-redux 패키지가 @types/react-redux에 종속되어서 type 정의는 자동으로 라이브러리와 함께 설치된다. 그렇지 않은 경우에는 직접 수동으로 설치해야 한다. (npm install @types/react-redux)</p>
+<p><a href="https://github.com/reduxjs/cra-template-redux-typescript" target="_blank" rel="noopener">The Redux+TS template for Create-React-App</a> comes with a working example of these patterns already configured.</p>
+<h1 id="Project-Setup"><a href="#Project-Setup" class="headerlink" title="Project Setup"></a>Project Setup</h1><p>Root State 및 Dispatch Types 정의</p>
+<p>configureStore를 사용하면 추가 입력이 필요하지 않다. 하지만 추후에 필요에 따라 참조할 수 있도록 RootState type과 Dispatch type을 추출하고자 하게 된다. 스토어 자체에서 이러한 타입들을 추론한다는 것은 state slice를 추가하거나 미들웨어 세팅을 수정할 때 올바르게 업데이트 된다는 것을 의미한다.</p>
+<p>이것들은 모두 type이기 때문에 app/store.ts와 같이 스토어 셋업 파일에서 직접 export하여 다른 파일로 import하는 것이 안전하다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; configureStore &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit'</span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> store = configureStore(&#123;</span><br><span class="line">  reducer: &#123;</span><br><span class="line">    posts: postsReducer,</span><br><span class="line">    comments: commentsReducer,</span><br><span class="line">    users: usersReducer,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Infer the `RootState` and `AppDispatch` types from the store itself</span></span><br><span class="line"><span class="comment">//RooteState와 AppDispatch가 스토어 자체에서 추론된다.</span></span><br><span class="line"><span class="keyword">export</span> type RootState = ReturnType&lt;<span class="keyword">typeof</span> store.getState&gt;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 추론된 타입:</span></span><br><span class="line"><span class="comment">// Inferred type: &#123;posts: PostsState, comments: CommentsState, users: UsersState&#125;</span></span><br><span class="line"><span class="keyword">export</span> type AppDispatch = <span class="keyword">typeof</span> store.dispatch;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Define-Typed-Hooks"><a href="#Define-Typed-Hooks" class="headerlink" title="Define Typed Hooks"></a>Define Typed Hooks</h2><p>RooteState와 AppDispatch를 type들을 각각 컴포넌트로 import할 수 있지만, 어플리케이션에서 사용할 수 있도록 타입이 지정된 버전의 useDispatch, useSelector 훅을 사용하는 것이 좋다. 그 이유는 아래와 같다.</p>
+<ul>
+<li>useSelector를 쓰면 매번 (state:RootState)를 사용할 필요가 없다.</li>
+<li>useDispatch를 쓰면 기본 dispatch 타입은 thunk에 대해 알지 못한다. thunk를 올바르게 쓰기 위해서는thunk middlewate type을 포함한 스토어의 특정하게 커스텀된 AppDispatch를 useDispatch와 함께 사용해야 한다. 미리 유형이 정의된 <strong>useDispatch 훅을 추가하고자 할 때는 사용하고자 하는 곳에 AppDispatch를 import해야 하는 것을 잊지 않도록 한다.</strong></li>
+</ul>
+<p>이들은 type이 아니라 실제 변수이기 때문에 store setup 파일보다는 <strong>app/hooks.ts와 같은 별도의 파일에 정의하는 것이 중요하다.</strong> 이를 통해 hook을 쓰고자 하는 어떠한 파일에서든 hook을 import할 수 있게하고, 잠재적인 import 디펜던시 이슈를 피할 수 있다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//app/hook.ts</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; TypedUseSelectorHook, useDispatch, useSelector &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> type &#123; RootState, AppDispatch &#125; <span class="keyword">from</span> <span class="string">'./store'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Use throughout your app instead of plain `useDispatch` and `useSelector`</span></span><br><span class="line"><span class="comment">// 원형의 useDispatch, useSelector 대신 아래를 사용한다.</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useAppDispatch = <span class="function"><span class="params">()</span> =&gt;</span> useDispatch&lt;AppDispatch&gt;()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useAppSelector: TypedUseSelectorHook&lt;RootState&gt; = useSelector</span><br></pre></td></tr></table></figure>
+<h2 id="Application-Usage"><a href="#Application-Usage" class="headerlink" title="Application Usage"></a>Application Usage</h2><p><code>slice state 및 액션 타입의 정의</code></p>
+<p>각각의 slice file은 초기 상태값에 대한 type을 정의해야 createSlice가 각각의 case 리듀서에 있는 state type을 올바르게 추론할 수 있다.</p>
+<p>생성된 모든 액션들은 action.payload를 일반적인 인수로 사용하는 Redux Toolkit의 PayloadAction<T> 타입을 사용해서 정의해야 한다.</p>
+<p>여기서 store 파일로부터 RootState를 안전하게 import 할 수 있다. circular import이긴 하지만 typsScript 컴파일러가 type을 올바르게 처리할 수 있다. 이는 selector 함수를 작성할 때 필요할 수 있다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createSlice, PayloadAction &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit'</span>;</span><br><span class="line"><span class="keyword">import</span> type &#123; RootState &#125; <span class="keyword">from</span> <span class="string">'../../app/store'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Define a type for the slice state</span></span><br><span class="line">interface CounterState &#123;</span><br><span class="line">  value: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Define the initial state using that type</span></span><br><span class="line"><span class="keyword">const</span> initialState: CounterState = &#123;</span><br><span class="line">  value: <span class="number">0</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> counterSlice = createSlice(&#123;</span><br><span class="line">  name: <span class="string">'counter'</span>,</span><br><span class="line">  <span class="comment">// `createSlice` will infer the state type from the `initialState` argument</span></span><br><span class="line">  initialState,</span><br><span class="line">  reducers: &#123;</span><br><span class="line">    increment: <span class="function">(<span class="params">state</span>) =&gt;</span> &#123;</span><br><span class="line">      state.value += <span class="number">1</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    decrement: <span class="function">(<span class="params">state</span>) =&gt;</span> &#123;</span><br><span class="line">      state.value -= <span class="number">1</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// Use the PayloadAction type to declare the contents of `action.payload`</span></span><br><span class="line">    incrementByAmount: <span class="function">(<span class="params">state, action: PayloadAction&lt;number&gt;</span>) =&gt;</span> &#123;</span><br><span class="line">      state.value += action.payload;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123; increment, decrement, incrementByAmount &#125; = counterSlice.actions;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Other code such as selectors can use the imported `RootState` type</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> selectCount = <span class="function">(<span class="params">state: RootState</span>) =&gt;</span> state.counter.value;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> counterSlice.reducer;</span><br></pre></td></tr></table></figure>
+<p>생성된 action creator는 작성자가 reducer에 제공한 PayloadAction<T>의 타입 기반으로 payload의 인수를 수락하도록 올바르게 입력됩니다. 예를 들어, 위 코드에서 incrementByAmountsms 인수로 number를 필요로 한다.</p>
+<p>몇몇 케이스에선 typeScript가 초기 상태의 type을 불필요하게 tigth하게 만들 수 있다. 만약 이런 일이 발생한다면 변수의 type을 선언하는 대신 <code>as</code> 를 이용해서 초기 상태를 캐스팅하는 방법으로 해결할 수 있다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Workaround: cast state instead of declaring variable type</span></span><br><span class="line"><span class="keyword">const</span> initialState = &#123;</span><br><span class="line">  value: <span class="number">0</span>,</span><br><span class="line">&#125; <span class="keyword">as</span> CounterState</span><br></pre></td></tr></table></figure>
+<h1 id="Use-Typed-Hooks-in-Components"><a href="#Use-Typed-Hooks-in-Components" class="headerlink" title="Use Typed Hooks in Components"></a>Use Typed Hooks in Components</h1><p>컴포넌트 파일에서 React-Redux의 표준 hook 대신 미리 입력된 hook을 가져온다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; useAppSelector, useAppDispatch &#125; <span class="keyword">from</span> <span class="string">'app/hooks'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; decrement, increment &#125; <span class="keyword">from</span> <span class="string">'./counterSlice'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// The `state` arg is correctly typed as `RootState` already</span></span><br><span class="line">  <span class="keyword">const</span> count = useAppSelector(<span class="function">(<span class="params">state</span>) =&gt;</span> state.counter.value);</span><br><span class="line">  <span class="keyword">const</span> dispatch = useAppDispatch();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// omit rendering logic</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="Usage-With-TypeScript-1"><a href="#Usage-With-TypeScript-1" class="headerlink" title="Usage With TypeScript"></a>Usage With TypeScript</h1><blockquote>
+<p><a href="https://redux-toolkit.js.org/usage/usage-with-typescript" target="_blank" rel="noopener">https://redux-toolkit.js.org/usage/usage-with-typescript</a></p>
+</blockquote>
+<p>리덕스 툴킷은 typeScript로 작성되었으며, 해당 API는 TypeScript 응용 프로그램과의 뛰어난 통합을 가능하게 하도록 설계되었다.</p>
+<h2 id="configureStore"><a href="#configureStore" class="headerlink" title="configureStore"></a>configureStore</h2><h3 id="state-type-가져오기"><a href="#state-type-가져오기" class="headerlink" title="state type 가져오기"></a>state type 가져오기</h3><p>state type을 가져오는 가장 쉬운 방법은 roote reducer를 미리 정의하고, returnType을 추출하는 것이다. 쇼type 이름인 state는 일반적으로 남용되기 깨문에 혼동을 막기 위해 RootState와 같이 type에 다른 이름을 주는 것을 추천한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; combineReducers &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit'</span>;</span><br><span class="line"><span class="keyword">const</span> rootReducer = combineReducers(&#123;&#125;);</span><br><span class="line"><span class="keyword">export</span> type RootState = ReturnType&lt;<span class="keyword">typeof</span> rootReducer&gt;;</span><br></pre></td></tr></table></figure>
+<p>혹은 rootReducer를 직접 생성하지 않고 직접 configureStore()에 slice reducer 전달 할 수 있다. 이 경우 root reducer를 올바르게 추론하기 위해 Type을 약간 수정해야 한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; configureStore &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit'</span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">const</span> store = configureStore(&#123;</span><br><span class="line">  reducer: &#123;</span><br><span class="line">    one: oneSlice.reducer,</span><br><span class="line">    two: twoSlice.reducer,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">export</span> type RootState = ReturnType&lt;<span class="keyword">typeof</span> store.getState&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store;</span><br></pre></td></tr></table></figure>
+<h3 id="Dispatch-타입-가져오기"><a href="#Dispatch-타입-가져오기" class="headerlink" title="Dispatch 타입 가져오기"></a>Dispatch 타입 가져오기</h3><p>스토어에서 Dispatch 타입을 가져오려면 store를 생성한 후에 추출해야 한다. 이 역시 Dispatch는 남용되기 때문에 혼동을 막기 위해 AppDispatch처럼 다른 type 이름을 지정할 것을 추천한다. 혹은 아래처럼 useAppDispatch hook을 추출하여 useDispatch를 호출할 때 사용하는 것이 더 편할 수 도 있다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; configureStore &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit'</span></span><br><span class="line"><span class="keyword">import</span> &#123; useDispatch &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> rootReducer <span class="keyword">from</span> <span class="string">'./rootReducer'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = configureStore(&#123;</span><br><span class="line">  reducer: rootReducer,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> type AppDispatch = <span class="keyword">typeof</span> store.dispatch</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useAppDispatch = <span class="function"><span class="params">()</span> =&gt;</span> useDispatch&lt;AppDispatch&gt;()</span><br><span class="line"><span class="comment">// Export a hook that can be reused to resolve types</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure>
+<h3 id="Dispatch-타입에-대한-올바른-입력"><a href="#Dispatch-타입에-대한-올바른-입력" class="headerlink" title="Dispatch 타입에 대한 올바른 입력"></a>Dispatch 타입에 대한 올바른 입력</h3><p>dispatch 함수의 typedms 미들웨어 옵션에 의해 직접 추론될 수 있다. 만약 미들웨어에 올바른 타입을 추가하고 싶다면 dispatch는 이미 올바르게 입력되어 있어야 한다.</p>
+<p>typeScript는 스프레드 연산자를 사용해서 배열을 합칠 때 array type을 확장하는 경우가 많기 때문에 getDefaultMiddleware()에 의해 리턴되는 MiddlewareArray 메소드에서 .concat(…) 또는 .prepend(…)를 사용하는 것이 추천된다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; configureStore &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit'</span></span><br><span class="line"><span class="keyword">import</span> additionalMiddleware <span class="keyword">from</span> <span class="string">'additional-middleware'</span></span><br><span class="line"><span class="keyword">import</span> logger <span class="keyword">from</span> <span class="string">'redux-logger'</span></span><br><span class="line"><span class="comment">// @ts-ignore</span></span><br><span class="line"><span class="keyword">import</span> untypedMiddleware <span class="keyword">from</span> <span class="string">'untyped-middleware'</span></span><br><span class="line"><span class="keyword">import</span> rootReducer <span class="keyword">from</span> <span class="string">'./rootReducer'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> type RootState = ReturnType&lt;<span class="keyword">typeof</span> rootReducer&gt;</span><br><span class="line"><span class="keyword">const</span> store = configureStore(&#123;</span><br><span class="line">  reducer: rootReducer,</span><br><span class="line">  middleware: <span class="function">(<span class="params">getDefaultMiddleware</span>) =&gt;</span></span><br><span class="line">    getDefaultMiddleware()</span><br><span class="line">      .prepend(</span><br><span class="line">        <span class="comment">// correctly typed middlewares can just be used</span></span><br><span class="line">        additionalMiddleware,</span><br><span class="line">        <span class="comment">// you can also type middlewares manually</span></span><br><span class="line">        untypedMiddleware <span class="keyword">as</span> Middleware&lt;</span><br><span class="line">          (action: Action&lt;<span class="string">'specialAction'</span>&gt;) =&gt; number,</span><br><span class="line">          RootState</span><br><span class="line">        &gt;</span><br><span class="line">      )</span><br><span class="line">      <span class="comment">// prepend and concat calls can be chained</span></span><br><span class="line">      .concat(logger),</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> type AppDispatch = <span class="keyword">typeof</span> store.dispatch</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure>
+<h3 id="getDefaultMiddleware-없이-MiddlewareArray-사용"><a href="#getDefaultMiddleware-없이-MiddlewareArray-사용" class="headerlink" title="getDefaultMiddleware 없이 MiddlewareArray 사용"></a>getDefaultMiddleware 없이 MiddlewareArray 사용</h3><p>getDefaultMiddleware의 사용을 완전히 스킵할 경우, 미들웨어 배열의 안전한 타입 연결에 MiddlewareArray를 사용할 수 있다. 이 class는 .concat(…) 및 추가적인 .prepend(…) 메서드에 대한 수정된 유형만 사용하여 기본 JavaScript 배열 유형을 확장한다.</p>
+<p>하지만 const로 사용하고, 스프레드 연산자를 사용하지 않는 한 배열 유형을 확장하는 문제가 발생하지 않기 때문에 일반적으로 필요하지는 않다.</p>
+<p>다음의 두 가지 호출은 동일하다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; configureStore, MiddlewareArray &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit'</span></span><br><span class="line"></span><br><span class="line">configureStore(&#123;</span><br><span class="line">  reducer: rootReducer,</span><br><span class="line">  middleware: <span class="keyword">new</span> MiddlewareArray().concat(additionalMiddleware, logger),</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">configureStore(&#123;</span><br><span class="line">  reducer: rootReducer,</span><br><span class="line">  middleware: [additionalMiddleware, logger] <span class="keyword">as</span> <span class="keyword">const</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="React-Redux에서-추출한-Dispatch-type-사용"><a href="#React-Redux에서-추출한-Dispatch-type-사용" class="headerlink" title="React Redux에서 추출한 Dispatch type 사용"></a>React Redux에서 추출한 Dispatch type 사용</h2><p>기본적으로 React Redux useDispatch 훅에는 미들웨어를 고려하는 type이 포함되어 있지 않다. 만약 dispatching을 할 때 dispatch 함수에 대해 더 구체적인 type이 필요한 경우에는 dispatch 함수의 type을 지정하거나, custom-type이 된 버전의 useSelector를 만들어서 사용한다. (<a href="https://react-redux.js.org/using-react-redux/usage-with-typescript#typing-the-usedispatch-hook" target="_blank" rel="noopener">자세한 내용은 이곳 참조</a>)</p>
+<h3 id="createAction"><a href="#createAction" class="headerlink" title="createAction"></a>createAction</h3><p>대부분의 케이스에서 action.type에 대한 리터럴 정의는 필요하지 않기 때문에 아래와 같은 코드를 사용할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createAction&lt;number&gt;(&#39;test&#39;);</span><br></pre></td></tr></table></figure>
+<p>이렇게 하면 생성된 action이 PayloadActionCreator<number, string>의 타입이 된다.</p>
+<p>일부 설정에서는 action.type에 대한 리터럴 설정이 필요할 수도 있다. 하지만 typeScript는 수동으로 정의된 타입 매개변수와 추론된 타입 매개변수의 혼합을 허용하지 않기 때문에 일반 정의와 실제 JavaScript 코드 모두에서 타입을 지정해야 합니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createAction&lt;number, &#39;test&#39;&gt;(&#39;test&#39;);</span><br></pre></td></tr></table></figure>
+<p>중복 없이 이것을 작성하는 다른 방법을 찾고 있다면, callback을 준비하여 두 type 파라미터를 인수에서 추론할 수 있으므로 action type을 특정할 필요가 없다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function withPayloadType&lt;T&gt;() &#123;</span><br><span class="line">  return (t: T) &#x3D;&gt; (&#123; payload: t &#125;);</span><br><span class="line">&#125;</span><br><span class="line">createAction(&#39;test&#39;, withPayloadType&lt;string&gt;());</span><br></pre></td></tr></table></figure>
+<h3 id="리터럴하게-입력된-action-type의-대안"><a href="#리터럴하게-입력된-action-type의-대안" class="headerlink" title="리터럴하게 입력된 action.type의 대안"></a>리터럴하게 입력된 action.type의 대안</h3><p>예를 들어 case문에서 payload type을 올바르게 작성하기 위해 action.type을 유니온 식별을 위한 식별자로 사용하는 경우 이 대안에 관심이 있을 수 있다.</p>
+<p>생성된 action creators는 <a href="https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates" target="_blank" rel="noopener">type predicate</a>로써 match 메소드를 가진다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const increment &#x3D; createAction&lt;number&gt;(&#39;increment&#39;);</span><br><span class="line">function test(action: Action) &#123;</span><br><span class="line">  if (increment.match(action)) &#123;</span><br><span class="line">    &#x2F;&#x2F; action.payload inferred correctly here</span><br><span class="line">    action.payload;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이 match 메소드는 redux-observable과 RxJS의 filter 메소드를 조합하여 사용하는 경우에도 유용하다.</p>
+<h3 id="createReducer"><a href="#createReducer" class="headerlink" title="createReducer"></a>createReducer</h3><p>createReducer의 기본 호출방법은 아래와 같이 “lookup table” / “map object”를 사용하는 것이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">createReducer(0, &#123;</span><br><span class="line">  increment: (state, action: PayloadAction&lt;number&gt;) &#x3D;&gt; state + action.payload,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>하지만 key는 오직 문자열이기 때문에, API TypeScript를 사용할 경우 action type을 추론하거나 validate할 수 없다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  const increment &#x3D; createAction&lt;number, &#39;increment&#39;&gt;(&#39;increment&#39;);</span><br><span class="line">  const decrement &#x3D; createAction&lt;number, &#39;decrement&#39;&gt;(&#39;decrement&#39;);</span><br><span class="line">  createReducer(0, &#123;</span><br><span class="line">    [increment.type]: (state, action) &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F; action is any here</span><br><span class="line">    &#125;,</span><br><span class="line">    [decrement.type]: (state, action: PayloadAction&lt;string&gt;) &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F; even though action should actually be PayloadAction&lt;number&gt;, TypeScript can&#39;t detect that and won&#39;t give a warning here.</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>대안으로 RTK에 type-safe reducer builder API가 포함되어 있다.</p>
+<hr>
+<h1 id="Building-Type-Safe-Reducer-Argument-Objects"><a href="#Building-Type-Safe-Reducer-Argument-Objects" class="headerlink" title="Building Type-Safe Reducer Argument Objects"></a>Building Type-Safe Reducer Argument Objects</h1><p>createReducer에 대한 인수로 간단한 객체를 사용하는 대신, ActionReducerMapBuilder 인스턴스를 받는 콜백을 사용할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const increment &#x3D; createAction&lt;number, &#39;increment&#39;&gt;(&#39;increment&#39;);</span><br><span class="line">const decrement &#x3D; createAction&lt;number, &#39;decrement&#39;&gt;(&#39;decrement&#39;);</span><br><span class="line">createReducer(0, (builder) &#x3D;&gt;</span><br><span class="line">  builder</span><br><span class="line">    .addCase(increment, (state, action) &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F; action is inferred correctly here</span><br><span class="line">    &#125;)</span><br><span class="line">    .addCase(decrement, (state, action: PayloadAction&lt;string&gt;) &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F; this would error out</span><br><span class="line">    &#125;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>리듀서 인수 객체를 정의할 때 보다 엄격한 type 안정성이 필요한 경우에 사용이 추천된다.</p>
+<h3 id="builder-addMatcher"><a href="#builder-addMatcher" class="headerlink" title="builder.addMatcher"></a>builder.addMatcher</h3><p>builder.addMatcher의 첫 번째 matcher에 <a href="https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates" target="_blank" rel="noopener">type predicate</a> 함수를 사용할 수 있다. 결과적으로 두번째 reducer 인수에 대한 action 인수는 typeScript에 의해 유츄될 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function isNumberValueAction(action: AnyAction): action is PayloadAction&lt;&#123; value: number &#125;&gt; &#123;</span><br><span class="line">  return typeof action.payload.value &#x3D;&#x3D;&#x3D; &#39;number&#39;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createReducer(&#123; value: 0 &#125;, builder &#x3D;&gt;</span><br><span class="line">   builder.addMatcher(isNumberValueAction, (state, action) &#x3D;&gt; &#123;</span><br><span class="line">      state.value +&#x3D; action.payload.value</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="createSlice"><a href="#createSlice" class="headerlink" title="createSlice"></a>createSlice</h1><p>createSlice는 action 뿐만 아니라 reducer도 만드는데 여기서 type safety에 대해 걱정할 필요는 없다. action types는 인라인으로 제공될 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const slice &#x3D; createSlice(&#123;</span><br><span class="line">  name: &#39;test&#39;,</span><br><span class="line">  initialState: 0,</span><br><span class="line">  reducers: &#123;</span><br><span class="line">    increment: (state, action: PayloadAction&lt;number&gt;) &#x3D;&gt; state + action.payload,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line">&#x2F;&#x2F; now available:</span><br><span class="line">slice.actions.increment(2);</span><br><span class="line">&#x2F;&#x2F; also available:</span><br><span class="line">slice.caseReducers.increment(0, &#123; type: &#39;increment&#39;, payload: 5 &#125;);</span><br></pre></td></tr></table></figure>
+<p>케이스 리듀서가 너무 많아서 인라인으로 정의하는 것이 지저분하거나 슬라이스 전체에서 케이스 리듀서를 재사용하려는 경우 createSlice 외부에서 정의하여 호출하고 caseReducer처럼 입력할 수도 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">type State &#x3D; number;</span><br><span class="line">const increment: CaseReducer&lt;State, PayloadAction&lt;number&gt;&gt; &#x3D; (state, action) &#x3D;&gt;</span><br><span class="line">  state + action.payload;</span><br><span class="line"></span><br><span class="line">createSlice(&#123;</span><br><span class="line">  name: &#39;test&#39;,</span><br><span class="line">  initialState: 0,</span><br><span class="line">  reducers: &#123;</span><br><span class="line">    increment,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em></p>
+<p><a href="https://redux-toolkit.js.org/introduction/getting-started#rtk-query" target="_blank" rel="noopener">Getting Started | Redux Toolkit</a><br><a href="https://youtu.be/9zySeP5vH9c" target="_blank" rel="noopener">Let’s Learn Modern Redux! (with Mark Erikson) - Learn With Jason</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/29/210730_reduxToolkit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/29/210730_reduxToolkit/" class="post-title-link" itemprop="url">Redux-tookit</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-30 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-30T00:00:00+09:00">2021-07-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Redux-toolkit-원문-번역"><a href="#Redux-toolkit-원문-번역" class="headerlink" title="Redux-toolkit 원문 번역"></a>Redux-toolkit 원문 번역</h2><blockquote>
+<p><a href="https://redux-toolkit.js.org/introduction/getting-started#rtk-query" target="_blank" rel="noopener">https://redux-toolkit.js.org/introduction/getting-started#rtk-query</a></p>
+</blockquote>
+<p>Redux toolkt은 리덕스 로직을 표준화하기 위한 패키지이다. 원래는 리덕스가 가지고 있는 세가지 문제점을 지원하기 위해 만들어졌다.</p>
+<ul>
+<li>리덕스 스토어를 구성하는 방법이 지나치게 복잡하다.</li>
+<li>리덕스를 사용하기 위해 많은 패키지를 설치해야 한다</li>
+<li>리덕스는 지나치게 많은 보일러 플레이트 코드를 필요로 한다.</li>
+</ul>
+<p>리덕스가 가진 이러한 문제점에 대헤 모든 것을 커버할 순 없지만 create-react-app과 appllo-boost를 근간으로 하여 보다 추상화된 셋업 프로세스와 가장 많이 사용되는 use cases를 처리하기 위한 방법을 제공할 수 있을 뿐 아니라 사용자가 어플리케이션 코드를 단순화할 수 있는 유용한 유틸리티를 제공한다.</p>
+<p>리덕스 툴킷은 또한 data fetching과 캐싱을 할 수 있는 ‘RTK Query’를 포함하는데, 별도의 엔트리포인트 set로 패키지 안에 포함되어 있다. 옵셔널이지만 직접 data fetching 로직을 작성하지 않아도 된다.<br>이 툴은 리덕스 유저들에게 유용하다. 만약 당신이 프로젝트에 리덕스를 처음 적용해보는 유저거나 어플리케이션 내에 존재하는 코드를 단순화 시키고자 하는 익숙한 리덕스 유저든, 리덕스 툴킷은 당신의 리덕스 코드를 훨씬 좋게 만들 것이다.</p>
+<hr>
+<h2 id="설치방법"><a href="#설치방법" class="headerlink" title="설치방법"></a>설치방법</h2><h3 id="Create-React-App을-이용"><a href="#Create-React-App을-이용" class="headerlink" title="Create React App을 이용"></a>Create React App을 이용</h3><p>가장 추천되는 방법으로 official Redux + JS template 또는 create React App용 Redux + Ts template을 사용하는 것이다. 이 템플릿은 redux toolkit 및 react redux 구성 요소의 통합을 활용한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Redux + Plain JS template</span><br><span class="line">npx create-react-app my-app --template redux</span><br><span class="line"></span><br><span class="line"># Redux + TypeScript template</span><br><span class="line">npx create-react-app my-app --template redux-typescript</span><br></pre></td></tr></table></figure>
+<h3 id="기존-앱"><a href="#기존-앱" class="headerlink" title="기존 앱"></a>기존 앱</h3><p>redux toolkit은 모듈 번들러용 npm 패키지로 또는 노드 어플리케이션에서 사용 가능하다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># NPM</span><br><span class="line">npm install @reduxjs&#x2F;toolkit</span><br><span class="line"></span><br><span class="line"># Yarn</span><br><span class="line">yarn add @reduxjs&#x2F;toolkit</span><br></pre></td></tr></table></figure>
+<p>또는 window.RTK의 전역 변수로 정의된 precompiled UMD package로 사용가능하다. UMD package는 <code>&lt;script&gt;</code>태그로 바로 사용할 수 있다.</p>
+<hr>
+<h2 id="Redux-toolkit에-포함된-것"><a href="#Redux-toolkit에-포함된-것" class="headerlink" title="Redux-toolkit에 포함된 것"></a>Redux-toolkit에 포함된 것</h2><ul>
+<li><code>[configureStore()](https://redux-toolkit.js.org/api/configureStore)</code>: 단순화된 구성옵션과 좋은 기본값을 제공하기 위해 <code>createStore</code> 로 감싼다. 이는 자동으로 slice reducer와 결합할 수 있고, 사용자게 제공하는 리덕스 미들웨어가 무엇이든 간에 redux-thunk를 디폴트로 제공한다. 또 redux devtools extension을 사용할 수 있다.</li>
+<li><code>[createReducer()](https://redux-toolkit.js.org/api/createReducer)</code>: switch 문으로 액션 타입의 목록을 작성하는 대신, case reducer funxtion들로 액션타입의 목록을 제공한다. 추가로 자동으로 immer 라이브러리를 사용하여 immutable한 업데이트를 normal mutative 코드를 통해 단순화한다. 예를 들어 state.todos[3].completed = true.처럼.</li>
+<li><code>[createAction()](https://redux-toolkit.js.org/api/createAction)</code>: 주어진 액션 타입 문자열에 대한 action creator 함수를 생성한다. 이 함수는 스스로 toString()으로 정의되기 때문에 type 상수대신 사용할 수 있다.</li>
+<li><code>[createSlice()](https://redux-toolkit.js.org/api/createSlice)</code>: reducer 함수의 객체, a slice name, 초기값을 받아들여서 이와 상응하는 action creators, action types을 가진 slice reducer를 자동으로 생성한다.</li>
+<li><code>[createAsyncThunk](https://redux-toolkit.js.org/api/createAsyncThunk)</code>: 액션 타입 문자열을 받아들여서 promise를 return하는 함수를 반환하고, 이 promise에 근거하여 pending/fulfilled/rejected 의 액션 타입을 디스패치하는 thunk를 생성한다.</li>
+<li><code>[createEntityAdapter](https://redux-toolkit.js.org/api/createEntityAdapter)</code>: 스토어에 있는 정규화된 data(normalized date)를 관리하기 위해 재사용 가능한 리듀서와 selectors set를 생성한다.</li>
+<li>The <code>[createSelector</code> utility](<a href="https://redux-toolkit.js.org/api/createSelector" target="_blank" rel="noopener">https://redux-toolkit.js.org/api/createSelector</a>) from the <a href="https://github.com/reduxjs/reselect" target="_blank" rel="noopener">Reselect</a> library, re-exported for ease of use.</li>
+</ul>
+<hr>
+<h1 id="RTK-Query"><a href="#RTK-Query" class="headerlink" title="RTK Query"></a>RTK Query</h1><p>@reduxjs/toolkit package 에 옵셔널로 포함되어 제공되는 것이다. data fetching과 캐싱의 사용 사례를 해결하기 위해 제작되었고, app의 API 인터페이스 계틍을 정의하기 위해 작지만 강력한 툴셋을 제공한다. 웹 어플리케이션에서 데이터를 로딩하는 보통의 경우를 단순화하도록 만들어졌기 때문에 직접 data fetching과 캐싱 로직을 작성할 필요가 없다.</p>
+<p>RTK 쿼리는 실행을 위해 Redux Toolkit 코어 위에 구축되는데, 아키텍처 내부에서 redux를 내부적으로 사용하기 위함이다. RTK 쿼리를 쓰기 위해서 리덕스나 RTK에 대한 지식이 필요하지는 않지만 RTK 쿼리가 제공하는 모든 추가적인 global store 관리 기능을 탐색할 필요가 있고, RTK 쿼리를 완전하게 사용하여 요청 및 캐시 동작의 타임라인을 재현하고, 횡단하기 위해 Redux DevTools 브라우저 확장 프로그램을 설치해야한다.</p>
+<p>RTK 쿼리는 core Redux Toolkit package 내부에 설치되어있다. 아래 두 가지 엔트리 포인트를 통해 사용할 수 있다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* React-specific entry point that automatically generates</span></span><br><span class="line"><span class="comment">   hooks corresponding to the defined endpoints */</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApi &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="RTK-쿼리안에-들어-있는-것"><a href="#RTK-쿼리안에-들어-있는-것" class="headerlink" title="RTK 쿼리안에 들어 있는 것"></a>RTK 쿼리안에 들어 있는 것</h3><p>다음의 API가 포함된다.</p>
+<ul>
+<li><code>[createApi()](https://redux-toolkit.js.org/rtk-query/api/createApi)</code>: RTK 쿼리 기능의 핵심. 일련의 엔드포인트로부터 데이터를 어떻게 회수해오는지와 관련된 방법, 데이터를 fetch하고 transtorm하는 방법을 설명하는 엔드리 포인트 set를 정의할 수 있다. 보통 기본 URL당 하나의 API 슬라이스를 사용하여 app에서 한 번만 쓰여야 한다.</li>
+<li><code>[fetchBaseQuery()](https://redux-toolkit.js.org/rtk-query/api/fetchBaseQuery)</code>: 요청을 단순화하는 목적을 가진 작은 wrapper이다. 대부분의 사용자에게 createApi에서 권장되는 baseQuery로 사용된다.</li>
+<li><code>[&lt;ApiProvider /&gt;](https://redux-toolkit.js.org/rtk-query/api/ApiProvider)</code>: 리덕스 스토어가 아직 없는 상태에서 Provider로 사용할 수 있다.</li>
+<li><code>[setupListeners()](https://redux-toolkit.js.org/rtk-query/api/setupListeners)</code>: refetchOnMount, refetchOnReconnect 동작을 활성화하는 데 사용되는 유틸리티이다.</li>
+</ul>
+<hr>
+<p><em>References</em></p>
+<p><a href="https://redux-toolkit.js.org/introduction/getting-started#rtk-query" target="_blank" rel="noopener">Getting Started | Redux Toolkit</a><br><a href="https://youtu.be/9zySeP5vH9c" target="_blank" rel="noopener">Let’s Learn Modern Redux! (with Mark Erikson) - Learn With Jason</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/20/210721_react-table/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +539,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
               </span>
 
           
@@ -224,134 +588,7 @@
 <h3 id="Plugin-Hook-Order-amp-Consistency"><a href="#Plugin-Hook-Order-amp-Consistency" class="headerlink" title="Plugin Hook Order &amp; Consistency"></a>Plugin Hook Order &amp; Consistency</h3><p>플러그인 hook의 순서와 사용은 다른 custom hooks가 그러하듯 항상 같은 순서로 호출되어야 한다는 hooks의 법칙에 따른다.</p>
 <h3 id="Option-Memoization"><a href="#Option-Memoization" class="headerlink" title="Option Memoization"></a>Option Memoization</h3><p><code>React Table</code>은 state와 사이드 이펙트를 업데이트하거나 계산해야하는 타이밍을 메모제이션에 의존한다. 이 말은 모든 옵션이 useTable에 전달될 때 useMemo 또는 useCallback으로 메모제이션되어야 한다는 의미이다.</p>
 <hr>
-<p><a href="https://www.merrickchristensen.com/articles/headless-user-interface-components/" target="_blank" rel="noopener">HEADLESS USER INTERFACE COMPONENTS</a><br><a href="https://react-table.tanstack.com/docs/overview" target="_blank" rel="noopener">React Table - overview</a><br><a href="https://react-table.tanstack.com/docs/quick-start" target="_blank" rel="noopener">React Table - Quick Start</a><br><a href="https://react-table.tanstack.com/docs/api/overview" target="_blank" rel="noopener">React Table - Overview</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/19/210720_hashset/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/19/210720_hashset/" class="post-title-link" itemprop="url">컬렉션 - 해시셋, 컬렉션과 같이 쓰면 유용한 것들</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-20T00:00:00+09:00">2021-07-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>딕셔너리와 매우 비슷하다. <strong>차이점은 해시셋은 키만 있다는 점이다.</strong></li>
-<li>리스트와 딕셔너리를 쓰는 경우가 거의 90%이므로 거의 쓸 일이 없고, 특별할 때만 쓴다.</li>
-<li>중복 데이터를 제거할 때 가장 쓰기 편하다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;T&gt; &lt;변수명&gt; &#x3D; new HastSet &lt;T&gt;(); &#x2F;&#x2F;T는 저장할 키의 자료형</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt; ();</span><br><span class="line">HastSet&lt;string&gt; studentNames &#x3D; new HashSet &lt;string&gt; ();</span><br></pre></td></tr></table></figure>
-<h2 id="해시셋에-요소-추가하기"><a href="#해시셋에-요소-추가하기" class="headerlink" title="해시셋에 요소 추가하기"></a>해시셋에 요소 추가하기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; HastSet&lt;T&gt;.Add(T data);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><em>해시셋에 <code>없는 키</code>면</em> 새 요소로 추가한 후 참을 반환</li>
-<li><em>해시셋에 <code>있는 키</code>면</em> 거짓을 반환</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;();</span><br><span class="line">bool bSuccess1 &#x3D; studentIDs.Add(123); &#x2F;&#x2F;참</span><br><span class="line">bool bSuccess2 &#x3D; studentIDs.Add(456); &#x2F;&#x2F;참</span><br><span class="line">bool bSuccess3 &#x3D; studentIDs.Add(123); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<h2 id="이-요소가-해시셋에-있나요"><a href="#이-요소가-해시셋에-있나요" class="headerlink" title="이 요소가 해시셋에 있나요?"></a>이 요소가 해시셋에 있나요?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bConatin &#x3D; HastSet&lt;T&gt;.Contain(T data);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><em>해시셋에 <code>있는 키</code>면</em> 참을 반환</li>
-<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">bool bContain1 &#x3D; studentIDs.Contains(123); &#x2F;&#x2F;참</span><br><span class="line">bool bContain2 &#x3D; studentIDs.Contains(178); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<h2 id="해시셋-요소-삭제"><a href="#해시셋-요소-삭제" class="headerlink" title="해시셋 요소 삭제"></a>해시셋 요소 삭제</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bRemoved &#x3D; HastSet&lt;T&gt;.Remove(T data);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><em>해시셋에 <code>있는 키</code>면</em> 요소를 삭제한 후 참을 반환</li>
-<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">bool bRemoved1 &#x3D; studentIDs.Remove(123); &#x2F;&#x2F;참</span><br><span class="line">bool bRemoved2 &#x3D; studentIDs.Remove(178); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<h2 id="해시셋의-모든-요소-삭제"><a href="#해시셋의-모든-요소-삭제" class="headerlink" title="해시셋의 모든 요소 삭제"></a>해시셋의 모든 요소 삭제</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HastSet&lt;T&gt;.clear();</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">studentID.Clear();</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="해시셋의-요소-가져오기"><a href="#해시셋의-요소-가져오기" class="headerlink" title="해시셋의 요소 가져오기"></a>해시셋의 요소 가져오기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; HastSet&lt;T&gt;.TryGetValue(T Key, out T key);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><em>해시셋에 <code>있는 키</code>면</em> 요소를 키에 연결된 요소를 out 매개변수에 대압하고 참을 반환</li>
-<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">int id;</span><br><span class="line">bool bSuccess &#x3D; studentIDs.TryGetValue(456, out iff)</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="컬렉션과-같이-쓰면-유용한-것들"><a href="#컬렉션과-같이-쓰면-유용한-것들" class="headerlink" title="컬렉션과 같이 쓰면 유용한 것들"></a>컬렉션과 같이 쓰면 유용한 것들</h2><p>리스트를 예로 들어, 순차적으로 요소를 탐색할 때 i가 왜 필요한지에 대한 의문이 생긴다. 또 부등호를 잘못 쓰는 것처럼 실수할 가능성도 있다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5);</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt; names.Count; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Name: &#123;names[i]&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h3><p>어떤 컬렉션이든 순회할 수 있는 방법이 있으면서 실수를 방지하는 좋은 방법이 바로 <code>foreach</code>이다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreach (T&lt;변수명&gt; in List&lt;T&gt;)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>foreach 문 안의 T는 리스트 선안할 때 사용한 자료형이다.</li>
-<li>&lt;변수명&gt;은 foreach 문 범위에서만 사용된다.</li>
-</ul>
-<h3 id="리스트와-foreach문"><a href="#리스트와-foreach문" class="headerlink" title="리스트와 foreach문"></a>리스트와 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(4096);</span><br><span class="line"></span><br><span class="line">foreach (string name in names)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="딕셔너리와-foreach문"><a href="#딕셔너리와-foreach문" class="headerlink" title="딕셔너리와 foreach문"></a>딕셔너리와 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foreach (KeyValuePair&lt;TKey, TValue&gt; &lt;변수명&gt; in Dictionary&lt;TKey, TValue&gt;)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>KeyValuePair<TKey, TValue>의 TKey, TValue는 각각 딕셔너리를 선언할 때 사용한 키와 값의 자료형이다.</li>
-<li>&lt;변수명&gt;은 foreach 문 범위에서만 사용된다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line"></span><br><span class="line">foreach (KeyValuePair&lt;string, string&gt; score in students)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WrtieLine($&quot;key: &#123;score.key&#125;, value: &#123;score.Value&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="배열-과-foreach문"><a href="#배열-과-foreach문" class="headerlink" title="배열([])과 foreach문"></a>배열([])과 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreach (T &lt;변수명&gt; in T[])</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">float scores &#x3D; &#123;30.5f, 41.0f&#125;</span><br><span class="line"></span><br><span class="line">foreach (float score in scores)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(score);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="var"><a href="#var" class="headerlink" title="var"></a>var</h3><p>딕셔너리 foreach문이 작성해야하는 코드가 길고, 매번 keyValuePair<TKey, TValue>를 써야한다는 문제점을 var가 해결해준다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line"></span><br><span class="line">foreach (var score in students)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Key: &#123;score.key&#125;, value: &#123;score.value&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>묵시적 자료형 : 컴파일러가 알아서 자료형을 추론해줌.</li>
-<li><strong>지역 변수</strong>에서만 사용 가능.</li>
-<li>긴 자료형을 짧게 줄여준다.</li>
-<li><strong>반드시 선언과 동시에 대입해주어야 한다.</strong></li>
-<li>대입하는 값을 통해 명백하게 자료형을 알 수 있을 때만 사용한다.</li>
-</ul>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+<p><em>References</em><br><a href="https://www.merrickchristensen.com/articles/headless-user-interface-components/" target="_blank" rel="noopener">HEADLESS USER INTERFACE COMPONENTS</a><br><a href="https://react-table.tanstack.com/docs/overview" target="_blank" rel="noopener">React Table - overview</a><br><a href="https://react-table.tanstack.com/docs/quick-start" target="_blank" rel="noopener">React Table - Quick Start</a><br><a href="https://react-table.tanstack.com/docs/api/overview" target="_blank" rel="noopener">React Table - Overview</a></p>
 
       
     </div>
@@ -402,7 +639,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
               </span>
 
           
@@ -512,6 +749,208 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/19/210720_hashset/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/19/210720_hashset/" class="post-title-link" itemprop="url">컬렉션 - 해시셋, 컬렉션과 같이 쓰면 유용한 것들</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-20T00:00:00+09:00">2021-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>딕셔너리와 매우 비슷하다. <strong>차이점은 해시셋은 키만 있다는 점이다.</strong></li>
+<li>리스트와 딕셔너리를 쓰는 경우가 거의 90%이므로 거의 쓸 일이 없고, 특별할 때만 쓴다.</li>
+<li>중복 데이터를 제거할 때 가장 쓰기 편하다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;T&gt; &lt;변수명&gt; &#x3D; new HastSet &lt;T&gt;(); &#x2F;&#x2F;T는 저장할 키의 자료형</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt; ();</span><br><span class="line">HastSet&lt;string&gt; studentNames &#x3D; new HashSet &lt;string&gt; ();</span><br></pre></td></tr></table></figure>
+<h2 id="해시셋에-요소-추가하기"><a href="#해시셋에-요소-추가하기" class="headerlink" title="해시셋에 요소 추가하기"></a>해시셋에 요소 추가하기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; HastSet&lt;T&gt;.Add(T data);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><em>해시셋에 <code>없는 키</code>면</em> 새 요소로 추가한 후 참을 반환</li>
+<li><em>해시셋에 <code>있는 키</code>면</em> 거짓을 반환</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;();</span><br><span class="line">bool bSuccess1 &#x3D; studentIDs.Add(123); &#x2F;&#x2F;참</span><br><span class="line">bool bSuccess2 &#x3D; studentIDs.Add(456); &#x2F;&#x2F;참</span><br><span class="line">bool bSuccess3 &#x3D; studentIDs.Add(123); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
+<h2 id="이-요소가-해시셋에-있나요"><a href="#이-요소가-해시셋에-있나요" class="headerlink" title="이 요소가 해시셋에 있나요?"></a>이 요소가 해시셋에 있나요?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bConatin &#x3D; HastSet&lt;T&gt;.Contain(T data);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><em>해시셋에 <code>있는 키</code>면</em> 참을 반환</li>
+<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">bool bContain1 &#x3D; studentIDs.Contains(123); &#x2F;&#x2F;참</span><br><span class="line">bool bContain2 &#x3D; studentIDs.Contains(178); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
+<h2 id="해시셋-요소-삭제"><a href="#해시셋-요소-삭제" class="headerlink" title="해시셋 요소 삭제"></a>해시셋 요소 삭제</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bRemoved &#x3D; HastSet&lt;T&gt;.Remove(T data);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><em>해시셋에 <code>있는 키</code>면</em> 요소를 삭제한 후 참을 반환</li>
+<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">bool bRemoved1 &#x3D; studentIDs.Remove(123); &#x2F;&#x2F;참</span><br><span class="line">bool bRemoved2 &#x3D; studentIDs.Remove(178); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
+<h2 id="해시셋의-모든-요소-삭제"><a href="#해시셋의-모든-요소-삭제" class="headerlink" title="해시셋의 모든 요소 삭제"></a>해시셋의 모든 요소 삭제</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HastSet&lt;T&gt;.clear();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">studentID.Clear();</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="해시셋의-요소-가져오기"><a href="#해시셋의-요소-가져오기" class="headerlink" title="해시셋의 요소 가져오기"></a>해시셋의 요소 가져오기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; HastSet&lt;T&gt;.TryGetValue(T Key, out T key);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><em>해시셋에 <code>있는 키</code>면</em> 요소를 키에 연결된 요소를 out 매개변수에 대압하고 참을 반환</li>
+<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">int id;</span><br><span class="line">bool bSuccess &#x3D; studentIDs.TryGetValue(456, out iff)</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="컬렉션과-같이-쓰면-유용한-것들"><a href="#컬렉션과-같이-쓰면-유용한-것들" class="headerlink" title="컬렉션과 같이 쓰면 유용한 것들"></a>컬렉션과 같이 쓰면 유용한 것들</h2><p>리스트를 예로 들어, 순차적으로 요소를 탐색할 때 i가 왜 필요한지에 대한 의문이 생긴다. 또 부등호를 잘못 쓰는 것처럼 실수할 가능성도 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5);</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt; names.Count; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Name: &#123;names[i]&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h3><p>어떤 컬렉션이든 순회할 수 있는 방법이 있으면서 실수를 방지하는 좋은 방법이 바로 <code>foreach</code>이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreach (T&lt;변수명&gt; in List&lt;T&gt;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>foreach 문 안의 T는 리스트 선안할 때 사용한 자료형이다.</li>
+<li>&lt;변수명&gt;은 foreach 문 범위에서만 사용된다.</li>
+</ul>
+<h3 id="리스트와-foreach문"><a href="#리스트와-foreach문" class="headerlink" title="리스트와 foreach문"></a>리스트와 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(4096);</span><br><span class="line"></span><br><span class="line">foreach (string name in names)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="딕셔너리와-foreach문"><a href="#딕셔너리와-foreach문" class="headerlink" title="딕셔너리와 foreach문"></a>딕셔너리와 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foreach (KeyValuePair&lt;TKey, TValue&gt; &lt;변수명&gt; in Dictionary&lt;TKey, TValue&gt;)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>KeyValuePair<TKey, TValue>의 TKey, TValue는 각각 딕셔너리를 선언할 때 사용한 키와 값의 자료형이다.</li>
+<li>&lt;변수명&gt;은 foreach 문 범위에서만 사용된다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line"></span><br><span class="line">foreach (KeyValuePair&lt;string, string&gt; score in students)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WrtieLine($&quot;key: &#123;score.key&#125;, value: &#123;score.Value&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="배열-과-foreach문"><a href="#배열-과-foreach문" class="headerlink" title="배열([])과 foreach문"></a>배열([])과 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreach (T &lt;변수명&gt; in T[])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">float scores &#x3D; &#123;30.5f, 41.0f&#125;</span><br><span class="line"></span><br><span class="line">foreach (float score in scores)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(score);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="var"><a href="#var" class="headerlink" title="var"></a>var</h3><p>딕셔너리 foreach문이 작성해야하는 코드가 길고, 매번 keyValuePair<TKey, TValue>를 써야한다는 문제점을 var가 해결해준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line"></span><br><span class="line">foreach (var score in students)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Key: &#123;score.key&#125;, value: &#123;score.value&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>묵시적 자료형 : 컴파일러가 알아서 자료형을 추론해줌.</li>
+<li><strong>지역 변수</strong>에서만 사용 가능.</li>
+<li>긴 자료형을 짧게 줄여준다.</li>
+<li><strong>반드시 선언과 동시에 대입해주어야 한다.</strong></li>
+<li>대입하는 값을 통해 명백하게 자료형을 알 수 있을 때만 사용한다.</li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/18/210720_tsInterface/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/18/210720_tsInterface/" class="post-title-link" itemprop="url">타입스크립트의 인터페이스, 함수</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-19T00:00:00+09:00">2021-07-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="인터체이스"><a href="#인터체이스" class="headerlink" title="인터체이스"></a>인터체이스</h2><blockquote>
+<p>상호 간에 정의한 약속 혹은 규칙. 보통 다음과 같은 범주에 대해 약속을 정의할 수 있다.</p>
+</blockquote>
+<ul>
+<li>객체의 스펙(속성과 속성의 타입)</li>
+<li>함수의 파라미터</li>
+<li>함수의 스펙(파라미터, 반환 타입 등)</li>
+<li>배열과 객체를 접근하는 방식</li>
+<li>클래스</li>
+</ul>
+<p>typeScript의 핵심 원칙 중 하나는 <code>덕 타이핑</code> 또는 <code>구조적 서브타이핑</code>이다. 타입 검사가 <code>값의 형태에 초점</code>을 맞추고 있다는 것이다. 인터페이스는 이런 타입들의 이름을 짓고, 코드 안의 계약을 정의하고, 프로젝트 외부에서 사용하는 코드의 계약을 정의한다.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/18/210720_tsType/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -543,7 +982,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
               </span>
 
           
@@ -628,81 +1067,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/18/210720_tsInterface/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/18/210720_tsInterface/" class="post-title-link" itemprop="url">타입스크립트의 인터페이스, 함수</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-19T00:00:00+09:00">2021-07-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="인터체이스"><a href="#인터체이스" class="headerlink" title="인터체이스"></a>인터체이스</h2><blockquote>
-<p>상호 간에 정의한 약속 혹은 규칙. 보통 다음과 같은 범주에 대해 약속을 정의할 수 있다.</p>
-</blockquote>
-<ul>
-<li>객체의 스펙(속성과 속성의 타입)</li>
-<li>함수의 파라미터</li>
-<li>함수의 스펙(파라미터, 반환 타입 등)</li>
-<li>배열과 객체를 접근하는 방식</li>
-<li>클래스</li>
-</ul>
-<p>typeScript의 핵심 원칙 중 하나는 <code>덕 타이핑</code> 또는 <code>구조적 서브타이핑</code>이다. 타입 검사가 <code>값의 형태에 초점</code>을 맞추고 있다는 것이다. 인터페이스는 이런 타입들의 이름을 짓고, 코드 안의 계약을 정의하고, 프로젝트 외부에서 사용하는 코드의 계약을 정의한다.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/17/210718_dictionary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -734,7 +1098,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
               </span>
 
           
@@ -892,7 +1256,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
               </span>
 
           
@@ -1022,642 +1386,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/13/210717_collection/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/13/210717_collection/" class="post-title-link" itemprop="url">컬렉션 - 리스트</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-14 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-14T00:00:00+09:00">2021-07-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="컬렉션"><a href="#컬렉션" class="headerlink" title="컬렉션"></a>컬렉션</h2><ul>
-<li>동일한 형의 여러 자료를 저장하는 공간</li>
-<li>자료구조의 일부</li>
-<li>다른 언어에서는 컨테이너라고도 부른다.</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>배열</th>
-<th>컬렉션</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>지료구조</td>
-<td>자료구조</td>
-</tr>
-<tr>
-<td>요소의 수 바꿀 수 <code>있음</code></td>
-<td><strong>요소의 수 바꿀 수 <code>없음</code></strong></td>
-</tr>
-<tr>
-<td>유용한 함수 제공 <code>안함</code></td>
-<td><strong>유용한 함수 기본적으로 <code>제공함</code></strong></td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="컬렉션-결정-시-고려사항"><a href="#컬렉션-결정-시-고려사항" class="headerlink" title="컬렉션 결정 시 고려사항"></a>컬렉션 결정 시 고려사항</h3><blockquote>
-<p>용도에 따라 다양하게 결정하게 된다. 어떤 컬렉션을 이용하는지에 따라 메모리 사용량, 성능이 달라진다.</p>
-</blockquote>
-<ul>
-<li>색인의 종류: 배열처럼 정형화된 색인, 임의의 key값(어떤 자료형이든 ok. 그러나 정형화된 색인이 아닌 것.)</li>
-<li>데이터 접근 패턴: 처음부터 끝까지 순회 or 중간에 데이터를 자주 넣고 빼는지 여부</li>
-</ul>
-<h3 id="컬렉션의-종류"><a href="#컬렉션의-종류" class="headerlink" title="컬렉션의 종류"></a>컬렉션의 종류</h3><ul>
-<li>단순 컬렉션: 길이가 바뀔 수 있는 배열</li>
-<li>복잡한 컬렉션: 자유로운 길이 + 다양한 요소 접근 방법(배열의 접근 방법을 쓸 수 없는 데이터도 있기 때문.)</li>
-</ul>
-<hr>
-<h3 id="1-리스트"><a href="#1-리스트" class="headerlink" title="1. 리스트"></a>1. 리스트</h3><ul>
-<li>배열과 거의 비슷</li>
-<li>색인(0부터 n)을 통해 데이터에 접근</li>
-<li><strong><em>그러나 배열의 길이(담을 수 있는 최대 요소 수)를 언제든 바꿀 수 있다.</em></strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;T&gt; &lt;변수명&gt; &#x3D; new List&lt;T&gt;();</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;();</span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;();</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>&lt;T&gt;</code><ul>
-<li><strong>어떤 자료형을 담을지 표현한다.</strong></li>
-<li>제네릭 프로그래밍의 일부이다.</li>
-<li>c++에서는 템플릿 프로그래밍이라고도 한다.</li>
-</ul>
-</li>
-<li>리스트를 생성하는 코드</li>
-<li>리스트의 길이는 0</li>
-<li>배열 사용하는 곳에서는 다 사용하기 좋다.</li>
-</ul>
-<hr>
-<h3 id="총용량도-함께-생성하는-리스트-생성"><a href="#총용량도-함께-생성하는-리스트-생성" class="headerlink" title="총용량도 함께 생성하는 리스트 생성"></a><code>총용량</code>도 함께 생성하는 리스트 생성</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;T&gt; &lt;변수명&gt; &#x3D; new List&lt;T&gt;(int capacity);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>총용량이 capacity인 리스트를 생성하는 코드</li>
-<li>또 다른 오버로드 함수가 있다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(6);</span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(3);</span><br></pre></td></tr></table></figure>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th><code>총용량</code>도 함께 생성하는 리스트</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>scores</td>
-<td><code>int</code></td>
-<td><code>int</code></td>
-<td><code>int</code></td>
-<td><code>int</code></td>
-<td><code>int</code></td>
-<td><code>int</code></td>
-</tr>
-<tr>
-<td>names</td>
-<td><code>string</code></td>
-<td><code>string</code></td>
-<td><code>string</code></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="리스트의-총용량과-길이"><a href="#리스트의-총용량과-길이" class="headerlink" title="리스트의 총용량과 길이"></a>리스트의 총용량과 길이</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int capacity &#x3D; list.Capacity; &#x2F;&#x2F;list는 List&lt;T&gt;</span><br><span class="line">int count &#x3D; list.Count; &#x2F;&#x2F;list는 List&lt;T&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>List&lt;T&gt;</code>의 현재 총용량과 사용량을 알려준다.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3); &#x2F;&#x2F; &#123;30, 40&#125;</span><br><span class="line">Console.WriteLine($&quot;&#123;scores.Capacity&#125;, &#123;scores.Count&#125;&quot;); &#x2F;&#x2F; &quot;3, 2&quot;</span><br><span class="line"></span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5); &#x2F;&#x2F; &#123;&quot;Bob&quot;, &quot;Alex&quot;, &quot;Bobby&quot;&#125;</span><br><span class="line">Console.WriteLine($&quot;&#123;scores.Capacity&#125;, &#123;scores.Count&#125;&quot;); &#x2F;&#x2F; &quot;5, 3&quot;</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="리스트에-데이터-삽입하기"><a href="#리스트에-데이터-삽입하기" class="headerlink" title="리스트에 데이터 삽입하기"></a>리스트에 데이터 삽입하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Add(T data);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(6);</span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(3);</span><br><span class="line"></span><br><span class="line">scores.Add(10);</span><br><span class="line">scores.Add(30);</span><br><span class="line"></span><br><span class="line">names.Add(&quot;Bob&quot;);</span><br><span class="line">names.Add(&quot;Bobby&quot;);</span><br></pre></td></tr></table></figure>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>리스트에 데이터 삽입</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>scores</td>
-<td><code>10</code></td>
-<td><code>30</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>names</td>
-<td><code>Bob</code></td>
-<td><code>Bobby</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="리스트에-데이터-여러-개-삽입하기"><a href="#리스트에-데이터-여러-개-삽입하기" class="headerlink" title="리스트에 데이터 여러 개 삽입하기"></a>리스트에 데이터 여러 개 삽입하기</h3><blockquote>
-<p><code>배열</code>이나 <code>List&lt;T&gt;</code>가 매배견수가 된다.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddRange(IEnumerable&lt;T&gt; collection);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">int[] dummy &#x3D; &#123;10, 20&#125;;</span><br><span class="line"></span><br><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3);</span><br><span class="line">scores.AddRange(dummy);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 배열이 아닌 다른 리스트가 있을 때 그 리스트를 다른 리스트에 삽입.</span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5);</span><br><span class="line">names.Add(&quot;Bob&quot;);</span><br><span class="line">names.Add(&quot;Bobby&quot;);</span><br><span class="line"></span><br><span class="line">List&lt;string&gt; names1 &#x3D; new List&lt;string&gt;();</span><br><span class="line">&#x2F;&#x2F; 리스트 생성시 길이가 0이므로 임의의 크기 배열을 자동으로 생성</span><br><span class="line">names1.AddRange(names)</span><br></pre></td></tr></table></figure>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>리스트에 데이터 여러개 삽입</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>scores</td>
-<td><code>10</code></td>
-<td><code>20</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>names1</td>
-<td><code>Bob</code></td>
-<td><code>Bobby</code></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="리스트-중간에-데이터-넣기"><a href="#리스트-중간에-데이터-넣기" class="headerlink" title="리스트 중간에 데이터 넣기"></a>리스트 중간에 데이터 넣기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Insert(int index, T data);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>리스트의 <code>index번째</code>에 data를 넣기<br>잘못된 색인을 넣으면 에러 발생</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scroes &#x3D; new List&lt;int&gt;(3); &#x2F;&#x2F; &#123;30, 40&#125;</span><br><span class="line">scores.int(2, 10);</span><br><span class="line"></span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5); &#x2F;&#x2F; &#123;&quot;Bob&quot;, &quot;Bobby&quot;&#125;</span><br><span class="line">names.Insert(1, &quot;Alex&quot;) &#x2F;&#x2F;이미 요소가 있는 자리에 삽입하게 되면 그 자리를 차지하고,   원래 있던 요소는 뒤로 한 칸 밀린다.</span><br></pre></td></tr></table></figure>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>리스트 중간에 데이터 삽입</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>scores</td>
-<td><code>30</code></td>
-<td><code>40</code></td>
-<td><code>10</code></td>
-<td></td>
-</tr>
-<tr>
-<td>names</td>
-<td><code>Bob</code></td>
-<td><del>Bobby</del> -&gt; <code>Alex</code></td>
-<td><code>Bobby</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-<hr>
-<h3 id="리스트에-해당하는-데이터가-있는지"><a href="#리스트에-해당하는-데이터가-있는지" class="headerlink" title="리스트에 해당하는 데이터가 있는지?"></a>리스트에 해당하는 데이터가 있는지?</h3><blockquote>
-<p>해당 데이터가 있으면 참, 아니면 거짓을 반환</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bResult &#x3D; list.Contains(T data); &#x2F;&#x2F;list는 List&lt;T&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3); &#x2F;&#x2F; &#123;10, 30&#125;</span><br><span class="line">bool bResult1 &#x3D; scores.Contains(40); &#x2F;&#x2F;false</span><br><span class="line">bool bResult2 &#x3D; scores.Contains(30); &#x2F;&#x2F;true</span><br><span class="line"></span><br><span class="line">List&lt;int&gt; names &#x3D; new List&lt;string&gt;(5); &#x2F;&#x2F; &#123;&quot;Bob&quot;, &quot;Bobby&quot;&#125;</span><br><span class="line">bool bResult1 &#x3D; names.Contains(&quot;Bob&quot;); &#x2F;&#x2F;true</span><br><span class="line">bool bResult1 &#x3D; names.Contains(&quot;bobby&quot;); &#x2F;&#x2F;false - 대소문자 구분</span><br></pre></td></tr></table></figure>
-<h3 id="리스트에-해당하는-데이터가-어디에-있는지"><a href="#리스트에-해당하는-데이터가-어디에-있는지" class="headerlink" title="리스트에 해당하는 데이터가 어디에 있는지?"></a>리스트에 해당하는 데이터가 어디에 있는지?</h3><h4 id="1-IndexOf"><a href="#1-IndexOf" class="headerlink" title="1. IndexOf"></a>1. IndexOf</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int index &#x3D; list.IndexOf(T data); &#x2F;&#x2F;list는 List&lt;T&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>해당 데이터가 <code>처음</code>으로 나타난 위치의 색인을 반환</li>
-<li><strong>없다면 <code>-1</code>을 반환</strong></li>
-<li>다양한 오버로드 함수 있음.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3); &#x2F;&#x2F; &#123;30, 30&#125;</span><br><span class="line">int index1 &#x3D; scores.IndexOf(40); &#x2F;&#x2F;-1</span><br><span class="line">int index2 &#x3D; scores.IndexOf(30); &#x2F;&#x2F;0</span><br><span class="line"></span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5); &#x2F;&#x2F; &#123;&quot;Bob&quot;, &quot;Bobby&quot;&#125;</span><br><span class="line">int index1 &#x3D; names.IndexOf(&quot;Bob&quot;); &#x2F;&#x2F;0</span><br><span class="line">int index2 &#x3D; names.IndexOf(&quot;bobby&quot;); &#x2F;&#x2F;-1 - 대소문자 구분</span><br></pre></td></tr></table></figure>
-<h4 id="2-LastIndexOf"><a href="#2-LastIndexOf" class="headerlink" title="2. LastIndexOf"></a>2. LastIndexOf</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int index &#x3D; list.LasstIndexOf(T data); &#x2F;&#x2F;list는 List&lt;T&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>해당 데이터가 <code>마지막</code>으로 나타난 위치의 색인을 반환</li>
-<li><strong>없다면 <code>-1</code>을 반환</strong></li>
-<li>다양한 오버로드 함수 있음.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3); &#x2F;&#x2F; &#123;30, 30&#125;</span><br><span class="line">int index1 &#x3D; scores.LastIndexOf(40); &#x2F;&#x2F;-1</span><br><span class="line">int index2 &#x3D; scores.LastIndexOf(30); &#x2F;&#x2F;1</span><br><span class="line"></span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5); &#x2F;&#x2F; &#123;&quot;Bob&quot;, &quot;Bobby&quot;&#125;</span><br><span class="line">int index1 &#x3D; names.LastIndexOf(&quot;Bob&quot;); &#x2F;&#x2F;0</span><br><span class="line">int index2 &#x3D; names.LastIndexOf(&quot;bobby&quot;); &#x2F;&#x2F;-1 - 대소문자 구분</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="리스트에서-요소-삭제하기"><a href="#리스트에서-요소-삭제하기" class="headerlink" title="리스트에서 요소 삭제하기"></a>리스트에서 요소 삭제하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; list.Remove(T data); &#x2F;&#x2F;list는 List&lt;T&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>리스트에 해당하는 data가 있으면 첫번째 찾은 data만 지우고 참을 반환, 없으면 거짓을 반환</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3); &#x2F;&#x2F; &#123;10, 30, 40&#125;</span><br><span class="line">bool bSuccess1 &#x3D; scores.Remove(10); &#x2F;&#x2F;참</span><br><span class="line">&#x2F;&#x2F;요소를 삭제하면 삭제한 요소 뒤의 요소가 앞으로 당겨진다.</span><br><span class="line">bool bSuccess2 &#x3D; scores.Remove(100); &#x2F;&#x2F;거짓</span><br><span class="line"></span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5); &#x2F;&#x2F; &#123;&quot;Bob&quot;, &quot;Alex&quot;, &quot;Bobby&quot;&#125;</span><br><span class="line">bool bSuccess1 &#x3D; names.Remove(&quot;Bob&quot;); &#x2F;&#x2F;참</span><br><span class="line">bool bSuccess2 &#x3D; names.Remove(&quot;Tom&quot;); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>리스트에서 요소 삭제</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>scores</td>
-<td><del>10</del> -&gt; <code>30</code></td>
-<td><code>40</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>names</td>
-<td><code>Bob</code></td>
-<td><code>Alex</code></td>
-<td><code>Bobby</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="List-lt-T-gt-의-모든-요소를-삭제하기"><a href="#List-lt-T-gt-의-모든-요소를-삭제하기" class="headerlink" title="List&lt;T&gt;의 모든 요소를 삭제하기"></a><code>List&lt;T&gt;</code>의 모든 요소를 삭제하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.Clear(); &#x2F;&#x2F;list는 List&lt;T&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>List&lt;T&gt;</code>의 요소를 모두 지운다. <em>단, 용량을 지우는 것은 아니다.</em></p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5);</span><br><span class="line">names.Clear();</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="리스트의-요소에-접근하기"><a href="#리스트의-요소에-접근하기" class="headerlink" title="리스트의 요소에 접근하기"></a>리스트의 요소에 접근하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 값 얻어오기</span><br><span class="line">T data &#x3D; list[index]; &#x2F;&#x2F;list는 List&lt;T&gt;, index는 정수형</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 값 대입하기</span><br><span class="line">list[index] &#x3D; &lt;T형 데이터&gt;; &#x2F;&#x2F;list는 List&lt;T&gt;, index는 정수형</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>리스트의 index번째 요소에 접근</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3); &#x2F;&#x2F;&#123;10, 30&#125;</span><br><span class="line">scores[2] &#x3D; 100; &#x2F;&#x2F;프로그램 실행 시 예외발생</span><br><span class="line">int myScore &#x3D; score[0]; &#x2F;&#x2F;myScore: 10</span><br><span class="line">scores[0] &#x3D; 100; &#x2F;&#x2F;&#123;100, 30&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="리스트에-순차적으로-접근하기"><a href="#리스트에-순차적으로-접근하기" class="headerlink" title="리스트에 순차적으로 접근하기"></a>리스트에 순차적으로 접근하기</h3><blockquote>
-<p><code>반복문</code>을 이용해서 접근 가능</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5); &#x2F;&#x2F; &#123;&quot;Bob&quot;, &quot;Alex&quot;, &quot;Bobby&quot;&#125;</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt; names.Count; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Name: &#123;names[i]&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="리스트에서-배열로-변환하기"><a href="#리스트에서-배열로-변환하기" class="headerlink" title="리스트에서 배열로 변환하기"></a>리스트에서 배열로 변환하기</h3><blockquote>
-<p><code>List&lt;T&gt;</code>에서 순수한 배열 T[]로 변환하는 함수</p>
-</blockquote>
-<ul>
-<li>더이상 추가나 삭제가 필요없을 때 배열 사용</li>
-<li>다른 곳에 데이터를 넘겨줄 때 그 데이터가 배열이라면 리스트를 배열로 변환</li>
-<li>e.g. <code>List&lt;int&gt;</code> -&gt; <code>int[]</code>, <code>List&lt;float&gt;</code> -&gt; <code>float[]</code></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">T[] array &#x3D; list.ToArray(); list는 List&lt;T&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5);</span><br><span class="line">names.Add(&quot;Bob&quot;);</span><br><span class="line">names.Add(&quot;Bobby&quot;);</span><br><span class="line">names.Add(&quot;Alex&quot;);</span><br><span class="line"></span><br><span class="line">string[] nameArray &#x3D; names.ToArray();</span><br></pre></td></tr></table></figure>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/12/210713_whyTypesctipt/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/12/210713_whyTypesctipt/" class="post-title-link" itemprop="url">타입스크립트를 왜 써야하는가?</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-13 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-13T00:00:00+09:00">2021-07-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="타입스크립트란"><a href="#타입스크립트란" class="headerlink" title="타입스크립트란?"></a>타입스크립트란?</h2><blockquote>
-<p>TypeScript is Typed JavaScript at Any Scale</p>
-</blockquote>
-<ul>
-<li>JS에 <code>타입</code>을 부여한 언어</li>
-<li>JS와 달리 브라우저에서 실행하려면 파일을 변환하는 <code>컴파일</code> 과정이 필요하다.</li>
-</ul>
-<blockquote>
-<p>TypeScript는 JS의 구문이 허용되는, JavaScript의 상위 집합 언어</p>
-</blockquote>
-<ul>
-<li>TS는 JS 위의 레이어: JS의 기능을 제공하면서 그 위에 자체 레이어를 추가한다.</li>
-<li>JS가 가진 <code>런타임 특성</code>을 변화시키지 않는다.</li>
-<li>TS의 컴파일러가 코드 검사를 마치면 타입 삭제 후 <code>컴파일된 코드</code>를 만들어낸다.</li>
-</ul>
-<h3 id="타입-추론"><a href="#타입-추론" class="headerlink" title="타입 추론"></a>타입 추론</h3><p>JavaScript가 동작하는 방식을 이해함으로써 TypeScript는 JavaScript 코드를 받아들이면서 타입을 가지는 타입 시스템을 구축할 수 있다.</p>
-<h3 id="타입-정의"><a href="#타입-정의" class="headerlink" title="타입 정의"></a>타입 정의</h3><p>JavaScript는 다양한 디자인 패턴을 가능하게 하는 동적 언어인데, 몇몇 디자인 패턴은 자동으로 타입을 제공하기 힘들다. 이럴 때는 TS에게 타입이 무엇이 되어야 하는지 명시 가능한 JS언어의 확장을 지원한다. 예를 들어 아래 예시에서 객체의 형태를 명시적으로 사용하기 위해 <code>interface</code> 선언했다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> User &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  id: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> user = &#123;</span><br><span class="line">  name: <span class="string">'Hayes'</span>,</span><br><span class="line">  id: <span class="number">0</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="타입-구성"><a href="#타입-구성" class="headerlink" title="타입 구성"></a>타입 구성</h3><p>객체들을 조합하여 더 크고 복잡한 체계를 만드는 것처럼 TS는 유니언과 제네릭이 있다.</p>
-<ul>
-<li><code>유니언</code>: 타입이 여러 타입 중 하나일 수 있음을 설명한다. e.g. type MyBool = true | false;</li>
-<li><code>제네릭</code>: 타입에 변수를 제공하는 방법이다. 배열이 일반적인 예시이며, 제네릭이 없는 배열은 어떤 것이든 포함할 수 있다. 제네릭이 있는 배열은 배열 안의 값을 설명할 수 있다.</li>
-</ul>
-<h3 id="구조적-타입-시스템"><a href="#구조적-타입-시스템" class="headerlink" title="구조적 타입 시스템"></a>구조적 타입 시스템</h3><p>TS의 핵심 원칙 중 하나로 타입 검사가 값이 있는 형태에 집중한다는 것이다. 만약 두 객체가 같은 형태를 가지면 같은 것으로 간주된다.</p>
-<hr>
-<h2 id="왜-타입스크립트를-써야하는가"><a href="#왜-타입스크립트를-써야하는가" class="headerlink" title="왜 타입스크립트를 써야하는가?"></a>왜 타입스크립트를 써야하는가?</h2><p>Javascript는 예기치 않은 동작을 유발하게 하는 몇 가지 문제점을 가지고 있다. 예를 들어 <code>==</code>을 사용하면 인수를 강제변환한다거나(e.g. ‘’ == 0 =&gt; 참이다) 존재하지 않는 객체의 프로퍼티 값에 접근하려고 했을 때 접근을 허용하는 점이다. c나 c++ 같은 컴파일 언어는 실행 전 컴파일 단계에서 오류를 미리 확인하고 고칠 수 있다. <strong>이렇게 프로그램을 실행시키지 않으면서 코드의 오류를 검출하는 것을 정적 검사라 하고, 어떤 것이 오류인지와 어떤 것이 연산 되는 값에 기인하지 않음을 정하는 것을 정적 타입 검사라 한다.</strong></p>
-<blockquote>
-<p>그러나 JavaScript는 인터프리터 언어이기 때문에 컴파일 단계가 없고, 곧바로 실행되기 때문에 실제로 실행하기 전까지 코드의 문제를 잡아낼 수 없다. 하지만 TypeScript는 정적 타입 검사자로써 프로그램 실행 전 값의 종류를 기반으로 프로그램의 오류를 찾아낸다.</p>
-</blockquote>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"id"</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"Leanne Graham"</span>,</span><br><span class="line">  <span class="attr">"username"</span>: <span class="string">"Bret"</span>,</span><br><span class="line">  <span class="attr">"email"</span>: <span class="string">"Sincere@april.biz"</span>,</span><br><span class="line">  <span class="attr">"address"</span>: &#123;</span><br><span class="line">    <span class="attr">"street"</span>: <span class="string">"Kulas Light"</span>,</span><br><span class="line">    <span class="attr">"suite"</span>: <span class="string">"Apt. 556"</span>,</span><br><span class="line">    <span class="attr">"city"</span>: <span class="string">"Gwenborough"</span>,</span><br><span class="line">    <span class="attr">"zipcode"</span>: <span class="string">"92998-3874"</span>,</span><br><span class="line">    <span class="attr">"geo"</span>: &#123;</span><br><span class="line">      <span class="attr">"lat"</span>: <span class="string">"-37.3159"</span>,</span><br><span class="line">      <span class="attr">"lng"</span>: <span class="string">"81.1496"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"phone"</span>: <span class="string">"1-770-736-8031 x56442"</span>,</span><br><span class="line">  <span class="attr">"website"</span>: <span class="string">"hildegard.org"</span>,</span><br><span class="line">  <span class="attr">"company"</span>: &#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"Romaguera-Crona"</span>,</span><br><span class="line">    <span class="attr">"catchPhrase"</span>: <span class="string">"Multi-layered client-server neural-net"</span>,</span><br><span class="line">    <span class="attr">"bs"</span>: <span class="string">"harness real-time e-markets"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>API 호출을 통해 위와 같은 데이터를 response로 받아왔고, <code>const user = {}</code>와 같은 변수에 저장한다. 그리고, <code>name</code>, <code>email</code>, <code>address</code>를 화면에 출력하고자 한다면, <code>user.name</code>, <code>user.email</code>, <code>user.address</code>와 같은 방식으로 사용될 것이다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// user.name</span></span><br><span class="line">Leanne Graham</span><br><span class="line"></span><br><span class="line"><span class="comment">//user.email</span></span><br><span class="line">Sincere@april.biz</span><br><span class="line"></span><br><span class="line"><span class="comment">//user.address</span></span><br><span class="line">[object <span class="built_in">Object</span>]</span><br></pre></td></tr></table></figure>
-<p>그런데 다른 값들과 달리 address는 값이 객체이기 때문에 기대했던 값이 <code>Kulas Light</code>라면 이 값 대신 <code>[object Object]</code>가 반환된다. 또는 작성하는 과정에서 오탈자가 있어서 <code>user.adress</code>와 같이 사용했다면 <code>undefined</code>를 반환하게 된다. <strong>이처럼 내가 작성한 코드의 결과가 제대로 출력되는지 여부는 화면에 표시된 데이터를 보고 나서야 알 수 있다.</strong></p>
-<hr>
-<h2 id="타입스크립트를-쓰면-좋은-점"><a href="#타입스크립트를-쓰면-좋은-점" class="headerlink" title="타입스크립트를 쓰면 좋은 점"></a>타입스크립트를 쓰면 좋은 점</h2><ul>
-<li><p>에러의 사전 방지<br>위 예시는 브라우저 실행 후 화면에 그려지고 나서야 어떠한 에러가 있는지 알 수 있었지만, TypeScript를 쓰면 브라우저 실행 전에 코드 상에서 미리 에러를 잡을 수 있고, 의도치 않은 값을 반환하지 않도록 수정할 수 있다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//type으로 지정된 number 대신 스트링 '20'을 넣었기 때문에 아래와 같은 에러 표시</span></span><br><span class="line"><span class="comment">//Argument of type 'string' is not assignable to parameter of type 'number'.</span></span><br><span class="line">add(<span class="number">10</span>, <span class="string">'20'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//브라우저 실행 전에 에러를 확인하고 올바르게 고칠 수 있다.</span></span><br><span class="line">add(<span class="number">10</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>코드 가이드 및 자동 완성<br>일반 javaScript 코드였다면 toLocaleString()과 같은 api를 사용하고자 할 때 <code>toLocaleString()</code>을 한 자씩 입력해야 한다. typeScript는 vscode의 IntelliSense를 이용해서 <code>toL</code>까지만 입력해도 <code>toLocaleString()</code>를 리스트에서 확인할 수 있고 이를 선택시 바로 자동완성 되어 입력이 된다. IntelliSense는 코드 완성, 매개 변수 정보, 빠른 정보 및 구성원 목록을 비롯한 다양한 코드 편집 기능을 나타내는 일반적인 용어를 말한다. IntelliSense 기능은 때때로 “코드 완성”, “콘텐츠 지원” 및 “코드 힌트”와 같은 다른 이름으로 호출된다.</p>
-</li>
-</ul>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = add(<span class="number">10</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//result.까지만 입력해도 자동완성으로 api 사용가능</span></span><br><span class="line">result.toLocaleString();</span><br></pre></td></tr></table></figure>
-<h2 id="JS에서-JSDoc과-ts-check로-ts처럼-사용하기"><a href="#JS에서-JSDoc과-ts-check로-ts처럼-사용하기" class="headerlink" title="JS에서 JSDoc과 @ts-check로 ts처럼 사용하기"></a>JS에서 JSDoc과 @ts-check로 ts처럼 사용하기</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @ts-check</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> </span>a 첫번째 숫자</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> </span>b 두번째 숫자</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum(<span class="number">10</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
-<p>위의 코드처럼 사용하면 javaScript에서도 TypeScript처럼 브라우저 실행 전에 타입체크를 할 수 있다.</p>
-<hr>
-<p><em>References</em><br><a href="https://inf.run/zNPx" target="_blank" rel="noopener">타입스크립트 입문 - 기초부터 실전까지</a><br><a href="https://joshua1988.github.io/ts/why-ts.html#%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%9E%80" target="_blank" rel="noopener">타입스크립트 핸드북</a><br><a href="https://typescript-kr.github.io/pages/tutorials/ts-for-the-new-programmer.html" target="_blank" rel="noopener">TS for the New Programmer</a><br><a href="https://typescript-kr.github.io/pages/tutorials/ts-for-js-programmers.html" target="_blank" rel="noopener">TS for the JS Programmers</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/12/210713_stringBuilder/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/12/210713_stringBuilder/" class="post-title-link" itemprop="url">문자열 빌더</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-13 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-13T00:00:00+09:00">2021-07-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>문자열 합치기는 임시로 만들고 버려지는 문자열이 많아서 합치는 과정이 느릴 수도 있다.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Console.WriteLine(&quot;hello&quot; + &quot;give me&quot; + &quot;2&quot; + &quot;dollars!&quot;);</span><br></pre></td></tr></table></figure>
-<p>연산자의 평가과정에 따라 왼쪽에서 오른쪽으로 문자열을 더해가면서 임시로 생성되는 1~3번과 같은 문자열은 코드에도 보이지 않고, 변수에도 대입되어 있지 않다. 다음 문자열이 더해지기 전까지 임시로 생성되어 다음 문자열이 평가되면 사라진다. 즉 1번이 연산되어 hello + give me의 형태인 <code>hello give me</code>라는 문자열이 임시로 만들어졌다가 2번 <code>hello give me 2</code>가 연산되면 1번은 사라지게 된다.</p>
-<ol>
-<li>hello + give me</li>
-<li>hello give me + 2</li>
-<li>hello give me 2 + dollars!</li>
-</ol>
-<p><u>가비지 컬렉터</u></p>
-<ul>
-<li>새로 만들어진 문자열들은 언젠가 지워져야 함</li>
-<li>가비지 컬렉터가 이 역할을 자동으로 해준다. 다만 어느 시점에 지워지는지 알 수 없다.</li>
-<li><strong>쓰레기 문자열이 넘쳐나면 성능 저하가 올 수 있다. 어떤 문자열이 쓰이는지 쓰이지 않는지를 확인해야 하기 때문.</strong></li>
-</ul>
-<h2 id="문자열-빌더"><a href="#문자열-빌더" class="headerlink" title="문자열 빌더"></a>문자열 빌더</h2><blockquote>
-<p>가비지 컬렉터의 성능 저하와 같은 문제를 줄이기 위해 임시 문자열 수를 줄이고, 문자열을 효율적으로 만들어주는 라이브러리(클래스)</p>
-</blockquote>
-<ul>
-<li>긴 문자열을 담을 수 있는 충분한 공간을 미리 확보</li>
-<li>추가되는 문자열로 그 공간을 차례대로 채워 나간다.</li>
-<li>모든 것이 준비되면 최종적으로 문자열을 만들어서 반환한다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Text;</span><br><span class="line"></span><br><span class="line">namespace StringBuilderExample</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            const int CAPACITY &#x3D; 1000;</span><br><span class="line">            StringBuilder builder &#x3D; new StringBuilder(CAPACITY);</span><br><span class="line">            builder.Append(&quot;Hello World!&quot;);</span><br><span class="line">            builder.AppendLine(&quot; Welcome to COMP1500!&quot;);</span><br><span class="line">            builder.AppendLine(&quot;Are you having fun yet?&quot;);</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(builder.ToString());</span><br><span class="line"></span><br><span class="line">            builder.Insert(12, &quot; Going to insert this here.&quot;);</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(builder.ToString());</span><br><span class="line"></span><br><span class="line">            builder.Replace(&quot; Going to insert this here.&quot;, &quot; And replace this.&quot;);</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(builder.ToString());</span><br><span class="line"></span><br><span class="line">            builder.Remove(12, 19);</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(builder.ToString());</span><br><span class="line"></span><br><span class="line">            builder.Clear();</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(builder.ToString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="StringBuilder-생성하기"><a href="#StringBuilder-생성하기" class="headerlink" title="StringBuilder 생성하기"></a>StringBuilder 생성하기</h3><blockquote>
-<p>StringBuilder &lt;변수명&gt; = new StringBuilder(int CAPACITY);</p>
-</blockquote>
-<ul>
-<li>파일 제일 위에 라이브러리 추가 - <code>using System.text;</code></li>
-<li>함수 안에서 사용 - <code>StringBuilder builder = new StringBuilder(CAPACITY);</code></li>
-</ul>
-<h3 id="String-추가하기"><a href="#String-추가하기" class="headerlink" title="String 추가하기"></a>String 추가하기</h3><blockquote>
-<p>StringBuilder의 내부 문자열에 문자열을 추가</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">builder.Append(&quot;Hello World!&quot;);</span><br><span class="line">builder.AppendLine(&quot; Welcome to COMP1500!&quot;);</span><br><span class="line">builder.AppendLine(&quot;Are you having fun yet?&quot;);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>문자열과 줄바꿈 추가 - <code>AppendLine(string text);</code></li>
-<li>문자열만 추가 - <code>Append(string text);</code>;</li>
-<li>여러가지 오버로드 함수가 있다.</li>
-<li>문자열이 아닌 것도 합칠 수 있다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder builder &#x3D; new StringBuilder(4096);</span><br><span class="line">builder.AppendLine(&quot;Score: &quot; + 10);</span><br><span class="line">builder.Append(3.14f);</span><br></pre></td></tr></table></figure>
-<h3 id="배열의-총용량과-현재-사용중인-길이-얻기"><a href="#배열의-총용량과-현재-사용중인-길이-얻기" class="headerlink" title="배열의 총용량과 현재 사용중인 길이 얻기"></a>배열의 총용량과 현재 사용중인 길이 얻기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Console.WriteLine($&quot;Capacity: &#123;builder.Capacity&#125;, Length: &#123;builder.Length&#125;&quot;);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>각각 내부 배열의 총용량과 길이 값을 가지고 있다.</li>
-<li>내부 배열의 총용량 - <code>builder.Capacity;</code></li>
-<li>내부 배열의 현재 사용중인 길이 - <code>builder.Length;</code></li>
-</ul>
-<h3 id="추가-공간-확보"><a href="#추가-공간-확보" class="headerlink" title="추가 공간 확보"></a>추가 공간 확보</h3><blockquote>
-<p>EnsureCapacity(int newCapacity);</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">builder.EnsureCapacity(1024);</span><br></pre></td></tr></table></figure>
-<p>stringBuilder의 내부 배열의 총용량을 <code>늘리는</code> 함수. 총용량보다 작은 수를 입력했다고 총용량을 줄이지는 않는다.</p>
-<h3 id="최종-문자열-얻어오기"><a href="#최종-문자열-얻어오기" class="headerlink" title="최종 문자열 얻어오기"></a>최종 문자열 얻어오기</h3><blockquote>
-<p>ToString();</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder builder &#x3D; new StringBuilder(4096);</span><br><span class="line">&#x2F;&#x2F;문자열 추가하는 코드 생략</span><br><span class="line">string greetings &#x3D; builder.ToString();</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>완성한 최종 문자열을 반환</strong></li>
-<li>현재 내부 배열의 사용중인 길이 만큼만 반환</li>
-<li>오버로드 함수가 있다.</li>
-</ul>
-<hr>
-<h3 id="만약-처음-확보해-둔-공간을-다-쓴다면"><a href="#만약-처음-확보해-둔-공간을-다-쓴다면" class="headerlink" title="만약 처음 확보해 둔 공간을 다 쓴다면?"></a>만약 처음 확보해 둔 공간을 다 쓴다면?</h3><ul>
-<li><strong>아무문제없다.</strong></li>
-<li>StringBuilder가 자동적으로 내부 공간을 늘린 뒤(기존 배열 크기의 2배) 모든 데이터를 복사한다.</li>
-<li>하지만 복사를 안하는 것이 좋기 때문에 <strong>처음부터 충분한 공간을 확보할 수 있도록 한다.</strong></li>
-<li>2의 승수로 크기를 잡는 경우가 많다.</li>
-</ul>
-<h3 id="StringBuilder-함수"><a href="#StringBuilder-함수" class="headerlink" title="StringBuilder 함수"></a>StringBuilder 함수</h3><blockquote>
-<p>Insert()<br>Replace()<br>Remove()<br>Clear()</p>
-</blockquote>
-<h4 id="Insert"><a href="#Insert" class="headerlink" title="Insert()"></a>Insert()</h4><blockquote>
-<p>Insert(int index, string text);</p>
-</blockquote>
-<ul>
-<li>StringBuilder의 내부 <code>배열 중간(int index)</code>에 새로운 문자열(string text)를 삽입.</li>
-<li>여러 오버로드 함수가 있다.</li>
-</ul>
-<h4 id="Replace"><a href="#Replace" class="headerlink" title="Replace()"></a>Replace()</h4><blockquote>
-<p>Replace(char old, char new);</p>
-</blockquote>
-<p>모든 old를 new로 바꾼다.</p>
-<blockquote>
-<p>Replace(char old, char new, int start, int count);</p>
-</blockquote>
-<p>start번째부터 start + count번째 사이에 있는 모든 old를 new로 바꾼다. <strong>(e.g. builder.Replace(‘P’, ‘B’, 3, 3);)</strong></p>
-<h4 id="Remove"><a href="#Remove" class="headerlink" title="Remove()"></a>Remove()</h4><blockquote>
-<p>Remove(int start, int length);</p>
-</blockquote>
-<p>start번 째부터 length개 만큼의 문자를 지운다.</p>
-<h4 id="Clear"><a href="#Clear" class="headerlink" title="Clear()"></a>Clear()</h4><blockquote>
-<p>builder.Clear();</p>
-</blockquote>
-<ul>
-<li>임시 문자열을 제거하는 함수</li>
-<li><strong>이 함수를 호출 후 길이를 확인하면 0</strong></li>
-</ul>
-<h2 id="StringBuilder-vs-문자열-합치기"><a href="#StringBuilder-vs-문자열-합치기" class="headerlink" title="StringBuilder vs 문자열 합치기"></a>StringBuilder vs 문자열 합치기</h2><ul>
-<li>합칠 문자열이 몇 개 없다면 굳이 StringBuilder를 쓰지 않는다.</li>
-<li>대여섯개 이상의 문자열을 합치면 그때 StringBuilder의 사용을 고려한다.</li>
-</ul>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1728,12 +1456,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

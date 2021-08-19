@@ -144,6 +144,327 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/07/22/200723_cssSpecificity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/22/200723_cssSpecificity/" class="post-title-link" itemprop="url">CSS CASCADE</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-23 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-23T00:00:00+09:00">2020-07-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="WHAT-HAPPENS-TO-CSS-WHEN-WE-LOAD-UP-A-WEBPAGE"><a href="#WHAT-HAPPENS-TO-CSS-WHEN-WE-LOAD-UP-A-WEBPAGE" class="headerlink" title="WHAT HAPPENS TO CSS WHEN WE LOAD UP A WEBPAGE?"></a>WHAT HAPPENS TO CSS WHEN WE LOAD UP A WEBPAGE?</h2><ol>
+<li><p>LOAD HTML<br>user가 웹페이지를 오픈했을 때, html은 initial html file을 load하는 starting point가 된다.</p>
+</li>
+<li><p>parse HTML<br>이 단계에서 html head를 포함한 stylesheet를 찾아서 load하고 parse하기 시작한다. 즉 html 코드가 load되면 parse하기 시작하고, 코드를 line by line으로 decode한다. 그리고 css를 load하고 parse 한다.</p>
+<ul>
+<li>LOAD CSS &amp; PARSE CSS<ul>
+<li>cascade: 충돌하는 css 선언을 해결한다. (resolving conflicting css declaractions)</li>
+<li>process final css</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>RENDER TREE = DOM + CSSOM<br>위의 과정을 거쳐 브라우저는 <code>DOM</code>을 build하고 전체 web document가 생성된다.</p>
+<ul>
+<li>DOM(Document Object Model): decoding 된 전체 html code가 저장되는 곳이다.</li>
+<li>CSSOM(Css Object Model): css parse가 끝나면 final css가 tree-like structure인 이 곳에 저장된다.</li>
+</ul>
+</li>
+</ol>
+<h2 id="CSS-PARSING-PHASE"><a href="#CSS-PARSING-PHASE" class="headerlink" title="CSS PARSING PHASE"></a>CSS PARSING PHASE</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.my-class</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>selector: .my-class 부분</li>
+<li>Declaration Block: css rules. <code>color: blue;</code>와 같이 <code>Declaration</code>으로 구성되어 있다. <code>Declaration</code>은 <code>Property</code>인 <code>color</code>와 <code>Declared value</code>인 <code>20px</code>로 구성되어 있다.</li>
+</ul>
+<h2 id="CASCADE"><a href="#CASCADE" class="headerlink" title="CASCADE"></a>CASCADE</h2><p>서로 다른 stylesheets[different css sources: author, user, browser(user agent)]와 css rules와 declarations의 충돌을 해결하고 결합하는 과정으로 어떤 속성이 가중치가 있는지 체크하는 것이고, 특정 element에는 1가지 이상의 rule이 적용된다. cascade를 체크할 때 가장 중요한 것은 css rule이 어떠한 source를 기반으로 하는 것인지와 관련되어 있다.</p>
+<h3 id="different-css-sources"><a href="#different-css-sources" class="headerlink" title="different css sources"></a>different css sources</h3><ul>
+<li><p>User-Agent: 브라우저가 elemets에 제공하는 기본 스타일이며, 브라우저 마다 스타일이 다소 다르게 보여질 수 있다. css resets를 사용하여 user-agent styles를 override하는 방법을 쓰는 것이 이러한 차이를 상쇄시키는 방법 중 하나이다.</p>
+</li>
+<li><p>User: 브라우저 사용자에 의해 정의되고 제어된다. 보통 style을 override하거나 웹사이트 접근성을 추가하기 위한 것으로, 모든 사람이 가지고 있는 것은 아니다.</p>
+</li>
+<li><p>Author: HTML document에 선언된 css를 말한다. 일반적으로 프론트엔드 개발자가 작성하여 제어할 수 있는 것을 말한다.</p>
+</li>
+</ul>
+<p><em>그런데 css rules와 declarations의 충돌을 어떻게 해결한다는 것일까?</em></p>
+<blockquote>
+<p>which one takes precedence?<br><code>importance(weight)</code>, <code>specificity</code>, <code>source order</code></p>
+</blockquote>
+<ul>
+<li>importance(weight): 선언된 위치(css source)에 근거하여 각 선언(declaration)에 서로 다른 중요성을 부여하는 것으로 시작한다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. user &#96;!important&#96; declarations</span><br><span class="line">2. author &#96;!important&#96; declarations</span><br><span class="line">3. author declarations</span><br><span class="line">4. user declarations</span><br><span class="line">5. default browser declarations</span><br></pre></td></tr></table></figure>
+<p>그런데 만약 importance가 모두 같다면?</p>
+<ul>
+<li>specificity: 선언된 selector의 specificity를 비교하고 계산한다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. inline styles</span><br><span class="line">2. IDs</span><br><span class="line">3. classes, pseudo-classes, attribute</span><br><span class="line">4. elements, pseudo-elements</span><br></pre></td></tr></table></figure>
+<p>우선순위인 1번부터 차례로 다음과 같이 <code>(inline, IDs, classes, elements)</code>의 순서로 비교한다. 만약 비교한 결과가 (0,0,0,1), (0,1,0,1)이라면 전자가 specificity가 더 높은 것이다.</p>
+<p><em>그런데 만약 specificity가 모두 동일하다면?</em></p>
+<ul>
+<li>source order: 코드의 마지막 선언은 다른 모든 선언을 override하고 적용된다. 만약 3rd-party stylesheets를 사용한다면 author stylesheet는 늘 가장 마지막에 위치해야한다.</li>
+</ul>
+<p>내가 React project를 했을 때의 경험을 예시로 들어보겠다. 당시 SlidingPane이라는 라이브러리를 사용하여 팝업창을 구성했는데, 기본 설정된 배경색을 다른 색으로 변경했어야 했다. 그러나 이 라이브러리는 몹시 간결한 것이어서 그러한 변경에 대한 방법이 따로 설명되어 있지 않았다. 그래서 선택한 방법은 css파일에 변경해야 할 부분을 작성한 후 원래 있던 코드를 <code>background: #D9DBE0;</code>로 작성한 후 override하는 것이다.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 원래 코드: react-sliding-pane.css */</span></span><br><span class="line"><span class="selector-class">.slide-pane</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>: column;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">min-width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">8px</span> <span class="number">8px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.5</span>);</span><br><span class="line">  <span class="attribute">transition</span>: transform <span class="number">0.5s</span>;</span><br><span class="line">  <span class="attribute">will-change</span>: transform;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 내가 작성한 author 코드: Cart.css */</span></span><br><span class="line"><span class="selector-class">.slide-pane</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>: column;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#d9dbe0</span>;</span><br><span class="line">  <span class="attribute">min-width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">8px</span> <span class="number">8px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.5</span>);</span><br><span class="line">  <span class="attribute">transition</span>: transform <span class="number">0.5s</span>;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">will-change</span>: transform;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이렇게 작성 후 react로 작성된 Cart.js 파일의 상단에서 다음과 같은 순서로 import한다.</p>
+<blockquote>
+<p>import ‘react-sliding-pane/dist/react-sliding-pane.css’;<br>import ‘./Cart.css’;</p>
+</blockquote>
+<p>이렇게 하면 마지막에 import 된 <code>Cart.css</code>가 원래 존재하던 파일을 override하게 되기 때문에 배경색이 #fff에서 내가 설정한 #D9DBE0으로 변경된다.</p>
+<h2 id="CSS-Selector-Specificity"><a href="#CSS-Selector-Specificity" class="headerlink" title="CSS Selector Specificity"></a>CSS Selector Specificity</h2><p>CSS Selector Specificity를 비교하는 과정을 예시를 통해 보다 자세히 알아보겠다.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">id</span>=<span class="string">"nav"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"pull-right"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"button button-danger"</span> <span class="attr">href</span>=<span class="string">"link.html"</span>&gt;</span>Don't click here!<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>예시에서 <code>.button</code>과 <code>a</code>는 specificity가 낮은 편이기 때문에 다른 속성에서 우선순위에 밀려 배경색이 나타나지 않는다. 하지만 specificity가 낮더라도 <code>!important</code>를 선언하면 다른 어떤 속성보다도 우선순위를 갖고, 즉각 배경색이 버튼에 표시된다. 하지만 <code>!important</code>는 최소 한 번 사용하거나 되도록 쓰지 않는 것이 권장된다.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">50px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 클래스 1개. low specificity */</span></span><br><span class="line"><span class="selector-class">.button</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">background-color</span>: blue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 가장 specificity가 낮음 */</span></span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: purple;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* hover를 제외하면 이 선언이 세가지 중에 가장 우선순위가 높다. */</span></span><br><span class="line"><span class="selector-id">#nav</span> <span class="selector-tag">div</span><span class="selector-class">.pull-right</span> <span class="selector-tag">a</span><span class="selector-class">.button</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: orangered;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#nav</span> <span class="selector-tag">a</span><span class="selector-class">.button</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위의 코드에서 button에 마우스를 hover하면 색깔이 yellow로 바껴야 하지만, 아무런 변화가 없다. 그 이유는 pseudo class인 hover는 specificity에서 1으로 카운트되기 때문이다. 그러나 <code>#nav div.pull-right a.button</code> 이 경우 specificity는 id 1개, class 2개를 가지고 있다. <code>#nav a.button:hover</code>도 사실은 id 1개, class 2개를 가지고 있는 것인데, <code>hover</code>는 <em>class가 아니라 class인 것으로 여기는 pseudo class이다.</em> 따라서 전자는 2개의 elements를 가지고 있고, 후자는 1개의 elements를 가지고 있다. 결과적으로 <code>#nav div.pull-right a.button</code>가 훨씬 specificity가 높은 것이다. 따라서 hover는 적용되지 않는다. 만약 hover했을 때 색깔이 변경되도록 설정하고 싶다면 아래와 같이 코드를 바꾸어야 한다.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#nav</span> <span class="selector-tag">div</span><span class="selector-class">.pull-right</span> <span class="selector-tag">a</span><span class="selector-class">.button</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: orangered;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#nav</span> <span class="selector-tag">div</span><span class="selector-class">.pull-right</span> <span class="selector-tag">a</span><span class="selector-class">.button</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: green;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#nav</span> <span class="selector-tag">a</span><span class="selector-class">.button</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이렇게 코드를 작성하면 <code>#nav div.pull-right a.button</code>에 pesudo class인 <code>hover</code>가 추가되어 <code>hover</code>가 붙지 않은 elements와 비교했을 때 specificity가 높아진다. 따라서 hover했을 때 색깔이 green으로 바뀌는 것이다.</p>
+<hr>
+<p><em>References</em><br><a href="https://blog.logrocket.com/how-css-works-understanding-the-cascade-d181cd89a4d8/" target="_blank" rel="noopener">How CSS works: Understanding the cascade</a><br><a href="https://www.udemy.com/course/advanced-css-and-sass/learn/lecture/8274402#content" target="_blank" rel="noopener">Advanced css and sass</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/07/21/200722_cssReview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/21/200722_cssReview/" class="post-title-link" itemprop="url">MDN basic HTML</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-22 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-22T00:00:00+09:00">2020-07-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><p>마크업 언어. 웹페이지는 어떻게 구조화되어 있는지를 브라우저에게 알려줌. elements와 tag로 구성되어 있다.</p>
+<h3 id="요소-elements"><a href="#요소-elements" class="headerlink" title="요소(elements)"></a>요소(elements)</h3><ul>
+<li>elements: 각 컨텐츠를 감싸고 마크업한다. 엘리먼트 안에는 내용과 내용을 앞뒤로 감싸는 태그(여는 태그, 닫는 태그)가 있다. 엘리먼트 내부는 <code>&lt;p&gt;My cat is &lt;strong&gt;very&lt;/stong&gt;grumpy.&lt;/p&gt;</code>와 같이 중첩하여 사용할 수 있다.</li>
+<li>속성(attributes): 요소에 실제로 나타내고 싶진 않지만 추가적인 내용을 담고 싶을 떄 사용. <code>&lt;p class=&quot;editor-note&quot;&gt;My cat is very grumpy&lt;/p&gt;</code>라는 예시에서 <code>class=&quot;editor-note&quot;</code>를 말한다.</li>
+</ul>
+<h3 id="블럭-레벨-요소-vs-인라인-요소"><a href="#블럭-레벨-요소-vs-인라인-요소" class="headerlink" title="블럭 레벨 요소 vs 인라인 요소"></a>블럭 레벨 요소 vs 인라인 요소</h3><ul>
+<li>블럭 레벨 요소<br>웹페이지 상에 블록을 만드는데, 앞뒤 요소 사이에 새로운 줄을 만들기 때문에 요소 이전과 이후 요소는 줄을 바꾼다. <em>블록 레벨 요소는 다른 블록 레벨 요소에 의해 중첩될 수 있지만, 인라인 요소에 중첩될 수는 없다.</em></li>
+<li>인라인 요소<br><em>항상 블록 레벨 요소 내에 포함되어 있다.</em> 문서의 한 단락같이 큰 범위에는 적용될 수 없고, 단어 같은 작은 부분에 대해서만 적용된다. 또한 블록 레벨 요소와 다르게 새로운 줄을 만들지 않는다. 따라서 인라인 요소를 작성하면 작성한 단락 내에 표현된다.</li>
+</ul>
+<h3 id="HTML-메타데이터"><a href="#HTML-메타데이터" class="headerlink" title="HTML 메타데이터"></a>HTML 메타데이터</h3><ul>
+<li>head: 페이지를 열 때 웹 브라우저에 표시되지 않는다. metadata를 포함한다.</li>
+<li><p>title: <code>&lt;h1&gt;</code>태그와 헷갈릴 수 있는데, <code>&lt;h1&gt;</code>이 페이지를 열 때 페이지 내용의 제목에 쓰인다면, <code>&lt;title&gt;</code>는 문서의 컨텐츠 내부에 쓰이는 것이 아닌 html 문서 전체의 타이틀을 표현하기 위한 메타데이터를 의미한다. 이 <code>&lt;title&gt;</code>는 <em>북마크 이름, 검색결과</em> 로 사용된다.</p>
+</li>
+<li><p>meta: 문서의 character 인코딩을 특정하는 것으로 문서에서 허용하는 문자 집합을 의미한다. <code>UTF-8</code>은 다양한 언어들을 포함하는 것이므로 일반적으로 이를 사용하도록 한다.</p>
+</li>
+</ul>
+<h3 id="HTML에-CSS와-JavaScript-적용하기"><a href="#HTML에-CSS와-JavaScript-적용하기" class="headerlink" title="HTML에 CSS와 JavaScript 적용하기"></a>HTML에 CSS와 JavaScript 적용하기</h3><ul>
+<li>CSS: <code>&lt;link&gt;</code>를 사용하여 적용하는데, 항상 문서의 head 부분에 위치해야한다. <code>&lt;link&gt;</code>에서 <code>rel</code>은 문서가 stylesheet임을 나타내고, <code>href</code>는 이 파일의 경로를 나타낸다.</li>
+<li>JavaScript: <code>&lt;script&gt;</code> 태그를 사용하여 적용한다. <code>&lt;head&gt;</code>에 들어가도 되지만 꼭 <code>&lt;head&gt;</code>에만 위치해야하는 것은 아니다. 보통은 <code>&lt;/body&gt;</code> 태그 바로 앞, 즉 본문의 맨 끝에 넣는 것이 좋다. 또한 <code>&lt;script&gt;</code>태그는 반드시 닫아주어야 한다.</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>My test page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"my-css-file.css"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This is my page<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"my-js-file.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="HTML-text-fundamentals"><a href="#HTML-text-fundamentals" class="headerlink" title="HTML text fundamentals"></a>HTML text fundamentals</h2><p>시멘틱: 브라우저가 텍스트를 올바르게 표시 할 수 있도록 텍스트 구조와 의미를 제공하는 것. HTML의 주요 작업 중 하나.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/06/27/200628_design/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/27/200628_design/" class="post-title-link" itemprop="url">3 Pillars to write good HTML and CSS...and build Good Websites</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-28T00:00:00+09:00">2020-06-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="3-pillars-are-responsive-design"><a href="#3-pillars-are-responsive-design" class="headerlink" title="3 pillars are responsive design"></a>3 pillars are responsive design</h2><ul>
+<li>Responsive Design</li>
+<li>Maintainable and scalable code</li>
+<li>Web Performance</li>
+</ul>
+<ol>
+<li>Responsive Design(or responsive web design)<br>build one website that works beautifully across all screens sizes on all devices. <em>responsive design absolutely ‘standard’ today.</em></li>
+</ol>
+<h3 id="fundamentals-of-responsive-web-design"><a href="#fundamentals-of-responsive-web-design" class="headerlink" title="fundamentals of responsive web design."></a>fundamentals of responsive web design.</h3><ul>
+<li>Fluid layouts</li>
+<li>Media queries</li>
+<li>Responsive images</li>
+<li>Correct units</li>
+<li>Desktop-first vs mobile-first</li>
+</ul>
+<ol>
+<li>Maintainable and scalable code<br>it’s important for the developer and final user of the website.</li>
+</ol>
+<h3 id="keywords-clean-reusable"><a href="#keywords-clean-reusable" class="headerlink" title="keywords: clean, reusable"></a>keywords: clean, reusable</h3><p>need to care and think about CSS architecture. writing maintainable code.</p>
+<ul>
+<li>easy to understand</li>
+<li>future growth</li>
+<li>how to organize files</li>
+<li>how to name classes</li>
+<li>how to structure HTML</li>
+</ul>
+<ol>
+<li>Web Performance<br>make faster and to make it smaller in size, so that user has to download less data. <em>making as little HTTP requests as possible.</em> but the biggest impact we can have on performance is to actually reduce the use of images.</li>
+</ol>
+<ul>
+<li>less HTTP requests</li>
+<li>less code</li>
+<li>compress code</li>
+<li>use a CSS preprocessor</li>
+<li>less images</li>
+<li>compare images</li>
+</ul>
+<hr>
+<p><em>Reference</em><br><a href="https://www.udemy.com/course/advanced-css-and-sass/learn/lecture/8274402#content" target="_blank" rel="noopener">Advanced css and sass</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/06/26/200627_styledComponents/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +496,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
               </span>
 
           
@@ -249,7 +570,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
               </span>
 
           
@@ -379,7 +700,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
               </span>
 
           
@@ -439,6 +760,73 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/06/16/200617_review/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/16/200617_review/" class="post-title-link" itemprop="url">todo-app review</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-17 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-17T00:00:00+09:00">2020-06-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="프로젝트-구현-준비"><a href="#프로젝트-구현-준비" class="headerlink" title="프로젝트 구현 준비"></a>프로젝트 구현 준비</h2><p>프로젝트 준비 -&gt; ui구성 -&gt; 기능 구현<br>프로젝트 설계 시 페이지를 구성하는 가장 큰 단위부터 시작하여 컴포넌트 단위로 쪼갠다</p>
+<h2 id="children-props"><a href="#children-props" class="headerlink" title="children props"></a>children props</h2><p>어떤 자식 엘리먼트가 들어올 지 미리 예상할 수 없는 경우 <code>children props</code>를 사용하여 자식 엘리먼트를 출력할 수 있도록 그대로 전달한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FancyBoreder</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;props.children&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/06/16/200617_reactRouter/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -470,7 +858,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
               </span>
 
           
@@ -557,73 +945,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/06/16/200617_review/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/16/200617_review/" class="post-title-link" itemprop="url">todo-app review</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-06-17 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-17T00:00:00+09:00">2020-06-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="프로젝트-구현-준비"><a href="#프로젝트-구현-준비" class="headerlink" title="프로젝트 구현 준비"></a>프로젝트 구현 준비</h2><p>프로젝트 준비 -&gt; ui구성 -&gt; 기능 구현<br>프로젝트 설계 시 페이지를 구성하는 가장 큰 단위부터 시작하여 컴포넌트 단위로 쪼갠다</p>
-<h2 id="children-props"><a href="#children-props" class="headerlink" title="children props"></a>children props</h2><p>어떤 자식 엘리먼트가 들어올 지 미리 예상할 수 없는 경우 <code>children props</code>를 사용하여 자식 엘리먼트를 출력할 수 있도록 그대로 전달한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FancyBoreder</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;props.children&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/31/200601_reduxIntro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -655,7 +976,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
               </span>
 
           
@@ -803,7 +1124,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
+                <time title="Modified: 2021-08-19 22:53:28" itemprop="dateModified" datetime="2021-08-19T22:53:28+09:00">2021-08-19</time>
               </span>
 
           
@@ -842,285 +1163,6 @@
 </ul>
 <hr>
 <p><em>References</em><br><a href="https://react.vlpt.us/redux-middleware/02-make-middleware.html" target="_blank" rel="noopener">모던리액트</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/19/200520_contextApi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/19/200520_contextApi/" class="post-title-link" itemprop="url">Context API</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-05-20 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-20T00:00:00+09:00">2020-05-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Context-API가-필요한-이유"><a href="#Context-API가-필요한-이유" class="headerlink" title="Context API가 필요한 이유"></a>Context API가 필요한 이유</h2><p>React의 데이터는 부모에서 자식으로 props를 통해 전달되는데, 자식 컴포넌트들이 늘어나면 전달해야하는 브릿지(중간에 의미없이 props만 전달하는 컴포넌트)가 늘어난다.</p>
-<p>Context API를 사용하면 네스팅 컴포넌트 트리(부모-&gt;자식-&gt;자식-&gt;자식…의 구조)를 타고 props를 명시적으로 넘겨주지 않아도 컴포넌트 간에 값을 공유하도록 할 수 있다. 이렇게 하면 멀리 떨어진 컴포넌트에게 상태 또는 상태관리 함수를 보낼 수 있다. dispatch를 이용하여 전달한다.</p>
-<blockquote>
-<p>context API: React 컴포넌트 트리 안에서 전역적(global)이라고 볼 수 있는 데이터를 공유할 수 있도록 고안된 방법. 선호 로케일, 테마, 데이터 캐시, 현재 로그인한 유저, 선호하는 언어 등을 관리할 때 사용.</p>
-</blockquote>
-<h2 id="언제-필요한가"><a href="#언제-필요한가" class="headerlink" title="언제 필요한가?"></a>언제 필요한가?</h2><p>다양한 레벨에 네스틴된 많은 컴포넌트에게 데이터를 전달할 때. <em>단, context는 컴포넌트를 그룹화한다는 의미이기 때문에 재사용이 어려워지므로 꼭 필요할 때만 쓰도록 한다.</em></p>
-<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><ol>
-<li>React.CreateContext</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MyContext = React.createContext(defaultValue);</span><br></pre></td></tr></table></figure>
-<p>context 객체를 만든다. Context 객체를 구독하고 있는 컴포넌트를 렌더링할 때 React는 트리 상위에서 가장 가까이 있는 짝이 맞는 <code>Provider</code>로부터 현재값을 읽는다.</p>
-<ul>
-<li>defaultValue: 트리 안에서 적절한 <code>Provider</code>를 찾지 못했을 때 쓰임. <code>Provider</code>를 통해 <code>undefined</code>를 값으로 보내도 구독 컴포넌트들이 <code>defaultValue</code>를 읽지 않음.</li>
-</ul>
-<ol>
-<li>Context.Provider</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//상위 컴포넌트에서의 정의</span></span><br><span class="line">&lt;MyContext.Provider value=&#123;<span class="comment">/* 어떤 값 */</span>&#125;&gt;</span><br><span class="line">  &#123;하위 컴포넌트&#125;</span><br><span class="line">&lt;<span class="regexp">/MyContext.Provider&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>Provider: Context 오브젝트에 포함된 React컴포넌트로 context를 구독하는 컴포넌트들에게 context의 변화를 알리는 역할을 한다.</li>
-</ul>
-<p>Context 변경 사항을 자손들에게 제공한다. Provider 의 Value는 하위의 모든 Consumer 에서 사용할 수 있으며, Provider 하위의 모든 Consumer 는 Provider 의 value가 변경 될 때마다 리렌더링 된다. Privider가 받은 value를 하위 컴포넌트에 넘길 때, 값을 전달 받을 수 있는 컴포넌트의 수 제한은 없다.</p>
-<ol>
-<li>Context.Consumer</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//하위 컴포넌트에서 정의</span></span><br><span class="line">&lt;MyContext.Consumer&gt;&#123;(value) =&gt;</span><br><span class="line"><span class="comment">//render something based on the context value</span></span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/MyContext.Consumer&gt;</span></span><br></pre></td></tr></table></figure>
-<p>MyContext Provide의 Value의 변경 사항을 구독하며, Context 에서 가장 가까운 Provider 의 Value 를 참조한다.</p>
-<p>함수 컴포넌트 안에서 context를 읽기 위해 쓸 수 있고, Context.Consumer의 자식은 <code>함수</code>여야 한다. 이 함수는 context의 현재값을 받고 React 노드를 반환한다.</p>
-<ol>
-<li>Hook의 useContext</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> value = useContext(MyContext);</span><br></pre></td></tr></table></figure>
-<p>Hook의 useContext로 Context 객체의 value를 가져올 수 있다.</p>
-<hr>
-<p><em>Reference</em><br><a href="https://ko.reactjs.org/docs/context.html#gatsby-focus-wrapper" target="_blank" rel="noopener">React</a><br><a href="https://glenncy.s3.ap-northeast-2.amazonaws.com/lecture/reactjs/chapter10.html" target="_blank" rel="noopener">fastCampusDocument</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/12/200513_react/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/12/200513_react/" class="post-title-link" itemprop="url">React Props, State</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-05-13 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-13T00:00:00+09:00">2020-05-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="what-is-React"><a href="#what-is-React" class="headerlink" title="what is React?"></a>what is React?</h2><ul>
-<li>사용자 인터페이스를 구축하기 위한 선언적이고 효율적이며 유연한 JavaScript 라이브러리</li>
-<li><code>컴포넌트</code>라고 불리는 작고 고립된 코드의 파편을 이용하여 복잡한 UI를 구성한다.<br>이 컴포넌트를 사용하여 React에게 화면에 표현하고 싶은 것이 무엇인지 알려줌.</li>
-<li>render함수: 화면에서 보고자 하는 내용을 반환. 컴포넌트가 props라는 매개변수를 받아오면 render 함수를 통해 표시할 뷰 계층 구조를 반환한다.<br><em>React 엘리먼트는 JavaScript 객체이며 변수에 저장하거나 프로그램 여기저기에 전달할 수 있다.</em></li>
-</ul>
-<h2 id="props"><a href="#props" class="headerlink" title="props"></a>props</h2><p>부모 컴포넌트에서 자식 컴포넌트로 <code>props를 전달</code>하면 React 앱에서 부모에서 자식으로 정보가 어떻게 흘러가는지 알려준다. 자식 컴포넌트에서 클릭 이벤트 발생에 대한 변화가 필요한데, state는 부모 컴포넌트에 있다면 자식은 부모의 state를 직접 변경할 수 없다. 컴포넌트는 자신이 정의한 state에만 접근할 수 있기 때문이다. 따라서 부모 컴포넌트가 자식 컴포넌트에게 props를 전달하고, 자식 컴포넌트에서는 함수를 호출한다. 아래의 경우 square를 클릭하면 부모 컴포넌트인 Board에서 넘겨받은 함수가 호출된다. 참고로 React에서 이벤트를 나타내는 prop에는 on[Event], 이벤트를 처리하는 함수에는 handle[Event]를 사용하는 것이 일반적이다.</p>
-<p>이렇게 부모 컴포넌트가 자식 컴포넌트로 props를 전달하면 부모 컴포넌트에게 값을 받아 클릭 이벤트와 같은 변화가 생길 때 부모 컴포넌트에게 정보를 전달한다. 이런 경우 자식 컴포넌트를 제어되는 컴포넌트라고 한다. 부모 컴포넌트에 의해 제어되기 때문이다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//class component</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button className=<span class="string">"square"</span> onClick=&#123;() =&gt; <span class="keyword">this</span>.props.onClick()&#125;&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.props.value&#125;</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ function component</span></span><br><span class="line"><span class="regexp">function Square(props) &#123;</span></span><br><span class="line"><span class="regexp">  return (</span></span><br><span class="line"><span class="regexp">    &lt;button className="square" onClick=&#123;props.onClick&#125;&gt;</span></span><br><span class="line"><span class="regexp">      &#123;props.value&#125;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>button&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="state"><a href="#state" class="headerlink" title="state"></a>state</h2><p>무엇인가를 기억하기 위해 사용. class 컴포넌트에서는 <code>this.state</code>를 설정하는 것으로 state를 가진다. <em>주의할 것은 하위 클래스의 생성자를 정의할 때 반드시 super를 호출해야한다.</em> 아래와 같이 작성시 Square의 render 함수 내부에서 onClick 핸들러를 통해 this.setState를 호출하는 것으로 React에게 <code>&lt;button&gt;</code>을 클릭할 때 Square를 다시 렌더링해야 한다고 알릴 수 있다. 업데이트 이후에 Square의 this.state.value는 ‘X’가 되어 게임 판에서 X가 나타나는 것을 확인할 수 있다. 어떤 Square를 클릭하던 X가 나타날 것이다. 컴포넌트에서 setState를 호출하면 React는 자동으로 컴포넌트 내부의 자식 컴포넌트 역시 업데이트한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      value: <span class="literal">null</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button className=<span class="string">"square"</span> onClick=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123; <span class="attr">value</span>: <span class="string">"X"</span> &#125;)&#125;&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.state.value&#125;</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>특정값을 유지해야 할 필요가 있을 때 부모 컴포넌트에 상태를 저장하고, 부모 컴포넌트가 자식 컴포넌트에게 props를 전달하는 것으로 무엇을 표시해야 할지 알려줄 수 있다. 여러개의 자식으로부터 데이터를 모으거나 두 개의 자식 컴포넌트들이 서로 통신하게 하려면 부모 컴포넌트에 공유 state를 정의해야 한다. 부모 컴포넌트는 props를 사용하여 자식 컴포넌트에 state를 다시 전달할 수 있다. 이것은 자식 컴포넌트들이 서로 또는 부모 컴포넌트와 동기화 하도록 만든다. 아래의 경우 부모 컴포넌트인 Board에 생성자를 추가하고, 값을 유지해야하는 squares의 null 배열을 초기 state로 설정했다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Board</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      squares: <span class="built_in">Array</span>(<span class="number">9</span>).fill(<span class="literal">null</span>),</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  renderSquare(i) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Square</span> <span class="attr">value</span>=<span class="string">&#123;i&#125;</span> /&gt;</span></span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p><code>array.fill</code><br><code>arr.fill(value[, start[, end]])</code></p>
-<ul>
-<li>value: 배열을 채울 값, start: 시작 인덱스, 기본값 0, end:끝 인덱스, 기본값 this.length</li>
-<li>arr.fill 메서드는 변경자 메서드로, 복사본이 아니라 this 객체를 변형해 반환.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>); <span class="comment">// [4, 4, 4]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">1</span>); <span class="comment">// [1, 4, 4]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// [1, 4, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">1</span>, <span class="number">1</span>); <span class="comment">// [1, 2, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">3</span>, <span class="number">3</span>); <span class="comment">// [1, 2, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">-3</span>, <span class="number">-2</span>); <span class="comment">// [4, 2, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="literal">NaN</span>, <span class="literal">NaN</span>); <span class="comment">// [1, 2, 3]</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">3</span>, <span class="number">5</span>); <span class="comment">// [1, 2, 3]</span></span><br><span class="line"><span class="built_in">Array</span>(<span class="number">3</span>).fill(<span class="number">4</span>); <span class="comment">// [4, 4, 4]</span></span><br><span class="line">[].fill.call(&#123; <span class="attr">length</span>: <span class="number">3</span> &#125;, <span class="number">4</span>); <span class="comment">// &#123;0: 4, 1: 4, 2: 4, length: 3&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Objects by reference.</span></span><br><span class="line"><span class="keyword">var</span> arr = <span class="built_in">Array</span>(<span class="number">3</span>).fill(&#123;&#125;); <span class="comment">// [&#123;&#125;, &#123;&#125;, &#123;&#125;]</span></span><br><span class="line">arr[<span class="number">0</span>].hi = <span class="string">"hi"</span>; <span class="comment">// [&#123; hi: "hi" &#125;, &#123; hi: "hi" &#125;, &#123; hi: "hi" &#125;]</span></span><br></pre></td></tr></table></figure>
-<h2 id="key-선택"><a href="#key-선택" class="headerlink" title="key 선택"></a>key 선택</h2><p>이런 경고가 있다면,</p>
-<blockquote>
-<p>경고 배열이나 이터레이터의 자식들은 고유의 “key” prop을 가지고 있어야 합니다. “Game”의 render 함수를 확인해주세요.</p>
-</blockquote>
-<p>리스트를 렌더링할 때 React는 렌더링하는 리스트 아이템에 대한 정보를 저장한다. 리스트를 업데이트 할 때 React는 무엇이 변했는 지 결정해야 한다.<br>리스트의 아이템들은 추가, 제거, 재배열, 업데이트 될 수 있다. React는 컴퓨터 프로그램이며 사람이 의도한 바가 무엇인지 알지 못한다.<br>그렇기 때문에 리스트 아이템에 <code>key prop</code>을 지정하여 각 아이템이 다른 아이템들과 다르다는 것을 알려주어야 한다.</p>
-<p><code>&lt;li key={user.id}&gt;{user.name}: {user.taskCount} tasks left&lt;/li&gt;</code></p>
-<p>목록을 다시 렌더링하면 React는 각 리스트 아이템의 키를 가져가며 이전 리스트 아이템에서 일치하는 키를 탐색한다.<br>현재 리스트에서 이전에 존재하지 않는 키를 가지고 있다면 React는 새로운 컴포넌트를 생성한다.<br>현재 리스트가 이전 리스트에 존재했던 키를 가지고 있지 않다면 React는 그 키를 가진 컴포넌트를 제거한다.<br>만약 두 키가 일치한다면 해당 구성요소는 이동한다. <em>키는 각 컴포넌트를 구별할 수 있도록 하여 React에게 다시 렌더링할 때 state를 유지할 수 있게 한다.</em><br>만약 컴포넌트의 키가 변한다면 컴포넌트는 제거되고 새로운 state와 함께 다시 생성된다.<strong>동적인 리스트를 만들 때마다 적절한 키를 할당하는 것이 강력하게 추천된다.</strong></p>
-<hr>
-<p><em>Reference</em><br><a href="https://ko.reactjs.org/tutorial/tutorial.html" target="_blank" rel="noopener">React</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/fill" target="_blank" rel="noopener">MDN</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/11/200512_CSBasic/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/11/200512_CSBasic/" class="post-title-link" itemprop="url">CS 기초지식</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-05-12 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-12T00:00:00+09:00">2020-05-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-22 10:29:16" itemprop="dateModified" datetime="2021-07-22T10:29:16+09:00">2021-07-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="기술-면접-유형"><a href="#기술-면접-유형" class="headerlink" title="기술 면접 유형"></a>기술 면접 유형</h2><ul>
-<li>자기 소개 관련</li>
-<li>cs기본 지식 관련</li>
-<li>프로그래밍 언어별/각 it분야별 세부 지식 관련</li>
-<li>자료구조/알고리즘 기반 문제 손코딩</li>
-</ul>
-<p>비전공자라면 CS 지식을 물어볼 가능성이 높고, 개발을 잘해도 CS 문외한이면 안뽑음. CS기본 지식이 있어야 커뮤니케이션에 문제가 없다고 생각.</p>
-<h2 id="TO-BE"><a href="#TO-BE" class="headerlink" title="TO BE"></a>TO BE</h2><p>개발자는 프론트엔드를 주로 만들지만 필요에 따라 다양한 기술을 익히고 바로 적용할 수 있다.<br><code>기본과 실무능력</code>을 고루 갖춘, 개발 실력이 높아야 한다.</p>
-<h2 id="필수-CS-기본-지식-항목"><a href="#필수-CS-기본-지식-항목" class="headerlink" title="필수 CS 기본 지식 항목"></a>필수 CS 기본 지식 항목</h2><ul>
-<li>운영체제, 네트워크</li>
-<li>자료구조/알고리즘 (코딩 테스트를 통해 별도 검증)</li>
-</ul>
-<p><em>질문 예시</em></p>
-<ul>
-<li><p>언제 멀티 프로세서를 사용하고, 언제 멑티쓰레드를 써야하는지 설명해주세요.<br>멀티 쓰레드를 사용하면 쓰레드간 자원 공유가 가능하기 때문에 쓰레드간 별도의 통신 오버헤드가 적습니다. 다만 공유된 자원간의 읽고 쓰기가 빈번할 경우, 추가적인 오버헤드가 드는 동기화 기법을 사용해야 합니다. 따러서 인스턴스 간 공유된 자원간의 읽고 쓰기가 빈번한 경우에는 멀티 프로세서 사용을 고려하고…</p>
-</li>
-<li><p>채팅 서버-클라이언트간에는 tcp와 ucp 중 어떤 프로토콜을 사용하는 것이 좋은지?</p>
-</li>
-</ul>
-<h2 id="프로세스와-스레드-차이-운영체제"><a href="#프로세스와-스레드-차이-운영체제" class="headerlink" title="프로세스와 스레드 차이(운영체제)"></a>프로세스와 스레드 차이(운영체제)</h2><ul>
-<li><p>프로세스는 운영체제로부터 자원을 할당받아 실행하고, 스레드는 프로세스로부터 자원을 할당받아 실행</p>
-</li>
-<li><p>하나의 프로세스 안에서 여러 스레드를 생성 가능</p>
-</li>
-</ul>
 
       
     </div>
@@ -1206,12 +1248,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
