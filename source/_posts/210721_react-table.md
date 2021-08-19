@@ -335,6 +335,7 @@ function App() {
 
 ---
 
+_References_
 [HEADLESS USER INTERFACE COMPONENTS](https://www.merrickchristensen.com/articles/headless-user-interface-components/)  
 [React Table - overview](https://react-table.tanstack.com/docs/overview)  
 [React Table - Quick Start](https://react-table.tanstack.com/docs/quick-start)  
