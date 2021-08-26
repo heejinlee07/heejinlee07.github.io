@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="원문링크: https:&#x2F;&#x2F;redux-toolkit.js.org&#x2F;rtk-query&#x2F;usage&#x2F;mutations  MutationOverviewmutation은 서버에 데이터 업데이트를 보낼 때 사용하고, 이를 로컬 캐시에 적용하도록 한다. 또 유효하지 않은 데이터를 걸러내고, 강제로 re-fetch할 수 있도록 한다. Defining Mutation End">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RTK Query Mutation 원문 번역">
+<meta property="og:url" content="https://heejinlee07.github.io/2021/08/25/210826_rtk-mutation/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="원문링크: https:&#x2F;&#x2F;redux-toolkit.js.org&#x2F;rtk-query&#x2F;usage&#x2F;mutations  MutationOverviewmutation은 서버에 데이터 업데이트를 보낼 때 사용하고, 이를 로컬 캐시에 적용하도록 한다. 또 유효하지 않은 데이터를 걸러내고, 강제로 re-fetch할 수 있도록 한다. Defining Mutation End">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-25T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-26T13:53:53.389Z">
+<meta property="article:author" content="Heejin Lee">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2021/08/25/210826_rtk-mutation/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>RTK Query Mutation 원문 번역 | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Developer</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/08/25/210826_rtk-mutation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RTK Query Mutation 원문 번역
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-08-26 00:00:00 / Modified: 22:53:53" itemprop="dateCreated datePublished" datetime="2021-08-26T00:00:00+09:00">2021-08-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>원문링크: <a href="https://redux-toolkit.js.org/rtk-query/usage/mutations" target="_blank" rel="noopener">https://redux-toolkit.js.org/rtk-query/usage/mutations</a></p>
+</blockquote>
+<h1 id="Mutation"><a href="#Mutation" class="headerlink" title="Mutation"></a>Mutation</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>mutation은 서버에 데이터 업데이트를 보낼 때 사용하고, 이를 로컬 캐시에 적용하도록 한다. 또 유효하지 않은 데이터를 걸러내고, 강제로 re-fetch할 수 있도록 한다.</p>
+<h2 id="Defining-Mutation-Endpoints"><a href="#Defining-Mutation-Endpoints" class="headerlink" title="Defining Mutation Endpoints"></a>Defining Mutation Endpoints</h2><p>Mutation Endpoints는 createApi의 endpoints 섹션에 return 되는 객체로 정의된다. 정의되는 곳에서는 builder.mutation() 메소드를 통해 정의한다.</p>
+<p>Mutation Endpoints는 URL(URL query params를 포함하는)의 구조의 query 콜백이나 queryFn 콜백에 정의해야 되는데, queryFn callback은 임의로 async 로직을 구성하고 결과를 반환한다. query 콜백은 URL, request 메소드에 사용하는 HTTP 메소드를 포함한 객체를 반환한다.</p>
+<p>query 콜백이 URL을 생성하기 위한 추가 데이터가 필요한 경우에는 단일 인수로 작성되어야 하고, 만약 여러 파라미터를 전달할 예정이라면 단일 옵션 개체(option object)의 형태로 전달되어야 한다.</p>
+<p>Mutation endpoints는 결과가 캐시되기 전에 response 내용을 수정하고, tags를 정의하여 캐시 무효화를 식별하고, 캐시 항목이 추가 및 제거될 때까지 전체 라이프 사이클 콜백을 제공한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Example of all mutation endpoint options</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Post &#125; <span class="keyword">from</span> <span class="string">'./types'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> api = createApi(&#123;</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123;</span><br><span class="line">    baseUrl: <span class="string">'/'</span>,</span><br><span class="line">  &#125;),</span><br><span class="line">  tagTypes: [<span class="string">'Post'</span>],</span><br><span class="line">  endpoints: <span class="function">(<span class="params">build</span>) =&gt;</span> (&#123;</span><br><span class="line">    updatePost: build.mutation&lt;Post, Partial&lt;Post&gt; &amp; Pick&lt;Post, <span class="string">'id'</span>&gt;&gt;(&#123;</span><br><span class="line">      <span class="comment">// note: an optional `queryFn` may be used in place of `query`</span></span><br><span class="line">      query: <span class="function">(<span class="params">&#123; id, ...patch &#125;</span>) =&gt;</span> (&#123;</span><br><span class="line">        url: <span class="string">`post/<span class="subst">$&#123;id&#125;</span>`</span>,</span><br><span class="line">        method: <span class="string">'PATCH'</span>,</span><br><span class="line">        body: patch,</span><br><span class="line">      &#125;),</span><br><span class="line">      <span class="comment">// Pick out data and prevent nested properties in a hook or selector</span></span><br><span class="line">      transformResponse: <span class="function">(<span class="params">response: &#123; data: Post &#125;</span>) =&gt;</span> response.data,</span><br><span class="line">      invalidatesTags: [<span class="string">'Post'</span>],</span><br><span class="line">      <span class="comment">// onQueryStarted is useful for optimistic updates</span></span><br><span class="line">      <span class="comment">// The 2nd parameter is the destructured `MutationLifecycleApi`</span></span><br><span class="line">      <span class="keyword">async</span> onQueryStarted(</span><br><span class="line">        arg,</span><br><span class="line">        &#123; dispatch, getState, queryFulfilled, requestId, extra, getCacheEntry &#125;</span><br><span class="line">      ) &#123;&#125;,</span><br><span class="line">      <span class="comment">// The 2nd parameter is the destructured `MutationCacheLifecycleApi`</span></span><br><span class="line">      <span class="keyword">async</span> onCacheEntryAdded(</span><br><span class="line">        arg,</span><br><span class="line">        &#123;</span><br><span class="line">          dispatch,</span><br><span class="line">          getState,</span><br><span class="line">          extra,</span><br><span class="line">          requestId,</span><br><span class="line">          cacheEntryRemoved,</span><br><span class="line">          cacheDataLoaded,</span><br><span class="line">          getCacheEntry,</span><br><span class="line">        &#125;</span><br><span class="line">      ) &#123;&#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>onQueryStarted는 <a href="https://redux-toolkit.js.org/rtk-query/usage/optimistic-updates" target="_blank" rel="noopener">optimistic update</a>에 사용할 수 있다.</p>
+<hr>
+<h2 id="Performing-Mutations-with-React-Hooks"><a href="#Performing-Mutations-with-React-Hooks" class="headerlink" title="Performing Mutations with React Hooks"></a>Performing Mutations with React Hooks</h2><h3 id="Mutation-Hook-Behavior"><a href="#Mutation-Hook-Behavior" class="headerlink" title="Mutation Hook Behavior"></a>Mutation Hook Behavior</h3><p>useQuery와 달리 useMutatio는 tuple을 반환한다. tuple의 첫 번째 아이템은 ‘trigger’ 함수이고, 두 번째 아이템은 status, error, data를 포함하는 객체이다.</p>
+<p>useQuery hook과 달리 useMutation은 자동으로 실행되지 않는다. mutation을 실행하기 위해서 hook의 첫 번째 tuple 값인 trigger 함수를 호출해야 한다. <a href="https://redux-toolkit.js.org/rtk-query/api/created-api/hooks#usemutation" target="_blank" rel="noopener">useMutaion</a>과 관련된 자세한 내용은 링크를 참조한다.</p>
+<h3 id="Frequently-Used-Mutation-Hook-Return-Values"><a href="#Frequently-Used-Mutation-Hook-Return-Values" class="headerlink" title="Frequently Used Mutation Hook Return Values"></a>Frequently Used Mutation Hook Return Values</h3><p>useMutation hook은 mutaion trigger 함수를 포함하는 tuple과 mutation 결과와 관련된 속성을 포함하는 객체를 반환한다 하였다.</p>
+<p>mutaion trigger 함수가 호출될 때 해당 엔드포인트에 대한 요청을 시작한다. mutation trigger를 호출하면 upwarp 속성이 포함된 프로미스를 반환하는데, 이 속성을 호출하는 것을 통해 mutation 호출을 풀고, raw한 reponse와 error를 제공할 수 있다. 이는 mutation의 호출되는 영역에서 성공/실패 여부를 결정하는 경우에 유용하다.</p>
+<p>mutation result는 mutation 요청에 대한 가장 최신의 data와 같은 속성을 포함하는 객체인데, 이 뿐 만 아니라 현재 요청한 라이프사이클 state에 대한 boolean 속성도 포함하고 있다.</p>
+<p>아래는 mutation result 객체에서 가장 자주 사용하는 속성들이다. <a href="https://redux-toolkit.js.org/rtk-query/api/created-api/hooks#usemutation" target="_blank" rel="noopener">useMutation</a>가 return하는 전체 속성에 대한 내용은 링크를 참조한다.</p>
+<ul>
+<li>data: 존재하는 경우에, 가장 최신의 trigger response로 부터 반환된 데이터. 만약 동일한 hook의 인스턴스에서 후속 trigger가 호출되면 새로운 데이터를 받기 전에는 undefined를 반환한다. 이전 데이터에서 새로운 데이터로의 원활한 전환을 위해서 컴포넌트 레벨의 고려해야 한다.</li>
+<li>error: 존재하는 경우 에러의 결과.</li>
+<li>isUninitialized: true일 때, mutation이 아직 발생하지 않았음을 나타낸다.</li>
+<li>isLoading: true일 경우에 mutation이 아직 발생했고, reponse를 기다리는 중임을 나타낸다.</li>
+<li>isSuccess: true일 경우에 마자믹으로 실행된 mutation에서 성공적인 요청으로 부터 얻은 데이터가 있음을 나타낸다.</li>
+<li>isError: true일 때, 마지막으로 실행된 mutation에서 error 상태를 얻었음을 나타낸다.</li>
+</ul>
+<p>note: RTK 쿼리에서 mutation은 <a href="https://redux-toolkit.js.org/rtk-query/usage/queries#frequently-used-query-hook-return-values" target="_blank" rel="noopener">query</a>가 그런 것 처럼 ‘loading’와 ‘fetching’ 사이에 시멘틱한 구분을 포함하고 있지 않다. mutation은 후속 call이 반드시 관련이 있는 것이라고 가정하지 않기 때문에, mutation은 ‘no fetching’과 같은 컨셉이 없고, ‘loading’ 또는 ‘not loading’의 컨셉을 가진다.</p>
+<hr>
+<h2 id="Standard-Mutation-Example"><a href="#Standard-Mutation-Example" class="headerlink" title="Standard Mutation Example"></a>Standard Mutation Example</h2><p>페이지 하단의 updataPost mutation의 완전한 수정된 예시이다. 이 시나리오에서 post는 useQuery로 fetch되었고, post의 이름을 수정할 수 있는 EditablePostName 컴포넌트가 렌더된다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//src/features/posts/PostDetail.tsx</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> PostDetail = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; id &#125; = useParams&lt;&#123; <span class="attr">id</span>: any &#125;&gt;()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> &#123; <span class="attr">data</span>: post &#125; = useGetPostQuery(id)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [</span><br><span class="line">    updatePost, <span class="comment">// This is the mutation trigger</span></span><br><span class="line">    &#123; <span class="attr">isLoading</span>: isUpdating &#125;, <span class="comment">// This is the destructured mutation result</span></span><br><span class="line">  ] = useUpdatePostMutation()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Box p=&#123;<span class="number">4</span>&#125;&gt;</span><br><span class="line">      &lt;EditablePostName</span><br><span class="line">        name=&#123;post.name&#125;</span><br><span class="line">        onUpdate=&#123;(name) =&gt; &#123;</span><br><span class="line">          <span class="comment">// If you want to immediately access the result of a mutation, you need to chain `.unwrap()`</span></span><br><span class="line">          <span class="comment">// if you actually want the payload or to catch the error.</span></span><br><span class="line">          <span class="comment">// Example: `updatePost().unwrap().then(fulfilled =&gt; console.log(fulfilled)).catch(rejected =&gt; console.error(rejected))</span></span><br><span class="line"></span><br><span class="line">          <span class="keyword">return</span> (</span><br><span class="line">            <span class="comment">// Execute the trigger with the `id` and updated `name`</span></span><br><span class="line">            updatePost(&#123; id, name &#125;)</span><br><span class="line">          )</span><br><span class="line">        &#125;&#125;</span><br><span class="line">        isLoading=&#123;isUpdating&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">    &lt;<span class="regexp">/Box&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Advanced-Mutations-with-Revalidation"><a href="#Advanced-Mutations-with-Revalidation" class="headerlink" title="Advanced Mutations with Revalidation"></a>Advanced Mutations with Revalidation</h2><p>일반적으로 개발자가 mutation(revalidation)을 수행한 후 로컬 데이터 캐시를 서버와 재동기화하려는 경우가 매우 흔하다. RTK Query는 이에 대해 보다 중앙집권화 된 접근방법을 취함으로써 API 정의에서 invalidation 동작을 구성해야 한다. <a href="https://redux-toolkit.js.org/rtk-query/usage/automated-refetching#advanced-invalidation-with-abstract-tag-ids" target="_blank" rel="noopener">Advanced Invalidation with abstract tag IDs</a>를 통해 RTK Query와 Invalidation에 대한 자세한 내용을 참조하라.</p>
+<h2 id="Revalidation-Example"><a href="#Revalidation-Example" class="headerlink" title="Revalidation Example"></a>Revalidation Example</h2><p>post의 <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete" target="_blank" rel="noopener">CRUD service</a> 예시이다. 이는 <a href="https://redux-toolkit.js.org/rtk-query/usage/automated-refetching#selectively-invalidating-lists" target="_blank" rel="noopener">Selectively invalidating lists</a>의 전략을 구현하고, 실제 어플리케이션을 위한 좋은 기반을 제공한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//src/app/services/posts.ts</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Or from '@reduxjs/toolkit/query' if not using the auto-generated hooks</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> interface Post &#123;</span><br><span class="line">  id: number</span><br><span class="line">  name: string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type PostsResponse = Post[]</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> postApi = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'postsApi'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  tagTypes: [<span class="string">'Posts'</span>],</span><br><span class="line">  endpoints: <span class="function">(<span class="params">build</span>) =&gt;</span> (&#123;</span><br><span class="line">    getPosts: build.query&lt;PostsResponse, <span class="keyword">void</span>&gt;(&#123;</span><br><span class="line">      query: <span class="function"><span class="params">()</span> =&gt;</span> <span class="string">'posts'</span>,</span><br><span class="line">      <span class="comment">// Provides a list of `Posts` by `id`.</span></span><br><span class="line">      <span class="comment">// If any mutation is executed that `invalidate`s any of these tags, this query will re-run to be always up-to-date.</span></span><br><span class="line">      <span class="comment">// The `LIST` id is a "virtual id" we just made up to be able to invalidate this query specifically if a new `Posts` element was added.</span></span><br><span class="line">      providesTags: <span class="function">(<span class="params">result</span>) =&gt;</span></span><br><span class="line">        <span class="comment">// is result available?</span></span><br><span class="line">        result</span><br><span class="line">          ? <span class="comment">// successful query</span></span><br><span class="line">            [</span><br><span class="line">              ...result.map(<span class="function">(<span class="params">&#123; id &#125;</span>) =&gt;</span> (&#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, id &#125; <span class="keyword">as</span> <span class="keyword">const</span>)),</span><br><span class="line">              &#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, <span class="attr">id</span>: <span class="string">'LIST'</span> &#125;,</span><br><span class="line">            ]</span><br><span class="line">          : <span class="comment">// an error occurred, but we still want to refetch this query when `&#123; type: 'Posts', id: 'LIST' &#125;` is invalidated</span></span><br><span class="line">            [&#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, <span class="attr">id</span>: <span class="string">'LIST'</span> &#125;],</span><br><span class="line">    &#125;),</span><br><span class="line">    addPost: build.mutation&lt;Post, Partial&lt;Post&gt;&gt;(&#123;</span><br><span class="line">      query(body) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          url: <span class="string">`post`</span>,</span><br><span class="line">          method: <span class="string">'POST'</span>,</span><br><span class="line">          body,</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// Invalidates all Post-type queries providing the `LIST` id - after all, depending of the sort order,</span></span><br><span class="line">      <span class="comment">// that newly created post could show up in any lists.</span></span><br><span class="line">      invalidatesTags: [&#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, <span class="attr">id</span>: <span class="string">'LIST'</span> &#125;],</span><br><span class="line">    &#125;),</span><br><span class="line">    getPost: build.query&lt;Post, number&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">id</span>) =&gt;</span> <span class="string">`post/<span class="subst">$&#123;id&#125;</span>`</span>,</span><br><span class="line">      providesTags: <span class="function">(<span class="params">result, error, id</span>) =&gt;</span> [&#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, id &#125;],</span><br><span class="line">    &#125;),</span><br><span class="line">    updatePost: build.mutation&lt;Post, Partial&lt;Post&gt;&gt;(&#123;</span><br><span class="line">      query(data) &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; id, ...body &#125; = data</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          url: <span class="string">`post/<span class="subst">$&#123;id&#125;</span>`</span>,</span><br><span class="line">          method: <span class="string">'PUT'</span>,</span><br><span class="line">          body,</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// Invalidates all queries that subscribe to this Post `id` only.</span></span><br><span class="line">      <span class="comment">// In this case, `getPost` will be re-run. `getPosts` *might*  rerun, if this id was under its results.</span></span><br><span class="line">      invalidatesTags: <span class="function">(<span class="params">result, error, &#123; id &#125;</span>) =&gt;</span> [&#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, id &#125;],</span><br><span class="line">    &#125;),</span><br><span class="line">    deletePost: build.mutation&lt;&#123; <span class="attr">success</span>: boolean; id: number &#125;, number&gt;(&#123;</span><br><span class="line">      query(id) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          url: <span class="string">`post/<span class="subst">$&#123;id&#125;</span>`</span>,</span><br><span class="line">          method: <span class="string">'DELETE'</span>,</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// Invalidates all queries that subscribe to this Post `id` only.</span></span><br><span class="line">      invalidatesTags: <span class="function">(<span class="params">result, error, id</span>) =&gt;</span> [&#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, id &#125;],</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123;</span><br><span class="line">  useGetPostsQuery,</span><br><span class="line">  useAddPostMutation,</span><br><span class="line">  useGetPostQuery,</span><br><span class="line">  useUpdatePostMutation,</span><br><span class="line">  useDeletePostMutation,</span><br><span class="line">&#125; = postApi</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="Optimistic-Updates"><a href="#Optimistic-Updates" class="headerlink" title="Optimistic Updates"></a>Optimistic Updates</h1><p><a href="https://redux-toolkit.js.org/rtk-query/usage/optimistic-updates" target="_blank" rel="noopener">https://redux-toolkit.js.org/rtk-query/usage/optimistic-updates</a></p>
+<p>useMutation을 통해 이미 존재하고 있는 일부 데이터에 대한 업데이트를 수행하고자 할 때 RTK Query는 optimistic 업데이트를 실행하기 위한 몇가지 tool을 제공한다. 이는 사용자에게 변경사항이 즉시 적용된다는 인상을 주고 싶을 때 유용한 패턴이다.</p>
+<p>핵심 개념은 다음과 같다:</p>
+<ul>
+<li>quey 또는 mutation이 시작 될 때 , onQueryStarted가 실행된다.</li>
+<li><code>api.util.updateQueryData</code> 를 통해 캐시된 데이터를 수동으로 업데이트한다.</li>
+<li>promiseResult가 reject일 때 <code>.undo</code> 를 통해 이전 디스패치에서 반환된 객체의 속성으로 롤백한다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// Optimistic update mutation example (async await)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Post &#125; <span class="keyword">from</span> <span class="string">'./types'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> api = createApi(&#123;</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123;</span><br><span class="line">    baseUrl: <span class="string">'/'</span>,</span><br><span class="line">  &#125;),</span><br><span class="line">  tagTypes: [<span class="string">'Post'</span>],</span><br><span class="line">  endpoints: <span class="function">(<span class="params">build</span>) =&gt;</span> (&#123;</span><br><span class="line">    getPost: build.query&lt;Post, number&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">id</span>) =&gt;</span> <span class="string">`post/<span class="subst">$&#123;id&#125;</span>`</span>,</span><br><span class="line">      providesTags: [<span class="string">'Post'</span>],</span><br><span class="line">    &#125;),</span><br><span class="line">    updatePost: build.mutation&lt;<span class="keyword">void</span>, Pick&lt;Post, <span class="string">'id'</span>&gt; &amp; Partial&lt;Post&gt;&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">&#123; id, ...patch &#125;</span>) =&gt;</span> (&#123;</span><br><span class="line">        url: <span class="string">`post/<span class="subst">$&#123;id&#125;</span>`</span>,</span><br><span class="line">        method: <span class="string">'PATCH'</span>,</span><br><span class="line">        body: patch,</span><br><span class="line">      &#125;),</span><br><span class="line">      invalidatesTags: [<span class="string">'Post'</span>],</span><br><span class="line">      <span class="keyword">async</span> onQueryStarted(&#123; id, ...patch &#125;, &#123; dispatch, queryFulfilled &#125;) &#123;</span><br><span class="line">        <span class="keyword">const</span> patchResult = dispatch(</span><br><span class="line">          api.util.updateQueryData(<span class="string">'getPost'</span>, id, (draft) =&gt; &#123;</span><br><span class="line">            <span class="built_in">Object</span>.assign(draft, patch)</span><br><span class="line">          &#125;)</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">await</span> queryFulfilled</span><br><span class="line">        &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">          patchResult.undo()</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://redux-toolkit.js.org/rtk-query/usage/mutations" target="_blank" rel="noopener">RTK Query Mutations</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/18/210819_rtkQuery/" rel="prev" title="RTK Query Overview 원문 번역">
+      <i class="fa fa-chevron-left"></i> RTK Query Overview 원문 번역
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mutation"><span class="nav-number">1.</span> <span class="nav-text">Mutation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Defining-Mutation-Endpoints"><span class="nav-number">1.2.</span> <span class="nav-text">Defining Mutation Endpoints</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Performing-Mutations-with-React-Hooks"><span class="nav-number">1.3.</span> <span class="nav-text">Performing Mutations with React Hooks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mutation-Hook-Behavior"><span class="nav-number">1.3.1.</span> <span class="nav-text">Mutation Hook Behavior</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Frequently-Used-Mutation-Hook-Return-Values"><span class="nav-number">1.3.2.</span> <span class="nav-text">Frequently Used Mutation Hook Return Values</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Standard-Mutation-Example"><span class="nav-number">1.4.</span> <span class="nav-text">Standard Mutation Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advanced-Mutations-with-Revalidation"><span class="nav-number">1.5.</span> <span class="nav-text">Advanced Mutations with Revalidation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Revalidation-Example"><span class="nav-number">1.6.</span> <span class="nav-text">Revalidation Example</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Optimistic-Updates"><span class="nav-number">2.</span> <span class="nav-text">Optimistic Updates</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

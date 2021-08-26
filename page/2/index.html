@@ -144,6 +144,171 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/15/210716_decimal/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/15/210716_decimal/" class="post-title-link" itemprop="url">부동소수점형의 정밀도 문제와 decimal형</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-16 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-16T00:00:00+09:00">2021-07-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-26 22:53:53" itemprop="dateModified" datetime="2021-08-26T22:53:53+09:00">2021-08-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="부동소수점형의-정밀도-문제"><a href="#부동소수점형의-정밀도-문제" class="headerlink" title="부동소수점형의 정밀도 문제"></a>부동소수점형의 정밀도 문제</h2><p><u><strong>float형은 정밀도 문제가 있다.</strong> 아래 코드에서 num1과 num2가 다른데 같다고 취급하고 있다.</u></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  float num1 &#x3D; 0.099999999999f;</span><br><span class="line">  float num2 &#x3D; 0.1f;</span><br><span class="line"></span><br><span class="line">  if(num1 &#x3D;&#x3D; num2)</span><br><span class="line">  &#123;</span><br><span class="line">    console.WriteLine(&quot;same&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>부동소수점형은 언제나 <code>근사값</code>이다.</li>
+<li>비트 수는 정해져 있는데 표현할 숫자가 너무 많다.</li>
+<li>예를 들어 0과 1 사이에는 무수히 많은 수가 있어서 정확하게 출력하기 어렵다.</li>
+<li>정수는 열거형이라 이러한 문제가 없다.</li>
+<li>위의 예시처럼 부동소수점에서 근접한 두 수는 같은 값이 될 수 있다.</li>
+<li>돈과 관련된 프로그램에서는 오차가 발생한다.</li>
+</ul>
+<p><strong><em>그럼에도 부동소수점 형을 쓰는 이유는?</em></strong><br>CPU에서 자체적으로 지원하는 유일한 실수형으로 계산이 빠르다. 돈과 관련된 경우 아닌 경우에는 다른 곳에서 써도 크게 문제되지 않는다.</p>
+<hr>
+<h2 id="부동소수점형의-정밀도-문제를-해결하는-방법"><a href="#부동소수점형의-정밀도-문제를-해결하는-방법" class="headerlink" title="부동소수점형의 정밀도 문제를 해결하는 방법"></a>부동소수점형의 정밀도 문제를 해결하는 방법</h2><h3 id="1-정수로-변환해서-쓰기"><a href="#1-정수로-변환해서-쓰기" class="headerlink" title="1. 정수로 변환해서 쓰기"></a>1. 정수로 변환해서 쓰기</h3><p><u>더하기, 빼기의 경우</u></p>
+<ul>
+<li>미국 달러의 경우 금액에 100을 곱해서 연산 (e.g. $10.10 + $0.01 = $10.11 -&gt; 1010 + 1 = 1011)</li>
+<li>화면에 보여줄 때 100으로 나누고 반올림하여 보여준다.</li>
+<li>단, 정수가 표현할 수 있는 범위까지만 표현 가능하다.<ul>
+<li>32비트 정수(0 ~ 4,294,967,295)에서 문제가 될 수 있다. 64비트 정수(0 ~ 9,223,372,036,853,775,807)는 범위가 커서 크게 문제되지 않지만, 환율계산과 같이 소수점 자리를 계산하는 경우, 소수점 9자리까지 계산해야 한다면 문제가 된다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-문자열로-표현하기"><a href="#2-문자열로-표현하기" class="headerlink" title="2. 문자열로 표현하기"></a>2. 문자열로 표현하기</h3><ul>
+<li>문자열은 무한의 길이를 가지기 때문에 숫자가 아닌 문자열로 저장한다.</li>
+<li>두 숫자를 계산할 때 문자열에서 각 자리의 문자를 숫자로 바꾼 뒤 뒤에서부터 한 자리 씩 계산한다.</li>
+<li><p>문제점</p>
+<ul>
+<li>받아올림, 받아내림이 번거롭다.</li>
+<li>만약 + 연산자를 잘못 사용하면 의도치 않은 결과를 얻게 된다. 예를 들어 두 숫자를 더한 값을 얻고 싶었는데, 컴퓨터가 문자열로 인식하여 문자열을 더해버려서 “10.01” + “0.01” -&gt; “10.010.01”과 같은 값을 얻을 수 있다.</li>
+</ul>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>“10.01” + “0.01”</strong></th>
+<th>[0]</th>
+<th>[1]</th>
+<th>[2]</th>
+<th>[3]</th>
+<th>[4]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>string</strong></td>
+<td>1</td>
+<td>0</td>
+<td>.</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>string</strong></td>
+<td>0</td>
+<td>.</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>int</strong></td>
+<td><code>1</code></td>
+<td>0+0=<code>0</code></td>
+<td>.</td>
+<td>0+0=<code>0</code></td>
+<td>1+1 =<code>2</code></td>
+</tr>
+<tr>
+<td><strong>결과(string)</strong></td>
+<td><code>10.02</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h3 id="3-decimal-자료형"><a href="#3-decimal-자료형" class="headerlink" title="3. decimal 자료형"></a>3. decimal 자료형</h3><blockquote>
+<p>부동소수점형의 정밀도 문제를 해결하기 위해 c#에 존재하는 자료형</p>
+<blockquote>
+<p>표현범위: ± 1.0 x 10 <sup>-28</sup> ~ ± 7.9228 x 10<sup>28</sup><br>정밀도: 28 ~ 29</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>CPU 자체에서 지원하는 형은 아니다.</li>
+<li>금융권에서 돈 계산에 쓰기 적합하다.</li>
+<li>일부 언어에도 (e.g. java - BigDecimal) 비슷한 해결책이 있다.</li>
+</ul>
+<p><u>decimal 자료형 사용하기</u></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">decimal num1 &#x3D; 10.1234567778797898989m; &#x2F;&#x2F;ok</span><br><span class="line">&#x2F;&#x2F;m 키워드가 없으면 double이고, double형을 decimal에 대입하려 했기 때문에 오류 발생.</span><br><span class="line">decimal num2 &#x3D; 10.1234567778797898989;</span><br><span class="line">decimal num3 &#x3D; 10m; &#x2F;&#x2F;ok</span><br><span class="line">decimal num4 &#x3D; 10; &#x2F;&#x2F;ok</span><br></pre></td></tr></table></figure>
+<p><strong>접미사 <code>m</code>을 사용한다.</strong></p>
+<ul>
+<li><code>정수</code>일 때는 묵시적 변환을 허용하기 때문에 안붙여도 된다.</li>
+<li><code>부동소수점</code>일 때는 명시적 변환만 허용하기 때문에 <em>반드시 붙여야 한다.</em></li>
+</ul>
+<p><u>decimal과 다른 자료형 간의 변환</u></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">decimal num1 &#x3D; 10.1234567778797898989m;</span><br><span class="line">decimal num2 &#x3D; 10.123456777898989m;</span><br><span class="line">decimal num3 &#x3D; 10m;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;명시적 변환은 모두 ok</span><br><span class="line">&#x2F;&#x2F;묵시적 변환은 오류 발생</span><br><span class="line">float num4 &#x3D; num1; &#x2F;&#x2F; 컴파일 오류</span><br><span class="line">float num5 &#x3D; (float)num1; &#x2F;&#x2F;ok</span><br><span class="line">num2 &#x3D; num5; &#x2F;&#x2F;컴파일 오류</span><br><span class="line">num2 &#x3D; (decimal)num5; &#x2F;&#x2F;ok</span><br><span class="line"></span><br><span class="line">int num6 &#x3D; num3; &#x2F;&#x2F;컴파일 오류</span><br><span class="line">int num7 &#x3D; (int)num3; &#x2F;&#x2F;ok</span><br><span class="line">num3 &#x3D; num7; &#x2F;&#x2F;ok</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/13/210717_collection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +340,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-19 22:53:53" itemprop="dateModified" datetime="2021-08-19T22:53:53+09:00">2021-08-19</time>
+                <time title="Modified: 2021-08-26 22:53:53" itemprop="dateModified" datetime="2021-08-26T22:53:53+09:00">2021-08-26</time>
               </span>
 
           
@@ -501,116 +666,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/12/210713_whyTypesctipt/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/12/210713_whyTypesctipt/" class="post-title-link" itemprop="url">타입스크립트를 왜 써야하는가?</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-13 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-13T00:00:00+09:00">2021-07-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-19 22:53:53" itemprop="dateModified" datetime="2021-08-19T22:53:53+09:00">2021-08-19</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="타입스크립트란"><a href="#타입스크립트란" class="headerlink" title="타입스크립트란?"></a>타입스크립트란?</h2><blockquote>
-<p>TypeScript is Typed JavaScript at Any Scale</p>
-</blockquote>
-<ul>
-<li>JS에 <code>타입</code>을 부여한 언어</li>
-<li>JS와 달리 브라우저에서 실행하려면 파일을 변환하는 <code>컴파일</code> 과정이 필요하다.</li>
-</ul>
-<blockquote>
-<p>TypeScript는 JS의 구문이 허용되는, JavaScript의 상위 집합 언어</p>
-</blockquote>
-<ul>
-<li>TS는 JS 위의 레이어: JS의 기능을 제공하면서 그 위에 자체 레이어를 추가한다.</li>
-<li>JS가 가진 <code>런타임 특성</code>을 변화시키지 않는다.</li>
-<li>TS의 컴파일러가 코드 검사를 마치면 타입 삭제 후 <code>컴파일된 코드</code>를 만들어낸다.</li>
-</ul>
-<h3 id="타입-추론"><a href="#타입-추론" class="headerlink" title="타입 추론"></a>타입 추론</h3><p>JavaScript가 동작하는 방식을 이해함으로써 TypeScript는 JavaScript 코드를 받아들이면서 타입을 가지는 타입 시스템을 구축할 수 있다.</p>
-<h3 id="타입-정의"><a href="#타입-정의" class="headerlink" title="타입 정의"></a>타입 정의</h3><p>JavaScript는 다양한 디자인 패턴을 가능하게 하는 동적 언어인데, 몇몇 디자인 패턴은 자동으로 타입을 제공하기 힘들다. 이럴 때는 TS에게 타입이 무엇이 되어야 하는지 명시 가능한 JS언어의 확장을 지원한다. 예를 들어 아래 예시에서 객체의 형태를 명시적으로 사용하기 위해 <code>interface</code> 선언했다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> User &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  id: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> user = &#123;</span><br><span class="line">  name: <span class="string">'Hayes'</span>,</span><br><span class="line">  id: <span class="number">0</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="타입-구성"><a href="#타입-구성" class="headerlink" title="타입 구성"></a>타입 구성</h3><p>객체들을 조합하여 더 크고 복잡한 체계를 만드는 것처럼 TS는 유니언과 제네릭이 있다.</p>
-<ul>
-<li><code>유니언</code>: 타입이 여러 타입 중 하나일 수 있음을 설명한다. e.g. type MyBool = true | false;</li>
-<li><code>제네릭</code>: 타입에 변수를 제공하는 방법이다. 배열이 일반적인 예시이며, 제네릭이 없는 배열은 어떤 것이든 포함할 수 있다. 제네릭이 있는 배열은 배열 안의 값을 설명할 수 있다.</li>
-</ul>
-<h3 id="구조적-타입-시스템"><a href="#구조적-타입-시스템" class="headerlink" title="구조적 타입 시스템"></a>구조적 타입 시스템</h3><p>TS의 핵심 원칙 중 하나로 타입 검사가 값이 있는 형태에 집중한다는 것이다. 만약 두 객체가 같은 형태를 가지면 같은 것으로 간주된다.</p>
-<hr>
-<h2 id="왜-타입스크립트를-써야하는가"><a href="#왜-타입스크립트를-써야하는가" class="headerlink" title="왜 타입스크립트를 써야하는가?"></a>왜 타입스크립트를 써야하는가?</h2><p>Javascript는 예기치 않은 동작을 유발하게 하는 몇 가지 문제점을 가지고 있다. 예를 들어 <code>==</code>을 사용하면 인수를 강제변환한다거나(e.g. ‘’ == 0 =&gt; 참이다) 존재하지 않는 객체의 프로퍼티 값에 접근하려고 했을 때 접근을 허용하는 점이다. c나 c++ 같은 컴파일 언어는 실행 전 컴파일 단계에서 오류를 미리 확인하고 고칠 수 있다. <strong>이렇게 프로그램을 실행시키지 않으면서 코드의 오류를 검출하는 것을 정적 검사라 하고, 어떤 것이 오류인지와 어떤 것이 연산 되는 값에 기인하지 않음을 정하는 것을 정적 타입 검사라 한다.</strong></p>
-<blockquote>
-<p>그러나 JavaScript는 인터프리터 언어이기 때문에 컴파일 단계가 없고, 곧바로 실행되기 때문에 실제로 실행하기 전까지 코드의 문제를 잡아낼 수 없다. 하지만 TypeScript는 정적 타입 검사자로써 프로그램 실행 전 값의 종류를 기반으로 프로그램의 오류를 찾아낸다.</p>
-</blockquote>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"id"</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"Leanne Graham"</span>,</span><br><span class="line">  <span class="attr">"username"</span>: <span class="string">"Bret"</span>,</span><br><span class="line">  <span class="attr">"email"</span>: <span class="string">"Sincere@april.biz"</span>,</span><br><span class="line">  <span class="attr">"address"</span>: &#123;</span><br><span class="line">    <span class="attr">"street"</span>: <span class="string">"Kulas Light"</span>,</span><br><span class="line">    <span class="attr">"suite"</span>: <span class="string">"Apt. 556"</span>,</span><br><span class="line">    <span class="attr">"city"</span>: <span class="string">"Gwenborough"</span>,</span><br><span class="line">    <span class="attr">"zipcode"</span>: <span class="string">"92998-3874"</span>,</span><br><span class="line">    <span class="attr">"geo"</span>: &#123;</span><br><span class="line">      <span class="attr">"lat"</span>: <span class="string">"-37.3159"</span>,</span><br><span class="line">      <span class="attr">"lng"</span>: <span class="string">"81.1496"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"phone"</span>: <span class="string">"1-770-736-8031 x56442"</span>,</span><br><span class="line">  <span class="attr">"website"</span>: <span class="string">"hildegard.org"</span>,</span><br><span class="line">  <span class="attr">"company"</span>: &#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"Romaguera-Crona"</span>,</span><br><span class="line">    <span class="attr">"catchPhrase"</span>: <span class="string">"Multi-layered client-server neural-net"</span>,</span><br><span class="line">    <span class="attr">"bs"</span>: <span class="string">"harness real-time e-markets"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>API 호출을 통해 위와 같은 데이터를 response로 받아왔고, <code>const user = {}</code>와 같은 변수에 저장한다. 그리고, <code>name</code>, <code>email</code>, <code>address</code>를 화면에 출력하고자 한다면, <code>user.name</code>, <code>user.email</code>, <code>user.address</code>와 같은 방식으로 사용될 것이다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// user.name</span></span><br><span class="line">Leanne Graham</span><br><span class="line"></span><br><span class="line"><span class="comment">//user.email</span></span><br><span class="line">Sincere@april.biz</span><br><span class="line"></span><br><span class="line"><span class="comment">//user.address</span></span><br><span class="line">[object <span class="built_in">Object</span>]</span><br></pre></td></tr></table></figure>
-<p>그런데 다른 값들과 달리 address는 값이 객체이기 때문에 기대했던 값이 <code>Kulas Light</code>라면 이 값 대신 <code>[object Object]</code>가 반환된다. 또는 작성하는 과정에서 오탈자가 있어서 <code>user.adress</code>와 같이 사용했다면 <code>undefined</code>를 반환하게 된다. <strong>이처럼 내가 작성한 코드의 결과가 제대로 출력되는지 여부는 화면에 표시된 데이터를 보고 나서야 알 수 있다.</strong></p>
-<hr>
-<h2 id="타입스크립트를-쓰면-좋은-점"><a href="#타입스크립트를-쓰면-좋은-점" class="headerlink" title="타입스크립트를 쓰면 좋은 점"></a>타입스크립트를 쓰면 좋은 점</h2><ul>
-<li><p>에러의 사전 방지<br>위 예시는 브라우저 실행 후 화면에 그려지고 나서야 어떠한 에러가 있는지 알 수 있었지만, TypeScript를 쓰면 브라우저 실행 전에 코드 상에서 미리 에러를 잡을 수 있고, 의도치 않은 값을 반환하지 않도록 수정할 수 있다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//type으로 지정된 number 대신 스트링 '20'을 넣었기 때문에 아래와 같은 에러 표시</span></span><br><span class="line"><span class="comment">//Argument of type 'string' is not assignable to parameter of type 'number'.</span></span><br><span class="line">add(<span class="number">10</span>, <span class="string">'20'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//브라우저 실행 전에 에러를 확인하고 올바르게 고칠 수 있다.</span></span><br><span class="line">add(<span class="number">10</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>코드 가이드 및 자동 완성<br>일반 javaScript 코드였다면 toLocaleString()과 같은 api를 사용하고자 할 때 <code>toLocaleString()</code>을 한 자씩 입력해야 한다. typeScript는 vscode의 IntelliSense를 이용해서 <code>toL</code>까지만 입력해도 <code>toLocaleString()</code>를 리스트에서 확인할 수 있고 이를 선택시 바로 자동완성 되어 입력이 된다. IntelliSense는 코드 완성, 매개 변수 정보, 빠른 정보 및 구성원 목록을 비롯한 다양한 코드 편집 기능을 나타내는 일반적인 용어를 말한다. IntelliSense 기능은 때때로 “코드 완성”, “콘텐츠 지원” 및 “코드 힌트”와 같은 다른 이름으로 호출된다.</p>
-</li>
-</ul>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = add(<span class="number">10</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//result.까지만 입력해도 자동완성으로 api 사용가능</span></span><br><span class="line">result.toLocaleString();</span><br></pre></td></tr></table></figure>
-<h2 id="JS에서-JSDoc과-ts-check로-ts처럼-사용하기"><a href="#JS에서-JSDoc과-ts-check로-ts처럼-사용하기" class="headerlink" title="JS에서 JSDoc과 @ts-check로 ts처럼 사용하기"></a>JS에서 JSDoc과 @ts-check로 ts처럼 사용하기</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @ts-check</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> </span>a 첫번째 숫자</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> </span>b 두번째 숫자</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum(<span class="number">10</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
-<p>위의 코드처럼 사용하면 javaScript에서도 TypeScript처럼 브라우저 실행 전에 타입체크를 할 수 있다.</p>
-<hr>
-<p><em>References</em><br><a href="https://inf.run/zNPx" target="_blank" rel="noopener">타입스크립트 입문 - 기초부터 실전까지</a><br><a href="https://joshua1988.github.io/ts/why-ts.html#%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%9E%80" target="_blank" rel="noopener">타입스크립트 핸드북</a><br><a href="https://typescript-kr.github.io/pages/tutorials/ts-for-the-new-programmer.html" target="_blank" rel="noopener">TS for the New Programmer</a><br><a href="https://typescript-kr.github.io/pages/tutorials/ts-for-js-programmers.html" target="_blank" rel="noopener">TS for the JS Programmers</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/12/210713_stringBuilder/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -642,7 +697,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-19 22:53:53" itemprop="dateModified" datetime="2021-08-19T22:53:53+09:00">2021-08-19</time>
+                <time title="Modified: 2021-08-26 22:53:53" itemprop="dateModified" datetime="2021-08-26T22:53:53+09:00">2021-08-26</time>
               </span>
 
           
@@ -780,6 +835,116 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/12/210713_whyTypesctipt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/12/210713_whyTypesctipt/" class="post-title-link" itemprop="url">타입스크립트를 왜 써야하는가?</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-13 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-13T00:00:00+09:00">2021-07-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-26 22:53:53" itemprop="dateModified" datetime="2021-08-26T22:53:53+09:00">2021-08-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="타입스크립트란"><a href="#타입스크립트란" class="headerlink" title="타입스크립트란?"></a>타입스크립트란?</h2><blockquote>
+<p>TypeScript is Typed JavaScript at Any Scale</p>
+</blockquote>
+<ul>
+<li>JS에 <code>타입</code>을 부여한 언어</li>
+<li>JS와 달리 브라우저에서 실행하려면 파일을 변환하는 <code>컴파일</code> 과정이 필요하다.</li>
+</ul>
+<blockquote>
+<p>TypeScript는 JS의 구문이 허용되는, JavaScript의 상위 집합 언어</p>
+</blockquote>
+<ul>
+<li>TS는 JS 위의 레이어: JS의 기능을 제공하면서 그 위에 자체 레이어를 추가한다.</li>
+<li>JS가 가진 <code>런타임 특성</code>을 변화시키지 않는다.</li>
+<li>TS의 컴파일러가 코드 검사를 마치면 타입 삭제 후 <code>컴파일된 코드</code>를 만들어낸다.</li>
+</ul>
+<h3 id="타입-추론"><a href="#타입-추론" class="headerlink" title="타입 추론"></a>타입 추론</h3><p>JavaScript가 동작하는 방식을 이해함으로써 TypeScript는 JavaScript 코드를 받아들이면서 타입을 가지는 타입 시스템을 구축할 수 있다.</p>
+<h3 id="타입-정의"><a href="#타입-정의" class="headerlink" title="타입 정의"></a>타입 정의</h3><p>JavaScript는 다양한 디자인 패턴을 가능하게 하는 동적 언어인데, 몇몇 디자인 패턴은 자동으로 타입을 제공하기 힘들다. 이럴 때는 TS에게 타입이 무엇이 되어야 하는지 명시 가능한 JS언어의 확장을 지원한다. 예를 들어 아래 예시에서 객체의 형태를 명시적으로 사용하기 위해 <code>interface</code> 선언했다.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> User &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  id: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> user = &#123;</span><br><span class="line">  name: <span class="string">'Hayes'</span>,</span><br><span class="line">  id: <span class="number">0</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="타입-구성"><a href="#타입-구성" class="headerlink" title="타입 구성"></a>타입 구성</h3><p>객체들을 조합하여 더 크고 복잡한 체계를 만드는 것처럼 TS는 유니언과 제네릭이 있다.</p>
+<ul>
+<li><code>유니언</code>: 타입이 여러 타입 중 하나일 수 있음을 설명한다. e.g. type MyBool = true | false;</li>
+<li><code>제네릭</code>: 타입에 변수를 제공하는 방법이다. 배열이 일반적인 예시이며, 제네릭이 없는 배열은 어떤 것이든 포함할 수 있다. 제네릭이 있는 배열은 배열 안의 값을 설명할 수 있다.</li>
+</ul>
+<h3 id="구조적-타입-시스템"><a href="#구조적-타입-시스템" class="headerlink" title="구조적 타입 시스템"></a>구조적 타입 시스템</h3><p>TS의 핵심 원칙 중 하나로 타입 검사가 값이 있는 형태에 집중한다는 것이다. 만약 두 객체가 같은 형태를 가지면 같은 것으로 간주된다.</p>
+<hr>
+<h2 id="왜-타입스크립트를-써야하는가"><a href="#왜-타입스크립트를-써야하는가" class="headerlink" title="왜 타입스크립트를 써야하는가?"></a>왜 타입스크립트를 써야하는가?</h2><p>Javascript는 예기치 않은 동작을 유발하게 하는 몇 가지 문제점을 가지고 있다. 예를 들어 <code>==</code>을 사용하면 인수를 강제변환한다거나(e.g. ‘’ == 0 =&gt; 참이다) 존재하지 않는 객체의 프로퍼티 값에 접근하려고 했을 때 접근을 허용하는 점이다. c나 c++ 같은 컴파일 언어는 실행 전 컴파일 단계에서 오류를 미리 확인하고 고칠 수 있다. <strong>이렇게 프로그램을 실행시키지 않으면서 코드의 오류를 검출하는 것을 정적 검사라 하고, 어떤 것이 오류인지와 어떤 것이 연산 되는 값에 기인하지 않음을 정하는 것을 정적 타입 검사라 한다.</strong></p>
+<blockquote>
+<p>그러나 JavaScript는 인터프리터 언어이기 때문에 컴파일 단계가 없고, 곧바로 실행되기 때문에 실제로 실행하기 전까지 코드의 문제를 잡아낼 수 없다. 하지만 TypeScript는 정적 타입 검사자로써 프로그램 실행 전 값의 종류를 기반으로 프로그램의 오류를 찾아낸다.</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"id"</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"Leanne Graham"</span>,</span><br><span class="line">  <span class="attr">"username"</span>: <span class="string">"Bret"</span>,</span><br><span class="line">  <span class="attr">"email"</span>: <span class="string">"Sincere@april.biz"</span>,</span><br><span class="line">  <span class="attr">"address"</span>: &#123;</span><br><span class="line">    <span class="attr">"street"</span>: <span class="string">"Kulas Light"</span>,</span><br><span class="line">    <span class="attr">"suite"</span>: <span class="string">"Apt. 556"</span>,</span><br><span class="line">    <span class="attr">"city"</span>: <span class="string">"Gwenborough"</span>,</span><br><span class="line">    <span class="attr">"zipcode"</span>: <span class="string">"92998-3874"</span>,</span><br><span class="line">    <span class="attr">"geo"</span>: &#123;</span><br><span class="line">      <span class="attr">"lat"</span>: <span class="string">"-37.3159"</span>,</span><br><span class="line">      <span class="attr">"lng"</span>: <span class="string">"81.1496"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"phone"</span>: <span class="string">"1-770-736-8031 x56442"</span>,</span><br><span class="line">  <span class="attr">"website"</span>: <span class="string">"hildegard.org"</span>,</span><br><span class="line">  <span class="attr">"company"</span>: &#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"Romaguera-Crona"</span>,</span><br><span class="line">    <span class="attr">"catchPhrase"</span>: <span class="string">"Multi-layered client-server neural-net"</span>,</span><br><span class="line">    <span class="attr">"bs"</span>: <span class="string">"harness real-time e-markets"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>API 호출을 통해 위와 같은 데이터를 response로 받아왔고, <code>const user = {}</code>와 같은 변수에 저장한다. 그리고, <code>name</code>, <code>email</code>, <code>address</code>를 화면에 출력하고자 한다면, <code>user.name</code>, <code>user.email</code>, <code>user.address</code>와 같은 방식으로 사용될 것이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// user.name</span></span><br><span class="line">Leanne Graham</span><br><span class="line"></span><br><span class="line"><span class="comment">//user.email</span></span><br><span class="line">Sincere@april.biz</span><br><span class="line"></span><br><span class="line"><span class="comment">//user.address</span></span><br><span class="line">[object <span class="built_in">Object</span>]</span><br></pre></td></tr></table></figure>
+<p>그런데 다른 값들과 달리 address는 값이 객체이기 때문에 기대했던 값이 <code>Kulas Light</code>라면 이 값 대신 <code>[object Object]</code>가 반환된다. 또는 작성하는 과정에서 오탈자가 있어서 <code>user.adress</code>와 같이 사용했다면 <code>undefined</code>를 반환하게 된다. <strong>이처럼 내가 작성한 코드의 결과가 제대로 출력되는지 여부는 화면에 표시된 데이터를 보고 나서야 알 수 있다.</strong></p>
+<hr>
+<h2 id="타입스크립트를-쓰면-좋은-점"><a href="#타입스크립트를-쓰면-좋은-점" class="headerlink" title="타입스크립트를 쓰면 좋은 점"></a>타입스크립트를 쓰면 좋은 점</h2><ul>
+<li><p>에러의 사전 방지<br>위 예시는 브라우저 실행 후 화면에 그려지고 나서야 어떠한 에러가 있는지 알 수 있었지만, TypeScript를 쓰면 브라우저 실행 전에 코드 상에서 미리 에러를 잡을 수 있고, 의도치 않은 값을 반환하지 않도록 수정할 수 있다.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//type으로 지정된 number 대신 스트링 '20'을 넣었기 때문에 아래와 같은 에러 표시</span></span><br><span class="line"><span class="comment">//Argument of type 'string' is not assignable to parameter of type 'number'.</span></span><br><span class="line">add(<span class="number">10</span>, <span class="string">'20'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//브라우저 실행 전에 에러를 확인하고 올바르게 고칠 수 있다.</span></span><br><span class="line">add(<span class="number">10</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>코드 가이드 및 자동 완성<br>일반 javaScript 코드였다면 toLocaleString()과 같은 api를 사용하고자 할 때 <code>toLocaleString()</code>을 한 자씩 입력해야 한다. typeScript는 vscode의 IntelliSense를 이용해서 <code>toL</code>까지만 입력해도 <code>toLocaleString()</code>를 리스트에서 확인할 수 있고 이를 선택시 바로 자동완성 되어 입력이 된다. IntelliSense는 코드 완성, 매개 변수 정보, 빠른 정보 및 구성원 목록을 비롯한 다양한 코드 편집 기능을 나타내는 일반적인 용어를 말한다. IntelliSense 기능은 때때로 “코드 완성”, “콘텐츠 지원” 및 “코드 힌트”와 같은 다른 이름으로 호출된다.</p>
+</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = add(<span class="number">10</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//result.까지만 입력해도 자동완성으로 api 사용가능</span></span><br><span class="line">result.toLocaleString();</span><br></pre></td></tr></table></figure>
+<h2 id="JS에서-JSDoc과-ts-check로-ts처럼-사용하기"><a href="#JS에서-JSDoc과-ts-check로-ts처럼-사용하기" class="headerlink" title="JS에서 JSDoc과 @ts-check로 ts처럼 사용하기"></a>JS에서 JSDoc과 @ts-check로 ts처럼 사용하기</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @ts-check</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> </span>a 첫번째 숫자</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> </span>b 두번째 숫자</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum(<span class="number">10</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+<p>위의 코드처럼 사용하면 javaScript에서도 TypeScript처럼 브라우저 실행 전에 타입체크를 할 수 있다.</p>
+<hr>
+<p><em>References</em><br><a href="https://inf.run/zNPx" target="_blank" rel="noopener">타입스크립트 입문 - 기초부터 실전까지</a><br><a href="https://joshua1988.github.io/ts/why-ts.html#%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%9E%80" target="_blank" rel="noopener">타입스크립트 핸드북</a><br><a href="https://typescript-kr.github.io/pages/tutorials/ts-for-the-new-programmer.html" target="_blank" rel="noopener">TS for the New Programmer</a><br><a href="https://typescript-kr.github.io/pages/tutorials/ts-for-js-programmers.html" target="_blank" rel="noopener">TS for the JS Programmers</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/05/210706_recursive/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -811,7 +976,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-19 22:53:53" itemprop="dateModified" datetime="2021-08-19T22:53:53+09:00">2021-08-19</time>
+                <time title="Modified: 2021-08-26 22:53:53" itemprop="dateModified" datetime="2021-08-26T22:53:53+09:00">2021-08-26</time>
               </span>
 
           
@@ -1006,7 +1171,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-19 22:53:53" itemprop="dateModified" datetime="2021-08-19T22:53:53+09:00">2021-08-19</time>
+                <time title="Modified: 2021-08-26 22:53:53" itemprop="dateModified" datetime="2021-08-26T22:53:53+09:00">2021-08-26</time>
               </span>
 
           
@@ -1177,7 +1342,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-19 22:53:53" itemprop="dateModified" datetime="2021-08-19T22:53:53+09:00">2021-08-19</time>
+                <time title="Modified: 2021-08-26 22:53:53" itemprop="dateModified" datetime="2021-08-26T22:53:53+09:00">2021-08-26</time>
               </span>
 
           
@@ -1303,7 +1468,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-19 22:53:53" itemprop="dateModified" datetime="2021-08-19T22:53:53+09:00">2021-08-19</time>
+                <time title="Modified: 2021-08-26 22:53:53" itemprop="dateModified" datetime="2021-08-26T22:53:53+09:00">2021-08-26</time>
               </span>
 
           
@@ -1514,7 +1679,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-19 22:53:53" itemprop="dateModified" datetime="2021-08-19T22:53:53+09:00">2021-08-19</time>
+                <time title="Modified: 2021-08-26 22:53:53" itemprop="dateModified" datetime="2021-08-26T22:53:53+09:00">2021-08-26</time>
               </span>
 
           
@@ -1617,112 +1782,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/12/210613_cFunction2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/12/210613_cFunction2/" class="post-title-link" itemprop="url">함수의 범위</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-06-13 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-13T00:00:00+09:00">2021-06-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-19 22:53:53" itemprop="dateModified" datetime="2021-08-19T22:53:53+09:00">2021-08-19</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="범위"><a href="#범위" class="headerlink" title="범위"></a>범위</h2><blockquote>
-<p>기본적으로 어떤 범위 안에서 선언된 것은 범위 밖에서 쓰지 못한다.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  for (int i &#x3D; 0; i &lt; 10; ++i)</span><br><span class="line">  &#123;</span><br><span class="line">    string name &#x3D; &quot;Leon&quot;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;i, name은 for문 안에서 선언된 것이므로 for 문 밖에서 사용하려면 쓸 수 없다.</span><br><span class="line">  i &#x3D; 200; &#x2F;&#x2F;컴파일 오류</span><br><span class="line">  name &#x3D; &quot;hi&quot;; &#x2F;&#x2F;컴파일 오류</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>상위 범위에서 선언한 변수/상수는 하위 범위에서 사용 가능하다.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  string name &#x3D; &quot;Leon&quot;;</span><br><span class="line"></span><br><span class="line">  for (int i &#x3D; 0; i &lt; 10; ++i)</span><br><span class="line">  &#123;</span><br><span class="line">    name &#x3D; &quot;hi&quot;; &#x2F;&#x2F;OK</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="함수의-범위"><a href="#함수의-범위" class="headerlink" title="함수의 범위"></a>함수의 범위</h2><blockquote>
-<p>기본적으로 함수 안에서 선언한 모든 것은 <code>그 함수에서만</code> 사용 가능하다. 이를 <code>지역 변수</code> 라고 한다.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">static int AddNumbers(int num1, int num2)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;sum은 지역 변수이다. 외부에서 이 변수를 사용할 수 없다.</span><br><span class="line">  int sum &#x3D; num1 + num2;</span><br><span class="line">  return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>함수 밖에 있는 변수/상수는 사용할 수 없다.</p>
-</blockquote>
-<p>result가 선언된 Square는 Main함수와 같은 레벨에 있다. Main함수를 포함하고 있는 것은 Square가 아니라 Program이다. result가 Program 내부에서 선언되었다면 사용할 수 있었을 것이지만 Square 안에 선언되어 있기 때문에 컴파일 오류가 난다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">&#123;</span><br><span class="line">  static void Square(double number)</span><br><span class="line">  &#123;</span><br><span class="line">    double result &#x3D; number * number;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  static void Main(string[] args)</span><br><span class="line">  &#123;</span><br><span class="line">    double num &#x3D; double.Parse(Console.ReadLine());</span><br><span class="line">    Square(num);</span><br><span class="line">    Console.WriteLine($&quot;Result:  &#123;result&#125;&quot;); &#x2F;&#x2F;컴파일 오류</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>함수 매개변수, 반환값 모두 <code>복사된 것</code>. <code>값에 의한 전달</code></p>
-</blockquote>
-<p>함수 Square를 호출할 때 Main 함수 변수 number에 들어 있는 값을 <code>복사</code>해서 함수 Square의 매개변수 number에 대입한다. <code>double number</code>는 이름만 같을 뿐 소속이 다르다.(동명이인의 개념).</p>
-<p><code>number *= number</code>는 <code>number = number * number</code>와 같은 의미이다. 이 연산의 결과는 함수 Square의 매개변수 number에만 영향을 주고, Main 함수의 number는 함수 속 연산의 영향을 받지 않는다. (두 함수에 같은 이름의 변수가 있다고 동일한 변수가 아니다.)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static void Square(double number)</span><br><span class="line">&#123;</span><br><span class="line">  number *&#x3D; number;</span><br><span class="line">  return number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  double num &#x3D; 5;</span><br><span class="line">  double result &#x3D; Square(number); &#x2F;&#x2F;25</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="언제-함수를-작성할까"><a href="#언제-함수를-작성할까" class="headerlink" title="언제 함수를 작성할까?"></a>언제 함수를 작성할까?</h2><ul>
-<li>처음부터 함수로 시작하지 말자.</li>
-<li>현재 존재하는 혹은 향후에 발생 가능성이 높은 코드 중복을 피하고자 할 때 함수를 작성한다.</li>
-<li>코드 중복은 좋지 않다. 다른 사람이 중복 코드에 있는 버그를 고칠 때, 모든 코드를 수정할 것이라는 보장이 없기 때문.</li>
-</ul>
-<h2 id="함수를-잘-작성하는-방법"><a href="#함수를-잘-작성하는-방법" class="headerlink" title="함수를 잘 작성하는 방법"></a>함수를 잘 작성하는 방법</h2><h3 id="함수-대신-중괄호"><a href="#함수-대신-중괄호" class="headerlink" title="함수 대신 중괄호"></a>함수 대신 중괄호</h3><p>함수가 길어지면 동일한 이름의 지역 변수가 생기는 경우가 있다. 하지만 같은 범위 내에 이름이 중복되면 컴파일 에러가 발생한다. 이럴 경우 <code>중괄호</code>를 사용하여 범위를 분리시킨다. 이처럼 조건문이나 함수의 중괄호가 아니라 중괄호만 사용하여 새 범위를 만들 수도 있다.</p>
-<p>아래 코드에서 length는 2번 쓰여서 컴파일 에러가 발생할 것 같지만 발생하지 않는다. 아래 코드에서는 <code>중괄호를 사용하여 스코프를 분리해주었기 때문에 두 함수의 범위가 다르다.</code> 따라서 length라는 이름이 똑같이 쓰여도 에러가 발생하지 않는다. 각각의 length는 쓰여진 함수 내에서만 유효하기 때문이다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">string[] names;</span><br><span class="line">&#123;</span><br><span class="line">  int length &#x3D; int.Parse(Console.ReadLine());</span><br><span class="line">  &#x2F;&#x2F;코드 생략</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int[] scores;</span><br><span class="line">&#123;</span><br><span class="line">  int length &#x3D; int.Parse(Console.ReadLine());</span><br><span class="line">  &#x2F;&#x2F;코드 생략</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="함수-대신-region과-endregion"><a href="#함수-대신-region과-endregion" class="headerlink" title="함수 대신 #region과 #endregion"></a>함수 대신 #region과 #endregion</h3><ul>
-<li><code>c# 전용</code></li>
-<li>긴 함수를 짧게 만들 수 있다. (<em>실제 함수 길이가 줄어드는 것은 아니다.</em>)</li>
-<li>VS에서 코드를 접거나 펼 수 있게 해준다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#region GetScores</span><br><span class="line">&#x2F;&#x2F;코드 생략</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#region &lt;이름&gt;</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/12/210613_functionArray/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1754,7 +1813,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-19 22:53:53" itemprop="dateModified" datetime="2021-08-19T22:53:53+09:00">2021-08-19</time>
+                <time title="Modified: 2021-08-26 22:53:53" itemprop="dateModified" datetime="2021-08-26T22:53:53+09:00">2021-08-26</time>
               </span>
 
           
@@ -1935,7 +1994,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-count">99</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
