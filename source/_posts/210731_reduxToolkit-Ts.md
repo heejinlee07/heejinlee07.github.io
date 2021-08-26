@@ -6,7 +6,7 @@ tags: React
 
 ## Redux-toolkit-typescript 원문 번역
 
-> https://redux-toolkit.js.org/tutorials/typescript
+> 원문링크: https://redux-toolkit.js.org/tutorials/typescript
 
 ## Usage With TypeScript
 

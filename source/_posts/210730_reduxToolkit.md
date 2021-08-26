@@ -6,7 +6,7 @@ tags: React
 
 ## Redux-toolkit 원문 번역
 
-> https://redux-toolkit.js.org/introduction/getting-started#rtk-query
+> 원문링크: https://redux-toolkit.js.org/introduction/getting-started#rtk-query
 
 Redux toolkt은 리덕스 로직을 표준화하기 위한 패키지이다. 원래는 리덕스가 가지고 있는 세가지 문제점을 지원하기 위해 만들어졌다.
 

@@ -4,7 +4,7 @@ date: 2021-08-19
 tags: React
 ---
 
-> https://redux-toolkit.js.org/rtk-query/overview
+> 원문링크: https://redux-toolkit.js.org/rtk-query/overview
 
 RTK Query는 강력한 data fetching과 caching 툴이다. 웹 어플리케이션 내에서 데이터를 로딩할 때 사용되는 common case들을 단순화 하기 위해 고안되었기 때문에 data fetching과 캐싱 로직을 직접 작성할 필요가 없다. Redux Tookit 패키지에서 선택적 옵션으로 포함되어 있고, Redux Tookit 기능적으로 다른 api위에 구축된다.
 
