@@ -10,7 +10,7 @@ tags: React
 
 ## Usage With TypeScript
 
-Redux Toolkit은 이미 TypeScript로 작성되었으므로 TS 유형 정의가 내장되어 있다. React Redux 는 NPM 의 별도 @types/react-reduxtypedef 패키지 에 type에 대한 정의가 있다. 라이브러리 함수를 작성하는 것 외에도 type은 리덕스 스토어와 리액트 컴포넌트 사이의 인터페이스를 보다 typesage하게 작성하는 것을 쉽게ㅐ 하도록 도와주는 helper를 export한다.
+Redux Toolkit은 이미 TypeScript로 작성되었으므로 TS 유형 정의가 내장되어 있다. React Redux 는 NPM 의 별도 @types/react-reduxtypedef 패키지 에 type에 대한 정의가 있다. 라이브러리 함수를 작성하는 것 외에도 type은 리덕스 스토어와 리액트 컴포넌트 사이의 인터페이스를 보다 typesage하게 작성하는 것을 쉽게 하도록 도와주는 helper를 export한다.
 
 React Redux v7.2.3부터는 react-redux 패키지가 @types/react-redux에 종속되어서 type 정의는 자동으로 라이브러리와 함께 설치된다. 그렇지 않은 경우에는 직접 수동으로 설치해야 한다. (npm install @types/react-redux)
 
