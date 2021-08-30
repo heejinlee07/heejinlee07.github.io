@@ -76,7 +76,7 @@ onQueryStarted는 [optimistic update](https://redux-toolkit.js.org/rtk-query/usa
 
 ### Mutation Hook Behavior
 
-useQuery와 달리 useMutatio는 tuple을 반환한다. tuple의 첫 번째 아이템은 'trigger' 함수이고, 두 번째 아이템은 status, error, data를 포함하는 객체이다.
+useQuery와 달리 useMutation는 tuple을 반환한다. tuple의 첫 번째 아이템은 'trigger' 함수이고, 두 번째 아이템은 status, error, data를 포함하는 객체이다.
 
 useQuery hook과 달리 useMutation은 자동으로 실행되지 않는다. mutation을 실행하기 위해서 hook의 첫 번째 tuple 값인 trigger 함수를 호출해야 한다. [useMutaion](https://redux-toolkit.js.org/rtk-query/api/created-api/hooks#usemutation)과 관련된 자세한 내용은 링크를 참조한다.
 
