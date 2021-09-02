@@ -144,6 +144,116 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/09/01/210902_axios/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/01/210902_axios/" class="post-title-link" itemprop="url">Axios</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-02 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-02T00:00:00+09:00">2021-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>원문링크: <a href="https://axios-http.com/" target="_blank" rel="noopener">https://axios-http.com/</a></p>
+</blockquote>
+<h2 id="Axios란"><a href="#Axios란" class="headerlink" title="Axios란"></a>Axios란</h2><p>node.js와 브라우저를 위한 promise 기반의 HTTP Client. 브라우저와 nodejs에서 동일한 코드가 동일하게 동작한다. server-side에서는 native 기반의 node.js httop 모듈을 사용하고, client(브라우저)에서는 XMLHttpRequests를 사용한다.</p>
+<h2 id="특징"><a href="#특징" class="headerlink" title="특징"></a>특징</h2><ul>
+<li>브라우저로부터 XMLHttpRequests를 만든다.</li>
+<li>node.js로부터 http 요청을 만든다.</li>
+<li>Promise API를 보조한다.</li>
+<li>request와 response를 중간에서 가로채어 관리한다.</li>
+<li>request와 response 데이터를 전송한다.</li>
+<li>request를 취소한다.</li>
+<li>JSON data에 대한 자동 변환.</li>
+<li>XSRF로부터 보호하기 위해 client side를 보조한다.</li>
+</ul>
+<h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><p><strong>1. using npm</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install axios</span><br></pre></td></tr></table></figure>
+<p><strong>2. using bower</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower install axios</span><br></pre></td></tr></table></figure>
+<p><strong>3. using yarn</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn add axios</span><br></pre></td></tr></table></figure>
+<p><strong>4. using jsDelivr CDN</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>5. Using unpkg CDN</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/axios/dist/axios.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="예시"><a href="#예시" class="headerlink" title="예시"></a>예시</h2><h3 id="CommonJS-usage"><a href="#CommonJS-usage" class="headerlink" title="CommonJS usage"></a>CommonJS usage</h3><p>TypeScript typings (for intellisense / autocomplete)이 가능하게 하기 위해 CommonJS를 사용할 때는 아래 예시처럼 <code>require()</code>를 import한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> axios = <span class="built_in">require</span>(<span class="string">'axios'</span>).default;</span><br><span class="line"></span><br><span class="line"><span class="comment">// axios.&lt;method&gt;를 쓰게 되면 autocomplete과 parameter typings의 사용이 가능해진다.</span></span><br></pre></td></tr></table></figure>
+<h3 id="GET-request를-수행하는-예제"><a href="#GET-request를-수행하는-예제" class="headerlink" title="GET request를 수행하는 예제"></a>GET request를 수행하는 예제</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> axios = <span class="built_in">require</span>(<span class="string">'axios'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Make a request for a user with a given ID</span></span><br><span class="line">axios</span><br><span class="line">  .get(<span class="string">'/user?ID=12345'</span>)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// handle success</span></span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// handle error</span></span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 항상 실행된다.</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 선택적으로 위의 요청을 아래와 같이 수행할 수 있다.</span></span><br><span class="line">axios</span><br><span class="line">  .get(<span class="string">'/user'</span>, &#123;</span><br><span class="line">    params: &#123;</span><br><span class="line">      ID: <span class="number">12345</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 항상 실행된다.</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// async/await를 쓰고 싶다면 'async' 키워드를 function/method의 바깥쪽에 붙여준다.</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getUser</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> axios.get(<span class="string">'/user?ID=12345'</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="POST-Requests"><a href="#POST-Requests" class="headerlink" title="POST Requests"></a>POST Requests</h2><p>Axios를 가지고 POST request를 요청하는 방법</p>
+<h3 id="POST-request를-수행하는-예제"><a href="#POST-request를-수행하는-예제" class="headerlink" title="POST request를 수행하는 예제"></a>POST request를 수행하는 예제</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">axios</span><br><span class="line">  .post(<span class="string">'/user'</span>, &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span>,</span><br><span class="line">    lastName: <span class="string">'Flintstone'</span>,</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="여러-요청을-동시에-수행하는-예제"><a href="#여러-요청을-동시에-수행하는-예제" class="headerlink" title="여러 요청을 동시에 수행하는 예제"></a>여러 요청을 동시에 수행하는 예제</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserAccount</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios.get(<span class="string">'/user/12345'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserPermissions</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios.get(<span class="string">'/user/12345/permissions'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.all([getUserAccount(), getUserPermissions()]).then(<span class="function"><span class="keyword">function</span> (<span class="params">results</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> acct = results[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">const</span> perm = results[<span class="number">1</span>];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Axios-API"><a href="#Axios-API" class="headerlink" title="Axios API"></a>Axios API</h2><p>request는 관련된 config를 통해 axios로 전달된다.</p>
+<h3 id="axios-config"><a href="#axios-config" class="headerlink" title="axios(config)"></a>axios(config)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// POST request를 보낸다.</span></span><br><span class="line">axios(&#123;</span><br><span class="line">  method: <span class="string">'post'</span>,</span><br><span class="line">  url: <span class="string">'/user/12345'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span>,</span><br><span class="line">    lastName: <span class="string">'Flintstone'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// node.js remote image에 대한 GET request</span></span><br><span class="line">axios(&#123;</span><br><span class="line">  method: <span class="string">'get'</span>,</span><br><span class="line">  url: <span class="string">'http://bit.ly/2mTM3nY'</span>,</span><br><span class="line">  responseType: <span class="string">'stream'</span>,</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">  response.data.pipe(fs.createWriteStream(<span class="string">'ada_lovelace.jpg'</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="axios-url-config"><a href="#axios-url-config" class="headerlink" title="axios(url[, config])"></a>axios(url[, config])</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Send a GET request (default method)</span></span><br><span class="line">axios(<span class="string">'/user/12345'</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="Request-method-aliases"><a href="#Request-method-aliases" class="headerlink" title="Request method aliases"></a>Request method aliases</h3><p>편의를 위해 지원되는 모든 요청 메서드에 대한 alias가 제공된다. alias method인 url, method, data 속성을 쓸 때는 config에 작성할 필요없다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">axios.request(config)</span><br><span class="line">axios.get(url[, config])</span><br><span class="line">axios.delete(url[, config])</span><br><span class="line">axios.head(url[, config])</span><br><span class="line">axios.options(url[, config])</span><br><span class="line">axios.post(url[, data[, config]])</span><br><span class="line">axios.put(url[, data[, config]])</span><br><span class="line">axios.patch(url[, data[, config]])</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="The-Axios-Instance"><a href="#The-Axios-Instance" class="headerlink" title="The Axios Instance"></a>The Axios Instance</h2><h3 id="Creating-an-instance"><a href="#Creating-an-instance" class="headerlink" title="Creating an instance"></a>Creating an instance</h3><p>custom config를 통해 axios의 새로운 인스턴스를 생성할 수 있다.</p>
+<h3 id="axios-create-config"><a href="#axios-create-config" class="headerlink" title="axios.create([config])"></a>axios.create([config])</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">  baseURL: <span class="string">'https://some-domain.com/api/'</span>,</span><br><span class="line">  timeout: <span class="number">1000</span>,</span><br><span class="line">  headers: &#123; <span class="string">'X-Custom-Header'</span>: <span class="string">'foobar'</span> &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Instance-methods"><a href="#Instance-methods" class="headerlink" title="Instance methods"></a>Instance methods</h3><p>사용 가능한 인스턴스 메소드는 아래와 같다. 명시된 config는 instance config와 병합된다.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">axios#request(config)</span><br><span class="line">axios#get(url[, config])</span><br><span class="line">axios#delete(url[, config])</span><br><span class="line">axios#head(url[, config])</span><br><span class="line">axios#options(url[, config])</span><br><span class="line">axios#post(url[, data[, config]])</span><br><span class="line">axios#put(url[, data[, config]])</span><br><span class="line">axios#patch(url[, data[, config]])</span><br><span class="line">axios#getUri([config])</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://axios-http.com/" target="_blank" rel="noopener">Axios</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/08/25/210826_rtk-mutation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +285,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -283,7 +393,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -406,7 +516,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -547,7 +657,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -653,7 +763,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -753,7 +863,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -880,7 +990,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -990,81 +1100,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/18/210720_tsInterface/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/18/210720_tsInterface/" class="post-title-link" itemprop="url">타입스크립트의 인터페이스, 함수</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-19T00:00:00+09:00">2021-07-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="인터체이스"><a href="#인터체이스" class="headerlink" title="인터체이스"></a>인터체이스</h2><blockquote>
-<p>상호 간에 정의한 약속 혹은 규칙. 보통 다음과 같은 범주에 대해 약속을 정의할 수 있다.</p>
-</blockquote>
-<ul>
-<li>객체의 스펙(속성과 속성의 타입)</li>
-<li>함수의 파라미터</li>
-<li>함수의 스펙(파라미터, 반환 타입 등)</li>
-<li>배열과 객체를 접근하는 방식</li>
-<li>클래스</li>
-</ul>
-<p>typeScript의 핵심 원칙 중 하나는 <code>덕 타이핑</code> 또는 <code>구조적 서브타이핑</code>이다. 타입 검사가 <code>값의 형태에 초점</code>을 맞추고 있다는 것이다. 인터페이스는 이런 타입들의 이름을 짓고, 코드 안의 계약을 정의하고, 프로젝트 외부에서 사용하는 코드의 계약을 정의한다.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/18/210720_tsType/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1096,7 +1131,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -1181,7 +1216,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/17/210718_dictionary/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/18/210720_tsInterface/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1195,7 +1230,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/07/17/210718_dictionary/" class="post-title-link" itemprop="url">컬렉션 - 딕셔너리</a>
+            <a href="/2021/07/18/210720_tsInterface/" class="post-title-link" itemprop="url">타입스크립트의 인터페이스, 함수</a>
         </h1>
 
         <div class="post-meta">
@@ -1205,14 +1240,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-07-18 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-18T00:00:00+09:00">2021-07-18</time>
+              <time title="Created: 2021-07-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-19T00:00:00+09:00">2021-07-19</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -1226,100 +1261,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="딕셔너리"><a href="#딕셔너리" class="headerlink" title="딕셔너리"></a>딕셔너리</h2><blockquote>
-<p><code>List&lt;T&gt;</code>와 달리 색인이 0~n 사이의 수가 아니라 <code>임의의 데이터형</code>이다. 사전과 비슷하게 키를 이용해 그 키에 해당하는 값을 찾는다.</p>
-<blockquote>
-<p>키(key): 임의의 데이터형. 어떠한 데이터형도 키로 쓸 수 있다.<br>값(value): 실제 저장되는 값</p>
-</blockquote>
+          <h2 id="인터체이스"><a href="#인터체이스" class="headerlink" title="인터체이스"></a>인터체이스</h2><blockquote>
+<p>상호 간에 정의한 약속 혹은 규칙. 보통 다음과 같은 범주에 대해 약속을 정의할 수 있다.</p>
 </blockquote>
 <ul>
-<li>딕셔너리는 배열처럼 연속된 메모리에 내부 데이터를 저장할 수 없다. 따라서 배열이 더 효율적이다.</li>
-<li>다른 언어에서는 맵(map)이라고 한다.</li>
-<li>배열처럼 0, 1, 2… 이런 식으로 순서대로 저장하기 힘든 경우에 쓰면 좋다.</li>
-<li>데이터 저장 공간이 크고, 배열 중간에 데이터를 삽입 및 삭제를 자주해야하는 경우 쓰면 좋다.</li>
+<li>객체의 스펙(속성과 속성의 타입)</li>
+<li>함수의 파라미터</li>
+<li>함수의 스펙(파라미터, 반환 타입 등)</li>
+<li>배열과 객체를 접근하는 방식</li>
+<li>클래스</li>
 </ul>
-<h3 id="딕셔너리-생성"><a href="#딕셔너리-생성" class="headerlink" title="딕셔너리 생성"></a>딕셔너리 생성</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;TKey, TValue&gt; &lt;변수명&gt; &#x3D; new Dictionary&lt;TKey, TValue&gt;();</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;int, string&gt; students &#x3D; new Dictionary&lt;int, string&gt;();</span><br><span class="line">Dictionary&lt;int, int&gt; scores &#x3D; new Dictionary&lt;int, int&gt;();</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>TKey</code>: 어떤 자료형의 키를 담을지 표현</li>
-<li><code>TValue</code>: 어떤 자료형의 값을 담을지 표현</li>
-</ul>
-<h3 id="딕셔너리에-데이터-추가하기"><a href="#딕셔너리에-데이터-추가하기" class="headerlink" title="딕셔너리에 데이터 추가하기"></a>딕셔너리에 데이터 추가하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dictionary.Add(TKey, TValue);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>키와 매핑되는 값을 딕셔너리에 추가</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">students.Add(&quot;A1&quot;,&quot;Bob&quot;);</span><br><span class="line">students.Add(&quot;A2&quot;,&quot;Bobby&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;이미 들어 있는 키로 새로운 데이터를 추가하면?</span><br><span class="line">students.Add(&quot;A2&quot;,&quot;Alex&quot;); &#x2F;&#x2F; 에러 발생</span><br></pre></td></tr></table></figure>
-<h3 id="중복된-키를-확인-후-데이터-추가하기"><a href="#중복된-키를-확인-후-데이터-추가하기" class="headerlink" title="중복된 키를 확인 후 데이터 추가하기"></a>중복된 키를 확인 후 데이터 추가하기</h3><blockquote>
-<p>이미 있는 키를 가지고 새로운 데이터를 추가하려고 하면 에러가 발생하기 때문에 이를 해결하기 위해 중복된 키가 있는지 확인 후 추가한다.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; Dictionary&lt;TKey, TValue&gt;.TryAdd(Tkey key, TValue value);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">bool bSuccess1 &#x3D; students.TryAdd(&quot;A1&quot;, &quot;Bob&quot;); &#x2F;&#x2F;거짓</span><br><span class="line">bool bSuccess1 &#x3D; students.TryAdd(&quot;A3&quot;, &quot;Alex&quot;); &#x2F;&#x2F;참</span><br></pre></td></tr></table></figure>
-<ul>
-<li>딕셔너리 안에 키가 이미 있으면 거짓 반환</li>
-<li><strong>딕셔너리 안에 키가 없으면 새로운 값을 넣고 참을 반환</strong></li>
-</ul>
-<hr>
-<h3 id="딕셔너리-안에-키가-있는지-확인하기"><a href="#딕셔너리-안에-키가-있는지-확인하기" class="headerlink" title="딕셔너리 안에 키가 있는지 확인하기"></a>딕셔너리 안에 키가 있는지 확인하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bContain &#x3D; Dictionary&lt;TKey, TValue&gt;.ContainsKey(TKey, key);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>딕셔너리 안에 키가 있으면 참, 없으면 거짓 반환</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">bool bContain1 &#x3D; students.ContainKey(&quot;A1&quot;); &#x2F;&#x2F;참</span><br><span class="line">bool bContain2 &#x3D; students.ContainKey(&quot;Bob&quot;); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<h3 id="딕셔너리-안에-밸류가-있는지-확인하기"><a href="#딕셔너리-안에-밸류가-있는지-확인하기" class="headerlink" title="딕셔너리 안에 밸류가 있는지 확인하기"></a>딕셔너리 안에 밸류가 있는지 확인하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bContain &#x3D; Dictionary&lt;TKey, TValue&gt;.ContainsValue(TKey, key);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>딕셔너리 안에 키가 있으면 참, 없으면 거짓 반환</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">bool bContain1 &#x3D; students.ContainsValue(&quot;Bob&quot;); &#x2F;&#x2F;참</span><br><span class="line">bool bContain2 &#x3D; students.ContainsValue(&quot;Alex&quot;); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="딕셔너리의-모든-요소-삭제하기"><a href="#딕셔너리의-모든-요소-삭제하기" class="headerlink" title="딕셔너리의 모든 요소 삭제하기"></a>딕셔너리의 모든 요소 삭제하기</h3><blockquote>
-<p>딕셔너리의 모든 요소를 삭제</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;TKey, TValue&gt;.Clear();</span><br></pre></td></tr></table></figure>
-<h3 id="딕셔너리-안에-있는-요소-삭제"><a href="#딕셔너리-안에-있는-요소-삭제" class="headerlink" title="딕셔너리 안에 있는 요소 삭제"></a>딕셔너리 안에 있는 요소 삭제</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bRemoved &#x3D; Dictionary&lt;TKey, TValue&gt;.Remove(TKey, key);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>딕셔너리 안에 키가 있으면 <strong>요소를 삭제 후 참</strong>, 없으면 거짓 반환</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">bool bRemoved1 &#x3D; students.Remove(&quot;A1&quot;); &#x2F;&#x2F;참</span><br><span class="line">bool bRemoved2 &#x3D; students.Remove(&quot;A3&quot;); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="딕셔너리에서-키와-매핑된-값-가져오기"><a href="#딕셔너리에서-키와-매핑된-값-가져오기" class="headerlink" title="딕셔너리에서 키와 매핑된 값 가져오기"></a>딕셔너리에서 키와 매핑된 값 가져오기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bFound &#x3D; Dictionary&lt;TKey, TValue&gt;.TryGetValue(TKey, key, out TValue value);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>딕셔너리 안에 키가 있으면 값을 <code>out 매개변수에 대입하고 참을 반환</code></li>
-<li>딕셔너리 안에 키가 없으면 거짓 반환</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">string value;</span><br><span class="line">bool bFound &#x3D; students.TryGetValue(&quot;A1&quot;, out value)</span><br></pre></td></tr></table></figure>
-<h3 id="요소-추가-접근법"><a href="#요소-추가-접근법" class="headerlink" title="요소 추가/접근법 - []"></a>요소 추가/접근법 - []</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;TKey, TValue&gt;[key] &#x3D; value;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>키가 이미 있다면 연결된 값 변경</li>
-<li><strong>키가 없다면 키와 값을 새로운 원소로 추가</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">students[&quot;A1&quot;] &#x3D; &quot;Tomas&quot;</span><br><span class="line">string student &#x3D; students[&quot;A3&quot;] &#x2F;&#x2F; throws an exception</span><br><span class="line">students[&quot;A2&quot;] &#x3D; &quot;Jason&quot;</span><br></pre></td></tr></table></figure>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>[] 사용</th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>key</td>
-<td>A1</td>
-<td>A2</td>
-<td><code>A3</code></td>
-</tr>
-<tr>
-<td>value</td>
-<td><del>Bob</del> -&gt; <code>Tomas</code></td>
-<td>Bobby</td>
-<td><code>Jason</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+<p>typeScript의 핵심 원칙 중 하나는 <code>덕 타이핑</code> 또는 <code>구조적 서브타이핑</code>이다. 타입 검사가 <code>값의 형태에 초점</code>을 맞추고 있다는 것이다. 인터페이스는 이런 타입들의 이름을 짓고, 코드 안의 계약을 정의하고, 프로젝트 외부에서 사용하는 코드의 계약을 정의한다.</p>
 
       
     </div>
@@ -1405,12 +1357,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

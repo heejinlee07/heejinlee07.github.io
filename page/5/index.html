@@ -144,6 +144,197 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/08/26/200827_effectHook/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/26/200827_effectHook/" class="post-title-link" itemprop="url">Effect Hook이란?</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-27 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-27T00:00:00+09:00">2020-08-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h2><blockquote>
+<p>useEffect(didUpdate);<br>함수 컴포넌트에서 side effects를 수행할 수 있게 함.<br>명령형 또는 어떤 effect를 발생하는 함수를 인자로 받음. -&gt; 화면이 렌더링 된 후 수행<br>기본적으로 useEffect는 렌더링 이후 수행되지만 dependency array에 특정 값을 추가하여 이 값이 변경되었을 때만 실행되게 만들 수 있다.</p>
+</blockquote>
+<ul>
+<li>side effects: 데이터 가져오기, 구독(subscription) 설정하기, 수동으로 리액트 컴포넌트의 DOM을 직접 조작하고 수정하는 것 등의 모든 기능들.<ul>
+<li>정리가 필요하지 않은 effects: DOM을 업데이트한 뒤 추가로 코드를 실행해야 하는 경우(e.g. 네트워크 리퀘스트, DOM 수동 조작, 로깅 등은 정리(clean-up) 등)</li>
+<li>정리가 필요한 effects</li>
+</ul>
+</li>
+<li>class의 componentDidMount, componentDidUpdate, componentWillUnmount와 같은 목적으로 제공되지만, 하나의 API로 통합된 것과 같음.</li>
+</ul>
+<hr>
+<h3 id="정리가-필요하지-않은-effects"><a href="#정리가-필요하지-않은-effects" class="headerlink" title="정리가 필요하지 않은 effects"></a>정리가 필요하지 않은 effects</h3><p>리액트가 DOM을 업데이트한 뒤 추가로 코드를 실행해야 하는 경우. (e.g. 네트워크 리퀘스트, DOM 수동 조작, 로깅 등)</p>
+<p><u>class 컴포넌트</u></p>
+<blockquote>
+<p>render()는 side effect를 발생시키지 않음. 이펙트는 DOM을 업데이트하고 난 이후 발생. 따라서 side effect를 componentDidMount와 componentDidUpdate 둠. 그래서 class 안에서 두 개의 생명주기 메서드에 같은 코드가 중복되기도 한다. <strong>그 이유는 componentDidMount인지 componentDidUpdate와 상관없이 렌더링 이후에 항상 같은 코드가 수행되어야 하기 때문이지만 class 컴포넌트에서는 이러한 기능을 하는 메서드를 지원하지 않으므로 아래 코드와 같이 각각의 생명주기 메서드 안에서 함수를 호출해야 한다..</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      count: <span class="number">0</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 두 개의 생명주기 메서드 안에 같은 코드 중복</span></span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;<span class="keyword">this</span>.state.count&#125;</span> times`</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"componentDidMount"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  componentDidUpdate() &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;<span class="keyword">this</span>.state.count&#125;</span> times`</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"componentDidUpdate"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;p&gt;You clicked &#123;<span class="keyword">this</span>.state.count&#125; times&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">        &lt;button onClick=&#123;() =&gt; this.setState(&#123; count: this.state.count + 1 &#125;)&#125;&gt;</span></span><br><span class="line"><span class="regexp">          Click me</span></span><br><span class="line"><span class="regexp">        &lt;/</span>button&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><u>함수 컴포넌트: useEffect hook 사용</u></p>
+<blockquote>
+<p>useEffect hook은 리액트에게 컴포넌트가 렌더링 된 후 어떤 일을 수행해야하는지 알려준다. effect를 기억해두었다가 DOM 업데이트 수행 후 불러낸다. useEffect는 컴포넌트 안에서 호출되기 때문에 아래 예제와 같이 count 변수(또는 그 어떤 prop)에도 접근할 수 있다. 함수 범위 안에 존재하기 때문이다.</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;count&#125;</span> times`</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"useEffect"</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;You clicked &#123;count&#125; times&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;Click me&lt;/</span>button&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>class 컴포넌트에서는 렌더링 이후 어떤 일을 수행할 것인지에 대해 componentDidMount와 componentDidUpdate로 각각 정의해주었다. 헨더링 이전에 마운트 되었을 때와 업데이트 될 때의 상황에 대해 정의했기 때문에, componentDidMount는 마운트 될 때만 수행되고, componentDidUpdate는 업데이트 될 때만 수행된다. useEffect는 effect 안에 렌더링 이후 이루어질 작업에 대한 내용을 정의하는 방식이므로 componentDidMount와 componentDidUpdate를 effect 함수 내부에서 한 번에 처리한다. 따라서 첫 번째 렌더링과 이후 업데이트가 발생할 때마다 수행된다. 두 가지 경우 모두 effect가 수행되는 시점은 이미 DOM이 업데이트 된 시점이 렌더링 이후이다.</p>
+<p>위의 예제에서 처럼 class 컴포넌트, 함수형 컴포넌트에서의 effect 사용에 대해서 아래와 같이 각각 console.log를 찍어보면 렌더링 이후 발생하는 일에 대해 더욱 명확히 알 수 있다.</p>
+<ul>
+<li><code>마운트 시점</code>: componentDidMount의 ‘componentDidMount’와 useEffect의 ‘useEffect’가 console창에 출력된다.</li>
+<li><code>사용자가 버튼을 클릭하여 업데이트 되는 시점</code>: componentDidMount의 ‘componentDidMount’는 더이상 출력되지 않고, componentDidUpdate의 ‘componentDidUpdate’가 버튼에 클릭 이벤트가 발생할 때마다 console창에 출력된다. useEffect의 ‘useEffect’는 마운트 시점과 동일하게 계속 console창에 출력된다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount() &#123;</span><br><span class="line">  <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;<span class="keyword">this</span>.state.count&#125;</span> times`</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"componentDidMount"</span>);</span><br><span class="line">&#125;</span><br><span class="line">componentDidUpdate() &#123;</span><br><span class="line">  <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;<span class="keyword">this</span>.state.count&#125;</span> times`</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"componentDidUpdate"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;count&#125;</span> times`</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"useEffect"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>컴포넌트</th>
+<th>렌더링 이전</th>
+<th>렌더링 이후</th>
+<th>effect 수행시점</th>
+<th>effect 정리</th>
+<th>특징</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>class</td>
+<td>componentDidMount,componentDidUpdate,componentWillUnmount로 렌더링 이후 이루어질 작업을 각각의 함수로 따로 정의</td>
+<td>componentDidMount는 마운트 될 때, componentDidUpdate는 업데이트 될 때,componentWillUnmount는 언마운트될 때만 수행</td>
+<td>DOM 업데이트 이후</td>
+<td>componentWillUnmount를 사용하여 정리</td>
+<td>마운팅, 업데이트 방식으로 effect 수행</td>
+</tr>
+<tr>
+<td>함수형</td>
+<td>useEffect를 컴포넌트 안에서 불러서 렌더링 이후 이루어질 작업에 대해 정의</td>
+<td>렌더링 이후 매번 수행(첫번째 렌더링 이후 업데이트 될 때마다)</td>
+<td>DOM 업데이트 이후</td>
+<td>useEffect() =&gt; {내부에서 return() =&gt; {언마운트 될 때 정리해야할 함수 반환}}</td>
+<td>렌더링 이후 effect 발생. 렌더링 시점에 이미 DOM은 업데이트 되어있음.(componentDidMount,componentDidUpdate가 동시에 실행되는 것과 유사). clean-up 함수를 사용할 경우 이전 effect는 다음 effect 실행 전에 정리됨.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h3 id="정리가-필요한-effects"><a href="#정리가-필요한-effects" class="headerlink" title="정리가 필요한 effects"></a>정리가 필요한 effects</h3><p>외부 데이터에 구독(subscription)을 설정해야 하는 경우와 같이 메모리 누수가 발생하지 않도록 정리(clean-up)가 필요한 경우</p>
+<p><u>class 컴포넌트</u></p>
+<ul>
+<li>componentDidMount: 구독(subscription) 설정</li>
+<li>componentWillUnmount: 구독 설정 된 내용을 정리(clean-up)</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FriendStatus</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123; <span class="attr">isOnline</span>: <span class="literal">null</span> &#125;;</span><br><span class="line">    <span class="keyword">this</span>.handleStatusChange = <span class="keyword">this</span>.handleStatusChange.bind(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    ChatAPI.subscribeToFriendStatus(</span><br><span class="line">      <span class="keyword">this</span>.props.friend.id,</span><br><span class="line">      <span class="keyword">this</span>.handleStatusChange</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  componentWillUnmount() &#123;</span><br><span class="line">    ChatAPI.unsubscribeFromFriendStatus(</span><br><span class="line">      <span class="keyword">this</span>.props.friend.id,</span><br><span class="line">      <span class="keyword">this</span>.handleStatusChange</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  handleStatusChange(status) &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      isOnline: status.isOnline,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.state.isOnline === <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"Loading..."</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.state.isOnline ? <span class="string">"Online"</span> : <span class="string">"Offline"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><u>함수 컴포넌트</u><br>위의 class 컴포넌트에서 componentDidMount(), componentWillUnmount()로 분리된 생명주기 메서드 내에 동일한 effect 관련 코드가 있다. 이처럼 subscribe와 unsubscribe는 일반적으로 밀접한 관련을 맺고 있기 때문에 함수형 컴포넌트에서 useEffect는 이 두 가지 설정을 class에서 처럼 분리하지 않고 함께 다룰 수 있도록 한다. <strong>useEffect 내에서 함수를 반환하면 그 함수를 정리가 필요할 때 실행시키는 것이다.</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FriendStatus</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [isOnline, setIsOnline] = useState(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">handleStatusChange</span>(<span class="params">status</span>) </span>&#123;</span><br><span class="line">      setIsOnline(status.isOnline);</span><br><span class="line">    &#125;</span><br><span class="line">    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);</span><br><span class="line">    <span class="comment">// effect 이후에 어떻게 정리(clean-up)할 것인지 표시</span></span><br><span class="line">    <span class="comment">// cleanup이라는 이름 대신 다른 변수, 또는 화살표 함수를 사용하여도 무방함.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">cleanup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isOnline === <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Loading..."</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> isOnline ? <span class="string">"Online"</span> : <span class="string">"Offline"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>리액트가 정리하는 시점은 언제?<br>컴포넌트가 마운트해제될 때. 하지만 effect는 렌더링이 실행될 때마다 실행되므로 다음 차례의 effect를 실행하기 전에 이전의 렌더링에서 파생된 effect도 정리한다.</p>
+</blockquote>
+<hr>
+<h2 id="effect-사용-팁"><a href="#effect-사용-팁" class="headerlink" title="effect 사용 팁"></a>effect 사용 팁</h2><ol>
+<li><u>Multiple Effect</u><br>서로 관련이 없는 로직을 분리하여 관련 있는 로직끼리 묶어서 결합할 수 있다. 이렇게 하면 코드가 훨씬 간결해지고, 코드가 하는 일이 무엇인지에 따라 관련있는 것들을 묶어서 로직을 구성하므로 가독성이 좋아진다. <strong>주의할 점은 여러 effect를 사용할 경우, 지정된 순서에 맞춰 적용한다는 것이다.</strong></li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">관심사</th>
+<th style="text-align:center">class 컴포넌트</th>
+<th style="text-align:center">함수형 컴포넌트</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">document.title 설정</td>
+<td style="text-align:center">componentDidMount, componentDidUpdate에서 설정</td>
+<td style="text-align:center">useEffect1️⃣에 설정</td>
+</tr>
+<tr>
+<td style="text-align:center">subscribe/unsubcribe</td>
+<td style="text-align:center">componentDidMount, componentWillUnmount에서 설정</td>
+<td style="text-align:center">useEffect2️⃣에 설정</td>
+</tr>
+<tr>
+<td style="text-align:center">based on</td>
+<td style="text-align:center">생명주기 메서드</td>
+<td style="text-align:center">코드가 무엇을 수행하는가</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//class 컴포넌트</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FriendStatusWithCounter</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123; <span class="attr">count</span>: <span class="number">0</span>, <span class="attr">isOnline</span>: <span class="literal">null</span> &#125;;</span><br><span class="line">    <span class="keyword">this</span>.handleStatusChange = <span class="keyword">this</span>.handleStatusChange.bind(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;<span class="keyword">this</span>.state.count&#125;</span> times`</span>;</span><br><span class="line">    ChatAPI.subscribeToFriendStatus(</span><br><span class="line">      <span class="keyword">this</span>.props.friend.id,</span><br><span class="line">      <span class="keyword">this</span>.handleStatusChange</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  componentDidUpdate() &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;<span class="keyword">this</span>.state.count&#125;</span> times`</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  componentWillUnmount() &#123;</span><br><span class="line">    ChatAPI.unsubscribeFromFriendStatus(</span><br><span class="line">      <span class="keyword">this</span>.props.friend.id,</span><br><span class="line">      <span class="keyword">this</span>.handleStatusChange</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleStatusChange(status) &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      isOnline: status.isOnline</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//함수형 컴포넌트</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FriendStatusWithCounter</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="comment">//useEffect1️⃣</span></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;count&#125;</span> times`</span>;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [isOnline, setIsOnline] = useState(<span class="literal">null</span>);</span><br><span class="line">  <span class="comment">//useEffect2️⃣</span></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">handleStatusChange</span>(<span class="params">status</span>) </span>&#123;</span><br><span class="line">      setIsOnline(status.isOnline);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>effect가 업데이트 시마다 실행되는 이유는?</li>
+</ol>
+<p><u>class 컴포넌트</u><br>class 컴포넌트에서는 effect 정리가 componentWillUnmount()를 사용하여 마운트가 해제될 때만 실행된다. 그런데 class 컴포넌트에서 componentDidUpdate를 제대로 수행하지 않을 경우 componentWillUnmount()가 제대로 수행되지 않는 버그가 발생한다. 위의 FriendStatusWithCounter 예시에서 만약 componentDidUpdate()가 없었다고 가정한다면 마운트 이후 업데이트가 발생했을 때 이에 대한 처리를 할 로직이 없는 채 마운트 해제 시 subscribe가 해제된다. friend prop에 변화가 없다면 별 문제 없을 수 있지만 <strong>만약 friend prop이 화면에 표시되어 있는 동안 변한다면 friend의 subscribe를 해지하지 못하고 계속해서 화면에 표시하게 된다. 마운트 해제가 일어나더라도 unsubscribe 정확한 타겟 아이디에 수행하지 못하고 잘못된 id에 대해 수행하게 될 수도 있다.</strong> 결론적으로 이러한 버그를 발생시키지 않으려면 반드시 componentDidUpdate()를 사용해야 한다는 것이다.</p>
+<p><u>함수형 컴포넌트의 useEffect</u><br><strong>useEffect는 class에서처럼 생명주기 메서드에 의해 업데이트가 발생하는 것이 아니라 렌더링 될 때마다 실행된다.</strong> 즉 componentDidUpdate()와 같은 별도의 메서드를 사용하지 않아도 렌더링 될 때마다 업데이트가 실행되고, componentWillUnmount()를 사용하지 않아도 return에 함수를 반환하면 다음의 effect를 적용하기 이전의 effect는 정리된다.</p>
+<ol>
+<li>렌더링 이후 effect를 정리하는 것은 때때로 성능 저하를 발생시키는 경우가 있다. 이를 개선하려면?</li>
+</ol>
+<p><strong>class 컴포넌트: componentDidUpdate에서 prevProps나 prevState와의 비교를 통해 문제 해결</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">componentDidUpdate(prevProps, prevState) &#123;</span><br><span class="line">  <span class="comment">// prevProps와 prevState가 같지 않을 때는 다른 값이므로 업데이트</span></span><br><span class="line">  <span class="keyword">if</span> (prevState.count !== <span class="keyword">this</span>.state.count) &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;<span class="keyword">this</span>.state.count&#125;</span> times`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>함수형 컴포넌트: dependency array</strong><br>useEffect의 두 번째 인수에 배열을 넘겨서 특정 값이 변경되지 않을 경우 건너뛰도록 설정한다. 아래와 같이 사용한다면 <code>count</code>의 값에 변화가 있을 때만 effect가 실행되고, 그렇지 않을 경우 건너뛴다. <strong>단 두 번째 인수의 배열은 컴포넌트 범위 내에서 바뀌는 값들과 effect에 의해 사용되는 값들을 모두 포함한다. 즉 useEffect 내부에서 의존성을 가지고 있는 값들은 모두 이 배열에 포함되어야 하므로 이를 의존성 배열(dependency array)라 한다.</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;count&#125;</span> times`</span>;</span><br><span class="line">&#125;, [count]); <span class="comment">// count가 바뀔 때만 effect를 재실행</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>[] : 배열에 아무것도 넘기지 않으면 마운트 될 때 <code>단 한 번만 실행</code>된다. 업데이트 시에 호출되지 않는다.<br>React에게 props나 state에서 가져온 어떤 값에도 의존하지 않으므로 effect를 다시 실행할 필요가 없다는 것을 알려주기 때문이다. 이렇게 하면 props와 state는 항상 초기값을 가진다.</li>
+<li>[value]: 배열 안에 특정 값이 있으면 이 값이 설정되거나 바뀔 때마다 effect가 재실행된다. useEffect 내부에서 사용하는 state, props, 함수 등이 있다면 반드시 이 배열 안에 넣어줘야 한다. 민약 의존성을 지닌 값들이 있는데 이 deps 안에 넣는 것을 생략하는 경우 useEffect 에 등록한 함수가 실행 될 때 최신 props 또는 상태를 가르키지 않게 된다.</li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://ko.reactjs.org/docs/hooks-effect.html" target="_blank" rel="noopener">Using the Effect Hook</a><br><a href="https://ko.reactjs.org/docs/hooks-reference.html" target="_blank" rel="noopener">Hook API 참고서</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/08/25/200826_reactHook/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +366,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -276,7 +467,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -363,7 +554,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -530,7 +721,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -638,7 +829,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -746,7 +937,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -855,7 +1046,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -993,7 +1184,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -1088,7 +1279,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
+                <time title="Modified: 2021-09-03 00:24:47" itemprop="dateModified" datetime="2021-09-03T00:24:47+09:00">2021-09-03</time>
               </span>
 
           
@@ -1176,243 +1367,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/07/27/200728_arrayMethods/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/27/200728_arrayMethods/" class="post-title-link" itemprop="url">algorithm에 필요한 method 정리</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-28T00:00:00+09:00">2020-07-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-30 23:11:38" itemprop="dateModified" datetime="2021-08-30T23:11:38+09:00">2021-08-30</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="reverseString-Pseudocode"><a href="#reverseString-Pseudocode" class="headerlink" title="reverseString Pseudocode"></a>reverseString Pseudocode</h2><ol>
-<li>string를 배열로 만든다.</li>
-<li>배열 method를 사용하면 array 내부의 요소의 순서를 뒤집는다.</li>
-<li>순서가 뒤집힌 배열을 다시 string로 변환한다.</li>
-</ol>
-<blockquote>
-<p>example<br>“hello” -&gt; [‘h’, ‘e’, ‘l’, ‘l’, ‘o’] -&gt; [‘o’, ‘l’, ‘l’, ‘e’, ‘h’] -&gt; ‘olleh’</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(str); <span class="comment">//hello</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> splits = str.split(<span class="string">""</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(splits); <span class="comment">// ["h", "e", "l", "l", "o"]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> reversed = splits.reverse();</span><br><span class="line">  <span class="built_in">console</span>.log(reversed); <span class="comment">// ["o", "l", "l", "e", "h"]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> result = reversed.join(<span class="string">""</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(result); <span class="comment">//olleh</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reverse(<span class="string">"hello"</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="split"><a href="#split" class="headerlink" title="split()"></a>split()</h2><blockquote>
-<p>str.split([separator[, limit]])</p>
-</blockquote>
-<p>string을 구분자를 이용하여 여러 개의 문자열로 나눈다.</p>
-<ul>
-<li>매개변수: separator, limit 두 가지를 전달할 수 있다.<ul>
-<li>separator: 끊어야 할 부분을 나타내는 문자열로 실제 문자열이나 정규표현식을 받을 수 있다.</li>
-<li>limit: 끊어진 문자열의 최대 개수를 나타낸다. limit이 존재하면, 배열의 원소가 limit개가 되었을 때 split메소드가 중지된다.</li>
-</ul>
-</li>
-<li><p>반환값: 원본 문자열을 separator마다 끊은 <code>문자열의 결과를 담은 배열을 반환</code>한다.</p>
-<ul>
-<li>separator가 빈문자열(‘’)일 때: 원본 문자열을 한 글자씩 분리한 배열이 반환됨.</li>
-<li>separator가 공백이 있는 문자열(‘ ‘)일 때: 원본 문자열을 공백으로 구분한 배열이 반환됨.</li>
-<li>separator로 아무것도 주어지지 않았을 때: 원본 문자열 전체를 담은 배열이 반환됨.</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hi = <span class="string">"hello there"</span>;</span><br><span class="line">hi.split(); <span class="comment">// ['hello there']</span></span><br><span class="line">hi.split(<span class="string">""</span>); <span class="comment">// ['h', 'e', 'l', 'o', 'o', 't', 'h', 'e', 'r', 'e']</span></span><br><span class="line"><span class="keyword">const</span> result = hi.split(<span class="string">" "</span>); <span class="comment">// ['hello', 'there']</span></span><br><span class="line"><span class="built_in">console</span>.log(result[<span class="number">1</span>]); <span class="comment">// there</span></span><br><span class="line">hi.split(<span class="string">" "</span>, <span class="number">3</span>); <span class="comment">// ['h', 'e', 'l']</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 정규 표현식 사용</span></span><br><span class="line"><span class="keyword">var</span> myString = <span class="string">"Hello 1 word. Sentence number 2."</span>;</span><br><span class="line"><span class="keyword">var</span> splits = myString.split(<span class="regexp">/(\d)/</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(splits); <span class="comment">// [ "Hello ", "1", " word. Sentence number ", "2", "." ]</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="reverse"><a href="#reverse" class="headerlink" title="reverse()"></a>reverse()</h2><blockquote>
-<p>a.reverse()</p>
-</blockquote>
-<p>배열의 순서를 반전하고, <code>반환값은 순서가 반전된 배열</code>이다.</p>
-<h2 id="join"><a href="#join" class="headerlink" title="join()"></a>join()</h2><p>배열의 모든 요소를 하나의 문자열로 만든다.</p>
-<blockquote>
-<p>arr.join([separator])</p>
-</blockquote>
-<ul>
-<li>매개변수: separator. 배열의 각 요소를 구분할 문자열을 지정한다.<ul>
-<li>separator가 빈문자열(‘’)일 때: 공백이 구분되지 않은 문자열이 반환됨.</li>
-<li>separator가 공백이 있는 문자열(‘ ‘)일 때: 단어 간 공백이 있는 문자열이 반환됨.</li>
-<li>separator로 아무것도 주어지지 않았을 때: 쉼표(,)로 구분된 문자열이 반환됨.</li>
-<li>separator로 특정 문자가 주어졌을 때: 특정 문자가 삽입된 문자열이 반환됨.</li>
-</ul>
-</li>
-<li>반환값: 배열의 모든 요소를 연결한 하나의 문자열 반환. arr.length가 0이면 빈 문자열 반환되고, 요소가 undefined나 null이면 빈 문자열로 변환됨.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> elements = [<span class="string">"Fire"</span>, <span class="string">"Air"</span>, <span class="string">"Water"</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join());</span><br><span class="line"><span class="comment">// expected output: "Fire,Air,Water"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join(<span class="string">""</span>));</span><br><span class="line"><span class="comment">// expected output: "FireAirWater"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join(<span class="string">" "</span>));</span><br><span class="line"><span class="comment">// expected output: "Fire Air Water"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join(<span class="string">"-"</span>));</span><br><span class="line"><span class="comment">// expected output: "Fire-Air-Water"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> emptyArray = [];</span><br><span class="line">emptyArray.join(); <span class="comment">//''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> nullInArray = [<span class="literal">null</span>];</span><br><span class="line">nullInArray.join(); <span class="comment">//''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> undefinedInArray = [<span class="literal">undefined</span>];</span><br><span class="line">undefinedInArray.join(); <span class="comment">//''</span></span><br></pre></td></tr></table></figure>
-<h2 id="method-chaining"><a href="#method-chaining" class="headerlink" title="method chaining"></a>method chaining</h2><p>return str.split(“”).reverse().join(“”);</p>
-<p>이렇게 method를 연결하여 한줄로 구현할 수도 있지만, 문자열에 grapheme clusters가 있을 경우, 유니코드 플래그를 설정해도 오류를 일으킬 수 있어서 esrever 등의 라이브러리를 쓰는 것이 권장된다.</p>
-<hr>
-<h2 id="만약-reverse-를-쓰지-않고-reverseString를-구현해야-한다면"><a href="#만약-reverse-를-쓰지-않고-reverseString를-구현해야-한다면" class="headerlink" title="만약 reverse()를 쓰지 않고 reverseString를 구현해야 한다면?"></a>만약 reverse()를 쓰지 않고 reverseString를 구현해야 한다면?</h2><ol>
-<li>for문을 이용</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> res = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; str.length; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> char = str[i];</span><br><span class="line">    res = char + res;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line">reverse(<span class="string">"hello"</span>);</span><br></pre></td></tr></table></figure>
-<p>argument로 전달된 ‘hello’의 length는 5이고, 총 5번 반복문을 돈다. 원리는 다음과 같다. ‘hello’가 있다면, h를 캐치하여 res의 첫번째 요소로 보내고, 그 다음 e를 캐치하여 res의 첫 번째 요소로 보낸다. 이를 구현하기 위해 <code>res = char + res;</code>로 코드를 구현한다. 이 코드에 따라 hello가 ‘olleh’가 될 때까지 반복문을 돈다.</p>
-<blockquote>
-<p>‘hello’ + ‘’<br>‘ello’ + ‘h’<br>‘llo’ + ‘eh’<br>‘lo’ + ‘leh’<br>‘o’ + ‘lleh’<br>‘’ + ‘olleh’</p>
-</blockquote>
-<ul>
-<li>1회차<br>char = h;<br>res = h + ‘’ -&gt; h가 된다.</li>
-<li>2회차<br>char = e;<br>res = e + h -&gt; eh가 된다.</li>
-<li>3회차<br>char = l;<br>res = l + eh -&gt; leh가 된다.</li>
-<li>4회차<br>char = l;<br>res = l + leh -&gt; lleh가 된다.</li>
-<li>5회차<br>char = o;<br>res = lleh + 0 -&gt; olleh가 된다.</li>
-</ul>
-<ol>
-<li>reduce method 이용하기</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(<span class="string">""</span>).reduce(<span class="function">(<span class="params">output, char</span>) =&gt;</span> &#123;</span><br><span class="line">    output = char + output;</span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">  &#125;, <span class="string">""</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="reduce"><a href="#reduce" class="headerlink" title="reduce()"></a>reduce()</h2><blockquote>
-<p>arr.reduce(callback[, initialvalue])<br>[0,1,2,3,4].reduce(function(accumulator, currentValue, currentIndex, array) {<br>return accumulator + currentValue;<br>});</p>
-</blockquote>
-<p>배열의 각 요소에 대해 주어진 reduce 함수를 실행하고, 결과값을 반환한다. reduce함수는 아래와 같이 네 개의 인자를 가지는데, 함수의 반환 값은 누산기에 할당되고, 누산기는 순회 중 유지되고, 최종 결과는 하나의 값이 된다. 이때 원본 배열은 변경되지 않는다. accumulator, currentValue를 제외한 나머지 매개변수는 option이다.</p>
-<blockquote>
-<ol>
-<li>누산기 accumulator (acc)<br>콜백의 반환값을 누적한다.</li>
-<li>현재 값 currentValue (cur)<br>처리가 필요한 현재 요소</li>
-<li>현재 인덱스 currentIndex (idx)<br>처리할 현재 요소의 인덱스. initialValue가 있으면 0 혹은 1로 시작.</li>
-<li>원본 배열 array (src)<br>reduce()를 호출한 배열.</li>
-</ol>
-</blockquote>
-<ul>
-<li>initialValue</li>
-</ul>
-<p>callback의 최초 호출에서 첫 번째 인수에 제공하는 값. <em>빈 배열에서 초기값 없이 reduce()를 호출하면 오류가 발생한다.</em></p>
-<ul>
-<li>initialValue가 <em>있는</em> 경우: <code>인덱스 0</code>에서 시작. accumulator = initialValue(콜백의 최초 호출 시)</li>
-<li><p>initialValue가 <em>없는</em> 경우: <code>인덱스 1</code>에서 시작, 첫 번째 인덱스는 건너뛴다.</p>
-<ul>
-<li>accumulator !== initialValue</li>
-<li>accumulator = array[1]</li>
-<li>accumulator = currentValue의 두 번째 값</li>
-</ul>
-</li>
-<li><p>반환 값: 누적 계산의 결과 값이다.</p>
-<ul>
-<li>initialValue가 <em>없는</em> 경우 반환값<ul>
-<li>빈 배열에서 reduce()를 사용하면 TypeError 발생</li>
-<li>배열의 요소가 1개: 위치와 상관없이 단독 값을 callback 호출 없이 반환</li>
-</ul>
-</li>
-<li>initialValue가 <em>있는</em> 경우 반환값<ul>
-<li>initialValue가 있는데 빈 배열이 주어졌을 때 단독 값을 callback 호출 없이 반환</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> maxCallback = <span class="function">(<span class="params">acc, cur</span>) =&gt;</span> <span class="built_in">Math</span>.max(acc.x, cur.x);</span><br><span class="line"></span><br><span class="line"><span class="comment">// initialValue 없이 reduce()</span></span><br><span class="line">[].reduce(maxCallback); <span class="comment">// TypeError</span></span><br><span class="line">[&#123; <span class="attr">x</span>: <span class="number">22</span> &#125;].reduce(maxCallback); <span class="comment">// &#123; x: 22 &#125;</span></span><br><span class="line">[&#123; <span class="attr">x</span>: <span class="number">22</span> &#125;, &#123; <span class="attr">x</span>: <span class="number">42</span> &#125;].reduce(maxCallback); <span class="comment">// 42</span></span><br></pre></td></tr></table></figure>
-<h3 id="reduce-작동-방식"><a href="#reduce-작동-방식" class="headerlink" title="reduce() 작동 방식"></a>reduce() 작동 방식</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>].reduce(<span class="function"><span class="keyword">function</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  accumulator,</span></span></span><br><span class="line"><span class="function"><span class="params">  currentValue,</span></span></span><br><span class="line"><span class="function"><span class="params">  currentIndex,</span></span></span><br><span class="line"><span class="function"><span class="params">  array</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> accumulator + currentValue;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 화살표 함수를 사용</span></span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>].reduce(<span class="function">(<span class="params">prev, curr</span>) =&gt;</span> prev + curr);</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(<span class="string">""</span>).reduce(<span class="function">(<span class="params">output, char</span>) =&gt;</span> &#123;</span><br><span class="line">    output = char + output;</span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">  &#125;, <span class="string">""</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reverse(<span class="string">"hello"</span>);</span><br></pre></td></tr></table></figure>
-<p>위의 함수는 아래의 구조와 같고, 아래와 같이 작동한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> array = str.split(<span class="string">""</span>); <span class="comment">// ["h", "e", "l", "l", "o"]</span></span><br><span class="line">  <span class="keyword">return</span> array.reduce(<span class="function">(<span class="params">output, char</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// return ["h", "e", "l", "l", "o"].reduce((output, char) =&gt; &#123;</span></span><br><span class="line">    output = char + output;</span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">  &#125;, <span class="string">""</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>구체적인 작동방식을 살펴보면 아래와 같다.</p>
-<ol>
-<li>initialValue:””가 주어져 있으므로, index 0에서 시작한다.</li>
-<li>주어진 array는 [“h”, “e”, “l”, “l”, “o”]이다.</li>
-<li>callback은 주어진 array의 length만큼 호출된다. 예제인 [“h”, “e”, “l”, “l”, “o”]의 경우 length는 5이다.</li>
-<li>반환값은 accumulator에 할당 되고 순회하면서 <code>accumulator + currentValue</code>의 연산이 이루어진 최종값이 반환된다. 예제의 경우 최종적으로 반환되는 값은 <code>olleh</code>이다.</li>
-</ol>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>callback</th>
-<th style="text-align:center">accumulator</th>
-<th style="text-align:center">currentValue</th>
-<th style="text-align:center">currentIndex</th>
-<th style="text-align:center">return</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1번 째</td>
-<td style="text-align:center">“”</td>
-<td style="text-align:center">h</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">h</td>
-</tr>
-<tr>
-<td>2번 째</td>
-<td style="text-align:center">h</td>
-<td style="text-align:center">e</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">eh</td>
-</tr>
-<tr>
-<td>3번 째</td>
-<td style="text-align:center">eh</td>
-<td style="text-align:center">l</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">leh</td>
-</tr>
-<tr>
-<td>4번 째</td>
-<td style="text-align:center">leh</td>
-<td style="text-align:center">l</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">lleh</td>
-</tr>
-<tr>
-<td>5번 째</td>
-<td style="text-align:center">lleh</td>
-<td style="text-align:center">o</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">olleh</td>
-</tr>
-</tbody>
-</table>
-</div>
-<hr>
-<p><em>Preferences</em><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/split" target="_blank" rel="noopener">Array.protorype.split()/MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse" target="_blank" rel="noopener">Array.prototype.reverse()/MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/join" target="_blank" rel="noopener">Array.prototype.join()/MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noopener">Array.prototype.reduce()/MDN</a><br><a href="https://youtu.be/LmHHip-RpGw" target="_blank" rel="noopener">KodingKevin</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1483,12 +1437,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
