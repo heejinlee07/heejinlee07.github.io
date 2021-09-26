@@ -16,10 +16,10 @@ tags:
 
 ```html
 <img
-    src="/profile-picture.jpg"
-    width="400"
-    height="400"
-    alt="Profile Picture"
+  src="/profile-picture.jpg"
+  width="400"
+  height="400"
+  alt="Profile Picture"
 />
 ```
 
@@ -40,24 +40,24 @@ import Image from 'next/image'
 ### 사용방법
 
 ```javascript
-import Image from 'next/image'
+import Image from 'next/image';
 
 function Home() {
-    return (
-        <>
-            <h1>My Homepage</h1>
-            <Image
-                src='/me.png'
-                alt='Picture of the author'
-                width={500}
-                height={500}
-            />
-            <p>Welcome to my homepage!</p>
-        </>
-    )
+  return (
+    <>
+      <h1>My Homepage</h1>
+      <Image
+        src='/me.png'
+        alt='Picture of the author'
+        width={500}
+        height={500}
+      />
+      <p>Welcome to my homepage!</p>
+    </>
+  );
 }
 
-export default Home
+export default Home;
 ```
 
 위와 같이 `next/image`를 사용하는 것 외에 `next.config.js`을 통해 Image Optimization에 대한 보다 advanced use case를 적용할 수도 있다.
@@ -68,10 +68,10 @@ export default Home
 
 ```javascript
 module.exports = {
-    images: {
-        domains: ['example.com']
-    }
-}
+  images: {
+    domains: ['example.com'],
+  },
+};
 ```
 
 ### Loader
@@ -80,20 +80,20 @@ Next js의 빌트인 이미지 최적화 기능 대신 클라우드 provider를 
 
 ```javascript
 module.exports = {
-    images: {
-        loader: 'imgix',
-        path: 'https://example.com/myaccount/'
-    }
-}
+  images: {
+    loader: 'imgix',
+    path: 'https://example.com/myaccount/',
+  },
+};
 ```
 
 아래와 같은 클라우드 provider가 제공된다.
 
--   Vercel: Works automatically when you deploy on Vercel, no configuration necessary. Learn more
--   Imgix: loader: 'imgix'
--   Cloudinary: loader: 'cloudinary'
--   Akamai: loader: 'akamai'
--   _Default: Works automatically with next dev, next start, or a custom server_
+- Vercel: Works automatically when you deploy on Vercel, no configuration necessary. Learn more
+- Imgix: loader: 'imgix'
+- Cloudinary: loader: 'cloudinary'
+- Akamai: loader: 'akamai'
+- _Default: Works automatically with next dev, next start, or a custom server_
 
 ### Advanced
 
@@ -103,10 +103,10 @@ module.exports = {
 
 ```javascript
 module.exports = {
-    images: {
-        deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840]
-    }
-}
+  images: {
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+  },
+};
 ```
 
 ### Image Sizes
@@ -115,10 +115,10 @@ module.exports = {
 
 ```javascript
 module.exports = {
-    images: {
-        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384]
-    }
-}
+  images: {
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  },
+};
 ```
 
 ---
@@ -128,24 +128,24 @@ module.exports = {
 아래와 같이 사용한다.
 
 ```javascript
-import Image from 'next/image'
+import Image from 'next/image';
 
 function Home() {
-    return (
-        <>
-            <h1>My Homepage</h1>
-            <Image
-                src='/me.png'
-                alt='Picture of the author'
-                width={500}
-                height={500}
-            />
-            <p>Welcome to my homepage!</p>
-        </>
-    )
+  return (
+    <>
+      <h1>My Homepage</h1>
+      <Image
+        src='/me.png'
+        alt='Picture of the author'
+        width={500}
+        height={500}
+      />
+      <p>Welcome to my homepage!</p>
+    </>
+  );
 }
 
-export default Home
+export default Home;
 ```
 
 ### props
@@ -163,10 +163,10 @@ export default Home
 
 1. layout
    뷰포트 사이즈가 변화될 때 이미지의 layout behavior이다.
-    - intrinsic: _기본값._ 이미지는 작은 뷰포트 크기에서는 축소되는데 큰 뷰포트에서는 원래 크기를 유지한다.
-    - fixed: 이미지의 크기가 뷰포트의 변화에 따라 변화되어도 이미지 크기가 변경되지 않는다.(반응형 아님) HTML의 img 태그와 유사하다.
-    - responsive: 이미지는 작은 뷰포트 크기에서는 축소되고, 큰 뷰포트에서는 확대된다.
-    - fill: 이미지가 부모 요소의 width와 height의 크기에 따라 stretch된다. 보통 `object-fit`과 함께 사용된다.
+   - intrinsic: _기본값._ 이미지는 작은 뷰포트 크기에서는 축소되는데 큰 뷰포트에서는 원래 크기를 유지한다.
+   - fixed: 이미지의 크기가 뷰포트의 변화에 따라 변화되어도 이미지 크기가 변경되지 않는다.(반응형 아님) HTML의 img 태그와 유사하다.
+   - responsive: 이미지는 작은 뷰포트 크기에서는 축소되고, 큰 뷰포트에서는 확대된다.
+   - fill: 이미지가 부모 요소의 width와 height의 크기에 따라 stretch된다. 보통 `object-fit`과 함께 사용된다.
 2. sizes
    device sizes를 미디어 쿼리로 매핑하는 문자열. 기본값은 device sizes이다.
 3. quality
@@ -189,9 +189,9 @@ export default Home
 
 img 컴포넌트의 다른 요소들은 아래를 제외하고는 기본 요소로 전달된다.
 
--   style 대신 className을 사용.
--   srcSet 대신 Device Sizes를 사용.
--   decoding은 항상 async이다.
+- style 대신 className을 사용.
+- srcSet 대신 Device Sizes를 사용.
+- decoding은 항상 async이다.
 
 ---
 
