@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="원문링크: https:&#x2F;&#x2F;nextjs.org&#x2F;docs&#x2F;basic-features&#x2F;typescript#incremental-type-checking  create-next-app supportTypeScript project를 create-next-app과 함께 --ts, --typescript 를 사용하여 아래와 같이 생성할 수 있다. 123npx cre">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Next.js와 TypeScript 원문 번역">
+<meta property="og:url" content="https://heejinlee07.github.io/2021/09/24/210925_nextjsTypescript/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="원문링크: https:&#x2F;&#x2F;nextjs.org&#x2F;docs&#x2F;basic-features&#x2F;typescript#incremental-type-checking  create-next-app supportTypeScript project를 create-next-app과 함께 --ts, --typescript 를 사용하여 아래와 같이 생성할 수 있다. 123npx cre">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-09-24T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-09-26T04:40:30.492Z">
+<meta property="article:author" content="Heejin Lee">
+<meta property="article:tag" content="javaScript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2021/09/24/210925_nextjsTypescript/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Next.js와 TypeScript 원문 번역 | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Developer</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/09/24/210925_nextjsTypescript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Next.js와 TypeScript 원문 번역
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-25 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-25T00:00:00+09:00">2021-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-26 13:40:30" itemprop="dateModified" datetime="2021-09-26T13:40:30+09:00">2021-09-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>원문링크: <a href="https://nextjs.org/docs/basic-features/typescript#incremental-type-checking" target="_blank" rel="noopener">https://nextjs.org/docs/basic-features/typescript#incremental-type-checking</a></p>
+</blockquote>
+<h2 id="create-next-app-support"><a href="#create-next-app-support" class="headerlink" title="create-next-app support"></a>create-next-app support</h2><p>TypeScript project를 <code>create-next-app</code>과 함께 <code>--ts</code>, <code>--typescript</code> 를 사용하여 아래와 같이 생성할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npx create-next-app --ts</span><br><span class="line"># or</span><br><span class="line">yarn create next-app --typescript</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Existing-projects"><a href="#Existing-projects" class="headerlink" title="Existing projects"></a>Existing projects</h2><p>이미 존재하는 project에 적용하려면 root folder에 빈 <code>tsconfig.json</code> file을 생성한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch tsconfig.json</span><br></pre></td></tr></table></figure>
+<p>Next.js는 자동으로 이 파일 안에 default values를 설정한다. custom <a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html" target="_blank" rel="noopener">complier options</a>로 <code>tsconfig.json</code>을 작성하는 것 또한 지원된다.</p>
+<blockquote>
+<p>Next.js는 TypeScript를 핸들링하기 위해 Babel을 사용하는데 몇가지 <a href="https://babeljs.io/docs/en/babel-plugin-transform-typescript#caveats" target="_blank" rel="noopener">주의사항</a>이 있고 <a href="https://babeljs.io/docs/en/babel-plugin-transform-typescript#typescript-compiler-options" target="_blank" rel="noopener">일부 컴파일러 옵션은 다르게 처리된다.</a></p>
+</blockquote>
+<p><code>next(npm run dev or yarn dev)</code>를 실행하면, Next.js가 setup을 완료하기 위해 설피가 필요한 패키지를 안내한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br><span class="line"></span><br><span class="line"># You&#39;ll see instructions like these:</span><br><span class="line">#</span><br><span class="line"># Please install typescript, @types&#x2F;react, and @types&#x2F;node by running:</span><br><span class="line">#</span><br><span class="line">#         yarn add --dev typescript @types&#x2F;react @types&#x2F;node</span><br><span class="line">#</span><br><span class="line"># ...</span><br></pre></td></tr></table></figure>
+<p>이렇게 하면 <code>.js</code> 파일을 <code>.tsx</code>로 전환할 준비가 완료되었고, TypeScript를 사용할 수 있게 된다.</p>
+<hr>
+<blockquote>
+<p><code>next-env.d.ts</code>라는 이름의 파일이 프로젝트의 root에 생성된다. 이 파일은 TypeScript complier가 Next.js의 type을 선택하도록 한다. 이는 매번 변경되므로 <strong>임의로 삭제하거나 편집하지 않도록 한다.</strong></p>
+<p>TypeScript <code>strict</code> 모드는 기본적으로 꺼져있다. TypeScript를 편하게 사용하려면 <code>tsconfig.json</code>파일 내에 이 모드를 켜도록 한다.</p>
+<p><code>next-env.d.ts</code>를 편집하는 대신 <code>additional.d.ts</code>와 같은 새 파일을 추가한 다음, <code>tsconfig.json</code> 의 <a href="https://www.typescriptlang.org/tsconfig#include" target="_blank" rel="noopener">include</a> 배열에서 참조하여 새로운 타입 유형을 추가할 수 있다.</p>
+</blockquote>
+<p>기본적으로 Next.js는 <code>next build</code>의 일부로 type checking를 수행한다. 개발하는 동안에는 code editior를 이용하여 type checking을 할 것을 추천한다.</p>
+<p>만약 error report를 무시하고 싶다면, <a href="https://nextjs.org/docs/api-reference/next.config.js/ignoring-typescript-errors" target="_blank" rel="noopener">Ignoring TypeScript errors</a>와 관련된 문서를 확인하도록 한다.</p>
+<hr>
+<h2 id="Static-Generation-and-Server-side-Rendering"><a href="#Static-Generation-and-Server-side-Rendering" class="headerlink" title="Static Generation and Server-side Rendering"></a>Static Generation and Server-side Rendering</h2><p><code>getStaticProps</code>, <code>getStaticPaths</code>, <code>getServerSideProps</code>을 위해 각각 <code>getStaticProps</code>, <code>getStaticPaths</code>, <code>getServerSideProps</code> type을 사용할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; GetStaticProps, GetStaticPaths, GetServerSideProps &#125; <span class="keyword">from</span> <span class="string">'next'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getStaticProps: GetStaticProps = <span class="keyword">async</span> (context) =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getStaticPaths: GetStaticPaths = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getServerSideProps: GetServerSideProps = <span class="keyword">async</span> (context) =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>만약 <code>getInitialProps</code>를 사용하려면 <a href="https://nextjs.org/docs/api-reference/data-fetching/getInitialProps#typescript" target="_blank" rel="noopener">이 링크</a>를 참조한다.</p>
+</blockquote>
+<hr>
+<h2 id="API-Routes"><a href="#API-Routes" class="headerlink" title="API Routes"></a>API Routes</h2><p>아래 예제는 API routes의 빌트인 타입을 사용하는 방법이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> type &#123; NextApiRequest, NextApiResponse &#125; <span class="keyword">from</span> <span class="string">'next'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (req: NextApiRequest, <span class="attr">res</span>: NextApiResponse) =&gt; &#123;</span><br><span class="line">  res.status(<span class="number">200</span>).json(&#123; <span class="attr">name</span>: <span class="string">'John Doe'</span> &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>reponse data에 type을 사용할 수도 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> type &#123; NextApiRequest, NextApiResponse &#125; <span class="keyword">from</span> <span class="string">'next'</span>;</span><br><span class="line"></span><br><span class="line">type Data = &#123;</span><br><span class="line">  name: string,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (req: NextApiRequest, <span class="attr">res</span>: NextApiResponse&lt;Data&gt;) =&gt; &#123;</span><br><span class="line">  res.status(<span class="number">200</span>).json(&#123; <span class="attr">name</span>: <span class="string">'John Doe'</span> &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Custom-App"><a href="#Custom-App" class="headerlink" title="Custom App"></a>Custom App</h2><p>만약 <a href="https://nextjs.org/docs/advanced-features/custom-app" target="_blank" rel="noopener">custom App</a>을 사용한다면 빌트인 타입인 <code>AppProps</code>를 사용할 수 있고 파일 이름을 <code>./pages/_app.tsx</code>와 같이 변경할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// import App from "next/app";</span></span><br><span class="line"><span class="keyword">import</span> type &#123; AppProps <span class="comment">/*, AppContext */</span> &#125; <span class="keyword">from</span> <span class="string">'next/app'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyApp</span>(<span class="params">&#123; Component, pageProps &#125;: AppProps</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Component</span> &#123;<span class="attr">...pageProps</span>&#125; /&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Only uncomment this method if you have blocking data requirements for</span></span><br><span class="line"><span class="comment">// every single page in your application. This disables the ability to</span></span><br><span class="line"><span class="comment">// perform automatic static optimization, causing every page in your app to</span></span><br><span class="line"><span class="comment">// be server-side rendered.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// MyApp.getInitialProps = async (appContext: AppContext) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   // calls page's `getInitialProps` and fills `appProps.pageProps`</span></span><br><span class="line"><span class="comment">//   const appProps = await App.getInitialProps(appContext);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//   return &#123; ...appProps &#125;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> MyApp;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Path-aliases-and-baseUrl"><a href="#Path-aliases-and-baseUrl" class="headerlink" title="Path aliases and baseUrl"></a>Path aliases and baseUrl</h2><p>Next.js는 자동으로 tsconfig.json <code>paths</code>와 <code>baseUrl</code> 옵션을 제공한다. Module Path aliases와 관련된 특징을 더 알아보고 싶다면 <a href="https://nextjs.org/docs/advanced-features/module-path-aliases" target="_blank" rel="noopener">이 링크</a>를 참조한다.</p>
+<h2 id="Type-checking-next-config-js"><a href="#Type-checking-next-config-js" class="headerlink" title="Type checking next.config.js"></a>Type checking next.config.js</h2><p><code>next.config.js</code> 파일은 반드시 JavaScript 파일이어야 하고, Babel이나 TypeScript로 parse되어서는 안된다.하지만 아래와 같이 JSDoc를 이용해서 IDE에서의 몇 가지 type checking를 추가할 수는 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; @ts-check</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @type &#123;import(&#39;next&#39;).NextConfig&#125;</span><br><span class="line"> **&#x2F;</span><br><span class="line">const nextConfig &#x3D; &#123;</span><br><span class="line">  &#x2F;* config options here *&#x2F;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; nextConfig</span><br></pre></td></tr></table></figure>
+<h2 id="Incremental-type-checking"><a href="#Incremental-type-checking" class="headerlink" title="Incremental type checking"></a>Incremental type checking</h2><p><code>v10.2.1</code>부터 Next.js는 <a href="https://www.typescriptlang.org/tsconfig#incremental" target="_blank" rel="noopener">incremental type checking</a>를 <code>tsconfig.json</code>에서 사용할 수 있도록 지원한다. 이는 대규모 application에서 type checking을 빠르게 할 수 있도록 돕는다. 최소한 <code>v4.3.2</code>이상의 TypeScript를 사용하고 있다면 최고의 성능을 경험하기 위해 이를 사용하는 것이 추천된다.</p>
+<hr>
+<p><em>References</em><br><a href="https://nextjs.org/docs/basic-features/typescript#incremental-type-checking" target="_blank" rel="noopener">Next.js - TypeScript</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javaScript/" rel="tag"># javaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/09/01/210902_axios/" rel="prev" title="Axios">
+      <i class="fa fa-chevron-left"></i> Axios
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#create-next-app-support"><span class="nav-number">1.</span> <span class="nav-text">create-next-app support</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Existing-projects"><span class="nav-number">2.</span> <span class="nav-text">Existing projects</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-Generation-and-Server-side-Rendering"><span class="nav-number">3.</span> <span class="nav-text">Static Generation and Server-side Rendering</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API-Routes"><span class="nav-number">4.</span> <span class="nav-text">API Routes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Custom-App"><span class="nav-number">5.</span> <span class="nav-text">Custom App</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Path-aliases-and-baseUrl"><span class="nav-number">6.</span> <span class="nav-text">Path aliases and baseUrl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Type-checking-next-config-js"><span class="nav-number">7.</span> <span class="nav-text">Type checking next.config.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Incremental-type-checking"><span class="nav-number">8.</span> <span class="nav-text">Incremental type checking</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">101</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
