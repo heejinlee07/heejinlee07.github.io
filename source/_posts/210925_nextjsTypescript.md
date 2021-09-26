@@ -30,7 +30,7 @@ Next.js는 자동으로 이 파일 안에 default values를 설정한다. custom
 
 > Next.js는 TypeScript를 핸들링하기 위해 Babel을 사용하는데 몇가지 [주의사항](https://babeljs.io/docs/en/babel-plugin-transform-typescript#caveats)이 있고 [일부 컴파일러 옵션은 다르게 처리된다.](https://babeljs.io/docs/en/babel-plugin-transform-typescript#typescript-compiler-options)
 
-`next(npm run dev or yarn dev)`를 실행하면, Next.js가 setup을 완료하기 위해 설피가 필요한 패키지를 안내한다.
+`next(npm run dev or yarn dev)`를 실행하면, Next.js가 setup을 완료하기 위해 설치가 필요한 패키지를 안내한다.
 
 ```
 npm run dev
