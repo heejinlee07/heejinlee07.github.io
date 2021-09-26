@@ -144,6 +144,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/25/0225_rubberduck/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/25/0225_rubberduck/" class="post-title-link" itemprop="url">200225 러버덕 정리</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-25 20:07:25" itemprop="dateCreated datePublished" datetime="2020-02-25T20:07:25+09:00">2020-02-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-26 21:31:02" itemprop="dateModified" datetime="2021-09-26T21:31:02+09:00">2021-09-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="연산자-—의-부수효과"><a href="#연산자-—의-부수효과" class="headerlink" title="연산자 ++,—의 부수효과"></a>연산자 ++,—의 부수효과</h2><p>단항 산술 연산자는 이항 산술연산자와는 달리 값을 변경하는 부수효과가 있다.<br>예를 들어 1 + 1 은 값을 변경하는 것이 아니라 2라는 새로운 값을 반환하는 것 뿐이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//a++의 경우 선할당 후증가</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>; <span class="comment">// 1</span></span><br><span class="line">a++; <span class="comment">// 1</span></span><br><span class="line">a; <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//++a의 경우 선증가 후할당</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>; <span class="comment">// 1</span></span><br><span class="line">++a; <span class="comment">// 2</span></span><br><span class="line">a; <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<h2 id="for문의-실행순서"><a href="#for문의-실행순서" class="headerlink" title="for문의 실행순서"></a>for문의 실행순서</h2><p>for문은 조건식이 거짓으로 판별될 때까지 코드 블록을 반복 실행한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (할당문 or 선언문, 조건식, 증감식)</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123;</span><br><span class="line">조건식이 참인 경우 반복 실행될 문;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>할당문 or 선언문 실행(최초 한 번만 실행, 그렇지 않으면 반복될 때마다 값이 초기화됨)</li>
+<li>조건식 실행하여 true/false 판단</li>
+<li>true일 경우 코드블록의 문을 실행</li>
+<li>증감식으로 이동하여 값을 증가함.</li>
+<li>다시 조건식으로 돌아가 true/false 판단 (false라고 판단되었을 때 문의 실행은 종료)</li>
+</ol>
+<h2 id="if문과-삼항연산자"><a href="#if문과-삼항연산자" class="headerlink" title="if문과 삼항연산자"></a>if문과 삼항연산자</h2><p><code>if문</code>: 참/거짓을 판단하여 주어진 조건식의 평가 결과에 따라 코드블록 실행</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식<span class="number">1</span>) &#123;</span><br><span class="line">  <span class="comment">//조건식이 참일 때 실행</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (조건식<span class="number">2</span>) &#123;</span><br><span class="line">  <span class="comment">//조건식이 참일 때 실행 &#123;</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">//조건식1/2가 모두 거짓일 때 실행</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//else if는 여러 번 사용가능.</span></span><br></pre></td></tr></table></figure>
+<p><code>삼항조건연산자</code>: 참/거짓을 판단하여 조건식의 결과에 따른 값을 반환하므로 if문을 대체하여 사용가능<br>조건식 ? 조건식이 참일 때 반환할 값 : 조건식이 거짓일 때 반환할 값</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/200224_object_literal/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +253,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-26 14:18:23" itemprop="dateModified" datetime="2021-09-26T14:18:23+09:00">2021-09-26</time>
+                <time title="Modified: 2021-09-26 21:31:02" itemprop="dateModified" datetime="2021-09-26T21:31:02+09:00">2021-09-26</time>
               </span>
 
           
@@ -241,6 +319,75 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/0224_rubberduck/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/23/0224_rubberduck/" class="post-title-link" itemprop="url">200224 러버덕 정리</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-24T00:00:00+09:00">2020-02-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-26 21:31:02" itemprop="dateModified" datetime="2021-09-26T21:31:02+09:00">2021-09-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="리터럴"><a href="#리터럴" class="headerlink" title="리터럴"></a>리터럴</h2><p>값을 생성하는 가장 간단한 방법<br>사람이 이해할 수 있는 문자로 값을 생성<br>런타임 때 값을 평가하여 생성함</p>
+<h2 id="표현식인-문과-표현식이-아닌-문"><a href="#표현식인-문과-표현식이-아닌-문" class="headerlink" title="표현식인 문과 표현식이 아닌 문"></a>표현식인 문과 표현식이 아닌 문</h2><p>값: 표현식이 평가되어 생성된 결과<br>표현식: 값으로 평가될 수 있는 문<br>문: 컴퓨터에 내리는 명령. 선언문, 할당문, 조건 문 등<br>표현식인 문: 변수에 할당할 수 있는 문으로 값을 생성한다.<br>표현식이 아닌 문: 변수에 할당할 수 없다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//example</span></span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">-&gt;<span class="literal">undefined</span></span><br><span class="line"><span class="comment">//변수 선언문은 표현식이 아닌 문이기 때문에</span></span><br><span class="line"><span class="comment">//평가할 수 없어서 완료된 평가값이 나올 자리에</span></span><br><span class="line"><span class="comment">//평가값 대신 undefined가 출력된다.</span></span><br><span class="line"><span class="comment">//undefined는 평가된 값이 아닌 완료값이다.</span></span><br><span class="line"> a = <span class="number">1</span>;</span><br><span class="line">-&gt;<span class="number">2</span></span><br><span class="line"><span class="comment">//변수 할당문은 표현식인 문이기 때문에 평가된 값 2가 출력된다.</span></span><br></pre></td></tr></table></figure>
+<h2 id="데이터-타입"><a href="#데이터-타입" class="headerlink" title="데이터 타입"></a>데이터 타입</h2><p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
+<p>원시타입은 변경불가하고, 객체는 변경가능하다.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/200224_type_casting/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -272,7 +419,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-26 14:18:23" itemprop="dateModified" datetime="2021-09-26T14:18:23+09:00">2021-09-26</time>
+                <time title="Modified: 2021-09-26 21:31:02" itemprop="dateModified" datetime="2021-09-26T21:31:02+09:00">2021-09-26</time>
               </span>
 
           
@@ -363,75 +510,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/0224_rubberduck/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/23/0224_rubberduck/" class="post-title-link" itemprop="url">200224 러버덕 정리</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-24T00:00:00+09:00">2020-02-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-26 14:18:23" itemprop="dateModified" datetime="2021-09-26T14:18:23+09:00">2021-09-26</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="리터럴"><a href="#리터럴" class="headerlink" title="리터럴"></a>리터럴</h2><p>값을 생성하는 가장 간단한 방법<br>사람이 이해할 수 있는 문자로 값을 생성<br>런타임 때 값을 평가하여 생성함</p>
-<h2 id="표현식인-문과-표현식이-아닌-문"><a href="#표현식인-문과-표현식이-아닌-문" class="headerlink" title="표현식인 문과 표현식이 아닌 문"></a>표현식인 문과 표현식이 아닌 문</h2><p>값: 표현식이 평가되어 생성된 결과<br>표현식: 값으로 평가될 수 있는 문<br>문: 컴퓨터에 내리는 명령. 선언문, 할당문, 조건 문 등<br>표현식인 문: 변수에 할당할 수 있는 문으로 값을 생성한다.<br>표현식이 아닌 문: 변수에 할당할 수 없다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//example</span></span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">-&gt;<span class="literal">undefined</span></span><br><span class="line"><span class="comment">//변수 선언문은 표현식이 아닌 문이기 때문에</span></span><br><span class="line"><span class="comment">//평가할 수 없어서 완료된 평가값이 나올 자리에</span></span><br><span class="line"><span class="comment">//평가값 대신 undefined가 출력된다.</span></span><br><span class="line"><span class="comment">//undefined는 평가된 값이 아닌 완료값이다.</span></span><br><span class="line"> a = <span class="number">1</span>;</span><br><span class="line">-&gt;<span class="number">2</span></span><br><span class="line"><span class="comment">//변수 할당문은 표현식인 문이기 때문에 평가된 값 2가 출력된다.</span></span><br></pre></td></tr></table></figure>
-<h2 id="데이터-타입"><a href="#데이터-타입" class="headerlink" title="데이터 타입"></a>데이터 타입</h2><p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
-<p>원시타입은 변경불가하고, 객체는 변경가능하다.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/21/200222_expression_statement/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -463,7 +541,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-26 14:18:23" itemprop="dateModified" datetime="2021-09-26T14:18:23+09:00">2021-09-26</time>
+                <time title="Modified: 2021-09-26 21:31:02" itemprop="dateModified" datetime="2021-09-26T21:31:02+09:00">2021-09-26</time>
               </span>
 
           
@@ -559,7 +637,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-26 14:18:23" itemprop="dateModified" datetime="2021-09-26T14:18:23+09:00">2021-09-26</time>
+                <time title="Modified: 2021-09-26 21:31:02" itemprop="dateModified" datetime="2021-09-26T21:31:02+09:00">2021-09-26</time>
               </span>
 
           
@@ -666,7 +744,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-26 14:18:23" itemprop="dateModified" datetime="2021-09-26T14:18:23+09:00">2021-09-26</time>
+                <time title="Modified: 2021-09-26 21:31:02" itemprop="dateModified" datetime="2021-09-26T21:31:02+09:00">2021-09-26</time>
               </span>
 
           
@@ -767,7 +845,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-26 14:18:23" itemprop="dateModified" datetime="2021-09-26T14:18:23+09:00">2021-09-26</time>
+                <time title="Modified: 2021-09-26 21:31:02" itemprop="dateModified" datetime="2021-09-26T21:31:02+09:00">2021-09-26</time>
               </span>
 
           
@@ -899,7 +977,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-26 14:18:23" itemprop="dateModified" datetime="2021-09-26T14:18:23+09:00">2021-09-26</time>
+                <time title="Modified: 2021-09-26 21:31:02" itemprop="dateModified" datetime="2021-09-26T21:31:02+09:00">2021-09-26</time>
               </span>
 
           
@@ -1068,7 +1146,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-26 14:18:23" itemprop="dateModified" datetime="2021-09-26T14:18:23+09:00">2021-09-26</time>
+                <time title="Modified: 2021-09-26 21:31:02" itemprop="dateModified" datetime="2021-09-26T21:31:02+09:00">2021-09-26</time>
               </span>
 
           
@@ -1099,131 +1177,6 @@
 <p>const는 재할당을 할 수 없지만 다음과 같이 객체가 할당되면 객체의 프로퍼티는 변경할 수 있다.<br>처음 const a라는 변수에 <code>{num : 3}</code>를 할당한다. 그러면 이 값은 하나의 메모리 공간을 차지하게 된다.<br>이때 a의 num라는 프로퍼티에 접근하여 <code>a.num = 5;</code>라고 값을 할당한 후 a를 참조하면 값이 5로 바뀌어 있다.</p>
 <p>하지만 다음과 같이 코드를 사용하면 const는 재할당을 할 수 없기 때문에 오류가 발생한다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line">a = &#123;</span><br><span class="line">  num: <span class="number">5</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/20/200221_variables/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/20/200221_variables/" class="post-title-link" itemprop="url">변수 / Variables</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-21T00:00:00+09:00">2020-02-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-26 14:18:23" itemprop="dateModified" datetime="2021-09-26T14:18:23+09:00">2021-09-26</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="변수란-무엇인가-왜-필요한가"><a href="#변수란-무엇인가-왜-필요한가" class="headerlink" title="변수란 무엇인가? 왜 필요한가?"></a>변수란 무엇인가? 왜 필요한가?</h2><blockquote>
-<p>변수: 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간을 식별하기 위해 붙인 이름</p>
-</blockquote>
-<ul>
-<li>기억하고 싶은 값을 메모리에 저장하고, 재사용하기 위해 필요하다.</li>
-<li>값의 위치를 가리키는 상징적인 이름</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + <span class="number">2</span>;</span><br><span class="line"><span class="comment">// 3 재사용 불가</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = <span class="number">1</span> + <span class="number">2</span>;</span><br><span class="line">result; <span class="comment">//3 재사용 가능</span></span><br></pre></td></tr></table></figure>
-<p>위와 같이 연산이 이루어질 때 피연산자는 메모리에 피연산자의 값을 저장한다. 연산자는 cpu에서 연산되어 값을 출력한다.</p>
-<ul>
-<li><code>변수명</code>: 메모리 공간에 저장된 값을 식별할 수 있는 고유한 이름</li>
-<li><code>변수 값</code>: 변수에 저장된 값</li>
-<li><code>할당</code>: 변수에 값을 저장</li>
-<li><code>참조</code>: 변수에 저장된 값을 읽어들임.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">변수 키워드 변수명 = 변수 값</span><br><span class="line">변수이름; <span class="comment">//참조</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result= <span class="number">30</span>;</span><br><span class="line">result;</span><br></pre></td></tr></table></figure>
-<h2 id="식별자"><a href="#식별자" class="headerlink" title="식별자"></a>식별자</h2><p>어떤 값을 구별하여 식별해낼 수 있는 고유한 이름, 변수명을 식별자라 하기도 한다.<br><code>var result= 30;</code>이라고 하면 식별자 <code>result</code>는 값 30이 아닌 값 30이 저장된 메모리 주소를 기억하고 있다. <em>따라서 메모리 주소에 붙인 이름이라고 할 수도 있다.</em></p>
-<h2 id="변수-선언"><a href="#변수-선언" class="headerlink" title="변수 선언"></a>변수 선언</h2><p>변수를 생성하는 것. 값을 저장하기 위한 메모리 공간을 확보(할당)하고, 변수명과 확보된 메모리 공간의 주소를 연결하여 값을 저장할 수 있도록 준비하는 것. 변수를 선언할 때는 <code>var, let, const 키워드</code>를 사용하며, 처음 변수가 선언되어 확보된 메모리 공간은 확보가 해제되기 전까지는 누구도 사용할 수 없다.</p>
-<p>단, ES6 이후로는 var 키워드가 가진 <em>의도치 않은 전역변수 선언</em>이라는 부작용 때문에 const나 let을 주로 사용한다.</p>
-<ol>
-<li><code>변수 선언</code>: <code>var result;</code>라고 변수를 선언하면 메모리 공간에 <code>result</code>라는 식별자를 가진 메모리 공간이 확보된다. 이는 변수 이름을 등록하여 JS 엔진에게 변수의 존재를 알리는 것이다.</li>
-<li><code>초기화</code>: 선언 후 아무런 값을 할당하지 않았다면, 메모리 공간은 비어있을 것 같지만, 그렇지 않고 <code>undefined</code>라는 값이 암묵적으로 할당된다. 이를 초기화라 한다.</li>
-</ol>
-<blockquote>
-<p>초기화: 변수 선언 이후 최초로 값을 할당하는 것. 만약 초기화를 거치지 않으면 이전에 다른 어플리케이션이 사용했던 값(Garbage value)이 남아있을 수 있다.</p>
-</blockquote>
-<h2 id="변수-선언의-실행-시점과-변수-호이스팅"><a href="#변수-선언의-실행-시점과-변수-호이스팅" class="headerlink" title="변수 선언의 실행 시점과 변수 호이스팅"></a>변수 선언의 실행 시점과 변수 호이스팅</h2><p><code>변수 호이스팅</code>: 변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(result); <span class="comment">//undefined</span></span><br><span class="line"><span class="keyword">var</span> result;</span><br></pre></td></tr></table></figure>
-<p>위와 같이 <code>var result;</code>라고 선언하기 전에 변수를 먼저 참조하면 코드를 한 줄씩 순차적으로 실행하는 자바스크립트의 특성상 오류가 발생할 것 같지만, 그렇지 않고 <code>undefined</code>라는 값이 출력된다.</p>
-<ol>
-<li><p>자바스크립트 엔진은 코드를 한 줄씩 실행하기 이전(런타임 이전)에 변수 선언문(함수 선언문 등의 모든 선언문)을 찾아내어 먼저 실행한다. <em>따라서 변수 선언문의 위치와 상관없이 런타임 이전에 먼저 실행된다고 할 수 있다.</em></p>
-</li>
-<li><p>선언문을 제외한 나머지 코드가 한줄씩 순차적으로 실행된다.</p>
-</li>
-</ol>
-<h2 id="값의-할당"><a href="#값의-할당" class="headerlink" title="값의 할당"></a>값의 할당</h2><p>할당 연산자를 사용하여 우변의 값을 좌변에 할당한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result; <span class="comment">//변수 선언</span></span><br><span class="line">result = <span class="number">1</span>; <span class="comment">//값의 할당</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = <span class="number">1</span>; <span class="comment">//단축표현. 선언과 할당을 동시에.</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>값을 할당할 때는 이미 주어진 값을 지운 후 새로운 값을 할당한 것이 아니다. 위의 예시를 들자면 변수 선언시 초기화된 값 <code>undefined</code>를 지운 후 그 자리에 1을 할당하는 것이 아니라 새로운 메모리 공간을 확보한 후 그 곳에 값을 저장한다.</p>
-</blockquote>
-<h2 id="값의-재할당"><a href="#값의-재할당" class="headerlink" title="값의 재할당"></a>값의 재할당</h2><p>이미 값이 할당되어 있는 변수에 새로운 값을 할당하는 것. 단, var, let과 달리 const는 재할당이 금지되어 있다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result = <span class="number">1</span>; <span class="comment">//단축표현. 선언과 할당을 동시에.</span></span><br><span class="line">result = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(result); <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
-<p>위와 같이 result라는 변수에 값을 재할당하면 1에서 2로 값이 변경된다. 이때도 역시 1이 있던 공간의 값을 지우고 2를 저장하는 것이 아니라 새로운 메모리 공간을 확보하여 그 곳에 2라는 값을 저장한다.</p>
-<p><code>가비지 컬렉터</code>: 애플리케이션이 할당(allocate)한 메모리 공간을 주기적으로 검사하여 더 이상 사용되고 있지 않는 메모리를 해제(release)하는 기능.</p>
-<blockquote>
-<p>위와 같이 재할당이 이루어지면 result가 가지고 있던 이전의 값인 <code>undefined</code>와 <code>1</code>은 어떤 변수도 가지고 있지 않기 때문에 불필요한 값들이므로 가비지 컬렉터가 메모리에서 자동해제 시킨다. 단 언제 해제되는지는 예측할 수 없다.</p>
-</blockquote>
-<h2 id="두-변수의-값을-교환하는-코드"><a href="#두-변수의-값을-교환하는-코드" class="headerlink" title="두 변수의 값을 교환하는 코드"></a>두 변수의 값을 교환하는 코드</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> y = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">x = <span class="number">2</span>;</span><br><span class="line">y = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//혹은 아래와 같이</span></span><br><span class="line">x = y;</span><br><span class="line">y = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x, y); <span class="comment">// 2 1</span></span><br></pre></td></tr></table></figure>
-<h2 id="식별자-네이밍-규칙"><a href="#식별자-네이밍-규칙" class="headerlink" title="식별자 네이밍 규칙"></a>식별자 네이밍 규칙</h2><ul>
-<li>특수문자를 제외한 문자, 숫자, underscore(_), 달러기호($)는 포함가능</li>
-<li>숫자로 시작해서는 안됨. ex) var 1num;</li>
-<li>예약어(프로그래밍 언어에서 사용되거 있거나 사용될 예정인 단어) 사용금지 (ex. var var;)</li>
-</ul>
-<p><em>자바스크립트는 대소문자를 구별한다. 따라서 <code>var abc;</code>와 <code>var ABC</code>는 별개의 변수이다.</em></p>
-<ul>
-<li>변수나 함수의 이름: 카멜 케이스를 사용. (ex. var firstName;)</li>
-<li>생성자 함수, 클래스의 이름: 파스칼 케이스를 사용 (ex. var FirstName;)</li>
-</ul>
-<hr>
-<p><em>References</em></p>
-<p><a href="https://poiemaweb.com/fastcampus/variable" target="_blank" rel="noopener">Poiemaweb</a></p>
 
       
     </div>
@@ -1309,7 +1262,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">101</span>
+          <span class="site-state-item-count">102</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
