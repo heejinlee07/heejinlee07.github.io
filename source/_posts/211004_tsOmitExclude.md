@@ -30,7 +30,7 @@ type M = keyof Mapish;
 
 ---
 
-## Omit<Type, Keys>
+## Omit\<Type, Keys>
 
 `Type`에서 type을 구성하는 모든 속성을 선택하여 `keys`에 의해 제거될 수 있도록 한다. (key는 string 리터럴이거나 string 리터럴의 유니언이다.)
 
@@ -68,7 +68,7 @@ const todoInfo: TodoInfo
 
 ---
 
-## Exclude<Type, ExcludedUnion>
+## Exclude\<Type, ExcludedUnion>
 
 `Type`으로부터 type을 제외하고 모든 union 멤버가 `ExcludedUnion`으로 할당될 수 있도록 한다.
 
