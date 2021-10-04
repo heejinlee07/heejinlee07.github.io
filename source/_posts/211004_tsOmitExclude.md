@@ -30,7 +30,7 @@ type M = keyof Mapish;
 
 ---
 
-## Omit\<Type, Keys\>
+## `Omit<Type, Keys>`
 
 `Type`에서 type을 구성하는 모든 속성을 선택하여 `keys`에 의해 제거될 수 있도록 한다. (key는 string 리터럴이거나 string 리터럴의 유니언이다.)
 
@@ -68,7 +68,7 @@ const todoInfo: TodoInfo
 
 ---
 
-## Exclude\<Type, ExcludedUnion\>
+## `Exclude<Type, ExcludedUnion>`
 
 `Type`으로부터 type을 제외하고 모든 union 멤버가 `ExcludedUnion`으로 할당될 수 있도록 한다.
 
@@ -109,7 +109,7 @@ interface OmitStudentData {
 }
 ```
 
-> type Omit\<T, K extends string | number | symbol\> = { [P in Exclude\<keyof T, K\>]: T\[P\]; }
+> `type Omit<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P];}`
 
 Omit은 object type인 `StudentInfo`를 취해서 type 중 특정한 타입을 제거한다. 여기서 StudentInfo의 속성 `{ isStudent: boolean, firstName?: string, lastName?: string }`중 key가 'lastName'인 속성을 제거하고자 했다. 따라서 결과는 아래와 같다.
 
@@ -132,7 +132,7 @@ interface ExcludeStudentData {
 }
 ```
 
-> type Exclude\<T, U\> = T extends U ? never : T
+> `type Exclude<T, U> = T extends U ? never : T`
 
 Exclude는 union 멤버의 구성요소를 제거한다. 여기서 Exclude는 Union Type을 취해서 StudentInfo의 Union Type은 `Exclude<'isStudent' | 'firstName' | 'lastName' | 'lastName'>`와 같은 형태가 되는데, `'lastName'`을 제외한 나머지 `<'isStudent' | 'firstName'>`이 union 멤버가 된다. 따라서 결과는 아래와 같다.
 
