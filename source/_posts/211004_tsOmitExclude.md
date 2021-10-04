@@ -8,7 +8,7 @@ tags: TypeScript
 
 Keyof Type Operator는 객체타입을 취하여 key인 stirng 또는 numeric 리터럴 유니언을 생성한다. 아래 예시에서 `type P`는 `“x” | “y”`인 타입과 같다.
 
-```javascript
+```typescript
 type Point = { x: number; y: number };
 type P = keyof Point;
 //type P = “x” | “y”
@@ -16,11 +16,11 @@ type P = keyof Point;
 
 type이 string, 또는 number 인덱스 시그니처가 있으면 keyof가 이 types를 대신 반환한다.
 
-```javascript
+```typescript
 type Arrayish = { [n: number]: unknown };
 type A = keyof Arrayish;
 
-type A = number
+type A = number;
 
 type Mapish = { [k: string]: boolean };
 type M = keyof Mapish;
@@ -34,7 +34,7 @@ type M = keyof Mapish;
 
 `Type`에서 type을 구성하는 모든 속성을 선택하여 `keys`에 의해 제거될 수 있도록 한다. (key는 string 리터럴이거나 string 리터럴의 유니언이다.)
 
-```javascript
+```typescript
 interface Todo {
   title: string;
   description: string;
@@ -42,28 +42,28 @@ interface Todo {
   createdAt: number;
 }
 
-type TodoPreview = Omit<Todo, "description">;
+type TodoPreview = Omit<Todo, 'description'>;
 
 const todo: TodoPreview = {
-  title: "Clean room",
+  title: 'Clean room',
   completed: false,
   createdAt: 1615544252770,
 };
 
 todo;
 
-const todo: TodoPreview
+const todo: TodoPreview;
 
-type TodoInfo = Omit<Todo, "completed" | "createdAt">;
+type TodoInfo = Omit<Todo, 'completed' | 'createdAt'>;
 
 const todoInfo: TodoInfo = {
-  title: "Pick up kids",
-  description: "Kindergarten closes at 5pm",
+  title: 'Pick up kids',
+  description: 'Kindergarten closes at 5pm',
 };
 
 todoInfo;
 
-const todoInfo: TodoInfo
+const todoInfo: TodoInfo;
 ```
 
 ---
@@ -72,7 +72,7 @@ const todoInfo: TodoInfo
 
 `Type`으로부터 type을 제외하고 모든 union 멤버가 `ExcludedUnion`으로 할당될 수 있도록 한다.
 
-```javascript
+```typescript
 type T0 = Exclude<'a' | 'b' | 'c', 'a'>;
 
 type T0 = 'b' | 'c';
@@ -90,22 +90,21 @@ type T2 = string | number;
 
 아래 `StudentInfo`에 대해 Omit과 Exclude를 사용해보면 어떻게 될까?
 
-```javascript
+```typescript
 interface StudentInfo {
-  isStudent: boolean
-  firstName?: string
-  lastName?: string
+  isStudent: boolean;
+  firstName?: string;
+  lastName?: string;
 }
 ```
 
 ### StudentInfo라는 type에 Omit을 사용해보면 다음과 같다.
 
-```javascript
-
+```typescript
 interface OmitStudentData {
-  age: number
-  studentName: keyof Omit<StudentInfo, 'lastName'>
-  memo: string
+  age: number;
+  studentName: keyof Omit<StudentInfo, 'lastName'>;
+  memo: string;
 }
 ```
 
@@ -113,10 +112,10 @@ interface OmitStudentData {
 
 Omit은 object type인 `StudentInfo`를 취해서 type 중 특정한 타입을 제거한다. 여기서 StudentInfo의 속성 `{ isStudent: boolean, firstName?: string, lastName?: string }`중 key가 'lastName'인 속성을 제거하고자 했다. 따라서 결과는 아래와 같다.
 
-```javascript
+```typescript
 interface StudentInfo {
-  isStudent: boolean
-  firstName?: string
+  isStudent: boolean;
+  firstName?: string;
 }
 ```
 
@@ -124,11 +123,11 @@ interface StudentInfo {
 
 ### StudentInfo라는 type에 Exclude를 사용해보면 다음과 같다.
 
-```javascript
+```typescript
 interface ExcludeStudentData {
-  age: number
-  studentName: Exclude<keyof StudentInfo, 'lastName'>
-  memo: string
+  age: number;
+  studentName: Exclude<keyof StudentInfo, 'lastName'>;
+  memo: string;
 }
 ```
 
@@ -136,10 +135,10 @@ interface ExcludeStudentData {
 
 Exclude는 union 멤버의 구성요소를 제거한다. 여기서 Exclude는 Union Type을 취해서 StudentInfo의 Union Type은 `Exclude<'isStudent' | 'firstName' | 'lastName' | 'lastName'>`와 같은 형태가 되는데, `'lastName'`을 제외한 나머지 `<'isStudent' | 'firstName'>`이 union 멤버가 된다. 따라서 결과는 아래와 같다.
 
-```javascript
+```typescript
 interface StudentInfo {
-  isStudent: boolean
-  firstName?: string
+  isStudent: boolean;
+  firstName?: string;
 }
 ```
 
