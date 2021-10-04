@@ -144,7 +144,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/19/210720_oop/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/19/210720_hashset/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -158,7 +158,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/07/19/210720_oop/" class="post-title-link" itemprop="url">개체지향 프로그래밍 (Object Oriented Programming)</a>
+            <a href="/2021/07/19/210720_hashset/" class="post-title-link" itemprop="url">컬렉션 - 해시셋, 컬렉션과 같이 쓰면 유용한 것들</a>
         </h1>
 
         <div class="post-meta">
@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-04 14:43:09" itemprop="dateModified" datetime="2021-10-04T14:43:09+09:00">2021-10-04</time>
+                <time title="Modified: 2021-10-04 14:50:31" itemprop="dateModified" datetime="2021-10-04T14:50:31+09:00">2021-10-04</time>
               </span>
 
           
@@ -189,83 +189,144 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="절차적-언어의-아쉬운-점"><a href="#절차적-언어의-아쉬운-점" class="headerlink" title="절차적 언어의 아쉬운 점"></a>절차적 언어의 아쉬운 점</h2><ul>
-<li>하나의 속성으로 뭉쳐야 할 데이터가 분산되어 각 배열로 관리되게 된다. 예를 들어 <em>몸무게, 키</em>의 속성을 가지는 사람 A, B의 데이터를 관리한다고 할 때, 각각의 속성들이 A라는 사람의 몸무게, 키, B라는 사람의 몸무게, 키로 관리되지 않고, 각각 사람이름 배열, 몸무게 배열, 키 배열로 분산되어 관리된다.</li>
-<li>그렇기 때문에 데이터가 많아지면 관리가 힘들어지고, 실수할 가능성이 높아진다.</li>
+          <ul>
+<li>딕셔너리와 매우 비슷하다. <strong>차이점은 해시셋은 키만 있다는 점이다.</strong></li>
+<li>리스트와 딕셔너리를 쓰는 경우가 거의 90%이므로 거의 쓸 일이 없고, 특별할 때만 쓴다.</li>
+<li>중복 데이터를 제거할 때 가장 쓰기 편하다.</li>
 </ul>
-<h2 id="절차적-언어에-대한-보완점"><a href="#절차적-언어에-대한-보완점" class="headerlink" title="절차적 언어에 대한 보완점"></a>절차적 언어에 대한 보완점</h2><p><u>구조체: 데이터를 그룹으로 묶는다.</u></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;T&gt; &lt;변수명&gt; &#x3D; new HastSet &lt;T&gt;(); &#x2F;&#x2F;T는 저장할 키의 자료형</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt; ();</span><br><span class="line">HastSet&lt;string&gt; studentNames &#x3D; new HashSet &lt;string&gt; ();</span><br></pre></td></tr></table></figure>
+<h2 id="해시셋에-요소-추가하기"><a href="#해시셋에-요소-추가하기" class="headerlink" title="해시셋에 요소 추가하기"></a>해시셋에 요소 추가하기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; HastSet&lt;T&gt;.Add(T data);</span><br></pre></td></tr></table></figure>
 <ul>
-<li>그룹을 마치 하나의 변수처럼 사용한다.</li>
-<li>생성과 동시에 그룹 안의 모든 데이터는 초기화된다.</li>
-<li>기계가 이해하는 데이터 형태는 아니다.</li>
-<li>컴파일러가 알아서 그룹 내의 변수를 선언하는 느낌이다.</li>
+<li><em>해시셋에 <code>없는 키</code>면</em> 새 요소로 추가한 후 참을 반환</li>
+<li><em>해시셋에 <code>있는 키</code>면</em> 거짓을 반환</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;c 언어의 의사 코드</span><br><span class="line">struct Human</span><br><span class="line">&#123;</span><br><span class="line">  int age;</span><br><span class="line">  float height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;함수 어딘가</span><br><span class="line">Human human;</span><br><span class="line">Human.age &#x3D; 10;</span><br><span class="line">Human.height &#x3D; 170.0f;</span><br></pre></td></tr></table></figure>
-<h3 id="절차적-언어-struct-의-한계"><a href="#절차적-언어-struct-의-한계" class="headerlink" title="절차적 언어(struct)의 한계"></a>절차적 언어(struct)의 한계</h3><ul>
-<li>여전히 데이터와 동작이 분리되어 있다.</li>
-<li>함수와 구조체가 여러 개 있다면 어떤 구조체가 어떤 함수와 연관있는지 찾기 귀찮다.</li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;();</span><br><span class="line">bool bSuccess1 &#x3D; studentIDs.Add(123); &#x2F;&#x2F;참</span><br><span class="line">bool bSuccess2 &#x3D; studentIDs.Add(456); &#x2F;&#x2F;참</span><br><span class="line">bool bSuccess3 &#x3D; studentIDs.Add(123); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
+<h2 id="이-요소가-해시셋에-있나요"><a href="#이-요소가-해시셋에-있나요" class="headerlink" title="이 요소가 해시셋에 있나요?"></a>이 요소가 해시셋에 있나요?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bConatin &#x3D; HastSet&lt;T&gt;.Contain(T data);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><em>해시셋에 <code>있는 키</code>면</em> 참을 반환</li>
+<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
 </ul>
-<p><em><u>그렇다면 함수도 하나로 그룹화 하면 되지 않을까?</u></em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">bool bContain1 &#x3D; studentIDs.Contains(123); &#x2F;&#x2F;참</span><br><span class="line">bool bContain2 &#x3D; studentIDs.Contains(178); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
+<h2 id="해시셋-요소-삭제"><a href="#해시셋-요소-삭제" class="headerlink" title="해시셋 요소 삭제"></a>해시셋 요소 삭제</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bRemoved &#x3D; HastSet&lt;T&gt;.Remove(T data);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><em>해시셋에 <code>있는 키</code>면</em> 요소를 삭제한 후 참을 반환</li>
+<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">bool bRemoved1 &#x3D; studentIDs.Remove(123); &#x2F;&#x2F;참</span><br><span class="line">bool bRemoved2 &#x3D; studentIDs.Remove(178); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
+<h2 id="해시셋의-모든-요소-삭제"><a href="#해시셋의-모든-요소-삭제" class="headerlink" title="해시셋의 모든 요소 삭제"></a>해시셋의 모든 요소 삭제</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HastSet&lt;T&gt;.clear();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">studentID.Clear();</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="클래스"><a href="#클래스" class="headerlink" title="클래스"></a>클래스</h2><blockquote>
-<p>커스텀하게 만드는 자료형</p>
-</blockquote>
-<h3 id="1-클래스-만들기"><a href="#1-클래스-만들기" class="headerlink" title="1. 클래스 만들기"></a>1. 클래스 만들기</h3><ul>
-<li>이미 있는 자료형이 아니다.</li>
-<li>Car라고 하는 새로운 자료형을 직접 만든 것이다.</li>
-<li><strong>보통 <code>Car.cs</code>처럼 클래스명을 파일명으로 하고, 별도의 cs파일을 만들어서 클래스를 생성한다.</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class Car</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;Car라는 데이터 타입의 정의</span><br><span class="line">  public int Price;</span><br><span class="line">  public float Gas;</span><br><span class="line">  public string Owner;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>Price, Gas, Owner</em>와 같이 중괄호 안에 작성된 것을 <code>멤버 변수</code>라 한다. 멤버 변수는 클래스 안에서 자유롭게 사용 가능하다. 멤버 변수는 초기화가 되고, 기본값이 0이다. 참조형(string)의 기본값은 null이다.</p>
-<h3 id="2-개체-만들기"><a href="#2-개체-만들기" class="headerlink" title="2. 개체 만들기"></a>2. 개체 만들기</h3><p>클래스를 사용한다는 것은 클래스를 데이터형으로 사용해서 그 데이터형의 변수를 만들 수 있다는 의미이다. <strong>즉 개체를 만든다는 의미이다.</strong></p>
-<blockquote>
-<p>&lt;클래스 이름&gt; &lt;변수명&gt; = new &lt;클래스 이름&gt;();</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;메인함수</span><br><span class="line">&#x2F;&#x2F;Program.cs</span><br><span class="line">Car car &#x3D; new Car();</span><br></pre></td></tr></table></figure>
+<h2 id="해시셋의-요소-가져오기"><a href="#해시셋의-요소-가져오기" class="headerlink" title="해시셋의 요소 가져오기"></a>해시셋의 요소 가져오기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; HastSet&lt;T&gt;.TryGetValue(T Key, out T key);</span><br></pre></td></tr></table></figure>
 <ul>
-<li>새로운 &lt;클래스 이름&gt;형의 데이터를 만든다.</li>
-<li><code>클래스로 정의된 형에 맞는 구체적인 데이터를 개체라고 한다.</code></li>
-<li><strong>C#에서는 new를 통해서만 개체를 만들 수 있다.</strong></li>
+<li><em>해시셋에 <code>있는 키</code>면</em> 요소를 키에 연결된 요소를 out 매개변수에 대압하고 참을 반환</li>
+<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
 </ul>
-<h3 id="3-개체의-멤버에-접근하기"><a href="#3-개체의-멤버에-접근하기" class="headerlink" title="3. 개체의 멤버에 접근하기"></a>3. 개체의 멤버에 접근하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;메인함수</span><br><span class="line">&#x2F;&#x2F;Program.cs</span><br><span class="line">Car car &#x3D; new Car();</span><br><span class="line">car.Owner &#x3D; &quot;Alex&quot;;</span><br><span class="line">car.Price &#x3D; 2000;</span><br><span class="line">car.Gas &#x3D; 60.0f;</span><br></pre></td></tr></table></figure>
-<p>여기에 동작(함수)를 추가해야 한다.</p>
-<h3 id="4-메서드-동작-함수-추가"><a href="#4-메서드-동작-함수-추가" class="headerlink" title="4. 메서드 - 동작(함수) 추가"></a>4. 메서드 - 동작(함수) 추가</h3><blockquote>
-<p>메서드(맴버 함수)</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class Car</span><br><span class="line">&#123;</span><br><span class="line">  public int Price;</span><br><span class="line">  public float Gas;</span><br><span class="line">  public string Owner;</span><br><span class="line"></span><br><span class="line">  public void Move()</span><br><span class="line">  &#123;</span><br><span class="line">    Gas -&#x3D; 0.5f;</span><br><span class="line">    Console.WriteLine($&quot;Move! \n (Gas: &#123;Gas&#125;L left)&quot;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public void Honk()</span><br><span class="line">  &#123;</span><br><span class="line">    Console.WriteLine(&quot;honk&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>메서드는 개체의 행위들을 말한다.</strong></li>
-<li>클래스 안에서 선언한 함수</li>
-<li>클래스 안에서 자유롭게 사용할 수 있고, 같은 클래스의 멤버 변수에 접근 가능하다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;메인함수</span><br><span class="line">&#x2F;&#x2F;Program.cs</span><br><span class="line">Car car &#x3D; new Car();</span><br><span class="line">car.Owner &#x3D; &quot;Alex&quot;;</span><br><span class="line">car.Price &#x3D; 2000;</span><br><span class="line">car.Gas &#x3D; 60.0f;</span><br><span class="line"></span><br><span class="line">myCar.Move();</span><br><span class="line">myCar.Honk();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">int id;</span><br><span class="line">bool bSuccess &#x3D; studentIDs.TryGetValue(456, out iff)</span><br></pre></td></tr></table></figure>
 <hr>
-<p>클래스 생성 후 다음과 같은 경우 문제가 생길 수 있다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">&#x2F;&#x2F;Program.cs</span><br><span class="line">Car car &#x3D; new Car();</span><br><span class="line">car.Gas &#x3D; 50.0f;</span><br><span class="line"></span><br><span class="line">Console.WriteLine($&quot;Price is &#123;car.Price&#125;&quot;);</span><br></pre></td></tr></table></figure>
-<p>여기서 출력결과는 <code>Price is 0</code>이다. Price가 0이 나온 이유는 개체 생성 후 깜빡하고 데이터를 대입하지 않았기 때문이다. <em>이처럼 개체 생성 후 깜빡하고 데이터를 대입 안 할 경우 에기치 못한 문제가 발생할 수 있다.</em></p>
-<p><u>생성자를 쓰면 이러한 문제를 해결할 수 있다.</u></p>
-<h2 id="생성자"><a href="#생성자" class="headerlink" title="생성자"></a>생성자</h2><blockquote>
-<p>개체가 만들어질 때 자동으로 호출되는 특정한 함수</p>
-<blockquote>
-<p>public &lt;클래스명&gt; (&lt;매개변수 리스트&gt;) {}</p>
-</blockquote>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;Car.cs</span><br><span class="line">public class Car</span><br><span class="line">&#123;</span><br><span class="line">  public Car(int price)</span><br><span class="line">  &#123;</span><br><span class="line">    Price &#x3D; price;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Program.cs</span><br><span class="line">Car car1 &#x3D; new Car(200); &#x2F;&#x2F;ok</span><br><span class="line">Car car2 &#x3D; new Car() &#x2F;&#x2F;컴파일 오류</span><br></pre></td></tr></table></figure>
+<h2 id="컬렉션과-같이-쓰면-유용한-것들"><a href="#컬렉션과-같이-쓰면-유용한-것들" class="headerlink" title="컬렉션과 같이 쓰면 유용한 것들"></a>컬렉션과 같이 쓰면 유용한 것들</h2><p>리스트를 예로 들어, 순차적으로 요소를 탐색할 때 i가 왜 필요한지에 대한 의문이 생긴다. 또 부등호를 잘못 쓰는 것처럼 실수할 가능성도 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5);</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt; names.Count; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Name: &#123;names[i]&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h3><p>어떤 컬렉션이든 순회할 수 있는 방법이 있으면서 실수를 방지하는 좋은 방법이 바로 <code>foreach</code>이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreach (T&lt;변수명&gt; in List&lt;T&gt;)</span><br></pre></td></tr></table></figure>
 <ul>
-<li>생성자 개체를 생성할 때(new) 반드시 호출되는 함수</li>
-<li><code>함수명으로 클래스명을 쓴다.</code></li>
-<li>반환형은 아예 적지 않는다.</li>
-<li>생성에 필요한 매개변수를 강제할 수 있다.</li>
-<li>생성자는 여러 개를 써도 된다.</li>
+<li>foreach 문 안의 T는 리스트 선안할 때 사용한 자료형이다.</li>
+<li>&lt;변수명&gt;은 foreach 문 범위에서만 사용된다.</li>
 </ul>
-<p><u>하지만 생성자를 써도 문제가 발생할 수 있다.</u><br>클래스에 있는 모든 개체가 특정한 동일한 값을 가져야 하는 경우가 있을 수 있다. 예시처럼 Car의 첫 가격이 항상 2000이어야 하는 경우. 아래 코드를 보면 모든 차의 가격이 2000이어야 하는데, 개발자가 실수로 20을 입력한다면 car3의 가격은 20이 된다. 즉 예기치 못한 결과를 얻게 된다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class Car</span><br><span class="line">&#123;</span><br><span class="line">  public Car(int price)</span><br><span class="line">  &#123;</span><br><span class="line">    Price &#x3D; price;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Car car1 &#x3D; new Car(2000);</span><br><span class="line">Car car2 &#x3D; new Car(2000);</span><br><span class="line">Car car3 &#x3D; new Car(20);</span><br></pre></td></tr></table></figure>
-<h3 id="생성자-안에서-상수를-바로-대입"><a href="#생성자-안에서-상수를-바로-대입" class="headerlink" title="생성자 안에서 상수를 바로 대입"></a>생성자 안에서 상수를 바로 대입</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Car</span><br><span class="line">&#123;</span><br><span class="line">  public int Price;</span><br><span class="line">  &#x2F;&#x2F;...</span><br><span class="line"></span><br><span class="line">  public Car(int price)</span><br><span class="line">  &#123;</span><br><span class="line">    Price &#x3D; 500000;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Program.cs</span><br><span class="line">Car car1 &#x3D; new Car();</span><br><span class="line">Car car2 &#x3D; new Car();</span><br><span class="line">Car car3 &#x3D; new Car();</span><br></pre></td></tr></table></figure>
-<p>만약 생성자를 만들지 않았다면 기본적인 생성자는 있다고 가정한다. 따라서 car1, car2, car3의 값은 0이다. 이처럼 생성자를 만들지 않았다면 new Car()로 사용할 수 있고, 중간에 <code>Car(int price)</code>와 같은 값을 넣었다면 컴파일이 되지 않는다. 즉 생성자에 어떠한 값을 넣기 시작하면 기본 설정한 생성자는 사라져버린다.</p>
-<p>위 방법보다 조금 더 나은 방법은 애초에 Car 클래스에서 개체를 만들 때 5000을 넣어준다. 이렇게 하면 생성자를 만들지 않아도 컴파일 에러가 나지 않고, 모든 Car의 Price는 5000이다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public class Car</span><br><span class="line">&#123;</span><br><span class="line">  public int Price &#x3D; 5000;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="리스트와-foreach문"><a href="#리스트와-foreach문" class="headerlink" title="리스트와 foreach문"></a>리스트와 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(4096);</span><br><span class="line"></span><br><span class="line">foreach (string name in names)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="딕셔너리와-foreach문"><a href="#딕셔너리와-foreach문" class="headerlink" title="딕셔너리와 foreach문"></a>딕셔너리와 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foreach (KeyValuePair&lt;TKey, TValue&gt; &lt;변수명&gt; in Dictionary&lt;TKey, TValue&gt;)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>KeyValuePair<TKey, TValue>의 TKey, TValue는 각각 딕셔너리를 선언할 때 사용한 키와 값의 자료형이다.</li>
+<li>&lt;변수명&gt;은 foreach 문 범위에서만 사용된다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line"></span><br><span class="line">foreach (KeyValuePair&lt;string, string&gt; score in students)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WrtieLine($&quot;key: &#123;score.key&#125;, value: &#123;score.Value&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="배열-과-foreach문"><a href="#배열-과-foreach문" class="headerlink" title="배열([])과 foreach문"></a>배열([])과 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreach (T &lt;변수명&gt; in T[])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">float scores &#x3D; &#123;30.5f, 41.0f&#125;</span><br><span class="line"></span><br><span class="line">foreach (float score in scores)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(score);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="var"><a href="#var" class="headerlink" title="var"></a>var</h3><p>딕셔너리 foreach문이 작성해야하는 코드가 길고, 매번 keyValuePair<TKey, TValue>를 써야한다는 문제점을 var가 해결해준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line"></span><br><span class="line">foreach (var score in students)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Key: &#123;score.key&#125;, value: &#123;score.value&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>묵시적 자료형 : 컴파일러가 알아서 자료형을 추론해줌.</li>
+<li><strong>지역 변수</strong>에서만 사용 가능.</li>
+<li>긴 자료형을 짧게 줄여준다.</li>
+<li><strong>반드시 선언과 동시에 대입해주어야 한다.</strong></li>
+<li>대입하는 값을 통해 명백하게 자료형을 알 수 있을 때만 사용한다.</li>
+</ul>
 <hr>
 <p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/18/210720_tsInterface/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/18/210720_tsInterface/" class="post-title-link" itemprop="url">타입스크립트의 인터페이스, 함수</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-19T00:00:00+09:00">2021-07-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-10-04 14:50:31" itemprop="dateModified" datetime="2021-10-04T14:50:31+09:00">2021-10-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="인터체이스"><a href="#인터체이스" class="headerlink" title="인터체이스"></a>인터체이스</h2><blockquote>
+<p>상호 간에 정의한 약속 혹은 규칙. 보통 다음과 같은 범주에 대해 약속을 정의할 수 있다.</p>
+</blockquote>
+<ul>
+<li>객체의 스펙(속성과 속성의 타입)</li>
+<li>함수의 파라미터</li>
+<li>함수의 스펙(파라미터, 반환 타입 등)</li>
+<li>배열과 객체를 접근하는 방식</li>
+<li>클래스</li>
+</ul>
+<p>typeScript의 핵심 원칙 중 하나는 <code>덕 타이핑</code> 또는 <code>구조적 서브타이핑</code>이다. 타입 검사가 <code>값의 형태에 초점</code>을 맞추고 있다는 것이다. 인터페이스는 이런 타입들의 이름을 짓고, 코드 안의 계약을 정의하고, 프로젝트 외부에서 사용하는 코드의 계약을 정의한다.</p>
 
       
     </div>
@@ -316,7 +377,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-04 14:43:09" itemprop="dateModified" datetime="2021-10-04T14:43:09+09:00">2021-10-04</time>
+                <time title="Modified: 2021-10-04 14:50:31" itemprop="dateModified" datetime="2021-10-04T14:50:31+09:00">2021-10-04</time>
               </span>
 
           
@@ -401,81 +462,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/18/210720_tsInterface/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/18/210720_tsInterface/" class="post-title-link" itemprop="url">타입스크립트의 인터페이스, 함수</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-19T00:00:00+09:00">2021-07-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-04 14:43:09" itemprop="dateModified" datetime="2021-10-04T14:43:09+09:00">2021-10-04</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="인터체이스"><a href="#인터체이스" class="headerlink" title="인터체이스"></a>인터체이스</h2><blockquote>
-<p>상호 간에 정의한 약속 혹은 규칙. 보통 다음과 같은 범주에 대해 약속을 정의할 수 있다.</p>
-</blockquote>
-<ul>
-<li>객체의 스펙(속성과 속성의 타입)</li>
-<li>함수의 파라미터</li>
-<li>함수의 스펙(파라미터, 반환 타입 등)</li>
-<li>배열과 객체를 접근하는 방식</li>
-<li>클래스</li>
-</ul>
-<p>typeScript의 핵심 원칙 중 하나는 <code>덕 타이핑</code> 또는 <code>구조적 서브타이핑</code>이다. 타입 검사가 <code>값의 형태에 초점</code>을 맞추고 있다는 것이다. 인터페이스는 이런 타입들의 이름을 짓고, 코드 안의 계약을 정의하고, 프로젝트 외부에서 사용하는 코드의 계약을 정의한다.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/17/210718_dictionary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -507,7 +493,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-04 14:43:09" itemprop="dateModified" datetime="2021-10-04T14:43:09+09:00">2021-10-04</time>
+                <time title="Modified: 2021-10-04 14:50:31" itemprop="dateModified" datetime="2021-10-04T14:50:31+09:00">2021-10-04</time>
               </span>
 
           
@@ -665,7 +651,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-04 14:43:09" itemprop="dateModified" datetime="2021-10-04T14:43:09+09:00">2021-10-04</time>
+                <time title="Modified: 2021-10-04 14:50:31" itemprop="dateModified" datetime="2021-10-04T14:50:31+09:00">2021-10-04</time>
               </span>
 
           
@@ -830,7 +816,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-04 14:43:09" itemprop="dateModified" datetime="2021-10-04T14:43:09+09:00">2021-10-04</time>
+                <time title="Modified: 2021-10-04 14:50:31" itemprop="dateModified" datetime="2021-10-04T14:50:31+09:00">2021-10-04</time>
               </span>
 
           
@@ -1187,7 +1173,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-04 14:43:09" itemprop="dateModified" datetime="2021-10-04T14:43:09+09:00">2021-10-04</time>
+                <time title="Modified: 2021-10-04 14:50:31" itemprop="dateModified" datetime="2021-10-04T14:50:31+09:00">2021-10-04</time>
               </span>
 
           
@@ -1297,7 +1283,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-04 14:43:09" itemprop="dateModified" datetime="2021-10-04T14:43:09+09:00">2021-10-04</time>
+                <time title="Modified: 2021-10-04 14:50:31" itemprop="dateModified" datetime="2021-10-04T14:50:31+09:00">2021-10-04</time>
               </span>
 
           
@@ -1466,7 +1452,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-04 14:43:09" itemprop="dateModified" datetime="2021-10-04T14:43:09+09:00">2021-10-04</time>
+                <time title="Modified: 2021-10-04 14:50:31" itemprop="dateModified" datetime="2021-10-04T14:50:31+09:00">2021-10-04</time>
               </span>
 
           
@@ -1630,7 +1616,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/03/210704_stringSeparated/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/03/210704_functionOverLoad/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1644,7 +1630,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/07/03/210704_stringSeparated/" class="post-title-link" itemprop="url">문자열 분할</a>
+            <a href="/2021/07/03/210704_functionOverLoad/" class="post-title-link" itemprop="url">함수 오버로딩</a>
         </h1>
 
         <div class="post-meta">
@@ -1661,7 +1647,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-04 14:43:09" itemprop="dateModified" datetime="2021-10-04T14:43:09+09:00">2021-10-04</time>
+                <time title="Modified: 2021-10-04 14:50:31" itemprop="dateModified" datetime="2021-10-04T14:50:31+09:00">2021-10-04</time>
               </span>
 
           
@@ -1675,111 +1661,66 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="문자열-분할"><a href="#문자열-분할" class="headerlink" title="문자열 분할"></a>문자열 분할</h2><p>게임 몬스터 데이터를 읽어와야한다고 가정한다. 각 몬스터는 어떤 특정한 정형화된 형식을 만들어야 프로그램으로 읽을 수 있다.</p>
-<p><strong><u>1. 키와 값</u></strong><br>키가 어떤 용도의 데이터인지 알려준다. 파일 안에서 순서가 바뀌어도 상관없다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;name, HP, MP의 키값으로 데이터를 찾기 때문에 순서가 바뀌어도 상관없다.</span><br><span class="line">name: &quot;Pokemon&quot;</span><br><span class="line">HP:1</span><br><span class="line">MP: 1000</span><br></pre></td></tr></table></figure>
-<p>위의 경우 보통 한 몬스터의 데이터만 한 파일 안에 저장한다. 만약 여러 몬스터 데이터를 저장해야 한다면 방법은 아래 두 가지가 있다.</p>
-<ul>
-<li>몬스터 하나당 파일 하나: 파일이 너무 많아진다는 단점이 있고, 이는 성능저하의 원인이 된다.</li>
-<li>한 파일에 배열과 같은 형태로 집어 넣는다: XML 또는 아래 코드와 같은 JSON 형태<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"monstars"</span>: [</span><br><span class="line">    &#123;<span class="attr">"name"</span>: <span class="string">"Pokemon1"</span>, <span class="attr">"HP"</span>:<span class="number">1</span>, <span class="attr">"MP"</span>: <span class="number">1000</span>&#125;</span><br><span class="line">    &#123;<span class="attr">"name"</span>: <span class="string">"Pokemon2"</span>, <span class="attr">"HP"</span>:<span class="number">2</span>, <span class="attr">"MP"</span>: <span class="number">2000</span>&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h2 id="함수-오버로딩"><a href="#함수-오버로딩" class="headerlink" title="함수 오버로딩"></a>함수 오버로딩</h2><ul>
+<li>동일한 이름을 가진 함수 구현을 허용</li>
+<li>단, 매개변수 목록이 달라야 한다.</li>
+<li>하나의 시그니처를 가진 함수는 하나만 있어야 하고, 시그니처는 함수의 이름과 매개변수를 포함한다. 즉 매개변수와 함수의 이름이 전부 같지 않으면 다른 함수로 여긴다. <strong>반환형은 시그니처의 일부가 아니므로 다르더라도 오버로딩이 허용이 안된다.</strong> e.g. void A(), int A()는 허용되지 않는다.</li>
+<li>매개변수가 다르다 =&gt; <code>오버로딩OK</code></li>
+<li>승격/묵시적 변환을 해도 상관없다 =&gt; <code>오버로딩OK</code></li>
+<li>매개변수가 아예 승격이 불가능 한 경우 =&gt; <code>오버로딩OK</code><ul>
+<li>static string[] GetStudents(string name) //함수 바디 생략</li>
+<li>static string[] GestStudents(int age) //함수 바디 생략</li>
+</ul>
 </li>
 </ul>
-<p><strong><u>2. 표</u></strong><br>정형화된 다수의 데이터를 한 곳에 저장하기 용이하다. 아래 표처럼 엑셀과 같은 형태. 열 색인으로 어떤 용도의 데이터인지 결정한다. 순서를 바꿀 수는 없다.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>name</th>
-<th>HP</th>
-<th>MP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pokemon1</td>
-<td>1</td>
-<td>1000</td>
-</tr>
-<tr>
-<td>pokemon2</td>
-<td>2</td>
-<td>2000</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>표의 형태를 사용하는 경우 흔히 <code>엑셀파일</code>을 이용한다. 엑셀파일은 텍스트 파일이 아니기 때문에 CSV(comma-separated values)파일로 저장 가능하다. CSV는 텍스트 파일이며 각 값은 아래와 같이 쉼표로 분리된다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name, HP, MP</span><br><span class="line">pokemon1, 1, 1000</span><br><span class="line">pokemon2, 2, 2000</span><br></pre></td></tr></table></figure>
-<p>몬스터 CSV데이터를 읽는 의사 코드</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">string[] lines &#x3D;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;pokemon1,1,1000&quot;,</span><br><span class="line">  &quot;pokemon2,2,2000&quot;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt;lines; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  string line &#x3D; lines[i];</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;for 문을 써서 문자열을 읽어온 뒤 string[] tokens에 저장</span><br><span class="line"></span><br><span class="line">  Console.WriteLine($&quot;몬스터 경고: tokens[0] (HP: &#123;tokens[1]&#125;, MP: &#123;tokens[2]&#125;)&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static void Print(int score);               &#x2F;&#x2F; (1)</span><br><span class="line">static void Print(string name);             &#x2F;&#x2F; (2)</span><br><span class="line">static void Print(float gpa, string name);  &#x2F;&#x2F; (3)</span><br><span class="line">static int Print(int score);                &#x2F;&#x2F; (4)</span><br><span class="line">static int Print(float gpa);                &#x2F;&#x2F; (5)</span><br></pre></td></tr></table></figure>
+<p>(4)에서 컴파일 오류가 발생하고 나머지는 모두 문제 없다. (4)는 반환형이 오버로딩을 허용하지 않기 때문에 컴파일 오류가 발생한다.</p>
+<h2 id="함수-오버로딩의-장점"><a href="#함수-오버로딩의-장점" class="headerlink" title="함수 오버로딩의 장점"></a>함수 오버로딩의 장점</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">static float AverageFromInts(int[] scores); &#x2F;&#x2F;함수 바디 생략</span><br><span class="line">static float AverageFromFloats(float[] floats) &#x2F;&#x2F;함수 바디 생략</span><br></pre></td></tr></table></figure>
+<p>위 두 함수의 경우 FromInts, Fromfloat가 없어도 매개변수 형에서 어떤 함수인지 유추 가능하다.</p>
+<h2 id="함수-오버로딩의-문제점"><a href="#함수-오버로딩의-문제점" class="headerlink" title="함수 오버로딩의 문제점"></a>함수 오버로딩의 문제점</h2><blockquote>
+<p>잘못된 함수 호출이 일어날 수 있다.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">static string[] GetStudents(float height); &#x2F;&#x2F; 함수 바디 생략</span><br><span class="line">static string[] GetStudents(int age); &#x2F;&#x2F;함수 바디 생략</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 메인 함수</span><br><span class="line">int height &#x3D; 175;</span><br><span class="line">GetStudents(height); &#x2F;&#x2F;GetStudents(int age)가 호출됨.</span><br><span class="line">GetStudents(175); &#x2F;&#x2F;GetStudents(int age)가 호출됨.</span><br></pre></td></tr></table></figure>
+<p>동일한 매개변수 함수가 없다면 승격/묵시적 형변환을 통해 일치하는 함수를 찾는다. 만약 원래 있던 코드 <code>static string[] GetStudents(int age); //함수 바디 생략</code>가 더이상 필요치 않게 되어 삭제했다고 가정한다. 그런데 알고보니 GetStudents(age);와 같이 나이를 호출하던 코드가 남아있었던 것이다. <strong>이때 int age는 float height로 묵시적 변환이 된다.</strong> 따라서 예상치 못하게 age가 아닌 heigth가 17인 학생을 찾게 된다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">static string[] GetStudents(float height); &#x2F;&#x2F;함수 바디 생략</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">int age &#x3D; 17;</span><br><span class="line">GetStudents(age); &#x2F;&#x2F;GetStudents(float height)가 호출됨.</span><br><span class="line">GetStudents(17); &#x2F;&#x2F;GetStudents(float height)가 호출됨.</span><br></pre></td></tr></table></figure>
+<p>잘못된 함수 호출을 방지하기 위해서 위와 같은 경우에서는 오버로딩을 쓰지 않는 것이 더 좋다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">static string[] GetStudentsByHeight(float height); &#x2F;&#x2F;함수 바디 생략</span><br><span class="line">static string[] GetStudentsByAge(int age); &#x2F;&#x2F;함수 바디 생략</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">int height &#x3D; 180;</span><br><span class="line">GetStudentsByHeight(height); &#x2F;&#x2F;int가 float로 컴파일 됨</span><br><span class="line">GetStudentsByHeight(170.3f); &#x2F;&#x2F;float니까 문제없이 컴파일 됨</span><br><span class="line">GetStudentsByAge(17); &#x2F;&#x2F;int니까 컴파일 됨</span><br><span class="line">GetStudentsByAge(170.3f); &#x2F;&#x2F;float에서 int는 불가능하므로 컴파일 에러 발생</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="토큰을-읽어오는-법"><a href="#토큰을-읽어오는-법" class="headerlink" title="토큰을 읽어오는 법"></a>토큰을 읽어오는 법</h2><blockquote>
-<p>토큰: 연속된 데이터에서 쪼갤 수 있는 가장 작은 단위</p>
-</blockquote>
+<h2 id="기본값-인자"><a href="#기본값-인자" class="headerlink" title="기본값 인자"></a>기본값 인자</h2><ul>
+<li>중복되는 매개변수가 많거나 약간의 차이만 가지고 있는 함수는 기본값 인자를 사용할 수 있다.</li>
+<li>매개변수를 선언할 때 미리 기본값을 정해둔다.</li>
+<li><p>매개변수는 히나 이상 가능하다.</p>
 <ul>
-<li>별도의 for문이 필요</li>
-<li>string의 <code>IndexOf()</code>, <code>Substring()</code> 등의 함수 또는 첨자 연산자([])를 이용해서 구현 가능</li>
+<li>매개변수의 목록 중간에 기본값 인자가 아닌 것이 오면 안된다.</li>
+<li>매개변수의 기본값 인자는 가장 마지막에 있어야 한다.</li>
 </ul>
-<h3 id="IndexOf"><a href="#IndexOf" class="headerlink" title="IndexOf()"></a>IndexOf()</h3><blockquote>
-<p>&lt;문자열 변수 이름&gt;.IndexOf(char);</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string message &#x3D; &quot;C# is very very fun!&quot;;</span><br><span class="line">int index &#x3D; message.IndexOf(&#39;v&#39;); &#x2F;&#x2F;6 반환</span><br></pre></td></tr></table></figure>
-<p><strong>char의 위치를 찾아서 색인을 반환하는 함수</strong></p>
-<ul>
-<li>문자가 문자열에 여러 번 나타나면 가장 처음에 나타난 곳의 색인을 반환한다.</li>
-<li>찾는 문자가 문자열에 없다면 <code>-1</code>을 반환한다.</li>
-<li>LastIndexOf()는 찾고자 하는 문자열이 가장 마지막에서부터 처음 나타난 곳의 색인을 반환하다.</li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;기본값 인자 difficulty &#x3D; 0이 마지막이 아니라 중간에 있으므로 컴파일 에러 발생</span><br><span class="line">static string GetHP(int level, int mapID, int difficulty &#x3D; 0, string name);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;OK</span><br><span class="line">static string GetHP(int level, int mapID, string name, int difficulty &#x3D; 0);</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="Substring"><a href="#Substring" class="headerlink" title="Substring()"></a>Substring()</h3><blockquote>
-<p>&lt;문자열 변수 이름&gt;.Substring(&lt;색인&gt;);</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string nameMessage &#x3D; &quot;name: pokeMon&quot;;</span><br><span class="line">string name &#x3D; namemessage.Substring(6); &#x2F;&#x2F;pokeMon 반환</span><br></pre></td></tr></table></figure>
-<p><strong>지정된 문자 위치(&lt;색인&gt;)에서부터의 문자열을 반환하는 함수</strong></p>
-<h3 id="첨자-연산자"><a href="#첨자-연산자" class="headerlink" title="첨자 연산자([])"></a>첨자 연산자([])</h3><blockquote>
-<p>&lt;문자열 변수 이름&gt;[&lt;색인&gt;];</p>
-</blockquote>
-<p>for문을 돌린다고 가정하면 각 문자열이 어느 위치에 들어있는 지 알아야 하고, 이럴 때 첨자 연산자를 사용한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string HPMessage &#x3D; &quot;HP: 100&quot;;</span><br><span class="line">char ch &#x3D; HPMessage[4]; &#x2F;&#x2F; &#39;1&#39;</span><br></pre></td></tr></table></figure>
-<p><strong>&lt;색인&gt; 위치에 있는 문자 하나를 반환한다.</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;함수 호출 시 선택적 호출</span><br><span class="line">&#x2F;&#x2F;GetFullAddress에 state가 있으면 그 매개변수를 쓰고, 없으면 &quot;&quot;를 쓴다.</span><br><span class="line">&#x2F;&#x2F;GetHP에 difficulty가 있으면 그 매개변수를 쓰고, 없으면 0을 쓴다.</span><br><span class="line">static string GetFullAddress(string street, string city, string state &#x3D; &quot;&quot;);</span><br><span class="line">static float GetHP(int level, int mapID, int difficulty &#x3D; 0);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;메인함수</span><br><span class="line">GetFullAddress(&quot;123 main street&quot;, &quot;big city&quot;, &quot;big state&quot;); &#x2F;&#x2F;ok</span><br><span class="line">GetFullAddress(&quot;456 main street&quot;, &quot;seoul&quot;); &#x2F;&#x2F;ok</span><br><span class="line"></span><br><span class="line">GetHP(1, 1234, 10); &#x2F;&#x2F; OK</span><br><span class="line">GetHP(1, 1234); &#x2F;&#x2F; OK</span><br><span class="line">GetHP(1, 1234, 0); &#x2F;&#x2F; OK</span><br></pre></td></tr></table></figure>
+<h2 id="기본갑-인자의-문제점"><a href="#기본갑-인자의-문제점" class="headerlink" title="기본갑 인자의 문제점"></a>기본갑 인자의 문제점</h2><p><u>나중에 누군가 기본값 인자를 중간에 추가할 때 이상한 일이 일어날 수 있다.</u></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;원래코드</span><br><span class="line">static float GetHP(int level, int mapID, int difficulty &#x3D; 0);</span><br><span class="line">&#x2F;&#x2F;추가된 코드</span><br><span class="line">static float GetHP(int level, int mapID, int decimalPoint &#x3D; 1, int difficulty &#x3D; 0);</span><br></pre></td></tr></table></figure>
+<p><code>int difficulty = 0</code>이 한 자리 뒤로 밀리고, 그 자리에 <code>int decimalPoint = 1</code>이 들어왔다. 이렇게 되면 difficulty의 숫자를 바꾸어도 수치가 눈에 띄게 안바뀐다. 즉 예상치 못한 값을 얻게 된다. <code>GetHP(10, 2456, 2);</code>를 호출했을 때 <strong>level: 10, mapID: 2456, difficulty:2</strong>인 결과를 의도했는데, <strong>level: 10, mapID: 2456, <code>difficulty:0</code></strong>, HP는 소수점 둘째자리에서 반올림 된다.</p>
+<p><u>기본값 인자가 도중에 변경될 경우, 기존에 사용중인 코드에서 문제가 발생할 수 있다.</u></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;원래코드</span><br><span class="line">static float GetHP(int level, int mapID, int difficulty &#x3D; 0);</span><br><span class="line">&#x2F;&#x2F;추가된 코드</span><br><span class="line">static float GetHP(int level, int mapID, int difficulty &#x3D; 1);</span><br></pre></td></tr></table></figure>
+<p><code>GetHP(10, 2456);</code>이나 <code>GetHP(10, 2456, 1);</code> 모두 동일한 HP를 반환한다.</p>
+<h2 id="기본인자값의-코딩표준"><a href="#기본인자값의-코딩표준" class="headerlink" title="기본인자값의 코딩표준"></a>기본인자값의 코딩표준</h2><ul>
+<li>새 기본 매개변수는 언제나 가장 뒤에 위치해야 한다.(중간에 삽입하지 않는다.)</li>
+<li>기본값은 언제나 0으로 한다. 0이 아닌 경우 기본 매개변수로 사용하지 않는다.</li>
+<li>함수 오버로딩 대신 실제 함수 이름을 제대로 써주는 것이 좋을 때도 있음을 기억한다.(매개변수를 직접 넣어준다.)</li>
+</ul>
 <hr>
-<h2 id="문자열-토크나이저"><a href="#문자열-토크나이저" class="headerlink" title="문자열 토크나이저"></a>문자열 토크나이저</h2><h2 id="Split"><a href="#Split" class="headerlink" title="Split()"></a>Split()</h2><blockquote>
-<p>&lt;문자열 변수 이름&gt;.Split(char);</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string text &#x3D; &quot;pokemon,1,10000&quot;;</span><br><span class="line">string[] tokens &#x3D; text.Split(&#39;,&#39;); &#x2F;&#x2F; &#123;&quot;pokemon&quot;, &quot;1&quot;, &quot;10000&quot;&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>char는 문자열을 쪼갤 때 사용할 구분 문자</li>
-<li><strong>원본 문자열은 변경 없이 그대로 유지</strong></li>
-<li>쪼갠 문자열을 문자열 배열로 반환</li>
-<li>여러 버전의 Split() 함수가 존재</li>
-</ul>
-<h3 id="여러-개의-구분-문자가-문자열에-있을-때"><a href="#여러-개의-구분-문자가-문자열에-있을-때" class="headerlink" title="여러 개의 구분 문자가 문자열에 있을 때"></a>여러 개의 구분 문자가 문자열에 있을 때</h3><blockquote>
-<p>&lt;문자열 변수 이름&gt;.Split(char[]);</p>
-</blockquote>
-<p>문자형 배열(char[])에 여러 개의 구분 문자를 대입한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string text &#x3D; &quot;pokemon,1:10000&quot;;</span><br><span class="line"></span><br><span class="line">char[] delimiters &#x3D; &#123;&#39;,&#39;, &#39;:&#39;&#125;;</span><br><span class="line">string[] tokens &#x3D; text.Split(delimiters); &#x2F;&#x2F; &#123;&quot;pokemon&quot;, &quot;1&quot;, &quot;10000&quot;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="구분-문자-사이가-비어-있을-때"><a href="#구분-문자-사이가-비어-있을-때" class="headerlink" title="구분 문자 사이가 비어 있을 때"></a>구분 문자 사이가 비어 있을 때</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string text &#x3D; &quot;pokemon, 1, 10000:, 10&quot;;</span><br><span class="line"></span><br><span class="line">char[] delimiters &#x3D; &#123;&#39;,&#39;, &#39;:&#39;&#125;;</span><br><span class="line">string[] tokens &#x3D; text.Split(delimiters); &#x2F;&#x2F; &#123;&quot;pokemon&quot;, &quot;1&quot;, &quot;10000&quot;, &quot;&quot;, &quot;10&quot;&#125;</span><br></pre></td></tr></table></figure>
-<p>‘,’ 또는 ‘:’를 기준으로 문자열을 쪼개고 있기 때문에 ‘10000:,’과 같은 케이스에서 <code>&quot;&quot;</code>가 나온다. 이럴 때 <code>String.IsNullOrEmpty(String)</code>나 for문을 사용하여 빈 문자열을 걸러줄 수 있다. 또는 <code>StringSplitOptions.RemoveEmptyEntries</code>를 사용하여 걸러줄 수 있다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string text &#x3D; &quot;pokemon, 1, 10000:, 10&quot;;</span><br><span class="line"></span><br><span class="line">char[] delimiters &#x3D; &#123;&#39;,&#39;, &#39;:&#39;&#125;;</span><br><span class="line">string[] tokens &#x3D; text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries); &#x2F;&#x2F; &#123;&quot;pokemon&quot;, &quot;1&quot;, &quot;10000&quot;, &quot;10&quot;&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="Trim"><a href="#Trim" class="headerlink" title="Trim()"></a>Trim()</h2><blockquote>
-<p>&lt;문자열 변수 이름&gt;.Trim();</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">string firstName &#x3D; &quot;              Leon&quot;;</span><br><span class="line">string lastName &#x3D; &quot;kim                &quot;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;문자열 앞뒤 공백 제거</span><br><span class="line">string trimmedFirstName &#x3D; firstName.Trim(); &#x2F;&#x2F;&quot;Leon&quot;</span><br><span class="line">string trimmedLastName &#x3D; lastName.Trim(); &#x2F;&#x2F;&quot;kim&quot;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;문자열 앞 공백 제거</span><br><span class="line">string trimmedFirstName &#x3D; firstName.TrimStart(); &#x2F;&#x2F;&quot;Leon&quot;</span><br><span class="line">string trimmedLastName &#x3D; lastName.TrimStart(); &#x2F;&#x2F;&quot;kim</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;문자열 뒤 공백 제거</span><br><span class="line">string trimmedFirstName &#x3D; firstName.TrimEnd(); &#x2F;&#x2F;&quot;              Leon&quot;</span><br><span class="line">string trimmedLastName &#x3D; lastName.TrimEnd(); &#x2F;&#x2F;&quot;kim&quot;</span><br></pre></td></tr></table></figure>
-<p><strong><u>Trim()</u></strong></p>
-<ul>
-<li><code>문자열 앞뒤</code>로 있는 공백을 없앤 후 문자열을 반환</li>
-<li><strong>원본 문자열은 변경 없이 그대로 유지</strong></li>
-</ul>
-<p><strong><u>TrimStart()</u></strong></p>
-<ul>
-<li><code>문자열 시작</code>에서 공백을 제거 후 문자열을 반환</li>
-<li><strong>원본 문자열은 변경 없이 그대로 유지</strong></li>
-</ul>
-<p><strong><u>TrimEnd()</u></strong></p>
-<ul>
-<li><code>문자열 뒤</code>에서 공백을 제거 후 문자열을 반환</li>
-<li><strong>원본 문자열은 변경 없이 그대로 유지</strong></li>
-</ul>
+<h2 id="out-매개변수"><a href="#out-매개변수" class="headerlink" title="out 매개변수"></a>out 매개변수</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">static bool Trydivide(float numerator, float denominator, ref float result)</span><br><span class="line">&#123;</span><br><span class="line">  if (denominator &#x3D;&#x3D; 0.0f)</span><br><span class="line">  &#123;</span><br><span class="line">    return false;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F;result에 어떤 값을 대입하는데, 오타나 다른 어떤 이유로 값의 대입이 제대로 되지 않았다면</span><br><span class="line"> &#x2F;&#x2F;result의 값이 바뀐 값으로 반영되지 않고, 원래 값 그대로 남아있게 된다.</span><br><span class="line">  result &#x3D; numerator &#x2F; denominator;</span><br><span class="line"></span><br><span class="line">  return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;result1이나 result2는 실질적으로 쓰이지 않는 값이지만 ref result1, ref result2의 값을 출력하기 위해 문법상 필요하다.</span><br><span class="line">  &#x2F;&#x2F;ref 매개변수로 쓸 수 있는 변수는 반드시 초기화를 해야하기 때문이다.</span><br><span class="line">  float result1 &#x3D; 0.0f;</span><br><span class="line">  bool bSuccess1 &#x3D; TryDivide(10.0f, 0.0f, ref result1);</span><br><span class="line">  float result2 &#x3D; 0.0f;</span><br><span class="line">  bool bSuccess2 &#x3D; TryDivide(10.0f, 5.0f, ref result2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ref를 썼을 때 아쉬운 점을 보완하기 위해 out 키워드를 사용한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">static bool Trydivide(float numerator, float denominator, out float result)</span><br><span class="line">&#123;</span><br><span class="line">  if (denominator &#x3D;&#x3D; 0.0f)</span><br><span class="line">  &#123;</span><br><span class="line">    result &#x3D; 0.0f;</span><br><span class="line">    return false;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  result &#x3D; numerator &#x2F; denominator;</span><br><span class="line"></span><br><span class="line">  return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;result1, result2는 어차피 안에서 쓰이지 않으니 초기화 할 필요가 없다.</span><br><span class="line">  &#x2F;&#x2F;명시적으로 result1, result2를 출력할 값이라고 알려준다.</span><br><span class="line">  float result1;</span><br><span class="line">  bool bSuccess1 &#x3D; TryDivide(10.0f, 0, out result1);</span><br><span class="line">  float result2;</span><br><span class="line">  bool bSuccess2 &#x3D; TryDivide(10.0f, 5.0f, out result2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>out 키워드를 쓸 때 함수 안에서 대입을 하지 않으면 컴파일 오류가 발생한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;대입하지 않았으므로 컴파일 에러</span><br><span class="line">static bool TryAdd(float num1, float num2, out float result)</span><br><span class="line">&#123;</span><br><span class="line">  return false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;OK</span><br><span class="line">static bool TryAdd(float num1, float num2, out float result)</span><br><span class="line">&#123;</span><br><span class="line">  result &#x3D; 0.0f;</span><br><span class="line">  return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>if/else if 문에서 대입하지 않은 곳이 있어도 오류가 발생한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;컴파일 오류</span><br><span class="line">static bool TryDivide(float numerator, float denominator, out float result)</span><br><span class="line">&#123;</span><br><span class="line">  if(denominator &#x3D;&#x3D; 0.0f)</span><br><span class="line">  &#123;</span><br><span class="line">    return false;</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;중략</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;OK</span><br><span class="line">static bool TryDivide(float numerator, float denominator, out float result)</span><br><span class="line">&#123;</span><br><span class="line">  if(denominator &#x3D;&#x3D; 0.0f)</span><br><span class="line">  &#123;</span><br><span class="line">    result &#x3D; 0.0f;</span><br><span class="line">    return false;</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;중략</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="키보드-입력-예외처리"><a href="#키보드-입력-예외처리" class="headerlink" title="키보드 입력 예외처리"></a>키보드 입력 예외처리</h2><p>아래 코드에서 숫자 이외의 값을 입력하는 예외 상황이 생기면 에러가 발생한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int num &#x3D; int.Parse(Console.ReadLine());</span><br></pre></td></tr></table></figure>
+<p>이는 <code>TryParse()</code>로 해결할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int num;</span><br><span class="line">bool bSuccess &#x3D; int.TryParse(Console.ReadLine(), out num);</span><br><span class="line">&#x2F;&#x2F;bSuccess의 값에 따라 코드를 작성</span><br></pre></td></tr></table></figure>
 <hr>
 <p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
 
