@@ -82,7 +82,7 @@ function Example() {
 }
 ```
 
-class 컴포넌트에서는 렌더링 이후 어떤 일을 수행할 것인지에 대해 componentDidMount와 componentDidUpdate로 각각 정의해주었다. 렌더링 이전에 마운트 되었을 때와 업데이트 될 때의 상황에 대해 정의했기 때문에 componentDidMount는 마운트 될 때만 수행되고, componentDidUpdate는 업데이트 될 때만 수행된다. useEffect는 effect 안에 렌더링 이후 이루어질 작업에 대한 내용을 정의하는 방식이므로 componentDidMount와 componentDidUpdate를 effect 함수 내부에서 한 번에 처리한다. 따라서 첫 번째 렌더링과 이후 업데이트가 발생할 때마다 수행된다. 두 가지 경우 모두 effect가 수행되는 시점은 이미 DOM이 업데이트 된 시점이 렌더링 이후이다.
+class 컴포넌트에서는 렌더링 이후 어떤 일을 수행할 것인지에 대해 componentDidMount와 componentDidUpdate로 각각 정의해주었다. 렌더링 이전에 마운트 되었을 때와 업데이트 될 때의 상황에 대해 정의했기 때문에 componentDidMount는 마운트 될 때만 수행되고, componentDidUpdate는 업데이트 될 때만 수행된다. useEffect는 effect 안에 렌더링 이후 이루어질 작업에 대한 내용을 정의하는 방식이므로 componentDidMount와 componentDidUpdate를 effect 함수 내부에서 한 번에 처리한다. 따라서 첫 번째 렌더링과 이후 업데이트가 발생할 때마다 수행된다. 두 가지 경우 모두 effect가 수행되는 시점은 이미 DOM이 업데이트 된 시점인 렌더링 이후이다.
 
 위의 예제에서 처럼 class 컴포넌트, 함수형 컴포넌트에서의 effect 사용에 대해서 아래와 같이 각각 console.log를 찍어보면 렌더링 이후 발생하는 일에 대해 더욱 명확히 알 수 있다.
 
