@@ -38,11 +38,11 @@ class Example extends React.Component {
   // 두 개의 생명주기 메서드 안에 같은 코드 중복
   componentDidMount() {
     document.title = `You clicked ${this.state.count} times`;
-    console.log("componentDidMount");
+    console.log('componentDidMount');
   }
   componentDidUpdate() {
     document.title = `You clicked ${this.state.count} times`;
-    console.log("componentDidUpdate");
+    console.log('componentDidUpdate');
   }
 
   render() {
@@ -63,14 +63,14 @@ class Example extends React.Component {
 > useEffect hook은 리액트에게 컴포넌트가 렌더링 된 후 어떤 일을 수행해야하는지 알려준다. effect를 기억해두었다가 DOM 업데이트 수행 후 불러낸다. useEffect는 컴포넌트 안에서 호출되기 때문에 아래 예제와 같이 count 변수(또는 그 어떤 prop)에도 접근할 수 있다. 함수 범위 안에 존재하기 때문이다.
 
 ```javascript
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 function Example() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     document.title = `You clicked ${count} times`;
-    console.log("useEffect");
+    console.log('useEffect');
   });
 
   return (
@@ -82,7 +82,7 @@ function Example() {
 }
 ```
 
-class 컴포넌트에서는 렌더링 이후 어떤 일을 수행할 것인지에 대해 componentDidMount와 componentDidUpdate로 각각 정의해주었다. 헨더링 이전에 마운트 되었을 때와 업데이트 될 때의 상황에 대해 정의했기 때문에, componentDidMount는 마운트 될 때만 수행되고, componentDidUpdate는 업데이트 될 때만 수행된다. useEffect는 effect 안에 렌더링 이후 이루어질 작업에 대한 내용을 정의하는 방식이므로 componentDidMount와 componentDidUpdate를 effect 함수 내부에서 한 번에 처리한다. 따라서 첫 번째 렌더링과 이후 업데이트가 발생할 때마다 수행된다. 두 가지 경우 모두 effect가 수행되는 시점은 이미 DOM이 업데이트 된 시점이 렌더링 이후이다.
+class 컴포넌트에서는 렌더링 이후 어떤 일을 수행할 것인지에 대해 componentDidMount와 componentDidUpdate로 각각 정의해주었다. 렌더링 이전에 마운트 되었을 때와 업데이트 될 때의 상황에 대해 정의했기 때문에 componentDidMount는 마운트 될 때만 수행되고, componentDidUpdate는 업데이트 될 때만 수행된다. useEffect는 effect 안에 렌더링 이후 이루어질 작업에 대한 내용을 정의하는 방식이므로 componentDidMount와 componentDidUpdate를 effect 함수 내부에서 한 번에 처리한다. 따라서 첫 번째 렌더링과 이후 업데이트가 발생할 때마다 수행된다. 두 가지 경우 모두 effect가 수행되는 시점은 이미 DOM이 업데이트 된 시점이 렌더링 이후이다.
 
 위의 예제에서 처럼 class 컴포넌트, 함수형 컴포넌트에서의 effect 사용에 대해서 아래와 같이 각각 console.log를 찍어보면 렌더링 이후 발생하는 일에 대해 더욱 명확히 알 수 있다.
 
@@ -149,9 +149,9 @@ class FriendStatus extends React.Component {
 
   render() {
     if (this.state.isOnline === null) {
-      return "Loading...";
+      return 'Loading...';
     }
-    return this.state.isOnline ? "Online" : "Offline";
+    return this.state.isOnline ? 'Online' : 'Offline';
   }
 }
 ```
@@ -160,7 +160,7 @@ class FriendStatus extends React.Component {
 위의 class 컴포넌트에서 componentDidMount(), componentWillUnmount()로 분리된 생명주기 메서드 내에 동일한 effect 관련 코드가 있다. 이처럼 subscribe와 unsubscribe는 일반적으로 밀접한 관련을 맺고 있기 때문에 함수형 컴포넌트에서 useEffect는 이 두 가지 설정을 class에서 처럼 분리하지 않고 함께 다룰 수 있도록 한다. **useEffect 내에서 함수를 반환하면 그 함수를 정리가 필요할 때 실행시키는 것이다.**
 
 ```javascript
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 function FriendStatus(props) {
   const [isOnline, setIsOnline] = useState(null);
@@ -178,9 +178,9 @@ function FriendStatus(props) {
   });
 
   if (isOnline === null) {
-    return "Loading...";
+    return 'Loading...';
   }
-  return isOnline ? "Online" : "Offline";
+  return isOnline ? 'Online' : 'Offline';
 }
 ```
 
