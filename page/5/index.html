@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:42:25" itemprop="dateModified" datetime="2021-10-18T23:42:25+09:00">2021-10-18</time>
+                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
               </span>
 
           
@@ -381,7 +381,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:42:25" itemprop="dateModified" datetime="2021-10-18T23:42:25+09:00">2021-10-18</time>
+                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
               </span>
 
           
@@ -507,7 +507,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:42:25" itemprop="dateModified" datetime="2021-10-18T23:42:25+09:00">2021-10-18</time>
+                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
               </span>
 
           
@@ -611,7 +611,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:42:25" itemprop="dateModified" datetime="2021-10-18T23:42:25+09:00">2021-10-18</time>
+                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
               </span>
 
           
@@ -648,7 +648,7 @@
 <p>useEffect hook은 리액트에게 컴포넌트가 렌더링 된 후 어떤 일을 수행해야하는지 알려준다. effect를 기억해두었다가 DOM 업데이트 수행 후 불러낸다. useEffect는 컴포넌트 안에서 호출되기 때문에 아래 예제와 같이 count 변수(또는 그 어떤 prop)에도 접근할 수 있다. 함수 범위 안에 존재하기 때문이다.</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="string">`You clicked <span class="subst">$&#123;count&#125;</span> times`</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'useEffect'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;You clicked &#123;count&#125; times&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;Click me&lt;/</span>button&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>class 컴포넌트에서는 렌더링 이후 어떤 일을 수행할 것인지에 대해 componentDidMount와 componentDidUpdate로 각각 정의해주었다. 렌더링 이전에 마운트 되었을 때와 업데이트 될 때의 상황에 대해 정의했기 때문에 componentDidMount는 마운트 될 때만 수행되고, componentDidUpdate는 업데이트 될 때만 수행된다. useEffect는 effect 안에 렌더링 이후 이루어질 작업에 대한 내용을 정의하는 방식이므로 componentDidMount와 componentDidUpdate를 effect 함수 내부에서 한 번에 처리한다. 따라서 첫 번째 렌더링과 이후 업데이트가 발생할 때마다 수행된다. 두 가지 경우 모두 effect가 수행되는 시점은 이미 DOM이 업데이트 된 시점이 렌더링 이후이다.</p>
+<p>class 컴포넌트에서는 렌더링 이후 어떤 일을 수행할 것인지에 대해 componentDidMount와 componentDidUpdate로 각각 정의해주었다. 렌더링 이전에 마운트 되었을 때와 업데이트 될 때의 상황에 대해 정의했기 때문에 componentDidMount는 마운트 될 때만 수행되고, componentDidUpdate는 업데이트 될 때만 수행된다. useEffect는 effect 안에 렌더링 이후 이루어질 작업에 대한 내용을 정의하는 방식이므로 componentDidMount와 componentDidUpdate를 effect 함수 내부에서 한 번에 처리한다. 따라서 첫 번째 렌더링과 이후 업데이트가 발생할 때마다 수행된다. 두 가지 경우 모두 effect가 수행되는 시점은 이미 DOM이 업데이트 된 시점인 렌더링 이후이다.</p>
 <p>위의 예제에서 처럼 class 컴포넌트, 함수형 컴포넌트에서의 effect 사용에 대해서 아래와 같이 각각 console.log를 찍어보면 렌더링 이후 발생하는 일에 대해 더욱 명확히 알 수 있다.</p>
 <ul>
 <li><code>마운트 시점</code>: componentDidMount의 ‘componentDidMount’와 useEffect의 ‘useEffect’가 console창에 출력된다.</li>
@@ -802,7 +802,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:42:25" itemprop="dateModified" datetime="2021-10-18T23:42:25+09:00">2021-10-18</time>
+                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
               </span>
 
           
@@ -903,7 +903,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:42:25" itemprop="dateModified" datetime="2021-10-18T23:42:25+09:00">2021-10-18</time>
+                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
               </span>
 
           
@@ -990,7 +990,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:42:25" itemprop="dateModified" datetime="2021-10-18T23:42:25+09:00">2021-10-18</time>
+                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
               </span>
 
           
@@ -1157,7 +1157,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:42:25" itemprop="dateModified" datetime="2021-10-18T23:42:25+09:00">2021-10-18</time>
+                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
               </span>
 
           
@@ -1265,7 +1265,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:42:25" itemprop="dateModified" datetime="2021-10-18T23:42:25+09:00">2021-10-18</time>
+                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
               </span>
 
           
@@ -1373,7 +1373,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:42:25" itemprop="dateModified" datetime="2021-10-18T23:42:25+09:00">2021-10-18</time>
+                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
               </span>
 
           
