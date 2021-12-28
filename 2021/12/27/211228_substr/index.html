@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="substr 💡 substr은 새로운 웹사이트에서는 더이상 사용되지 않는다. 웹 표준에서 제거된 것은 아니지만 다른 매서드로 대체하는 것이 바람직하다.  문자열에서 특정 위치에서 시작하여 특정 문자 수 만큼의 문자들을 반환한다. 1234567const str &#x3D; &#39;hello&#39;console.log(str.substr(1, 2))&#x2F;&#x2F; expected outp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="문자열 자르기와 관련된 함수 (substr, subString, slice)">
+<meta property="og:url" content="https://heejinlee07.github.io/2021/12/27/211228_substr/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="substr 💡 substr은 새로운 웹사이트에서는 더이상 사용되지 않는다. 웹 표준에서 제거된 것은 아니지만 다른 매서드로 대체하는 것이 바람직하다.  문자열에서 특정 위치에서 시작하여 특정 문자 수 만큼의 문자들을 반환한다. 1234567const str &#x3D; &#39;hello&#39;console.log(str.substr(1, 2))&#x2F;&#x2F; expected outp">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-27T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-28T02:27:01.208Z">
+<meta property="article:author" content="Heejin Lee">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2021/12/27/211228_substr/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>문자열 자르기와 관련된 함수 (substr, subString, slice) | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Developer</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/12/27/211228_substr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          문자열 자르기와 관련된 함수 (substr, subString, slice)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-28 00:00:00 / Modified: 11:27:01" itemprop="dateCreated datePublished" datetime="2021-12-28T00:00:00+09:00">2021-12-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="substr"><a href="#substr" class="headerlink" title="substr"></a>substr</h2><blockquote>
+<p>💡 substr은 새로운 웹사이트에서는 더이상 사용되지 않는다. 웹 표준에서 제거된 것은 아니지만 다른 매서드로 대체하는 것이 바람직하다.</p>
+</blockquote>
+<p>문자열에서 특정 위치에서 시작하여 특정 문자 수 만큼의 문자들을 반환한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'hello'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.substr(<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line"><span class="comment">// expected output: "el"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.substr(<span class="number">2</span>))</span><br><span class="line"><span class="comment">// expected output: "llo"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>str.substr(start[, length])<br>str.substr(시작위치의 인덱스, 추출한 문자의 length )</p>
+</blockquote>
+<ul>
+<li>start 값이 양수이고, 문자열 전체 길이보다 크거나 같으면 빈 문자열을 반환한다.</li>
+<li>start가 음수이면 문자열 끝에서 start 숫자만큼 뺀 곳에서 시작한다.</li>
+<li>start가 음수이고, 절대값이 문자열 전체보다 크면 문자열의 0번째 인덱스부터 시작</li>
+<li>length가 0 이거나 음수이면 빈 문자열 반환한다.</li>
+<li>length가 생략되었다면 문자열의 끝까지 추출하여 반환한다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'helloworld'</span></span><br><span class="line"></span><br><span class="line">str.substr(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">// 1번째 index에서 2개 추출</span></span><br><span class="line"><span class="comment">// expected output:'el'</span></span><br><span class="line">str.substr(<span class="number">-3</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">// 전체 문자열 길이 10에서 -3만큼 뺀 곳에서 시작하여 2개 추출</span></span><br><span class="line"><span class="comment">// expected output:'rl'</span></span><br><span class="line">str.substr(<span class="number">-3</span>)</span><br><span class="line"><span class="comment">// start가 음수이므로 전체 문자열 길리 10에서 -3만큼 뺀 곳에서 시작,</span></span><br><span class="line"><span class="comment">// length는 생략되었으므로 문자열의 끝까지 추출</span></span><br><span class="line"><span class="comment">// expected output:'rld'</span></span><br><span class="line">str.substr(<span class="number">1</span>)</span><br><span class="line"><span class="comment">// 1번째 인덱스에서 시작하여 length는 생략되었으므로 문자열의 끝까지 추출</span></span><br><span class="line"><span class="comment">// expected output:'elloworld'</span></span><br><span class="line">str.substr(<span class="number">-20</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">// start가 음수이고, 절대값이 문자열 전체보다 크면 문자열의 0번째 인덱스부터 시작하여 2개 추출</span></span><br><span class="line"><span class="comment">// expected output:'he'</span></span><br><span class="line">str.substr(<span class="number">20</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">// start가 양수이나 문자열 전체 길이보다 크기 때문에 빈 문자열 반환</span></span><br><span class="line"><span class="comment">// expected output:''</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="substring"><a href="#substring" class="headerlink" title="substring"></a>substring</h2><p>시작 인덱스로 부터 종료 인덱스 전 까지 문자열의 부분 문자열을 반환</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'hello'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.substr(<span class="number">1</span>, <span class="number">3</span>))</span><br><span class="line"><span class="comment">// expected output: "el"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.substr(<span class="number">2</span>))</span><br><span class="line"><span class="comment">// expected output: "llo"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>str.substring(indexStart[, indexEnd])<br>str.substring(시작 인덱스, 마지막 인덱스(포함하지 않음))<br>return 값: 기존문자열의 부분 문자열</p>
+</blockquote>
+<ul>
+<li>시작 인덱스부터 문자를 추출하여 <em>마지막 인덱스가 포함되지 않아도 된다.</em></li>
+<li>indexEnd가 생략되었다면 문자열 끝까지 모든 문자를 추출한다.</li>
+<li>indexStart, indexEnd가 같을 경우 빈 문자열을 반환한다.</li>
+<li>indexStart가 indexEnd보다 클 경우 두 개의 인자를 바꾼 것처럼 작동한다.</li>
+<li>0보다 작은 인자 값을 가지면 0, stringName.length보다 큰 인자값을 가지면 stringName.length로 처리된다.</li>
+<li>NaN 값은 0으로 처리된다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> anyString = <span class="string">'helloworld'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Displays 'h'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line"><span class="comment">//indexStart가 indexEnd보다 클 경우 substring(0, 1)처럼 두 개의 인자를 바꾼듯이 작동한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">1</span>, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// Displays 'hello'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">0</span>, <span class="number">6</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">//Displays 'world'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">//Displays 'wo'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">4</span>, <span class="number">7</span>))</span><br><span class="line"><span class="comment">//indexStart가 indexEnd보다 클 경우 substring(4, 7)처럼 두 개의 인자를 바꾼듯이 작동한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">7</span>, <span class="number">4</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// Displays 'helloworld'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">0</span>, <span class="number">10</span>))</span><br><span class="line"><span class="comment">//stringName.length보다 큰 인자값을 가지면 stringName.length로 처리된다.</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">0</span>, <span class="number">15</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="substring-와-length-속성을-같이-사용하기"><a href="#substring-와-length-속성을-같이-사용하기" class="headerlink" title="substring()와 length 속성을 같이 사용하기"></a>substring()와 length 속성을 같이 사용하기</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Displays 'orld' the last 4 characters</span></span><br><span class="line"><span class="keyword">const</span> anyString = <span class="string">'helloworld'</span></span><br><span class="line"><span class="keyword">const</span> anyString4 = anyString.substring(anyString.length - <span class="number">4</span>)</span><br><span class="line"><span class="built_in">console</span>.log(anyString4)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Displays 'world' the last 5 characters</span></span><br><span class="line"><span class="keyword">const</span> anyString = <span class="string">'helloworld'</span></span><br><span class="line"><span class="keyword">const</span> anyString5 = anyString.substring(anyString.length - <span class="number">5</span>)</span><br><span class="line"><span class="built_in">console</span>.log(anyString5)</span><br></pre></td></tr></table></figure>
+<p>substring 메서드와 length 송성을 사용하여 특정 문자열의 마지막 문자를 추출할 수 있다. 이 방법을 사용하면 <code>anyString.substring(4, 7)</code>과 같이 시작인덱스와 마지막인덱스를 알지 않아도 된다.</p>
+<h3 id="substring-와-substr-의-차이점"><a href="#substring-와-substr-의-차이점" class="headerlink" title="substring()와 substr()의 차이점"></a>substring()와 substr()의 차이점</h3><p><strong>substring()와 substr()에는 미묘한 차이가 있으므로 주의해야 한다.</strong> substring()은 시작과 마지막 인덱스를 의미하는데, substr()은 시작인덱스와 반환된 문자열에 포함할 문자 수를 나타낸다.</p>
+<ul>
+<li>str.substring(indexStart[, indexEnd])</li>
+<li>str.substr(start[, length])</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> text = <span class="string">'helloworld'</span></span><br><span class="line"><span class="comment">//2번째 인덱스에서 시작하여 5번째 인덱스 전까지 추출</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substring(<span class="number">2</span>, <span class="number">5</span>)) <span class="comment">// =&gt; "llo"</span></span><br><span class="line"><span class="comment">//2번째 인덱스에서 시작하여 3개까지 추출</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substr(<span class="number">2</span>, <span class="number">3</span>)) <span class="comment">// =&gt; "llo"</span></span><br></pre></td></tr></table></figure>
+<h3 id="substring-와-slice-의-차이점"><a href="#substring-와-slice-의-차이점" class="headerlink" title="substring()와 slice()의 차이점"></a>substring()와 slice()의 차이점</h3><p>substring()와 slice()는 거의 똑같은데, 미묘하게 다른 점이 존재한다. <em>특히 부정적인 인수를 처리하는 방식에 차이가 있다.</em></p>
+<ul>
+<li>substring(): indexStart가 indexEnd보다 클 경우 <em>두 가지 인수를 바꾼듯이 작동한다.</em></li>
+<li>slice(): indexStart가 indexEnd보다 클 경우 <em>빈 문자열을 반환한다.</em></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> text = <span class="string">'helloworld'</span></span><br><span class="line"><span class="comment">//indexStart가 indexEnd보다 크기 때문에 text.substring(2,5)처럼 작동한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substring(<span class="number">5</span>, <span class="number">2</span>)) <span class="comment">// =&gt; "llo"</span></span><br><span class="line"><span class="comment">//indexStart가 indexEnd보다 크기 때문에 빈문자열을 반환한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(text.slice(<span class="number">5</span>, <span class="number">2</span>)) <span class="comment">// =&gt; ""</span></span><br></pre></td></tr></table></figure>
+<p>두 가지 인수 모두 음수거나 NaN인 경우, substring()</p>
+<ul>
+<li>substring(): 두 가지 인수 모두 음수거나 NaN인 경우 <em>인수가 0인 것처럼 처리한다.</em></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//substring(0, 2)인 것처럼 처리</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substring(<span class="number">-5</span>, <span class="number">2</span>)) <span class="comment">// =&gt; "he"</span></span><br><span class="line"><span class="comment">//substring(0)인 것처럼 처리</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substring(<span class="number">-5</span>, <span class="number">-2</span>)) <span class="comment">// =&gt; ""</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>slice(): 두 가지 인수 모두 음수거나 NaN인 경우 <em>NaN인수는 0처럼 취급하지만, 음수일 때는 문자열 끝에서 역방향으로 계산한다.</em></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//text.slice(0,0)처럼 취급</span></span><br><span class="line"><span class="built_in">console</span>.log(text.slice(<span class="number">-5</span>, <span class="number">2</span>)) <span class="comment">// =&gt; ""</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// indexStart가 -5이므로 문자열 길이 10 - 5의 5번째에서 시작</span></span><br><span class="line"><span class="comment">// indexEnd가 -2이므로 문자열 길이 10에서 10 - 2의 8번째에서 추출 종료.</span></span><br><span class="line"><span class="comment">// text.slice(5, 8)과 같은 결과</span></span><br><span class="line"><span class="built_in">console</span>.log(text.slice(<span class="number">-5</span>, <span class="number">-2</span>)) <span class="comment">// =&gt; "wor"</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="slice"><a href="#slice" class="headerlink" title="slice"></a>slice</h2><p>문자열의 일부를 추출하면서 새로운 문자열을 반환하기 때문에 다른 문자열에 영향을 미치지 않으며, 마지막 인덱스 직전까지 추출한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'The quick brown fox jumps over the lazy dog.'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">31</span>))</span><br><span class="line"><span class="comment">// expected output: "the lazy dog."</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">4</span>, <span class="number">19</span>))</span><br><span class="line"><span class="comment">// expected output: "quick brown fox"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">-4</span>))</span><br><span class="line"><span class="comment">// expected output: "dog."</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">-9</span>, <span class="number">-5</span>))</span><br><span class="line"><span class="comment">// expected output: "lazy"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>str.slice(beginIndex[, endIndex])<br>str.slice(추출시작점 인덱스[, 종료인덱스, 주어진 인덱스 직전까지 추출])<br>return 값 : 추출된 부분을 담는 새로운 문자열</p>
+</blockquote>
+<ul>
+<li>beginIndex<ul>
+<li>음수가 올 경우, strLength(문자열 길이) + beginIndex로 취급 (e.g. beginIndex가 -3이면 시작점은 strLength -3)</li>
+<li>beginIndex가 strLength보다 크면 <em>빈 문자열 반환</em></li>
+</ul>
+</li>
+<li>endIndex<ul>
+<li>추출 종료점 인덱스 위치의 문자는 추출에 포함되지 않고, <em>그 직전까지 추출된다.</em></li>
+<li>endIndex가 생략되었다면 문자열 마지막까지 추출한다.</li>
+<li>음수라면 endIndex는 strLength + endIndex로 취급된다. (e.g. endInedx가 -3이면 종료점은 strLength -3)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str1 = <span class="string">'The morning is upon us.'</span>, <span class="comment">// the length of str1 is 23.</span></span><br><span class="line">  str2 = str1.slice(<span class="number">1</span>, <span class="number">8</span>),</span><br><span class="line">  str3 = str1.slice(<span class="number">4</span>, <span class="number">-2</span>),</span><br><span class="line">  str4 = str1.slice(<span class="number">12</span>),</span><br><span class="line">  str5 = str1.slice(<span class="number">30</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str2) <span class="comment">// OUTPUT: he morn</span></span><br><span class="line"><span class="built_in">console</span>.log(str3) <span class="comment">// OUTPUT: morning is upon u</span></span><br><span class="line"><span class="built_in">console</span>.log(str4) <span class="comment">// OUTPUT: is upon us.</span></span><br><span class="line"><span class="built_in">console</span>.log(str5) <span class="comment">// OUTPUT: ""</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//slice는 새로운 문자열은 반환하기 때문에 str1은 그대로이다.</span></span><br><span class="line"><span class="built_in">console</span>.log(str1) <span class="comment">// OUTPUT: The morning is upon us.</span></span><br></pre></td></tr></table></figure>
+<h3 id="음수-인덱스로-slice-사용"><a href="#음수-인덱스로-slice-사용" class="headerlink" title="음수 인덱스로 slice()사용"></a>음수 인덱스로 slice()사용</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'The morning is upon us.'</span></span><br><span class="line">str.slice(<span class="number">-3</span>) <span class="comment">// returns 'us.'</span></span><br><span class="line">str.slice(<span class="number">-3</span>, <span class="number">-1</span>) <span class="comment">// returns 'us'</span></span><br><span class="line">str.slice(<span class="number">0</span>, <span class="number">-1</span>) <span class="comment">// returns 'The morning is upon us'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>beginIndex가 음수일 때<br>beginIndex는 문자열의 끝에서부터 역방향으로 11개를 세고, endIndex는 시작점부터 순방향으로 16개를 센다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">-11</span>, <span class="number">16</span>)) <span class="comment">// =&gt; "is u";</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>endIndex가 음수일 때<br>beginIndex는 문자열의 시작점부터 순방향으로 11개를 세고, endIndex는 끝에서부터 역방향으로 7개를 센다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">11</span>, <span class="number">-7</span>)) <span class="comment">// =&gt; "is u";</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>beginIndex, endIndex 모두 음수일 때<br>beginIndex는 끝에서부터 5까지 역순으로 계산하여 시작인덱스를 찾았고, 끝에서부터 1까지 역순으로 계산하여 마지막 인덱스를 찾는다. beginIndex가 -5이므로 문자열 길이 23 - 5의 18번째에서 시작한다. endIndex는 -1이므로 문자열 길이 23에서 23 - 1의 22번째에서 추출을 종료한다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">-5</span>, <span class="number">-1</span>)) <span class="comment">// =&gt; "n us";</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/substr" target="_blank" rel="noopener">String.prototype.substr()</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/substring" target="_blank" rel="noopener">String.prototype.substring()</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice" target="_blank" rel="noopener">String.prototype.slice()</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/19/211220_mui/" rel="prev" title="MUI v4에서 v5로 마이그레이션 하기">
+      <i class="fa fa-chevron-left"></i> MUI v4에서 v5로 마이그레이션 하기
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#substr"><span class="nav-number">1.</span> <span class="nav-text">substr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#substring"><span class="nav-number">2.</span> <span class="nav-text">substring</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#substring-와-length-속성을-같이-사용하기"><span class="nav-number">2.1.</span> <span class="nav-text">substring()와 length 속성을 같이 사용하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#substring-와-substr-의-차이점"><span class="nav-number">2.2.</span> <span class="nav-text">substring()와 substr()의 차이점</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#substring-와-slice-의-차이점"><span class="nav-number">2.3.</span> <span class="nav-text">substring()와 slice()의 차이점</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#slice"><span class="nav-number">3.</span> <span class="nav-text">slice</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#음수-인덱스로-slice-사용"><span class="nav-number">3.1.</span> <span class="nav-text">음수 인덱스로 slice()사용</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

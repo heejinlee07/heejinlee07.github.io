@@ -144,6 +144,537 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/12/27/211228_substr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/27/211228_substr/" class="post-title-link" itemprop="url">문자열 자르기와 관련된 함수 (substr, subString, slice)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-28 00:00:00 / Modified: 11:27:01" itemprop="dateCreated datePublished" datetime="2021-12-28T00:00:00+09:00">2021-12-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="substr"><a href="#substr" class="headerlink" title="substr"></a>substr</h2><blockquote>
+<p>💡 substr은 새로운 웹사이트에서는 더이상 사용되지 않는다. 웹 표준에서 제거된 것은 아니지만 다른 매서드로 대체하는 것이 바람직하다.</p>
+</blockquote>
+<p>문자열에서 특정 위치에서 시작하여 특정 문자 수 만큼의 문자들을 반환한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'hello'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.substr(<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line"><span class="comment">// expected output: "el"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.substr(<span class="number">2</span>))</span><br><span class="line"><span class="comment">// expected output: "llo"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>str.substr(start[, length])<br>str.substr(시작위치의 인덱스, 추출한 문자의 length )</p>
+</blockquote>
+<ul>
+<li>start 값이 양수이고, 문자열 전체 길이보다 크거나 같으면 빈 문자열을 반환한다.</li>
+<li>start가 음수이면 문자열 끝에서 start 숫자만큼 뺀 곳에서 시작한다.</li>
+<li>start가 음수이고, 절대값이 문자열 전체보다 크면 문자열의 0번째 인덱스부터 시작</li>
+<li>length가 0 이거나 음수이면 빈 문자열 반환한다.</li>
+<li>length가 생략되었다면 문자열의 끝까지 추출하여 반환한다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'helloworld'</span></span><br><span class="line"></span><br><span class="line">str.substr(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">// 1번째 index에서 2개 추출</span></span><br><span class="line"><span class="comment">// expected output:'el'</span></span><br><span class="line">str.substr(<span class="number">-3</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">// 전체 문자열 길이 10에서 -3만큼 뺀 곳에서 시작하여 2개 추출</span></span><br><span class="line"><span class="comment">// expected output:'rl'</span></span><br><span class="line">str.substr(<span class="number">-3</span>)</span><br><span class="line"><span class="comment">// start가 음수이므로 전체 문자열 길리 10에서 -3만큼 뺀 곳에서 시작,</span></span><br><span class="line"><span class="comment">// length는 생략되었으므로 문자열의 끝까지 추출</span></span><br><span class="line"><span class="comment">// expected output:'rld'</span></span><br><span class="line">str.substr(<span class="number">1</span>)</span><br><span class="line"><span class="comment">// 1번째 인덱스에서 시작하여 length는 생략되었으므로 문자열의 끝까지 추출</span></span><br><span class="line"><span class="comment">// expected output:'elloworld'</span></span><br><span class="line">str.substr(<span class="number">-20</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">// start가 음수이고, 절대값이 문자열 전체보다 크면 문자열의 0번째 인덱스부터 시작하여 2개 추출</span></span><br><span class="line"><span class="comment">// expected output:'he'</span></span><br><span class="line">str.substr(<span class="number">20</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">// start가 양수이나 문자열 전체 길이보다 크기 때문에 빈 문자열 반환</span></span><br><span class="line"><span class="comment">// expected output:''</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="substring"><a href="#substring" class="headerlink" title="substring"></a>substring</h2><p>시작 인덱스로 부터 종료 인덱스 전 까지 문자열의 부분 문자열을 반환</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'hello'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.substr(<span class="number">1</span>, <span class="number">3</span>))</span><br><span class="line"><span class="comment">// expected output: "el"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.substr(<span class="number">2</span>))</span><br><span class="line"><span class="comment">// expected output: "llo"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>str.substring(indexStart[, indexEnd])<br>str.substring(시작 인덱스, 마지막 인덱스(포함하지 않음))<br>return 값: 기존문자열의 부분 문자열</p>
+</blockquote>
+<ul>
+<li>시작 인덱스부터 문자를 추출하여 <em>마지막 인덱스가 포함되지 않아도 된다.</em></li>
+<li>indexEnd가 생략되었다면 문자열 끝까지 모든 문자를 추출한다.</li>
+<li>indexStart, indexEnd가 같을 경우 빈 문자열을 반환한다.</li>
+<li>indexStart가 indexEnd보다 클 경우 두 개의 인자를 바꾼 것처럼 작동한다.</li>
+<li>0보다 작은 인자 값을 가지면 0, stringName.length보다 큰 인자값을 가지면 stringName.length로 처리된다.</li>
+<li>NaN 값은 0으로 처리된다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> anyString = <span class="string">'helloworld'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Displays 'h'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line"><span class="comment">//indexStart가 indexEnd보다 클 경우 substring(0, 1)처럼 두 개의 인자를 바꾼듯이 작동한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">1</span>, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// Displays 'hello'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">0</span>, <span class="number">6</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">//Displays 'world'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">//Displays 'wo'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">4</span>, <span class="number">7</span>))</span><br><span class="line"><span class="comment">//indexStart가 indexEnd보다 클 경우 substring(4, 7)처럼 두 개의 인자를 바꾼듯이 작동한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">7</span>, <span class="number">4</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// Displays 'helloworld'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">0</span>, <span class="number">10</span>))</span><br><span class="line"><span class="comment">//stringName.length보다 큰 인자값을 가지면 stringName.length로 처리된다.</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">0</span>, <span class="number">15</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="substring-와-length-속성을-같이-사용하기"><a href="#substring-와-length-속성을-같이-사용하기" class="headerlink" title="substring()와 length 속성을 같이 사용하기"></a>substring()와 length 속성을 같이 사용하기</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Displays 'orld' the last 4 characters</span></span><br><span class="line"><span class="keyword">const</span> anyString = <span class="string">'helloworld'</span></span><br><span class="line"><span class="keyword">const</span> anyString4 = anyString.substring(anyString.length - <span class="number">4</span>)</span><br><span class="line"><span class="built_in">console</span>.log(anyString4)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Displays 'world' the last 5 characters</span></span><br><span class="line"><span class="keyword">const</span> anyString = <span class="string">'helloworld'</span></span><br><span class="line"><span class="keyword">const</span> anyString5 = anyString.substring(anyString.length - <span class="number">5</span>)</span><br><span class="line"><span class="built_in">console</span>.log(anyString5)</span><br></pre></td></tr></table></figure>
+<p>substring 메서드와 length 송성을 사용하여 특정 문자열의 마지막 문자를 추출할 수 있다. 이 방법을 사용하면 <code>anyString.substring(4, 7)</code>과 같이 시작인덱스와 마지막인덱스를 알지 않아도 된다.</p>
+<h3 id="substring-와-substr-의-차이점"><a href="#substring-와-substr-의-차이점" class="headerlink" title="substring()와 substr()의 차이점"></a>substring()와 substr()의 차이점</h3><p><strong>substring()와 substr()에는 미묘한 차이가 있으므로 주의해야 한다.</strong> substring()은 시작과 마지막 인덱스를 의미하는데, substr()은 시작인덱스와 반환된 문자열에 포함할 문자 수를 나타낸다.</p>
+<ul>
+<li>str.substring(indexStart[, indexEnd])</li>
+<li>str.substr(start[, length])</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> text = <span class="string">'helloworld'</span></span><br><span class="line"><span class="comment">//2번째 인덱스에서 시작하여 5번째 인덱스 전까지 추출</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substring(<span class="number">2</span>, <span class="number">5</span>)) <span class="comment">// =&gt; "llo"</span></span><br><span class="line"><span class="comment">//2번째 인덱스에서 시작하여 3개까지 추출</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substr(<span class="number">2</span>, <span class="number">3</span>)) <span class="comment">// =&gt; "llo"</span></span><br></pre></td></tr></table></figure>
+<h3 id="substring-와-slice-의-차이점"><a href="#substring-와-slice-의-차이점" class="headerlink" title="substring()와 slice()의 차이점"></a>substring()와 slice()의 차이점</h3><p>substring()와 slice()는 거의 똑같은데, 미묘하게 다른 점이 존재한다. <em>특히 부정적인 인수를 처리하는 방식에 차이가 있다.</em></p>
+<ul>
+<li>substring(): indexStart가 indexEnd보다 클 경우 <em>두 가지 인수를 바꾼듯이 작동한다.</em></li>
+<li>slice(): indexStart가 indexEnd보다 클 경우 <em>빈 문자열을 반환한다.</em></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> text = <span class="string">'helloworld'</span></span><br><span class="line"><span class="comment">//indexStart가 indexEnd보다 크기 때문에 text.substring(2,5)처럼 작동한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substring(<span class="number">5</span>, <span class="number">2</span>)) <span class="comment">// =&gt; "llo"</span></span><br><span class="line"><span class="comment">//indexStart가 indexEnd보다 크기 때문에 빈문자열을 반환한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(text.slice(<span class="number">5</span>, <span class="number">2</span>)) <span class="comment">// =&gt; ""</span></span><br></pre></td></tr></table></figure>
+<p>두 가지 인수 모두 음수거나 NaN인 경우, substring()</p>
+<ul>
+<li>substring(): 두 가지 인수 모두 음수거나 NaN인 경우 <em>인수가 0인 것처럼 처리한다.</em></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//substring(0, 2)인 것처럼 처리</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substring(<span class="number">-5</span>, <span class="number">2</span>)) <span class="comment">// =&gt; "he"</span></span><br><span class="line"><span class="comment">//substring(0)인 것처럼 처리</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substring(<span class="number">-5</span>, <span class="number">-2</span>)) <span class="comment">// =&gt; ""</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>slice(): 두 가지 인수 모두 음수거나 NaN인 경우 <em>NaN인수는 0처럼 취급하지만, 음수일 때는 문자열 끝에서 역방향으로 계산한다.</em></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//text.slice(0,0)처럼 취급</span></span><br><span class="line"><span class="built_in">console</span>.log(text.slice(<span class="number">-5</span>, <span class="number">2</span>)) <span class="comment">// =&gt; ""</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// indexStart가 -5이므로 문자열 길이 10 - 5의 5번째에서 시작</span></span><br><span class="line"><span class="comment">// indexEnd가 -2이므로 문자열 길이 10에서 10 - 2의 8번째에서 추출 종료.</span></span><br><span class="line"><span class="comment">// text.slice(5, 8)과 같은 결과</span></span><br><span class="line"><span class="built_in">console</span>.log(text.slice(<span class="number">-5</span>, <span class="number">-2</span>)) <span class="comment">// =&gt; "wor"</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="slice"><a href="#slice" class="headerlink" title="slice"></a>slice</h2><p>문자열의 일부를 추출하면서 새로운 문자열을 반환하기 때문에 다른 문자열에 영향을 미치지 않으며, 마지막 인덱스 직전까지 추출한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'The quick brown fox jumps over the lazy dog.'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">31</span>))</span><br><span class="line"><span class="comment">// expected output: "the lazy dog."</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">4</span>, <span class="number">19</span>))</span><br><span class="line"><span class="comment">// expected output: "quick brown fox"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">-4</span>))</span><br><span class="line"><span class="comment">// expected output: "dog."</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">-9</span>, <span class="number">-5</span>))</span><br><span class="line"><span class="comment">// expected output: "lazy"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>str.slice(beginIndex[, endIndex])<br>str.slice(추출시작점 인덱스[, 종료인덱스, 주어진 인덱스 직전까지 추출])<br>return 값 : 추출된 부분을 담는 새로운 문자열</p>
+</blockquote>
+<ul>
+<li>beginIndex<ul>
+<li>음수가 올 경우, strLength(문자열 길이) + beginIndex로 취급 (e.g. beginIndex가 -3이면 시작점은 strLength -3)</li>
+<li>beginIndex가 strLength보다 크면 <em>빈 문자열 반환</em></li>
+</ul>
+</li>
+<li>endIndex<ul>
+<li>추출 종료점 인덱스 위치의 문자는 추출에 포함되지 않고, <em>그 직전까지 추출된다.</em></li>
+<li>endIndex가 생략되었다면 문자열 마지막까지 추출한다.</li>
+<li>음수라면 endIndex는 strLength + endIndex로 취급된다. (e.g. endInedx가 -3이면 종료점은 strLength -3)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str1 = <span class="string">'The morning is upon us.'</span>, <span class="comment">// the length of str1 is 23.</span></span><br><span class="line">  str2 = str1.slice(<span class="number">1</span>, <span class="number">8</span>),</span><br><span class="line">  str3 = str1.slice(<span class="number">4</span>, <span class="number">-2</span>),</span><br><span class="line">  str4 = str1.slice(<span class="number">12</span>),</span><br><span class="line">  str5 = str1.slice(<span class="number">30</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str2) <span class="comment">// OUTPUT: he morn</span></span><br><span class="line"><span class="built_in">console</span>.log(str3) <span class="comment">// OUTPUT: morning is upon u</span></span><br><span class="line"><span class="built_in">console</span>.log(str4) <span class="comment">// OUTPUT: is upon us.</span></span><br><span class="line"><span class="built_in">console</span>.log(str5) <span class="comment">// OUTPUT: ""</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//slice는 새로운 문자열은 반환하기 때문에 str1은 그대로이다.</span></span><br><span class="line"><span class="built_in">console</span>.log(str1) <span class="comment">// OUTPUT: The morning is upon us.</span></span><br></pre></td></tr></table></figure>
+<h3 id="음수-인덱스로-slice-사용"><a href="#음수-인덱스로-slice-사용" class="headerlink" title="음수 인덱스로 slice()사용"></a>음수 인덱스로 slice()사용</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'The morning is upon us.'</span></span><br><span class="line">str.slice(<span class="number">-3</span>) <span class="comment">// returns 'us.'</span></span><br><span class="line">str.slice(<span class="number">-3</span>, <span class="number">-1</span>) <span class="comment">// returns 'us'</span></span><br><span class="line">str.slice(<span class="number">0</span>, <span class="number">-1</span>) <span class="comment">// returns 'The morning is upon us'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>beginIndex가 음수일 때<br>beginIndex는 문자열의 끝에서부터 역방향으로 11개를 세고, endIndex는 시작점부터 순방향으로 16개를 센다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">-11</span>, <span class="number">16</span>)) <span class="comment">// =&gt; "is u";</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>endIndex가 음수일 때<br>beginIndex는 문자열의 시작점부터 순방향으로 11개를 세고, endIndex는 끝에서부터 역방향으로 7개를 센다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">11</span>, <span class="number">-7</span>)) <span class="comment">// =&gt; "is u";</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>beginIndex, endIndex 모두 음수일 때<br>beginIndex는 끝에서부터 5까지 역순으로 계산하여 시작인덱스를 찾았고, 끝에서부터 1까지 역순으로 계산하여 마지막 인덱스를 찾는다. beginIndex가 -5이므로 문자열 길이 23 - 5의 18번째에서 시작한다. endIndex는 -1이므로 문자열 길이 23에서 23 - 1의 22번째에서 추출을 종료한다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">-5</span>, <span class="number">-1</span>)) <span class="comment">// =&gt; "n us";</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/substr" target="_blank" rel="noopener">String.prototype.substr()</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/substring" target="_blank" rel="noopener">String.prototype.substring()</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice" target="_blank" rel="noopener">String.prototype.slice()</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/12/19/211220_mui/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/19/211220_mui/" class="post-title-link" itemprop="url">MUI v4에서 v5로 마이그레이션 하기</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-12-20T00:00:00+09:00">2021-12-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-28 11:27:01" itemprop="dateModified" datetime="2021-12-28T11:27:01+09:00">2021-12-28</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>원문 링크: <a href="https://mui.com/guides/migration-v4/" target="_blank" rel="noopener">https://mui.com/guides/migration-v4/</a></p>
+</blockquote>
+<h2 id="v4-에서-v5로-마이그레이션하기"><a href="#v4-에서-v5로-마이그레이션하기" class="headerlink" title="v4 에서 v5로 마이그레이션하기"></a>v4 에서 v5로 마이그레이션하기</h2><aside>
+💡 왜 마이그레이션 해야할까 ? ➡️   [https://mui.com/blog/mui-core-v5/](https://mui.com/blog/mui-core-v5/)
+
+</aside>
+
+<aside>
+💡 문제 발생시 여기로  ➡️  [https://mui.com/guides/migration-v4/#troubleshooting](https://mui.com/guides/migration-v4/#troubleshooting)
+
+</aside>
+
+<hr>
+<h2 id="마이그레이션-해야-하는-이유"><a href="#마이그레이션-해야-하는-이유" class="headerlink" title="마이그레이션 해야 하는 이유"></a>마이그레이션 해야 하는 이유</h2><p>버그 수정 및 새로운 스타일링 엔진과 같은 여러 개선사항의 이점을 얻으려면 마이그레이션 해야한다.</p>
+<h2 id="마이그레이션-단계"><a href="#마이그레이션-단계" class="headerlink" title="마이그레이션 단계"></a>마이그레이션 단계</h2><h2 id="React-또는-TypeScript-버전-업데이트"><a href="#React-또는-TypeScript-버전-업데이트" class="headerlink" title="React 또는 TypeScript 버전 업데이트"></a>React 또는 TypeScript 버전 업데이트</h2><ul>
+<li>React 최소지원버전: v16.8.0 to v17.0.0.</li>
+<li>TypeScript 최소지원버전: v3.2 to v3.5.</li>
+</ul>
+<h2 id="ThemeProvider-setup"><a href="#ThemeProvider-setup" class="headerlink" title="ThemeProvider setup"></a>ThemeProvider setup</h2><p>v5로 업그레이드 전에 <code>ThemeProvider</code> 가 당신의 어플리케이션의 root에 정의되어 있고(default theme를 사용한다고 하더라도) <code>useStyles</code> 가 <code>&lt;ThemeProvider&gt;</code> 전에 호출되진 않았는지 확인해 본다. 그 이유는 임시로 <code>@mui/styles</code> (JSS style-engine)을 사용해야 하는데, 이것이 <code>ThemeProvider</code> 를 요구한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  ThemeProvider,</span><br><span class="line">  createMuiTheme,</span><br><span class="line">  makeStyles</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'@material-ui/core/styles'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> theme = createMuiTheme()</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> useStyles = makeStyles(<span class="function"><span class="params">theme</span> =&gt;</span> &#123;</span><br><span class="line">  root: &#123;</span><br><span class="line">    <span class="comment">// some CSS that access to theme</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> classes = useStyles() <span class="comment">// ❌ If you have this, consider moving it inside a component that wrapped with &lt;ThemeProvider&gt;</span></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">ThemeProvider</span> <span class="attr">theme</span>=<span class="string">&#123;theme&#125;</span>&gt;</span>&#123;children&#125;<span class="tag">&lt;/<span class="name">ThemeProvider</span>&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="MUI-버전-업데이트"><a href="#MUI-버전-업데이트" class="headerlink" title="MUI 버전 업데이트"></a>MUI 버전 업데이트</h2><p>v5 버전의 MUI core를 사용하려면 먼저 패키지 네임을 업데이트해야 한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install @mui/material @mui/styles</span><br><span class="line"></span><br><span class="line"><span class="comment">// or with `yarn`</span></span><br><span class="line">yarn add @mui/material @mui/styles</span><br></pre></td></tr></table></figure>
+<p>만약 아래와 같은 패키지가 이미 있는 경우 새 패키지를 별도로 설치해라</p>
+<ul>
+<li><code>@material-ui/lab</code> →  <code>@mui/lab</code></li>
+<li><p><code>@material-ui/icons</code> → <code>@mui/icons-material</code></p>
+</li>
+<li><p>모든 변경된 패키지 리스트 보기</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@material-ui/core -&gt; @mui/material</span><br><span class="line">@material-ui/system -&gt; @mui/system</span><br><span class="line">@material-ui/unstyled -&gt; @mui/base</span><br><span class="line">@material-ui/styles -&gt; @mui/styles</span><br><span class="line">@material-ui/icons -&gt; @mui/icons-material</span><br><span class="line">@material-ui/lab -&gt; @mui/lab</span><br><span class="line">@material-ui/types -&gt; @mui/types</span><br><span class="line">@material-ui/styled-engine -&gt; @mui/styled-engine</span><br><span class="line">@material-ui/styled-engine-sc -&gt;@mui/styled-engine-sc</span><br><span class="line">@material-ui/private-theming -&gt; @mui/private-theming</span><br><span class="line">@material-ui/codemod -&gt; @mui/codemod</span><br><span class="line">@material-ui/docs -&gt; @mui/docs</span><br><span class="line">@material-ui/envinfo -&gt; @mui/envinfo</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>org 또는 패키지 이름이 <code>@material-ui</code>에서 <code>@mui</code>로 변경된 것은 리브랜딩의 일환이다. 자세한 내용은 <a href="https://mui.com/blog/material-ui-is-now-mui/" target="_blank" rel="noopener">블로그</a> 포스트 또는 <a href="https://github.com/mui-org/material-ui/discussions/27803" target="_blank" rel="noopener">#27803</a>을 확인한다.</p>
+<p>그 다음으로는 새로운 종속 디펜던시인 이모션 패키지를 설치해야 한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install @emotion/react @emotion/styled</span><br><span class="line"></span><br><span class="line"><span class="comment">// or with `yarn`</span></span><br><span class="line">yarn add @emotion/react @emotion/styled</span><br></pre></td></tr></table></figure>
+<p>만약 MUI Core v5를 emotion 대신 styled-components와 함께 사용하고 싶다면 <a href="https://mui.com/getting-started/installation/#npm" target="_blank" rel="noopener">설치 가이드</a>를 확인한다.</p>
+<p>만약 <code>@material-ui/pickers</code>를 사용중이라면 이것은 <code>@mui/lab</code>으로 이동했다. <a href="https://mui.com/guides/migration-v4/#material-ui-pickers" target="_blank" rel="noopener">이 링크</a>를 통해 <code>@mui/lab</code>으로 마이그레이션 하는 다음 단계를 확인할 수 있다.</p>
+<p>지금쯤 <code>@mui/styles</code>를 설치했어야 한다. 여기에는 emotion을 복제하는 JSS를 포함하고 있다. 이는 v5로의 점진적인 마이그레이션을 허용하기 위한 것이다. <a href="https://mui.com/guides/migration-v4/#migrate-from-jss" target="_blank" rel="noopener">다음 단계</a>에 따라 종속성을 제거할 수 있도록 한다.</p>
+<blockquote>
+<p>어플리케이션이 에러없이 잘 실행되고 있는지 확인하고, 다음 단계를 이어가기 전에 변경 사항을 커밋하도록 한다.</p>
+</blockquote>
+<p>어플리케이션이 완전히 MUI v5로 마이그레이션 되면 이전의 <code>@material-ui/*</code> 패키지를 <code>yarn remove</code> 또는 <code>npm install</code>로 제거할 수 있다.</p>
+<hr>
+<h2 id="codemod-실행"><a href="#codemod-실행" class="headerlink" title="codemod 실행"></a>codemod 실행</h2><p>마이그레이션을 쉽게 할 수 있도록 codemod를 준비했다.</p>
+<h3 id="preset-safe"><a href="#preset-safe" class="headerlink" title="preset-safe"></a>preset-safe</h3><p>이 codemod에는 마이그레이션에 유용한 대부분의 transformer가 포함되어 있다. (이 codemod는 폴더당 한 번만 적용될 수 있도록 한다.)</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx @mui/codemod v5<span class="number">.0</span><span class="number">.0</span>/preset-safe &lt;path&gt;</span><br></pre></td></tr></table></figure>
+<p>이 codemode를 일대일로 하나씩 실행하려면 <a href="https://github.com/mui-org/material-ui/blob/master/packages/mui-codemod/README.md#-preset-safe" target="_blank" rel="noopener">preset-safe codemod</a>에서 상세 내용을 확인한다.</p>
+<h3 id="variant-prop"><a href="#variant-prop" class="headerlink" title="variant-prop"></a>variant-prop</h3><p>어떠한 variant도 정의되지 않았다면 (default variant는 v4 standard에서 v5 outlined로 변경되었다.)<code>&lt;TextField/&gt;</code>, <code>&lt;FormControl/&gt;</code>, <code>&lt;Select/&gt;</code> 등의 컴포넌트에 variant=”standard”를 적용하여 변환할 수 있다.</p>
+<aside>
+💡 이미 default로 variant:”outlined”를 theme에 사용했다면 이 codemode를 사용해서는 안된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// if you have theme setup like this, ❌ don't run this codemod.</span></span><br><span class="line"><span class="comment">// these default props can be removed later because `outlined` is the default value in v5</span></span><br><span class="line">createMuiTheme(&#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    MuiTextField: &#123;</span><br><span class="line">      defaultProps: &#123;</span><br><span class="line">        variant: <span class="string">'outlined'</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>만약 variant=”standard” 를 컴포넌트에서 유지하고 싶다면, 이 codemod를 실행하거나 theme default props를 구성한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx @mui/codemod v5<span class="number">.0</span><span class="number">.0</span>/variant-prop &lt;path&gt;</span><br></pre></td></tr></table></figure>
+<p>자세한 내용은 <a href="https://github.com/mui-org/material-ui/blob/master/packages/mui-codemod/README.md#variant-prop" target="_blank" rel="noopener">variant-prop codemod</a>를 확인한다.</p>
+<h3 id="link-underline-hover"><a href="#link-underline-hover" class="headerlink" title="link-underline-hover"></a>link-underline-hover</h3><p>underliner prop이 정의되지 않았다면 <Link/> 컴포넌트에 underline=”hover”를 적용하면 변환할 수 있다. (default underline은 v4 “hover”에서 v5 “always”로 변경되었다.)</p>
+<aside>
+💡 이미 default로 underline:”always”를 theme에 사용했다면 이 codemode를 사용해서는 안된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// if you have theme setup like this, ❌ don't run this codemod.</span></span><br><span class="line"><span class="comment">// this default props can be removed later because `always` is the default value in v5</span></span><br><span class="line">createMuiTheme(&#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    MuiLink: &#123;</span><br><span class="line">      defaultProps: &#123;</span><br><span class="line">        underline: <span class="string">'always'</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>만약 variant=”hover” 를 컴포넌트에서 유지하고 싶다면, 이 codemod를 실행하거나 theme default props를 구성한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx @mui/codemod v5<span class="number">.0</span><span class="number">.0</span>/link-underline-hover &lt;path&gt;</span><br></pre></td></tr></table></figure>
+<p>자세한 내용은 <a href="https://github.com/mui-org/material-ui/blob/master/packages/mui-codemod/README.md#link-underline-hover" target="_blank" rel="noopener">link-underline-hover codemod</a>에서 확인한다.</p>
+<p>codemod 단계를 일단 완료했다면 어플리케이션을 다시 실행해본다. 이때 에러없이 실행되어야 한다. 그렇지 않을 경우 <a href="https://mui.com/guides/migration-v4/#troubleshooting" target="_blank" rel="noopener">troubleshooting</a> 섹션을 확인해본다. 다음 단계는 각 컴포넌트의 주요 변경사항을 처리하는 것이다.</p>
+<hr>
+<h2 id="Handling-breaking-changes"><a href="#Handling-breaking-changes" class="headerlink" title="Handling breaking changes"></a>Handling breaking changes</h2><h3 id="지원되는-브라우저-및-노드-버전"><a href="#지원되는-브라우저-및-노드-버전" class="headerlink" title="지원되는 브라우저 및 노드 버전"></a>지원되는 브라우저 및 노드 버전</h3><p>default 번들의 타겟이 변경되었다. 정확한 버전은 browserslist query가 릴리즈 될 때 고정된다.</p>
+<p><code>&quot;&gt; 0.5%, last 2 versions, Firefox ESR, not dead, not IE 11, maintained node versions&quot;</code></p>
+<p>기존 번들은 아래와 같은 최소 버전을 지원한다.</p>
+<ul>
+<li>Node 12 (up from 8)</li>
+<li>Chrome 90 (up from 49)</li>
+<li>Edge 91 (up from 14)</li>
+<li>Firefox 78 (up from 52)</li>
+<li>Safari 14 (macOS) and 12.5 (iOS) (up from 10)</li>
+<li>and more (see <a href="https://github.com/mui-org/material-ui/blob/HEAD/.browserslistrc#L11" target="_blank" rel="noopener">.browserslistrc (<code>stable</code> entry)</a>)</li>
+</ul>
+<p>더이상 IE 11을 지원하지 않기 때문에 IE 11을 지원해야 하는 경우는 <a href="https://mui.com/guides/minimizing-bundle-size/#legacy-bundle" target="_blank" rel="noopener">lagacy bundle</a>를 확인한다.</p>
+<h3 id="non-ref-forwarding-class-components"><a href="#non-ref-forwarding-class-components" class="headerlink" title="non-ref-forwarding class components"></a>non-ref-forwarding class components</h3><p>component prop의 non-ref-forwarding class components 또는 immediate children의 지원이 중단되었다. 만약 unstable_createStrictModeTheme를 사용하고 있거나 React.StrictMode의 <code>findDOMNode</code> 과 관련된 어떠한 경고도 표시되지 않았다면 아무런 작업도 수행할 필요가 없다. 그렇지 않다면 <a href="https://mui.com/guides/composition/#caveat-with-refs" target="_blank" rel="noopener">Caveat with refs</a> 섹션에서 어떻게 마이그레이션 해야하는지 알아볼 필요가 있다. 이 변경 사항은 component prop를 사용하는 곳이나 children을 element로 필요로 하기 때문에 children을 components에 전달해야 하는 거의 모든 components에 영향을 미친다. (예를 들어, <MenuList><CustomMenuItem /></MenuList>)</p>
+<h3 id="style-library"><a href="#style-library" class="headerlink" title="style library"></a>style library</h3><p>v5에서 default로 사용하는 스타일 라이브러리는 <code>[emotion](https://github.com/emotion-js/emotion)</code>이다. JSS에서 emotion으로 마이그레이션 하는 동안 components에 JSS style을 사용하여 override하는 경우 (예를 들자면 makeStyles 통해 override하는 경우) CSS 삽입 순서 (CSS injection order)를 신경써야 한다. 이렇게 하려면 <code>StyledEngineProvider</code> 와 <code>injectFirst</code> 옵션이 <strong>컴포넌트 tree의 가장 최상단에 위치해야 한다.</strong></p>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//예시</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; StyledEngineProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">GlobalCssPriority</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &#123;<span class="comment">/* Inject emotion before JSS */</span>&#125;</span><br><span class="line">    &lt;StyledEngineProvider injectFirst&gt;</span><br><span class="line">      &#123;<span class="comment">/* Your component tree. Now you can override MUI's styles. */</span>&#125;</span><br><span class="line">    &lt;<span class="regexp">/StyledEngineProvider&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<aside>
+💡 emotion을 통해 app에 스타일을 지정하고, 커스텀 캐시가 있는 경우에 MUI에 의해 제공되는 캐시는 무시된다. injection order를 올바르게 하려면 `prepend` 옵션을 `createCache`에 추가해야 한다.  
+이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//예시</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"> <span class="keyword">import</span> &#123; CacheProvider &#125; <span class="keyword">from</span> <span class="string">'@emotion/react'</span>;</span><br><span class="line"> <span class="keyword">import</span> createCache <span class="keyword">from</span> <span class="string">'@emotion/cache'</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">const</span> cache = createCache(&#123;</span><br><span class="line">   key: <span class="string">'css'</span>,</span><br><span class="line">+  prepend: <span class="literal">true</span>,</span><br><span class="line"> &#125;);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">PlainCssPriority</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> (</span><br><span class="line">     &lt;CacheProvider value=&#123;cache&#125;&gt;</span><br><span class="line">       &#123;<span class="comment">/* Your component tree. Now you can override MUI's styles. */</span>&#125;</span><br><span class="line">     &lt;<span class="regexp">/CacheProvider&gt;</span></span><br><span class="line"><span class="regexp">   );</span></span><br><span class="line"><span class="regexp"> &#125;</span></span><br></pre></td></tr></table></figure>
+<p>styled-components를 사용 중이고, 커스텀 타겟이 있는 StyleSheetManager를 사용중이라면 타겟이 HTML <head> 엘리먼트의 첫번 째 요소인지 확인한다. 어떻게 이것을 수행하는지 확인하려면 <code>@mui/styled-engine-sc</code> package에 있는 <code>[StyledEngineProvider</code> implementation](<a href="https://github.com/mui-org/material-ui/blob/master/packages/mui-styled-engine-sc/src/StyledEngineProvider/StyledEngineProvider.js)을" target="_blank" rel="noopener">https://github.com/mui-org/material-ui/blob/master/packages/mui-styled-engine-sc/src/StyledEngineProvider/StyledEngineProvider.js)을</a> 살펴본다.</p>
+<h3 id="Theme-structure"><a href="#Theme-structure" class="headerlink" title="Theme structure"></a>Theme structure</h3><p>theme 구조는 v5에서 변경되었기 때문에 변경된 형태로 업데이트 해야 한다. 원활한 전환을 위해서 <code>adaptV4Theme</code>를 사용해서 일부 테마의 변경된 사항을 새로운 테마 구조로 반복적으로 업그레이드 할 수 있다.</p>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; createMuiTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createTheme, adaptV4Theme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">-<span class="keyword">const</span> theme = createMuiTheme(&#123;</span><br><span class="line">+<span class="keyword">const</span> theme = createTheme(adaptV4Theme(&#123;</span><br><span class="line">   <span class="comment">// v4 theme</span></span><br><span class="line">-&#125;);</span><br><span class="line">+&#125;));</span><br></pre></td></tr></table></figure>
+<aside>
+💡 이 adapter는 creatTheme의 input arguements만 처리하기 때문에 테마 생성 후 구조를 수정하고자 할 때는 수동으로 업데이트 해야한다.
+
+</aside>
+
+<p>adapther는 다음의 변경 사항을 지원한다.</p>
+<ul>
+<li>“gutters” abstraction은 가치가 있다고 생각될 만큼 자주 사용되지 않는다고 입증되었다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-theme.mixins.gutters(),</span><br><span class="line">+paddingLeft: theme.spacing(<span class="number">2</span>),</span><br><span class="line">+paddingRight: theme.spacing(<span class="number">2</span>),</span><br><span class="line">+[theme.breakpoints.up(<span class="string">'sm'</span>)]: &#123;</span><br><span class="line">+  paddingLeft: theme.spacing(<span class="number">3</span>),</span><br><span class="line">+  paddingRight: theme.spacing(<span class="number">3</span>),</span><br><span class="line">+&#125;,</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>theme.spacing</code> 은 이제 default로 px 유닛과 단일 값을 반환한다. 이는 styled-compontnts와 emotion의 통합을 개선한다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">이는 &#96;theme.spacing&#96;이 template string로 호출되던 것으로부터 &#39;px&#39; 접미사를 제거해서</span><br><span class="line">[preset-safe codemod](https:&#x2F;&#x2F;mui.com&#x2F;guides&#x2F;migration-v4&#x2F;#preset-safe)에서 처리된다.</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//before</span></span><br><span class="line">theme.spacing(<span class="number">2</span>) =&gt; <span class="number">16</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//after</span></span><br><span class="line">theme.spacing(<span class="number">2</span>) =&gt; <span class="string">'16px'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>이 기능을 설명하는 데 일반적으로 사용되는 “dark mode”라는 용어를 더 잘 따르기 위해서 <code>theme.palette.type</code> 키는 <code>theme.palette.mode</code> 로 이름이 변경되었다.</li>
+</ul>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">-<span class="keyword">const</span> theme = createTheme(&#123;<span class="attr">palette</span>: &#123; <span class="attr">type</span>: <span class="string">'dark'</span> &#125;&#125;),</span><br><span class="line">+<span class="keyword">const</span> theme = createTheme(&#123;<span class="attr">palette</span>: &#123; <span class="attr">mode</span>: <span class="string">'dark'</span> &#125;&#125;),</span><br></pre></td></tr></table></figure>
+<ul>
+<li>default <code>[theme.palette.info](http://theme.palette.info)</code> 색상은 라이트, 다크 모드 모두에서 AA 표준 명암비를 통과하도록 변경되었다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">info = &#123;</span><br><span class="line">-  main: cyan[<span class="number">500</span>],</span><br><span class="line">+  main: lightBlue[<span class="number">700</span>], <span class="comment">// lightBlue[400] in "dark" mode</span></span><br><span class="line"></span><br><span class="line">-  light: cyan[<span class="number">300</span>],</span><br><span class="line">+  light: lightBlue[<span class="number">500</span>], <span class="comment">// lightBlue[300] in "dark" mode</span></span><br><span class="line"></span><br><span class="line">-  dark: cyan[<span class="number">700</span>],</span><br><span class="line">+  dark: lightBlue[<span class="number">900</span>], <span class="comment">// lightBlue[700] in "dark" mode</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>default <code>theme.palette.succeess</code> 색상은 색상은 라이트, 다크 모드 모두에서 AA 표준 명암비를 통과하도록 변경되었다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">success = &#123;</span><br><span class="line">-  main: green[<span class="number">500</span>],</span><br><span class="line">+  main: green[<span class="number">800</span>], <span class="comment">// green[400] in "dark" mode</span></span><br><span class="line"></span><br><span class="line">-  light: green[<span class="number">300</span>],</span><br><span class="line">+  light: green[<span class="number">500</span>], <span class="comment">// green[300] in "dark" mode</span></span><br><span class="line"></span><br><span class="line">-  dark: green[<span class="number">700</span>],</span><br><span class="line">+  dark: green[<span class="number">900</span>], <span class="comment">// green[700] in "dark" mode</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>default <code>theme.palette.warning</code> 색상은 색상은 라이트, 다크 모드 모두에서 AA 표준 명암비를 통과하도록 변경되었다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">warning = &#123;</span><br><span class="line">-  main: orange[<span class="number">500</span>],</span><br><span class="line">+  main: <span class="string">"#ED6C02"</span>, <span class="comment">// orange[400] in "dark" mode</span></span><br><span class="line"></span><br><span class="line">-  light: orange[<span class="number">300</span>],</span><br><span class="line">+  light: orange[<span class="number">500</span>], <span class="comment">// orange[300] in "dark" mode</span></span><br><span class="line"></span><br><span class="line">-  dark: orange[<span class="number">700</span>],</span><br><span class="line">+  dark: orange[<span class="number">900</span>], <span class="comment">// orange[700] in "dark" mode</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>default <code>theme.palette.text.hint</code> 키는 MUI components에서는 사용되지 않기 때문에 제거되었다. 만약 dependency를 가지고 있다면 뒤에 아래 예시와 같은 내용을 덧붙이도록 한다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">-<span class="keyword">const</span> theme = createTheme(),</span><br><span class="line">+<span class="keyword">const</span> theme = createTheme(&#123;</span><br><span class="line">+  palette: &#123; <span class="attr">text</span>: &#123; <span class="attr">hint</span>: <span class="string">'rgba(0, 0, 0, 0.38)'</span> &#125; &#125;,</span><br><span class="line">+&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>theme의 components 정의는 어떠한 관련된 component에서도 정의를 쉽게 찾아볼 수 있도록 compontns key 아래에 새롭게 구성되었다.</li>
+</ul>
+<ol>
+<li><code>prop</code></li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">const</span> theme = createTheme(&#123;</span><br><span class="line">-  props: &#123;</span><br><span class="line">-    MuiButton: &#123;</span><br><span class="line">-      disableRipple: <span class="literal">true</span>,</span><br><span class="line">-    &#125;,</span><br><span class="line">-  &#125;,</span><br><span class="line">+  components: &#123;</span><br><span class="line">+    MuiButton: &#123;</span><br><span class="line">+      defaultProps: &#123;</span><br><span class="line">+        disableRipple: <span class="literal">true</span>,</span><br><span class="line">+      &#125;,</span><br><span class="line">+    &#125;,</span><br><span class="line">+  &#125;,</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>overrides</code></li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">const</span> theme = createTheme(&#123;</span><br><span class="line">-  overrides: &#123;</span><br><span class="line">-    MuiButton: &#123;</span><br><span class="line">-      root: &#123; <span class="attr">padding</span>: <span class="number">0</span> &#125;,</span><br><span class="line">-    &#125;,</span><br><span class="line">-  &#125;,</span><br><span class="line">+  components: &#123;</span><br><span class="line">+    MuiButton: &#123;</span><br><span class="line">+      styleOverrides: &#123;</span><br><span class="line">+        root: &#123; <span class="attr">padding</span>: <span class="number">0</span> &#125;,</span><br><span class="line">+      &#125;,</span><br><span class="line">+    &#125;,</span><br><span class="line">+  &#125;,</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Styles"><a href="#Styles" class="headerlink" title="Styles"></a>Styles</h3><ul>
+<li>기능을 더 잘 나타내기 위해 <code>fade</code> 에서 <code>alpha</code> 로 이름이 변경되었다. 이전의 이름은 입력 색상 값에 이미 alpha값이 있을 때 혼동을 야기했다. helper는 색상의 alpha 값을 override 한다.</li>
+</ul>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- <span class="keyword">import</span> &#123; fade &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+ <span class="keyword">import</span> &#123; alpha &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> classes = makeStyles(<span class="function"><span class="params">theme</span> =&gt;</span> (&#123;</span><br><span class="line">-  backgroundColor: fade(theme.palette.primary.main, theme.palette.action.selectedOpacity),</span><br><span class="line">+  backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>createStyles</code> 함수는 <code>@mui/material/styles</code> 에서 export 되는 것에서 <code>@mui/styles</code> 에서 export되는 것으로 변경되었다. 디펜던시를 core 패키지의 <code>@mui/styles</code> 로 이동시키는 것이 필요하다.</li>
+</ul>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; createStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="mui-styles"><a href="#mui-styles" class="headerlink" title="@mui/styles"></a>@mui/styles</h3><h3 id="ThemeProvider"><a href="#ThemeProvider" class="headerlink" title="ThemeProvider"></a>ThemeProvider</h3><p><code>@mui/styles</code> 와 <code>@mui/material</code>를 함께 사용한다면, <code>ThemeProvider</code> 를 <code>@mui/material/styles</code>에서 export 되던 것을 <code>@mui/styles</code>에서 export 되도록 변경해야 한다. 이 방법은 <code>@mui/styles</code>에서 export된 스타일링 유틸리티인 makeStyles, withStyles 등과 MUI component에서 context에서 제공되는 theme가 모두 사용되도록 할 수 있다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; ThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; ThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="Default-Theme-TypeScript"><a href="#Default-Theme-TypeScript" class="headerlink" title="Default Theme (TypeScript)"></a>Default Theme (TypeScript)</h3><p><code>@mui/styles</code> 패키지는 더이상 <code>@mui/material/styles</code> 의 일부가 아니다. <code>@mui/styles</code>를 <code>@mui/material</code> 과 함께 사용하는 경우에 DefaultTheme에 대해 모듈을 추가하여 적용해야 한다.</p>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in the file where you are creating the theme (invoking the function `createTheme()`)</span></span><br><span class="line"><span class="keyword">import</span> &#123; Theme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">declare <span class="built_in">module</span> <span class="string">'@mui/styles'</span> &#123;</span><br><span class="line">  interface DefaultTheme extends Theme &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="mui-material-colors"><a href="#mui-material-colors" class="headerlink" title="@mui/material/colors"></a>@mui/material/colors</h3><ul>
+<li>1 레벨 이상의 중첩된 import는 private이다. <code>@mui/material/colors/red</code> 에서 색상을 가져올 수 없다.</li>
+</ul>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> red <span class="keyword">from</span> <span class="string">'@mui/material/colors/red'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; red &#125; <span class="keyword">from</span> <span class="string">'@mui/material/colors'</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="mui-material-styles"><a href="#mui-material-styles" class="headerlink" title="@mui/material/styles"></a>@mui/material/styles</h3><h3 id="createGenerateClassName"><a href="#createGenerateClassName" class="headerlink" title="createGenerateClassName"></a>createGenerateClassName</h3><p><code>createGenerateClassName</code> 함수는 더이상 <code>@mui/material/styles</code>에서 export되지 않는다. <code>@mui/styles</code>에서 직접 import해야 한다.</p>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; createGenerateClassName &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createGenerateClassName &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br></pre></td></tr></table></figure>
+<p>@mui/styles를 사용하지 않고 커스텀 클래스네임을 생성하려면 <a href="https://mui.com/guides/classname-generator/" target="_blank" rel="noopener">ClassNameGenerator</a>에서 세부내용을 확인한다.</p>
+<h3 id="createMuiTheme"><a href="#createMuiTheme" class="headerlink" title="createMuiTheme"></a>createMuiTheme</h3><p><code>createMuiTheme</code> 함수는 <code>ThemeProvider</code>를 좀더 직관적으로 사용할 수 있도록 하기 위해서 <code>createTheme</code>로 이름이 변경되었다.</p>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; createMuiTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">-<span class="keyword">const</span> theme = createMuiTheme(&#123;</span><br><span class="line">+<span class="keyword">const</span> theme = createTheme(&#123;</span><br></pre></td></tr></table></figure>
+<h3 id="jssPreset"><a href="#jssPreset" class="headerlink" title="jssPreset"></a>jssPreset</h3><ul>
+<li><code>jssPreset</code> 객체는 더이상 <code>@mui/material/styles</code> 에서 export되지 않는다. <code>@mui/styles</code>에서 바로 import해서 사용해야 한다.</li>
+</ul>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; jssPreset &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; jssPreset &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="makeStyles"><a href="#makeStyles" class="headerlink" title="makeStyles"></a>makeStyles</h3><ul>
+<li><code>makeStyles</code> JSS 유틸리티는 더이상 <code>@mui/material/styles</code> 에서 export되지 않기 때문에 대신 <code>@mui/styles/makeStyles</code>를 사용해야 한다. <code>defaultTheme</code> 를 더이상 사용할 수 없기 때문에 <code>ThemeProvider</code>를 어플리케이션의 루트에 추가하도록 한다. 만약 <code>@mui/material</code>와 함께 사용하고 있다면 <code>@mui/material/styles</code>에 있는 ThemeProvider 컴포넌트를 사용하는 것을 추천한다.</li>
+</ul>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; makeStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; makeStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createTheme, ThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">+<span class="keyword">const</span> theme = createTheme();</span><br><span class="line"> <span class="keyword">const</span> useStyles = makeStyles(<span class="function">(<span class="params">theme</span>) =&gt;</span> (&#123;</span><br><span class="line">   background: theme.palette.primary.main,</span><br><span class="line"> &#125;));</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">Component</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">const</span> classes = useStyles();</span><br><span class="line">   <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;classes.root&#125;</span> /&gt;</span></span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// In the root of your app</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">-  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Component</span> /&gt;</span></span>;</span><br><span class="line">+  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">ThemeProvider</span> <span class="attr">theme</span>=<span class="string">&#123;theme&#125;</span>&gt;</span><span class="tag">&lt;<span class="name">Component</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span><span class="tag">&lt;/<span class="name">ThemeProvider</span>&gt;</span></span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="MuiThemeProvider"><a href="#MuiThemeProvider" class="headerlink" title="MuiThemeProvider"></a>MuiThemeProvider</h3><p><code>MuiThemeProvider</code> 컴포넌트는 더이상 <code>@mui/material/styles</code>에서 export되지 않으므로 <code>ThemeProvider</code>를 대신 사용한다.</p>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; MuiThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; ThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="serverStyleSheets"><a href="#serverStyleSheets" class="headerlink" title="serverStyleSheets"></a>serverStyleSheets</h3><p><code>ServerStyleSheets</code> 컴포넌트는 더이상 <code>@mui/material/styles</code>에서 export되지 않으므로 <code>@mui/styles</code>에서 직접 import하도록 한다.</p>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; ServerStyleSheets &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; ServerStyleSheets &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="Styles-1"><a href="#Styles-1" class="headerlink" title="Styles"></a>Styles</h3><p><code>styled</code> JSS utility는 더이상 <code>@mui/material/styles</code>에서 export되지 않으므로 대신 <code>@mui/styles</code>에서 export된 것을 사용하도록 한다. <code>defaultTheme</code> 를 더이상 사용할 수 없기 때문에 <code>ThemeProvider</code>를 어플리케이션의 루트에 추가하도록 한다. 만약 <code>@mui/material</code>와 함께 사용하고 있다면 <code>@mui/material/styles</code>에 있는 ThemeProvider 컴포넌트를 사용하는 것을 추천한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; styled &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; styled &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createTheme, ThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">+<span class="keyword">const</span> theme = createTheme();</span><br><span class="line"> <span class="keyword">const</span> MyComponent = styled(<span class="string">'div'</span>)(<span class="function">(<span class="params">&#123; theme &#125;</span>) =&gt;</span> (&#123; <span class="attr">background</span>: theme.palette.primary.main &#125;));</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">-  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> /&gt;</span></span>;</span><br><span class="line">+  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">ThemeProvider</span> <span class="attr">theme</span>=<span class="string">&#123;theme&#125;</span>&gt;</span><span class="tag">&lt;<span class="name">MyComponent</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span><span class="tag">&lt;/<span class="name">ThemeProvider</span>&gt;</span></span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="StylesProvider"><a href="#StylesProvider" class="headerlink" title="StylesProvider"></a>StylesProvider</h3><ul>
+<li><code>StylesProvider</code> 컴포넌트는 더이상 <code>@mui/material/styles</code>에서 export되지 않으므로 <code>@mui/styles</code>에서 바로 export하여 사용하도록 한다.</li>
+</ul>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; StylesProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; StylesProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="useThemeVariants"><a href="#useThemeVariants" class="headerlink" title="useThemeVariants"></a>useThemeVariants</h3><ul>
+<li><code>useThemeVariants</code> hook은 더이상 <code>@mui/material/styles</code> 에서 export 되지 않기 때문에 <code>@mui/styles</code> 에서 즉시 import하여 사용하도록 한다.</li>
+</ul>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; useThemeVariants &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; useThemeVariants &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="withStyles"><a href="#withStyles" class="headerlink" title="withStyles"></a>withStyles</h3><p><code>innerRef</code> prop은 <code>ref</code> prop으로 교체한다. Refs는 이제 자동으로 inner 컴포넌트에 전달된다.</p>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"> <span class="keyword">import</span> &#123; withStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">const</span> MyComponent = withStyles(&#123;</span><br><span class="line">   root: &#123;</span><br><span class="line">     backgroundColor: <span class="string">'red'</span>,</span><br><span class="line">   &#125;,</span><br><span class="line"> &#125;)(<span class="function">(<span class="params">&#123; classes &#125;</span>) =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;classes.root&#125;</span> /&gt;</span></span>);</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">MyOtherComponent</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">   <span class="keyword">const</span> ref = React.useRef();</span><br><span class="line">-  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> <span class="attr">innerRef</span>=<span class="string">&#123;ref&#125;</span> /&gt;</span></span>;</span><br><span class="line">+  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> <span class="attr">ref</span>=<span class="string">&#123;ref&#125;</span> /&gt;</span></span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><code>withStyles</code> JSS utility는 더이상 <code>@mui/material/styles</code> 에서 export 되지 않기 때문에 <code>@mui/styles/withStyles</code> 를 대신 쓰도록 한다. <code>defaultTheme</code> 를 더이상 사용할 수 없기 때문에 <code>ThemeProvider</code>를 어플리케이션의 루트에 추가하도록 한다. 만약 <code>@mui/material</code>와 함께 사용하고 있다면 <code>@mui/material/styles</code>에 있는 ThemeProvider 컴포넌트를 사용하는 것을 추천한다.</p>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; withStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; withStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createTheme, ThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">+<span class="keyword">const</span> defaultTheme = createTheme();</span><br><span class="line"> <span class="keyword">const</span> MyComponent = withStyles(<span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">   <span class="keyword">const</span> &#123; classes, className, ...other &#125; = props;</span><br><span class="line">   <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;clsx(className,</span> <span class="attr">classes.root</span>)&#125; &#123;<span class="attr">...other</span>&#125; /&gt;</span></span></span><br><span class="line"> &#125;)(<span class="function">(<span class="params">&#123; theme &#125;</span>) =&gt;</span> (&#123; <span class="attr">root</span>: &#123; <span class="attr">background</span>: theme.palette.primary.main &#125;&#125;));</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">-  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> /&gt;</span></span>;</span><br><span class="line">+  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">ThemeProvider</span> <span class="attr">theme</span>=<span class="string">&#123;defaultTheme&#125;</span>&gt;</span><span class="tag">&lt;<span class="name">MyComponent</span> /&gt;</span><span class="tag">&lt;/<span class="name">ThemeProvider</span>&gt;</span></span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="withTheme"><a href="#withTheme" class="headerlink" title="withTheme"></a>withTheme</h3><p><code>withTheme</code> HOC utility는 <code>@mui/material/styles</code> 패키지에서 제거되었기 때문에 대신 <code>@mui/styles/withTheme</code>를 사용할 수 있다. <code>defaultTheme</code> 를 더이상 사용할 수 없기 때문에 <code>ThemeProvider</code>를 어플리케이션의 루트에 추가하도록 한다. 만약 <code>@mui/material</code>와 함께 사용하고 있다면 <code>@mui/material/styles</code>에 있는 ThemeProvider 컴포넌트를 사용하는 것을 추천한다.</p>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; withTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; withTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createTheme, ThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">+<span class="keyword">const</span> theme = createTheme();</span><br><span class="line"> <span class="keyword">const</span> MyComponent = withTheme(<span class="function">(<span class="params">&#123; theme &#125;</span>) =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;props.theme.direction&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>);</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">-  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> /&gt;</span></span>;</span><br><span class="line">+  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">ThemeProvider</span> <span class="attr">theme</span>=<span class="string">&#123;theme&#125;</span>&gt;</span><span class="tag">&lt;<span class="name">MyComponent</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span><span class="tag">&lt;/<span class="name">ThemeProvider</span>&gt;</span></span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><code>innerRef</code> prop를 ref prop으로 바꾼다. Ref는 이제 자동으로 내부 컴포넌트에 전달된다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; withTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MyComponent = withTheme(<span class="function">(<span class="params">&#123; theme &#125;</span>) =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;props.theme.direction&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyOtherComponent</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> ref = React.useRef();</span><br><span class="line">- <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> <span class="attr">innerRef</span>=<span class="string">&#123;ref&#125;</span> /&gt;</span></span>;</span><br><span class="line">+ <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> <span class="attr">ref</span>=<span class="string">&#123;ref&#125;</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="withWidth"><a href="#withWidth" class="headerlink" title="withWidth"></a>withWidth</h3><p>이 HOC는 제거되었고, 대안으로 <code>[useMediaQuery</code> hook](<a href="https://mui.com/components/use-media-query/#migrating-from-withwidth)을" target="_blank" rel="noopener">https://mui.com/components/use-media-query/#migrating-from-withwidth)을</a> 쓸 수 있다.</p>
+<aside>
+💡 이는 응용 프로그램이 충돌하는 것을 방지하기 위해 하드 코딩된 기능을 적용하여 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<h3 id="mui-icons-matetial"><a href="#mui-icons-matetial" class="headerlink" title="mui/icons-matetial"></a>mui/icons-matetial</h3><h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><p>Github icon은 24px에서 22px로 크기가 감소되었다.</p>
+<h3 id="material-ui-pickers"><a href="#material-ui-pickers" class="headerlink" title="@material-ui/pickers"></a><strong>@material-ui/pickers</strong></h3><p><code>@material-ui/pickers</code>를 마이그레이션 하는 방법은 <a href="https://mui.com/guides/pickers-migration/" target="_blank" rel="noopener">다음 페이지</a>를 참조하도록 한다.</p>
+<hr>
+<h2 id="System"><a href="#System" class="headerlink" title="System"></a>System</h2><p>다음의 system function 및 속성은 사용되지 않는 css로 간주되어 이름이 변경되었다.</p>
+<ul>
+<li><code>gridGap</code> to <code>gap</code></li>
+<li><code>gridRowGap</code> to <code>rowGap</code></li>
+<li><code>gridColumnGap</code> to <code>columnGap</code></li>
+</ul>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<p>간격을 조정하는 unit인 <code>gap</code>, <code>rowGap</code>, <code>columnGap</code> 등을 사용할 때, 이전에 숫자로 사용하고 있었다면 theme.spacing과 더불어 새롭게 변환되기 위해 px를 덧붙여서 사용해야 한다.</p>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Box</span><br><span class="line">-  gap=&#123;<span class="number">2</span>&#125;</span><br><span class="line">+  gap=<span class="string">"2px"</span></span><br><span class="line"> &gt;</span><br></pre></td></tr></table></figure>
+<p>css prop은 styled-components와 emotion의 css prop이 충돌되는 것을 막기 위해 <code>sx</code>로 변경한다.</p>
+<aside>
+💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
+
+</aside>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">;-(<span class="xml"><span class="tag">&lt;<span class="name">Box</span> <span class="attr">css</span>=<span class="string">&#123;&#123;</span> <span class="attr">color:</span> '<span class="attr">primary.main</span>' &#125;&#125; /&gt;</span></span>) +</span><br><span class="line">&lt;Box sx=&#123;&#123; <span class="attr">color</span>: <span class="string">'primary.main'</span> &#125;&#125; /&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Core-components"><a href="#Core-components" class="headerlink" title="Core components"></a>Core components</h3><p>core components는 스타일 엔진으로 emotion을 사용하기 때문에 emotion에 의해 사용되는 props들은 전파되지 않는다. 아래의 코드 스니펫처럼 props <code>as</code>는 <code>SomeOtherComponent</code>로 전파되지 않는다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;MuiComponent component=&#123;SomeOtherComponent&#125; <span class="keyword">as</span>=<span class="string">'button'</span> /&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://mui.com/guides/migration-v4/" target="_blank" rel="noopener">Migration from v4 to v5 - MUI</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/10/03/211004_tsOmitExclude/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +706,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
+                <time title="Modified: 2021-12-28 11:27:01" itemprop="dateModified" datetime="2021-12-28T11:27:01+09:00">2021-12-28</time>
               </span>
 
           
@@ -269,7 +800,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
+                <time title="Modified: 2021-12-28 11:27:01" itemprop="dateModified" datetime="2021-12-28T11:27:01+09:00">2021-12-28</time>
               </span>
 
           
@@ -348,7 +879,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
+                <time title="Modified: 2021-12-28 11:27:01" itemprop="dateModified" datetime="2021-12-28T11:27:01+09:00">2021-12-28</time>
               </span>
 
           
@@ -456,7 +987,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
+                <time title="Modified: 2021-12-28 11:27:01" itemprop="dateModified" datetime="2021-12-28T11:27:01+09:00">2021-12-28</time>
               </span>
 
           
@@ -566,7 +1097,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
+                <time title="Modified: 2021-12-28 11:27:01" itemprop="dateModified" datetime="2021-12-28T11:27:01+09:00">2021-12-28</time>
               </span>
 
           
@@ -674,7 +1205,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
+                <time title="Modified: 2021-12-28 11:27:01" itemprop="dateModified" datetime="2021-12-28T11:27:01+09:00">2021-12-28</time>
               </span>
 
           
@@ -797,7 +1328,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
+                <time title="Modified: 2021-12-28 11:27:01" itemprop="dateModified" datetime="2021-12-28T11:27:01+09:00">2021-12-28</time>
               </span>
 
           
@@ -938,7 +1469,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
+                <time title="Modified: 2021-12-28 11:27:01" itemprop="dateModified" datetime="2021-12-28T11:27:01+09:00">2021-12-28</time>
               </span>
 
           
@@ -994,233 +1525,6 @@
 <hr>
 <p><em>References</em></p>
 <p><a href="https://redux-toolkit.js.org/introduction/getting-started#rtk-query" target="_blank" rel="noopener">Getting Started | Redux Toolkit</a><br><a href="https://youtu.be/9zySeP5vH9c" target="_blank" rel="noopener">Let’s Learn Modern Redux! (with Mark Erikson) - Learn With Jason</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/20/210721_react-table/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/20/210721_react-table/" class="post-title-link" itemprop="url">React Table</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-21 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-21T00:00:00+09:00">2021-07-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="headless-UI"><a href="#headless-UI" class="headerlink" title="headless UI"></a>headless UI</h2><p>실제 UI 요소를 제공하거나 렌더하지 않지만 라이브러리가 제공하는 state와 callback hooks를 통해서 테이블 마크업을 커스텀할 수 있다.</p>
-<p>headless user interface component는 아무런 인터페이스를 제공하지 않음으로써 최대의 시각적 유연성을 제공하는 컴포넌트이다. <em>유저 인터페이스가 없는 유저 인터페이스</em>라고 할 수 있다. 이는 컴포넌트의 로직과 동작을 시각적 표현에서 분리하는 것이다.</p>
-<p><code>&lt;CoinFlip/&gt;</code>를 예로 들자면 이 컴포넌트를 child component의 함수로 쓰거나 prop을 렌더하는 식으로 사용한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> flip = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">  flipResults: <span class="built_in">Math</span>.random(),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CoinFlip</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  state = flip();</span><br><span class="line"></span><br><span class="line">  handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(flip);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.props.children(&#123;</span><br><span class="line">      rerun: <span class="keyword">this</span>.handleClick,</span><br><span class="line">      isHeads: <span class="keyword">this</span>.state.flipResults &lt; <span class="number">0.5</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>위 함수는 headless이다. 아무것도 렌더하지 않기 때문이다. 이 함수는 다양한 consumer들이 여러 논리적인 처리를 하면서 프레젠테이션 작업도 할 것을 기대하고 있다. 따라서 어플리케이션 코드는 다음과 같다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;CoinFlip&gt;</span><br><span class="line">  &#123;(&#123; rerun, isHeads &#125;) =&gt; (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;button onClick=&#123;rerun&#125;&gt;Reflip&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">      &#123;isHeads ? (</span></span><br><span class="line"><span class="regexp">        &lt;div&gt;</span></span><br><span class="line"><span class="regexp">          &lt;img src='/</span>heads.svg<span class="string">' alt='</span>Heads<span class="string">' /&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">      ) : (</span></span><br><span class="line"><span class="string">        &lt;div&gt;</span></span><br><span class="line"><span class="string">          &lt;img src='</span>/tails.svg<span class="string">' alt='</span>Tails<span class="string">' /&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">      )&#125;</span></span><br><span class="line"><span class="string">    &lt;/&gt;</span></span><br><span class="line"><span class="string">  )&#125;</span></span><br><span class="line"><span class="string">&lt;/CoinFlip&gt;</span></span><br></pre></td></tr></table></figure>
-<p>여기서는 render prop을 받는 것으로 headless가 구현되었는데, HOC로 구현될 수도 있다.<br>혹은 View와 Controller, ViewModel과 View의 패턴으로 구현될 수도 있다. 여러 방법이 있겠지만 여기서 중요한 점은 동전을 뒤집는 매커니즘과 그 매커니즘의 인터페이스를 분리했다는 것이다.</p>
-<h2 id="react-table"><a href="#react-table" class="headerlink" title="react-table"></a>react-table</h2><p>모든 <code>React Table</code>에서는 useTable hook과 <code>table instance 객체</code>가 리턴된다. 이 <code>table instance 객체</code>는 table을 만들고, table의 state와 상호작용할 수 있는 모든 것을 포함한다.</p>
-<h3 id="getting-your-data"><a href="#getting-your-data" class="headerlink" title="getting your data"></a>getting your data</h3><p>테이블 구조를 생각해보면 보통 rows(행)과 columns(열)로 구성된 구조를 떠올린다. 그렇지만 테이블 구성이 단순히 행과 열의 조합으로 생각하기에는 중첩된 columns(열)과 행 등의 구조를 가질 수 있는 등 점점 복잡한 구조를 가지기 때문에 <strong>아래와 같은 구조로 기본 데이터 구조를 정의한다.</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data = React.useMemo(</span><br><span class="line">  () =&gt; [</span><br><span class="line">    &#123;</span><br><span class="line">      col1: <span class="string">'Hello'</span>,</span><br><span class="line">      col2: <span class="string">'World'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      col1: <span class="string">'react-table'</span>,</span><br><span class="line">      col2: <span class="string">'rocks'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      col1: <span class="string">'whatever'</span>,</span><br><span class="line">      col2: <span class="string">'you want'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">  []</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p><u>여기서 중요한 점은 useMemo를 사용했다는 것이다.</u> 이는 데이터가 매번 렌더될 때마다 새롭게 생성되지 않음을 보장하는 것이다. 만약 useMemo를 쓰지 않는다면 table은 렌더될 때마다 새로운 데이터를 받았다고 생각하기 때문에 매번 많은 로직은 새로 계산하려고 시도하게 된다.</p>
-<h3 id="Define-Columns"><a href="#Define-Columns" class="headerlink" title="Define Columns"></a>Define Columns</h3><p>useTable hook에 전달하기 위해 column에 대한 정의를 한다. 역시 마찬가지로 useMemo를 사용했기 때문에 매번 렌더될 때마다 새롭게 계산하지 않고, value를 기억해뒀다가 메모제이션된 value와 실제 value에 차이가 있을 때만 변화시킨다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> columns = React.useMemo(</span><br><span class="line">  () =&gt; [</span><br><span class="line">    &#123;</span><br><span class="line">      Header: <span class="string">'Column 1'</span>,</span><br><span class="line">      accessor: <span class="string">'col1'</span>, <span class="comment">// accessor is the "key" in the data</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      Header: <span class="string">'Column 2'</span>,</span><br><span class="line">      accessor: <span class="string">'col2'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">  []</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<h3 id="Using-the-useTable-hook"><a href="#Using-the-useTable-hook" class="headerlink" title="Using the useTable hook"></a>Using the useTable hook</h3><p>위에서 작성한 data와 column에 대한 정의를 가지고 useTable hook에 전달하여 새로운 table instance를 생성할 수 있다. 즉 useTable은 최소 메모제이션된 columns와 data를 포함한 객체를 제공받아야 한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> tableInstance = useTable(&#123; columns, data &#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="Building-a-basic-table-UI"><a href="#Building-a-basic-table-UI" class="headerlink" title="Building a basic table UI"></a>Building a basic table UI</h3><p>table instance는 만들었지만 아직 테이블 마크업과 스타일은 하지 않은 상태이므로 기본적인 테이블 구조를 작성해준다.</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">th</span>&gt;</span><span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<h3 id="Applying-the-table-instance-to-markup"><a href="#Applying-the-table-instance-to-markup" class="headerlink" title="Applying the table instance to markup"></a>Applying the table instance to markup</h3><p>이제 기본적인 테이블 구조를 작성했으니 이를 이용해서 tableInstance를 얻을 수 있다. 이를 이용해 테이블 작성을 완료할 수 있다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> tableInstance = useTable(&#123; columns, data &#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; getTableProps, getTableBodyProps, headerGroups, rows, prepareRow &#125; =</span><br><span class="line">  tableInstance;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line">  <span class="comment">// apply the table props</span></span><br><span class="line">  &lt;table &#123;...getTableProps()&#125;&gt;</span><br><span class="line">    &lt;thead&gt;</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// Loop over the header rows</span></span><br><span class="line">        headerGroups.map(<span class="function">(<span class="params">headerGroup</span>) =&gt;</span> (</span><br><span class="line">          <span class="comment">// Apply the header row props</span></span><br><span class="line">          &lt;tr &#123;...headerGroup.getHeaderGroupProps()&#125;&gt;</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="comment">// Loop over the headers in each row</span></span><br><span class="line">              headerGroup.headers.map(<span class="function">(<span class="params">column</span>) =&gt;</span> (</span><br><span class="line">                <span class="comment">// Apply the header cell props</span></span><br><span class="line">                &lt;th &#123;...column.getHeaderProps()&#125;&gt;</span><br><span class="line">                  &#123;</span><br><span class="line">                    <span class="comment">// Render the header</span></span><br><span class="line">                    column.render(<span class="string">'Header'</span>)</span><br><span class="line">                  &#125;</span><br><span class="line">                &lt;<span class="regexp">/th&gt;</span></span><br><span class="line"><span class="regexp">              ))</span></span><br><span class="line"><span class="regexp">            &#125;</span></span><br><span class="line"><span class="regexp">          &lt;/</span>tr&gt;</span><br><span class="line">        ))</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;<span class="regexp">/thead&gt;</span></span><br><span class="line"><span class="regexp">    &#123;/</span>* Apply the table body props *<span class="regexp">/&#125;</span></span><br><span class="line"><span class="regexp">    &lt;tbody &#123;...getTableBodyProps()&#125;&gt;</span></span><br><span class="line"><span class="regexp">      &#123;</span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/ Loop over the table rows</span></span><br><span class="line"><span class="regexp">        rows.map((row) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">          /</span><span class="regexp">/ Prepare the row for display</span></span><br><span class="line"><span class="regexp">          prepareRow(row);</span></span><br><span class="line"><span class="regexp">          return (</span></span><br><span class="line"><span class="regexp">            /</span><span class="regexp">/ Apply the row props</span></span><br><span class="line"><span class="regexp">            &lt;tr &#123;...row.getRowProps()&#125;&gt;</span></span><br><span class="line"><span class="regexp">              &#123;</span></span><br><span class="line"><span class="regexp">                /</span><span class="regexp">/ Loop over the rows cells</span></span><br><span class="line"><span class="regexp">                row.cells.map((cell) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">                  /</span><span class="regexp">/ Apply the cell props</span></span><br><span class="line"><span class="regexp">                  return (</span></span><br><span class="line"><span class="regexp">                    &lt;td &#123;...cell.getCellProps()&#125;&gt;</span></span><br><span class="line"><span class="regexp">                      &#123;</span></span><br><span class="line"><span class="regexp">                        /</span><span class="regexp">/ Render the cell contents</span></span><br><span class="line"><span class="regexp">                        cell.render('Cell')</span></span><br><span class="line"><span class="regexp">                      &#125;</span></span><br><span class="line"><span class="regexp">                    &lt;/</span>td&gt;</span><br><span class="line">                  );</span><br><span class="line">                &#125;)</span><br><span class="line">              &#125;</span><br><span class="line">            &lt;<span class="regexp">/tr&gt;</span></span><br><span class="line"><span class="regexp">          );</span></span><br><span class="line"><span class="regexp">        &#125;)</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>tbody&gt;</span><br><span class="line">  &lt;<span class="regexp">/table&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure>
-<h3 id="Final-Result"><a href="#Final-Result" class="headerlink" title="Final Result"></a>Final Result</h3><p>앞의 모든 과정을 한번에 표현해보면 다음과 같다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useTable &#125; <span class="keyword">from</span> <span class="string">'react-table'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> data = React.useMemo(</span><br><span class="line">    () =&gt; [</span><br><span class="line">      &#123;</span><br><span class="line">        col1: <span class="string">'Hello'</span>,</span><br><span class="line">        col2: <span class="string">'World'</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        col1: <span class="string">'react-table'</span>,</span><br><span class="line">        col2: <span class="string">'rocks'</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        col1: <span class="string">'whatever'</span>,</span><br><span class="line">        col2: <span class="string">'you want'</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">    []</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> columns = React.useMemo(</span><br><span class="line">    () =&gt; [</span><br><span class="line">      &#123;</span><br><span class="line">        Header: <span class="string">'Column 1'</span>,</span><br><span class="line">        accessor: <span class="string">'col1'</span>, <span class="comment">// accessor is the "key" in the data</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        Header: <span class="string">'Column 2'</span>,</span><br><span class="line">        accessor: <span class="string">'col2'</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">    []</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> &#123; getTableProps, getTableBodyProps, headerGroups, rows, prepareRow &#125; =</span><br><span class="line">    useTable(&#123; columns, data &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;table &#123;...getTableProps()&#125; style=&#123;&#123; <span class="attr">border</span>: <span class="string">'solid 1px blue'</span> &#125;&#125;&gt;</span><br><span class="line">      &lt;thead&gt;</span><br><span class="line">        &#123;headerGroups.map(<span class="function">(<span class="params">headerGroup</span>) =&gt;</span> (</span><br><span class="line">          &lt;tr &#123;...headerGroup.getHeaderGroupProps()&#125;&gt;</span><br><span class="line">            &#123;headerGroup.headers.map(<span class="function">(<span class="params">column</span>) =&gt;</span> (</span><br><span class="line">              &lt;th</span><br><span class="line">                &#123;...column.getHeaderProps()&#125;</span><br><span class="line">                style=&#123;&#123;</span><br><span class="line">                  borderBottom: <span class="string">'solid 3px red'</span>,</span><br><span class="line">                  background: <span class="string">'aliceblue'</span>,</span><br><span class="line">                  color: <span class="string">'black'</span>,</span><br><span class="line">                  fontWeight: <span class="string">'bold'</span>,</span><br><span class="line">                &#125;&#125;</span><br><span class="line">              &gt;</span><br><span class="line">                &#123;column.render(<span class="string">'Header'</span>)&#125;</span><br><span class="line">              &lt;<span class="regexp">/th&gt;</span></span><br><span class="line"><span class="regexp">            ))&#125;</span></span><br><span class="line"><span class="regexp">          &lt;/</span>tr&gt;</span><br><span class="line">        ))&#125;</span><br><span class="line">      &lt;<span class="regexp">/thead&gt;</span></span><br><span class="line"><span class="regexp">      &lt;tbody &#123;...getTableBodyProps()&#125;&gt;</span></span><br><span class="line"><span class="regexp">        &#123;rows.map((row) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">          prepareRow(row);</span></span><br><span class="line"><span class="regexp">          return (</span></span><br><span class="line"><span class="regexp">            &lt;tr &#123;...row.getRowProps()&#125;&gt;</span></span><br><span class="line"><span class="regexp">              &#123;row.cells.map((cell) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">                return (</span></span><br><span class="line"><span class="regexp">                  &lt;td</span></span><br><span class="line"><span class="regexp">                    &#123;...cell.getCellProps()&#125;</span></span><br><span class="line"><span class="regexp">                    style=&#123;&#123;</span></span><br><span class="line"><span class="regexp">                      padding: '10px',</span></span><br><span class="line"><span class="regexp">                      border: 'solid 1px gray',</span></span><br><span class="line"><span class="regexp">                      background: 'papayawhip',</span></span><br><span class="line"><span class="regexp">                    &#125;&#125;</span></span><br><span class="line"><span class="regexp">                  &gt;</span></span><br><span class="line"><span class="regexp">                    &#123;cell.render('Cell')&#125;</span></span><br><span class="line"><span class="regexp">                  &lt;/</span>td&gt;</span><br><span class="line">                );</span><br><span class="line">              &#125;)&#125;</span><br><span class="line">            &lt;<span class="regexp">/tr&gt;</span></span><br><span class="line"><span class="regexp">          );</span></span><br><span class="line"><span class="regexp">        &#125;)&#125;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>tbody&gt;</span><br><span class="line">    &lt;<span class="regexp">/table&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
-<h3 id="Hook-Usage"><a href="#Hook-Usage" class="headerlink" title="Hook Usage"></a>Hook Usage</h3><p><code>React Table</code>은 리액트 훅은 내외부에서 사용하여 구성하고, lifecycle를 관리한다. 그리고 기본적으로 custom react hook과 호환되는 hook을 가진다.</p>
-<p><code>useTable</code>은 가장 기본적으로 사용되는 훅인데, 모든 옵션과 플러그인 훅의 스타팅 포인트로 제공된다. 옵션이 <code>useTable</code>로 전달되면 제공받은 순서대로 모든 플러그인 훅으로 전달되고, 최종 instance를 만들어 결과적으로 table state와 상호작용하는 나만의 table UI를 만들 수 있다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> instance = useTable(</span><br><span class="line">  &#123;</span><br><span class="line">    data: [...],</span><br><span class="line">    columns: [...],</span><br><span class="line">  &#125;,</span><br><span class="line">  useGroupBy,</span><br><span class="line">  useFilters,</span><br><span class="line">  useSortBy,</span><br><span class="line">  useExpanded,</span><br><span class="line">  usePagination</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h3 id="The-stages-of-React-Table-and-plugins"><a href="#The-stages-of-React-Table-and-plugins" class="headerlink" title="The stages of React Table and plugins"></a>The stages of <code>React Table</code> and plugins</h3><ol>
-<li>useTable이 호출되어 table instance가 만들어진다.</li>
-<li>instance.state는 custom user state나 자동으로 생성된 것으로 resolve된다.</li>
-<li>플러그인 포인트들의 컬렉션은 instance.hooks에 생성된다.</li>
-<li>각 플러그인은 instance.hook에 hook을 추가할 수 있다.</li>
-<li>useTable 로직이 실행되면서 각 플러그인 훅 type은 등록된 순서대로 개별 hook 함수가 실행되는 순서에 따라 특정 시점에서 사용된다.</li>
-<li>useTable로부터 최종적인 instance 객체를 얻고, 이를 이용해 개발자가 자신만의 테이블을 만들 수 있다.</li>
-</ol>
-<h3 id="Plugin-Hook-Order-amp-Consistency"><a href="#Plugin-Hook-Order-amp-Consistency" class="headerlink" title="Plugin Hook Order &amp; Consistency"></a>Plugin Hook Order &amp; Consistency</h3><p>플러그인 hook의 순서와 사용은 다른 custom hooks가 그러하듯 항상 같은 순서로 호출되어야 한다는 hooks의 법칙에 따른다.</p>
-<h3 id="Option-Memoization"><a href="#Option-Memoization" class="headerlink" title="Option Memoization"></a>Option Memoization</h3><p><code>React Table</code>은 state와 사이드 이펙트를 업데이트하거나 계산해야하는 타이밍을 메모제이션에 의존한다. 이 말은 모든 옵션이 useTable에 전달될 때 useMemo 또는 useCallback으로 메모제이션되어야 한다는 의미이다.</p>
-<hr>
-<p><em>References</em><br><a href="https://www.merrickchristensen.com/articles/headless-user-interface-components/" target="_blank" rel="noopener">HEADLESS USER INTERFACE COMPONENTS</a><br><a href="https://react-table.tanstack.com/docs/overview" target="_blank" rel="noopener">React Table - overview</a><br><a href="https://react-table.tanstack.com/docs/quick-start" target="_blank" rel="noopener">React Table - Quick Start</a><br><a href="https://react-table.tanstack.com/docs/api/overview" target="_blank" rel="noopener">React Table - Overview</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/19/210720_hashset/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/19/210720_hashset/" class="post-title-link" itemprop="url">컬렉션 - 해시셋, 컬렉션과 같이 쓰면 유용한 것들</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-20T00:00:00+09:00">2021-07-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-18 23:45:31" itemprop="dateModified" datetime="2021-10-18T23:45:31+09:00">2021-10-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>딕셔너리와 매우 비슷하다. <strong>차이점은 해시셋은 키만 있다는 점이다.</strong></li>
-<li>리스트와 딕셔너리를 쓰는 경우가 거의 90%이므로 거의 쓸 일이 없고, 특별할 때만 쓴다.</li>
-<li>중복 데이터를 제거할 때 가장 쓰기 편하다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;T&gt; &lt;변수명&gt; &#x3D; new HastSet &lt;T&gt;(); &#x2F;&#x2F;T는 저장할 키의 자료형</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt; ();</span><br><span class="line">HastSet&lt;string&gt; studentNames &#x3D; new HashSet &lt;string&gt; ();</span><br></pre></td></tr></table></figure>
-<h2 id="해시셋에-요소-추가하기"><a href="#해시셋에-요소-추가하기" class="headerlink" title="해시셋에 요소 추가하기"></a>해시셋에 요소 추가하기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; HastSet&lt;T&gt;.Add(T data);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><em>해시셋에 <code>없는 키</code>면</em> 새 요소로 추가한 후 참을 반환</li>
-<li><em>해시셋에 <code>있는 키</code>면</em> 거짓을 반환</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;();</span><br><span class="line">bool bSuccess1 &#x3D; studentIDs.Add(123); &#x2F;&#x2F;참</span><br><span class="line">bool bSuccess2 &#x3D; studentIDs.Add(456); &#x2F;&#x2F;참</span><br><span class="line">bool bSuccess3 &#x3D; studentIDs.Add(123); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<h2 id="이-요소가-해시셋에-있나요"><a href="#이-요소가-해시셋에-있나요" class="headerlink" title="이 요소가 해시셋에 있나요?"></a>이 요소가 해시셋에 있나요?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bConatin &#x3D; HastSet&lt;T&gt;.Contain(T data);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><em>해시셋에 <code>있는 키</code>면</em> 참을 반환</li>
-<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">bool bContain1 &#x3D; studentIDs.Contains(123); &#x2F;&#x2F;참</span><br><span class="line">bool bContain2 &#x3D; studentIDs.Contains(178); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<h2 id="해시셋-요소-삭제"><a href="#해시셋-요소-삭제" class="headerlink" title="해시셋 요소 삭제"></a>해시셋 요소 삭제</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bRemoved &#x3D; HastSet&lt;T&gt;.Remove(T data);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><em>해시셋에 <code>있는 키</code>면</em> 요소를 삭제한 후 참을 반환</li>
-<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">bool bRemoved1 &#x3D; studentIDs.Remove(123); &#x2F;&#x2F;참</span><br><span class="line">bool bRemoved2 &#x3D; studentIDs.Remove(178); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<h2 id="해시셋의-모든-요소-삭제"><a href="#해시셋의-모든-요소-삭제" class="headerlink" title="해시셋의 모든 요소 삭제"></a>해시셋의 모든 요소 삭제</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HastSet&lt;T&gt;.clear();</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">studentID.Clear();</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="해시셋의-요소-가져오기"><a href="#해시셋의-요소-가져오기" class="headerlink" title="해시셋의 요소 가져오기"></a>해시셋의 요소 가져오기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; HastSet&lt;T&gt;.TryGetValue(T Key, out T key);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><em>해시셋에 <code>있는 키</code>면</em> 요소를 키에 연결된 요소를 out 매개변수에 대압하고 참을 반환</li>
-<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">int id;</span><br><span class="line">bool bSuccess &#x3D; studentIDs.TryGetValue(456, out iff)</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="컬렉션과-같이-쓰면-유용한-것들"><a href="#컬렉션과-같이-쓰면-유용한-것들" class="headerlink" title="컬렉션과 같이 쓰면 유용한 것들"></a>컬렉션과 같이 쓰면 유용한 것들</h2><p>리스트를 예로 들어, 순차적으로 요소를 탐색할 때 i가 왜 필요한지에 대한 의문이 생긴다. 또 부등호를 잘못 쓰는 것처럼 실수할 가능성도 있다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5);</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt; names.Count; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Name: &#123;names[i]&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h3><p>어떤 컬렉션이든 순회할 수 있는 방법이 있으면서 실수를 방지하는 좋은 방법이 바로 <code>foreach</code>이다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreach (T&lt;변수명&gt; in List&lt;T&gt;)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>foreach 문 안의 T는 리스트 선안할 때 사용한 자료형이다.</li>
-<li>&lt;변수명&gt;은 foreach 문 범위에서만 사용된다.</li>
-</ul>
-<h3 id="리스트와-foreach문"><a href="#리스트와-foreach문" class="headerlink" title="리스트와 foreach문"></a>리스트와 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(4096);</span><br><span class="line"></span><br><span class="line">foreach (string name in names)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="딕셔너리와-foreach문"><a href="#딕셔너리와-foreach문" class="headerlink" title="딕셔너리와 foreach문"></a>딕셔너리와 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foreach (KeyValuePair&lt;TKey, TValue&gt; &lt;변수명&gt; in Dictionary&lt;TKey, TValue&gt;)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>KeyValuePair<TKey, TValue>의 TKey, TValue는 각각 딕셔너리를 선언할 때 사용한 키와 값의 자료형이다.</li>
-<li>&lt;변수명&gt;은 foreach 문 범위에서만 사용된다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line"></span><br><span class="line">foreach (KeyValuePair&lt;string, string&gt; score in students)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WrtieLine($&quot;key: &#123;score.key&#125;, value: &#123;score.Value&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="배열-과-foreach문"><a href="#배열-과-foreach문" class="headerlink" title="배열([])과 foreach문"></a>배열([])과 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreach (T &lt;변수명&gt; in T[])</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">float scores &#x3D; &#123;30.5f, 41.0f&#125;</span><br><span class="line"></span><br><span class="line">foreach (float score in scores)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(score);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="var"><a href="#var" class="headerlink" title="var"></a>var</h3><p>딕셔너리 foreach문이 작성해야하는 코드가 길고, 매번 keyValuePair<TKey, TValue>를 써야한다는 문제점을 var가 해결해준다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line"></span><br><span class="line">foreach (var score in students)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Key: &#123;score.key&#125;, value: &#123;score.value&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>묵시적 자료형 : 컴파일러가 알아서 자료형을 추론해줌.</li>
-<li><strong>지역 변수</strong>에서만 사용 가능.</li>
-<li>긴 자료형을 짧게 줄여준다.</li>
-<li><strong>반드시 선언과 동시에 대입해주어야 한다.</strong></li>
-<li>대입하는 값을 통해 명백하게 자료형을 알 수 있을 때만 사용한다.</li>
-</ul>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
 
       
     </div>
@@ -1306,7 +1610,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
