@@ -144,6 +144,114 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/08/23/200823_event_propa_del/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/23/200823_event_propa_del/" class="post-title-link" itemprop="url">이벤트 전파와 위임</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-23 13:00:00" itemprop="dateCreated datePublished" datetime="2020-08-23T13:00:00+09:00">2020-08-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="이벤트-전파"><a href="#이벤트-전파" class="headerlink" title="이벤트 전파"></a>이벤트 전파</h2><p>특정 요소를 클릭해서 클릭 이벤트가 발생했을 때 생성된 이벤트 객체가 이벤트를 발생시킨 DOM 요소인 이벤트 타겟을 중심으로 DOM 트리를 통해 전파되는 현상을 말한다. DOM 트리 상에 존재하는 DOM 요소 노드에서 발생한 이벤트는 DOM 트리를 통해 전파된다.</p>
+<ul>
+<li>1️⃣캡처링 단계(capturing phase) : 이벤트가 <code>상위 요소(window)</code>에서 <code>하위 요소</code> 방향으로 전파</li>
+<li>2️⃣타깃 단계(target phase) : 이벤트가 이벤트 타깃에 도달</li>
+<li>3️⃣버블링 단계(bubbling phase) : 이벤트가 <code>하위 요소</code>에서 <code>상위 요소(window)</code> 방향으로 전파</li>
+</ul>
+<h3 id="이벤트-핸들러-어트리뷰트-프로퍼티-방식에서의-이벤트-전파"><a href="#이벤트-핸들러-어트리뷰트-프로퍼티-방식에서의-이벤트-전파" class="headerlink" title="이벤트 핸들러 어트리뷰트/프로퍼티 방식에서의 이벤트 전파"></a>이벤트 핸들러 어트리뷰트/프로퍼티 방식에서의 이벤트 전파</h3><p>이벤트 핸들러 어트리뷰트/프로퍼티 방식으로 등록한 이벤트 핸들러는 <code>타깃 단계, 버블링 단계</code>의 이벤트만 캐치한다. 캡처링 단계는 캐치하지 못한다.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"fruits"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"apple"</span>&gt;</span>Apple<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"banana"</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"orange"</span>&gt;</span>Orange<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $fruits = <span class="built_in">document</span>.getElementById(<span class="string">"fruits"</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $banana = <span class="built_in">document</span>.getElementById(<span class="string">"banana"</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// #fruits 요소의 하위 요소인 li 요소를 클릭한 경우 캡처링 단계의 이벤트를 캐치한다.</span></span></span><br><span class="line"><span class="actionscript">      <span class="comment">// 그러나 이벤트 핸들러 어트리뷰트/프로퍼티 방식으로 등록하였기 때문에 캡처링 단계를 캡처하지 못한다.</span></span></span><br><span class="line"><span class="javascript">      $fruits.onclick = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 3: 버블링 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLUListElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.composedPath());</span></span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 타깃 단계의 이벤트를 캐치한다.</span></span></span><br><span class="line"><span class="javascript">      $banana.onclick = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 2: 타깃 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.composedPath());</span></span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 버블링 단계의 이벤트를 캐치한다.</span></span></span><br><span class="line"><span class="javascript">      $fruits.onclick = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 3: 버블링 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLUListElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.composedPath());</span></span><br><span class="line">      &#125;;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="addEventListener-메서드-방식에서의-이벤트-전파"><a href="#addEventListener-메서드-방식에서의-이벤트-전파" class="headerlink" title="addEventListener 메서드 방식에서의 이벤트 전파"></a>addEventListener 메서드 방식에서의 이벤트 전파</h3><p><em>addEventListener 메서드 방식</em>으로 등록하면 <code>타깃 단계, 버블링 단계, 캡처링 단계를 선별적으로 캐치</code>할 수 있다. 캡처링 단계의 이벤트를 캐치하려면 addEventListener 메서드의 3번째 인수로 true를 전달한다. 3번째 인수를 생략하거나 false를 전달하면 타깃 단계와 버블링 단계의 이벤트만 캐치할 수 있다.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"fruits"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"apple"</span>&gt;</span>Apple<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"banana"</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"orange"</span>&gt;</span>Orange<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $fruits = <span class="built_in">document</span>.getElementById(<span class="string">"fruits"</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $banana = <span class="built_in">document</span>.getElementById(<span class="string">"banana"</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// #fruits 요소의 하위 요소인 li 요소를 클릭한 경우 캡처링 단계의 이벤트를 캐치한다.</span></span></span><br><span class="line">      $fruits.addEventListener(</span><br><span class="line"><span class="actionscript">        <span class="string">"click"</span>,</span></span><br><span class="line">        (e) =&gt; &#123;</span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 1: 캡처링 단계</span></span></span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLUListElement]</span></span></span><br><span class="line">        &#125;,</span><br><span class="line"><span class="actionscript">        <span class="literal">true</span></span></span><br><span class="line">      );</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 타깃 단계의 이벤트를 캐치한다.</span></span></span><br><span class="line"><span class="actionscript">      $banana.addEventListener(<span class="string">"click"</span>, (e) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 2: 타깃 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 버블링 단계의 이벤트를 캐치한다.</span></span></span><br><span class="line"><span class="actionscript">      $fruits.addEventListener(<span class="string">"click"</span>, (e) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 3: 버블링 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLUListElement]</span></span></span><br><span class="line">      &#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>대부분의 이벤트는 캡처링과 버블링을 통해 전파되는데, 아래 이벤트는 버블링을 통해 전파되지 않는다. 필요할 가능성은 희박하지만 만약 아래 이벤트를 상위 요소에서 캐치해야 한다면 다른 이벤트를 통해 대체해야 한다.</p>
+<ul>
+<li>포커스 이벤트: focus/blur</li>
+<li>리소스 이벤트: load/unload/abort/error</li>
+<li>마우스 이벤트: mouseenter/mouseleave</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"fruits"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"apple"</span>&gt;</span>Apple<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"banana"</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"orange"</span>&gt;</span>Orange<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $fruits = <span class="built_in">document</span>.getElementById(<span class="string">"fruits"</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $banana = <span class="built_in">document</span>.getElementById(<span class="string">"banana"</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 1️⃣click</span></span></span><br><span class="line"><span class="actionscript">      $fruits.addEventListener(<span class="string">"click"</span>, (e) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 3: 버블링 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLUListElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.bubbles); <span class="comment">//true</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.composedPath()); <span class="comment">//[li#orange, ul#fruits, body, html, document, Window]</span></span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 2️⃣mouseleave</span></span></span><br><span class="line"><span class="actionscript">      $fruits.addEventListener(<span class="string">"mouseleave"</span>, (e) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 2: 타깃 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLUListElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.bubbles); <span class="comment">//false</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.composedPath()); <span class="comment">// [ul#fruits, body, html, document, Window]</span></span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">//3️⃣mouseover</span></span></span><br><span class="line"><span class="actionscript">      $fruits.addEventListener(<span class="string">"mouseover"</span>, (e) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 단계: <span class="subst">$&#123;e.eventPhase&#125;</span>`</span>); <span class="comment">// 3: 버블링 단계</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`이벤트 타깃: <span class="subst">$&#123;e.target&#125;</span>`</span>); <span class="comment">// [object HTMLLIElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">`커런트 타깃: <span class="subst">$&#123;e.currentTarget&#125;</span>`</span>); <span class="comment">// [object HTMLUListElement]</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.bubbles); <span class="comment">//true</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.composedPath()); <span class="comment">//[li#orange, ul#fruits, body, html, document, Window]</span></span></span><br><span class="line">      &#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>event.bubbles: 버블링을 통해 이벤트를 전파하는지 여부를 불리언으로 나타냄.</li>
+<li>event.composedPath(): 이벤트가 통과하는 DOM 트리 상의 경로 확인</li>
+</ul>
+</blockquote>
+<ul>
+<li>1️⃣click: 버블링 단계의 이벤트를 캐치한다. event.bubbles = true;</li>
+<li>2️⃣mouseleave: 이 이벤트는 버블링을 통해 전파되지 않으므로 버블링 단계의 이벤트를 캐치하지 못한다. event.bubbles = false;</li>
+<li>3️⃣mouseover: mouseleave를 mouseover로 변경하면 버블링 단계의 이벤트를 캐치할 수 있다. event.bubbles = true;</li>
+</ul>
+<hr>
+<h2 id="이벤트-위임"><a href="#이벤트-위임" class="headerlink" title="이벤트 위임"></a>이벤트 위임</h2><p>이벤트는 전파되므로 이벤트 타깃은 물론 상위 DOM에서도 캐치할 수 있다. 이 점을 이용하여 여러 개의 하위 DOM 요소에 각각 이벤트 핸들러를 등록하는 대신 하나의 상위 DOM 요소에 이벤트 핸들러를 등록하는 방법이다. 이렇게 하면 동적으로 하위 DOM 요소를 추가하더라도 여기에 이벤트 핸들러를 일일이 등록할 필요가 없다.</p>
+<blockquote>
+<p><u>이벤트 위임의 장점</u></p>
+<ul>
+<li>동적인 엘리먼트에 대한 이벤트 처리가 수월하다.</li>
+<li>이벤트 핸들러 관리가 쉽다.</li>
+<li>메모리 사용량이 줄어들고, 메모리 누수 가능성도 줄어든다.</li>
+</ul>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">      <span class="selector-id">#fruits</span> &#123;</span></span><br><span class="line">        display: flex;</span><br><span class="line">        list-style-type: none;</span><br><span class="line">        padding: 0;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">      <span class="selector-id">#fruits</span> <span class="selector-tag">li</span> &#123;</span></span><br><span class="line">        width: 100px;</span><br><span class="line">        cursor: pointer;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">      <span class="selector-id">#fruits</span> <span class="selector-class">.active</span> &#123;</span></span><br><span class="line">        color: red;</span><br><span class="line">        text-decoration: underline;</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"fruits"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"apple"</span> <span class="attr">class</span>=<span class="string">"active"</span>&gt;</span>Apple<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"banana"</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"orange"</span>&gt;</span>Orange<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>선택된 내비게이션 아이템: <span class="tag">&lt;<span class="name">em</span> <span class="attr">class</span>=<span class="string">"msg"</span>&gt;</span>apple<span class="tag">&lt;/<span class="name">em</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $fruits = <span class="built_in">document</span>.getElementById(<span class="string">"fruits"</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $msg = <span class="built_in">document</span>.querySelector(<span class="string">".msg"</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 사용자 클릭에 의해 선택된 내비게이션 아이템(li 요소)에 active 클래스를 추가하고</span></span></span><br><span class="line"><span class="actionscript">      <span class="comment">// 그 외의 모든 내비게이션 아이템의 active 클래스를 제거한다.</span></span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="function"><span class="keyword">function</span> <span class="title">activate</span><span class="params">(&#123; target &#125;)</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">        [...$fruits.children].forEach(<span class="function">(<span class="params">$fruit</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="actionscript">          $fruit.classList.toggle(<span class="string">"active"</span>, $fruit === target);</span></span><br><span class="line">          $msg.textContent = target.id;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 모든 내비게이션 아이템(li 요소)에 이벤트 핸들러를 등록한다.</span></span></span><br><span class="line"><span class="javascript">      <span class="built_in">document</span>.getElementById(<span class="string">"apple"</span>).onclick = activate;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">document</span>.getElementById(<span class="string">"banana"</span>).onclick = activate;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">document</span>.getElementById(<span class="string">"orange"</span>).onclick = activate;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>만약 이벤트 위임을 하지 않으면 위와 같이 이벤트 핸들러 등록이 필요한 모든 요소에 일일이 이벤트 핸들러를 등록해주어야 한다. 이는 메모리 누수와 같은 성능 저하의 원인이 되고, 유지보수에도 적합하지 않다. 이벤트 위임의 장점은 같은 코드를 이벤트 위임으로 변경한 아래 예제에서 확인할 수 있다.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">      <span class="comment">// &#123;...위와 동일한 코드&#125;</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $fruits = <span class="built_in">document</span>.getElementById(<span class="string">"fruits"</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $msg = <span class="built_in">document</span>.querySelector(<span class="string">".msg"</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">     <span class="function"><span class="keyword">function</span> <span class="title">activate</span><span class="params">(&#123; target &#125;)</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">      <span class="comment">// 이벤트를 발생시킨 요소(target)가 ul#fruits의 자식 요소가 아니라면 무시한다.</span></span></span><br><span class="line"></span><br><span class="line">      /*</span><br><span class="line">      상위 요소에 이벤트 핸들러를 등록할 때, 이벤트 타깃이 내가 기대한 DOM요소가 아닐 수도 있기 때문에</span><br><span class="line">      matches로 해당하는 이벤트 타깃이 있는지 확인한다.</span><br><span class="line">      matches: 인수로 전달된 선택자에 의해 특정 노드가 탐색 가능한지 확인한다.</span><br><span class="line">      */</span><br><span class="line"><span class="actionscript">      <span class="keyword">if</span> (!target.matches(<span class="string">'#fruits &gt; li'</span>)) <span class="keyword">return</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">      [...$fruits.children].forEach(<span class="function"><span class="params">$fruit</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="actionscript">        $fruit.classList.toggle(<span class="string">'active'</span>, $fruit === target);</span></span><br><span class="line">        $msg.textContent = target.id;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">    <span class="comment">// 이벤트 위임: 상위 요소(ul#fruits)는 하위 요소의 이벤트를 캐치할 수 있다.</span></span></span><br><span class="line">    /*</span><br><span class="line">    이벤트 객체의 currentTarget: 언제나 $fruits 요소</span><br><span class="line">    target 프로퍼티: 실제로 이벤트를 발생시킨 DOM 요소</span><br><span class="line">    두 가지가 서로 다른 DOM 요소를 가리킬 수도 있으므로 확실하게 하기 위해 $fruits에 이벤트를 바인딩한다.</span><br><span class="line">    */</span><br><span class="line">    $fruits.onclick = activate;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/event" target="_blank" rel="noopener">이벤트</a><br><a href="https://ui.toast.com/weekly-pick/ko_20160826/" target="_blank" rel="noopener">왜 이벤트 위임(delegation)을 해야 하는가?</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/08/20/200821_callback/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +283,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 10:59:16" itemprop="dateModified" datetime="2022-01-04T10:59:16+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
               </span>
 
           
@@ -283,7 +391,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 10:59:16" itemprop="dateModified" datetime="2022-01-04T10:59:16+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
               </span>
 
           
@@ -392,7 +500,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 10:59:16" itemprop="dateModified" datetime="2022-01-04T10:59:16+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
               </span>
 
           
@@ -530,7 +638,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 10:59:16" itemprop="dateModified" datetime="2022-01-04T10:59:16+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
               </span>
 
           
@@ -625,7 +733,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 10:59:16" itemprop="dateModified" datetime="2022-01-04T10:59:16+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
               </span>
 
           
@@ -748,7 +856,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 10:59:16" itemprop="dateModified" datetime="2022-01-04T10:59:16+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
               </span>
 
           
@@ -985,7 +1093,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 10:59:16" itemprop="dateModified" datetime="2022-01-04T10:59:16+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
               </span>
 
           
@@ -1187,7 +1295,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 10:59:16" itemprop="dateModified" datetime="2022-01-04T10:59:16+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
               </span>
 
           
@@ -1319,7 +1427,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 10:59:16" itemprop="dateModified" datetime="2022-01-04T10:59:16+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
               </span>
 
           
@@ -1355,109 +1463,6 @@
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>My test page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"my-css-file.css"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This is my page<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"my-js-file.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="HTML-text-fundamentals"><a href="#HTML-text-fundamentals" class="headerlink" title="HTML text fundamentals"></a>HTML text fundamentals</h2><p>시멘틱: 브라우저가 텍스트를 올바르게 표시 할 수 있도록 텍스트 구조와 의미를 제공하는 것. HTML의 주요 작업 중 하나.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/06/27/200628_design/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/27/200628_design/" class="post-title-link" itemprop="url">3 Pillars to write good HTML and CSS...and build Good Websites</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-06-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-28T00:00:00+09:00">2020-06-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 10:59:16" itemprop="dateModified" datetime="2022-01-04T10:59:16+09:00">2022-01-04</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="3-pillars-are-responsive-design"><a href="#3-pillars-are-responsive-design" class="headerlink" title="3 pillars are responsive design"></a>3 pillars are responsive design</h2><ul>
-<li>Responsive Design</li>
-<li>Maintainable and scalable code</li>
-<li>Web Performance</li>
-</ul>
-<ol>
-<li>Responsive Design(or responsive web design)<br>build one website that works beautifully across all screens sizes on all devices. <em>responsive design absolutely ‘standard’ today.</em></li>
-</ol>
-<h3 id="fundamentals-of-responsive-web-design"><a href="#fundamentals-of-responsive-web-design" class="headerlink" title="fundamentals of responsive web design."></a>fundamentals of responsive web design.</h3><ul>
-<li>Fluid layouts</li>
-<li>Media queries</li>
-<li>Responsive images</li>
-<li>Correct units</li>
-<li>Desktop-first vs mobile-first</li>
-</ul>
-<ol>
-<li>Maintainable and scalable code<br>it’s important for the developer and final user of the website.</li>
-</ol>
-<h3 id="keywords-clean-reusable"><a href="#keywords-clean-reusable" class="headerlink" title="keywords: clean, reusable"></a>keywords: clean, reusable</h3><p>need to care and think about CSS architecture. writing maintainable code.</p>
-<ul>
-<li>easy to understand</li>
-<li>future growth</li>
-<li>how to organize files</li>
-<li>how to name classes</li>
-<li>how to structure HTML</li>
-</ul>
-<ol>
-<li>Web Performance<br>make faster and to make it smaller in size, so that user has to download less data. <em>making as little HTTP requests as possible.</em> but the biggest impact we can have on performance is to actually reduce the use of images.</li>
-</ol>
-<ul>
-<li>less HTTP requests</li>
-<li>less code</li>
-<li>compress code</li>
-<li>use a CSS preprocessor</li>
-<li>less images</li>
-<li>compare images</li>
-</ul>
-<hr>
-<p><em>Reference</em><br><a href="https://www.udemy.com/course/advanced-css-and-sass/learn/lecture/8274402#content" target="_blank" rel="noopener">Advanced css and sass</a></p>
 
       
     </div>
@@ -1543,7 +1548,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-count">105</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
