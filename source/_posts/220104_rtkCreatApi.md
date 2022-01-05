@@ -10,12 +10,9 @@ tags:
 
 **createApi는 RTK Query의 핵심이다.** 이를 통해 해당하는 데이터를 가져오고 변환하는 방법을 구성하는 것을 포함하여 일련의 엔드포인트들로부터 데이터를 어떻게 회수(검색)해야하는 지에 대해 일련의 엔드포인트에 대한 방법을 정의할 수 있다. createApi는 여기에 캡슐화된 데이터 fetching와 caching 프로세스는 포함하는 Redux 로직(옵셔널한 React hooks)이 담겨있는 [API slice structure](https://redux-toolkit.js.org/rtk-query/api/created-api/overview)를 생성한다.
 
-<aside>
 💡 일반적으로 어플리케이션이 통신해야 하는 base URL 하나 당 하나의 API slice만 있어야 한다. 예를 들어 당신의 사이트가 /api/posts와 /api/users 모두에서 데이터를 fetch한다면 /api/를 base URL로 가지는 single API slice를 가지고 있고, posts와 users로 엔드포인트 정의를 분할했을 것이다. 이렇게 하면 엔드포인트에서 [태그](https://redux-toolkit.js.org/rtk-query/usage/automated-refetching#tags) 관계를 정의해서 [자동화된 re-fetching](https://redux-toolkit.js.org/rtk-query/usage/automated-refetching)의 이점을 효과적으로 사용할 수 있다.
 
 유지(maintainability)의 목적을 위해 모든 엔드포인트를 포한하는 single API slice를 유지하면서 여러 파일에 걸쳐 endpoint 정의를 분할해서 사용할 수 있다. injectEndpoints 속성을 사용하여 다른 파일의 엔드포인트를 [code splitting](https://redux-toolkit.js.org/rtk-query/usage/code-splitting)을 하는 방법은 [code splitting](https://redux-toolkit.js.org/rtk-query/usage/code-splitting)을 참조한다.
-
-</aside>
 
 ```jsx
 //example: src/services/pokemon.ts
@@ -368,4 +365,4 @@ const apiTwo = createApi({
 ---
 
 _References_
-[creatApi](https://redux-toolkit.js.org/rtk-query/api/createApi)
+[createApi](https://redux-toolkit.js.org/rtk-query/api/createApi)
