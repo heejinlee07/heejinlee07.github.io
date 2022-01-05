@@ -167,10 +167,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-01-04 00:00:00 / Modified: 18:20:04" itemprop="dateCreated datePublished" datetime="2022-01-04T00:00:00+09:00">2022-01-04</time>
+              <time title="Created: 2022-01-04 00:00:00" itemprop="dateCreated datePublished" datetime="2022-01-04T00:00:00+09:00">2022-01-04</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-05 09:39:22" itemprop="dateModified" datetime="2022-01-05T09:39:22+09:00">2022-01-05</time>
+              </span>
 
           
 
@@ -187,13 +193,8 @@
 <p>원문링크: <a href="https://redux-toolkit.js.org/rtk-query/api/createApi" target="_blank" rel="noopener">https://redux-toolkit.js.org/rtk-query/api/createApi</a></p>
 </blockquote>
 <p><strong>createApi는 RTK Query의 핵심이다.</strong> 이를 통해 해당하는 데이터를 가져오고 변환하는 방법을 구성하는 것을 포함하여 일련의 엔드포인트들로부터 데이터를 어떻게 회수(검색)해야하는 지에 대해 일련의 엔드포인트에 대한 방법을 정의할 수 있다. createApi는 여기에 캡슐화된 데이터 fetching와 caching 프로세스는 포함하는 Redux 로직(옵셔널한 React hooks)이 담겨있는 <a href="https://redux-toolkit.js.org/rtk-query/api/created-api/overview" target="_blank" rel="noopener">API slice structure</a>를 생성한다.</p>
-<aside>
-💡 일반적으로 어플리케이션이 통신해야 하는 base URL 하나 당 하나의 API slice만 있어야 한다. 예를 들어 당신의 사이트가 /api/posts와 /api/users 모두에서 데이터를 fetch한다면 /api/를 base URL로 가지는 single API slice를 가지고 있고, posts와 users로 엔드포인트 정의를 분할했을 것이다. 이렇게 하면 엔드포인트에서 [태그](https://redux-toolkit.js.org/rtk-query/usage/automated-refetching#tags) 관계를 정의해서 [자동화된 re-fetching](https://redux-toolkit.js.org/rtk-query/usage/automated-refetching)의 이점을 효과적으로 사용할 수 있다.
-
-유지(maintainability)의 목적을 위해 모든 엔드포인트를 포한하는 single API slice를 유지하면서 여러 파일에 걸쳐 endpoint 정의를 분할해서 사용할 수 있다. injectEndpoints 속성을 사용하여 다른 파일의 엔드포인트를 [code splitting](https://redux-toolkit.js.org/rtk-query/usage/code-splitting)을 하는 방법은 [code splitting](https://redux-toolkit.js.org/rtk-query/usage/code-splitting)을 참조한다.
-
-</aside>
-
+<p>💡 일반적으로 어플리케이션이 통신해야 하는 base URL 하나 당 하나의 API slice만 있어야 한다. 예를 들어 당신의 사이트가 /api/posts와 /api/users 모두에서 데이터를 fetch한다면 /api/를 base URL로 가지는 single API slice를 가지고 있고, posts와 users로 엔드포인트 정의를 분할했을 것이다. 이렇게 하면 엔드포인트에서 <a href="https://redux-toolkit.js.org/rtk-query/usage/automated-refetching#tags" target="_blank" rel="noopener">태그</a> 관계를 정의해서 <a href="https://redux-toolkit.js.org/rtk-query/usage/automated-refetching" target="_blank" rel="noopener">자동화된 re-fetching</a>의 이점을 효과적으로 사용할 수 있다.</p>
+<p>유지(maintainability)의 목적을 위해 모든 엔드포인트를 포한하는 single API slice를 유지하면서 여러 파일에 걸쳐 endpoint 정의를 분할해서 사용할 수 있다. injectEndpoints 속성을 사용하여 다른 파일의 엔드포인트를 <a href="https://redux-toolkit.js.org/rtk-query/usage/code-splitting" target="_blank" rel="noopener">code splitting</a>을 하는 방법은 <a href="https://redux-toolkit.js.org/rtk-query/usage/code-splitting" target="_blank" rel="noopener">code splitting</a>을 참조한다.</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//example: src/services/pokemon.ts</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// React hook의 생성을 허용하려면 React의 특정 엔트리포인트를 사용해야 한다.</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span></span><br><span class="line"><span class="keyword">import</span> type &#123; Pokemon &#125; <span class="keyword">from</span> <span class="string">'./types'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// baseURL과 엔드포인트를 사용하여 서비스를 정의한다.</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> pokemonApi = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'pokemonApi'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'https://pokeapi.co/api/v2/'</span> &#125;),</span><br><span class="line">  endpoints: <span class="function">(<span class="params">builder</span>) =&gt;</span> (&#123;</span><br><span class="line">    getPokemonByName: builder.query&lt;Pokemon, string&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">name</span>) =&gt;</span> <span class="string">`pokemon/<span class="subst">$&#123;name&#125;</span>`</span>,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 컴포넌트에서 사용하기 위해 hooks를 export하고,</span></span><br><span class="line"><span class="comment">// 엔드포인트가 정의된 곳에 기반하여 자동 생성되도록 한다.</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123; useGetPokemonByNameQuery &#125; = pokemonApi</span><br></pre></td></tr></table></figure>
 <h2 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h2><p>createApi는 아래와 같은 옵션이 있는 단을 구성 객체(single configuration object)를 받아들인다.</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">baseQuery(args: InternalQueryArgs, <span class="attr">api</span>: BaseQueryApi, extraOptions?: DefinitionExtraOptions): any;</span><br><span class="line">  endpoints(build: EndpointBuilder&lt;InternalQueryArgs, TagTypes&gt;): Definitions;</span><br><span class="line">  extractRehydrationInfo?: (</span><br><span class="line">    action: AnyAction,</span><br><span class="line">    &#123;</span><br><span class="line">      reducerPath,</span><br><span class="line">    &#125;: &#123;</span><br><span class="line">      reducerPath: ReducerPath</span><br><span class="line">    &#125;</span><br><span class="line">  ) =&gt;</span><br><span class="line">    | <span class="literal">undefined</span></span><br><span class="line">    | CombinedState&lt;Definitions, TagTypes, ReducerPath&gt;</span><br><span class="line">  tagTypes?: readonly TagTypes[];</span><br><span class="line">  reducerPath?: ReducerPath;</span><br><span class="line">  serializeQueryArgs?: SerializeQueryArgs&lt;InternalQueryArgs&gt;;</span><br><span class="line">  keepUnusedDataFor?: number; <span class="comment">// value is in seconds</span></span><br><span class="line">  refetchOnMountOrArgChange?: boolean | number; <span class="comment">// value is in seconds</span></span><br><span class="line">  refetchOnFocus?: boolean;</span><br><span class="line">  refetchOnReconnect?: boolean;</span><br></pre></td></tr></table></figure>
@@ -227,7 +228,7 @@
 <h3 id="reducerPath"><a href="#reducerPath" class="headerlink" title="reducerPath"></a>reducerPath</h3><p>서비스가 당신의 store에 장착될 수 있도록 하는 unique key이다. 당신의 어플리케이션에서 createApi를 한 번 이상 호출했다면 당신은 매번 unique한 value를 제공해야 하고, default는 api이다.</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> apiOne = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'apiOne'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  endpoints: <span class="function"><span class="params">builder</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="comment">// ...endpoints</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> apiTwo = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'apiTwo'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  endpoints: <span class="function"><span class="params">builder</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="comment">// ...endpoints</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <hr>
-<p><em>References</em><br><a href="https://redux-toolkit.js.org/rtk-query/api/createApi" target="_blank" rel="noopener">creatApi</a></p>
+<p><em>References</em><br><a href="https://redux-toolkit.js.org/rtk-query/api/createApi" target="_blank" rel="noopener">createApi</a></p>
 
       
     </div>
@@ -278,7 +279,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-05 09:39:22" itemprop="dateModified" datetime="2022-01-05T09:39:22+09:00">2022-01-05</time>
               </span>
 
           
@@ -431,7 +432,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-05 09:39:22" itemprop="dateModified" datetime="2022-01-05T09:39:22+09:00">2022-01-05</time>
               </span>
 
           
@@ -815,7 +816,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-05 09:39:22" itemprop="dateModified" datetime="2022-01-05T09:39:22+09:00">2022-01-05</time>
               </span>
 
           
@@ -909,7 +910,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-05 09:39:22" itemprop="dateModified" datetime="2022-01-05T09:39:22+09:00">2022-01-05</time>
               </span>
 
           
@@ -988,7 +989,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-05 09:39:22" itemprop="dateModified" datetime="2022-01-05T09:39:22+09:00">2022-01-05</time>
               </span>
 
           
@@ -1096,7 +1097,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-05 09:39:22" itemprop="dateModified" datetime="2022-01-05T09:39:22+09:00">2022-01-05</time>
               </span>
 
           
@@ -1206,7 +1207,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-05 09:39:22" itemprop="dateModified" datetime="2022-01-05T09:39:22+09:00">2022-01-05</time>
               </span>
 
           
@@ -1314,7 +1315,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-05 09:39:22" itemprop="dateModified" datetime="2022-01-05T09:39:22+09:00">2022-01-05</time>
               </span>
 
           
@@ -1437,7 +1438,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 18:20:04" itemprop="dateModified" datetime="2022-01-04T18:20:04+09:00">2022-01-04</time>
+                <time title="Modified: 2022-01-05 09:39:22" itemprop="dateModified" datetime="2022-01-05T09:39:22+09:00">2022-01-05</time>
               </span>
 
           
