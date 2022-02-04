@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-04 20:14:14" itemprop="dateModified" datetime="2022-02-04T20:14:14+09:00">2022-02-04</time>
+                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
               </span>
 
           
@@ -253,7 +253,54 @@
 </li>
 </ul>
 <hr>
-<h2 id="아이템-14-타입-연산과-제너릭-사용으로-반복-줄이기"><a href="#아이템-14-타입-연산과-제너릭-사용으로-반복-줄이기" class="headerlink" title="아이템 14 타입 연산과 제너릭 사용으로 반복 줄이기"></a>아이템 14 타입 연산과 제너릭 사용으로 반복 줄이기</h2><hr>
+<h2 id="아이템-14-타입-연산과-제너릭-사용으로-반복-줄이기"><a href="#아이템-14-타입-연산과-제너릭-사용으로-반복-줄이기" class="headerlink" title="아이템 14 타입 연산과 제너릭 사용으로 반복 줄이기"></a>아이템 14 타입 연산과 제너릭 사용으로 반복 줄이기</h2><p>코드를 작성할 때 코드를 반복하지 말라는 DRY(don’t repeat yourself)원칙에 따라 코드 중복을 제거하려고 노력하는 사람도 타입에 대해 간과하기 쉽다. 그 이유는 중복을 제거하는 매커니즘이 기존 코드에 대해 행하던 것에 비해 익숙치 않기 때문이다. 그러나 타입의 중복도 많은 문제를 일으키기 때문에 중복을 최소화해야 한다.</p>
+<h3 id="반복을-줄이는-방법"><a href="#반복을-줄이는-방법" class="headerlink" title="반복을 줄이는 방법"></a>반복을 줄이는 방법</h3><ul>
+<li><code>타입에 이름을 붙인다.</code> 아래 예시에서 파라미터 a, b에 반복되는 타입인 <code>{ x: number; y: number }</code>은 Point2D interface로 이름을 붙여서 중복을 제거하였다. 몇몇 함수가 같은 타입 시그니처를 공유한다고 할 때도 해당 시그니처를 명명된 타입으로 본리할 수 있다.</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">distance</span>(<span class="params">a: &#123; x: <span class="built_in">number</span>; y: <span class="built_in">number</span> &#125;, b: &#123; x: <span class="built_in">number</span>; y: <span class="built_in">number</span> &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.sqrt(<span class="built_in">Math</span>.pow(a.x - b.x, <span class="number">2</span>) + <span class="built_in">Math</span>.pow(a.y - b.y, <span class="number">2</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Point2D &#123;</span><br><span class="line">  x: <span class="built_in">number</span>;</span><br><span class="line">  y: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">distance</span>(<span class="params">a: Point2D, b: Point2D</span>) </span>&#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>interface를 사용할 경우, 한 interface가 다른 interface를 확장하게 해서 반복을 제거한다.</code></li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">  firstName: <span class="built_in">string</span>;</span><br><span class="line">  lastName: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> PersonWithBirthDate <span class="keyword">extends</span> Person &#123;</span><br><span class="line">  birth: <span class="built_in">Date</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>이미 존재하는 타입을 확장한다면 intersection 연산자(&amp;)을 쓴다.</code> 단, 일반적이지는 않다. 주로 확장할 수 없는 유니온 타입에 속성을 추가하려고 할 때 유용한 방법이다.</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">  firstName: <span class="built_in">string</span>;</span><br><span class="line">  lastName: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> PersonWithBirthDate = Person &amp; &#123; birth: <span class="built_in">Date</span> &#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>매핑된 타입</code>을 사용한다.<br>아래 예시에서 State는 전체 어플리케이션의 상태, TopNavState는 부분만 표현하는 상태라고 하고, 어떻게 매핑된 타입을 사용하는지 살펴보자. TopNavState를 확장해서 State를 구성할 수도 있지만, 의미상 State의 TopNavState를 정의하는 것이 바람직 할 것이다.</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> State &#123;</span><br><span class="line">  userId: <span class="built_in">string</span>;</span><br><span class="line">  pageTitle: <span class="built_in">string</span>;</span><br><span class="line">  recentFiles: <span class="built_in">string</span>[];</span><br><span class="line">  pageContents: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> TopNavState &#123;</span><br><span class="line">  userId: <span class="built_in">string</span>;</span><br><span class="line">  pageTitle: <span class="built_in">string</span>;</span><br><span class="line">  recentFiles: <span class="built_in">string</span>[];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>아래 예시에서 1️⃣은 의미상 TopNavState를 State의 부분 집합이 되도록 작성하기 위해 State를 인덱싱해서 속성의 타입에 중복을 제거하였다. 이렇게 하면 State에 있는 속성의 타입이 바뀌더라도 잘 반영된다. 하지만 여전히 반복되는 코드가 있기 때문에 <strong>2️⃣와 같이 매핑된 타입을 사용한다.</strong> 매핑된 타입은 배열의 필드를 루프 도는 것과 같은 방식이다. 표준 라이브러리에서는 <code>Pick</code>이라 한다. Pick은 제너릭 타입이며, 3️⃣과 같이 사용한다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1️⃣ - 인덱싱하여 중복제거</span></span><br><span class="line"><span class="keyword">type</span> TopNavState = &#123;</span><br><span class="line">  userId: State[<span class="string">'userId'</span>];</span><br><span class="line">  pageTitle: State[<span class="string">'pageTitle'</span>];</span><br><span class="line">  recentFiles: State[<span class="string">'recentFiles'</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2️⃣ - 매핑된 타입 사용</span></span><br><span class="line"><span class="keyword">type</span> TopNavState = &#123;</span><br><span class="line">  [k <span class="keyword">in</span> <span class="string">'userId'</span> | <span class="string">'pageTitle'</span> | <span class="string">'recentFiles'</span>]: State[k];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//3️⃣ - Pick 사용</span></span><br><span class="line"><span class="keyword">type</span> Pick&lt;T, K <span class="keyword">extends</span> keyof T&gt; = &#123; [k <span class="keyword">in</span> K]: T[k] &#125;; <span class="comment">// Pick의 정의</span></span><br><span class="line"><span class="comment">//만약 Pick에 잘못된 키를 넣으면 오류가 발생한다.</span></span><br><span class="line"><span class="keyword">type</span> TopNavState = Pick&lt;State, <span class="string">'userId'</span> | <span class="string">'pageTitle'</span> | <span class="string">'recentFiles'</span>&gt;;</span><br></pre></td></tr></table></figure>
+<p>태그된 유니온에서 중복이 발생하면 어떻게 할 수 있을까? 아래 예시에서 ‘save’,’load’가 중복된다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> SaveAction &#123;</span><br><span class="line">  <span class="keyword">type</span>: <span class="string">'save'</span>;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> LoadAction &#123;</span><br><span class="line">  <span class="keyword">type</span>: <span class="string">'load'</span>;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> Action = SaveAction | LoadAction;</span><br></pre></td></tr></table></figure>
+<p>위와 같이 중복이 발생할 때는 Action 유니온을 인덱싱하여 ActionType을 정의한다. 이제 Action에 타입이 더 추가되더라도 ActionType은 자동으로 그 타입을 포함하게 된다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> ActionType = Action[<span class="string">'type'</span>]; <span class="comment">// Type is "save" | "load"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Pick을 사용하여 type 속성을 가지는 interface와 인덱싱을 사용하는 방법은 다르다.</span></span><br><span class="line"><span class="keyword">type</span> ActionRec = Pick&lt;Action, <span class="string">'type'</span>&gt;; <span class="comment">// &#123;type: "save" | "load"&#125;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>매핑된 타입과 keyof를 사용한다.</code> 아래와 같이 생성한 후 업데이트가 되는 클래스를 정의할 때를 가정해본다.</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Options &#123;</span><br><span class="line">  width: <span class="built_in">number</span>;</span><br><span class="line">  height: <span class="built_in">number</span>;</span><br><span class="line">  color: <span class="built_in">string</span>;</span><br><span class="line">  label: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> OptionsUpdate &#123;</span><br><span class="line">  width?: <span class="built_in">number</span>;</span><br><span class="line">  height?: <span class="built_in">number</span>;</span><br><span class="line">  color?: <span class="built_in">string</span>;</span><br><span class="line">  label?: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> UIWidget &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params">init: Options</span>) &#123;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">  &#125;</span><br><span class="line">  update(options: OptionsUpdate) &#123;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이때 매핑된 타입과 keyof를 사용하여 OptionsUpdate를 만든다.</p>
+<ul>
+<li>keyof는 타입을 받아서 속성 타입의 유니온을 반환한다.</li>
+<li>매핑된 타입[k in keyof Options]은 순회하며 Options 내 k 값에 해당하는 속성이 있는지 찾는다.</li>
+<li><code>?</code>는 속성을 선택적으로 만드는데 표준 라이브러리에는 <code>Partial</code>이라는 이름으로 포함되어 있다.</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> OptionsUpdate = &#123; [k <span class="keyword">in</span> keyof Options]?: Options[k] &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> OptionsKeys = keyof Options;</span><br><span class="line"><span class="comment">// Type is "width" | "height" | "color" | "label"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>typeof</code>를 사용한다. 값의 형태에 해당하는 타입을 정의하고 싶을 때 사용하는 방법이다. 자바스트립트의 typeof처럼 보이지만 실제로는 타입스크립트 단계에서 연산된다. 단, 값으로부터 타입을 만들어 낼 때 <em>선언의 순서에 주의한다.</em> 타입 정의 후 값이 그 타입에 할당 가능하다고 선언하는 것이 명확하고, 예상하기 어려운 타입 변동을 방지할 수 있다.</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> INIT_OPTIONS = &#123;</span><br><span class="line">  width: <span class="number">640</span>,</span><br><span class="line">  height: <span class="number">480</span>,</span><br><span class="line">  color: <span class="string">'#00FF00'</span>,</span><br><span class="line">  label: <span class="string">'VGA'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">interface</span> Options &#123;</span><br><span class="line">  width: <span class="built_in">number</span>;</span><br><span class="line">  height: <span class="built_in">number</span>;</span><br><span class="line">  color: <span class="built_in">string</span>;</span><br><span class="line">  label: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Options = <span class="keyword">typeof</span> INIT_OPTIONS;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>함수나 메서드의 반환 값에 명명된 타입을 만들고 싶다면 <code>ReturnType</code>을 사용한다. <em>아래 예시에서 <code>ReturnType</code>은 함수의 <code>값</code>인 getUserInfo가 아닌 typeof getUserInfo에 적용되었다.</em></li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> INIT_OPTIONS = &#123;</span><br><span class="line">  width: <span class="number">640</span>,</span><br><span class="line">  height: <span class="number">480</span>,</span><br><span class="line">  color: <span class="string">'#00FF00'</span>,</span><br><span class="line">  label: <span class="string">'VGA'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserInfo</span>(<span class="params">userId: <span class="built_in">string</span></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// COMPRESS</span></span><br><span class="line">  <span class="keyword">const</span> name = <span class="string">'Bob'</span>;</span><br><span class="line">  <span class="keyword">const</span> age = <span class="number">12</span>;</span><br><span class="line">  <span class="keyword">const</span> height = <span class="number">48</span>;</span><br><span class="line">  <span class="keyword">const</span> weight = <span class="number">70</span>;</span><br><span class="line">  <span class="keyword">const</span> favoriteColor = <span class="string">'blue'</span>;</span><br><span class="line">  <span class="comment">// END</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    userId,</span><br><span class="line">    name,</span><br><span class="line">    age,</span><br><span class="line">    height,</span><br><span class="line">    weight,</span><br><span class="line">    favoriteColor,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Return type inferred as &#123; userId: string; name: string; age: number, ... &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserInfo = ReturnType&lt;<span class="keyword">typeof</span> getUserInfo&gt;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>제너릭 타입을 사용한다.</code> 제너릭 타입은 타입을 위한 함수와 같다. 다만 함수에서 매개변수로 매핑할 수 있는 값을 제한하기 위해 타입 시스템을 사용하는 것처럼 매개변수를 제한할 수 있는 방법이 필요하다. 제너릭 타입에서 그 방법은 <code>extends</code>를 사용하는 것이다. 이는 제너릭 매개변수가 특정 타입을 확장한다고 선언할 수 있게 한다.</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Name &#123;</span><br><span class="line">  first: <span class="built_in">string</span>;</span><br><span class="line">  last: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> DancingDuo&lt;T <span class="keyword">extends</span> Name&gt; = [T, T];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> couple1: DancingDuo&lt;Name&gt; = [</span><br><span class="line">  &#123; first: <span class="string">'Fred'</span>, last: <span class="string">'Astaire'</span> &#125;,</span><br><span class="line">  &#123; first: <span class="string">'Ginger'</span>, last: <span class="string">'Rogers'</span> &#125;,</span><br><span class="line">]; <span class="comment">// OK</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;first:string&#125;은 Name을 확장하지 않기 때문에 오류 발생</span></span><br><span class="line"><span class="keyword">const</span> couple2: DancingDuo&lt;&#123; first: <span class="built_in">string</span> &#125;&gt; = [</span><br><span class="line">  <span class="comment">// ~~~~~~~~~~~~~~~</span></span><br><span class="line">  <span class="comment">// Property 'last' is missing in type</span></span><br><span class="line">  <span class="comment">// '&#123; first: string; &#125;' but required in type 'Name'</span></span><br><span class="line">  &#123; first: <span class="string">'Sonny'</span> &#125;,</span><br><span class="line">  &#123; first: <span class="string">'Cher'</span> &#125;,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="아이템-15-동적-데이터에-인덱스-시그니처-사용하기"><a href="#아이템-15-동적-데이터에-인덱스-시그니처-사용하기" class="headerlink" title="아이템 15 동적 데이터에 인덱스 시그니처 사용하기"></a>아이템 15 동적 데이터에 인덱스 시그니처 사용하기</h2><hr>
 <p><em>References</em><br>[이펙티브 타입스크립트] 댄 밴더캄 지음</p>
 
       
@@ -305,7 +352,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-04 20:14:14" itemprop="dateModified" datetime="2022-02-04T20:14:14+09:00">2022-02-04</time>
+                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
               </span>
 
           
@@ -409,7 +456,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-04 20:14:14" itemprop="dateModified" datetime="2022-02-04T20:14:14+09:00">2022-02-04</time>
+                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
               </span>
 
           
@@ -562,7 +609,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-04 20:14:14" itemprop="dateModified" datetime="2022-02-04T20:14:14+09:00">2022-02-04</time>
+                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
               </span>
 
           
@@ -946,7 +993,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-04 20:14:14" itemprop="dateModified" datetime="2022-02-04T20:14:14+09:00">2022-02-04</time>
+                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
               </span>
 
           
@@ -1040,7 +1087,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-04 20:14:14" itemprop="dateModified" datetime="2022-02-04T20:14:14+09:00">2022-02-04</time>
+                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
               </span>
 
           
@@ -1119,7 +1166,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-04 20:14:14" itemprop="dateModified" datetime="2022-02-04T20:14:14+09:00">2022-02-04</time>
+                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
               </span>
 
           
@@ -1227,7 +1274,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-04 20:14:14" itemprop="dateModified" datetime="2022-02-04T20:14:14+09:00">2022-02-04</time>
+                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
               </span>
 
           
@@ -1337,7 +1384,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-04 20:14:14" itemprop="dateModified" datetime="2022-02-04T20:14:14+09:00">2022-02-04</time>
+                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
               </span>
 
           
@@ -1445,7 +1492,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-04 20:14:14" itemprop="dateModified" datetime="2022-02-04T20:14:14+09:00">2022-02-04</time>
+                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
               </span>
 
           
