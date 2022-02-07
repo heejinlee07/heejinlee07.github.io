@@ -144,6 +144,94 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/06/220207_userAgent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/06/220207_userAgent/" class="post-title-link" itemprop="url">사용자 에이전트 (User Agent)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-02-07 00:00:00 / Modified: 17:16:28" itemprop="dateCreated datePublished" datetime="2022-02-07T00:00:00+09:00">2022-02-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>사용자를 대표하는 컴퓨터 프로그램, 웹에서는 <code>브라우저</code>를 의미하고, 웸 페이지를 긁어가는 봇, 다운로드 관리자, 웹에 접근하는 다른앱 등이 있다.</p>
+</blockquote>
+<ul>
+<li>브라우저는 서버에 보내는 모든 요청에 <code>User-Agent HTTP(사용자 에이전트 문자열) 헤더</code>를 보낸다.</li>
+<li>여기에는 브라우저 종류, 버전 번호, 호스트 운영체제를 포함하는 브라우저 정보가 담겨있다.</li>
+<li>클라이언트에서 JS의 <code>navigator.userAgent</code> 속성으로 사용자 에이전트 문자열에 접근할 수 있다.</li>
+</ul>
+<hr>
+<h2 id="user-agent를-이용한-브라우저-감지"><a href="#user-agent를-이용한-브라우저-감지" class="headerlink" title="user agent를 이용한 브라우저 감지"></a>user agent를 이용한 브라우저 감지</h2><p><em>웹은 유저가 어떤 브라우저, 어떤 디바이스를 사용하고 있는지와 관계없이 모두에게 접근성이 용이해야 한다.</em> 하지만 브라우저와 웹 표준이 완벽하지 않기 때문에 몇 가지 edge case가 존재하여 브라우저 감지를 필요로 한다. <strong>user agent를 사용하여 브라우저를 감지하는 것은 간단하지만 그것을 잘하기는 매우 어려운 문제이다.</strong></p>
+<h2 id="브라우저-감지-전에-고려해야할-점"><a href="#브라우저-감지-전에-고려해야할-점" class="headerlink" title="브라우저 감지 전에 고려해야할 점"></a>브라우저 감지 전에 고려해야할 점</h2><blockquote>
+<p>웬만하면 user agent를 사용한 브라우저 감지를 하지 않는 것이 우선이다. 하지만 그럼에도 불구하고 필요하다고 판단된다면 아래 질문에 근거하여 <em>정말로 내가 왜 그 기능을 필요로 하는가를 고려해보도록 한다.</em></p>
+</blockquote>
+<ul>
+<li>특정 브라우저 버전에 있는 버그를 고치려고 하는가?<ul>
+<li>포럼에서 버그를 찾아보고, 처음 발견한 버그라면 질문해보도록 한다. 만약 정상적이지 않은 문제로 보인다면 브라우저 제공자의 버그 추척 시스템(<a href="https://bugzilla.mozilla.org/" target="_blank" rel="noopener">Mozilla</a>, <a href="https://bugs.webkit.org/" target="_blank" rel="noopener">WebKit</a>, <a href="https://www.chromium.org/issue-tracking/" target="_blank" rel="noopener">Blink</a>, <a href="https://bugs.opera.com/login.jsp" target="_blank" rel="noopener">Opera</a>)에 보고된 버그인지 확인해본다.</li>
+</ul>
+</li>
+<li>특정 기능의 존재 여부를 체크하려고 하는가?<ul>
+<li>몇몇 브라우저에서 지원하지 않는 기능을 사이트에서 사용하고자 할 때, 그 유저들을 기능은 더 적지만 작동할 것임이 분명한 옛 버전의 웹 사이트로 보내고 싶을텐데, 결국에는 언젠가 해당 브라우저에서 그 기능이 동작할 것임을 알고 있는 상황이다. 이런 상황이 user agent를 이용한 브라우저 감지를 사용하는 가장 나쁜 케이스인데, 몇몇 브라우저에서 지원하지 않는 기능들도 결국에는 지원하는 방향이 될 것이기 때문이다. 또한 비교적 인기가 덜한 브라우저의 웹 기능까지 모두 테스트하는 것은 실용적이지 않다. 이런 경우에는 user agent를 사용한 탐지를 절대 피해야 한다. 언제나 기능을 탐지할 수 있는 대안이 존재하기 때문이다.</li>
+</ul>
+</li>
+<li>사용하는 브라우저에 따라 다른 HTML을 제공해야 하는가?<ul>
+<li>보통 이런 것은 나쁜 방법이지만 필요한 경우가 있다. 필요에 의해 사용해야 한다면 <em>먼저 정말로 이렇게 해야하는지 당신이 처한 상황에 대해 분석해보아야 한다.</em> non-semantic 요소인 <code>&lt;div&gt;, &lt;span&gt;</code> 등을 추가하여 피할 수 있는 방법이 있을까? user Agent 감지를 성공적으로 하는 것의 어려움은 HTML의 순수성을 혼란스럽게 할 수 있다. 또한 디자인에 대해 다시 생각해보아야 한다. 브라우저별로 다른 HTML을 사용할 필요성을 없애기 위해 점진적 향상을 고려하거나 가변 레이아웃(fluid layouts)를 사용할 수 있는가?</li>
+</ul>
+</li>
+</ul>
+<h2 id="user-agent-사용을-대신할-방법"><a href="#user-agent-사용을-대신할-방법" class="headerlink" title="user agent 사용을 대신할 방법"></a>user agent 사용을 대신할 방법</h2><h3 id="모바일-장치-감지"><a href="#모바일-장치-감지" class="headerlink" title="모바일 장치 감지"></a>모바일 장치 감지</h3><p>틀림없이 user agent의 가장 흔한 사용 및 오용은 디바이스가 모바일 디바이스인지 여부를 감지하는 것이다. 그러나 사람들은 정말로 해야하는 것이 무엇인지 간과하기 쉽다. 사람들은 user agent를 사용해서 유저의 디바이스가 터치 친화적(touch-friendly)인지 작은 스크린에서도 그에 따라 웹사이트를 최적화할 수 있는지 여부를 감지한다. user agent가 때때로 이런 것을 감지할 수 있지만 모든 디바이스에 대해 동일한 것은 아니다. 일부 모바일 장치는 큰 스크린을 가진 경우가 있고, 일부 데스크톱은 작은 터치스크린을 가진 경우가 있다. 어떤 사람은 smart TV를 쓰기도 하고, 또 어떤 사람들은 태블릿을 옆으로 움직여서 화면의 높이와 너비를 동적으로 변경할 수도 있다. 그러므로 user agent의 사용은 확실히 올바른 방법은 아니다. 그리고 더 좋은 대안이 있다.<br><code>Navigator.maxTouchPoints</code>을 사용해서 유저가 터치스크린을 가졌는지 여부를 감지한다. 그런 다음 <code>if (!(&quot;maxTouchPoints&quot; in Navigator)) { /*Code here*/}.</code>한 경우에만 기본적으로(default) user agent 화면을 확인한다. 이 정보를 통해 어떤 디바이스가 터치스크린을 가졌는지 여부를 확인하고, 이를 사용해서 전체 레이아웃을 변경하지 않고 오직 터치 스크린일 경우에 대해서만 특정 작업을 더 만들거나 유지 관리를 할 수 있다. 예를 들어, 좀 더 크고, 클릭하기 쉬운 버튼과 같은 touch 편의성(convenience)을 추가한다. 이를 위해서 스크린 사이즈에 따라 단순하게 <code>window.innerWidth</code>와 <code>window.addEventListener(&quot;resize&quot;, function(){ /_refresh screen size dependent things_/ }).</code>를 사용하면 된다. 스크린 사이즈를 위해 해야하는 일은 작은 화면에서 보여줘야할 정보를 줄이는 것이 아니다. 이런 방법은 사람들에게 데스크톱 버전을 사용하도록 강제하는 것이기 때문에 짜증만 날 뿐이다. 이보다는 작은 스크린의 긴 페이지에서는 더 적은 열(columns)의 정보를 갖도록 하고, 더 큰 스크린의 짧은 페이지에서는 더 많은 열(cloumns)를 갖도록 한다. 이러한 효과는 CSS flexboxㄹㄹ 이용해서 쉽게 얻을 수 있다. 그리고 항상 코드를 동적으로 만들어야 한다. 유저는 모바일 디바이스를 옆으로 움직여서 페이지의 너비와 높이를 바꿀 수 있다. 그렇기 때문에 웹 페이지가 부드럽고 유동적이며 동적으로 크카가 조정되는 동안 개발자 도구를 열어서 화면 크기를 조정할 수 있을 때까지 웹 페이지에 만족하지 않도록 한다.</p>
+<hr>
+<p><em>References</em><br><a href="https://developer.mozilla.org/en-US/docs/Glossary/User_agent" target="_blank" rel="noopener">User agent</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent" target="_blank" rel="noopener">Browser detection using the user agent</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/01/220202_tsitem10to18/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +263,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -352,7 +440,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -456,7 +544,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -609,7 +697,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -993,7 +1081,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -1087,7 +1175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -1166,7 +1254,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -1274,7 +1362,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -1384,7 +1472,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -1442,129 +1530,6 @@
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// Optimistic update mutation example (async await)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Post &#125; <span class="keyword">from</span> <span class="string">'./types'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> api = createApi(&#123;</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123;</span><br><span class="line">    baseUrl: <span class="string">'/'</span>,</span><br><span class="line">  &#125;),</span><br><span class="line">  tagTypes: [<span class="string">'Post'</span>],</span><br><span class="line">  endpoints: <span class="function">(<span class="params">build</span>) =&gt;</span> (&#123;</span><br><span class="line">    getPost: build.query&lt;Post, number&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">id</span>) =&gt;</span> <span class="string">`post/<span class="subst">$&#123;id&#125;</span>`</span>,</span><br><span class="line">      providesTags: [<span class="string">'Post'</span>],</span><br><span class="line">    &#125;),</span><br><span class="line">    updatePost: build.mutation&lt;<span class="keyword">void</span>, Pick&lt;Post, <span class="string">'id'</span>&gt; &amp; Partial&lt;Post&gt;&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">&#123; id, ...patch &#125;</span>) =&gt;</span> (&#123;</span><br><span class="line">        url: <span class="string">`post/<span class="subst">$&#123;id&#125;</span>`</span>,</span><br><span class="line">        method: <span class="string">'PATCH'</span>,</span><br><span class="line">        body: patch,</span><br><span class="line">      &#125;),</span><br><span class="line">      invalidatesTags: [<span class="string">'Post'</span>],</span><br><span class="line">      <span class="keyword">async</span> onQueryStarted(&#123; id, ...patch &#125;, &#123; dispatch, queryFulfilled &#125;) &#123;</span><br><span class="line">        <span class="keyword">const</span> patchResult = dispatch(</span><br><span class="line">          api.util.updateQueryData(<span class="string">'getPost'</span>, id, (draft) =&gt; &#123;</span><br><span class="line">            <span class="built_in">Object</span>.assign(draft, patch)</span><br><span class="line">          &#125;)</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">await</span> queryFulfilled</span><br><span class="line">        &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">          patchResult.undo()</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <hr>
 <p><em>References</em><br><a href="https://redux-toolkit.js.org/rtk-query/usage/mutations" target="_blank" rel="noopener">RTK Query Mutations</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/08/18/210819_rtkQuery/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/18/210819_rtkQuery/" class="post-title-link" itemprop="url">RTK Query Overview 원문 번역</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-08-19T00:00:00+09:00">2021-08-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>원문링크: <a href="https://redux-toolkit.js.org/rtk-query/overview" target="_blank" rel="noopener">https://redux-toolkit.js.org/rtk-query/overview</a></p>
-</blockquote>
-<p>RTK Query는 강력한 data fetching과 caching 툴이다. 웹 어플리케이션 내에서 데이터를 로딩할 때 사용되는 common case들을 단순화 하기 위해 고안되었기 때문에 data fetching과 캐싱 로직을 직접 작성할 필요가 없다. Redux Tookit 패키지에서 선택적 옵션으로 포함되어 있고, Redux Tookit 기능적으로 다른 api위에 구축된다.</p>
-<h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><p>웹 어플리케이션은 보통 data를 화면에 그리기 위해 서버로부터 data를 fetch해서 가져와야 한다. 또 이 data를 업데이트 하거나 업데이트할 내용을 서버에 보내고, 서버의 데이터와 싱크를 맞추기 위해 client측에서 데이터를 캐시해서 가지고 있기도 한다. 오늘날을 어플리케이션 내에서 아래와 같은 다양한 행동이 실행되기 때문에 이 과정이 더욱 복잡하다.</p>
-<ul>
-<li>UI spinners를 보여주기 위해 loading 상태일 때를 추적한다.</li>
-<li>같은 데이터를 사용할 때 중복 요청을 막는다</li>
-<li>UI가 보다 빠르게 느끼도록 하는 updates</li>
-<li>UI와 유저 인터페이스의 상호작용을 위한 캐시 수명(사이클) 매니징</li>
-</ul>
-<p>Redux 코어는 늘 최소화되어 왔기 때문에 실제 로직을 작성하는 것은 개발자에게 달려있다. 이는 리덕스가 위와 같은 사용 사례를 해결하기 위한 어떠한 것도 내부에 포함하고 있지 않다는 의미이다. 리덕스 도큐먼트에서는 로딩 스테이트와 요청 결과를 트래킹하기 위한 요청 수명(사이클)이 몇 가지 일반적인 패턴이 있다고 가르쳐왔다. 그리고 Redux Toolkit의 createAsyncThunk는 이러한 전형적인 패턴을 추상화하여 고안된 것이다. 그러나 유저는 아직도 상당한 리듀서 로직을 로딩 스테이트와 데이터 캐시를 위해 사용해야 한다.</p>
-<p>지난 몇 년간, 리액트 커뮤니티는 “data fetching과 캐싱’이 state management와 완전히 다른 관심사라는 것을 깨달았다. Redux와 같은 상태관리 라이브러리를 사용해서 데이터를 캐시할 수 있자만, 데이터 fetching과 같은 상황에서 쓸 목적으로 만들어진 별도의 툴을 사용해도 될 만큼 의미있다.</p>
-<p>RTK Query는 Apollo Client, React Query, Urql 및 SWR과 같이 data fetching을 위한 선구적인 솔루션 툴들로부터 영감을 받았지만, API 디자인에 고유한 접근 방식을 추가했다.</p>
-<ul>
-<li>data fetching과 캐싱 로직은 Redux toolkit의 createSlice와 createAsyncThunk api를 기반으로 구축된다.</li>
-<li>왜냐하면 redux toolkit은 UI에 구애받지 않는 UI-agnostic이기 때문에, RTK 쿼리는 모든 UI layer에서 사용할 수 있다.</li>
-<li>api endpoint는 인수를 통해 어떻케 쿼리 파라미터를 생성할 것인지와 캐싱을 위해 어떻게 응답을 변환할 것인지를 포함하여 미리 정의된다.</li>
-<li>RTK Query는 react hook을 생성하여 전체 data fetching과정을 캡슐화하고, 컴포넌트에 data와 isLoading필드를 제공하고, 컴포넌트가 마운트되거나 언마운트될 때 캐시된 데이터의 수명을 관리한다.</li>
-<li>RTK Query는 “cache entry lifecycle”옵션을 제공하는데, 이 옵션을 사용하면 초기 데이터를 fetching한 후에 웹소켓 메세지를 통해 스트리밍 캐시 업데이트 등과 같은 경우에 사용할 수 있도록 활성화 된다.</li>
-<li>openAPI 또는 GraphQL 스키마에서 API slice의 코드 생성에 대한 예를 찾을 수 있다.</li>
-<li>RTK Query는 완전히 TypeScript로 쓰여져 있기 때문에 TS 사용에 대한 좋은 경험을 제공할 수 있다.</li>
-</ul>
-<hr>
-<h1 id="포함된-것"><a href="#포함된-것" class="headerlink" title="포함된 것"></a>포함된 것</h1><h2 id="APIs"><a href="#APIs" class="headerlink" title="APIs"></a>APIs</h2><p>RTK Query는 Redux Toolkit 패키지의 코어를 설치하면 그곳에 포함되어 있다. 아래 두 엔트리 포인트 중 한 가지로 사용할 수 있다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* React-specific entry point that automatically generates</span></span><br><span class="line"><span class="comment">   hooks corresponding to the defined endpoints */</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApi &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span>;</span><br></pre></td></tr></table></figure>
-<p>RTK Query에는 다음의 API가 포함된다.</p>
-<ul>
-<li>createApi(): RTK Query의 핵심기능이다. 여러 엔드포인트들로부터 데이터를 어떻게 회수할 것인지가 작성된 여러 엔드포인트들을 정의하고, 여기에는 데이터를 어떻게 fetch하거나 변환할 것인지에 대한 내용이 담긴다. 대부분의 경우 app에서 “하나의 base URL 당 하나의 API 슬라이스”를 사용하여 한 번만 작성되어야 한다.</li>
-<li>fetchBaseQuery(): 요청을 단순화하는 것을 목표로 하는 fetch를 감싸는 작은 Wrapper이다. 대부분의 사용자에게는 createApi에서 baseQuery로 사용할 것이 권장된다.</li>
-<li><ApiProvider/>: Redux 스토어가 없는 경우에도 Provider로써 사용할 수 있다.</li>
-<li>setupListeners(): refetchOnMounte와 refetchOnReconnect를 사용할 수 있게 하는 유틸리티이다.</li>
-</ul>
-<h3 id="번들-크기"><a href="#번들-크기" class="headerlink" title="번들 크기"></a>번들 크기</h3><p>RTK 쿼리는 앱의 번들 사이즈에 고정된 일회성 사이즈로 추가된다. RTK Query는 Redux Toolkit과 React-Redux의 가장 상단에서 빌드되기 때문에 이렇게 추가된 사이즈는 이미 사용자가 app에서 이것을 쓰고 있는지 아닌지에 따라 다르다. 예상되는 min+gzip 번들 크기는 다음과 같다.</p>
-<ul>
-<li>RTK를 이미 사용하고 있는 경우: RTK 쿼리의 경우 ~9kb, hooks의 경우 ~2kb.</li>
-<li>RTK를 이미 사용하지 않는 경우:<ul>
-<li>React 없음: RTK+dependencies+RTK 쿼리의 경우 17kB</li>
-<li>React 사용 시: 19kB + React-Redux, which is a peer dependency</li>
-</ul>
-</li>
-</ul>
-<p>endpoint들의 정의를 추가적으로 포함하고자 하면 보통 몇 바이트에 불과한 endpoints 정의 내부의 실제 코드에 근거하여 크기만 증가해야 한다</p>
-<p>RTK 쿼리에 포함된 기능은 추가된 번들 크기에 대한 비용을 빠르게 지불하는 것을 포함하기 때문에 직접 작성한 data fetching 로직을 제거하면 대부분의 의미있는 응용 프로그램에서 size가 향상된다.</p>
-<hr>
-<h2 id="기본-사용법"><a href="#기본-사용법" class="headerlink" title="기본 사용법"></a>기본 사용법</h2><h3 id="Create-an-API-Slice"><a href="#Create-an-API-Slice" class="headerlink" title="Create an API Slice"></a>Create an API Slice</h3><p>RTK Query는 Redux Toolkit 패키지의 코어를 설치하면 그곳에 포함되어 있다. 아래 두 엔트리 포인트 중 한 가지로 사용할 수 있다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* React-specific entry point that automatically generates</span></span><br><span class="line"><span class="comment">   hooks corresponding to the defined endpoints */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// export hooks를 쓰려면 반드시 /react로 사용</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApi &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span>;</span><br></pre></td></tr></table></figure>
-<p>React에서 일반적인 사용법은 createApi를 임포트하는 것으로 시작하여 서버의 base url을 정리하고, 접근하고자 하는 엔드포인트를 정리하기 위한 “API slice”를 정의한다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Pokemon &#125; <span class="keyword">from</span> <span class="string">'./types'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Define a service using a base URL and expected endpoints</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> pokemonApi = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'pokemonApi'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'https://pokeapi.co/api/v2/'</span> &#125;),</span><br><span class="line">  endpoints: <span class="function">(<span class="params">builder</span>) =&gt;</span> (&#123;</span><br><span class="line">    getPokemonByName: builder.query&lt;Pokemon, string&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">name</span>) =&gt;</span> <span class="string">`pokemon/<span class="subst">$&#123;name&#125;</span>`</span>,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Export hooks for usage in functional components, which are</span></span><br><span class="line"><span class="comment">// auto-generated based on the defined endpoints</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123; useGetPokemonByNameQuery &#125; = pokemonApi</span><br></pre></td></tr></table></figure>
-<h2 id="스토어-구성"><a href="#스토어-구성" class="headerlink" title="스토어 구성"></a>스토어 구성</h2><p>“API slice”에는 자동으로 생성되는 slice 리듀서와 구독 수명주기를 매니지 할 수 있는 커스텀 미들웨어를 포함하고 있다. 이 두 가지 모두 Redux 스토어에 추가해야 한다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; configureStore &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit'</span>;</span><br><span class="line"><span class="comment">// Or from '@reduxjs/toolkit/query/react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; setupListeners &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; pokemonApi &#125; <span class="keyword">from</span> <span class="string">'./services/pokemon'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> store = configureStore(&#123;</span><br><span class="line">  reducer: &#123;</span><br><span class="line">    <span class="comment">// Add the generated reducer as a specific top-level slice</span></span><br><span class="line">    [pokemonApi.reducerPath]: pokemonApi.reducer,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// Adding the api middleware enables caching, invalidation, polling,</span></span><br><span class="line">  <span class="comment">// and other useful features of `rtk-query`.</span></span><br><span class="line">  middleware: <span class="function">(<span class="params">getDefaultMiddleware</span>) =&gt;</span></span><br><span class="line">    getDefaultMiddleware().concat(pokemonApi.middleware),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// optional, but required for refetchOnFocus/refetchOnReconnect behaviors</span></span><br><span class="line"><span class="comment">// see `setupListeners` docs - takes an optional callback as the 2nd arg for customization</span></span><br><span class="line">setupListeners(store.dispatch);</span><br></pre></td></tr></table></figure>
-<h2 id="컴포넌트에-hooks사용"><a href="#컴포넌트에-hooks사용" class="headerlink" title="컴포넌트에 hooks사용"></a>컴포넌트에 hooks사용</h2><p>마지막으로 API slice에서 자동 생성된 react hook을 컴포넌트 파일로 임포트 하고, 컴포넌트에서 필요한 파라미터를 사용하여 hooks를 호출한다. RTK Query는 mount될 때 자동으로 data를 fetch하고, 파라미터가 변경될때 re-fetch하며, 결과에 {data, isFetching} 값을 제공한다. 그리고 이 값들이 변경되면 컴포넌트를 리렌더링한다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useGetPokemonByNameQuery &#125; <span class="keyword">from</span> <span class="string">'./services/pokemon'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Using a query hook automatically fetches data and returns query values</span></span><br><span class="line">  <span class="keyword">const</span> &#123; data, error, isLoading &#125; = useGetPokemonByNameQuery(<span class="string">'bulbasaur'</span>);</span><br><span class="line">  <span class="comment">// Individual hooks are also accessible under the generated endpoints:</span></span><br><span class="line">  <span class="comment">// const &#123; data, error, isLoading &#125; = pokemonApi.endpoints.getPokemonByName.useQuery('bulbasaur')</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// render UI based on data and loading state</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="사용예시"><a href="#사용예시" class="headerlink" title="사용예시"></a>사용예시</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//dosApiSlice.ts</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> DOGS_API_KEY = <span class="string">'4902a53c-cfda-44e4-a5d7-35b9bd5b6cb9'</span>;</span><br><span class="line"></span><br><span class="line">interface Breed &#123;</span><br><span class="line">  id: string;</span><br><span class="line">  name: string;</span><br><span class="line">  image: &#123;</span><br><span class="line">    url: string;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//api slice</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> apiSlice = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'api'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123;</span><br><span class="line">    baseUrl: <span class="string">'https://api.thedogapi.com/v1'</span>,</span><br><span class="line">    prepareHeaders(headers) &#123;</span><br><span class="line">      headers.set(<span class="string">'x-api-key'</span>, DOGS_API_KEY);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> headers;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="comment">//builder에 의해 엔트리 포인트 생성</span></span><br><span class="line">  endpoints(builder) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      fetchBreeds: builder.query&lt;Breed[], number | <span class="keyword">void</span>&gt;(&#123;</span><br><span class="line">        query(limit = <span class="number">10</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="string">`/breeds?limit=<span class="subst">$&#123;limit&#125;</span>`</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;),</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123; useFetchBreedsQuery &#125; = apiSlice;</span><br></pre></td></tr></table></figure>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//store.ts</span></span><br><span class="line"><span class="comment">//configureStore: basic redux create store function의 wrapper</span></span><br><span class="line"><span class="comment">//create store</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; configureStore, getDefaultMiddleware &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit'</span>;</span><br><span class="line"><span class="keyword">import</span> counterReducer <span class="keyword">from</span> <span class="string">'../features/counter/counter-slice'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; apiSlice &#125; <span class="keyword">from</span> <span class="string">'../features/dogs/dogsApiSlice'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//combine reducer</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> store = configureStore(&#123;</span><br><span class="line">  reducer: &#123;</span><br><span class="line">    counter: counterReducer,</span><br><span class="line">    [apiSlice.reducerPath]: apiSlice.reducer,</span><br><span class="line">  &#125;,</span><br><span class="line">  middleware: <span class="function">(<span class="params">getDefaultMiddleware</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> getDefaultMiddleware().concat(apiSlice.middleware);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//ts thing</span></span><br><span class="line"><span class="keyword">export</span> type AppDispatch = <span class="keyword">typeof</span> store.dispatch;</span><br><span class="line"><span class="keyword">export</span> type RootState = ReturnType&lt;<span class="keyword">typeof</span> store.getState&gt;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//사용하고자 하는 곳에서 사용</span></span><br><span class="line"><span class="keyword">import</span> &#123; useFetchBreedsQuery &#125; <span class="keyword">from</span> <span class="string">'./features/dogs/dogsApiSlice'</span>;</span><br><span class="line"><span class="keyword">import</span> logo <span class="keyword">from</span> <span class="string">'./logo.svg'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./App.css'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//take selector function</span></span><br><span class="line">  <span class="keyword">const</span> count = useAppSelector(<span class="function">(<span class="params">state</span>) =&gt;</span> state.counter.value);</span><br><span class="line">  <span class="keyword">const</span> dispatch = useAppDispatch();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [numDogs, setNumDogs] = useState(<span class="number">10</span>);</span><br><span class="line">  <span class="keyword">const</span> &#123; data = [], isFetching &#125; = useFetchBreedsQuery(numDogs);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(useFetchBreedsQuery);</span><br></pre></td></tr></table></figure>
-<hr>
-<p><em>References</em><br><a href="https://redux-toolkit.js.org/rtk-query/overview" target="_blank" rel="noopener">RTK Query Overview</a></p>
 
       
     </div>
@@ -1650,7 +1615,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">107</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

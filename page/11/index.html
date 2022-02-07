@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -282,7 +282,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -383,7 +383,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -515,7 +515,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -653,7 +653,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/20/200222_mutable_immutable/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/21/200222_expression_statement/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -667,7 +667,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/20/200222_mutable_immutable/" class="post-title-link" itemprop="url">왜 원시타입은 변경불가하고, 객체는 가능할까?</a>
+            <a href="/2020/02/21/200222_expression_statement/" class="post-title-link" itemprop="url">표현식과 문 / expression & statement</a>
         </h1>
 
         <div class="post-meta">
@@ -677,14 +677,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-21T00:00:00+09:00">2020-02-21</time>
+              <time title="Created: 2020-02-22 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-22T00:00:00+09:00">2020-02-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -698,23 +698,38 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
-<p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
+          <h2 id="값-value"><a href="#값-value" class="headerlink" title="값(value)"></a>값(value)</h2><p>식(표현식, expression)이 평가(evaluate)되어 생성된 결과 <code>var result = 10 + 20;</code>에서 10과 20이라는 숫자는 런타임(할당 이전)에 평가되어 값을 생성하고, 런타임 때 10 + 20을 평가하여 30이라는 값을 <code>result</code>에 할당한다. 즉, 변수 result가 기억하는 메모리 공간의 값은 <code>10 + 20이 아닌 값 30</code>이다.</p>
+<h2 id="리터럴-literal"><a href="#리터럴-literal" class="headerlink" title="리터럴(literal)"></a>리터럴(literal)</h2><blockquote>
+<p>사람이 이해할 수 있는 문자 또는 약속된 기호를 사용하여 값을 생성하는 표기 방식</p>
+<p>자바스크립트 엔진은 코드가 실행되는 시점(런타임, runtime)에 리터럴을 평가하여 값을 생성한다. 즉, 리터럴은 값을 생성하기 위해 미리 약속한 표기법(notation)이라고 할 수 있다.</p>
 </blockquote>
-<p><code>원시타입</code>의 값은 <strong>변경불가</strong>의 값이다. 따라서 원래 할당되어 있던 값을 변경하는 것이 아니라 재할당이 이루어진다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">5</span>; <span class="comment">// a = 5</span></span><br><span class="line"><span class="keyword">let</span> b = a; <span class="comment">// b = 5;</span></span><br><span class="line">a = <span class="number">6</span>; <span class="comment">// a = 6;</span></span><br></pre></td></tr></table></figure>
-<p>처음 5라는 값을 a라는 변수에 할당하고, 다음으로 5라는 값을 담고 있는 a의 값을 b에 할당하였을 때,<br>b의 값 5는 a의 값 5가 들어있는 메모리 공간을 차지하는 것이 아니라 새로운 공간을 차지하여 값을 할당한다. 그리고 a를 6이라고 재할당하면 이 역시 새로운 공간을 차지한다.</p>
-<p><em>객체의 경우는 어떨까?</em></p>
-<p><code>객체</code>는 <strong>변경가능</strong>한 값이기 때문에 새로운 공간에 값을 재할당하는 것이 아니라 원래 할당된 공간의 값을 변경한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  word: <span class="string">"hello"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line"><span class="comment">//b  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line">a.word = <span class="string">"world"</span>;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"world"&#125;</span></span><br></pre></td></tr></table></figure>
-<p><code>{word: &quot;hello&quot;}</code>라는 객체를 a라는 변수에 할당하였고, 그 다음 b에 a의 값을 할당하였을 때,<br>b는 새로운 메모리 공간을 차지하는 대신 처음 a가 만들어 둔 <code>{word: &quot;hello&quot;}</code>라는 값이 든 공간을 바라보게 된다. 즉, a와 b라는 서로 다른 식별자가 <code>{word: &quot;hello&quot;}</code>라는 값이 들어 있는 하나의 공간을 공유하는 것이다.<br>따라서 a의 word라는 프로퍼티를 world로 변경하면 새로운 공간에 <code>{word: &quot;world&quot;}</code>라는 값을 담는 것이 아니라 원래 <code>{word: &quot;hello&quot;}</code>가 있던 공간의 프로퍼티를 <code>{word: &quot;world&quot;}</code>로 변경한다. b.word를 해도 같은 결과가 나온다.</p>
+<ol>
+<li>10, 20은 사람들 사이에서 숫자리는 기호로 약속되어 있는데, 이를 숫자 리터럴이라고 한다.</li>
+<li>숫자 리터럴 10과 20을 코드 내에 <code>var result = 10 + 20;</code>이라고 작성하면 자바스크립트는 이를 평가하여 런타임 이전에 숫자 값 10과 20을 생성한다.</li>
+<li>런타임 때 코드가 실행되는데 이때 리터럴은 평가되어 값을 생성한다. 즉 <code>10 + 20</code>의 값을 평가한 결과 <code>30</code>을 result라는 변수의 값이 생성된다.</li>
+</ol>
 <hr>
-<p><em>그렇다면 변수를 할당할 때 재할당이 불가능한 키워드 <strong>const</strong>를 사용한다면 어떻게 될까?</em></p>
-<p><code>const a = 5;</code>라고 할당한 후, <code>a = 6;</code>이라고 재할당하면 const는 재할당이 되지 않기 때문에 오류가 발생한다. 하지만 객체의 경우라면 어떻게 될까?</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a = &#123;num: 3&#125;</span></span><br><span class="line">a.num = <span class="number">5</span>;</span><br><span class="line"><span class="comment">//a = &#123;num: 5&#125;</span></span><br></pre></td></tr></table></figure>
-<p>const는 재할당을 할 수 없지만 다음과 같이 객체가 할당되면 객체의 프로퍼티는 변경할 수 있다.<br>처음 const a라는 변수에 <code>{num : 3}</code>를 할당한다. 그러면 이 값은 하나의 메모리 공간을 차지하게 된다.<br>이때 a의 num라는 프로퍼티에 접근하여 <code>a.num = 5;</code>라고 값을 할당한 후 a를 참조하면 값이 5로 바뀌어 있다.</p>
-<p>하지만 다음과 같이 코드를 사용하면 const는 재할당을 할 수 없기 때문에 오류가 발생한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line">a = &#123;</span><br><span class="line">  num: <span class="number">5</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="표현식-expression"><a href="#표현식-expression" class="headerlink" title="표현식 (expression)"></a>표현식 (expression)</h2><p><em>값으로 평가(evaluation)될 수 있는 문(statement)이다.</em> 즉, 표현식이 평가되면 값을 생성하거나 값을 참조한다. 따라서 값으로 평가되는 문은 모두 표현식이다. 이때 표현식과 표현식이 평가된 값은 동등한 관계, 즉 동치(equivalent)이다.</p>
+<ul>
+<li>변수에 값을 할당<br><code>x = 7</code>은 x에 7을 할당시키기 위해 연산자(=)를 사용한 것으로, 7로 계산된다.</li>
+<li>단순히 값을 가짐.<br><code>3 + 4</code>는 위 예시처럼 변수에 7을 할당하는 것이 아니라 그 자체로 3과 4를 더한 값을 갖는다.</li>
+<li>표현범주: 산수(산술 연산자), 문자열, 논리(참, 거짓), 일차식, 좌변식</li>
+</ul>
+<h2 id="문-statement"><a href="#문-statement" class="headerlink" title="문(statement)"></a>문(statement)</h2><p><em>프로그램을 구성하는 기본 단위이자 최소 실행 단위.</em> 문의 집합으로 이루어진 것이 프로그램이며 문을 작성하고 순서에 맞게 나열하는 것이 프로그래밍이다. 문은 여러 토큰들로 구성된다. 토큰(token)이란 문법적인 의미를 가지며, 문법적으로 더이상 나눌 수 없는 코드의 기본 요소를 의미한다. 선언문, 할당문, 조건문, 반복문 등이 있다.</p>
+<p><em>문은 반복문이나 if문처럼 action을 수행하게 하기 때문에 명령문이라고도 한다.</em> 자바스크립트 엔진이 문이 있기를 기대하는 곳에 표현식을 쓸 수 있는데, 이를 표현식인 문이라고 한다. 그러나 그 반대는 불가하다. 즉 표현식이 있기를 기대하는 곳에 문을 쓸 수는 없다. 예를들어 if문은 함수의 인수가 될 수 없다.</p>
+<h3 id="세미콜론과-세미콜론-자동-삽입-기능"><a href="#세미콜론과-세미콜론-자동-삽입-기능" class="headerlink" title="세미콜론과 세미콜론 자동 삽입 기능"></a>세미콜론과 세미콜론 자동 삽입 기능</h3><p>세미콜론( ; )은 문의 종료를 나타내며, <em>문은 반드시 세미콜론으로 끝나야 한다.</em> 단, 0개 이상의 문을 중괄호로 묶은 코드 블록 { … } 뒤에는 세미콜론을 붙이지 않는다. 예를 들어 if 문, for 문, 함수 등의 코드 블록 뒤에는 세미콜론을 붙이지 않는다. 이들 코드 블록은 언제나 문의 종료를 의미하는 자체 종결성(self closing)을 갖기 때문이다.</p>
+<hr>
+<h2 id="표현식과-문"><a href="#표현식과-문" class="headerlink" title="표현식과 문"></a>표현식과 문</h2><p>표현식: <code>become a value</code>. 값이 생성되거나 문의 일부가 될 수 있다.<br>문: <code>perform action</code>. 값이 생성되지 않고, 실행문이나 코드블록의 action을 컨트롤할 뿐이다.</p>
+<p><code>const x = 5;</code>는 숫자 리터럴 5를 해석하여 값 5를 생성하는 것이다.<br><code>const y = getAnswer();</code>는 어떤 값을 반환하도록 호출하는 것이므로 역시 표현식이다.</p>
+<h2 id="표현식인-문과-표현식이-아닌-문"><a href="#표현식인-문과-표현식이-아닌-문" class="headerlink" title="표현식인 문과 표현식이 아닌 문"></a>표현식인 문과 표현식이 아닌 문</h2><blockquote>
+<p>표현식인 문과 표현식이 아닌 문을 구별하는 방법은 변수에 할당하는 것이다. 변수에 할당이 가능하면 표현식인 문, 그렇지 않으면 표현식이 아닌 문이다.</p>
+</blockquote>
+<p><code>문:</code> 실행되거나 특정한 action을 수행할 수 있는 코드의 조각을 말한다.<br><code>표현식:</code> 평가되어 값을 생성할 수 있는 코드의 조각을 말한다.<br><code>표현식인 문:</code> 값으로 평가될 수 있는 문. ex.변수 할당문<br><code>표현식이 아닌 문:</code> 값으로 평가될 수 없는 문 ex.변수 선언문</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x; <span class="comment">//변수 선언문</span></span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>; <span class="comment">//변수 할당문</span></span><br><span class="line"><span class="comment">//10</span></span><br></pre></td></tr></table></figure>
+<p>구글 개발자 도구에서 위의 <code>var x;</code>와 같이 변수 선언문을 실행하면 <code>undefined</code>가 반환된다. <em>변수 선언문은 표현식이 아닌 문이므로</em> 값을 반환해야할 자리에 평가된 값이 아닌 <code>undefined</code>가 출력되는 것이고, 이를 <code>완료값</code>이라고 한다. 이는 자바스크립트 엔진이 암묵적으로 할당해주는 것이며, 변수에 담을 수 없고, 참조할 수 없는 값이다. 반면 변수에 할당을 하면 할당된 값이 출력되므로 <em>할당문은 표현식인 문</em>이라고 할 수 있다.</p>
+<hr>
+<p><em>References</em></p>
+<p><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Expressions_and_Operators" target="_blank" rel="noopener">MDN</a><br><a href="https://2ality.com/2012/09/expressions-vs-statements.html" target="_blank" rel="noopener">2ality</a><br><a href="https://poiemaweb.com/fastcampus/expression" target="_blank" rel="noopener">Poiemaweb</a><br><a href="https://www.youtube.com/watch?v=WVyCrI1cHi8" target="_blank" rel="noopener">Codexpanse</a><br><a href="https://exploringjs.com/impatient-js/ch_syntax.html#statement-vs-expression" target="_blank" rel="noopener">JavaScript for impatient programmers</a></p>
 
       
     </div>
@@ -765,7 +780,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -855,6 +870,87 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/20/200222_mutable_immutable/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/20/200222_mutable_immutable/" class="post-title-link" itemprop="url">왜 원시타입은 변경불가하고, 객체는 가능할까?</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-21T00:00:00+09:00">2020-02-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
+</blockquote>
+<p><code>원시타입</code>의 값은 <strong>변경불가</strong>의 값이다. 따라서 원래 할당되어 있던 값을 변경하는 것이 아니라 재할당이 이루어진다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">5</span>; <span class="comment">// a = 5</span></span><br><span class="line"><span class="keyword">let</span> b = a; <span class="comment">// b = 5;</span></span><br><span class="line">a = <span class="number">6</span>; <span class="comment">// a = 6;</span></span><br></pre></td></tr></table></figure>
+<p>처음 5라는 값을 a라는 변수에 할당하고, 다음으로 5라는 값을 담고 있는 a의 값을 b에 할당하였을 때,<br>b의 값 5는 a의 값 5가 들어있는 메모리 공간을 차지하는 것이 아니라 새로운 공간을 차지하여 값을 할당한다. 그리고 a를 6이라고 재할당하면 이 역시 새로운 공간을 차지한다.</p>
+<p><em>객체의 경우는 어떨까?</em></p>
+<p><code>객체</code>는 <strong>변경가능</strong>한 값이기 때문에 새로운 공간에 값을 재할당하는 것이 아니라 원래 할당된 공간의 값을 변경한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  word: <span class="string">"hello"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line"><span class="comment">//b  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line">a.word = <span class="string">"world"</span>;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"world"&#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>{word: &quot;hello&quot;}</code>라는 객체를 a라는 변수에 할당하였고, 그 다음 b에 a의 값을 할당하였을 때,<br>b는 새로운 메모리 공간을 차지하는 대신 처음 a가 만들어 둔 <code>{word: &quot;hello&quot;}</code>라는 값이 든 공간을 바라보게 된다. 즉, a와 b라는 서로 다른 식별자가 <code>{word: &quot;hello&quot;}</code>라는 값이 들어 있는 하나의 공간을 공유하는 것이다.<br>따라서 a의 word라는 프로퍼티를 world로 변경하면 새로운 공간에 <code>{word: &quot;world&quot;}</code>라는 값을 담는 것이 아니라 원래 <code>{word: &quot;hello&quot;}</code>가 있던 공간의 프로퍼티를 <code>{word: &quot;world&quot;}</code>로 변경한다. b.word를 해도 같은 결과가 나온다.</p>
+<hr>
+<p><em>그렇다면 변수를 할당할 때 재할당이 불가능한 키워드 <strong>const</strong>를 사용한다면 어떻게 될까?</em></p>
+<p><code>const a = 5;</code>라고 할당한 후, <code>a = 6;</code>이라고 재할당하면 const는 재할당이 되지 않기 때문에 오류가 발생한다. 하지만 객체의 경우라면 어떻게 될까?</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a = &#123;num: 3&#125;</span></span><br><span class="line">a.num = <span class="number">5</span>;</span><br><span class="line"><span class="comment">//a = &#123;num: 5&#125;</span></span><br></pre></td></tr></table></figure>
+<p>const는 재할당을 할 수 없지만 다음과 같이 객체가 할당되면 객체의 프로퍼티는 변경할 수 있다.<br>처음 const a라는 변수에 <code>{num : 3}</code>를 할당한다. 그러면 이 값은 하나의 메모리 공간을 차지하게 된다.<br>이때 a의 num라는 프로퍼티에 접근하여 <code>a.num = 5;</code>라고 값을 할당한 후 a를 참조하면 값이 5로 바뀌어 있다.</p>
+<p>하지만 다음과 같이 코드를 사용하면 const는 재할당을 할 수 없기 때문에 오류가 발생한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line">a = &#123;</span><br><span class="line">  num: <span class="number">5</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -925,7 +1021,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">107</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -144,6 +144,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/19/200520_contextApi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/19/200520_contextApi/" class="post-title-link" itemprop="url">Context API</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-20 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-20T00:00:00+09:00">2020-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Context-API가-필요한-이유"><a href="#Context-API가-필요한-이유" class="headerlink" title="Context API가 필요한 이유"></a>Context API가 필요한 이유</h2><p>React의 데이터는 부모에서 자식으로 props를 통해 전달되는데, 자식 컴포넌트들이 늘어나면 전달해야하는 브릿지(중간에 의미없이 props만 전달하는 컴포넌트)가 늘어난다.</p>
+<p>Context API를 사용하면 네스팅 컴포넌트 트리(부모-&gt;자식-&gt;자식-&gt;자식…의 구조)를 타고 props를 명시적으로 넘겨주지 않아도 컴포넌트 간에 값을 공유하도록 할 수 있다. 이렇게 하면 멀리 떨어진 컴포넌트에게 상태 또는 상태관리 함수를 보낼 수 있다. dispatch를 이용하여 전달한다.</p>
+<blockquote>
+<p>context API: React 컴포넌트 트리 안에서 전역적(global)이라고 볼 수 있는 데이터를 공유할 수 있도록 고안된 방법. 선호 로케일, 테마, 데이터 캐시, 현재 로그인한 유저, 선호하는 언어 등을 관리할 때 사용.</p>
+</blockquote>
+<h2 id="언제-필요한가"><a href="#언제-필요한가" class="headerlink" title="언제 필요한가?"></a>언제 필요한가?</h2><p>다양한 레벨에 네스틴된 많은 컴포넌트에게 데이터를 전달할 때. <em>단, context는 컴포넌트를 그룹화한다는 의미이기 때문에 재사용이 어려워지므로 꼭 필요할 때만 쓰도록 한다.</em></p>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><ol>
+<li>React.CreateContext</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MyContext = React.createContext(defaultValue);</span><br></pre></td></tr></table></figure>
+<p>context 객체를 만든다. Context 객체를 구독하고 있는 컴포넌트를 렌더링할 때 React는 트리 상위에서 가장 가까이 있는 짝이 맞는 <code>Provider</code>로부터 현재값을 읽는다.</p>
+<ul>
+<li>defaultValue: 트리 안에서 적절한 <code>Provider</code>를 찾지 못했을 때 쓰임. <code>Provider</code>를 통해 <code>undefined</code>를 값으로 보내도 구독 컴포넌트들이 <code>defaultValue</code>를 읽지 않음.</li>
+</ul>
+<ol>
+<li>Context.Provider</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//상위 컴포넌트에서의 정의</span></span><br><span class="line">&lt;MyContext.Provider value=&#123;<span class="comment">/* 어떤 값 */</span>&#125;&gt;</span><br><span class="line">  &#123;하위 컴포넌트&#125;</span><br><span class="line">&lt;<span class="regexp">/MyContext.Provider&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Provider: Context 오브젝트에 포함된 React컴포넌트로 context를 구독하는 컴포넌트들에게 context의 변화를 알리는 역할을 한다.</li>
+</ul>
+<p>Context 변경 사항을 자손들에게 제공한다. Provider 의 Value는 하위의 모든 Consumer 에서 사용할 수 있으며, Provider 하위의 모든 Consumer 는 Provider 의 value가 변경 될 때마다 리렌더링 된다. Privider가 받은 value를 하위 컴포넌트에 넘길 때, 값을 전달 받을 수 있는 컴포넌트의 수 제한은 없다.</p>
+<ol>
+<li>Context.Consumer</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//하위 컴포넌트에서 정의</span></span><br><span class="line">&lt;MyContext.Consumer&gt;&#123;(value) =&gt;</span><br><span class="line"><span class="comment">//render something based on the context value</span></span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/MyContext.Consumer&gt;</span></span><br></pre></td></tr></table></figure>
+<p>MyContext Provide의 Value의 변경 사항을 구독하며, Context 에서 가장 가까운 Provider 의 Value 를 참조한다.</p>
+<p>함수 컴포넌트 안에서 context를 읽기 위해 쓸 수 있고, Context.Consumer의 자식은 <code>함수</code>여야 한다. 이 함수는 context의 현재값을 받고 React 노드를 반환한다.</p>
+<ol>
+<li>Hook의 useContext</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> value = useContext(MyContext);</span><br></pre></td></tr></table></figure>
+<p>Hook의 useContext로 Context 객체의 value를 가져올 수 있다.</p>
+<hr>
+<p><em>Reference</em><br><a href="https://ko.reactjs.org/docs/context.html#gatsby-focus-wrapper" target="_blank" rel="noopener">React</a><br><a href="https://glenncy.s3.ap-northeast-2.amazonaws.com/lecture/reactjs/chapter10.html" target="_blank" rel="noopener">fastCampusDocument</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/12/200513_react/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +274,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -266,7 +365,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -355,7 +454,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -456,7 +555,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -483,81 +582,6 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DOM에 렌더링하기 전에 컴포넌트를 인스턴스화해야한다.-&gt;JSX를 이용.</span></span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ReactDOM.render(App);</span></span><br><span class="line"><span class="comment">// 이렇게 전달하면 '클래스'를 전달한 것.</span></span><br></pre></td></tr></table></figure>
 <hr>
 <p><em>Reference</em><br><a href="https://ko.reactjs.org/tutorial/tutorial.html#help-im-stuck" target="_blank" rel="noopener">React</a><br><a href="https://www.udemy.com/course/react-redux-korean/learn/lecture/6385364#overview" target="_blank" rel="noopener">Modern React with Redux</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/05/200506_rest_spread/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/05/200506_rest_spread/" class="post-title-link" itemprop="url">rest and spread</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-05-06 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-06T00:00:00+09:00">2020-05-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="스프레드-문법-…"><a href="#스프레드-문법-…" class="headerlink" title="스프레드 문법(…)"></a>스프레드 문법(…)</h2><p>하나로 뭉쳐 있는 여러 값들의 집합을 펼쳐서(전개, 분산하여, spread) 개별적인 값들의 목록으로 만든다.<br>스프레드 문법의 결과는 값이 아니기 떄문에 변수에 할당할 수 없고, 아래와 같은 문맥에서만 사용한다.</p>
-<ul>
-<li>함수 호출문의 인수 목록</li>
-<li>배열 리터럴의 요소 목록</li>
-<li>객체 리터럴의 프로퍼티 목록</li>
-</ul>
-<h3 id="함수-호출문의-인수-목록"><a href="#함수-호출문의-인수-목록" class="headerlink" title="함수 호출문의 인수 목록"></a>함수 호출문의 인수 목록</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 스프레드 문법을 사용하여 배열 arr을 1, 2, 3으로 펼쳐서 Math.max에 전달한다.</span></span><br><span class="line"><span class="comment">// Math.max(...[1, 2, 3])는 Math.max(1, 2, 3)과 같다.</span></span><br><span class="line"><span class="keyword">const</span> maxValue = <span class="built_in">Math</span>.max(...arr);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(maxValue); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-<p><code>주의</code><br>rest 파라미터와 spread는 형태가 ‘…’으로 동일한데 rest는 함수에 전달된 인수들의 목록을 배열로 전달받기 위해서 매개변수 앞에 …을 붙이는 것이고, 스프레드는 배열과 같은 이터러블을 펼쳐서 개별적인 값들의 목록을 만드는 것이다. 서로 정반대의 개념이다. 참고로 배열에서 rest는 반드시 맨마지막에 위치해야 한다. spread는 어디에 오든 상관없다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Rest 파라미터는 인수들의 목록을 배열로 전달받는다.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">param, ...rest</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(param); <span class="comment">// 1</span></span><br><span class="line">  <span class="built_in">console</span>.log(rest); <span class="comment">// [ 2, 3 ]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 스프레드 문법은 배열과 같은 이터러블을 펼쳐서 개별적인 값들의 목록을 만든다.</span></span><br><span class="line"><span class="comment">// [1, 2, 3] -&gt; 1, 2, 3</span></span><br><span class="line">foo(...[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br></pre></td></tr></table></figure>
-<hr>
-<p><em>Reference</em><br><a href="https://poiemaweb.com/fastcampus/destructuring" target="_blank" rel="noopener">poiemaweb/fastcampus</a><br><a href="https://poiemaweb.com/fastcampus/spread-syntax" target="_blank" rel="noopener">ES6 Javascript:The Complete Developer’s Guide</a></p>
 
       
     </div>
@@ -608,7 +632,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -663,6 +687,215 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/05/200506_rest_spread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/05/200506_rest_spread/" class="post-title-link" itemprop="url">rest and spread</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-06 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-06T00:00:00+09:00">2020-05-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="스프레드-문법-…"><a href="#스프레드-문법-…" class="headerlink" title="스프레드 문법(…)"></a>스프레드 문법(…)</h2><p>하나로 뭉쳐 있는 여러 값들의 집합을 펼쳐서(전개, 분산하여, spread) 개별적인 값들의 목록으로 만든다.<br>스프레드 문법의 결과는 값이 아니기 떄문에 변수에 할당할 수 없고, 아래와 같은 문맥에서만 사용한다.</p>
+<ul>
+<li>함수 호출문의 인수 목록</li>
+<li>배열 리터럴의 요소 목록</li>
+<li>객체 리터럴의 프로퍼티 목록</li>
+</ul>
+<h3 id="함수-호출문의-인수-목록"><a href="#함수-호출문의-인수-목록" class="headerlink" title="함수 호출문의 인수 목록"></a>함수 호출문의 인수 목록</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 스프레드 문법을 사용하여 배열 arr을 1, 2, 3으로 펼쳐서 Math.max에 전달한다.</span></span><br><span class="line"><span class="comment">// Math.max(...[1, 2, 3])는 Math.max(1, 2, 3)과 같다.</span></span><br><span class="line"><span class="keyword">const</span> maxValue = <span class="built_in">Math</span>.max(...arr);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(maxValue); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<p><code>주의</code><br>rest 파라미터와 spread는 형태가 ‘…’으로 동일한데 rest는 함수에 전달된 인수들의 목록을 배열로 전달받기 위해서 매개변수 앞에 …을 붙이는 것이고, 스프레드는 배열과 같은 이터러블을 펼쳐서 개별적인 값들의 목록을 만드는 것이다. 서로 정반대의 개념이다. 참고로 배열에서 rest는 반드시 맨마지막에 위치해야 한다. spread는 어디에 오든 상관없다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Rest 파라미터는 인수들의 목록을 배열로 전달받는다.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">param, ...rest</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(param); <span class="comment">// 1</span></span><br><span class="line">  <span class="built_in">console</span>.log(rest); <span class="comment">// [ 2, 3 ]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 스프레드 문법은 배열과 같은 이터러블을 펼쳐서 개별적인 값들의 목록을 만든다.</span></span><br><span class="line"><span class="comment">// [1, 2, 3] -&gt; 1, 2, 3</span></span><br><span class="line">foo(...[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>Reference</em><br><a href="https://poiemaweb.com/fastcampus/destructuring" target="_blank" rel="noopener">poiemaweb/fastcampus</a><br><a href="https://poiemaweb.com/fastcampus/spread-syntax" target="_blank" rel="noopener">ES6 Javascript:The Complete Developer’s Guide</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/18/200319_es6_arrow_function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/18/200319_es6_arrow_function/" class="post-title-link" itemprop="url">ES6 함수의 추가 기능</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-19 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-19T00:00:00+09:00">2020-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="함수의-구분"><a href="#함수의-구분" class="headerlink" title="함수의 구분"></a>함수의 구분</h2><p>ES6 이전의 함수는 일반함수, 생성자 함수, 메소드의 호출 등 동일한 함수도 다양한 형태로 호출할 수 있었다. 즉 callable이면서 constructor이다. 객체에 바인딩 된 메소드 역시 일반 함수 또는 생성자 함수로 호출 가능하다. 그런데 이와 같은 경우 불필요한 프로토타입 객체를 생성한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line">foo(); <span class="comment">//일반함수로 호출</span></span><br><span class="line"><span class="keyword">new</span> foo(); <span class="comment">//생성자 함수로 호출</span></span><br></pre></td></tr></table></figure>
+<p>ES6에서는 함수 호출방식에 제약이 없어 생기는 문제를 방지하고자 함수를 사용 목적에 따라 3가지로 구분한다.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>ES6 함수의 구분</th>
+<th>constructor</th>
+<th>prototype</th>
+<th>super</th>
+<th>arguments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>일반함수</td>
+<td>O</td>
+<td>O</td>
+<td>X</td>
+<td>O</td>
+</tr>
+<tr>
+<td>메소드</td>
+<td>X</td>
+<td>X</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr>
+<td>화살표 함수</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="메소드"><a href="#메소드" class="headerlink" title="메소드"></a>메소드</h2><p>ES6 사양에서 메소드는 메소드 축약 표현으로 정의된 함수 만을 의미한다. 따라서 메소드는 생성자 함수로 호출할 수 없고, 인스턴스 생성, 프로퍼타입 프로퍼티, 프로토타입 등을 생성하지 않는다. 또한 메소드가 바인딩된 객체를 가리키는 내부 슬롯 [[HomeObject]]를 갖고, 이를 이용하여 super키워드를 사용할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  x: <span class="number">1</span>,</span><br><span class="line">  <span class="comment">// foo는 메소드이다.</span></span><br><span class="line">  foo() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.x;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// bar에 바인딩된 함수는 메소드가 아닌 일반 함수이다.</span></span><br><span class="line">  bar: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.x;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj.foo()); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.bar()); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h3 id="메소드-축약-표현"><a href="#메소드-축약-표현" class="headerlink" title="메소드 축약 표현"></a>메소드 축약 표현</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span>,</span><br><span class="line">  sayHi: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hi! "</span> + <span class="keyword">this</span>.name);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.sayHi(); <span class="comment">// Hi! Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span>,</span><br><span class="line">  <span class="comment">// 메소드 축약 표현</span></span><br><span class="line">  sayHi() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hi! "</span> + <span class="keyword">this</span>.name);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.sayHi(); <span class="comment">// Hi! Lee</span></span><br></pre></td></tr></table></figure>
+<h2 id="화살표-함수"><a href="#화살표-함수" class="headerlink" title="화살표 함수"></a>화살표 함수</h2><p>기존의 함수 정의 방법보다 간략하게 정의할 수 있고, 콜백 함수 내부에서 this가 전역 객체를 가리키는 문제를 해결하는 데 유용하다. 항상 익명이며, 생성자로 사용할 수 없다.</p>
+<h3 id="화살표-함수-정의"><a href="#화살표-함수-정의" class="headerlink" title="화살표 함수 정의"></a>화살표 함수 정의</h3><ol>
+<li>매개변수 선언</li>
+</ol>
+<ul>
+<li><p>매개변수가 여러 개면 소괄호 안에 매개 변수를 선언한다. 한개인 경우 소괄호를 생략할 수 있다.<br><code>(x,y) =&gt; {...}</code></p>
+</li>
+<li><p>매개 변수가 없을 때 소괄호를 생략할 수 없다.<br><code>() =&gt; {...}</code></p>
+</li>
+</ul>
+<ol>
+<li>함수 몸체 정의</li>
+</ol>
+<ul>
+<li>함수 몸체가 한 줄의 문으로 구성된다면 함수 몸체를 감싸는 중괄호 {}를 생략할 수 있다. 이때 문은 암묵적으로 반환된다. 몸체가 여러 줄로 구성된다면 중괄호를 생략할 수 없고, 반환값이 있다면 명시적으로 반환한다.<br><code>x =&gt; x * x; // 왼쪽의 표현과 동일하다. x =&gt; { return x * x; }</code></li>
+<li>객체 리터럴을 반환할 때는 소괄호로 감싸준다.<br><code>() =&gt; { return { a: 1 }; } // 왼쪽표현과 동일하다. () =&gt; ({ a: 1 })</code></li>
+<li>즉시실행함수로 사용할 수 있다.</li>
+<li>고차 함수에 인수로 전달할 수 있다.</li>
+</ul>
+<h3 id="화살표-함수와-일반-함수의-차이"><a href="#화살표-함수와-일반-함수의-차이" class="headerlink" title="화살표 함수와 일반 함수의 차이"></a>화살표 함수와 일반 함수의 차이</h3><ol>
+<li>화살표 함수는 인스턴스를 생성할 수 없는 non-constructor이다.</li>
+<li>화살표 함수는 인스턴스를 생성할 수 없으므로 prototype 프로퍼티가 없고 프로토타입도 생성하지 않는다.</li>
+<li>중복된 매개 변수 이름을 선언할 수 없다.<br><code>const arrow = (a, a) =&gt; a + a; // SyntaxError: Duplicate parameter name not allowed in this context</code></li>
+<li>화살표 함수는 함수 자체의 this, arguments, super, new.target 바인딩을 갖지 않는다. 따라서 화살표 함수 내부에서 this, arguments, super, new.target를 참조하면 스코프 체인을 통해 상위 컨텍스트의 this, arguments, super, new.target를 참조한다.</li>
+</ol>
+<h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><p>화살표 함수는 함수 자체의 this 바인딩이 없다. 화살표 함수 내부에서 this를 참조하면 상위 컨텍스트의 this를 그대로 참조한다. 이를 Lexical this라 한다. 이는 마치 렉시컬 스코프(“12.7. 렉시컬 스코프” 참고)와 같이 화살표 함수의 this가 함수가 정의된 위치에 의해 결정된다는 것을 의미한다.</p>
+<hr>
+<p><em>Reference</em><br><a href="https://poiemaweb.com/fastcampus/es6-function" target="_blank" rel="noopener">poiemaweb/fastcampus</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/%EC%95%A0%EB%A1%9C%EC%9A%B0_%ED%8E%91%EC%85%98S" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/es6-enhanced-object-property#3-%EB%A9%94%EC%86%8C%EB%93%9C-%EC%B6%95%EC%95%BD-%ED%91%9C%ED%98%84" target="_blank" rel="noopener">poiemaweb</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/18/200319_array/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -694,7 +927,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -916,140 +1149,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/18/200319_es6_arrow_function/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/18/200319_es6_arrow_function/" class="post-title-link" itemprop="url">ES6 함수의 추가 기능</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-03-19 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-19T00:00:00+09:00">2020-03-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="함수의-구분"><a href="#함수의-구분" class="headerlink" title="함수의 구분"></a>함수의 구분</h2><p>ES6 이전의 함수는 일반함수, 생성자 함수, 메소드의 호출 등 동일한 함수도 다양한 형태로 호출할 수 있었다. 즉 callable이면서 constructor이다. 객체에 바인딩 된 메소드 역시 일반 함수 또는 생성자 함수로 호출 가능하다. 그런데 이와 같은 경우 불필요한 프로토타입 객체를 생성한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line">foo(); <span class="comment">//일반함수로 호출</span></span><br><span class="line"><span class="keyword">new</span> foo(); <span class="comment">//생성자 함수로 호출</span></span><br></pre></td></tr></table></figure>
-<p>ES6에서는 함수 호출방식에 제약이 없어 생기는 문제를 방지하고자 함수를 사용 목적에 따라 3가지로 구분한다.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>ES6 함수의 구분</th>
-<th>constructor</th>
-<th>prototype</th>
-<th>super</th>
-<th>arguments</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>일반함수</td>
-<td>O</td>
-<td>O</td>
-<td>X</td>
-<td>O</td>
-</tr>
-<tr>
-<td>메소드</td>
-<td>X</td>
-<td>X</td>
-<td>O</td>
-<td>O</td>
-</tr>
-<tr>
-<td>화살표 함수</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="메소드"><a href="#메소드" class="headerlink" title="메소드"></a>메소드</h2><p>ES6 사양에서 메소드는 메소드 축약 표현으로 정의된 함수 만을 의미한다. 따라서 메소드는 생성자 함수로 호출할 수 없고, 인스턴스 생성, 프로퍼타입 프로퍼티, 프로토타입 등을 생성하지 않는다. 또한 메소드가 바인딩된 객체를 가리키는 내부 슬롯 [[HomeObject]]를 갖고, 이를 이용하여 super키워드를 사용할 수 있다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  x: <span class="number">1</span>,</span><br><span class="line">  <span class="comment">// foo는 메소드이다.</span></span><br><span class="line">  foo() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.x;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// bar에 바인딩된 함수는 메소드가 아닌 일반 함수이다.</span></span><br><span class="line">  bar: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.x;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj.foo()); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.bar()); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<h3 id="메소드-축약-표현"><a href="#메소드-축약-표현" class="headerlink" title="메소드 축약 표현"></a>메소드 축약 표현</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span>,</span><br><span class="line">  sayHi: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hi! "</span> + <span class="keyword">this</span>.name);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.sayHi(); <span class="comment">// Hi! Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span>,</span><br><span class="line">  <span class="comment">// 메소드 축약 표현</span></span><br><span class="line">  sayHi() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hi! "</span> + <span class="keyword">this</span>.name);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.sayHi(); <span class="comment">// Hi! Lee</span></span><br></pre></td></tr></table></figure>
-<h2 id="화살표-함수"><a href="#화살표-함수" class="headerlink" title="화살표 함수"></a>화살표 함수</h2><p>기존의 함수 정의 방법보다 간략하게 정의할 수 있고, 콜백 함수 내부에서 this가 전역 객체를 가리키는 문제를 해결하는 데 유용하다. 항상 익명이며, 생성자로 사용할 수 없다.</p>
-<h3 id="화살표-함수-정의"><a href="#화살표-함수-정의" class="headerlink" title="화살표 함수 정의"></a>화살표 함수 정의</h3><ol>
-<li>매개변수 선언</li>
-</ol>
-<ul>
-<li><p>매개변수가 여러 개면 소괄호 안에 매개 변수를 선언한다. 한개인 경우 소괄호를 생략할 수 있다.<br><code>(x,y) =&gt; {...}</code></p>
-</li>
-<li><p>매개 변수가 없을 때 소괄호를 생략할 수 없다.<br><code>() =&gt; {...}</code></p>
-</li>
-</ul>
-<ol>
-<li>함수 몸체 정의</li>
-</ol>
-<ul>
-<li>함수 몸체가 한 줄의 문으로 구성된다면 함수 몸체를 감싸는 중괄호 {}를 생략할 수 있다. 이때 문은 암묵적으로 반환된다. 몸체가 여러 줄로 구성된다면 중괄호를 생략할 수 없고, 반환값이 있다면 명시적으로 반환한다.<br><code>x =&gt; x * x; // 왼쪽의 표현과 동일하다. x =&gt; { return x * x; }</code></li>
-<li>객체 리터럴을 반환할 때는 소괄호로 감싸준다.<br><code>() =&gt; { return { a: 1 }; } // 왼쪽표현과 동일하다. () =&gt; ({ a: 1 })</code></li>
-<li>즉시실행함수로 사용할 수 있다.</li>
-<li>고차 함수에 인수로 전달할 수 있다.</li>
-</ul>
-<h3 id="화살표-함수와-일반-함수의-차이"><a href="#화살표-함수와-일반-함수의-차이" class="headerlink" title="화살표 함수와 일반 함수의 차이"></a>화살표 함수와 일반 함수의 차이</h3><ol>
-<li>화살표 함수는 인스턴스를 생성할 수 없는 non-constructor이다.</li>
-<li>화살표 함수는 인스턴스를 생성할 수 없으므로 prototype 프로퍼티가 없고 프로토타입도 생성하지 않는다.</li>
-<li>중복된 매개 변수 이름을 선언할 수 없다.<br><code>const arrow = (a, a) =&gt; a + a; // SyntaxError: Duplicate parameter name not allowed in this context</code></li>
-<li>화살표 함수는 함수 자체의 this, arguments, super, new.target 바인딩을 갖지 않는다. 따라서 화살표 함수 내부에서 this, arguments, super, new.target를 참조하면 스코프 체인을 통해 상위 컨텍스트의 this, arguments, super, new.target를 참조한다.</li>
-</ol>
-<h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><p>화살표 함수는 함수 자체의 this 바인딩이 없다. 화살표 함수 내부에서 this를 참조하면 상위 컨텍스트의 this를 그대로 참조한다. 이를 Lexical this라 한다. 이는 마치 렉시컬 스코프(“12.7. 렉시컬 스코프” 참고)와 같이 화살표 함수의 this가 함수가 정의된 위치에 의해 결정된다는 것을 의미한다.</p>
-<hr>
-<p><em>Reference</em><br><a href="https://poiemaweb.com/fastcampus/es6-function" target="_blank" rel="noopener">poiemaweb/fastcampus</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/%EC%95%A0%EB%A1%9C%EC%9A%B0_%ED%8E%91%EC%85%98S" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/es6-enhanced-object-property#3-%EB%A9%94%EC%86%8C%EB%93%9C-%EC%B6%95%EC%95%BD-%ED%91%9C%ED%98%84" target="_blank" rel="noopener">poiemaweb</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/15/200316_class/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1081,7 +1180,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
+                <time title="Modified: 2022-02-07 17:16:28" itemprop="dateModified" datetime="2022-02-07T17:16:28+09:00">2022-02-07</time>
               </span>
 
           
@@ -1144,75 +1243,6 @@
 <p>constructor 내부에서 this를 통해 정의한 인스턴스 프로퍼티는 인스턴스를 통해 클래스 외부에서 언제나 참조할 수 있다. 즉, 언제나 public이다.</p>
 </blockquote>
 <h2 id="상속에-의한-클래스-확장"><a href="#상속에-의한-클래스-확장" class="headerlink" title="상속에 의한 클래스 확장"></a>상속에 의한 클래스 확장</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/14/200315_this/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/14/200315_this/" class="post-title-link" itemprop="url">this</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-03-15 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-15T00:00:00+09:00">2020-03-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-05 00:30:30" itemprop="dateModified" datetime="2022-02-05T00:30:30+09:00">2022-02-05</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>the object that is executing the current function.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//method -&gt; object itself.</span></span><br><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  play() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">video.play(); <span class="comment">// &#123;title: "a", play: f&#125;</span></span><br><span class="line"><span class="comment">// play는 video의 메소드이므로 this는 video 객체를 참조한다.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//video 객체가 끝난 후에 메소드를 사용해도 같은 결과가 나온다.</span></span><br><span class="line"></span><br><span class="line">video.stop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">video.stop(); <span class="comment">//&#123;title: "a", play: ƒ, stop: ƒ&#125;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//function -&gt; global(window, global)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  play() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">playVideo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">playVideo();</span><br><span class="line"><span class="comment">//Window &#123;parent: Window, opener: null, top: Window, length: 0, frames: Window, …&#125;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  play() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Video</span>(<span class="params">title</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.title = title;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> v = <span class="keyword">new</span> Video(<span class="string">"a"</span>); <span class="comment">//&#123;&#125;</span></span><br><span class="line"><span class="comment">//Video &#123;title: "a"&#125;</span></span><br><span class="line"><span class="comment">// 생성자 함수는 전역을 참조하는 것이 아니라 new가 생성할 빈 객체를 참조한다.</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  tags: [<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>],</span><br><span class="line">  showTags() &#123;</span><br><span class="line">    <span class="keyword">this</span>.tags.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">tag</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// to get the current object and then get the tags property</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.title, tag);</span><br><span class="line">    &#125;, <span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">video.showTags();</span><br></pre></td></tr></table></figure>
-
       
     </div>
 
@@ -1297,7 +1327,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">107</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
