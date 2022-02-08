@@ -144,7 +144,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/200224_type_casting/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/200224_object_literal/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -158,7 +158,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/23/200224_type_casting/" class="post-title-link" itemprop="url">타입 변환과 단축 평가 / Type casting</a>
+            <a href="/2020/02/23/200224_object_literal/" class="post-title-link" itemprop="url">객체 리터럴 / Object</a>
         </h1>
 
         <div class="post-meta">
@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 01:13:04" itemprop="dateModified" datetime="2022-02-08T01:13:04+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
               </span>
 
           
@@ -189,160 +189,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="타입-변환"><a href="#타입-변환" class="headerlink" title="타입 변환"></a>타입 변환</h2><blockquote>
-<p>하나의 데이터 타입이 다른 데이터 타입으로 자동 또는 암묵적으로 변환되는 것.<br>타입 캐스팅(Type conversion (or typecasting))은 명시적(explicit)과 암묵적(implicit)인 타입 변환이 동시에 이루어진다.</p>
-</blockquote>
-<p>컴파일러가 자동으로 데이터 타입을 할당할 때 암묵적 타입변환이 자동으로 발생하는데, 소스코드에서도 명시적인 변환이 필요하다.</p>
-<p><code>5+2.0</code>에서 부동소수점 <code>2.0</code>은 암묵적으로 정수로 타입변환되는데, Number(“0x11”)에서 문자열인 “0x11”은 숫자 17로 명시적으로 변환된다.(16진수로 계산하여 17 (1 * 16 + 1 = 17)</p>
-<p>타입 강제변환(type coercion)은 암묵적인 타입 변환이 이루어진다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> value1 = <span class="string">"5"</span>;</span><br><span class="line"><span class="keyword">const</span> value2 = <span class="number">9</span>;</span><br><span class="line"><span class="keyword">let</span> sum = value1 + value2;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(sum);</span><br></pre></td></tr></table></figure>
-<p>숫자 리터럴 <code>9</code>는 문자열로 변환되고, value1과 value2의 값이 연결되어 문자열 <code>59</code>가 출력된다. 자바스크립트는 문자열과 숫자가 있을 때 문자열을 이용하기 때문이다. 따라서 만약 숫자 <code>5 + 9</code>를 더한 <code>14</code>의 결과를 출력하고 싶다면 number() 메소드를 통해서 명시적인 타입 변환을 해주어야 한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum = <span class="built_in">Number</span>(value1) + value2;</span><br></pre></td></tr></table></figure>
-<hr>
+          <h2 id="객체란"><a href="#객체란" class="headerlink" title="객체란?"></a>객체란?</h2><p>객체는 다양한 타입의 값(원시 값 또는 다른 객체)들을 하나의 단위로 구성한 복합적인 자료 구조이다. 0개 이상인 속성명(property)과 객체의 관련된 값이 중괄호({})로 묶여진다. 즉 <em>키(key)과 값(value)으로 구성된 프로퍼티(Property)들의 집합</em>이라고 할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">키워드 식별자 = &#123;</span><br><span class="line">  key(속성) : value(값)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> counter = &#123;</span><br><span class="line">  number : <span class="number">0</span>, <span class="comment">//프로퍼티</span></span><br><span class="line">  increase: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.num++; <span class="comment">//메소드</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>자바스크립트에 사용할 수 있는 모든 값이 프로퍼티 값이 될 수 있고, 함수도 사용할 수 있다. 이 경우 일반 함수와 구분하기 위해 메소드(Method)라 부른다.</p>
+<p><code>프로퍼티와 메소드의 역할</code></p>
 <ul>
-<li>명시적 타입 변환(Explicit coercion) 또는 타입 캐스팅(Type casting)<br>개발자가 의도적으로 값의 타입을 변환하는 것</li>
-<li>암묵적 타입 변환(Implicit coercion) 또는 타입 강제 변환(Type coercion)<br>개발자의 의도와 상관없이 자바스크립트 엔진에 의해 암묵적으로 타입이 자동 변환되는 것.</li>
-</ul>
-<p>이러한 명시적 또는 암묵적 타입 변환이 기존 원시값을 직접 변경하는 것은 아니다. 원시값은 변경불가이기 때문이다. 타입 변환이란 기존 원시값을 사용하여 다른 타입의 새로운 원시값을 생성하는 것이다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 원시값 1이 '1'로 직접 변경되는 것이 아니다.</span></span><br><span class="line"><span class="comment">// 1을 사용해 타입이 다른 '1'을 새롭게 생성하여 '1' + ''을 평가한다.</span></span><br><span class="line"><span class="number">1</span> + <span class="string">""</span>; <span class="comment">// '1'</span></span><br></pre></td></tr></table></figure>
-<h2 id="암묵적-타입-변환"><a href="#암묵적-타입-변환" class="headerlink" title="암묵적 타입 변환"></a>암묵적 타입 변환</h2><p>표현식을 평가할 때 코드 문맥에 부합하지 않더라도 자바스크립트는 암묵적 타입 변환을 통해 표현식을 평가하고, 문자열, 숫자, 불리언과 같은 원시 타입 중 하나로 타입을 자동 변환한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + <span class="string">"2"</span>; <span class="comment">//"12" 문자열 타입으로 변환</span></span><br><span class="line"><span class="number">1</span> - <span class="string">"1"</span>; <span class="comment">//0 숫자열 타입으로 변환</span></span><br><span class="line"><span class="comment">//불리언 타입으로 변환</span></span><br></pre></td></tr></table></figure>
-<h2 id="명시적-타입-변환"><a href="#명시적-타입-변환" class="headerlink" title="명시적 타입 변환"></a>명시적 타입 변환</h2><p>개발자의 의도에 의해 명시적으로 타입을 변환한다.</p>
-<ul>
-<li><p>문자열 타입으로 변환</p>
-<ul>
-<li>String 생성자 함수를 new 연산자 없이 호출하는 방법 ex) String(1); -&gt; “1”</li>
-<li>Object.prototype.toString 메소드를 사용하는 방법 ex) (1).toString(); -&gt; “1”</li>
-<li>문자열 연결 연산자를 이용하는 방법 1 + ‘’; -&gt; “1”</li>
-</ul>
-</li>
-<li><p>숫자 타입으로 변환</p>
-<ul>
-<li>number 생성자 함수를 new 연산자 없이 호출하는 방법 ex) Number(‘0’) -&gt; 0</li>
-<li>parseInt, parseFloat 함수를 사용하는 방법(문자열만 숫자 타입으로 변환 가능) ex) parseInt(‘0’) -&gt; 0</li>
-<li>단항 산술 연산자를 이용하는 방법 ex) +’0’; -&gt; 0</li>
-<li>산술 연산자를 이용하는 방법 ex) ‘0’ * 1 -&gt; 0</li>
-<li>빈 문자열(‘’), 빈 배열([]), null, false는 0으로 변환된다.</li>
-<li>true는 1로 변환된다. ex) true * 1; -&gt; 1</li>
-<li>객체와 빈 배열이 아닌 배열, undefined는 변환되지 않으므로 null이 된다.</li>
-</ul>
-</li>
-<li><p>불리언 타입으로 변환: 조건식의 평가 결과를 불리언 타입으로 암묵적 타입 변환.</p>
-<ul>
-<li>Boolean 생성자 함수를 new 연산자 없이 호출하는 방법 ex)Boolean(‘x’) -&gt; true</li>
-<li>! 부정 논리 연산자를 두번 사용하는 방법 ex) !!’x’ -&gt; true</li>
-<li><code>falsy값: false, undefined, null, 0, -0, NaN, 빈 문자열</code></li>
-<li>truthy값: false 값을 제외한 모든 값</li>
-</ul>
-</li>
+<li>프로퍼티: key와 value를 통해 객체의 상태를 나타낸다.</li>
+<li>메소드: 프로퍼티를 참조하고 조작할 수 있는 동작을 말한다.</li>
 </ul>
 <hr>
-<h2 id="단축-평가"><a href="#단축-평가" class="headerlink" title="단축 평가"></a>단축 평가</h2><blockquote>
-<p>논리합(||) 연산자와 논리곱(&amp;&amp;) 연산자 표현식의 평가 결과는 불리언 값이 아닐 수도 있다. <em>논리합(||), 논리곱(&amp;&amp;) 연산자 표현식은 언제나 2개의 피연산자 중 어느 한쪽으로 평가된다.</em> 표현식을 평가하는 도중 결과가 확정되면 나머지 평가 과정을 중단하는 것이다. 이러한 성질을 이용하여 논리곱(&amp;&amp;)과 논리합(||)연산자는 if문을 대체할 수 있기도 하다.</p>
+<h2 id="객체-리터럴에-의한-객체-생성"><a href="#객체-리터럴에-의한-객체-생성" class="headerlink" title="객체 리터럴에 의한 객체 생성"></a>객체 리터럴에 의한 객체 생성</h2><p>클래스 기반 객체지향 언어: 클래스 사전정의, 필요한 시점에 new연산자와 생성자를 호출하여 인스턴스를 생성하여 객체 생성 (C++, java 등)<br>프로토타입 기반 객체지향 언어: 자바스크립트. <code>객체 리터럴</code>, Object 생성자 함수, 생성자 함수, Object.create 메소드, 클래스 (ES6) 등의 방법으로 객체 생성</p>
+<p><code>객체 리터럴</code><br>객체를 생성하는 표기법이며, 변수에 할당이 이루어지는 시점에 자바스크립트 엔진은 객체 리터럴을 해석하여 객체를 생성한다. <code>var empty = {};</code>와 같이 프로퍼티를 정의하지 않으면 빈 객체가 생성된다. 서버에게 주소를 넣어달라고 요청하는 것처럼 연속된 구조체나 연관된 데이터를 일정한 방법으로 변환하고자 할 때 많이 쓰인다.</p>
+<blockquote>
+<p>객체 리터럴의 중괄호({})는 코드블록이 아니다. 코드블록에는 중괄호 뒤이 세미콜론이 붙지 않지만, 객체 리터럴은 값으로 평가되는 표현식이므로 중괄호 뒤에 세미콜론을 붙인다.</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> || anything	<span class="literal">true</span></span><br><span class="line"><span class="literal">false</span> || anything	anything</span><br><span class="line"><span class="literal">true</span> &amp;&amp; anything	anything</span><br><span class="line"><span class="literal">false</span> &amp;&amp; anything	<span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 논리합(||) 연산자</span></span><br><span class="line"><span class="literal">true</span> || <span class="literal">true</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="literal">true</span> || <span class="literal">false</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="literal">false</span> || <span class="literal">true</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="literal">false</span> || <span class="literal">false</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 논리곱(&amp;&amp;) 연산자</span></span><br><span class="line"><span class="literal">true</span> &amp;&amp; <span class="literal">true</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="literal">true</span> &amp;&amp; <span class="literal">false</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="literal">false</span> &amp;&amp; <span class="literal">true</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="literal">false</span> &amp;&amp; <span class="literal">false</span>; <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
-<p><code>&#39;Cat&#39; &amp;&amp; &#39;Dog&#39; // &#39;Dog&#39;</code><br>논리곱(&amp;&amp;)연산자는 두 개의 피연산자 모두 true일 때 true를 반환한다. 첫 번째 피연산자 <code>Cat</code>을 평가했을 때 true로 평가되지만 두번째 피연산자까지 평가해보아야 완전한 평가가 이루어진다. 따라서 두번째 피연산자인 <code>Dog</code>까지 평가한 후 <code>Dog</code>를 반환한다.</p>
-<p><code>&#39;Cat&#39; || &#39;Dog&#39; // &#39;Cat&#39;</code><br>논리합(||) 연산자는 두 개의 피연산자 중 하나만 true여도 true를 반환하기 때문에 첫 번째 피연산자 <code>Cat</code>이 true이므로 두번째 피연산자 <code>Dog</code>를 평가하지 않고 바로 <code>Cat</code>을 반환한다.</p>
+<hr>
+<h2 id="프로퍼티"><a href="#프로퍼티" class="headerlink" title="프로퍼티"></a>프로퍼티</h2><ul>
+<li>프로퍼티 키 : 빈 문자열을 포함하는 모든 문자열 또는 symbol 값</li>
+<li>프로퍼티 값 : 자바스크립트에서 사용할 수 있는 모든 값</li>
+</ul>
+<p>프로퍼티 키는 프로퍼티 값에 접근할 수 있는 이름이며, 식별자 역할을 하며 식별자 네이밍 규칙을 준수하는 것이 권장된다.</p>
+<h2 id="프로퍼티-접근"><a href="#프로퍼티-접근" class="headerlink" title="프로퍼티 접근"></a>프로퍼티 접근</h2><p>마침표(.)를 사용하는 마침표 표기법(Dot notation) 또는 대괄호([…])를 사용하는 대괄호 표기법(Bracket notation)을 사용한다. 대괄호 표기법을 사용하는 경우, 대괄호 내부에 지정하는 프로퍼티 키는 반드시 따옴표로 감싼 문자열이어야 한다. 자바스크립트에서 사용 가능한 유효한 이름이 아닐 때도 반드시 대괄호 표기법을 사용하며, 대괄호 내의 프로퍼티 키는 따옴표로 감싼 문자열이어야 한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 마침표 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="comment">// 객체이름.접근하고자 하는 항목</span></span><br><span class="line"><span class="built_in">console</span>.log(person.name); <span class="comment">// Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 대괄호 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"name"</span>]); <span class="comment">// Lee</span></span><br></pre></td></tr></table></figure>
+<hr>
+<ul>
+<li><code>존재하지 않는 프로퍼티에 접근</code>: undefined를 반환. <em>referenceError가 발생하지 않는다.</em></li>
+<li><code>프로퍼티 값 갱신</code>: 이미 존재하는 프로퍼티에 값을 할당한다. <em>나중에 선언한 프로퍼티가 먼저 선언한 프로퍼티를 덮어쓴다.</em></li>
+<li><code>프로퍼티 동적 생성</code>: 존재하지 않는 프로퍼티에 값을 할당한다.</li>
+<li><code>프로퍼티 삭제</code>: delete 연산자를 사용한다. 이때 delete 연산자의 피연산자는 프로퍼티 값에 접근할 수 있는 표현식이어야 한다. 만약 존재하지 않는 프로퍼티를 삭제하면 아무런 에러없이 무시된다.</li>
+<li><code>프로퍼티 키 생략</code>: ES6에서 프로퍼티 값으로 변수를 사용할 때 변수 이름과 프로퍼티 키가 동일한 이름이면 프로퍼티 키를 생략할 수 있다.</li>
+</ul>
 <hr>
 <p><em>References</em></p>
-<p><a href="https://developer.mozilla.org/en-US/docs/Glossary/Type_conversion" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Glossary/Type_coercion" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/type-casting" target="_blank" rel="noopener">poiemaweb</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/21/200222_expression_statement/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/21/200222_expression_statement/" class="post-title-link" itemprop="url">표현식과 문 / expression & statement</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-22 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-22T00:00:00+09:00">2020-02-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 01:13:04" itemprop="dateModified" datetime="2022-02-08T01:13:04+09:00">2022-02-08</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="값-value"><a href="#값-value" class="headerlink" title="값(value)"></a>값(value)</h2><p>식(표현식, expression)이 평가(evaluate)되어 생성된 결과 <code>var result = 10 + 20;</code>에서 10과 20이라는 숫자는 런타임(할당 이전)에 평가되어 값을 생성하고, 런타임 때 10 + 20을 평가하여 30이라는 값을 <code>result</code>에 할당한다. 즉, 변수 result가 기억하는 메모리 공간의 값은 <code>10 + 20이 아닌 값 30</code>이다.</p>
-<h2 id="리터럴-literal"><a href="#리터럴-literal" class="headerlink" title="리터럴(literal)"></a>리터럴(literal)</h2><blockquote>
-<p>사람이 이해할 수 있는 문자 또는 약속된 기호를 사용하여 값을 생성하는 표기 방식</p>
-<p>자바스크립트 엔진은 코드가 실행되는 시점(런타임, runtime)에 리터럴을 평가하여 값을 생성한다. 즉, 리터럴은 값을 생성하기 위해 미리 약속한 표기법(notation)이라고 할 수 있다.</p>
-</blockquote>
-<ol>
-<li>10, 20은 사람들 사이에서 숫자리는 기호로 약속되어 있는데, 이를 숫자 리터럴이라고 한다.</li>
-<li>숫자 리터럴 10과 20을 코드 내에 <code>var result = 10 + 20;</code>이라고 작성하면 자바스크립트는 이를 평가하여 런타임 이전에 숫자 값 10과 20을 생성한다.</li>
-<li>런타임 때 코드가 실행되는데 이때 리터럴은 평가되어 값을 생성한다. 즉 <code>10 + 20</code>의 값을 평가한 결과 <code>30</code>을 result라는 변수의 값이 생성된다.</li>
-</ol>
-<hr>
-<h2 id="표현식-expression"><a href="#표현식-expression" class="headerlink" title="표현식 (expression)"></a>표현식 (expression)</h2><p><em>값으로 평가(evaluation)될 수 있는 문(statement)이다.</em> 즉, 표현식이 평가되면 값을 생성하거나 값을 참조한다. 따라서 값으로 평가되는 문은 모두 표현식이다. 이때 표현식과 표현식이 평가된 값은 동등한 관계, 즉 동치(equivalent)이다.</p>
-<ul>
-<li>변수에 값을 할당<br><code>x = 7</code>은 x에 7을 할당시키기 위해 연산자(=)를 사용한 것으로, 7로 계산된다.</li>
-<li>단순히 값을 가짐.<br><code>3 + 4</code>는 위 예시처럼 변수에 7을 할당하는 것이 아니라 그 자체로 3과 4를 더한 값을 갖는다.</li>
-<li>표현범주: 산수(산술 연산자), 문자열, 논리(참, 거짓), 일차식, 좌변식</li>
-</ul>
-<h2 id="문-statement"><a href="#문-statement" class="headerlink" title="문(statement)"></a>문(statement)</h2><p><em>프로그램을 구성하는 기본 단위이자 최소 실행 단위.</em> 문의 집합으로 이루어진 것이 프로그램이며 문을 작성하고 순서에 맞게 나열하는 것이 프로그래밍이다. 문은 여러 토큰들로 구성된다. 토큰(token)이란 문법적인 의미를 가지며, 문법적으로 더이상 나눌 수 없는 코드의 기본 요소를 의미한다. 선언문, 할당문, 조건문, 반복문 등이 있다.</p>
-<p><em>문은 반복문이나 if문처럼 action을 수행하게 하기 때문에 명령문이라고도 한다.</em> 자바스크립트 엔진이 문이 있기를 기대하는 곳에 표현식을 쓸 수 있는데, 이를 표현식인 문이라고 한다. 그러나 그 반대는 불가하다. 즉 표현식이 있기를 기대하는 곳에 문을 쓸 수는 없다. 예를들어 if문은 함수의 인수가 될 수 없다.</p>
-<h3 id="세미콜론과-세미콜론-자동-삽입-기능"><a href="#세미콜론과-세미콜론-자동-삽입-기능" class="headerlink" title="세미콜론과 세미콜론 자동 삽입 기능"></a>세미콜론과 세미콜론 자동 삽입 기능</h3><p>세미콜론( ; )은 문의 종료를 나타내며, <em>문은 반드시 세미콜론으로 끝나야 한다.</em> 단, 0개 이상의 문을 중괄호로 묶은 코드 블록 { … } 뒤에는 세미콜론을 붙이지 않는다. 예를 들어 if 문, for 문, 함수 등의 코드 블록 뒤에는 세미콜론을 붙이지 않는다. 이들 코드 블록은 언제나 문의 종료를 의미하는 자체 종결성(self closing)을 갖기 때문이다.</p>
-<hr>
-<h2 id="표현식과-문"><a href="#표현식과-문" class="headerlink" title="표현식과 문"></a>표현식과 문</h2><p>표현식: <code>become a value</code>. 값이 생성되거나 문의 일부가 될 수 있다.<br>문: <code>perform action</code>. 값이 생성되지 않고, 실행문이나 코드블록의 action을 컨트롤할 뿐이다.</p>
-<p><code>const x = 5;</code>는 숫자 리터럴 5를 해석하여 값 5를 생성하는 것이다.<br><code>const y = getAnswer();</code>는 어떤 값을 반환하도록 호출하는 것이므로 역시 표현식이다.</p>
-<h2 id="표현식인-문과-표현식이-아닌-문"><a href="#표현식인-문과-표현식이-아닌-문" class="headerlink" title="표현식인 문과 표현식이 아닌 문"></a>표현식인 문과 표현식이 아닌 문</h2><blockquote>
-<p>표현식인 문과 표현식이 아닌 문을 구별하는 방법은 변수에 할당하는 것이다. 변수에 할당이 가능하면 표현식인 문, 그렇지 않으면 표현식이 아닌 문이다.</p>
-</blockquote>
-<p><code>문:</code> 실행되거나 특정한 action을 수행할 수 있는 코드의 조각을 말한다.<br><code>표현식:</code> 평가되어 값을 생성할 수 있는 코드의 조각을 말한다.<br><code>표현식인 문:</code> 값으로 평가될 수 있는 문. ex.변수 할당문<br><code>표현식이 아닌 문:</code> 값으로 평가될 수 없는 문 ex.변수 선언문</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x; <span class="comment">//변수 선언문</span></span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>; <span class="comment">//변수 할당문</span></span><br><span class="line"><span class="comment">//10</span></span><br></pre></td></tr></table></figure>
-<p>구글 개발자 도구에서 위의 <code>var x;</code>와 같이 변수 선언문을 실행하면 <code>undefined</code>가 반환된다. <em>변수 선언문은 표현식이 아닌 문이므로</em> 값을 반환해야할 자리에 평가된 값이 아닌 <code>undefined</code>가 출력되는 것이고, 이를 <code>완료값</code>이라고 한다. 이는 자바스크립트 엔진이 암묵적으로 할당해주는 것이며, 변수에 담을 수 없고, 참조할 수 없는 값이다. 반면 변수에 할당을 하면 할당된 값이 출력되므로 <em>할당문은 표현식인 문</em>이라고 할 수 있다.</p>
-<hr>
-<p><em>References</em></p>
-<p><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Expressions_and_Operators" target="_blank" rel="noopener">MDN</a><br><a href="https://2ality.com/2012/09/expressions-vs-statements.html" target="_blank" rel="noopener">2ality</a><br><a href="https://poiemaweb.com/fastcampus/expression" target="_blank" rel="noopener">Poiemaweb</a><br><a href="https://www.youtube.com/watch?v=WVyCrI1cHi8" target="_blank" rel="noopener">Codexpanse</a><br><a href="https://exploringjs.com/impatient-js/ch_syntax.html#statement-vs-expression" target="_blank" rel="noopener">JavaScript for impatient programmers</a></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Object_literals" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Basics" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/object-literal" target="_blank" rel="noopener">Poiemaweb</a></p>
 
       
     </div>
@@ -393,7 +272,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 01:13:04" itemprop="dateModified" datetime="2022-02-08T01:13:04+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
               </span>
 
           
@@ -494,6 +373,214 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/21/200223_control-flow-statement/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/21/200223_control-flow-statement/" class="post-title-link" itemprop="url">제어문 / Control flow statement</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-22 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-22T00:00:00+09:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="제어문"><a href="#제어문" class="headerlink" title="제어문"></a>제어문</h2><p>주어진 조건에 따라 코드 블록을 실행(조건문)하거나 반복 실행(반복문)할 때 사용한다. 일반적으로 코드는 위에서 아래 방향으로 순차적으로 실행된다. 제어문을 사용하면 코드의 실행 흐름을 인위적으로 제어할 수 있다.</p>
+<h2 id="블록문-Block-statement-Compound-statement"><a href="#블록문-Block-statement-Compound-statement" class="headerlink" title="블록문 (Block statement/Compound statement)"></a>블록문 (Block statement/Compound statement)</h2><p>0개 이상의 문을 중괄호로 묶은 것으로 코드 블록 또는 블록이라고 부르기도 한다. 자바스크립트는 블록문을 하나의 실행 단위로 취급한다.</p>
+<p><code>문의 끝에는 세미 콜론(;)을 붙이는 것이 일반적이지만 블록문의 끝에는 세미콜론을 붙이지 않는다.</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 블록문</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">var</span> foo = <span class="number">10</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(foo); <span class="comment">//10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//제어문</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (x &lt; <span class="number">10</span>) &#123;</span><br><span class="line">  x++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="조건문-conditional-statement"><a href="#조건문-conditional-statement" class="headerlink" title="조건문 (conditional statement)"></a>조건문 (conditional statement)</h2><p>주어진 조건식(conditional expression)의 평가 결과에 따라 코드 블럭(블록문)의 실행을 결정한다. <em>조건식은 불리언 값으로 평가될 수 있는 표현식이다.</em></p>
+<h3 id="if…else문"><a href="#if…else문" class="headerlink" title="if…else문"></a>if…else문</h3><p>주어진 조건식(불리언 값으로 평가될 수 있는 표현식)의 평가 결과, 즉 논리적 참 또는 거짓에 따라 실행할 코드 블록을 결정한다. 조건식의 평가 결과가 참(true)일 경우, if 문 다음의 코드 블록이 실행되고 거짓(false)일 경우, else 문 다음의 코드 블록이 실행된다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식) &#123;</span><br><span class="line">  <span class="comment">// 조건식이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// 조건식이 거짓이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>조건식을 추가하여 조건에 따라 실행될 코드 블록을 늘리고 싶으면 else if 문을 사용한다.</p>
+<h3 id="else-if문"><a href="#else-if문" class="headerlink" title="else if문"></a>else if문</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식<span class="number">1</span>) &#123;</span><br><span class="line">  <span class="comment">// 조건식1이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (조건식<span class="number">2</span>) &#123;</span><br><span class="line">  <span class="comment">// 조건식2이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// 조건식1과 조건식2가 모두 거짓이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>else if 문과 else 문은 옵션이다. 즉, 사용할 수도 있고 사용하지 않을 수도 있다. if 문과 else 문은 2번 이상 사용할 수 없지만 else if 문은 여러 번 사용할 수 있다.</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"양수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (num &lt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"음수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  kind = <span class="string">"영"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">// 양수</span></span><br></pre></td></tr></table></figure>
+<p>if…else문은 아래와 같이 삼항 조건 연산자로 바꿔 쓸 수 있다. 삼항 조건 연산자의 구조는 <code>조건식 ? 조건식이 true일때 반환할 값 : 조건식이 false일때 반환할 값</code>이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 0은 false로 취급된다.</span></span><br><span class="line"><span class="keyword">var</span> kind = num ? (num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : <span class="string">"음수"</span>) : <span class="string">"영"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">// 양수</span></span><br></pre></td></tr></table></figure>
+<p>단, 삼항 조건 연산자는 값으로 평가되는 표현식을 만들기 때문에 변수에 할당이 가능하고, if…else문은 표현식이 아닌 문이기 때문에 변수에 할당이 불가하다.</p>
+<h3 id="switch문"><a href="#switch문" class="headerlink" title="switch문"></a>switch문</h3><p>먼저 주어진 해당 표현식을 평가하고, 입력한 표현식과 동일한 값으로 평가되는 표현식을 찾는다.(엄격비교가 이루어진다, ===) 그리고 일치하는 case 문으로 실행 순서를 이동시킨 후 해당 case의 문(statement)을 실행한다. case문은 값을 지정한 후 콜론으로 마치고, 그 후에는 실행될 문이 온다.</p>
+<p>만약 switch문의 표현식과 일치하는 case를 찾지 못하면 실행 순서는 default문으로 이동하고 해당 문을 실행한다. default는 보통 가장 마지막에 위치하며, 옵션이므로 사용할 수도 있고 사용하지 않을 수도 있다. <em>만약 default문이 없다면 switch문이 종료될 때까지 계속 실행된다.</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (표현식) &#123;</span><br><span class="line">  <span class="keyword">case</span> 값<span class="number">1</span>:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 값<span class="number">1</span>과 일치하면 실행될 문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> 값<span class="number">2</span>:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 값<span class="number">2</span>와 일치하면 실행될 문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> 값N:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 값N과 일치하면 실행될 문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 일치하는 표현식을 갖는 <span class="keyword">case</span> 문이 없을 때 실행될 문;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> expr = <span class="string">"Papayas"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span> (expr) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"Oranges"</span>:</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Oranges are $0.59 a pound."</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"Mangoes"</span>:</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"Papayas"</span>:</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Mangoes and papayas are $2.79 a pound."</span>);</span><br><span class="line">    <span class="comment">// expected output: "Mangoes and papayas are $2.79 a pound."</span></span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Sorry, we are out of "</span> + expr + <span class="string">"."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위 switch문은 먼저 주어진 표현식 <code>const expr = &quot;Papayas&quot;;</code>를 평가하고, 동일한 값으로 평가되는 표현식을 찾는다. 따라서 값이 일치하는 <code>case &quot;Papayas&quot;:</code>로 실행순서가 이동하며, 지정된 문을 실행한다. 따라서 <code>&quot;Mangoes and papayas are $2.79 a pound.&quot;</code>라는 값을 실행하고, <code>break</code>가 있기 때문에 코드 블록을 탈출한다.</p>
+<p><em><code>break</code>를 쓰지 않으면 어떻게 될까?</em></p>
+<p><code>폴스루(fall through)</code>현상이 발생한다. 표현식과 동일한 case문을 실행한 후 switch문을 탈출하지 않고 switch문이 끝날 때까지 이후의 모든 case문과 default문을 실행하는 것을 말한다.</p>
+<hr>
+<h2 id="반복문-Loop-statement"><a href="#반복문-Loop-statement" class="headerlink" title="반복문 (Loop statement)"></a>반복문 (Loop statement)</h2><p>주어진 조건식의 평가 결과가 참인 경우 코드 블럭을 실행한 후 조건식을 다시 검사하여 여전히 참인 경우 코드 블록을 다시 실행한다. 이는 조건식이 거짓일 때까지 반복된다.</p>
+<h3 id="for문"><a href="#for문" class="headerlink" title="for문"></a>for문</h3><p>조건식이 거짓으로 판별될 때까지 코드 블록을 반복 실행한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (변수 선언문 또는 할당문; 조건식; 증감식) &#123;</span><br><span class="line">  조건식이 참인 경우 반복 실행될 문;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; <span class="number">1</span>++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>변수 선언문은 for문을 실행했을 때 처음 단 한번만 실행된다.</li>
+<li>선언문 실행 후 조건식으로 순서가 이동한 후 값이 true라면 코드 블록으로 이동하여 코드를 실행한다. <em>증감문으로 바로 이동하는 것이 아니다.</em> false라면 for문의 실행이 종료된다.</li>
+<li>코드 블록으로 이동하여 실행한 후 실행이 종료되면 증감식으로 이동하여 i를 1 증가한다.</li>
+<li>증감식 실행 후 다시 조건식으로 이동하여 값을 평가한다. 조건식이 false가 될 때까지 순서에 따라 실행을 반복한다.</li>
+</ul>
+<h3 id="while문"><a href="#while문" class="headerlink" title="while문"></a>while문</h3><p>while 문은 주어진 조건식의 평가 결과가 참이면 코드 블록을 계속해서 반복 실행한다. 조건문의 평가 결과가 거짓이 되면 실행을 종료한다. 단, 조건식의 평가 결과가 언제나 참이면 무한루프가 된다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// count가 3보다 작을 때까지 코드 블록을 계속 반복 실행한다.</span></span><br><span class="line"><span class="keyword">while</span> (count &lt; <span class="number">3</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count);</span><br><span class="line">  count++;</span><br><span class="line">&#125; <span class="comment">// 0 1 2</span></span><br></pre></td></tr></table></figure>
+<h3 id="do…while문"><a href="#do…while문" class="headerlink" title="do…while문"></a>do…while문</h3><p>코드 블록을 먼저 실행하고 조건식을 평가한다. 따라서 코드 블록은 무조건 한번 이상 실행된다.</p>
+<hr>
+<h2 id="break문"><a href="#break문" class="headerlink" title="break문"></a>break문</h2><p>이블 문, 반복문(for, for…in, for…of, while, do…while) 또는 switch 문의 코드 블록을 탈출한다. 레이블 문, 반복문, switch 문의 코드 블록 이외에 break 문을 사용하면 SyntaxError(문법 에러)가 발생한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">break</span>; <span class="comment">// Uncaught SyntaxError: Illegal break statement</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="continue문"><a href="#continue문" class="headerlink" title="continue문"></a>continue문</h2><p>반복문의 코드 블록 실행을 현 지점에서 중단하고 반복문의 증감식으로 이동한다. break 문처럼 반복문을 탈출하지는 않는다.</p>
+<hr>
+<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/control-flow" target="_blank" rel="noopener">Poiemaweb</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/switch" target="_blank" rel="noopener">MDN</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/21/200223_ternary_operator_pratice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/21/200223_ternary_operator_pratice/" class="post-title-link" itemprop="url">삼항조건연산자 실습</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-22 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-22T00:00:00+09:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>삼항조건연산자-&gt; 조건식 ? 조건식이 true일때 반환할 값 : 조건식이 false일때 반환할 값</p>
+</blockquote>
+<ol>
+<li>양수 또는 음수를 출력하는 if문</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"양수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  kind = <span class="string">"음수"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>if문을 삼항조건연산자로 써보기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">kind = num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : <span class="string">"음수"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(kind);</span><br></pre></td></tr></table></figure>
+<p><em>양수, 음수 외에 ‘0’이라는 숫자가 출력되는 조건도 추가하고 싶다면? (0은 음수도 양수도 아니다.)</em></p>
+<ol>
+<li>양수, 음수 또는 ‘0’을 출력하는 if문</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"양수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (num &lt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"음수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  kind = <span class="string">"영"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>if문을 삼항조건연산자로 써보기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">kind = num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : num &lt; <span class="number">0</span> ? <span class="string">"음수"</span> : <span class="string">"영"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">kind = num ? (num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : <span class="string">"음수"</span>) : <span class="string">"영"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>술 구매 가능 여부를 출력하는 if문</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">19</span>;</span><br><span class="line"><span class="keyword">var</span> canDrinkAlcohol = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (age &gt; <span class="number">19</span>) &#123;</span><br><span class="line">  canDrinkAlcohol = <span class="string">"OK. You can buy alcohol."</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  canDrinkAlcohol = <span class="string">"No. You can't buy alcohol."</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(canDrinkAlcohol);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>if문을 삼항조건연산자로 써보기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">19</span>;</span><br><span class="line"><span class="keyword">var</span> canDrinkAlcohol = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">canDrinkAlcohol =</span><br><span class="line">  age &gt; <span class="number">19</span> ? <span class="string">"OK. You can buy alcohol."</span> : <span class="string">"No. You can't buy alcohol."</span>;</span><br><span class="line"><span class="built_in">console</span>.log(canDrinkAlcohol);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>신장을 출력하는 if문</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> height = <span class="number">169</span>;</span><br><span class="line"><span class="keyword">var</span> result = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result =</span><br><span class="line">  height &gt; <span class="number">169</span></span><br><span class="line">    ? <span class="string">"wow, you are taller than me"</span></span><br><span class="line">    : height &lt; <span class="number">169</span></span><br><span class="line">    ? <span class="string">"You are little bit shorter than me."</span></span><br><span class="line">    : <span class="string">"You and me are the same height."</span>;</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>if문을 삼항조건연산자로 써보기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> height = <span class="number">169</span>;</span><br><span class="line"><span class="keyword">var</span> result = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (height &gt; <span class="number">169</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"wow, you are taller than me"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (height &lt; <span class="number">169</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"You are little bit shorter than me."</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"You and me are the same height."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/21/200223_operator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -525,7 +612,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 01:13:04" itemprop="dateModified" datetime="2022-02-08T01:13:04+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
               </span>
 
           
@@ -663,7 +750,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/21/200223_control-flow-statement/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/21/200222_expression_statement/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -677,7 +764,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/21/200223_control-flow-statement/" class="post-title-link" itemprop="url">제어문 / Control flow statement</a>
+            <a href="/2020/02/21/200222_expression_statement/" class="post-title-link" itemprop="url">표현식과 문 / expression & statement</a>
         </h1>
 
         <div class="post-meta">
@@ -694,7 +781,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 01:13:04" itemprop="dateModified" datetime="2022-02-08T01:13:04+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
               </span>
 
           
@@ -708,231 +795,38 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="제어문"><a href="#제어문" class="headerlink" title="제어문"></a>제어문</h2><p>주어진 조건에 따라 코드 블록을 실행(조건문)하거나 반복 실행(반복문)할 때 사용한다. 일반적으로 코드는 위에서 아래 방향으로 순차적으로 실행된다. 제어문을 사용하면 코드의 실행 흐름을 인위적으로 제어할 수 있다.</p>
-<h2 id="블록문-Block-statement-Compound-statement"><a href="#블록문-Block-statement-Compound-statement" class="headerlink" title="블록문 (Block statement/Compound statement)"></a>블록문 (Block statement/Compound statement)</h2><p>0개 이상의 문을 중괄호로 묶은 것으로 코드 블록 또는 블록이라고 부르기도 한다. 자바스크립트는 블록문을 하나의 실행 단위로 취급한다.</p>
-<p><code>문의 끝에는 세미 콜론(;)을 붙이는 것이 일반적이지만 블록문의 끝에는 세미콜론을 붙이지 않는다.</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 블록문</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">var</span> foo = <span class="number">10</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(foo); <span class="comment">//10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//제어문</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (x &lt; <span class="number">10</span>) &#123;</span><br><span class="line">  x++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="조건문-conditional-statement"><a href="#조건문-conditional-statement" class="headerlink" title="조건문 (conditional statement)"></a>조건문 (conditional statement)</h2><p>주어진 조건식(conditional expression)의 평가 결과에 따라 코드 블럭(블록문)의 실행을 결정한다. <em>조건식은 불리언 값으로 평가될 수 있는 표현식이다.</em></p>
-<h3 id="if…else문"><a href="#if…else문" class="headerlink" title="if…else문"></a>if…else문</h3><p>주어진 조건식(불리언 값으로 평가될 수 있는 표현식)의 평가 결과, 즉 논리적 참 또는 거짓에 따라 실행할 코드 블록을 결정한다. 조건식의 평가 결과가 참(true)일 경우, if 문 다음의 코드 블록이 실행되고 거짓(false)일 경우, else 문 다음의 코드 블록이 실행된다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식) &#123;</span><br><span class="line">  <span class="comment">// 조건식이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// 조건식이 거짓이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>조건식을 추가하여 조건에 따라 실행될 코드 블록을 늘리고 싶으면 else if 문을 사용한다.</p>
-<h3 id="else-if문"><a href="#else-if문" class="headerlink" title="else if문"></a>else if문</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식<span class="number">1</span>) &#123;</span><br><span class="line">  <span class="comment">// 조건식1이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (조건식<span class="number">2</span>) &#123;</span><br><span class="line">  <span class="comment">// 조건식2이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// 조건식1과 조건식2가 모두 거짓이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>else if 문과 else 문은 옵션이다. 즉, 사용할 수도 있고 사용하지 않을 수도 있다. if 문과 else 문은 2번 이상 사용할 수 없지만 else if 문은 여러 번 사용할 수 있다.</p>
+          <h2 id="값-value"><a href="#값-value" class="headerlink" title="값(value)"></a>값(value)</h2><p>식(표현식, expression)이 평가(evaluate)되어 생성된 결과 <code>var result = 10 + 20;</code>에서 10과 20이라는 숫자는 런타임(할당 이전)에 평가되어 값을 생성하고, 런타임 때 10 + 20을 평가하여 30이라는 값을 <code>result</code>에 할당한다. 즉, 변수 result가 기억하는 메모리 공간의 값은 <code>10 + 20이 아닌 값 30</code>이다.</p>
+<h2 id="리터럴-literal"><a href="#리터럴-literal" class="headerlink" title="리터럴(literal)"></a>리터럴(literal)</h2><blockquote>
+<p>사람이 이해할 수 있는 문자 또는 약속된 기호를 사용하여 값을 생성하는 표기 방식</p>
+<p>자바스크립트 엔진은 코드가 실행되는 시점(런타임, runtime)에 리터럴을 평가하여 값을 생성한다. 즉, 리터럴은 값을 생성하기 위해 미리 약속한 표기법(notation)이라고 할 수 있다.</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"양수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (num &lt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"음수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  kind = <span class="string">"영"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">// 양수</span></span><br></pre></td></tr></table></figure>
-<p>if…else문은 아래와 같이 삼항 조건 연산자로 바꿔 쓸 수 있다. 삼항 조건 연산자의 구조는 <code>조건식 ? 조건식이 true일때 반환할 값 : 조건식이 false일때 반환할 값</code>이다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 0은 false로 취급된다.</span></span><br><span class="line"><span class="keyword">var</span> kind = num ? (num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : <span class="string">"음수"</span>) : <span class="string">"영"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">// 양수</span></span><br></pre></td></tr></table></figure>
-<p>단, 삼항 조건 연산자는 값으로 평가되는 표현식을 만들기 때문에 변수에 할당이 가능하고, if…else문은 표현식이 아닌 문이기 때문에 변수에 할당이 불가하다.</p>
-<h3 id="switch문"><a href="#switch문" class="headerlink" title="switch문"></a>switch문</h3><p>먼저 주어진 해당 표현식을 평가하고, 입력한 표현식과 동일한 값으로 평가되는 표현식을 찾는다.(엄격비교가 이루어진다, ===) 그리고 일치하는 case 문으로 실행 순서를 이동시킨 후 해당 case의 문(statement)을 실행한다. case문은 값을 지정한 후 콜론으로 마치고, 그 후에는 실행될 문이 온다.</p>
-<p>만약 switch문의 표현식과 일치하는 case를 찾지 못하면 실행 순서는 default문으로 이동하고 해당 문을 실행한다. default는 보통 가장 마지막에 위치하며, 옵션이므로 사용할 수도 있고 사용하지 않을 수도 있다. <em>만약 default문이 없다면 switch문이 종료될 때까지 계속 실행된다.</em></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (표현식) &#123;</span><br><span class="line">  <span class="keyword">case</span> 값<span class="number">1</span>:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 값<span class="number">1</span>과 일치하면 실행될 문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> 값<span class="number">2</span>:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 값<span class="number">2</span>와 일치하면 실행될 문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> 값N:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 값N과 일치하면 실행될 문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 일치하는 표현식을 갖는 <span class="keyword">case</span> 문이 없을 때 실행될 문;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> expr = <span class="string">"Papayas"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span> (expr) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"Oranges"</span>:</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Oranges are $0.59 a pound."</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"Mangoes"</span>:</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"Papayas"</span>:</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Mangoes and papayas are $2.79 a pound."</span>);</span><br><span class="line">    <span class="comment">// expected output: "Mangoes and papayas are $2.79 a pound."</span></span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Sorry, we are out of "</span> + expr + <span class="string">"."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>위 switch문은 먼저 주어진 표현식 <code>const expr = &quot;Papayas&quot;;</code>를 평가하고, 동일한 값으로 평가되는 표현식을 찾는다. 따라서 값이 일치하는 <code>case &quot;Papayas&quot;:</code>로 실행순서가 이동하며, 지정된 문을 실행한다. 따라서 <code>&quot;Mangoes and papayas are $2.79 a pound.&quot;</code>라는 값을 실행하고, <code>break</code>가 있기 때문에 코드 블록을 탈출한다.</p>
-<p><em><code>break</code>를 쓰지 않으면 어떻게 될까?</em></p>
-<p><code>폴스루(fall through)</code>현상이 발생한다. 표현식과 동일한 case문을 실행한 후 switch문을 탈출하지 않고 switch문이 끝날 때까지 이후의 모든 case문과 default문을 실행하는 것을 말한다.</p>
+<ol>
+<li>10, 20은 사람들 사이에서 숫자리는 기호로 약속되어 있는데, 이를 숫자 리터럴이라고 한다.</li>
+<li>숫자 리터럴 10과 20을 코드 내에 <code>var result = 10 + 20;</code>이라고 작성하면 자바스크립트는 이를 평가하여 런타임 이전에 숫자 값 10과 20을 생성한다.</li>
+<li>런타임 때 코드가 실행되는데 이때 리터럴은 평가되어 값을 생성한다. 즉 <code>10 + 20</code>의 값을 평가한 결과 <code>30</code>을 result라는 변수의 값이 생성된다.</li>
+</ol>
 <hr>
-<h2 id="반복문-Loop-statement"><a href="#반복문-Loop-statement" class="headerlink" title="반복문 (Loop statement)"></a>반복문 (Loop statement)</h2><p>주어진 조건식의 평가 결과가 참인 경우 코드 블럭을 실행한 후 조건식을 다시 검사하여 여전히 참인 경우 코드 블록을 다시 실행한다. 이는 조건식이 거짓일 때까지 반복된다.</p>
-<h3 id="for문"><a href="#for문" class="headerlink" title="for문"></a>for문</h3><p>조건식이 거짓으로 판별될 때까지 코드 블록을 반복 실행한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (변수 선언문 또는 할당문; 조건식; 증감식) &#123;</span><br><span class="line">  조건식이 참인 경우 반복 실행될 문;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; <span class="number">1</span>++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="표현식-expression"><a href="#표현식-expression" class="headerlink" title="표현식 (expression)"></a>표현식 (expression)</h2><p><em>값으로 평가(evaluation)될 수 있는 문(statement)이다.</em> 즉, 표현식이 평가되면 값을 생성하거나 값을 참조한다. 따라서 값으로 평가되는 문은 모두 표현식이다. 이때 표현식과 표현식이 평가된 값은 동등한 관계, 즉 동치(equivalent)이다.</p>
 <ul>
-<li>변수 선언문은 for문을 실행했을 때 처음 단 한번만 실행된다.</li>
-<li>선언문 실행 후 조건식으로 순서가 이동한 후 값이 true라면 코드 블록으로 이동하여 코드를 실행한다. <em>증감문으로 바로 이동하는 것이 아니다.</em> false라면 for문의 실행이 종료된다.</li>
-<li>코드 블록으로 이동하여 실행한 후 실행이 종료되면 증감식으로 이동하여 i를 1 증가한다.</li>
-<li>증감식 실행 후 다시 조건식으로 이동하여 값을 평가한다. 조건식이 false가 될 때까지 순서에 따라 실행을 반복한다.</li>
+<li>변수에 값을 할당<br><code>x = 7</code>은 x에 7을 할당시키기 위해 연산자(=)를 사용한 것으로, 7로 계산된다.</li>
+<li>단순히 값을 가짐.<br><code>3 + 4</code>는 위 예시처럼 변수에 7을 할당하는 것이 아니라 그 자체로 3과 4를 더한 값을 갖는다.</li>
+<li>표현범주: 산수(산술 연산자), 문자열, 논리(참, 거짓), 일차식, 좌변식</li>
 </ul>
-<h3 id="while문"><a href="#while문" class="headerlink" title="while문"></a>while문</h3><p>while 문은 주어진 조건식의 평가 결과가 참이면 코드 블록을 계속해서 반복 실행한다. 조건문의 평가 결과가 거짓이 되면 실행을 종료한다. 단, 조건식의 평가 결과가 언제나 참이면 무한루프가 된다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// count가 3보다 작을 때까지 코드 블록을 계속 반복 실행한다.</span></span><br><span class="line"><span class="keyword">while</span> (count &lt; <span class="number">3</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count);</span><br><span class="line">  count++;</span><br><span class="line">&#125; <span class="comment">// 0 1 2</span></span><br></pre></td></tr></table></figure>
-<h3 id="do…while문"><a href="#do…while문" class="headerlink" title="do…while문"></a>do…while문</h3><p>코드 블록을 먼저 실행하고 조건식을 평가한다. 따라서 코드 블록은 무조건 한번 이상 실행된다.</p>
+<h2 id="문-statement"><a href="#문-statement" class="headerlink" title="문(statement)"></a>문(statement)</h2><p><em>프로그램을 구성하는 기본 단위이자 최소 실행 단위.</em> 문의 집합으로 이루어진 것이 프로그램이며 문을 작성하고 순서에 맞게 나열하는 것이 프로그래밍이다. 문은 여러 토큰들로 구성된다. 토큰(token)이란 문법적인 의미를 가지며, 문법적으로 더이상 나눌 수 없는 코드의 기본 요소를 의미한다. 선언문, 할당문, 조건문, 반복문 등이 있다.</p>
+<p><em>문은 반복문이나 if문처럼 action을 수행하게 하기 때문에 명령문이라고도 한다.</em> 자바스크립트 엔진이 문이 있기를 기대하는 곳에 표현식을 쓸 수 있는데, 이를 표현식인 문이라고 한다. 그러나 그 반대는 불가하다. 즉 표현식이 있기를 기대하는 곳에 문을 쓸 수는 없다. 예를들어 if문은 함수의 인수가 될 수 없다.</p>
+<h3 id="세미콜론과-세미콜론-자동-삽입-기능"><a href="#세미콜론과-세미콜론-자동-삽입-기능" class="headerlink" title="세미콜론과 세미콜론 자동 삽입 기능"></a>세미콜론과 세미콜론 자동 삽입 기능</h3><p>세미콜론( ; )은 문의 종료를 나타내며, <em>문은 반드시 세미콜론으로 끝나야 한다.</em> 단, 0개 이상의 문을 중괄호로 묶은 코드 블록 { … } 뒤에는 세미콜론을 붙이지 않는다. 예를 들어 if 문, for 문, 함수 등의 코드 블록 뒤에는 세미콜론을 붙이지 않는다. 이들 코드 블록은 언제나 문의 종료를 의미하는 자체 종결성(self closing)을 갖기 때문이다.</p>
 <hr>
-<h2 id="break문"><a href="#break문" class="headerlink" title="break문"></a>break문</h2><p>이블 문, 반복문(for, for…in, for…of, while, do…while) 또는 switch 문의 코드 블록을 탈출한다. 레이블 문, 반복문, switch 문의 코드 블록 이외에 break 문을 사용하면 SyntaxError(문법 에러)가 발생한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">break</span>; <span class="comment">// Uncaught SyntaxError: Illegal break statement</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="continue문"><a href="#continue문" class="headerlink" title="continue문"></a>continue문</h2><p>반복문의 코드 블록 실행을 현 지점에서 중단하고 반복문의 증감식으로 이동한다. break 문처럼 반복문을 탈출하지는 않는다.</p>
-<hr>
-<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/control-flow" target="_blank" rel="noopener">Poiemaweb</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/switch" target="_blank" rel="noopener">MDN</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/21/200223_ternary_operator_pratice/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/21/200223_ternary_operator_pratice/" class="post-title-link" itemprop="url">삼항조건연산자 실습</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-22 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-22T00:00:00+09:00">2020-02-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 01:13:04" itemprop="dateModified" datetime="2022-02-08T01:13:04+09:00">2022-02-08</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>삼항조건연산자-&gt; 조건식 ? 조건식이 true일때 반환할 값 : 조건식이 false일때 반환할 값</p>
+<h2 id="표현식과-문"><a href="#표현식과-문" class="headerlink" title="표현식과 문"></a>표현식과 문</h2><p>표현식: <code>become a value</code>. 값이 생성되거나 문의 일부가 될 수 있다.<br>문: <code>perform action</code>. 값이 생성되지 않고, 실행문이나 코드블록의 action을 컨트롤할 뿐이다.</p>
+<p><code>const x = 5;</code>는 숫자 리터럴 5를 해석하여 값 5를 생성하는 것이다.<br><code>const y = getAnswer();</code>는 어떤 값을 반환하도록 호출하는 것이므로 역시 표현식이다.</p>
+<h2 id="표현식인-문과-표현식이-아닌-문"><a href="#표현식인-문과-표현식이-아닌-문" class="headerlink" title="표현식인 문과 표현식이 아닌 문"></a>표현식인 문과 표현식이 아닌 문</h2><blockquote>
+<p>표현식인 문과 표현식이 아닌 문을 구별하는 방법은 변수에 할당하는 것이다. 변수에 할당이 가능하면 표현식인 문, 그렇지 않으면 표현식이 아닌 문이다.</p>
 </blockquote>
-<ol>
-<li>양수 또는 음수를 출력하는 if문</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"양수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  kind = <span class="string">"음수"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
-<ol>
-<li>if문을 삼항조건연산자로 써보기</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">kind = num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : <span class="string">"음수"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(kind);</span><br></pre></td></tr></table></figure>
-<p><em>양수, 음수 외에 ‘0’이라는 숫자가 출력되는 조건도 추가하고 싶다면? (0은 음수도 양수도 아니다.)</em></p>
-<ol>
-<li>양수, 음수 또는 ‘0’을 출력하는 if문</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"양수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (num &lt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"음수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  kind = <span class="string">"영"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
-<ol>
-<li>if문을 삼항조건연산자로 써보기</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">kind = num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : num &lt; <span class="number">0</span> ? <span class="string">"음수"</span> : <span class="string">"영"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">kind = num ? (num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : <span class="string">"음수"</span>) : <span class="string">"영"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
-<ol>
-<li>술 구매 가능 여부를 출력하는 if문</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">19</span>;</span><br><span class="line"><span class="keyword">var</span> canDrinkAlcohol = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (age &gt; <span class="number">19</span>) &#123;</span><br><span class="line">  canDrinkAlcohol = <span class="string">"OK. You can buy alcohol."</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  canDrinkAlcohol = <span class="string">"No. You can't buy alcohol."</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(canDrinkAlcohol);</span><br></pre></td></tr></table></figure>
-<ol>
-<li>if문을 삼항조건연산자로 써보기</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">19</span>;</span><br><span class="line"><span class="keyword">var</span> canDrinkAlcohol = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">canDrinkAlcohol =</span><br><span class="line">  age &gt; <span class="number">19</span> ? <span class="string">"OK. You can buy alcohol."</span> : <span class="string">"No. You can't buy alcohol."</span>;</span><br><span class="line"><span class="built_in">console</span>.log(canDrinkAlcohol);</span><br></pre></td></tr></table></figure>
-<ol>
-<li>신장을 출력하는 if문</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> height = <span class="number">169</span>;</span><br><span class="line"><span class="keyword">var</span> result = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result =</span><br><span class="line">  height &gt; <span class="number">169</span></span><br><span class="line">    ? <span class="string">"wow, you are taller than me"</span></span><br><span class="line">    : height &lt; <span class="number">169</span></span><br><span class="line">    ? <span class="string">"You are little bit shorter than me."</span></span><br><span class="line">    : <span class="string">"You and me are the same height."</span>;</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br></pre></td></tr></table></figure>
-<ol>
-<li>if문을 삼항조건연산자로 써보기</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> height = <span class="number">169</span>;</span><br><span class="line"><span class="keyword">var</span> result = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (height &gt; <span class="number">169</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"wow, you are taller than me"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (height &lt; <span class="number">169</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"You are little bit shorter than me."</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"You and me are the same height."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/20/200222_mutable_immutable/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/20/200222_mutable_immutable/" class="post-title-link" itemprop="url">왜 원시타입은 변경불가하고, 객체는 가능할까?</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-21T00:00:00+09:00">2020-02-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 01:13:04" itemprop="dateModified" datetime="2022-02-08T01:13:04+09:00">2022-02-08</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
-</blockquote>
-<p><code>원시타입</code>의 값은 <strong>변경불가</strong>의 값이다. 따라서 원래 할당되어 있던 값을 변경하는 것이 아니라 재할당이 이루어진다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">5</span>; <span class="comment">// a = 5</span></span><br><span class="line"><span class="keyword">let</span> b = a; <span class="comment">// b = 5;</span></span><br><span class="line">a = <span class="number">6</span>; <span class="comment">// a = 6;</span></span><br></pre></td></tr></table></figure>
-<p>처음 5라는 값을 a라는 변수에 할당하고, 다음으로 5라는 값을 담고 있는 a의 값을 b에 할당하였을 때,<br>b의 값 5는 a의 값 5가 들어있는 메모리 공간을 차지하는 것이 아니라 새로운 공간을 차지하여 값을 할당한다. 그리고 a를 6이라고 재할당하면 이 역시 새로운 공간을 차지한다.</p>
-<p><em>객체의 경우는 어떨까?</em></p>
-<p><code>객체</code>는 <strong>변경가능</strong>한 값이기 때문에 새로운 공간에 값을 재할당하는 것이 아니라 원래 할당된 공간의 값을 변경한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  word: <span class="string">"hello"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line"><span class="comment">//b  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line">a.word = <span class="string">"world"</span>;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"world"&#125;</span></span><br></pre></td></tr></table></figure>
-<p><code>{word: &quot;hello&quot;}</code>라는 객체를 a라는 변수에 할당하였고, 그 다음 b에 a의 값을 할당하였을 때,<br>b는 새로운 메모리 공간을 차지하는 대신 처음 a가 만들어 둔 <code>{word: &quot;hello&quot;}</code>라는 값이 든 공간을 바라보게 된다. 즉, a와 b라는 서로 다른 식별자가 <code>{word: &quot;hello&quot;}</code>라는 값이 들어 있는 하나의 공간을 공유하는 것이다.<br>따라서 a의 word라는 프로퍼티를 world로 변경하면 새로운 공간에 <code>{word: &quot;world&quot;}</code>라는 값을 담는 것이 아니라 원래 <code>{word: &quot;hello&quot;}</code>가 있던 공간의 프로퍼티를 <code>{word: &quot;world&quot;}</code>로 변경한다. b.word를 해도 같은 결과가 나온다.</p>
+<p><code>문:</code> 실행되거나 특정한 action을 수행할 수 있는 코드의 조각을 말한다.<br><code>표현식:</code> 평가되어 값을 생성할 수 있는 코드의 조각을 말한다.<br><code>표현식인 문:</code> 값으로 평가될 수 있는 문. ex.변수 할당문<br><code>표현식이 아닌 문:</code> 값으로 평가될 수 없는 문 ex.변수 선언문</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x; <span class="comment">//변수 선언문</span></span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>; <span class="comment">//변수 할당문</span></span><br><span class="line"><span class="comment">//10</span></span><br></pre></td></tr></table></figure>
+<p>구글 개발자 도구에서 위의 <code>var x;</code>와 같이 변수 선언문을 실행하면 <code>undefined</code>가 반환된다. <em>변수 선언문은 표현식이 아닌 문이므로</em> 값을 반환해야할 자리에 평가된 값이 아닌 <code>undefined</code>가 출력되는 것이고, 이를 <code>완료값</code>이라고 한다. 이는 자바스크립트 엔진이 암묵적으로 할당해주는 것이며, 변수에 담을 수 없고, 참조할 수 없는 값이다. 반면 변수에 할당을 하면 할당된 값이 출력되므로 <em>할당문은 표현식인 문</em>이라고 할 수 있다.</p>
 <hr>
-<p><em>그렇다면 변수를 할당할 때 재할당이 불가능한 키워드 <strong>const</strong>를 사용한다면 어떻게 될까?</em></p>
-<p><code>const a = 5;</code>라고 할당한 후, <code>a = 6;</code>이라고 재할당하면 const는 재할당이 되지 않기 때문에 오류가 발생한다. 하지만 객체의 경우라면 어떻게 될까?</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a = &#123;num: 3&#125;</span></span><br><span class="line">a.num = <span class="number">5</span>;</span><br><span class="line"><span class="comment">//a = &#123;num: 5&#125;</span></span><br></pre></td></tr></table></figure>
-<p>const는 재할당을 할 수 없지만 다음과 같이 객체가 할당되면 객체의 프로퍼티는 변경할 수 있다.<br>처음 const a라는 변수에 <code>{num : 3}</code>를 할당한다. 그러면 이 값은 하나의 메모리 공간을 차지하게 된다.<br>이때 a의 num라는 프로퍼티에 접근하여 <code>a.num = 5;</code>라고 값을 할당한 후 a를 참조하면 값이 5로 바뀌어 있다.</p>
-<p>하지만 다음과 같이 코드를 사용하면 const는 재할당을 할 수 없기 때문에 오류가 발생한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line">a = &#123;</span><br><span class="line">  num: <span class="number">5</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><em>References</em></p>
+<p><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Expressions_and_Operators" target="_blank" rel="noopener">MDN</a><br><a href="https://2ality.com/2012/09/expressions-vs-statements.html" target="_blank" rel="noopener">2ality</a><br><a href="https://poiemaweb.com/fastcampus/expression" target="_blank" rel="noopener">Poiemaweb</a><br><a href="https://www.youtube.com/watch?v=WVyCrI1cHi8" target="_blank" rel="noopener">Codexpanse</a><br><a href="https://exploringjs.com/impatient-js/ch_syntax.html#statement-vs-expression" target="_blank" rel="noopener">JavaScript for impatient programmers</a></p>
 
       
     </div>
@@ -983,7 +877,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 01:13:04" itemprop="dateModified" datetime="2022-02-08T01:13:04+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
               </span>
 
           
@@ -1058,6 +952,87 @@
 <hr>
 <p><em>References</em></p>
 <p><a href="https://poiemaweb.com/fastcampus/variable" target="_blank" rel="noopener">Poiemaweb</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/20/200222_mutable_immutable/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/20/200222_mutable_immutable/" class="post-title-link" itemprop="url">왜 원시타입은 변경불가하고, 객체는 가능할까?</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-21T00:00:00+09:00">2020-02-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
+</blockquote>
+<p><code>원시타입</code>의 값은 <strong>변경불가</strong>의 값이다. 따라서 원래 할당되어 있던 값을 변경하는 것이 아니라 재할당이 이루어진다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">5</span>; <span class="comment">// a = 5</span></span><br><span class="line"><span class="keyword">let</span> b = a; <span class="comment">// b = 5;</span></span><br><span class="line">a = <span class="number">6</span>; <span class="comment">// a = 6;</span></span><br></pre></td></tr></table></figure>
+<p>처음 5라는 값을 a라는 변수에 할당하고, 다음으로 5라는 값을 담고 있는 a의 값을 b에 할당하였을 때,<br>b의 값 5는 a의 값 5가 들어있는 메모리 공간을 차지하는 것이 아니라 새로운 공간을 차지하여 값을 할당한다. 그리고 a를 6이라고 재할당하면 이 역시 새로운 공간을 차지한다.</p>
+<p><em>객체의 경우는 어떨까?</em></p>
+<p><code>객체</code>는 <strong>변경가능</strong>한 값이기 때문에 새로운 공간에 값을 재할당하는 것이 아니라 원래 할당된 공간의 값을 변경한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  word: <span class="string">"hello"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line"><span class="comment">//b  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line">a.word = <span class="string">"world"</span>;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"world"&#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>{word: &quot;hello&quot;}</code>라는 객체를 a라는 변수에 할당하였고, 그 다음 b에 a의 값을 할당하였을 때,<br>b는 새로운 메모리 공간을 차지하는 대신 처음 a가 만들어 둔 <code>{word: &quot;hello&quot;}</code>라는 값이 든 공간을 바라보게 된다. 즉, a와 b라는 서로 다른 식별자가 <code>{word: &quot;hello&quot;}</code>라는 값이 들어 있는 하나의 공간을 공유하는 것이다.<br>따라서 a의 word라는 프로퍼티를 world로 변경하면 새로운 공간에 <code>{word: &quot;world&quot;}</code>라는 값을 담는 것이 아니라 원래 <code>{word: &quot;hello&quot;}</code>가 있던 공간의 프로퍼티를 <code>{word: &quot;world&quot;}</code>로 변경한다. b.word를 해도 같은 결과가 나온다.</p>
+<hr>
+<p><em>그렇다면 변수를 할당할 때 재할당이 불가능한 키워드 <strong>const</strong>를 사용한다면 어떻게 될까?</em></p>
+<p><code>const a = 5;</code>라고 할당한 후, <code>a = 6;</code>이라고 재할당하면 const는 재할당이 되지 않기 때문에 오류가 발생한다. 하지만 객체의 경우라면 어떻게 될까?</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a = &#123;num: 3&#125;</span></span><br><span class="line">a.num = <span class="number">5</span>;</span><br><span class="line"><span class="comment">//a = &#123;num: 5&#125;</span></span><br></pre></td></tr></table></figure>
+<p>const는 재할당을 할 수 없지만 다음과 같이 객체가 할당되면 객체의 프로퍼티는 변경할 수 있다.<br>처음 const a라는 변수에 <code>{num : 3}</code>를 할당한다. 그러면 이 값은 하나의 메모리 공간을 차지하게 된다.<br>이때 a의 num라는 프로퍼티에 접근하여 <code>a.num = 5;</code>라고 값을 할당한 후 a를 참조하면 값이 5로 바뀌어 있다.</p>
+<p>하지만 다음과 같이 코드를 사용하면 const는 재할당을 할 수 없기 때문에 오류가 발생한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line">a = &#123;</span><br><span class="line">  num: <span class="number">5</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
