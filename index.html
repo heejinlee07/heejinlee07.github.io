@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-10 00:49:47" itemprop="dateModified" datetime="2022-02-10T00:49:47+09:00">2022-02-10</time>
               </span>
 
           
@@ -273,7 +273,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-10 00:49:47" itemprop="dateModified" datetime="2022-02-10T00:49:47+09:00">2022-02-10</time>
               </span>
 
           
@@ -367,7 +367,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-10 00:49:47" itemprop="dateModified" datetime="2022-02-10T00:49:47+09:00">2022-02-10</time>
               </span>
 
           
@@ -384,7 +384,7 @@
           <h2 id="아이템-10-객체-래퍼-타입-피하기"><a href="#아이템-10-객체-래퍼-타입-피하기" class="headerlink" title="아이템 10 객체 래퍼 타입 피하기"></a>아이템 10 객체 래퍼 타입 피하기</h2><h3 id="자바스크립트의-타입"><a href="#자바스크립트의-타입" class="headerlink" title="자바스크립트의 타입"></a>자바스크립트의 타입</h3><blockquote>
 <p>기본형 값들에 대한 일곱가지 타입 (string, number, boolean, null, undefined, symbol(ES2015에서 추가), bigint(최종 확정 단계))<br>객체</p>
 </blockquote>
-<p><strong>기본형은 불변이며, 메서드를 가지지 않는다.</strong> 그런데 기본형인 string이 메서드를 가진 것처럼 보이는 이유는 자바스크립트에 메서드를 가지는 <code>String 객체 타입</code>이 정의되어 있기 때문이다. 만약 charAt과 같은 메서드를 기본형에 사용한다면 기본형을 String 객체로 래핑하여 메서드를 호출한 후 마지막에 래핑한 객체를 버리는 방식으로 작동된다. null과 undefined를 제외한 모든 기본형에 이와 같은 객체 래퍼 타입이 존재한다. 이러한 래퍼 객체는 직접 생성할 필요가 없고, 기본형을 사용해야하는데 래퍼 객체를 사용하지 않도록 주의하여야 한다. <strong>타입스크립트가 제공하는 타입 선언은 전부 기본형 타입이다.</strong></p>
+<p><strong>기본형은 불변이며, 메서드를 가지지 않는다.</strong> 그런데 기본형인 string이 메서드를 가진 것처럼 보이는 이유는 자바스크립트에 메서드를 가지는 <code>String 객체 타입</code>이 정의되어 있기 때문이다. 만약 charAt과 같은 메서드를 기본형에 사용한다면 기본형을 String 객체로 래핑하여 메서드를 호출한 후 마지막에 래핑한 객체를 버리는 방식으로 작동된다. null과 undefined를 제외한 모든 기본형에 이와 같은 객체 래퍼 타입이 존재한다. 이러한 래퍼 객체는 직접 생성할 필요가 없고, 기본형을 사용해야하는데 래퍼 객체를 사용하지 않도록 주의하여야 한다. <strong>타입스크립트가 제공하는 타입 선언은 전부 기본형 타입이다.</strong> 다만 기본형 타입은 객체 래퍼에 할당할 수 있기 때문에 타입스크립트는 기본형 타입을 객체 래퍼에 할당하는 것을 허용한다. 그러나 이런 방법은 오해하기 쉽고 이렇게 쓰지 않는 것이 좋다.</p>
 <hr>
 <h2 id="아이템-11-잉여-속성-체크의-한계-인지하기"><a href="#아이템-11-잉여-속성-체크의-한계-인지하기" class="headerlink" title="아이템 11 잉여 속성 체크의 한계 인지하기"></a>아이템 11 잉여 속성 체크의 한계 인지하기</h2><p>타입이 명시된 변수에 객체 리터럴을 할당할 때 타입스크립트는 해당 타입의 속성이 있는지, <strong>그 외의 속성은 없는지</strong> 확인한다.</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1️⃣ 잉여 속성 체크</span></span><br><span class="line"><span class="keyword">interface</span> Room &#123;</span><br><span class="line">  numDoors: <span class="built_in">number</span>;</span><br><span class="line">  ceilingHeightFt: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> r: Room = &#123;</span><br><span class="line">  numDoors: <span class="number">1</span>,</span><br><span class="line">  ceilingHeightFt: <span class="number">10</span>,</span><br><span class="line">  elephant: <span class="string">'present'</span>,</span><br><span class="line">  <span class="comment">// ~~~~~~~~~~~~~~~~~~ Object literal may only specify known properties,</span></span><br><span class="line">  <span class="comment">//                    and 'elephant' does not exist in type 'Room'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2️⃣</span></span><br><span class="line"><span class="keyword">interface</span> Room &#123;</span><br><span class="line">  numDoors: <span class="built_in">number</span>;</span><br><span class="line">  ceilingHeightFt: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  numDoors: <span class="number">1</span>,</span><br><span class="line">  ceilingHeightFt: <span class="number">10</span>,</span><br><span class="line">  elephant: <span class="string">'present'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> r: Room = obj; <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
@@ -392,7 +392,7 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Room &#123;</span><br><span class="line">  numDoors: <span class="built_in">number</span>;</span><br><span class="line">  ceilingHeightFt: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setDarkMode</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">interface</span> Options &#123;</span><br><span class="line">  title: <span class="built_in">string</span>;</span><br><span class="line">  darkMode?: <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> intermediate = &#123; darkmode: <span class="literal">true</span>, title: <span class="string">'Ski Free'</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> o: Options = intermediate; <span class="comment">// OK</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> o2 = &#123; darkmode: <span class="literal">true</span>, title: <span class="string">'Ski Free'</span> &#125; <span class="keyword">as</span> Options; <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
 <p>위 예시에서 intermediate 변수의 오른쪽은 객체 리터럴이지만 o변수의 intermediate는 객체 리터럴이 아니다. 타입 구문이 없는 임시 변수이다. 이 경우 잉여 속성 체크가 적용되지 않아서 오류가 사라진다. 위의 예시에서 o2와 같이 타입 단언을 사용해도 잉여 속성 체크는 적용되지 않는다. 아래 예시처럼 선택적 속성만 가지는 약한 타입에도 비슷한 체크가 동작한다.</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> LineChartOptions &#123;</span><br><span class="line">  logscale?: <span class="built_in">boolean</span>;</span><br><span class="line">  invertedYAxis?: <span class="built_in">boolean</span>;</span><br><span class="line">  areaChart?: <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> opts = &#123; logScale: <span class="literal">true</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> o: LineChartOptions = opts;</span><br><span class="line"><span class="comment">// ~ Type '&#123; logScale: boolean; &#125;' has no properties in common</span></span><br><span class="line"><span class="comment">//   with type 'LineChartOptions'</span></span><br></pre></td></tr></table></figure>
-<p>위 예시에서 LineChartOptions 타입은 모든 속성이 선택적이므로 모든 객체를 포함할 수 있는 약한 타입이다. 이 경우 타입스크립트가 값 타입과 선언 타입에 공통된 속성이 있는지 확인하는 별도의 체크를 수행한다. 오타를 잡는데 효과적이며 구조적으로 엄격하지 않지만 잉여 속성 체크와 다른 점은 약한 타입과 관련된 할당문마다 수행된다는 점이다. 따라서 임시 변수를 제거하더라고 공통 속성 체크는 여전히 동작한다.</p>
+<p>위 예시에서 LineChartOptions 타입은 모든 속성이 선택적이므로 모든 객체를 포함할 수 있는 약한 타입이다. 이 경우 타입스크립트가 값 타입과 선언 타입에 공통된 속성이 있는지 확인하는 별도의 체크를 수행한다. 오타를 잡는데 효과적이며 구조적으로 엄격하지 않지만 잉여 속성 체크와 다른 점은 약한 타입과 관련된 할당문마다 수행된다는 점이다. 따라서 임시 변수를 제거하더라도 공통 속성 체크는 여전히 동작한다.</p>
 <hr>
 <p>TL;DR</p>
 <ul>
@@ -424,6 +424,9 @@
 <li>타입을 확장할 수 있다. 단 interface는 주의사항이 몇 가지 있다.</li>
 </ul>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> TState = &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  capital: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">interface</span> IState &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  capital: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> IStateWithPop <span class="keyword">extends</span> TState &#123;</span><br><span class="line">  population: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// interface는 유니온 타입과 같은 복잡한 타입을 확장하지 못한다.</span></span><br><span class="line"><span class="comment">// 확장하려면 아래와 같이 타입과 &amp;을 사용해야 한다.</span></span><br><span class="line"><span class="keyword">type</span> TStateWithPop = IState &amp; &#123; population: <span class="built_in">number</span> &#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>class를 사용하면 type, interface 모두 사용 가능.</li>
+</ul>
 <h3 id="type-interface의-다른-점"><a href="#type-interface의-다른-점" class="headerlink" title="type, interface의 다른 점"></a><code>type</code>, <code>interface</code>의 다른 점</h3><ul>
 <li>interface는 타입을 확장할 수 있고, 유니온은 할 수 없다. 유니온 타입은 있지만 유니온 인터페이스라는 개념은 없다.</li>
 </ul>
@@ -440,7 +443,7 @@
 <li>type, interface 두 가지 모두로 표현할 수 있는 간단한 객체 타입이라면?<ul>
 <li>일관성과 보강의 관점을 고려해 본다.</li>
 <li>코드베이스에서 일관되게 type을 쓰고 있다면 type을, interface를 쓰고 있다면 interface를 쓴다.</li>
-<li>API에 대한 타입 선언은 API가 변경될 때 사용자가 interface를 통해 새로운 필드를 병합할 수 있으니 interface를 쓴다. 단, 프로젝트 내부적으로 사용되는 타입에 선언 병합이 발생하는 것은 잘못된 설께이며, 이럴 때는 type을 쓴다.</li>
+<li>API에 대한 타입 선언은 API가 변경될 때 사용자가 interface를 통해 새로운 필드를 병합할 수 있으니 interface를 쓴다. 단, 프로젝트 내부적으로 사용되는 타입에 선언 병합이 발생하는 것은 잘못된 설계이며, 이럴 때는 type을 쓴다.</li>
 </ul>
 </li>
 </ul>
@@ -603,7 +606,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-10 00:49:47" itemprop="dateModified" datetime="2022-02-10T00:49:47+09:00">2022-02-10</time>
               </span>
 
           
@@ -707,7 +710,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-10 00:49:47" itemprop="dateModified" datetime="2022-02-10T00:49:47+09:00">2022-02-10</time>
               </span>
 
           
@@ -860,7 +863,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-10 00:49:47" itemprop="dateModified" datetime="2022-02-10T00:49:47+09:00">2022-02-10</time>
               </span>
 
           
@@ -1244,7 +1247,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-10 00:49:47" itemprop="dateModified" datetime="2022-02-10T00:49:47+09:00">2022-02-10</time>
               </span>
 
           
@@ -1338,7 +1341,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-10 00:49:47" itemprop="dateModified" datetime="2022-02-10T00:49:47+09:00">2022-02-10</time>
               </span>
 
           
@@ -1417,7 +1420,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-10 00:49:47" itemprop="dateModified" datetime="2022-02-10T00:49:47+09:00">2022-02-10</time>
               </span>
 
           
@@ -1525,7 +1528,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 10:13:54" itemprop="dateModified" datetime="2022-02-08T10:13:54+09:00">2022-02-08</time>
+                <time title="Modified: 2022-02-10 00:49:47" itemprop="dateModified" datetime="2022-02-10T00:49:47+09:00">2022-02-10</time>
               </span>
 
           
