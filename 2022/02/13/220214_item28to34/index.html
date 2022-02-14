@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="아이템 28 유효한 상태만 표현하는 타입을 지향하기 효과적으로 타입을 설계하려면 유효한 상태만 표현할 수 있는 타입을 만드는 것이 중요하다.  유효하지 않은 상태 A,B가 있다고 했을 때, 상태 값의 두 가지 속성이 동시에 정보가 부족하다. (A가 성공인지 실패인지 알 수 없다.) A,B의 두 가지 속성이 충돌한다. (A이면서 B인 상태가 있다.)  이런">
+<meta property="og:type" content="article">
+<meta property="og:title" content="타입스크립트 이펙티브 아이템 28 - 아이템 34">
+<meta property="og:url" content="https://heejinlee07.github.io/2022/02/13/220214_item28to34/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="아이템 28 유효한 상태만 표현하는 타입을 지향하기 효과적으로 타입을 설계하려면 유효한 상태만 표현할 수 있는 타입을 만드는 것이 중요하다.  유효하지 않은 상태 A,B가 있다고 했을 때, 상태 값의 두 가지 속성이 동시에 정보가 부족하다. (A가 성공인지 실패인지 알 수 없다.) A,B의 두 가지 속성이 충돌한다. (A이면서 B인 상태가 있다.)  이런">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-02-13T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-14T15:37:25.412Z">
+<meta property="article:author" content="Heejin Lee">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2022/02/13/220214_item28to34/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>타입스크립트 이펙티브 아이템 28 - 아이템 34 | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Developer</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/13/220214_item28to34/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          타입스크립트 이펙티브 아이템 28 - 아이템 34
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-02-14 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-14T00:00:00+09:00">2022-02-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="아이템-28-유효한-상태만-표현하는-타입을-지향하기"><a href="#아이템-28-유효한-상태만-표현하는-타입을-지향하기" class="headerlink" title="아이템 28 유효한 상태만 표현하는 타입을 지향하기"></a>아이템 28 유효한 상태만 표현하는 타입을 지향하기</h2><blockquote>
+<p>효과적으로 타입을 설계하려면 유효한 상태만 표현할 수 있는 타입을 만드는 것이 중요하다.</p>
+</blockquote>
+<h3 id="유효하지-않은-상태"><a href="#유효하지-않은-상태" class="headerlink" title="유효하지 않은 상태"></a>유효하지 않은 상태</h3><ul>
+<li>A,B가 있다고 했을 때, 상태 값의 두 가지 속성이 동시에 정보가 부족하다. (A가 성공인지 실패인지 알 수 없다.)</li>
+<li>A,B의 두 가지 속성이 충돌한다. (A이면서 B인 상태가 있다.)</li>
+</ul>
+<p>이런 무효한 상태가 존재하면 두 가지 모두를 제대로 구현할 수 없게 된다. 유효한 상태를 구현하려면 아래와 같이 명시적으로 모델링하는 <code>태그된 유니온(또는 구별된 유니온)</code>을 사용해서 나타낸다. 이렇게 작성하면 코드가 길어지고 작성하기 어렵지만 무효한 상태를 허용하지 않도록 개선할 수 있다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> RequestPending &#123;</span><br><span class="line">  state: <span class="string">'pending'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> RequestError &#123;</span><br><span class="line">  state: <span class="string">'error'</span>;</span><br><span class="line">  error: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> RequestSuccess &#123;</span><br><span class="line">  state: <span class="string">'ok'</span>;</span><br><span class="line">  pageText: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> RequestState = RequestPending | RequestError | RequestSuccess;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> State &#123;</span><br><span class="line">  currentPage: <span class="built_in">string</span>;</span><br><span class="line">  requests: &#123; [page: <span class="built_in">string</span>]: RequestState &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>타입을 설계할 때 어떤 값들을 포함하고, 어떤 값들을 제외할지 신중하게 생각하도록 한다. 유효한 상태를 표현하는 값만 허용하면 코드를 작성하기 쉬워지고 타입 체크가 용이해진다.</p>
+<hr>
+<h2 id="아이템-29-사용할-때는-너그럽게-생성할-때는-엄격하게"><a href="#아이템-29-사용할-때는-너그럽게-생성할-때는-엄격하게" class="headerlink" title="아이템 29 사용할 때는 너그럽게, 생성할 때는 엄격하게"></a>아이템 29 사용할 때는 너그럽게, 생성할 때는 엄격하게</h2><p>함수의 시그니처는 <code>당신의 작업은 엄격하게, 다른 사랆의 작업은 너그럽게 받아들인다</code>는 일반적인 원칙을 따라야 한다. 즉 함수의 매개변수는 타입의 범위가 넓어도 되지만 결과를 반환할 때는 타입의 범위가 더 구체적이어야 한다.</p>
+<ul>
+<li>viewportForBounds의 타입의 선언이 만들어지고 사용될 때처럼 너무 자유로우면 오류가 발생하기 쉽다.</li>
+<li>너무 자유롭다는 것은 수많은 선택적 속성(?)을 가지는 반환 타입을 가지고 있거나 유니온 타입을 사용하는 경우를 말한다.</li>
+<li>유니온 타입의 요소별 분기를 위한 방법: 좌표를 위한 기본 형식을 구분한다.<ul>
+<li>e.g. 배열과 배열 같은 것: LngLat, LngLatLike</li>
+</ul>
+</li>
+<li>완전하게 정의된 버전과 부분적으로 정의된 부분을 구분한다.<ul>
+<li>완전하게 정의된 버전: Camera</li>
+<li>부분적으로 정의된 버전: Camera option</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Feature = <span class="built_in">any</span>;</span><br><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">calculateBoundingBox</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  f: Feature</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): [<span class="title">number</span>, <span class="title">number</span>, <span class="title">number</span>, <span class="title">number</span>]</span>;</span><br><span class="line"><span class="keyword">interface</span> LngLat &#123;</span><br><span class="line">  lng: <span class="built_in">number</span>;</span><br><span class="line">  lat: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> LngLatLike = LngLat | &#123; lon: <span class="built_in">number</span>; lat: <span class="built_in">number</span> &#125; | [<span class="built_in">number</span>, <span class="built_in">number</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Camera &#123;</span><br><span class="line">  center: LngLat;</span><br><span class="line">  zoom: <span class="built_in">number</span>;</span><br><span class="line">  bearing: <span class="built_in">number</span>;</span><br><span class="line">  pitch: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> CameraOptions <span class="keyword">extends</span> Omit&lt;Partial&lt;Camera&gt;, 'center'&gt; &#123;</span><br><span class="line">  center?: LngLatLike;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> LngLatBounds =</span><br><span class="line">  | &#123; northeast: LngLatLike; southwest: LngLatLike &#125;</span><br><span class="line">  | [LngLatLike, LngLatLike]</span><br><span class="line">  | [<span class="built_in">number</span>, <span class="built_in">number</span>, <span class="built_in">number</span>, <span class="built_in">number</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">setCamera</span>(<span class="params">camera: CameraOptions</span>): <span class="title">void</span></span>;</span><br><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">viewportForBounds</span>(<span class="params">bounds: LngLatBounds</span>): <span class="title">Camera</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">focusOnFeature</span>(<span class="params">f: Feature</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> bounds = calculateBoundingBox(f);</span><br><span class="line">  <span class="keyword">const</span> camera = viewportForBounds(bounds);</span><br><span class="line">  setCamera(camera);</span><br><span class="line">  <span class="keyword">const</span> &#123;</span><br><span class="line">    center: &#123; lat, lng &#125;,</span><br><span class="line">    zoom,</span><br><span class="line">  &#125; = camera; <span class="comment">// OK</span></span><br><span class="line">  zoom; <span class="comment">// Type is number</span></span><br><span class="line">  <span class="built_in">window</span>.location.search = <span class="string">`?v=@<span class="subst">$&#123;lat&#125;</span>,<span class="subst">$&#123;lng&#125;</span>z<span class="subst">$&#123;zoom&#125;</span>`</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="아이템-30-문서에-타입-정보를-쓰지-않기"><a href="#아이템-30-문서에-타입-정보를-쓰지-않기" class="headerlink" title="아이템 30 문서에 타입 정보를 쓰지 않기"></a>아이템 30 문서에 타입 정보를 쓰지 않기</h2><p>코드에 대한 정보가 주석으로 남아있을 때 그 주석의 정보와 코드가 맞이 않을 때가 있다. 타입스크립트의 타입 구문 시스템은 간결하고 구체적이며, 쉽게 읽을 수 있도록 설계되었기 때문에 코드에 대한 설명 및 타입 정보를 주석으로 남기기 보다 타입스크립트의 타입 구문을 사용하도록 한다. <em>타입 구문은 타입스크립트 컴파일러가 체크해 주기 때문에 구현체와의 정합성이 어긋나지도 않는다.</em> 또 주석은 누군가 고치기 전에 강제로 동기화 되지 않는다. 타입스크립트는 타입 체커가 타입 정보를 동기화하도록 강제한다.</p>
+<p>타입스크립트는 명시적으로 사용하는 것이 좋다. ageNum이라는 변수를 선언하는 것보다 age로 변수 선언 후 타입은 num임을 명시하는 것이 더 좋다. 단 단위가 있는 숫자들은 단위가 무엇인지 확실하지 않다면 변수명 또는 속성 이름에 단위를 포한한다. 예를 들어 temperature보다 temperatureC가 훨씬 명확하다.</p>
+<hr>
+<h2 id="아이템-31-타입-주변에-null-값-배치하기"><a href="#아이템-31-타입-주변에-null-값-배치하기" class="headerlink" title="아이템 31 타입 주변에 null 값 배치하기"></a>아이템 31 타입 주변에 null 값 배치하기</h2><p>어떤 변수가 null인지 아닌지를 분명히 해야한다. null과 null이 아닌 값을 섞어서 사용하면 문제가 생긴다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">extent</span>(<span class="params">nums: <span class="built_in">number</span>[]</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> min, max;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> num of nums) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!min) &#123;</span><br><span class="line">      min = num;</span><br><span class="line">      max = num;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      min = <span class="built_in">Math</span>.min(min, num);</span><br><span class="line">      max = <span class="built_in">Math</span>.max(max, num);</span><br><span class="line">      <span class="comment">// ~~~ Argument of type 'number | undefined' is not</span></span><br><span class="line">      <span class="comment">//     assignable to parameter of type 'number'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> [min, max];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> [min, max] = extent([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]);</span><br><span class="line"><span class="keyword">const</span> span = max - min;</span><br><span class="line"><span class="comment">// ~~~   ~~~ Object is possibly 'undefined'</span></span><br></pre></td></tr></table></figure>
+<p>위 예제에서 extent의 반환값이 (number | undefined)[]로 추론된다. 이렇게 되면 extent를 호출하는 곳마다 타입 오류의 형태로 나타난다. 더 나은 해법으로는 min, max를 한 객체 안에 넣고 null이거나 null이 아니게 하는 아래와 같은 방법으로 작성한다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">extent</span>(<span class="params">nums: <span class="built_in">number</span>[]</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result: [<span class="built_in">number</span>, <span class="built_in">number</span>] | <span class="literal">null</span> = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> num of nums) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!result) &#123;</span><br><span class="line">      result = [num, num];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      result = [<span class="built_in">Math</span>.min(num, result[<span class="number">0</span>]), <span class="built_in">Math</span>.max(num, result[<span class="number">1</span>])];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TL;DR</p>
+<ul>
+<li>한 값의 null 여부가 다른 값의 null 여부에 암시적으로 관련되도록 설계하면 안된다.</li>
+<li>API 작성 시에는 반환 타입을 큰 객체로 만들고 반환 타입 전체가 null이거나 null이 아니게 만들어야 한다.</li>
+<li>클래스를 만들 때는 필요한 모든 값이 준비되었을 때 생성하여 null이 존재하지 않도록 한다.</li>
+<li>strictNullChecks를 설정하면 코드에 많은 오류가 표시되갰지만, null 값과 관련된 문제점을 찾아낼 수 있기 때문에 반드시 필요하다.</li>
+</ul>
+<hr>
+<h2 id="아이템-32-유니온의-인터페이스보다는-인터페이스의-유니온을-사용하기"><a href="#아이템-32-유니온의-인터페이스보다는-인터페이스의-유니온을-사용하기" class="headerlink" title="아이템 32 유니온의 인터페이스보다는 인터페이스의 유니온을 사용하기"></a>아이템 32 유니온의 인터페이스보다는 인터페이스의 유니온을 사용하기</h2><p>유니온 타입의 속성을 가지는 인터페이스를 작성 중이라면, 인터페이스의 유니온 타입을 사용하는 게 더 알맞지 않을지 검토해보아야 한다.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/09/220210_item21to27/" rel="prev" title="타입스크립트 이펙티브 아이템 21 - 아이템 27">
+      <i class="fa fa-chevron-left"></i> 타입스크립트 이펙티브 아이템 21 - 아이템 27
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#아이템-28-유효한-상태만-표현하는-타입을-지향하기"><span class="nav-number">1.</span> <span class="nav-text">아이템 28 유효한 상태만 표현하는 타입을 지향하기</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#유효하지-않은-상태"><span class="nav-number">1.1.</span> <span class="nav-text">유효하지 않은 상태</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#아이템-29-사용할-때는-너그럽게-생성할-때는-엄격하게"><span class="nav-number">2.</span> <span class="nav-text">아이템 29 사용할 때는 너그럽게, 생성할 때는 엄격하게</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#아이템-30-문서에-타입-정보를-쓰지-않기"><span class="nav-number">3.</span> <span class="nav-text">아이템 30 문서에 타입 정보를 쓰지 않기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#아이템-31-타입-주변에-null-값-배치하기"><span class="nav-number">4.</span> <span class="nav-text">아이템 31 타입 주변에 null 값 배치하기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#아이템-32-유니온의-인터페이스보다는-인터페이스의-유니온을-사용하기"><span class="nav-number">5.</span> <span class="nav-text">아이템 32 유니온의 인터페이스보다는 인터페이스의 유니온을 사용하기</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

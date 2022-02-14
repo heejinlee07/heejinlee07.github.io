@@ -144,6 +144,128 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/03/200304_constructor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/03/200304_constructor/" class="post-title-link" itemprop="url">생성자 함수에 의한 객체 생성</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-04 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-04T00:00:00+09:00">2020-03-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Object-생성자-함수"><a href="#Object-생성자-함수" class="headerlink" title="Object 생성자 함수"></a>Object 생성자 함수</h2><blockquote>
+<p>new 연산자와 함께 호출하여 <code>빈 객체(인스턴스)를 생성하는 함수</code>.<br><code>인스턴스(instance)</code>: 생성자 함수에 의해 생성된 <em>객체</em></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//빈 객체를 생성</span></span><br><span class="line"><span class="keyword">const</span> fruits = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//프로퍼티 또는 메소드 추가</span></span><br><span class="line">fruits.name = <span class="string">"banana"</span>;</span><br><span class="line">fruits.price = <span class="number">2000</span>;</span><br><span class="line">fruits.getPrice = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.price;</span><br><span class="line">&#125;;</span><br><span class="line">fruits.introduce = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"hello! "</span> + <span class="keyword">this</span>.name + <span class="string">" is "</span> + <span class="keyword">this</span>.getPrice() + <span class="string">" won"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fruits); <span class="comment">//&#123;name: 'banana', price: 50,</span></span><br><span class="line"><span class="comment">//getPrice: [Function], introduce: [Function]&#125;</span></span><br><span class="line">fruits.introduce(); <span class="comment">//hello! banana is 2000 won</span></span><br></pre></td></tr></table></figure>
+<h2 id="객체-리터럴에-의한-객체-생성-방식의-문제점"><a href="#객체-리터럴에-의한-객체-생성-방식의-문제점" class="headerlink" title="객체 리터럴에 의한 객체 생성 방식의 문제점"></a>객체 리터럴에 의한 객체 생성 방식의 문제점</h2><blockquote>
+<p>객체 리터럴에 의한 객체 생성 -&gt; <code>싱글 인스턴스</code> -&gt; 글로벌 오브젝트<br>생성자 함수에 의한 객체 생성 -&gt; <code>많은 인스턴스</code> -&gt; 여러 개의 인스턴스</p>
+</blockquote>
+<p>객체 리터럴에 의한 객체 생성 방식은 <em>단 하나의 객체만을 생성</em>한다. <strong>따라서 동일한 프로퍼티를 갖는 객체를 여러 개 생성해야 하는 경우, 매번 같은 프로퍼티를 기술해야 하기 때문에 비효율적.</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> car1 = &#123;</span><br><span class="line">  name: <span class="string">"Mercedes-Benz"</span>,</span><br><span class="line">  price: <span class="number">5000</span>,</span><br><span class="line">  salePrice() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.price - <span class="number">1000</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"this "</span> + car1.name + <span class="string">" price is "</span> + car1.salePrice() + <span class="string">"won"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> car2 = &#123;</span><br><span class="line">  name: <span class="string">"Mercedes-Benz"</span>,</span><br><span class="line">  price: <span class="number">3000</span>,</span><br><span class="line">  salePrice() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.price - <span class="number">1000</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"this "</span> + car2.name + <span class="string">" price is "</span> + car2.salePrice() + <span class="string">"won"</span>);</span><br></pre></td></tr></table></figure>
+<p>위의 예제 같은 경우, 객체 리터럴에 의해 생성되었기 때문에 동일한 프로퍼티 키를 가진 객체를 재사용하고 싶으면 객체를 매번 새로 생성해야한다.</p>
+<ul>
+<li>객체는 프로퍼티를 통해 객체 고유의 상태(state)를 표현하고, 메소드를 통해 상태 데이터인 프로퍼티를 참조하고 조작하는 동작(behavior)을 표현한다. <em>그런데 프로퍼티는 객체마다 값이 다를 수 있으나 메소드는 동일한 경우가 일반적이다.</em></li>
+<li><strong>객체 리터럴에 의해 객체를 생성하면 프로퍼티 구조가 동일함에도 불구하고 매번 같은 프로퍼티와 메소드를 기술해야 한다.</strong></li>
+</ul>
+<hr>
+<h2 id="생성자-함수에-의한-객체-생성-방식의-장점"><a href="#생성자-함수에-의한-객체-생성-방식의-장점" class="headerlink" title="생성자 함수에 의한 객체 생성 방식의 장점"></a>생성자 함수에 의한 객체 생성 방식의 장점</h2><p>객체(인스턴스)를 생성하기 위한 템플릿(클래스)처럼 생성자 함수를 사용하여 <strong>프로퍼티 구조가 동일한 객체 여러 개를 간편하게 생성할 수 있다.</strong> 생성자 함수를 생성할 때는 <code>파스칼케이스</code>를 사용한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//생성자 함수로 객체 생성</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Circle</span>(<span class="params">radius</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 생성자 함수 내부의 this는 생성자 함수가 생성할 인스턴스</span></span><br><span class="line">  <span class="keyword">this</span>.radius = radius;</span><br><span class="line">  <span class="keyword">this</span>.getDiameter = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span> * <span class="keyword">this</span>.radius;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 인스턴스 생성</span></span><br><span class="line"><span class="keyword">const</span> circle1 = <span class="keyword">new</span> Circle(<span class="number">5</span>);</span><br><span class="line"><span class="keyword">const</span> circle2 = <span class="keyword">new</span> Circle(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">const</span> circle3 = <span class="keyword">new</span> Circle(<span class="number">15</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(circle1.getDiameter()); <span class="comment">//10</span></span><br><span class="line"><span class="built_in">console</span>.log(circle2.getDiameter()); <span class="comment">//20</span></span><br><span class="line"><span class="built_in">console</span>.log(circle3.getDiameter()); <span class="comment">//30</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Factory Function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createCircle</span>(<span class="params">radius</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    radius,</span><br><span class="line">    draw() &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"draw"</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myCircle = createCircle(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(myCircle);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Constructor Function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Circle</span>(<span class="params">radius</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.radius = radius;</span><br><span class="line">  <span class="comment">// this는 실행할 코드를 참조하는 것. 빈 객체를 참조한다.</span></span><br><span class="line">  <span class="comment">// reference to the object that is executing this piece of code.</span></span><br><span class="line">  <span class="keyword">this</span>.draw = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"draw"</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">//return this;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> circle = <span class="keyword">new</span> Circle(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(circle);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>new 생성자가 빈 자바스크립트 객체를 만든다. (ex. const x = {};)</li>
+<li>this는 new로 생성된 빈 객체를 가리키고, 이 this로 빈 객체에 접근한다.</li>
+</ol>
+<ul>
+<li>this는 객체 자신의 프로퍼티나 메소드를 참조하기 위한 자기 참조 변수</li>
+<li>this가 가리키는 값(this 바인딩)은 함수 호출 방식에 따라 동적으로 결정된다.<ul>
+<li><code>일반 함수로서 호출</code> : this가 가리키는 값 -&gt; <code>전역 객체(브라우저 환경에서는 window, Node.js 환경에서는 global)</code></li>
+<li><code>메소드로서 호출</code>: this가 가리키는 값 -&gt; <code>메소드를 호출한 객체</code></li>
+<li><code>생성자 함수로서 호출</code>: this가 가리키는 값 -&gt; <code>생성자 함수가(미래에) 생성할 인스턴스</code></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>new 생성자가 위의 객체로부터 새로 생성된 객체를 반환한다. (return this;처럼)</li>
+</ol>
+<p><strong>일반 함수와 동일한 방법으로 함수를 정의하고, new 연산자와 함께 호출하면 생성자 함수로 동작한다.</strong></p>
+<hr>
+<h2 id="생성자-함수의-인스턴스-생성-과정"><a href="#생성자-함수의-인스턴스-생성-과정" class="headerlink" title="생성자 함수의 인스턴스 생성 과정"></a>생성자 함수의 인스턴스 생성 과정</h2><p>생성자 함수가 프로퍼티 구조가 동일한 인스턴스를 생성하기 위한 템플릿(클래스)으로서 동작하여 <strong>인스턴스를 생성하는 것은 필수</strong>, 생성된 인스턴스를 초기화하는 것은 옵션이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Circle</span>(<span class="params">radius</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 1. 암묵적으로 빈 객체(인스턴스)가 생성되고 this에 바인딩된다.</span></span><br><span class="line">  <span class="comment">// console.log(this) -&gt; Circle &#123;&#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2. this에 바인딩되어 있는 인스턴스를 초기화한다.</span></span><br><span class="line">  <span class="comment">// this + 프로퍼티 or 메소드</span></span><br><span class="line">  <span class="keyword">this</span>.radius = radius;</span><br><span class="line">  <span class="keyword">this</span>.getDiameter = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span> * <span class="keyword">this</span>.radius;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 3. 암묵적으로 this를 반환한다.</span></span><br><span class="line">  <span class="comment">// 명시적으로 원시 값을 반환하면 원시 값 반환은 무시되고, 암묵적으로 this가 반환된다.</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">100</span>;</span><br><span class="line">  <span class="comment">// return &#123;&#125; -&gt; 명시적으로 객체를 반환하면 암묵적인 this 반환이 무시된다.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 인스턴스 생성.</span></span><br><span class="line"><span class="comment">// return 100의 경우 -&gt; Circle 생성자 함수는 명시적으로 반환한 객체를 반환한다. -&gt; Circle &#123;radius: 1, getDiameter: ƒ&#125;</span></span><br><span class="line"><span class="comment">//return &#123;&#125;의 경우 -&gt; 명시적으로 반환한 &#123;&#125;(객체)를 반환한다. -&gt; &#123;&#125;</span></span><br><span class="line"><span class="keyword">const</span> circle = <span class="keyword">new</span> Circle(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(circle);</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>인스턴스 생성과 this 바인딩</code>: 암묵적으로 빈 객체가 생성되는데 이는 바로 생성자 함수가 생성한 인스턴스이며, 인스턴스는 this에 바인딩된다. 따라서 this는 생성자 함수가 생성할 인스턴스를 가리키는 것이다.</li>
+<li><code>인스턴스 초기화</code>: 생성자 함수에 있는 코드가 실행되어 this에 바인딩되어 있는 인스턴스를 초기화한다. 인스턴스에 프로퍼티나 메소드를 추가하고 생성자 함수가 인수로 전달받은 초기값을 인스턴스 프로퍼티에 할당하여 초기화하거나 고정값을 할당한다.</li>
+<li><code>인스턴스 반환</code>: <strong>생성자 함수 내부의 모든 처리가 끝나면 완성된 인스턴스에 바인딩된 this가 암묵적으로 반환된다.</strong> 만약 명시적으로 this가 아닌 다른 객체를 반환하면 this는 반환되지 않고 return문에 명시한 객체가 반환된다. 그러나 명시적으로 원시값을 반환하면 이는 무시되고, 암묵적으로 this가 반환된다. <u>이처럼 this가 반환하는 값이 변경되기 때문에 return문을 반드시 생략한다.</u></li>
+</ol>
+<hr>
+<h2 id="내부-메소드-Call-과-Construct"><a href="#내부-메소드-Call-과-Construct" class="headerlink" title="내부 메소드 [[Call]]과 [[Construct]]"></a>내부 메소드 [[Call]]과 [[Construct]]</h2><p>함수는 객체이므로 일반 객체와 동일하게 동작할 수 있고, 일반 객체의 내부 슬롯과 내부 메소드를 모두 가지고 있다. 하지만 <em>함수 객체는 반드시 callable이어야 한다.</em></p>
+<ul>
+<li><code>callable</code>: 내부 메소드 [[Call]]을 가지고 있다.<br><strong>호출할 수 있는 객체인 함수</strong></li>
+<li><code>constructor</code>: 내부 메소드 <u>[[Construct]]를 가지고 있다.</u><br>생성자 함수로서 호출할 수 있는(new 연산자 또는 super 연산자와 함께 호출)객체</li>
+<li><code>non-constructor</code>: 내부 메소드 <u>[[Construct]]를 가지고 있지 않다.</u><br>객체를 생성자 함수로 호출할 수 없는 함수</li>
+</ul>
+<p>일반적인 함수로 호출하면 함수 객체의 내부 메소드 [[Call]]가 호출되고, 생성자 함수로 호출되면 내부 메소드 [[Construct]]가 호출된다. <strong>단, 생성자 함수로 정의하지 않은 일반 함수를 new 연산자와 함께 호출하면 생성자 함수로 동작한다. 즉 [[Construct]]가 호출된다.</strong></p>
+<p>함수 객체는 반드시 callable이지만 constructor일 수도 있고 non-constructor일 수 있다. 따라서 모든 함수 객체는 호출이 가능하지만 <em>모든 함수 객체를 생성자 함수로서 호출할 수 있는 것은 아니다.</em></p>
+<blockquote>
+<p><code>constructor</code>: 함수 선언문, 함수 표현식, 클래스(클래스도 함수다)<br><code>non-constructor</code>: 메서드(ES6 메서드 축약 표현), 화살표 함수</p>
+</blockquote>
+<hr>
+<p><em>References</em></p>
+<p><a href="https://www.youtube.com/watch?v=dVoAq2D3n44&amp;t=51s" target="_blank" rel="noopener">Questpond</a><br><a href="https://www.youtube.com/watch?v=23AOrSN-wmI" target="_blank" rel="noopener">Programming with Mosh</a><br><a href="https://www.youtube.com/watch?v=oSs_25dmxOE" target="_blank" rel="noopener">Rob Merrill</a><br><a href="https://poiemaweb.com/fastcampus/constructor" target="_blank" rel="noopener">poiemaweb</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/02/200303_property_attribute/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +297,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -294,7 +416,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -436,7 +558,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -500,103 +622,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/26/0227_rubberduck/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/26/0227_rubberduck/" class="post-title-link" itemprop="url">200227 러버덕 정리</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-27 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-27T00:00:00+09:00">2020-02-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="암묵적-타입-변환과-명시적-타입-변환"><a href="#암묵적-타입-변환과-명시적-타입-변환" class="headerlink" title="암묵적 타입 변환과 명시적 타입 변환"></a>암묵적 타입 변환과 명시적 타입 변환</h2><p>암묵적 타입 변환: 자바스크립트 엔진이 개발자의 의도와는 상관없이 문맥에 따라 타입을 문자열, 숫자와 같은 원시타입의 값으로 강제 변환하는 것.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + <span class="string">'1'</span> = ?</span><br><span class="line"><span class="comment">//숫자 1과 문자열 1을 더하면 에러가 날 것 같지만</span></span><br><span class="line"><span class="comment">//자바스크립트 엔진은 피연산자가 모두 문자열일 것이라고 간주하여</span></span><br><span class="line"><span class="comment">//둘을 더한 `문자열 11`이라는 결과를 반환한다.</span></span><br></pre></td></tr></table></figure>
-<p>명시적 타입 변환: 개발자의 의도에 따라 타입을 강제 변환하는 것으로 표준 빌트인 생성자 함수(string,number,boolean)을 new 연산자 없이 호출하는 방법, 빌트인 메소드를 사용하는 방법, 암묵적 타입 변환을 이용하는 방법 등이 있다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> + <span class="string">""</span>);</span><br><span class="line"><span class="comment">//숫자 타입 1에 빈 문자열을 더하면 `문자열 1`이라는 결과가 출력된다.</span></span><br></pre></td></tr></table></figure>
-<h2 id="단축평가-논리곱-논리합"><a href="#단축평가-논리곱-논리합" class="headerlink" title="단축평가: 논리곱, 논리합"></a>단축평가: 논리곱, 논리합</h2><p>단축평가는 표현식을 평가하는 도중에 결과가 확정되면 나머지 평가 과정을 중단하는 것이다. 논리곱과 논리합은 언제나 2개의 피연산자 중 어느 한쪽으로 평가된다.</p>
-<p><code>논리곱(&amp;&amp;)</code><br>논리곱은 두 개의 피연산자가 모두 <code>true</code>일 때만 <code>true</code>를 반환한다. 둘 중 하나라도 <code>false</code>일 때는 <code>false</code>가 반환된다.</p>
-<blockquote>
-<p>true &amp;&amp; anything //anything<br>false &amp;&amp; anything //false</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"cat"</span> &amp;&amp; <span class="string">"dog"</span>; <span class="comment">//dog</span></span><br></pre></td></tr></table></figure>
-<p>위의 예시와 같은 상황에서 첫 번째 피연산자인 <code>cat</code>을 평가했을 때 <code>true</code>로 반환되지만 <em>논리곱(&amp;&amp;)은 두 피연산자 모두 true일때 true이므로</em> 두 번째 피연산자까지 평가를 해보아야한다. 따라서 두 번째 피연산자인 <code>dog</code>을 검사한 후 <code>dog</code>를 반환한다.</p>
-<p><code>논리합(||)</code><br>논리합은 두 개의 피연산자 중 하나만 <code>true</code>여도 <code>true</code>를 반환한다. 두 개의 피연산자 모두 <code>false</code>인 경우에는 <code>false</code>를 반환한다.</p>
-<blockquote>
-<p>true || anything //true<br>false || anything //anything</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"Cat"</span> || <span class="string">"Dog"</span>; <span class="comment">// 'Cat'</span></span><br></pre></td></tr></table></figure>
-<p>위의 예시와 같은 상황에서 첫 번째 피연산자인 <code>cat</code>을 평가했을 때 <code>true</code>이기 때문에 두 번째 피연산자인 <code>Dog</code>를 평가하지 않고 바로 <code>Cat</code>을 반환한다. 논리합(||)은 두 피연산자 중 하나만 <code>true</code>여도 <code>true</code>를 반환하기 때문이다.</p>
-<h2 id="객체-객체-리터럴"><a href="#객체-객체-리터럴" class="headerlink" title="객체-객체 리터럴"></a>객체-객체 리터럴</h2><p><code>객체</code>: 다양한 타입의 값(원시 값 또는 다른 객체)들을 하나의 단위로 구성한 복합적인 자료 구조로 키(key) 값(value)으로 구성된 프로퍼티(property)들의 집합이라고 할 수 있다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">키워드 식별자 = &#123;</span><br><span class="line">  key(속성) : value(값) <span class="comment">//프로퍼티</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>객체 리터럴</code>: 객체를 생성하는 가장 간단한 방법이다. 중괄호 내에 0개 이상의 프로퍼티를 정의하고, 값으로 평가되는 표현식이기 때문에 중괄호 뒤에 세미콜론을 붙여야한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> empty = &#123;&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="값에-의한-전달-참조에-의한-전달"><a href="#값에-의한-전달-참조에-의한-전달" class="headerlink" title="값에 의한 전달, 참조에 의한 전달"></a>값에 의한 전달, 참조에 의한 전달</h2><p>원시 값은 변경 불가능한 값이기 때문에 <code>값을 복사하여 전달</code>하고, 객체는 변경이 가능한 값이기 때문에 원본의 <code>참조 값을 복사하여 전달</code>한다.</p>
-<p><code>값에 의한 전달</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score = <span class="number">80</span>;</span><br><span class="line">copy = score;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">//80</span></span><br><span class="line"><span class="built_in">console</span>.log(copy); <span class="comment">//80</span></span><br></pre></td></tr></table></figure>
-<p>score라는 변수에 숫자값 80을 할당하고, copy라는 변수에 변수 score를 할당하면 원래 있던 score가 가지고 있던 숫자값 80이 복사되어 새롭게 할당되는 변수 copy에 전달된다. 원시값은 변경이 불가능하기 때문에 재할당 시 새로운 메모리 공간을 차지하는 것이다. 즉 score의 80과 copy의 80은 다른 메모리 공간에 저장된 다른 값이다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">socre = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">//100</span></span><br><span class="line"><span class="built_in">console</span>.log(copy); <span class="comment">//80</span></span><br></pre></td></tr></table></figure>
-<p>score에 새로운 숫자 값 100을 재할당하면 100이라는 값을 가진 변수 score가 새로운 메모리 공간에 저장된다. 따라서 score의 값을 변경했다고 하여 copy도 변경되는 것이 아니라 score의 값만 변경된다.</p>
-<p><code>참조에 의한 전달</code><br>객체는 변경 가능한 값이기 때문에 변수에 객체를 할당하면 생성된 객체는 <code>참조값</code>을 가진다. 이 참조값은 변수에 생성된 객체가 실제로 저장된 메모리 공간의 주소를 말한다. 따라서 변수 참조 시 원시 값에 바로 접근하는 원시값과 달리 객체는 메모리에 저장되어 있는 값을 참조하여 실제 객체에 접근한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"lee"</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>person이라는 식별자가 붙은 공간에 참조값이 생성되고, 이 참조값은 객체를 가리키고 있다. 따라서 <code>console.log(person);</code>라고 하면 참조값이 객체에 접근하여 <code>{name:&#39;lee&#39;}</code>를 반환한다. 재할당이 이루어지지 않는다면 객체에 동적으로 값을 추가하여도 참조값은 여전히 동일하며 객체에만 값이 추가된다.</p>
-<p>그런데 만약 참조 값을 복사한다면 어떻게 될까?</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"lee"</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> copy = person;</span><br></pre></td></tr></table></figure>
-<p>위와 같이 person을 다른 변수 copy에 할당하면 객체이기 때문에 원본 값이 아닌 원본의 참조 값이 복사되어 전달된다. 새롭게 생성된 변수 copy는 copy라는 식별자가 붙은 새로운 참조값(메모리 주소가 다르다.)을 가지고 있지만 동일한 객체 <code>{name:&#39;lee&#39;}</code>를 가리키고 있다. 따라서 어느 한쪽이 값을 변경하면 서로에게 영향이 생긴다.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/26/200227_global_variables/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -628,7 +653,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -702,6 +727,177 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/26/0227_rubberduck/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/26/0227_rubberduck/" class="post-title-link" itemprop="url">200227 러버덕 정리</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-27 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-27T00:00:00+09:00">2020-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="암묵적-타입-변환과-명시적-타입-변환"><a href="#암묵적-타입-변환과-명시적-타입-변환" class="headerlink" title="암묵적 타입 변환과 명시적 타입 변환"></a>암묵적 타입 변환과 명시적 타입 변환</h2><p>암묵적 타입 변환: 자바스크립트 엔진이 개발자의 의도와는 상관없이 문맥에 따라 타입을 문자열, 숫자와 같은 원시타입의 값으로 강제 변환하는 것.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + <span class="string">'1'</span> = ?</span><br><span class="line"><span class="comment">//숫자 1과 문자열 1을 더하면 에러가 날 것 같지만</span></span><br><span class="line"><span class="comment">//자바스크립트 엔진은 피연산자가 모두 문자열일 것이라고 간주하여</span></span><br><span class="line"><span class="comment">//둘을 더한 `문자열 11`이라는 결과를 반환한다.</span></span><br></pre></td></tr></table></figure>
+<p>명시적 타입 변환: 개발자의 의도에 따라 타입을 강제 변환하는 것으로 표준 빌트인 생성자 함수(string,number,boolean)을 new 연산자 없이 호출하는 방법, 빌트인 메소드를 사용하는 방법, 암묵적 타입 변환을 이용하는 방법 등이 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> + <span class="string">""</span>);</span><br><span class="line"><span class="comment">//숫자 타입 1에 빈 문자열을 더하면 `문자열 1`이라는 결과가 출력된다.</span></span><br></pre></td></tr></table></figure>
+<h2 id="단축평가-논리곱-논리합"><a href="#단축평가-논리곱-논리합" class="headerlink" title="단축평가: 논리곱, 논리합"></a>단축평가: 논리곱, 논리합</h2><p>단축평가는 표현식을 평가하는 도중에 결과가 확정되면 나머지 평가 과정을 중단하는 것이다. 논리곱과 논리합은 언제나 2개의 피연산자 중 어느 한쪽으로 평가된다.</p>
+<p><code>논리곱(&amp;&amp;)</code><br>논리곱은 두 개의 피연산자가 모두 <code>true</code>일 때만 <code>true</code>를 반환한다. 둘 중 하나라도 <code>false</code>일 때는 <code>false</code>가 반환된다.</p>
+<blockquote>
+<p>true &amp;&amp; anything //anything<br>false &amp;&amp; anything //false</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"cat"</span> &amp;&amp; <span class="string">"dog"</span>; <span class="comment">//dog</span></span><br></pre></td></tr></table></figure>
+<p>위의 예시와 같은 상황에서 첫 번째 피연산자인 <code>cat</code>을 평가했을 때 <code>true</code>로 반환되지만 <em>논리곱(&amp;&amp;)은 두 피연산자 모두 true일때 true이므로</em> 두 번째 피연산자까지 평가를 해보아야한다. 따라서 두 번째 피연산자인 <code>dog</code>을 검사한 후 <code>dog</code>를 반환한다.</p>
+<p><code>논리합(||)</code><br>논리합은 두 개의 피연산자 중 하나만 <code>true</code>여도 <code>true</code>를 반환한다. 두 개의 피연산자 모두 <code>false</code>인 경우에는 <code>false</code>를 반환한다.</p>
+<blockquote>
+<p>true || anything //true<br>false || anything //anything</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"Cat"</span> || <span class="string">"Dog"</span>; <span class="comment">// 'Cat'</span></span><br></pre></td></tr></table></figure>
+<p>위의 예시와 같은 상황에서 첫 번째 피연산자인 <code>cat</code>을 평가했을 때 <code>true</code>이기 때문에 두 번째 피연산자인 <code>Dog</code>를 평가하지 않고 바로 <code>Cat</code>을 반환한다. 논리합(||)은 두 피연산자 중 하나만 <code>true</code>여도 <code>true</code>를 반환하기 때문이다.</p>
+<h2 id="객체-객체-리터럴"><a href="#객체-객체-리터럴" class="headerlink" title="객체-객체 리터럴"></a>객체-객체 리터럴</h2><p><code>객체</code>: 다양한 타입의 값(원시 값 또는 다른 객체)들을 하나의 단위로 구성한 복합적인 자료 구조로 키(key) 값(value)으로 구성된 프로퍼티(property)들의 집합이라고 할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">키워드 식별자 = &#123;</span><br><span class="line">  key(속성) : value(값) <span class="comment">//프로퍼티</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>객체 리터럴</code>: 객체를 생성하는 가장 간단한 방법이다. 중괄호 내에 0개 이상의 프로퍼티를 정의하고, 값으로 평가되는 표현식이기 때문에 중괄호 뒤에 세미콜론을 붙여야한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> empty = &#123;&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="값에-의한-전달-참조에-의한-전달"><a href="#값에-의한-전달-참조에-의한-전달" class="headerlink" title="값에 의한 전달, 참조에 의한 전달"></a>값에 의한 전달, 참조에 의한 전달</h2><p>원시 값은 변경 불가능한 값이기 때문에 <code>값을 복사하여 전달</code>하고, 객체는 변경이 가능한 값이기 때문에 원본의 <code>참조 값을 복사하여 전달</code>한다.</p>
+<p><code>값에 의한 전달</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score = <span class="number">80</span>;</span><br><span class="line">copy = score;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">//80</span></span><br><span class="line"><span class="built_in">console</span>.log(copy); <span class="comment">//80</span></span><br></pre></td></tr></table></figure>
+<p>score라는 변수에 숫자값 80을 할당하고, copy라는 변수에 변수 score를 할당하면 원래 있던 score가 가지고 있던 숫자값 80이 복사되어 새롭게 할당되는 변수 copy에 전달된다. 원시값은 변경이 불가능하기 때문에 재할당 시 새로운 메모리 공간을 차지하는 것이다. 즉 score의 80과 copy의 80은 다른 메모리 공간에 저장된 다른 값이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">socre = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">//100</span></span><br><span class="line"><span class="built_in">console</span>.log(copy); <span class="comment">//80</span></span><br></pre></td></tr></table></figure>
+<p>score에 새로운 숫자 값 100을 재할당하면 100이라는 값을 가진 변수 score가 새로운 메모리 공간에 저장된다. 따라서 score의 값을 변경했다고 하여 copy도 변경되는 것이 아니라 score의 값만 변경된다.</p>
+<p><code>참조에 의한 전달</code><br>객체는 변경 가능한 값이기 때문에 변수에 객체를 할당하면 생성된 객체는 <code>참조값</code>을 가진다. 이 참조값은 변수에 생성된 객체가 실제로 저장된 메모리 공간의 주소를 말한다. 따라서 변수 참조 시 원시 값에 바로 접근하는 원시값과 달리 객체는 메모리에 저장되어 있는 값을 참조하여 실제 객체에 접근한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"lee"</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>person이라는 식별자가 붙은 공간에 참조값이 생성되고, 이 참조값은 객체를 가리키고 있다. 따라서 <code>console.log(person);</code>라고 하면 참조값이 객체에 접근하여 <code>{name:&#39;lee&#39;}</code>를 반환한다. 재할당이 이루어지지 않는다면 객체에 동적으로 값을 추가하여도 참조값은 여전히 동일하며 객체에만 값이 추가된다.</p>
+<p>그런데 만약 참조 값을 복사한다면 어떻게 될까?</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"lee"</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> copy = person;</span><br></pre></td></tr></table></figure>
+<p>위와 같이 person을 다른 변수 copy에 할당하면 객체이기 때문에 원본 값이 아닌 원본의 참조 값이 복사되어 전달된다. 새롭게 생성된 변수 copy는 copy라는 식별자가 붙은 새로운 참조값(메모리 주소가 다르다.)을 가지고 있지만 동일한 객체 <code>{name:&#39;lee&#39;}</code>를 가리키고 있다. 따라서 어느 한쪽이 값을 변경하면 서로에게 영향이 생긴다.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/25/200226_scope_ex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/25/200226_scope_ex/" class="post-title-link" itemprop="url">스코프 실습</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-26 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-26T00:00:00+09:00">2020-02-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="다음과-같은-중첩함수가-있을-때-console-log에는-어떤-값이-출력될까"><a href="#다음과-같은-중첩함수가-있을-때-console-log에는-어떤-값이-출력될까" class="headerlink" title="다음과 같은 중첩함수가 있을 때, console.log에는 어떤 값이 출력될까?"></a>다음과 같은 중첩함수가 있을 때, console.log에는 어떤 값이 출력될까?</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">outer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> x = <span class="number">3</span>;</span><br><span class="line">  <span class="comment">// 중첩 함수</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">inner</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> y = <span class="number">2</span>;</span><br><span class="line">    <span class="comment">// 외부 함수의 변수를 참조할 수 있다.</span></span><br><span class="line">    <span class="built_in">console</span>.log(x + y);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> inner;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> content = outer();</span><br><span class="line">content();</span><br></pre></td></tr></table></figure>
+<p>outer 함수는 변수 content의 이름으로 할당되었는데, 이 함수가 반환하는 값은 <code>let x = 3</code>이 아니라 inner이다. outer 내부의 inner 함수가 return값으로 설정되어 있기 때문이다. 따라서 inner 함수내부에서 실행한 <code>x+y의 값인 5</code>가 콘솔에 출력된다.</p>
+<p><em>그런데 의아한 부분이 있다.</em></p>
+<p>inner 함수 내부에는 <code>let y = 2</code>의 y값만 할당되어 있고, x값은 할당되어 있지 않다. 그런데 어떻게 두 값이 x+y로 연산되어 출력된 것일까?</p>
+<p>가장 먼저 생성된 outer 함수가 호출되면 이 함수는 stack의 가장 아래에 쌓인다. (stack 가장 마지막에 들어온 것이 가장 먼저 나가는 구조이다.)<br>그 다음 inner 함수를 호출하면 이 함수는 outer의 위에 쌓인다. 그런데 변수 content에 outer 함수를 호출했을 때 반환하는 값은 inner 함수이다. 결국 content = inner 함수가 되는 셈이다.</p>
+<p>그래서 실행 컨텍스트에 따라 inner함수를 살펴본다. inner 함수 내부에는 콘솔에 x+y의 값이 찍히도록 되어 있지만 y의 값만 존재한다. 그럼 이 함수는 바로 상위로 향하여 x값이 존재하는지를 살펴본다. 만약 존재한다면 그 값을 참조하여 x + y의 값을 출력한다. 하지만 만약 여기서도 x값이 존재하지 않는다면 그보다 상위 개념에 x값이 존재하는지를 살펴보았을 것이다. 이처럼 자바스크립트의 스코프는 함수의 중첩에 따라 계층적 구조를 가지기 때문에 하위 스코프인 inner 함수에 필요로 하는 식별자가 없다면 그보다 상위 스코프이자 outer environment인 outer 함수에 식별자가 있는지 확인하고 있다면 그 값을 참조한다.</p>
+<p>그리고 모든 스코프의 가장 최상위에는 전역 스코프가 존재한다.</p>
+<h2 id="그렇다면-전역-스코프에-변수가-할당되어-있다면-어떻게-될까"><a href="#그렇다면-전역-스코프에-변수가-할당되어-있다면-어떻게-될까" class="headerlink" title="그렇다면, 전역 스코프에 변수가 할당되어 있다면 어떻게 될까?"></a>그렇다면, 전역 스코프에 변수가 할당되어 있다면 어떻게 될까?</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">outer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> x = <span class="number">3</span>;</span><br><span class="line">  <span class="comment">// 중첩 함수</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">inner</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> y = <span class="number">2</span>;</span><br><span class="line">    <span class="comment">// 외부 함수의 변수를 참조할 수 있다.</span></span><br><span class="line">    <span class="built_in">console</span>.log(x + y);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> inner;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> content = outer();</span><br><span class="line">content();</span><br></pre></td></tr></table></figure>
+<p>outer 함수의 상위인 전역 스코프에 <code>let x = 1</code>이라는 값이 할당되어 있다. 이때 x+y의 값은 콘솔에 어떻게 출력될까? stack의 구조와 상위 구조로 가면서 변수 식별자를 찾는 것에 따라 x + y의 값은 이제 1 + 3을 한 4라는 값이 찍힐까?</p>
+<p>이 경우에는 함수가 한 번 호출되어 실행 컨텍스트를 한 번 돌아서 종료되면 stack에 저장되어 있는 값은 사라진다는 개념을 알아야한다. (해제된다는 개념이 더 정확할 것이다.) 만약 <code>let x = 1;</code>이 전역 스코프로 작성되고, outer 함수 내부에는 변수 x에 대한 할당이 따로 없었다면 3이라는 결과가 출력되었을 것이다.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/25/200225_function/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -733,7 +929,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -866,80 +1062,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/25/200226_scope_ex/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/25/200226_scope_ex/" class="post-title-link" itemprop="url">스코프 실습</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-26 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-26T00:00:00+09:00">2020-02-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="다음과-같은-중첩함수가-있을-때-console-log에는-어떤-값이-출력될까"><a href="#다음과-같은-중첩함수가-있을-때-console-log에는-어떤-값이-출력될까" class="headerlink" title="다음과 같은 중첩함수가 있을 때, console.log에는 어떤 값이 출력될까?"></a>다음과 같은 중첩함수가 있을 때, console.log에는 어떤 값이 출력될까?</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">outer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> x = <span class="number">3</span>;</span><br><span class="line">  <span class="comment">// 중첩 함수</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">inner</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> y = <span class="number">2</span>;</span><br><span class="line">    <span class="comment">// 외부 함수의 변수를 참조할 수 있다.</span></span><br><span class="line">    <span class="built_in">console</span>.log(x + y);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> inner;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> content = outer();</span><br><span class="line">content();</span><br></pre></td></tr></table></figure>
-<p>outer 함수는 변수 content의 이름으로 할당되었는데, 이 함수가 반환하는 값은 <code>let x = 3</code>이 아니라 inner이다. outer 내부의 inner 함수가 return값으로 설정되어 있기 때문이다. 따라서 inner 함수내부에서 실행한 <code>x+y의 값인 5</code>가 콘솔에 출력된다.</p>
-<p><em>그런데 의아한 부분이 있다.</em></p>
-<p>inner 함수 내부에는 <code>let y = 2</code>의 y값만 할당되어 있고, x값은 할당되어 있지 않다. 그런데 어떻게 두 값이 x+y로 연산되어 출력된 것일까?</p>
-<p>가장 먼저 생성된 outer 함수가 호출되면 이 함수는 stack의 가장 아래에 쌓인다. (stack 가장 마지막에 들어온 것이 가장 먼저 나가는 구조이다.)<br>그 다음 inner 함수를 호출하면 이 함수는 outer의 위에 쌓인다. 그런데 변수 content에 outer 함수를 호출했을 때 반환하는 값은 inner 함수이다. 결국 content = inner 함수가 되는 셈이다.</p>
-<p>그래서 실행 컨텍스트에 따라 inner함수를 살펴본다. inner 함수 내부에는 콘솔에 x+y의 값이 찍히도록 되어 있지만 y의 값만 존재한다. 그럼 이 함수는 바로 상위로 향하여 x값이 존재하는지를 살펴본다. 만약 존재한다면 그 값을 참조하여 x + y의 값을 출력한다. 하지만 만약 여기서도 x값이 존재하지 않는다면 그보다 상위 개념에 x값이 존재하는지를 살펴보았을 것이다. 이처럼 자바스크립트의 스코프는 함수의 중첩에 따라 계층적 구조를 가지기 때문에 하위 스코프인 inner 함수에 필요로 하는 식별자가 없다면 그보다 상위 스코프이자 outer environment인 outer 함수에 식별자가 있는지 확인하고 있다면 그 값을 참조한다.</p>
-<p>그리고 모든 스코프의 가장 최상위에는 전역 스코프가 존재한다.</p>
-<h2 id="그렇다면-전역-스코프에-변수가-할당되어-있다면-어떻게-될까"><a href="#그렇다면-전역-스코프에-변수가-할당되어-있다면-어떻게-될까" class="headerlink" title="그렇다면, 전역 스코프에 변수가 할당되어 있다면 어떻게 될까?"></a>그렇다면, 전역 스코프에 변수가 할당되어 있다면 어떻게 될까?</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">outer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> x = <span class="number">3</span>;</span><br><span class="line">  <span class="comment">// 중첩 함수</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">inner</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> y = <span class="number">2</span>;</span><br><span class="line">    <span class="comment">// 외부 함수의 변수를 참조할 수 있다.</span></span><br><span class="line">    <span class="built_in">console</span>.log(x + y);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> inner;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> content = outer();</span><br><span class="line">content();</span><br></pre></td></tr></table></figure>
-<p>outer 함수의 상위인 전역 스코프에 <code>let x = 1</code>이라는 값이 할당되어 있다. 이때 x+y의 값은 콘솔에 어떻게 출력될까? stack의 구조와 상위 구조로 가면서 변수 식별자를 찾는 것에 따라 x + y의 값은 이제 1 + 3을 한 4라는 값이 찍힐까?</p>
-<p>이 경우에는 함수가 한 번 호출되어 실행 컨텍스트를 한 번 돌아서 종료되면 stack에 저장되어 있는 값은 사라진다는 개념을 알아야한다. (해제된다는 개념이 더 정확할 것이다.) 만약 <code>let x = 1;</code>이 전역 스코프로 작성되고, outer 함수 내부에는 변수 x에 대한 할당이 따로 없었다면 3이라는 결과가 출력되었을 것이다.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/25/200225_scope/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -971,7 +1093,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -1093,7 +1215,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -1121,75 +1243,6 @@
 <h2 id="if문과-삼항연산자"><a href="#if문과-삼항연산자" class="headerlink" title="if문과 삼항연산자"></a>if문과 삼항연산자</h2><p><code>if문</code>: 참/거짓을 판단하여 주어진 조건식의 평가 결과에 따라 코드블록 실행</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식<span class="number">1</span>) &#123;</span><br><span class="line">  <span class="comment">//조건식이 참일 때 실행</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (조건식<span class="number">2</span>) &#123;</span><br><span class="line">  <span class="comment">//조건식이 참일 때 실행 &#123;</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">//조건식1/2가 모두 거짓일 때 실행</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//else if는 여러 번 사용가능.</span></span><br></pre></td></tr></table></figure>
 <p><code>삼항조건연산자</code>: 참/거짓을 판단하여 조건식의 결과에 따른 값을 반환하므로 if문을 대체하여 사용가능<br>조건식 ? 조건식이 참일 때 반환할 값 : 조건식이 거짓일 때 반환할 값</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/0224_rubberduck/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/23/0224_rubberduck/" class="post-title-link" itemprop="url">200224 러버덕 정리</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-24T00:00:00+09:00">2020-02-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="리터럴"><a href="#리터럴" class="headerlink" title="리터럴"></a>리터럴</h2><p>값을 생성하는 가장 간단한 방법<br>사람이 이해할 수 있는 문자로 값을 생성<br>런타임 때 값을 평가하여 생성함</p>
-<h2 id="표현식인-문과-표현식이-아닌-문"><a href="#표현식인-문과-표현식이-아닌-문" class="headerlink" title="표현식인 문과 표현식이 아닌 문"></a>표현식인 문과 표현식이 아닌 문</h2><p>값: 표현식이 평가되어 생성된 결과<br>표현식: 값으로 평가될 수 있는 문<br>문: 컴퓨터에 내리는 명령. 선언문, 할당문, 조건 문 등<br>표현식인 문: 변수에 할당할 수 있는 문으로 값을 생성한다.<br>표현식이 아닌 문: 변수에 할당할 수 없다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//example</span></span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">-&gt;<span class="literal">undefined</span></span><br><span class="line"><span class="comment">//변수 선언문은 표현식이 아닌 문이기 때문에</span></span><br><span class="line"><span class="comment">//평가할 수 없어서 완료된 평가값이 나올 자리에</span></span><br><span class="line"><span class="comment">//평가값 대신 undefined가 출력된다.</span></span><br><span class="line"><span class="comment">//undefined는 평가된 값이 아닌 완료값이다.</span></span><br><span class="line"> a = <span class="number">1</span>;</span><br><span class="line">-&gt;<span class="number">2</span></span><br><span class="line"><span class="comment">//변수 할당문은 표현식인 문이기 때문에 평가된 값 2가 출력된다.</span></span><br></pre></td></tr></table></figure>
-<h2 id="데이터-타입"><a href="#데이터-타입" class="headerlink" title="데이터 타입"></a>데이터 타입</h2><p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
-<p>원시타입은 변경불가하고, 객체는 변경가능하다.</p>
 
       
     </div>
@@ -1275,7 +1328,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-count">110</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

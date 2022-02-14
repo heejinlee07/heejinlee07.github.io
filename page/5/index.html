@@ -144,6 +144,336 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/05/18/210519_typeConversion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/18/210519_typeConversion/" class="post-title-link" itemprop="url">자료형 변환, 연산자</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-05-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-19T00:00:00+09:00">2021-05-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="묵시적-변환"><a href="#묵시적-변환" class="headerlink" title="묵시적 변환"></a>묵시적 변환</h2><ul>
+<li>기본 자료형 간의 변환을 컴파일러가 알아서 해준다.(모든 기본 자료형 간의 변환이 가능한 것은 아니다.)</li>
+<li>int/long -&gt; float 또는 long -&gt; double로 변환할 때는 손실이 있을 수 있다. (정밀도의 문제가 있다.)</li>
+</ul>
+<h2 id="승격-promotion"><a href="#승격-promotion" class="headerlink" title="승격(promotion)"></a>승격(promotion)</h2><p>변환과 승격은 엄밀히 따지면 다른 것이지만 프로그래머가 프로그램을 짤 때 이 둘을 구분하는 것은 그렇게 중요하지 않다. <strong>중요한 것은 어떤 것에서 어떤 것으로 변환이 되는지, 변환 시 문제가 있는지, 변환 시 2진수 표현이 바뀌는지 아닌지 등의 여부를 아는 것이 중요하다.</strong></p>
+<ul>
+<li>컴파일러가 자동으로 실수형이나 부동소수형 자료의 이진 표현을 확장한다.</li>
+<li>산술 연산자 또는 논리 연산자가 제대로 동작하게 하거나 ALU(산술논리장치)가 더 효율적으로 돌 수 있게 하려고 사용한다.</li>
+<li>예를 들어 int와 double을 더했을 때 정수+실수의 조건인데, double로 해야 소수점 표현이 가능하니까 두 가지의 합은 double로 출력된다.</li>
+<li>작은 형에서 큰 형으로 정수를 변환할 때 문제가 있는가? 없다.</li>
+<li>큰 형에서 작은 형으로 변환할 때 문제가 있는가?<ul>
+<li>값이 충분히 작으면 문제가 없지만 실행 중에 예상했던 값이 아닌 다른 값이 들어갈 수 있고, 만약 실행 중에 값이 바껴서 값이 충분히 작지 않다면 컴파일 에러가 날 수 있다.</li>
+<li>위에서 말한 것처럼 런타임 중에 값이 어떨게 될지 모른다는 상황을 <code>정보의 손실</code>이라 한다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="명시적-변환"><a href="#명시적-변환" class="headerlink" title="명시적 변환"></a>명시적 변환</h2><p>승격이나 묵시적 변환과 같은 변환 시 발생하는 컴파일 에러같은 문제를 해결하려면 <code>명시적 형변환</code>을 사용하면 된다.</p>
+<ul>
+<li>명시적 형변환은 소괄호<code>()</code>를 사용하여 변환하고자 하는 자료형을 보여준다.</li>
+<li>명시적 형변환은 프로그래머의 의도를 보여준다는 점에서 중요하다.</li>
+<li>e.g. num1, num2는 double로 정의되어 있는데 정수형으로 명시적 형변환을 한다. -&gt; int result = (int)num1 + (int)num2;</li>
+<li>위의 예시와 같은 형변환시 <em>소수점은 무조건 내림이다.</em></li>
+<li>모든 자료형이 변환되는 것은 아니다.</li>
+</ul>
+<hr>
+<h2 id="연산자"><a href="#연산자" class="headerlink" title="연산자"></a>연산자</h2><ul>
+<li>+ 연산자: 두 피연산자를 더하기</li>
+<li>- 연산자: 두 피연산자를 빼기<ul>
+<li>연산의 결과가 음수일 경우 조심해야 한다.</li>
+<li>부호 없는 피연산자끼리 빼서 음수가 나오면 예상치 못한 값이 나올 수 있으니 조심해야 한다. (e.g. 언더플로우)</li>
+</ul>
+</li>
+<li>* 연산자: 두 피연산자를 곱하기, <code>*</code>사용.</li>
+<li>\/ 연산자: 두 피연산자를 나누기, <code>/</code>사용<ul>
+<li>정수형의 피연산자는 결과가 제대로 나오지 않을 수 있다.<br>-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int number1 &#x3D; 10;</span><br><span class="line">int number2 &#x3D; 30;</span><br><span class="line">int result1 &#x3D; number1 &#x2F; number2; &#x2F;&#x2F;0</span><br><span class="line">double result2 &#x3D; number1 &#x2F; number2; &#x2F;&#x2F;0</span><br></pre></td></tr></table></figure></li>
+<li>위의 예시에서 <code>number1 / number2</code>는 0.3333…의 결과가 나오는데, int형으로 나타내면 소수점 아래는 모두 버리기 때문에 결과가 0이 된다. 그런데 이 결과는 <code>double</code>에 담으면 0.333…이 결과가 될 것 이라고 생각하지만 이 역시도 결과가 0이다. 그 이유는 <code>number1 / number2</code>를 모두 int라고 생각해서 이 연산 결과 자체를 int로 처리한다. 그래서 int 0을 double에 대입한 셈이 되기 때문에 결과는 0이 된다.</li>
+<li>만약 result2처럼 원치 않는 결과를 얻기 싫으면 <code>명시적 형변환</code>이 필요하다. e.g. double result3 = (double)number1 / (double)number2; 와 같이 명시적 형변환을 해주면 원래 예상했던 값인 0.333…을 얻을 수 있다.</li>
+</ul>
+</li>
+<li>\% 연산자: 나눗셈의 나머지를 구한다. (/연산자는 나눗셈의 몫을 구한다.)</li>
+</ul>
+<h2 id="증가-감소-연산자"><a href="#증가-감소-연산자" class="headerlink" title="증가/감소 연산자"></a>증가/감소 연산자</h2><h3 id="연산자-1"><a href="#연산자-1" class="headerlink" title="++ 연산자"></a>++ 연산자</h3><ul>
+<li>피연산자 하나의 값을 1증가</li>
+<li>연산기호를 변수의 앞이나 뒤에 붙일 수 있다.</li>
+<li>num++ 또는 ++num으로 사용.</li>
+<li><code>++</code>이 어디 위치하느냐에 따라 값이 달라진다. <strong>대입과 증가하는 순서가 다르다.</strong></li>
+<li><p>전위 증가 연산자는 증가 후 대입이 이루어지고, 후위 증가 연산자는 대입 후 증가가 이루어진다.</p>
+<p>| 전위 증가 연산자 | 후위 증가 연산자 |<br>| ———————— | ———————— |<br>| int num = 10;    | int num = 10;    |<br>| ++num; <code>//11</code>    | num++; <code>//10</code>    |<br>| num; <code>//11</code>      | num; <code>//11</code>      |</p>
+</li>
+</ul>
+<h3 id="—연산자"><a href="#—연산자" class="headerlink" title="—연산자"></a>—연산자</h3><ul>
+<li>피연산자의 값을 1감소</li>
+</ul>
+<h3 id="또는-—-연산자를-부동소수점형에-쓴다면-어떻게-될까"><a href="#또는-—-연산자를-부동소수점형에-쓴다면-어떻게-될까" class="headerlink" title="++ 또는 — 연산자를 부동소수점형에 쓴다면 어떻게 될까?"></a>++ 또는 — 연산자를 부동소수점형에 쓴다면 어떻게 될까?</h3><p>부동소수점형도 증감연산자를 사용할 수 있는데, 예상한 결과를 얻지 못할 수 있으므로 추천되지 않는다. 예를 들어 3.14라는 값을 1증가시켜 4.13로 만들기 위해서 ++연산자를 사용했다고 하면, 기대하던 값과 달리 3.24 또는 3.15와 같은 값이 나올 수 있다. 따라서 웬만하면 <code>증감연산자는 정수형(char, int, long)에 사용하는 것이 좋다.</code></p>
+<hr>
+<h2 id="진법"><a href="#진법" class="headerlink" title="진법"></a>진법</h2><ul>
+<li>10진법: 0~9<br>e.g. 1024 = 1 * 10<sup>3</sup> + 0 * 10<sup>2</sup> + 2 * 10<sup>1</sup> + 4 *10<sup>0</sup></li>
+<li>2진법: 0,1<br>e.g. 1101 = 1 * 2<sup>3</sup> + 1 * 2<sup>2</sup> + 0 * 2<sup>1</sup> + 1 * 2<sup>0</sup></li>
+<li>8진법: 0~7<br>e.g. 1703 = 1 * 8<sup>3</sup> + 7 * 8<sup>2</sup> + 0 * 8<sup>1</sup> + 3 * 8<sup>0</sup></li>
+<li>16진법: 0~9, a~f<ul>
+<li>0~9 다음 a~f는 10~15이다.<br>e.g. 1a2 = 1 * 16<sup>2</sup> + 10 * 16<sup>1</sup> + 4</li>
+</ul>
+</li>
+</ul>
+<h2 id="진법-변환"><a href="#진법-변환" class="headerlink" title="진법 변환"></a>진법 변환</h2><p>바꾸고자 하는 진법의 수를 몫이 0이 될때까지 나눈다. 몫이 0이 된 수의 나머지부터 차례대로 숫자로 표기한다.<br>e.g. 십진수 3을 2진수로 바꾸고 싶으면, 3을 바꾸고자 2로 나눈다. 10을 2진수로 표기하면 11이다.</p>
+<p><strong>어떤 숫자를 각 진법별로 나타내고 싶을 때는 8진수로 먼저 변환한 후 2진수나 16진수로 바꾸는 것이 가장 빠르게 변환하는 방법이다.</strong></p>
+<p>비트가 상태를 나타내는데 비트가 1개만 있을 때는 2<sup>1</sup>이고, 2가지 상태를 나타낼 수 있다.<br>8진수 단위 숫자 하나로 0~7까지 8가지를 표현할 수 있고, 2진수 단위 숫자가 3개가 필요하다.(2<sup>3</sup> = 8)<br>2진수에서 4개의 단위 숫자는 16진수 한 개의 단위 숫자로 표현할 수 있다.</p>
+<ul>
+<li>2<sup>1</sup> = 2</li>
+<li>2<sup>2</sup> = 4</li>
+<li>2<sup>3</sup> = 8</li>
+<li>2<sup>4</sup> = 16</li>
+</ul>
+<p>e.g. 277<sub>8</sub> -&gt; 010111111<sub>2</sub> -&gt; fb<sub>16</sub></p>
+<h2 id="비트-연산자"><a href="#비트-연산자" class="headerlink" title="비트 연산자"></a>비트 연산자</h2><blockquote>
+<p>이진수 피연산자를 비트 단위로 연산할 때 사용<br>&amp;(and), |(or), ^(xor), ~(not)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int op1 &#x3D; 12; &#x2F;&#x2F; 0000 0000 0000 0000 0000 0000 0000 1100</span><br><span class="line">int op2 &#x3D; 9; &#x2F;&#x2F; 0000 0000 0000 0000 0000 0000 0000 1001</span><br><span class="line"></span><br><span class="line">int andResult &#x3D; op1 &amp; op2; &#x2F;&#x2F;8(0000 ... 1000)</span><br><span class="line">int orResult &#x3D; op1 | op2; &#x2F;&#x2F;13(0000 ... 1101)</span><br><span class="line">int xorResult &#x3D; op1 ^ op2; &#x2F;&#x2F;5(0000 ... 1101)</span><br><span class="line">int notResult &#x3D; ~op1; &#x2F;&#x2F; -13(1111 ... 0011)</span><br></pre></td></tr></table></figure>
+<h3 id="amp-and"><a href="#amp-and" class="headerlink" title="&amp;(and)"></a>&amp;(and)</h3><p>숫자끼리 비교할 때 둘 중 하나라도 0이 있으면 최종 결과는 0이 된다. 둘 다 1일 경우는 1이 된다.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>op1</th>
+<th>1</th>
+<th>1</th>
+<th>0</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>op2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>AND</code></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="or"><a href="#or" class="headerlink" title="|(or)"></a>|(or)</h3><p>숫자끼리 비교할 때 둘 중 하나라도 1이 있으면 최종 결과는 1이 된다. 둘 다 0일 경우는 0이 된다.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>op1</th>
+<th>1</th>
+<th>1</th>
+<th>0</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>op2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>OR</code></td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="xor"><a href="#xor" class="headerlink" title="^(xor)"></a>^(xor)</h3><p>숫자끼리 비교할 때 두 숫자가 같을 경우는 0이 되고, 다를 경우 1이 된다.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>op1</th>
+<th>1</th>
+<th>1</th>
+<th>0</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>op2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>XOR</code></td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="not"><a href="#not" class="headerlink" title="~(not)"></a>~(not)</h3><p>해당하는 숫자를 뒤집는다. 1이면 0, 0이면 1이 된다.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>op1</th>
+<th>0</th>
+<th>1</th>
+<th>1</th>
+<th>0</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NOT</code></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="비트-이동-연산자"><a href="#비트-이동-연산자" class="headerlink" title="비트 이동 연산자"></a>비트 이동 연산자</h2><blockquote>
+<p>비트를 왼쪽 혹은 오른쪽으로 움직이는 연산자들<br>우항으로 부동소수점 수는 사용 불가 (e.g. int result = result1 &lt;&lt; 2.5f;)</p>
+</blockquote>
+<p><code>&lt;&lt;(left-shift)</code>: 왼쪽으로 n칸씩 이동한다. 이동하고 나서 남는 숫자는 버리고, <strong>빈 칸은 0으로 채운다.</strong> (자릿수를 이동할 때마다 2씩 곱해짐 e.g.int op1 = 12; -&gt; op1 &lt;&lt; 1;(24) -&gt; op1 &lt;&lt; 2;(48))<br><code>&gt;&gt;(right-shift)</code>: 오른쪽으로 n칸씩 이동한다. 이동하고 나서 남는 숫자는 버리고, <strong>앞 비트는 0으로 채운다.</strong> (자릿수를 이동할 때마다 2씩 나눠짐)</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>op1</th>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+<th>1</th>
+<th>1</th>
+<th>0</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>op1 &lt;&lt; 1</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>op1 &lt;&lt; 2</code></td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>op1 &gt;&gt; 3</code></td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>op1 &gt;&gt; 4</code></td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int op1 &#x3D; 12; &#x2F;&#x2F;0000 ... 0000 1100</span><br><span class="line"></span><br><span class="line">int leftShiftResult1 &#x3D; op1 &lt;&lt; 1; &#x2F;&#x2F;24 (0000 ... 0001 1000)</span><br><span class="line">int leftShiftResult2 &#x3D; op1 &lt;&lt; 2; &#x2F;&#x2F; 48 (0000 ... 0011 0000)</span><br><span class="line"></span><br><span class="line">int rightShiftResult1 &#x3D; op1 &gt;&gt; 3; &#x2F;&#x2F;1 (0000 ... 0000 0001)</span><br><span class="line">int rightShiftResult2 &#x3D; op1 &gt;&gt; 4; &#x2F;&#x2F;0 (0000 ... 0000 0000)</span><br></pre></td></tr></table></figure>
+<h2 id="대입-연산자"><a href="#대입-연산자" class="headerlink" title="대입 연산자"></a>대입 연산자</h2><p>좌항에 우항의 값을 저장한다. 기호는 <code>=</code>. <strong>수학의 대입처럼 같다는 의미로 사용되는 것이 아니다.</strong></p>
+<h3 id="산술-연산자-비트-연산자와-조합"><a href="#산술-연산자-비트-연산자와-조합" class="headerlink" title="산술 연산자/비트 연산자와 조합"></a>산술 연산자/비트 연산자와 조합</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int num1 &#x3D; 10;</span><br><span class="line"></span><br><span class="line">num1 &#x2F;&#x3D; 2; &#x2F;&#x2F; num1 &#x3D; num1 &#x2F; 2; 와 깉음.</span><br><span class="line">num1 +&#x3D; 14; &#x2F;&#x2F; num1 &#x3D; num1 + 2; 와 깉음.</span><br><span class="line">num1 *&#x3D; 2; &#x2F;&#x2F; num1 &#x3D; num1 * 2; 와 깉음.</span><br><span class="line">num1 -&#x3D; 20; &#x2F;&#x2F; num1 &#x3D; num1 - 2; 와 깉음.</span><br><span class="line"></span><br><span class="line">num1 &lt;&lt;&#x3D;2; &#x2F;&#x2F; num1 &#x3D; num1 &lt;&lt; 2; 와 같음.</span><br><span class="line">num1 &gt;&gt;&#x3D;3; &#x2F;&#x2F; num1 &#x3D; num1 &gt;&gt; 3; 와 같음.</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/05/13/210514_variableTypes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +505,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -525,7 +855,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -695,7 +1025,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -872,7 +1202,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -988,7 +1318,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -1113,7 +1443,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -1270,7 +1600,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -1341,7 +1671,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -1547,7 +1877,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -1638,110 +1968,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/08/27/200828_stateHook/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/27/200828_stateHook/" class="post-title-link" itemprop="url">State Hook이란?</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-08-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-28T00:00:00+09:00">2020-08-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h2><p>React state를 함수 컴포넌트 안에서 사용할 수 있게 해주는 함수.</p>
-<blockquote>
-<p>const [state, setState] = useState(initialState); -&gt; 상태 유지값과 그 값을 갱신하는 함수 반환<br>첫 번째 렌더링: state(state) = initialState의 값 -&gt; <u>initialState는 첫 번째 렌더링에만 사용되고, 그 이후로 무시된다.</u><br>setState(newState); -&gt; state를 갱신할 때 사용 -&gt; 새 state의 값을 받아서 리렌더링 큐에 등록<br>두 번째 렌더링(리렌더링): setState()로 갱신된 state 값</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//class에서 state의 사용</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      count: <span class="number">0</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//함수 컴포넌트에서 state의 사용</span></span><br><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//함수 컴포넌트는 this를 가질 수 없으므로 useState hook을 직접 호춡</span></span><br><span class="line">  <span class="comment">// 새로운 state 변수를 선언하고, 이것을 count라 부른다.</span></span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>useState(): useState의 호출은 <code>state 변수 선언</code>을 의미. 함수가 종료되면 사라지는 일반 변수와 달리 React에 의해 사라지지 않는 특징이 있다. (class 컴포넌트의 this.state와 동일한 기능)</li>
-<li>useState(인자):<ul>
-<li>class 컴포넌트: <code>&lt;button onClick={() =&gt; this.setState({ count: this.state.count + 1 })}&gt;</code> 이와 같이 <code>객체</code>로 인자를 넘겨주어야했다. 그러나 함수 컴포넌트에서는 객체 뿐 아니라 숫자, 문자도 넘겨줄 수 있다.</li>
-<li>함수형 컴포넌트: <code>state의 초기값</code>. <strong>첫 번째 렌더링 시 딱 한 번만 사용된다.</strong> <em>다음 렌더링을 하는 동안 useState는 현재 state를 준다.</em></li>
-</ul>
-</li>
-<li><strong>useState의 반환값: state 변수, 해당 변수를 갱신할 수 있는 함수의 두 가지 쌍.</strong></li>
-<li>state 가져오기<ul>
-<li>class 컴포넌트: this.state.count로 state를 가져온다.</li>
-<li>함수형 컴포넌트: count를 직접 사용한다.</li>
-</ul>
-</li>
-<li>state 갱신<ul>
-<li>class 컴포넌트: this.setState() 호출.</li>
-<li>함수형 컴포넌트: this 호출이 필요 없음.</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//class 컴포넌트</span></span><br><span class="line">&lt;button onClick=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123; <span class="attr">count</span>: <span class="keyword">this</span>.state.count + <span class="number">1</span> &#125;)&#125;&gt;</span><br><span class="line">    Click me</span><br><span class="line">&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/함수형 컴포넌트</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/이미 setCount, count 변수를 가지고 있다.</span></span><br><span class="line"><span class="regexp">&lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;</span></span><br><span class="line"><span class="regexp">    Click me</span></span><br><span class="line"><span class="regexp">&lt;/</span>button&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="useState의-변수-선언"><a href="#useState의-변수-선언" class="headerlink" title="useState의 변수 선언"></a>useState의 변수 선언</h2><blockquote>
-<p>const [count, setCount] = useState(0);</p>
-</blockquote>
-<p>배열 디스트럭처링을 이용하여 <code>state 변수, 해당 변수를 갱신할 수 있는 함수</code>로 구성된 두 가지 쌍을 가진 <code>배열</code>을 반환하도록 정의한다. 이 배열의 첫번째 요소는 초기값, 두 번째 요소는 초기값으로 설정된 변수를 갱신해주는 함수이다. 아래와 같은 구조로 fake useState함수를 구성해보고, useState 함수에 인자 0을 전달하여 <code>useState(0)</code>와 같이 호출하면 [0,ƒ]의 값이 반환된다. 각각을 살펴보면, 배열의 첫번 째 요소인 <code>0</code>은 초기값이고, 두 번째 요소인 <code>ƒ</code>는 첫 번째 요소에 전달된 초기값을 전달받아서 새로운 값으로 갱신해 주는 함수이다. 이와 같은 useState hook은 컴포넌트 내에서 여러 개 선언할 수 있고, 개별적으로 갱신할 수 있다. 단, 렌더링 될 때 useState가 사용된 순서대로 실행된다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useState</span>(<span class="params">initialValue</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> value = initialValue;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> setValue = <span class="function">(<span class="params">newValue</span>) =&gt;</span> &#123;</span><br><span class="line">    value = newValue;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> [value, setValue];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">useState(<span class="number">0</span>);</span><br><span class="line"><span class="comment">// [0,ƒ]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> result = useState(<span class="number">0</span>);</span><br><span class="line">result[<span class="number">0</span>]; <span class="comment">//0</span></span><br><span class="line">result[<span class="number">1</span>];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">(newValue) =&gt; &#123;</span></span><br><span class="line"><span class="comment">        value = newValue</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="Functional-updates"><a href="#Functional-updates" class="headerlink" title="Functional updates"></a>Functional updates</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params">&#123; initialCount &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(initialCount);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      Count: &#123;count&#125;</span><br><span class="line">      <span class="comment">//1️⃣</span></span><br><span class="line">      &lt;button onClick=&#123;() =&gt; setCount(initialCount)&#125;&gt;Reset&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">      /</span><span class="regexp">/2️⃣</span></span><br><span class="line"><span class="regexp">      &lt;button onClick=&#123;() =&gt; setCount((prevCount) =&gt; prevCount - 1)&#125;&gt;-&lt;/</span>button&gt;</span><br><span class="line">      <span class="comment">//3️⃣</span></span><br><span class="line">      &lt;button onClick=&#123;() =&gt; setCount(<span class="function">(<span class="params">prevCount</span>) =&gt;</span> prevCount + <span class="number">1</span>)&#125;&gt;+&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>1️⃣Reset count: 클릭했을 때 0으로 설정되어야 하므로 <code>setCount(newValue)</code>의 일반적인 형식 사용</li>
-<li>2️⃣/3️⃣: <code>setCount(newValue)</code>를 했을 때 newValue는 갱신되기 이전의 값을 바탕으로 - 또는 + 되어야 함. 즉 <code>setCount((갱신되기 이전 값) =&gt; 갱신되기 이전 값 -1 또는 +1 )</code>와 같이 함수로 갱신되기 이전 값을 넘겨준 후 그 값에서 - 또는 +를 하여 newValue로 갱신한다. 이때 만약 이와 같은 함수가 이전 값을 받아서 +나 -를 수행했는데도 현재의 값과 동일한 값을 반환한다면 리렌더링이 이루어지지 않는다.</li>
-<li>class의 setState는 자동으로 객체를 합쳐서 갱신하는데, useState는 그렇지 않다. 대신 스프레드 문법을 사용<code>(e.g. return {...prevState, ...updatedValues};)</code>하여 class와 같은 동작을 수행할 수 있다.</li>
-</ul>
-<hr>
-<p><em>References</em><br><a href="https://ko.reactjs.org/docs/hooks-intro.html" target="_blank" rel="noopener">Hook 소개</a><br><a href="https://ko.reactjs.org/docs/hooks-overview.html" target="_blank" rel="noopener">Hook 개요</a><br><a href="https://ko.reactjs.org/docs/hooks-state.html" target="_blank" rel="noopener">Using the State Hook</a><br><a href="https://ko.reactjs.org/docs/hooks-reference.html" target="_blank" rel="noopener">Hook API 참고서</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1812,7 +2038,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-count">110</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

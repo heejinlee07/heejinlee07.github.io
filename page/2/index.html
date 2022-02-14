@@ -144,6 +144,114 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/09/24/210925_nextjsTypescript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/24/210925_nextjsTypescript/" class="post-title-link" itemprop="url">Next.js와 TypeScript 원문 번역</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-25 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-25T00:00:00+09:00">2021-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>원문링크: <a href="https://nextjs.org/docs/basic-features/typescript#incremental-type-checking" target="_blank" rel="noopener">https://nextjs.org/docs/basic-features/typescript#incremental-type-checking</a></p>
+</blockquote>
+<h2 id="create-next-app-support"><a href="#create-next-app-support" class="headerlink" title="create-next-app support"></a>create-next-app support</h2><p>TypeScript project를 <code>create-next-app</code>과 함께 <code>--ts</code>, <code>--typescript</code> 를 사용하여 아래와 같이 생성할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npx create-next-app --ts</span><br><span class="line"># or</span><br><span class="line">yarn create next-app --typescript</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Existing-projects"><a href="#Existing-projects" class="headerlink" title="Existing projects"></a>Existing projects</h2><p>이미 존재하는 project에 적용하려면 root folder에 빈 <code>tsconfig.json</code> file을 생성한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch tsconfig.json</span><br></pre></td></tr></table></figure>
+<p>Next.js는 자동으로 이 파일 안에 default values를 설정한다. custom <a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html" target="_blank" rel="noopener">complier options</a>로 <code>tsconfig.json</code>을 작성하는 것 또한 지원된다.</p>
+<blockquote>
+<p>Next.js는 TypeScript를 핸들링하기 위해 Babel을 사용하는데 몇가지 <a href="https://babeljs.io/docs/en/babel-plugin-transform-typescript#caveats" target="_blank" rel="noopener">주의사항</a>이 있고 <a href="https://babeljs.io/docs/en/babel-plugin-transform-typescript#typescript-compiler-options" target="_blank" rel="noopener">일부 컴파일러 옵션은 다르게 처리된다.</a></p>
+</blockquote>
+<p><code>next(npm run dev or yarn dev)</code>를 실행하면, Next.js가 setup을 완료하기 위해 설치가 필요한 패키지를 안내한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br><span class="line"></span><br><span class="line"># You&#39;ll see instructions like these:</span><br><span class="line">#</span><br><span class="line"># Please install typescript, @types&#x2F;react, and @types&#x2F;node by running:</span><br><span class="line">#</span><br><span class="line">#         yarn add --dev typescript @types&#x2F;react @types&#x2F;node</span><br><span class="line">#</span><br><span class="line"># ...</span><br></pre></td></tr></table></figure>
+<p>이렇게 하면 <code>.js</code> 파일을 <code>.tsx</code>로 전환할 준비가 완료되었고, TypeScript를 사용할 수 있게 된다.</p>
+<hr>
+<blockquote>
+<p><code>next-env.d.ts</code>라는 이름의 파일이 프로젝트의 root에 생성된다. 이 파일은 TypeScript complier가 Next.js의 type을 선택하도록 한다. 이는 매번 변경되므로 <strong>임의로 삭제하거나 편집하지 않도록 한다.</strong></p>
+<p>TypeScript <code>strict</code> 모드는 기본적으로 꺼져있다. TypeScript를 편하게 사용하려면 <code>tsconfig.json</code>파일 내에 이 모드를 켜도록 한다.</p>
+<p><code>next-env.d.ts</code>를 편집하는 대신 <code>additional.d.ts</code>와 같은 새 파일을 추가한 다음, <code>tsconfig.json</code> 의 <a href="https://www.typescriptlang.org/tsconfig#include" target="_blank" rel="noopener">include</a> 배열에서 참조하여 새로운 타입 유형을 추가할 수 있다.</p>
+</blockquote>
+<p>기본적으로 Next.js는 <code>next build</code>의 일부로 type checking를 수행한다. 개발하는 동안에는 code editior를 이용하여 type checking을 할 것을 추천한다.</p>
+<p>만약 error report를 무시하고 싶다면, <a href="https://nextjs.org/docs/api-reference/next.config.js/ignoring-typescript-errors" target="_blank" rel="noopener">Ignoring TypeScript errors</a>와 관련된 문서를 확인하도록 한다.</p>
+<hr>
+<h2 id="Static-Generation-and-Server-side-Rendering"><a href="#Static-Generation-and-Server-side-Rendering" class="headerlink" title="Static Generation and Server-side Rendering"></a>Static Generation and Server-side Rendering</h2><p><code>getStaticProps</code>, <code>getStaticPaths</code>, <code>getServerSideProps</code>을 위해 각각 <code>getStaticProps</code>, <code>getStaticPaths</code>, <code>getServerSideProps</code> type을 사용할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; GetStaticProps, GetStaticPaths, GetServerSideProps &#125; <span class="keyword">from</span> <span class="string">'next'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getStaticProps: GetStaticProps = <span class="keyword">async</span> (context) =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getStaticPaths: GetStaticPaths = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getServerSideProps: GetServerSideProps = <span class="keyword">async</span> (context) =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>만약 <code>getInitialProps</code>를 사용하려면 <a href="https://nextjs.org/docs/api-reference/data-fetching/getInitialProps#typescript" target="_blank" rel="noopener">이 링크</a>를 참조한다.</p>
+</blockquote>
+<hr>
+<h2 id="API-Routes"><a href="#API-Routes" class="headerlink" title="API Routes"></a>API Routes</h2><p>아래 예제는 API routes의 빌트인 타입을 사용하는 방법이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> type &#123; NextApiRequest, NextApiResponse &#125; <span class="keyword">from</span> <span class="string">'next'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (req: NextApiRequest, <span class="attr">res</span>: NextApiResponse) =&gt; &#123;</span><br><span class="line">  res.status(<span class="number">200</span>).json(&#123; <span class="attr">name</span>: <span class="string">'John Doe'</span> &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>reponse data에 type을 사용할 수도 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> type &#123; NextApiRequest, NextApiResponse &#125; <span class="keyword">from</span> <span class="string">'next'</span>;</span><br><span class="line"></span><br><span class="line">type Data = &#123;</span><br><span class="line">  name: string,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (req: NextApiRequest, <span class="attr">res</span>: NextApiResponse&lt;Data&gt;) =&gt; &#123;</span><br><span class="line">  res.status(<span class="number">200</span>).json(&#123; <span class="attr">name</span>: <span class="string">'John Doe'</span> &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Custom-App"><a href="#Custom-App" class="headerlink" title="Custom App"></a>Custom App</h2><p>만약 <a href="https://nextjs.org/docs/advanced-features/custom-app" target="_blank" rel="noopener">custom App</a>을 사용한다면 빌트인 타입인 <code>AppProps</code>를 사용할 수 있고 파일 이름을 <code>./pages/_app.tsx</code>와 같이 변경할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// import App from "next/app";</span></span><br><span class="line"><span class="keyword">import</span> type &#123; AppProps <span class="comment">/*, AppContext */</span> &#125; <span class="keyword">from</span> <span class="string">'next/app'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyApp</span>(<span class="params">&#123; Component, pageProps &#125;: AppProps</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Component</span> &#123;<span class="attr">...pageProps</span>&#125; /&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Only uncomment this method if you have blocking data requirements for</span></span><br><span class="line"><span class="comment">// every single page in your application. This disables the ability to</span></span><br><span class="line"><span class="comment">// perform automatic static optimization, causing every page in your app to</span></span><br><span class="line"><span class="comment">// be server-side rendered.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// MyApp.getInitialProps = async (appContext: AppContext) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   // calls page's `getInitialProps` and fills `appProps.pageProps`</span></span><br><span class="line"><span class="comment">//   const appProps = await App.getInitialProps(appContext);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//   return &#123; ...appProps &#125;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> MyApp;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Path-aliases-and-baseUrl"><a href="#Path-aliases-and-baseUrl" class="headerlink" title="Path aliases and baseUrl"></a>Path aliases and baseUrl</h2><p>Next.js는 자동으로 tsconfig.json <code>paths</code>와 <code>baseUrl</code> 옵션을 제공한다. Module Path aliases와 관련된 특징을 더 알아보고 싶다면 <a href="https://nextjs.org/docs/advanced-features/module-path-aliases" target="_blank" rel="noopener">이 링크</a>를 참조한다.</p>
+<h2 id="Type-checking-next-config-js"><a href="#Type-checking-next-config-js" class="headerlink" title="Type checking next.config.js"></a>Type checking next.config.js</h2><p><code>next.config.js</code> 파일은 반드시 JavaScript 파일이어야 하고, Babel이나 TypeScript로 parse되어서는 안된다.하지만 아래와 같이 JSDoc를 이용해서 IDE에서의 몇 가지 type checking를 추가할 수는 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; @ts-check</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @type &#123;import(&#39;next&#39;).NextConfig&#125;</span><br><span class="line"> **&#x2F;</span><br><span class="line">const nextConfig &#x3D; &#123;</span><br><span class="line">  &#x2F;* config options here *&#x2F;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; nextConfig</span><br></pre></td></tr></table></figure>
+<h2 id="Incremental-type-checking"><a href="#Incremental-type-checking" class="headerlink" title="Incremental type checking"></a>Incremental type checking</h2><p><code>v10.2.1</code>부터 Next.js는 <a href="https://www.typescriptlang.org/tsconfig#incremental" target="_blank" rel="noopener">incremental type checking</a>를 <code>tsconfig.json</code>에서 사용할 수 있도록 지원한다. 이는 대규모 application에서 type checking을 빠르게 할 수 있도록 돕는다. 최소한 <code>v4.3.2</code>이상의 TypeScript를 사용하고 있다면 최고의 성능을 경험하기 위해 이를 사용하는 것이 추천된다.</p>
+<hr>
+<p><em>References</em><br><a href="https://nextjs.org/docs/basic-features/typescript#incremental-type-checking" target="_blank" rel="noopener">Next.js - TypeScript</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/09/01/210902_axios/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +283,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -285,7 +393,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -393,7 +501,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -516,7 +624,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -657,7 +765,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -763,7 +871,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -863,7 +971,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -1004,7 +1112,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -1131,7 +1239,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
+                <time title="Modified: 2022-02-15 00:37:25" itemprop="dateModified" datetime="2022-02-15T00:37:25+09:00">2022-02-15</time>
               </span>
 
           
@@ -1197,81 +1305,6 @@
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// never를 반환하는 함수는 함수의 마지막에 도달할 수 없다.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">error</span>(<span class="params">message: <span class="built_in">string</span></span>): <span class="title">never</span> </span>&#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(message);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 반환 타입이 never로 추론된다.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fail</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> error(<span class="string">'Something failed'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// never를 반환하는 함수는 함수의 마지막에 도달할 수 없다.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">infiniteLoop</span>(<span class="params"></span>): <span class="title">never</span> </span>&#123;</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <p><em>References</em><br><a href="https://typescript-kr.github.io/pages/basic-types.html" target="_blank" rel="noopener">타입스크립트 핸드북</a><br><a href="https://joshua1988.github.io/ts/guide/basic-types.html#%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B8%B0%EB%B3%B8-%ED%83%80%EC%9E%85" target="_blank" rel="noopener">타입스크립트 핸드북</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/18/210720_tsInterface/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/18/210720_tsInterface/" class="post-title-link" itemprop="url">타입스크립트의 인터페이스, 함수</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-19T00:00:00+09:00">2021-07-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 09:44:07" itemprop="dateModified" datetime="2022-02-11T09:44:07+09:00">2022-02-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="인터체이스"><a href="#인터체이스" class="headerlink" title="인터체이스"></a>인터체이스</h2><blockquote>
-<p>상호 간에 정의한 약속 혹은 규칙. 보통 다음과 같은 범주에 대해 약속을 정의할 수 있다.</p>
-</blockquote>
-<ul>
-<li>객체의 스펙(속성과 속성의 타입)</li>
-<li>함수의 파라미터</li>
-<li>함수의 스펙(파라미터, 반환 타입 등)</li>
-<li>배열과 객체를 접근하는 방식</li>
-<li>클래스</li>
-</ul>
-<p>typeScript의 핵심 원칙 중 하나는 <code>덕 타이핑</code> 또는 <code>구조적 서브타이핑</code>이다. 타입 검사가 <code>값의 형태에 초점</code>을 맞추고 있다는 것이다. 인터페이스는 이런 타입들의 이름을 짓고, 코드 안의 계약을 정의하고, 프로젝트 외부에서 사용하는 코드의 계약을 정의한다.</p>
 
       
     </div>
@@ -1357,7 +1390,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-count">110</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
