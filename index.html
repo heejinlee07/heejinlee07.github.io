@@ -144,6 +144,110 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/15/220216_item35to41/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/15/220216_item35to41/" class="post-title-link" itemprop="url">타입스크립트 이펙티브 아이템 35 - 아이템 41</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-02-16 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-16T00:00:00+09:00">2022-02-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-17 01:17:04" itemprop="dateModified" datetime="2022-02-17T01:17:04+09:00">2022-02-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="아이템-35-데이터가-아닌-API와-명세를-보고-타입-만들기"><a href="#아이템-35-데이터가-아닌-API와-명세를-보고-타입-만들기" class="headerlink" title="아이템 35 데이터가 아닌, API와 명세를 보고 타입 만들기"></a>아이템 35 데이터가 아닌, API와 명세를 보고 타입 만들기</h2><p>파일 형식, API, 명세 등 우리가 다루는 타입 중 최소한 몇 개는 프로젝트 외부에서 비롯된 것이다. <em>이런 경우 자동으로 타입 생성이 가능하다.</em> 단 중요한 포인트는 예시 데이터가 아니라 <code>명세</code>를 참고해서 타입을 생성한다는 것이다. 명세를 참고하지 않고 예시 데이터를 참고해서 타입을 작성하게 되면 눈앞에 있는 데이터만 고려하게 되므로 오류 발생을 야기하기 쉽다. 그래서 명세가 존재한다면 아래 예시처럼 이미 존재하는 타입스크립트 타입 선언을 명시해서 사용할 수 있다. 다만 이미 존재하는 타입 선언을 import해서 쓰더라도 GeometryCollection에 coordinates의 속성이 없다면 에러가 발생할 수 있다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// requires node modules: @types/geojson</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> BoundingBox &#123;</span><br><span class="line">  lat: [<span class="built_in">number</span>, <span class="built_in">number</span>];</span><br><span class="line">  lng: [<span class="built_in">number</span>, <span class="built_in">number</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">import</span> &#123; Feature, Geometry &#125; <span class="keyword">from</span> <span class="string">'geojson'</span>;</span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">let</span> f: Feature;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">helper</span>(<span class="params">coordinates: <span class="built_in">any</span>[]</span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">const</span> geometryHelper = <span class="function">(<span class="params">g: Geometry</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (geometry.type === <span class="string">'GeometryCollection'</span>) &#123;</span><br><span class="line">    geometry.geometries.forEach(geometryHelper);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    helper(geometry.coordinates); <span class="comment">// OK</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; geometry &#125; = f;</span><br><span class="line"><span class="keyword">if</span> (geometry) &#123;</span><br><span class="line">  geometryHelper(geometry);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이럴 때는 아래와 같이명시적으로 해당하는 타입을 차단하는 방법을 사용할 수 있다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; geometry &#125; = f;</span><br><span class="line"><span class="keyword">if</span> (geometry) &#123;</span><br><span class="line">  <span class="keyword">if</span> (geometry.type === <span class="string">'GeometryCollection'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'GeometryCollection are not supported.'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    helper(geometry.coordinates); <span class="comment">// OK</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>하지만 명시적 타입 차단보다는 모든 타입을 지원하되 조건을 분기하여 helper함수를 지원하는 방식으로 작성해야 한다.</p>
+<hr>
+<h2 id="아이템-36-해당-분야의-용어로-타입-이름-짓기"><a href="#아이템-36-해당-분야의-용어로-타입-이름-짓기" class="headerlink" title="아이템 36 해당 분야의 용어로 타입 이름 짓기"></a>아이템 36 해당 분야의 용어로 타입 이름 짓기</h2><blockquote>
+<p>엄선된 타입, 속성, 변수의 이름은 의도를 명확히 하고, 코드와 타입의 추상화 수준을 높여 준다.</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 속성에 대한 정보가 모호하고,</span></span><br><span class="line"><span class="comment">// 선언된 용어로 그 의미를 파악하기 어렵다.</span></span><br><span class="line"><span class="keyword">interface</span> Animal &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  endangered: <span class="built_in">boolean</span>;</span><br><span class="line">  habitat: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> leopard: Animal = &#123;</span><br><span class="line">  name: <span class="string">'Snow Leopard'</span>,</span><br><span class="line">  endangered: <span class="literal">false</span>,</span><br><span class="line">  habitat: <span class="string">'tundra'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//위의 코드를 전문용어를 베이스로 하여</span></span><br><span class="line"><span class="comment">//보다 분명한 의미를 나타내도록 변경하였다.</span></span><br><span class="line"><span class="keyword">interface</span> Animal &#123;</span><br><span class="line">  commonName: <span class="built_in">string</span>;</span><br><span class="line">  genus: <span class="built_in">string</span>;</span><br><span class="line">  species: <span class="built_in">string</span>;</span><br><span class="line">  status: ConservationStatus;</span><br><span class="line">  climates: KoppenClimate[];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> ConservationStatus = <span class="string">'EX'</span> | <span class="string">'EW'</span> | <span class="string">'CR'</span> | <span class="string">'EN'</span> | <span class="string">'VU'</span> | <span class="string">'NT'</span> | <span class="string">'LC'</span>;</span><br><span class="line"><span class="keyword">type</span> KoppenClimate =</span><br><span class="line">  | <span class="string">'Af'</span></span><br><span class="line">  | <span class="string">'Am'</span></span><br><span class="line">  | <span class="string">'As'</span></span><br><span class="line">  | <span class="string">'Aw'</span></span><br><span class="line">  | <span class="string">'BSh'</span></span><br><span class="line">  | <span class="string">'BSk'</span></span><br><span class="line">  | <span class="string">'BWh'</span></span><br><span class="line">  | <span class="string">'BWk'</span></span><br><span class="line">  | <span class="string">'Cfa'</span>;</span><br><span class="line"><span class="keyword">const</span> snowLeopard: Animal = &#123;</span><br><span class="line">  commonName: <span class="string">'Snow Leopard'</span>,</span><br><span class="line">  genus: <span class="string">'Panthera'</span>,</span><br><span class="line">  species: <span class="string">'Uncia'</span>,</span><br><span class="line">  status: <span class="string">'VU'</span>, <span class="comment">// vulnerable</span></span><br><span class="line">  climates: [<span class="string">'ET'</span>, <span class="string">'EF'</span>, <span class="string">'Dfd'</span>], <span class="comment">// alpine or subalpine</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>이처럼 코드로 표현하고자 하는 모든 분야에는 <strong>주제를 설명하기 위한 전문 용어들이 존재한다.</strong> 전문 용어가 있다면 자체적으로 용어를 만들어 내기 보다 전문 용어를 사용하는 것이 좋지만 잘못 사용하여 혼란을 주지 않도록 아래의 세가지를 주의하여 정확하게 사용해야 한다.</p>
+<ul>
+<li>동일한 의미를 나타낼 때는 같은 용어를 사용한다.</li>
+<li>data, info, thing, item, object, entity와 같이 모호하고 의미없는 이름은 붙이지 않는다.</li>
+<li><strong>이름을 지을 때 포함된 내용이나 계산 방식이 아닌 데이터 자체가 무엇인지를 고려한다.</strong></li>
+</ul>
+<hr>
+<h2 id="아이템-37-공식-명칭에는-상표를-붙이기"><a href="#아이템-37-공식-명칭에는-상표를-붙이기" class="headerlink" title="아이템 37 공식 명칭에는 상표를 붙이기"></a>아이템 37 공식 명칭에는 상표를 붙이기</h2><p>타입스크립트가 가진 <em>구조적 타이핑 특성 때문에 코드가 이상한 결과를 낼 수 있다.</em> 1️⃣은 구조적 타이핑 관점에서는 문제가 없는데, 수학적으로는 2차원 벡터를 사용해야 이치에 맞다. 만약 calculateNorm 함수가 3차원 벡터를 허용하지 않게 하려면 2️⃣의 _brand처럼 <code>공식 명칭</code>을 사용한다. <strong>공식 명칭이란 상표(_brand)를 붙이는 것이다.</strong></p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1️⃣</span></span><br><span class="line"><span class="keyword">interface</span> Vector2D &#123;</span><br><span class="line">  x: <span class="built_in">number</span>;</span><br><span class="line">  y: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">calculateNorm</span>(<span class="params">p: Vector2D</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.sqrt(p.x * p.x + p.y * p.y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">calculateNorm(&#123; x: <span class="number">3</span>, y: <span class="number">4</span> &#125;); <span class="comment">// OK, result is 5</span></span><br><span class="line"><span class="keyword">const</span> vec3D = &#123; x: <span class="number">3</span>, y: <span class="number">4</span>, z: <span class="number">1</span> &#125;;</span><br><span class="line">calculateNorm(vec3D); <span class="comment">// OK! result is also 5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//2️⃣</span></span><br><span class="line"><span class="keyword">interface</span> Vector2D &#123;</span><br><span class="line">  _brand: <span class="string">'2d'</span>;</span><br><span class="line">  x: <span class="built_in">number</span>;</span><br><span class="line">  y: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">vec2D</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span></span>): <span class="title">Vector2D</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123; x, y, _brand: <span class="string">'2d'</span> &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">calculateNorm</span>(<span class="params">p: Vector2D</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.sqrt(p.x * p.x + p.y * p.y); <span class="comment">// Same as before</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">calculateNorm(vec2D(<span class="number">3</span>, <span class="number">4</span>)); <span class="comment">// OK, returns 5</span></span><br><span class="line"><span class="keyword">const</span> vec3D = &#123; x: <span class="number">3</span>, y: <span class="number">4</span>, z: <span class="number">1</span> &#125;;</span><br><span class="line">calculateNorm(vec3D);</span><br><span class="line"><span class="comment">// ~~~~~ Property '_brand' is missing in type...</span></span><br></pre></td></tr></table></figure>
+<p>위 예시처럼 <code>공식명칭(_brand)</code>을 붙여두면 Vector2D함수가 Vector2D만 받는 것을 보장하게 된다. <em>이 기법은 타입 시스템 내에서 표현할 수 없는 수많은 속성들을 모델링하는 데 사용하기도 한다.</em> 아래와 같이 number 타입에 상표도 단위를 붙여서 사용하는 것처럼 숫자의 단위를 문서화하는데 사용할 수도 있다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Meters = <span class="built_in">number</span> &amp; &#123; _brand: <span class="string">'meters'</span> &#125;;</span><br><span class="line"><span class="keyword">type</span> Seconds = <span class="built_in">number</span> &amp; &#123; _brand: <span class="string">'seconds'</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> meters = <span class="function">(<span class="params">m: <span class="built_in">number</span></span>) =&gt;</span> m <span class="keyword">as</span> Meters;</span><br><span class="line"><span class="keyword">const</span> seconds = <span class="function">(<span class="params">s: <span class="built_in">number</span></span>) =&gt;</span> s <span class="keyword">as</span> Seconds;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> oneKm = meters(<span class="number">1000</span>); <span class="comment">// Type is Meters</span></span><br><span class="line"><span class="keyword">const</span> oneMin = seconds(<span class="number">60</span>); <span class="comment">// Type is Seconds</span></span><br><span class="line"><span class="keyword">const</span> tenKm = oneKm * <span class="number">10</span>; <span class="comment">// Type is number</span></span><br><span class="line"><span class="keyword">const</span> v = oneKm / oneMin; <span class="comment">// Type is number</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="아이템-38-any-타입은-가능한-한-좁은-범위에서만-사용하기"><a href="#아이템-38-any-타입은-가능한-한-좁은-범위에서만-사용하기" class="headerlink" title="아이템 38 any 타입은 가능한 한 좁은 범위에서만 사용하기"></a>아이템 38 any 타입은 가능한 한 좁은 범위에서만 사용하기</h2><p>전통적으로 프로그래밍 언어들의 타입 시스템은 완전히 정적이거나 완전히 동적으로 구분되어 있다. 그러나 타입스크립트의 타입 시스템은 선택적이고 점진적이기 때문에 정적이면서도 동적인 특성을 동시에 가진다. 그래서 프로그램의 일부에만 타입스크립트를 적용할 수 있어 점진적 마이그레이션이 가능하다. 이 마이그레이션 단계에서 any 타입이 아주 중요한 역할을 하는데, any를 어떻게 현명하게 사용할 수 있을지 잘 고민해보아야 한다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Foo &#123;</span><br><span class="line">  foo: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> Bar &#123;</span><br><span class="line">  bar: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">expressionReturningFoo</span>(<span class="params"></span>): <span class="title">Foo</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">processBar</span>(<span class="params">b: Bar</span>) </span>&#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//1️⃣</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> x: <span class="built_in">any</span> = expressionReturningFoo(); <span class="comment">// Don't do this</span></span><br><span class="line">  processBar(x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2️⃣</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> x = expressionReturningFoo();</span><br><span class="line">  processBar(x <span class="keyword">as</span> <span class="built_in">any</span>); <span class="comment">// Prefer this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위의 예제에서 x가 Foo와 Bar에 동시에 할당가능하다면 위와 같이 any를 사용한 두 가지 방법으로 해결할 수 있는데 1️⃣보다 2️⃣가 권장된다. 그 이유는 any 타입이 processBar 함수의 매개변수에만 사용된 표현식이라서 다른 코드에 영향을 미치지 않기 때문이다. 그래서 1️⃣의 x는 끝까지 any타입이고, 2️⃣에서 x는 Foo 타입을 유지한다. 1️⃣의 x가 끝까지 any 타입이기 때문에 아래와 같이 x를 반환하는 코드에서는 문제가 된다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> x: <span class="built_in">any</span> = expressionReturningFoo();</span><br><span class="line">  processBar(x);</span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">g</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> foo = f1(); <span class="comment">// Type is any</span></span><br><span class="line">  foo.fooMethod(); <span class="comment">// This call is unchecked!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>객체에서 any를 사용할 때도 조심해야 하는데, 아래와 같이 오류를 발생하는 코드가 있다고 생각해본다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> config: Config = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: <span class="number">2</span>,</span><br><span class="line">  c: &#123;</span><br><span class="line">    key: value,</span><br><span class="line">    <span class="comment">// ~~~ Property ... missing in type 'Bar' but required in type 'Foo'</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>여기서 발생하는 오류를 해결하기 위해 아래의 두 가지 방법으로 any를 쓸 수 있다. 하지만 1️⃣처럼 사용하면 다른 속성들인 a,b의 타입도 체크되지 않는다. 따라서 2️⃣와 같이 사용하도록 한다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1️⃣</span></span><br><span class="line"><span class="keyword">const</span> config: Config = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: <span class="number">2</span>,</span><br><span class="line">  c: &#123;</span><br><span class="line">    key: value,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125; <span class="keyword">as</span> <span class="built_in">any</span>; <span class="comment">// Don't do this!</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//2️⃣</span></span><br><span class="line"><span class="keyword">const</span> config: Config = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: <span class="number">2</span>, <span class="comment">// These properties are still checked</span></span><br><span class="line">  c: &#123;</span><br><span class="line">    key: value <span class="keyword">as</span> <span class="built_in">any</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="아이템-39-any를-구체적으로-변형해서-사용하기"><a href="#아이템-39-any를-구체적으로-변형해서-사용하기" class="headerlink" title="아이템 39 any를 구체적으로 변형해서 사용하기"></a>아이템 39 any를 구체적으로 변형해서 사용하기</h2><ul>
+<li>any는 타입의 범위가 매우 넓기 때문에 사용할 때는 정말로 모든 값이 허용되어야하만 하는지 면밀히 검토한다.</li>
+<li>any보다 더 정확하게 모델링할 수 있도록 <code>any[]</code> 또는 <code>{[id:string]:any}</code>또는 <code>() =&gt; any</code>를 사용한다.</li>
+<li><code>{[id:string]:any}</code>는 함수의 매개변수가 객체인데 값을 알 수 없는 경우에 쓰인다.</li>
+</ul>
+<hr>
+<h2 id="아이템-40-함수-안으로-타입-단언문-감추기"><a href="#아이템-40-함수-안으로-타입-단언문-감추기" class="headerlink" title="아이템 40 함수 안으로 타입 단언문 감추기"></a>아이템 40 함수 안으로 타입 단언문 감추기</h2><p>프로젝트 전반에 위험한 타입 단언문이 드러나 있는 것보다 제대로 타입이 정의된 함수 안으로 타입 단언문을 같추는 것이 좋다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">shallowEqual</span>(<span class="params">a: <span class="built_in">any</span>, b: <span class="built_in">any</span></span>): <span class="title">boolean</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">cacheLast</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">Function</span>&gt;(<span class="params">fn: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> lastArgs: <span class="built_in">any</span>[] | <span class="literal">null</span> = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">let</span> lastResult: <span class="built_in">any</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...args: <span class="built_in">any</span>[]</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!lastArgs || !shallowEqual(lastArgs, args)) &#123;</span><br><span class="line">      lastResult = fn(...args);</span><br><span class="line">      lastArgs = args;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> lastResult;</span><br><span class="line">  &#125; <span class="keyword">as</span> unknown <span class="keyword">as</span> T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위 예제함수에서 함수 내부에는 any가 많이 보이지만 타입 정의에는 any가 없기 때문에 cacheLast를 호출하는 쪽에는 any가 사용됐는지 알 수 앖다.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/13/220214_item28to34/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +279,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-15 07:23:35" itemprop="dateModified" datetime="2022-02-15T07:23:35+09:00">2022-02-15</time>
+                <time title="Modified: 2022-02-17 01:17:04" itemprop="dateModified" datetime="2022-02-17T01:17:04+09:00">2022-02-17</time>
               </span>
 
           
@@ -292,7 +396,10 @@
 <p>아래와 같이 두 번째 제너릭 매개변수를 도입한다.</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pluck</span>&lt;<span class="title">T</span>, <span class="title">K</span> <span class="title">extends</span> <span class="title">keyof</span> <span class="title">T</span>&gt;(<span class="params">record: T[], key: K</span>): <span class="title">T</span>[<span class="title">K</span>][] </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> record.map(<span class="function">(<span class="params">r</span>) =&gt;</span> r[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="아이템-34-부정확한-타입보다는-미완성-타입을-사용하기"><a href="#아이템-34-부정확한-타입보다는-미완성-타입을-사용하기" class="headerlink" title="아이템 34 부정확한 타입보다는 미완성 타입을 사용하기"></a>아이템 34 부정확한 타입보다는 미완성 타입을 사용하기</h2>
+<h2 id="아이템-34-부정확한-타입보다는-미완성-타입을-사용하기"><a href="#아이템-34-부정확한-타입보다는-미완성-타입을-사용하기" class="headerlink" title="아이템 34 부정확한 타입보다는 미완성 타입을 사용하기"></a>아이템 34 부정확한 타입보다는 미완성 타입을 사용하기</h2><p>타입이 구체적일수록 버그를 더 잘 잡고, 타입스크립트가 제공하는 도구를 활용할 수 있는데, <em>잘못된 타입은 차라리 타입이 없는 것만 못하기 때문에 주의를 기울여야 한다.</em></p>
+<hr>
+<p><em>References</em><br>[이펙티브 타입스크립트] 댄 밴더캄 지음</p>
+
       
     </div>
 
@@ -342,7 +449,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-15 07:23:35" itemprop="dateModified" datetime="2022-02-15T07:23:35+09:00">2022-02-15</time>
+                <time title="Modified: 2022-02-17 01:17:04" itemprop="dateModified" datetime="2022-02-17T01:17:04+09:00">2022-02-17</time>
               </span>
 
           
@@ -524,7 +631,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-15 07:23:35" itemprop="dateModified" datetime="2022-02-15T07:23:35+09:00">2022-02-15</time>
+                <time title="Modified: 2022-02-17 01:17:04" itemprop="dateModified" datetime="2022-02-17T01:17:04+09:00">2022-02-17</time>
               </span>
 
           
@@ -622,7 +729,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-15 07:23:35" itemprop="dateModified" datetime="2022-02-15T07:23:35+09:00">2022-02-15</time>
+                <time title="Modified: 2022-02-17 01:17:04" itemprop="dateModified" datetime="2022-02-17T01:17:04+09:00">2022-02-17</time>
               </span>
 
           
@@ -716,7 +823,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-15 07:23:35" itemprop="dateModified" datetime="2022-02-15T07:23:35+09:00">2022-02-15</time>
+                <time title="Modified: 2022-02-17 01:17:04" itemprop="dateModified" datetime="2022-02-17T01:17:04+09:00">2022-02-17</time>
               </span>
 
           
@@ -955,7 +1062,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-15 07:23:35" itemprop="dateModified" datetime="2022-02-15T07:23:35+09:00">2022-02-15</time>
+                <time title="Modified: 2022-02-17 01:17:04" itemprop="dateModified" datetime="2022-02-17T01:17:04+09:00">2022-02-17</time>
               </span>
 
           
@@ -1059,7 +1166,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-15 07:23:35" itemprop="dateModified" datetime="2022-02-15T07:23:35+09:00">2022-02-15</time>
+                <time title="Modified: 2022-02-17 01:17:04" itemprop="dateModified" datetime="2022-02-17T01:17:04+09:00">2022-02-17</time>
               </span>
 
           
@@ -1212,7 +1319,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-15 07:23:35" itemprop="dateModified" datetime="2022-02-15T07:23:35+09:00">2022-02-15</time>
+                <time title="Modified: 2022-02-17 01:17:04" itemprop="dateModified" datetime="2022-02-17T01:17:04+09:00">2022-02-17</time>
               </span>
 
           
@@ -1596,7 +1703,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-15 07:23:35" itemprop="dateModified" datetime="2022-02-15T07:23:35+09:00">2022-02-15</time>
+                <time title="Modified: 2022-02-17 01:17:04" itemprop="dateModified" datetime="2022-02-17T01:17:04+09:00">2022-02-17</time>
               </span>
 
           
@@ -1655,90 +1762,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/09/25/210926_muiCssInjectionOrder/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/25/210926_muiCssInjectionOrder/" class="post-title-link" itemprop="url">MUI CSS injection order 원문 축약</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-09-26 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-26T00:00:00+09:00">2021-09-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-15 07:23:35" itemprop="dateModified" datetime="2022-02-15T07:23:35+09:00">2022-02-15</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>원문 링크: <a href="https://mui.com/styles/advanced/#string-templates" target="_blank" rel="noopener">https://mui.com/styles/advanced/#string-templates</a></p>
-</blockquote>
-<h2 id="CSS-injection-order"><a href="#CSS-injection-order" class="headerlink" title="CSS injection order"></a>CSS injection order</h2><blockquote>
-<p>CSS가 어떻게 브라우저에 의해 계산되는지 이해하는 것은 언제 스타일 오버라이딩이 되는지 알기 위한 키포인트이기 떄문에 매우 중요하다. 이와 관련하여 MDN의 <a href="https://developer.mozilla.org/ko/docs/Web/CSS/Specificity" target="_blank" rel="noopener">어떻게 계산되는가?</a>를 읽어보는 것을 추천한다.</p>
-</blockquote>
-<p>기본적으로 style 태그는 페이지의 <code>&lt;head&gt;</code> 엘리먼트의 가장 마지막에 주입된다. 이 style 태그는 페이지의 다른 어떤 style 태그 (e.g. CSS module, styled components) 보다도 특수함을 가진다.</p>
-<h2 id="injectFirst"><a href="#injectFirst" class="headerlink" title="injectFirst"></a>injectFirst</h2><p><code>StylesProvider</code> 컴포넌트는 <code>injectFirst</code> prop를 가지고 있어서 head(낮은 우선순위)에서 가장 먼저 주입되는 style tag이다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; StylesProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line"></span><br><span class="line">&lt;StylesProvider injectFirst&gt;</span><br><span class="line">  &#123;<span class="comment">/* Your component tree.</span></span><br><span class="line"><span class="comment">      Styled components can override MUI's styles. */</span>&#125;</span><br><span class="line">&lt;<span class="regexp">/StylesProvider&gt;;</span></span><br></pre></td></tr></table></figure>
-<h2 id="makeStyles-withStyles-styled"><a href="#makeStyles-withStyles-styled" class="headerlink" title="makeStyles / withStyles / styled"></a>makeStyles / withStyles / styled</h2><p>주입되는 style tag는 makeStyles / withStyles / styled가 발생하는 같은 순위에서 발생한다. 예를 들어 color red가 아래 예시에서 우세하다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> clsx <span class="keyword">from</span> <span class="string">'clsx'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; makeStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> useStylesBase = makeStyles(&#123;</span><br><span class="line">  root: &#123;</span><br><span class="line">    color: <span class="string">'blue'</span>, <span class="comment">// 🔵</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> useStyles = makeStyles(&#123;</span><br><span class="line">  root: &#123;</span><br><span class="line">    color: <span class="string">'red'</span>, <span class="comment">// 🔴</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">MyComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Order doesn't matter</span></span><br><span class="line">  <span class="keyword">const</span> classes = useStyles();</span><br><span class="line">  <span class="keyword">const</span> classesBase = useStylesBase();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Order doesn't matter</span></span><br><span class="line">  <span class="keyword">const</span> className = clsx(classes.root, classesBase.root);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// color: red 🔴 wins.</span></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;className&#125;</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>hook의 호출 순서와 class name의 연속적인 순서는 상관 없다.</p>
-<h2 id="insertionPoint"><a href="#insertionPoint" class="headerlink" title="insertionPoint"></a>insertionPoint</h2><p>JSS는 이러한 상황을 해결할 수 있는 <a href="https://github.com/cssinjs/jss/blob/master/docs/setup.md#specify-the-dom-insertion-point" target="_blank" rel="noopener">매커니즘</a>을 제공한다. HTML내에 삽입점을 추가하는 것으로 CSS 규칙이 components에 <a href="https://cssinjs.org/jss-api/?v=v10.8.0#attach-style-sheets-in-a-specific-order" target="_blank" rel="noopener">적용되는 순서를 제어할 수 있다.</a></p>
-<hr>
-<p><em>References</em><br><a href="https://mui.com/styles/advanced/#string-templates" target="_blank" rel="noopener">CSS injection order</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1804,7 +1832,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
