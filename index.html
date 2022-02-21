@@ -167,10 +167,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-02-21 00:00:00 / Modified: 23:39:42" itemprop="dateCreated datePublished" datetime="2022-02-21T00:00:00+09:00">2022-02-21</time>
+              <time title="Created: 2022-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-21T00:00:00+09:00">2022-02-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
+              </span>
 
           
 
@@ -202,7 +208,9 @@
 <p>하지만 unknown인 타입의 값을 사용하려고 하거나 함수 호출 또는 연산을 진행할 때 오류가 발생하기 때문에 적절한 타입으로 변환하도록 강제할 수 있다.</p>
 <h3 id="2-변수선언과-관련된-unknown"><a href="#2-변수선언과-관련된-unknown" class="headerlink" title="2. 변수선언과 관련된 unknown"></a>2. 변수선언과 관련된 unknown</h3><p>어떠한 값이 있지만 그 타입을 모르는 경우에 사용한다.</p>
 <hr>
-<h2 id="아이템-43-몽키-패치보다는-안전한-타입을-사용하기"><a href="#아이템-43-몽키-패치보다는-안전한-타입을-사용하기" class="headerlink" title="아이템 43 몽키 패치보다는 안전한 타입을 사용하기"></a>아이템 43 몽키 패치보다는 안전한 타입을 사용하기</h2>
+<h2 id="아이템-43-몽키-패치보다는-안전한-타입을-사용하기"><a href="#아이템-43-몽키-패치보다는-안전한-타입을-사용하기" class="headerlink" title="아이템 43 몽키 패치보다는 안전한 타입을 사용하기"></a>아이템 43 몽키 패치보다는 안전한 타입을 사용하기</h2><p>몽키 패치는 프로그램이 런타임 되는 동안 사용되는 모듈이나 클래스를 변경하는 것이다. 자바스크립트는 객체와 클래스에 임의의 속성을 추가할 수 있을 만큼 유연하기 때문에 이 성질을 이용해서 전역 변수를 만들 수도 있다. 예를 들어 window나 document에 값을 할당해서 전역 변수를 만드는 것이다. 그런데 window 또는 DOM 노드에 데이터를 추가하면 그 데이터는 기본적으로 전역 변수기 때문에 프로그랢 내에서 의존성을 만들고, 사이드 이펙트를 만들 수 있다. 그리고 타입스크립트의 타입 체커는 아래와 같이 임의로 추가한 속성에 대해서 알지 못한다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.monkey = <span class="string">'Tamarin'</span>;</span><br><span class="line"><span class="comment">// ~~~~~~ Property 'monkey' does not exist on type 'Document'</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -252,7 +260,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-21 23:39:42" itemprop="dateModified" datetime="2022-02-21T23:39:42+09:00">2022-02-21</time>
+                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
               </span>
 
           
@@ -367,7 +375,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-21 23:39:42" itemprop="dateModified" datetime="2022-02-21T23:39:42+09:00">2022-02-21</time>
+                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
               </span>
 
           
@@ -537,7 +545,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-21 23:39:42" itemprop="dateModified" datetime="2022-02-21T23:39:42+09:00">2022-02-21</time>
+                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
               </span>
 
           
@@ -719,7 +727,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-21 23:39:42" itemprop="dateModified" datetime="2022-02-21T23:39:42+09:00">2022-02-21</time>
+                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
               </span>
 
           
@@ -817,7 +825,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-21 23:39:42" itemprop="dateModified" datetime="2022-02-21T23:39:42+09:00">2022-02-21</time>
+                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
               </span>
 
           
@@ -911,7 +919,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-21 23:39:42" itemprop="dateModified" datetime="2022-02-21T23:39:42+09:00">2022-02-21</time>
+                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
               </span>
 
           
@@ -1150,7 +1158,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-21 23:39:42" itemprop="dateModified" datetime="2022-02-21T23:39:42+09:00">2022-02-21</time>
+                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
               </span>
 
           
@@ -1254,7 +1262,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-21 23:39:42" itemprop="dateModified" datetime="2022-02-21T23:39:42+09:00">2022-02-21</time>
+                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
               </span>
 
           
@@ -1407,7 +1415,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-21 23:39:42" itemprop="dateModified" datetime="2022-02-21T23:39:42+09:00">2022-02-21</time>
+                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
               </span>
 
           
