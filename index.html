@@ -144,6 +144,119 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/22/220223_item49to55/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/22/220223_item49to55/" class="post-title-link" itemprop="url">타입스크립트 이펙티브 아이템 49 - 아이템 55</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-02-23 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-23T00:00:00+09:00">2022-02-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-24 02:17:00" itemprop="dateModified" datetime="2022-02-24T02:17:00+09:00">2022-02-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="아이템-49-콜백에서-this에-대한-타입-제공하기"><a href="#아이템-49-콜백에서-this에-대한-타입-제공하기" class="headerlink" title="아이템 49 콜백에서 this에 대한 타입 제공하기"></a>아이템 49 콜백에서 this에 대한 타입 제공하기</h2><p>this는 let,const와 달리 dynamic scope이기 때문에 정의된 방식이 아닌 <code>호출된 방식</code>에 따라 값이 달라진다. 아래 코드는 현재의 객체 인스턴스를 참조하는 <code>클래스</code>에서 많이 쓰이는 this이다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> C &#123;</span><br><span class="line">  vals = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">  logSquares() &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> val of <span class="keyword">this</span>.vals) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(val * val);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> c = <span class="keyword">new</span> C();</span><br><span class="line"><span class="keyword">const</span> method = c.logSquares;</span><br><span class="line">method();</span><br></pre></td></tr></table></figure>
+<p>이 코드는 런타임에 <em>uncaught TypeError: undefined의 ‘vals’속성을 읽을 수 없습니다.</em>는 오류를 발생시킨다. 그 이유는 <code>c.logSquares</code>가 <code>C.prototype.logSquares</code>를 호출하고, <code>this 값을 c로 바인딩</code>하는 두 가지 작업을 수행하기 때문이다. 이 작업에 따르면 this의 값은 undefined로 설정된다. 이런 문제를 해결하는 첫 번째 방법은 <code>call</code>을 사용해서 명시적으로 this를 바인딩하는 것이다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> c = <span class="keyword">new</span> C();</span><br><span class="line"><span class="keyword">const</span> method = c.logSquares;</span><br><span class="line">method.call(c); <span class="comment">// 제곱 출력</span></span><br></pre></td></tr></table></figure>
+<p>이처럼 명시적인 <code>this 바인딩</code>을 통해 this의 타입에 대해 구체화할 수 있다. this 바인딩은 어떤 것에도 가능하며, 콜백 함수에도 쓰일 수 있다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">makeButton</span>(<span class="params">props: &#123; text: <span class="built_in">string</span>; onClick: () =&gt; <span class="built_in">void</span> &#125;</span>): <span class="title">void</span></span>;</span><br><span class="line"><span class="keyword">class</span> ResetButton &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> makeButton(&#123; text: <span class="string">'Reset'</span>, onClick: <span class="keyword">this</span>.onClick &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  onClick() &#123;</span><br><span class="line">    alert(<span class="string">`Reset <span class="subst">$&#123;<span class="keyword">this</span>&#125;</span>`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>그런데 여기서도 this 바인딩 문제로 인해 <em>Reset이 정의되지 않았다는 에러가 발생한다.</em> 이때 해결하는 방법은 아래와 같이 <code>생성자에서 메서드에 this를 바인딩시키는 것이다.</code></p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">makeButton</span>(<span class="params">props: &#123; text: <span class="built_in">string</span>; onClick: () =&gt; <span class="built_in">void</span> &#125;</span>): <span class="title">void</span></span>;</span><br><span class="line"><span class="keyword">class</span> ResetButton &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.onClick = <span class="keyword">this</span>.onClick.bind(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> makeButton(&#123; text: <span class="string">'Reset'</span>, onClick: <span class="keyword">this</span>.onClick &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  onClick() &#123;</span><br><span class="line">    alert(<span class="string">`Reset <span class="subst">$&#123;<span class="keyword">this</span>&#125;</span>`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>onClick()은 ResetButton.proptotype의 속성을 정의한다. 따라서 ResetButton의 모든 인스턴스에 공유된다. 그런데 위와 같이 생성자 함수에 바인딩하게 되면 onClick 속성에 this가 바인딩되어 해당 인스턴스에 생성된다. onClick 인스턴스 속성은 프로토타입 속성보다 앞에 놓이므로 <code>render() 메서드의 this.onClick은 바인딩된 함수를 참조하게 된다.</code> 하지만 onClick을 화살표 함수로 바꾸는 방법으로 좀 더 간단하게 해결할 수도 있다. 그 이유는 화살표 함수 내부에서 this를 참조하면 상위 컨텍스트의 this를 그대로 참조하기 때문이다. 따라서 ResetButton이 생성될 때 마다 제대로 바인딩된 this를 가지는 새 함수를 생성한다.</p>
+<hr>
+<h2 id="아이템-50-오버로딩-타입보다는-조건부-타입을-사용하기"><a href="#아이템-50-오버로딩-타입보다는-조건부-타입을-사용하기" class="headerlink" title="아이템 50 오버로딩 타입보다는 조건부 타입을 사용하기"></a>아이템 50 오버로딩 타입보다는 조건부 타입을 사용하기</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">number</span> | <span class="built_in">string</span></span>): <span class="title">number</span> | <span class="title">string</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">any</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>함수 오버로딩(동일한 이름에 매개변수만 다른 여러 버전의 함수를 허용하는 것.단, 타입 수준에서 동작)의 개념을 통해 위와 같이 함수의 타입 정보를 추가한다. 그런데 이렇게 작성하면 선언문에서 number타입을 매개변수로 넣고, string타입을 반환하는 경우도 포함되어 있어서 모호한 지점이 생긴다. 이런 상황에서 <code>첫 번째 해결법은 제너릭을 사용하는 것</code>이다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">number</span> | <span class="title">string</span>&gt;(<span class="params">x: T</span>): <span class="title">T</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">any</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> num = double(<span class="number">12</span>); <span class="comment">// Type is 12</span></span><br><span class="line"><span class="keyword">const</span> str = double(<span class="string">'x'</span>); <span class="comment">// Type is "x"</span></span><br></pre></td></tr></table></figure>
+<p>제너릭 타입을 쓰면서 앞서 말했던 number로 선언되어 string 타입을 반환하는 경우에 대해서 해결은 되었으나 지나치게 구체적인 타입이 되었다. string을 넣으면 string만 반환해야 하게 되었다. 좀 더 다른 방법으로 <code>여러 가지 타입 선언으로 분리</code>해 볼 수 있다. 함수의 구현체는 하나여도 타입 선언은 여러 개 만들 수 있기 때문에 함수 타입을 보다 명확하게 할 수 있다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">number</span></span>): <span class="title">number</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">string</span></span>): <span class="title">string</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">any</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> num = double(<span class="number">12</span>); <span class="comment">// Type is number</span></span><br><span class="line"><span class="keyword">const</span> str = double(<span class="string">'x'</span>); <span class="comment">// Type is string</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x: <span class="built_in">number</span> | <span class="built_in">string</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> double(x);</span><br><span class="line">  <span class="comment">// ~ Argument of type 'string | number' is not assignable</span></span><br><span class="line">  <span class="comment">//   to parameter of type 'string'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>단 유니온 타입에 대해서는 문제가 발생한다. <strong>타입스크립트는 오버로딩 타입 중에서 일치하는 타입을 찾을 때까지 순차적으로 검색한다.</strong> 마지막 선언인 string까지 검색했을 때 string | number 타입은 string에 할당할 수 없기 때문에 에러가 발생하는 것이다. 이때는 <code>오버로딩 타입으로 string|number를 추가</code>하여 문제를 해결할 수 있고, 더 좋은 방법은 아래와 같이 <code>조건부 타입</code>을 사용하는 것이다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">number</span> | <span class="title">string</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  x: T</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">T</span> <span class="title">extends</span> <span class="title">string</span> ? <span class="title">string</span> : <span class="title">number</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">any</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>조건부 타입을 사용하면 아래와 같이 반환 타입이 정교해진다.</p>
+<ul>
+<li>T가 string의 부분 집합이면 반환 타입이 string이다.</li>
+<li>그 외의 경우는 반환 타입이 number이다.</li>
+</ul>
+<p>이처럼 조건부 타입은 개별 타입의 유니온으로 일반화하기 때문에 타입이 더욱 정확해진다. 조건부 타입은 타입 체커가 단일 표현식으로 받아들이기 때문에 타입 오버로딩에서 유니온 문제가 발생했을 때 문제를 해결할 수 있다.</p>
+<hr>
+<h2 id="아이템-51-의존성-분리를-위해-미러-타입-사용하기"><a href="#아이템-51-의존성-분리를-위해-미러-타입-사용하기" class="headerlink" title="아이템 51 의존성 분리를 위해 미러 타입 사용하기"></a>아이템 51 의존성 분리를 위해 미러 타입 사용하기</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseCSV</span>(<span class="params">contents: <span class="built_in">string</span> | Buffer</span>): </span>&#123; [column: <span class="built_in">string</span>]: <span class="built_in">string</span> &#125;[] &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> contents === <span class="string">'object'</span>) &#123;</span><br><span class="line">    <span class="comment">// It's a buffer</span></span><br><span class="line">    <span class="keyword">return</span> parseCSV(contents.toString(<span class="string">'utf8'</span>));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// COMPRESS</span></span><br><span class="line">  <span class="keyword">return</span> [];</span><br><span class="line">  <span class="comment">// END</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>다음 코드는 NodeJs 사용자를 위해 매개변수에 Buffer 타입을 허용한 예시이다. 그리고 Buffer의 타입 정의는 npm install —save-dev @types/node로 설치하여 얻을 수 있다. 단 타입 선언이 @types/node에 의존하기 때문에 devDependencies로 포함해야 하는데 이를 포함하면 <em>@types와 무관한 자바스크립트 개발자 또는 NodeJS와 무관한 타입스크립트 웹 개발자</em>에게 혼란을 줄 수 있다. 그 이유는 두 그룹 사용자가 사용하지 않는 모듈이 포함되어 있기 때문이다. Buffer는 NodeJS 개발자에게만 필요하다. 따라서 Buffer를 사용하는 대신 아래와 같이 필요한 메서드와 속성만 별도로 작성하는 방식으로 개선할 수 있다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> CsvBuffer &#123;</span><br><span class="line">  toString(encoding: <span class="built_in">string</span>): <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseCSV</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  contents: <span class="built_in">string</span> | CsvBuffer</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): </span>&#123; [column: <span class="built_in">string</span>]: <span class="built_in">string</span> &#125;[] &#123;</span><br><span class="line">  <span class="comment">// COMPRESS</span></span><br><span class="line">  <span class="keyword">return</span> [];</span><br><span class="line">  <span class="comment">// END</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>만약 작성 중인 라이브러리가 의존하는 라이브러리의 구현과 무관하게 타입에만 의존한다면, 필요한 선언부만 추출해서 작성 중인 라이브러리에 넣는 미러링을 고려해 볼 수 있다.</strong></p>
+<hr>
+<h2 id="아이템-52-테스팅-타입의-함정에-주의하기"><a href="#아이템-52-테스팅-타입의-함정에-주의하기" class="headerlink" title="아이템 52 테스팅 타입의 함정에 주의하기"></a>아이템 52 테스팅 타입의 함정에 주의하기</h2><p>타입 선언도 테스트를 거쳐야 하고, dtslint 또는 타입 시스템 외부의 타입을 검사하는 도구를 사용할 수 있다. 타입 선언이 예상한 타입으로 결과를 내는지 체크할 수 있는 한 가지 방법은 <code>함수를 호출하는 테스트 파일의 작성</code>이다. 그러나 단순히 함수를 실행만 하는 테스트 코드를 작성하는 것보다는 <code>반환 타입을 체크하는 것이 중요하다.</code> 반환값을 특정 타입의 변수에 할당하여 간단히 반환 타입을 체크할 수 있는 방법은 다음과 같다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> lengths: <span class="built_in">number</span>[] = map([<span class="string">'john'</span>, <span class="string">'paul'</span>], <span class="function">(<span class="params">name</span>) =&gt;</span> name.length);</span><br></pre></td></tr></table></figure>
+<p>이 코드는 불필요한 타입 선언에 해당하지만 테스트 관점에서는 매우 중요하다. 그런데 테스팅을 위해서 할당하는 방법에는 두 가지 문제가 있다.</p>
+<ul>
+<li><p>불필요한 변수를 만들어야 하고, 일부 린팅 규칙을 비활성화해야한다.</p>
+<ul>
+<li><strong>변수를 도입하는 대신 헬퍼 함수를 정의하는 것으로 해결한다.</strong></li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">assertType</span>&lt;<span class="title">T</span>&gt;(<span class="params">x: T</span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">assertType&lt;<span class="built_in">number</span>[]&gt;<span class="function">(<span class="params">map(<span class="params">['john', 'paul'], (<span class="params">name</span>) =&gt; name.length</span>)</span>);</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>두 타입이 동일한지에 대한 체크 대신 <strong>할당 가능성을 체크한다.</strong></p>
+</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> n = <span class="number">12</span>;</span><br><span class="line">assertType&lt;<span class="built_in">number</span>&gt;(n); <span class="comment">//정상</span></span><br></pre></td></tr></table></figure>
+<p>n 심벌은 타입이 숫자 리터럴 12인데, 12는 number의 서브타입이라서 할당 가능성 체크를 통과한다. 그러나 객체 타입 체크해서 문제가 발생한다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> beatles = [<span class="string">'john'</span>, <span class="string">'paul'</span>, <span class="string">'george'</span>, <span class="string">'ringo'</span>];</span><br><span class="line">assertType&lt;&#123; name: <span class="built_in">string</span> &#125;[]&gt;(</span><br><span class="line">  map(beatles, <span class="function">(<span class="params">name</span>) =&gt;</span> (&#123;</span><br><span class="line">    name,</span><br><span class="line">    inYellowSubmarine: name === <span class="string">'ringo'</span>,</span><br><span class="line">  &#125;))</span><br><span class="line">); <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
+<p>map은 {name: string, inYellowSubmarine: boolean}객체의 배열을 반환하는데, 반환된 배열은 {name: string}[]에 할당 가능하지만 inYellowSubmarine 속성에 대해 체크되지 않는다.</p>
+<h3 id="assertType-사용-방법"><a href="#assertType-사용-방법" class="headerlink" title="assertType 사용 방법"></a>assertType 사용 방법</h3><p>아래 예제처럼 parameters와 ReturnType 제너릭 타입을 이용해서 함수의 매개변수 타입과 반환 타입만 분리하여 테스트한다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> double = <span class="function">(<span class="params">x: <span class="built_in">number</span></span>) =&gt;</span> <span class="number">2</span> * x;</span><br><span class="line"><span class="keyword">let</span> p: Parameters&lt;<span class="keyword">typeof</span> double&gt; = <span class="literal">null</span>!;</span><br><span class="line">assertType&lt;[<span class="built_in">number</span>, <span class="built_in">number</span>]&gt;(p);</span><br><span class="line"><span class="comment">//                           ~ Argument of type '[number]' is not</span></span><br><span class="line"><span class="comment">//                             assignable to parameter of type [number, number]</span></span><br><span class="line"><span class="keyword">let</span> r: ReturnType&lt;<span class="keyword">typeof</span> double&gt; = <span class="literal">null</span>!;</span><br><span class="line">assertType&lt;<span class="built_in">number</span>&gt;(r); <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="아이템-53-타입스크립트-기능보다는-ECMAScript-기능을-사용하기"><a href="#아이템-53-타입스크립트-기능보다는-ECMAScript-기능을-사용하기" class="headerlink" title="아이템 53 타입스크립트 기능보다는 ECMAScript 기능을 사용하기"></a>아이템 53 타입스크립트 기능보다는 ECMAScript 기능을 사용하기</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/20/220221_item42to48/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +288,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
+                <time title="Modified: 2022-02-24 02:17:00" itemprop="dateModified" datetime="2022-02-24T02:17:00+09:00">2022-02-24</time>
               </span>
 
           
@@ -260,7 +373,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
+                <time title="Modified: 2022-02-24 02:17:00" itemprop="dateModified" datetime="2022-02-24T02:17:00+09:00">2022-02-24</time>
               </span>
 
           
@@ -375,7 +488,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
+                <time title="Modified: 2022-02-24 02:17:00" itemprop="dateModified" datetime="2022-02-24T02:17:00+09:00">2022-02-24</time>
               </span>
 
           
@@ -545,7 +658,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
+                <time title="Modified: 2022-02-24 02:17:00" itemprop="dateModified" datetime="2022-02-24T02:17:00+09:00">2022-02-24</time>
               </span>
 
           
@@ -727,7 +840,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
+                <time title="Modified: 2022-02-24 02:17:00" itemprop="dateModified" datetime="2022-02-24T02:17:00+09:00">2022-02-24</time>
               </span>
 
           
@@ -825,7 +938,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
+                <time title="Modified: 2022-02-24 02:17:00" itemprop="dateModified" datetime="2022-02-24T02:17:00+09:00">2022-02-24</time>
               </span>
 
           
@@ -919,7 +1032,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
+                <time title="Modified: 2022-02-24 02:17:00" itemprop="dateModified" datetime="2022-02-24T02:17:00+09:00">2022-02-24</time>
               </span>
 
           
@@ -1158,7 +1271,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
+                <time title="Modified: 2022-02-24 02:17:00" itemprop="dateModified" datetime="2022-02-24T02:17:00+09:00">2022-02-24</time>
               </span>
 
           
@@ -1262,7 +1375,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
+                <time title="Modified: 2022-02-24 02:17:00" itemprop="dateModified" datetime="2022-02-24T02:17:00+09:00">2022-02-24</time>
               </span>
 
           
@@ -1380,390 +1493,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/12/19/211220_mui/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/19/211220_mui/" class="post-title-link" itemprop="url">MUI v4에서 v5로 마이그레이션 하기</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-12-20T00:00:00+09:00">2021-12-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-22 05:02:18" itemprop="dateModified" datetime="2022-02-22T05:02:18+09:00">2022-02-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>원문 링크: <a href="https://mui.com/guides/migration-v4/" target="_blank" rel="noopener">https://mui.com/guides/migration-v4/</a></p>
-</blockquote>
-<h2 id="v4-에서-v5로-마이그레이션하기"><a href="#v4-에서-v5로-마이그레이션하기" class="headerlink" title="v4 에서 v5로 마이그레이션하기"></a>v4 에서 v5로 마이그레이션하기</h2><aside>
-💡 왜 마이그레이션 해야할까 ? ➡️   [https://mui.com/blog/mui-core-v5/](https://mui.com/blog/mui-core-v5/)
-
-</aside>
-
-<aside>
-💡 문제 발생시 여기로  ➡️  [https://mui.com/guides/migration-v4/#troubleshooting](https://mui.com/guides/migration-v4/#troubleshooting)
-
-</aside>
-
-<hr>
-<h2 id="마이그레이션-해야-하는-이유"><a href="#마이그레이션-해야-하는-이유" class="headerlink" title="마이그레이션 해야 하는 이유"></a>마이그레이션 해야 하는 이유</h2><p>버그 수정 및 새로운 스타일링 엔진과 같은 여러 개선사항의 이점을 얻으려면 마이그레이션 해야한다.</p>
-<h2 id="마이그레이션-단계"><a href="#마이그레이션-단계" class="headerlink" title="마이그레이션 단계"></a>마이그레이션 단계</h2><h2 id="React-또는-TypeScript-버전-업데이트"><a href="#React-또는-TypeScript-버전-업데이트" class="headerlink" title="React 또는 TypeScript 버전 업데이트"></a>React 또는 TypeScript 버전 업데이트</h2><ul>
-<li>React 최소지원버전: v16.8.0 to v17.0.0.</li>
-<li>TypeScript 최소지원버전: v3.2 to v3.5.</li>
-</ul>
-<h2 id="ThemeProvider-setup"><a href="#ThemeProvider-setup" class="headerlink" title="ThemeProvider setup"></a>ThemeProvider setup</h2><p>v5로 업그레이드 전에 <code>ThemeProvider</code> 가 당신의 어플리케이션의 root에 정의되어 있고(default theme를 사용한다고 하더라도) <code>useStyles</code> 가 <code>&lt;ThemeProvider&gt;</code> 전에 호출되진 않았는지 확인해 본다. 그 이유는 임시로 <code>@mui/styles</code> (JSS style-engine)을 사용해야 하는데, 이것이 <code>ThemeProvider</code> 를 요구한다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  ThemeProvider,</span><br><span class="line">  createMuiTheme,</span><br><span class="line">  makeStyles</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'@material-ui/core/styles'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> theme = createMuiTheme()</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> useStyles = makeStyles(<span class="function"><span class="params">theme</span> =&gt;</span> &#123;</span><br><span class="line">  root: &#123;</span><br><span class="line">    <span class="comment">// some CSS that access to theme</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> classes = useStyles() <span class="comment">// ❌ If you have this, consider moving it inside a component that wrapped with &lt;ThemeProvider&gt;</span></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">ThemeProvider</span> <span class="attr">theme</span>=<span class="string">&#123;theme&#125;</span>&gt;</span>&#123;children&#125;<span class="tag">&lt;/<span class="name">ThemeProvider</span>&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="MUI-버전-업데이트"><a href="#MUI-버전-업데이트" class="headerlink" title="MUI 버전 업데이트"></a>MUI 버전 업데이트</h2><p>v5 버전의 MUI core를 사용하려면 먼저 패키지 네임을 업데이트해야 한다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install @mui/material @mui/styles</span><br><span class="line"></span><br><span class="line"><span class="comment">// or with `yarn`</span></span><br><span class="line">yarn add @mui/material @mui/styles</span><br></pre></td></tr></table></figure>
-<p>만약 아래와 같은 패키지가 이미 있는 경우 새 패키지를 별도로 설치해라</p>
-<ul>
-<li><code>@material-ui/lab</code> →  <code>@mui/lab</code></li>
-<li><p><code>@material-ui/icons</code> → <code>@mui/icons-material</code></p>
-</li>
-<li><p>모든 변경된 패키지 리스트 보기</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@material-ui/core -&gt; @mui/material</span><br><span class="line">@material-ui/system -&gt; @mui/system</span><br><span class="line">@material-ui/unstyled -&gt; @mui/base</span><br><span class="line">@material-ui/styles -&gt; @mui/styles</span><br><span class="line">@material-ui/icons -&gt; @mui/icons-material</span><br><span class="line">@material-ui/lab -&gt; @mui/lab</span><br><span class="line">@material-ui/types -&gt; @mui/types</span><br><span class="line">@material-ui/styled-engine -&gt; @mui/styled-engine</span><br><span class="line">@material-ui/styled-engine-sc -&gt;@mui/styled-engine-sc</span><br><span class="line">@material-ui/private-theming -&gt; @mui/private-theming</span><br><span class="line">@material-ui/codemod -&gt; @mui/codemod</span><br><span class="line">@material-ui/docs -&gt; @mui/docs</span><br><span class="line">@material-ui/envinfo -&gt; @mui/envinfo</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>org 또는 패키지 이름이 <code>@material-ui</code>에서 <code>@mui</code>로 변경된 것은 리브랜딩의 일환이다. 자세한 내용은 <a href="https://mui.com/blog/material-ui-is-now-mui/" target="_blank" rel="noopener">블로그</a> 포스트 또는 <a href="https://github.com/mui-org/material-ui/discussions/27803" target="_blank" rel="noopener">#27803</a>을 확인한다.</p>
-<p>그 다음으로는 새로운 종속 디펜던시인 이모션 패키지를 설치해야 한다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install @emotion/react @emotion/styled</span><br><span class="line"></span><br><span class="line"><span class="comment">// or with `yarn`</span></span><br><span class="line">yarn add @emotion/react @emotion/styled</span><br></pre></td></tr></table></figure>
-<p>만약 MUI Core v5를 emotion 대신 styled-components와 함께 사용하고 싶다면 <a href="https://mui.com/getting-started/installation/#npm" target="_blank" rel="noopener">설치 가이드</a>를 확인한다.</p>
-<p>만약 <code>@material-ui/pickers</code>를 사용중이라면 이것은 <code>@mui/lab</code>으로 이동했다. <a href="https://mui.com/guides/migration-v4/#material-ui-pickers" target="_blank" rel="noopener">이 링크</a>를 통해 <code>@mui/lab</code>으로 마이그레이션 하는 다음 단계를 확인할 수 있다.</p>
-<p>지금쯤 <code>@mui/styles</code>를 설치했어야 한다. 여기에는 emotion을 복제하는 JSS를 포함하고 있다. 이는 v5로의 점진적인 마이그레이션을 허용하기 위한 것이다. <a href="https://mui.com/guides/migration-v4/#migrate-from-jss" target="_blank" rel="noopener">다음 단계</a>에 따라 종속성을 제거할 수 있도록 한다.</p>
-<blockquote>
-<p>어플리케이션이 에러없이 잘 실행되고 있는지 확인하고, 다음 단계를 이어가기 전에 변경 사항을 커밋하도록 한다.</p>
-</blockquote>
-<p>어플리케이션이 완전히 MUI v5로 마이그레이션 되면 이전의 <code>@material-ui/*</code> 패키지를 <code>yarn remove</code> 또는 <code>npm install</code>로 제거할 수 있다.</p>
-<hr>
-<h2 id="codemod-실행"><a href="#codemod-실행" class="headerlink" title="codemod 실행"></a>codemod 실행</h2><p>마이그레이션을 쉽게 할 수 있도록 codemod를 준비했다.</p>
-<h3 id="preset-safe"><a href="#preset-safe" class="headerlink" title="preset-safe"></a>preset-safe</h3><p>이 codemod에는 마이그레이션에 유용한 대부분의 transformer가 포함되어 있다. (이 codemod는 폴더당 한 번만 적용될 수 있도록 한다.)</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx @mui/codemod v5<span class="number">.0</span><span class="number">.0</span>/preset-safe &lt;path&gt;</span><br></pre></td></tr></table></figure>
-<p>이 codemode를 일대일로 하나씩 실행하려면 <a href="https://github.com/mui-org/material-ui/blob/master/packages/mui-codemod/README.md#-preset-safe" target="_blank" rel="noopener">preset-safe codemod</a>에서 상세 내용을 확인한다.</p>
-<h3 id="variant-prop"><a href="#variant-prop" class="headerlink" title="variant-prop"></a>variant-prop</h3><p>어떠한 variant도 정의되지 않았다면 (default variant는 v4 standard에서 v5 outlined로 변경되었다.)<code>&lt;TextField/&gt;</code>, <code>&lt;FormControl/&gt;</code>, <code>&lt;Select/&gt;</code> 등의 컴포넌트에 variant=”standard”를 적용하여 변환할 수 있다.</p>
-<aside>
-💡 이미 default로 variant:”outlined”를 theme에 사용했다면 이 codemode를 사용해서는 안된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// if you have theme setup like this, ❌ don't run this codemod.</span></span><br><span class="line"><span class="comment">// these default props can be removed later because `outlined` is the default value in v5</span></span><br><span class="line">createMuiTheme(&#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    MuiTextField: &#123;</span><br><span class="line">      defaultProps: &#123;</span><br><span class="line">        variant: <span class="string">'outlined'</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>만약 variant=”standard” 를 컴포넌트에서 유지하고 싶다면, 이 codemod를 실행하거나 theme default props를 구성한다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx @mui/codemod v5<span class="number">.0</span><span class="number">.0</span>/variant-prop &lt;path&gt;</span><br></pre></td></tr></table></figure>
-<p>자세한 내용은 <a href="https://github.com/mui-org/material-ui/blob/master/packages/mui-codemod/README.md#variant-prop" target="_blank" rel="noopener">variant-prop codemod</a>를 확인한다.</p>
-<h3 id="link-underline-hover"><a href="#link-underline-hover" class="headerlink" title="link-underline-hover"></a>link-underline-hover</h3><p>underliner prop이 정의되지 않았다면 <Link/> 컴포넌트에 underline=”hover”를 적용하면 변환할 수 있다. (default underline은 v4 “hover”에서 v5 “always”로 변경되었다.)</p>
-<aside>
-💡 이미 default로 underline:”always”를 theme에 사용했다면 이 codemode를 사용해서는 안된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// if you have theme setup like this, ❌ don't run this codemod.</span></span><br><span class="line"><span class="comment">// this default props can be removed later because `always` is the default value in v5</span></span><br><span class="line">createMuiTheme(&#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    MuiLink: &#123;</span><br><span class="line">      defaultProps: &#123;</span><br><span class="line">        underline: <span class="string">'always'</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>만약 variant=”hover” 를 컴포넌트에서 유지하고 싶다면, 이 codemod를 실행하거나 theme default props를 구성한다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx @mui/codemod v5<span class="number">.0</span><span class="number">.0</span>/link-underline-hover &lt;path&gt;</span><br></pre></td></tr></table></figure>
-<p>자세한 내용은 <a href="https://github.com/mui-org/material-ui/blob/master/packages/mui-codemod/README.md#link-underline-hover" target="_blank" rel="noopener">link-underline-hover codemod</a>에서 확인한다.</p>
-<p>codemod 단계를 일단 완료했다면 어플리케이션을 다시 실행해본다. 이때 에러없이 실행되어야 한다. 그렇지 않을 경우 <a href="https://mui.com/guides/migration-v4/#troubleshooting" target="_blank" rel="noopener">troubleshooting</a> 섹션을 확인해본다. 다음 단계는 각 컴포넌트의 주요 변경사항을 처리하는 것이다.</p>
-<hr>
-<h2 id="Handling-breaking-changes"><a href="#Handling-breaking-changes" class="headerlink" title="Handling breaking changes"></a>Handling breaking changes</h2><h3 id="지원되는-브라우저-및-노드-버전"><a href="#지원되는-브라우저-및-노드-버전" class="headerlink" title="지원되는 브라우저 및 노드 버전"></a>지원되는 브라우저 및 노드 버전</h3><p>default 번들의 타겟이 변경되었다. 정확한 버전은 browserslist query가 릴리즈 될 때 고정된다.</p>
-<p><code>&quot;&gt; 0.5%, last 2 versions, Firefox ESR, not dead, not IE 11, maintained node versions&quot;</code></p>
-<p>기존 번들은 아래와 같은 최소 버전을 지원한다.</p>
-<ul>
-<li>Node 12 (up from 8)</li>
-<li>Chrome 90 (up from 49)</li>
-<li>Edge 91 (up from 14)</li>
-<li>Firefox 78 (up from 52)</li>
-<li>Safari 14 (macOS) and 12.5 (iOS) (up from 10)</li>
-<li>and more (see <a href="https://github.com/mui-org/material-ui/blob/HEAD/.browserslistrc#L11" target="_blank" rel="noopener">.browserslistrc (<code>stable</code> entry)</a>)</li>
-</ul>
-<p>더이상 IE 11을 지원하지 않기 때문에 IE 11을 지원해야 하는 경우는 <a href="https://mui.com/guides/minimizing-bundle-size/#legacy-bundle" target="_blank" rel="noopener">lagacy bundle</a>를 확인한다.</p>
-<h3 id="non-ref-forwarding-class-components"><a href="#non-ref-forwarding-class-components" class="headerlink" title="non-ref-forwarding class components"></a>non-ref-forwarding class components</h3><p>component prop의 non-ref-forwarding class components 또는 immediate children의 지원이 중단되었다. 만약 unstable_createStrictModeTheme를 사용하고 있거나 React.StrictMode의 <code>findDOMNode</code> 과 관련된 어떠한 경고도 표시되지 않았다면 아무런 작업도 수행할 필요가 없다. 그렇지 않다면 <a href="https://mui.com/guides/composition/#caveat-with-refs" target="_blank" rel="noopener">Caveat with refs</a> 섹션에서 어떻게 마이그레이션 해야하는지 알아볼 필요가 있다. 이 변경 사항은 component prop를 사용하는 곳이나 children을 element로 필요로 하기 때문에 children을 components에 전달해야 하는 거의 모든 components에 영향을 미친다. (예를 들어, <MenuList><CustomMenuItem /></MenuList>)</p>
-<h3 id="style-library"><a href="#style-library" class="headerlink" title="style library"></a>style library</h3><p>v5에서 default로 사용하는 스타일 라이브러리는 <code>[emotion](https://github.com/emotion-js/emotion)</code>이다. JSS에서 emotion으로 마이그레이션 하는 동안 components에 JSS style을 사용하여 override하는 경우 (예를 들자면 makeStyles 통해 override하는 경우) CSS 삽입 순서 (CSS injection order)를 신경써야 한다. 이렇게 하려면 <code>StyledEngineProvider</code> 와 <code>injectFirst</code> 옵션이 <strong>컴포넌트 tree의 가장 최상단에 위치해야 한다.</strong></p>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//예시</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; StyledEngineProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">GlobalCssPriority</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &#123;<span class="comment">/* Inject emotion before JSS */</span>&#125;</span><br><span class="line">    &lt;StyledEngineProvider injectFirst&gt;</span><br><span class="line">      &#123;<span class="comment">/* Your component tree. Now you can override MUI's styles. */</span>&#125;</span><br><span class="line">    &lt;<span class="regexp">/StyledEngineProvider&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
-<aside>
-💡 emotion을 통해 app에 스타일을 지정하고, 커스텀 캐시가 있는 경우에 MUI에 의해 제공되는 캐시는 무시된다. injection order를 올바르게 하려면 `prepend` 옵션을 `createCache`에 추가해야 한다.  
-이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//예시</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"> <span class="keyword">import</span> &#123; CacheProvider &#125; <span class="keyword">from</span> <span class="string">'@emotion/react'</span>;</span><br><span class="line"> <span class="keyword">import</span> createCache <span class="keyword">from</span> <span class="string">'@emotion/cache'</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">const</span> cache = createCache(&#123;</span><br><span class="line">   key: <span class="string">'css'</span>,</span><br><span class="line">+  prepend: <span class="literal">true</span>,</span><br><span class="line"> &#125;);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">PlainCssPriority</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> (</span><br><span class="line">     &lt;CacheProvider value=&#123;cache&#125;&gt;</span><br><span class="line">       &#123;<span class="comment">/* Your component tree. Now you can override MUI's styles. */</span>&#125;</span><br><span class="line">     &lt;<span class="regexp">/CacheProvider&gt;</span></span><br><span class="line"><span class="regexp">   );</span></span><br><span class="line"><span class="regexp"> &#125;</span></span><br></pre></td></tr></table></figure>
-<p>styled-components를 사용 중이고, 커스텀 타겟이 있는 StyleSheetManager를 사용중이라면 타겟이 HTML <head> 엘리먼트의 첫번 째 요소인지 확인한다. 어떻게 이것을 수행하는지 확인하려면 <code>@mui/styled-engine-sc</code> package에 있는 <code>[StyledEngineProvider</code> implementation](<a href="https://github.com/mui-org/material-ui/blob/master/packages/mui-styled-engine-sc/src/StyledEngineProvider/StyledEngineProvider.js)을" target="_blank" rel="noopener">https://github.com/mui-org/material-ui/blob/master/packages/mui-styled-engine-sc/src/StyledEngineProvider/StyledEngineProvider.js)을</a> 살펴본다.</p>
-<h3 id="Theme-structure"><a href="#Theme-structure" class="headerlink" title="Theme structure"></a>Theme structure</h3><p>theme 구조는 v5에서 변경되었기 때문에 변경된 형태로 업데이트 해야 한다. 원활한 전환을 위해서 <code>adaptV4Theme</code>를 사용해서 일부 테마의 변경된 사항을 새로운 테마 구조로 반복적으로 업그레이드 할 수 있다.</p>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; createMuiTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createTheme, adaptV4Theme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">-<span class="keyword">const</span> theme = createMuiTheme(&#123;</span><br><span class="line">+<span class="keyword">const</span> theme = createTheme(adaptV4Theme(&#123;</span><br><span class="line">   <span class="comment">// v4 theme</span></span><br><span class="line">-&#125;);</span><br><span class="line">+&#125;));</span><br></pre></td></tr></table></figure>
-<aside>
-💡 이 adapter는 creatTheme의 input arguements만 처리하기 때문에 테마 생성 후 구조를 수정하고자 할 때는 수동으로 업데이트 해야한다.
-
-</aside>
-
-<p>adapther는 다음의 변경 사항을 지원한다.</p>
-<ul>
-<li>“gutters” abstraction은 가치가 있다고 생각될 만큼 자주 사용되지 않는다고 입증되었다.</li>
-</ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-theme.mixins.gutters(),</span><br><span class="line">+paddingLeft: theme.spacing(<span class="number">2</span>),</span><br><span class="line">+paddingRight: theme.spacing(<span class="number">2</span>),</span><br><span class="line">+[theme.breakpoints.up(<span class="string">'sm'</span>)]: &#123;</span><br><span class="line">+  paddingLeft: theme.spacing(<span class="number">3</span>),</span><br><span class="line">+  paddingRight: theme.spacing(<span class="number">3</span>),</span><br><span class="line">+&#125;,</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>theme.spacing</code> 은 이제 default로 px 유닛과 단일 값을 반환한다. 이는 styled-compontnts와 emotion의 통합을 개선한다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">이는 &#96;theme.spacing&#96;이 template string로 호출되던 것으로부터 &#39;px&#39; 접미사를 제거해서</span><br><span class="line">[preset-safe codemod](https:&#x2F;&#x2F;mui.com&#x2F;guides&#x2F;migration-v4&#x2F;#preset-safe)에서 처리된다.</span><br></pre></td></tr></table></figure>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//before</span></span><br><span class="line">theme.spacing(<span class="number">2</span>) =&gt; <span class="number">16</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//after</span></span><br><span class="line">theme.spacing(<span class="number">2</span>) =&gt; <span class="string">'16px'</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>이 기능을 설명하는 데 일반적으로 사용되는 “dark mode”라는 용어를 더 잘 따르기 위해서 <code>theme.palette.type</code> 키는 <code>theme.palette.mode</code> 로 이름이 변경되었다.</li>
-</ul>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">-<span class="keyword">const</span> theme = createTheme(&#123;<span class="attr">palette</span>: &#123; <span class="attr">type</span>: <span class="string">'dark'</span> &#125;&#125;),</span><br><span class="line">+<span class="keyword">const</span> theme = createTheme(&#123;<span class="attr">palette</span>: &#123; <span class="attr">mode</span>: <span class="string">'dark'</span> &#125;&#125;),</span><br></pre></td></tr></table></figure>
-<ul>
-<li>default <code>[theme.palette.info](http://theme.palette.info)</code> 색상은 라이트, 다크 모드 모두에서 AA 표준 명암비를 통과하도록 변경되었다.</li>
-</ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">info = &#123;</span><br><span class="line">-  main: cyan[<span class="number">500</span>],</span><br><span class="line">+  main: lightBlue[<span class="number">700</span>], <span class="comment">// lightBlue[400] in "dark" mode</span></span><br><span class="line"></span><br><span class="line">-  light: cyan[<span class="number">300</span>],</span><br><span class="line">+  light: lightBlue[<span class="number">500</span>], <span class="comment">// lightBlue[300] in "dark" mode</span></span><br><span class="line"></span><br><span class="line">-  dark: cyan[<span class="number">700</span>],</span><br><span class="line">+  dark: lightBlue[<span class="number">900</span>], <span class="comment">// lightBlue[700] in "dark" mode</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>default <code>theme.palette.succeess</code> 색상은 색상은 라이트, 다크 모드 모두에서 AA 표준 명암비를 통과하도록 변경되었다.</li>
-</ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">success = &#123;</span><br><span class="line">-  main: green[<span class="number">500</span>],</span><br><span class="line">+  main: green[<span class="number">800</span>], <span class="comment">// green[400] in "dark" mode</span></span><br><span class="line"></span><br><span class="line">-  light: green[<span class="number">300</span>],</span><br><span class="line">+  light: green[<span class="number">500</span>], <span class="comment">// green[300] in "dark" mode</span></span><br><span class="line"></span><br><span class="line">-  dark: green[<span class="number">700</span>],</span><br><span class="line">+  dark: green[<span class="number">900</span>], <span class="comment">// green[700] in "dark" mode</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>default <code>theme.palette.warning</code> 색상은 색상은 라이트, 다크 모드 모두에서 AA 표준 명암비를 통과하도록 변경되었다.</li>
-</ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">warning = &#123;</span><br><span class="line">-  main: orange[<span class="number">500</span>],</span><br><span class="line">+  main: <span class="string">"#ED6C02"</span>, <span class="comment">// orange[400] in "dark" mode</span></span><br><span class="line"></span><br><span class="line">-  light: orange[<span class="number">300</span>],</span><br><span class="line">+  light: orange[<span class="number">500</span>], <span class="comment">// orange[300] in "dark" mode</span></span><br><span class="line"></span><br><span class="line">-  dark: orange[<span class="number">700</span>],</span><br><span class="line">+  dark: orange[<span class="number">900</span>], <span class="comment">// orange[700] in "dark" mode</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>default <code>theme.palette.text.hint</code> 키는 MUI components에서는 사용되지 않기 때문에 제거되었다. 만약 dependency를 가지고 있다면 뒤에 아래 예시와 같은 내용을 덧붙이도록 한다.</li>
-</ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">-<span class="keyword">const</span> theme = createTheme(),</span><br><span class="line">+<span class="keyword">const</span> theme = createTheme(&#123;</span><br><span class="line">+  palette: &#123; <span class="attr">text</span>: &#123; <span class="attr">hint</span>: <span class="string">'rgba(0, 0, 0, 0.38)'</span> &#125; &#125;,</span><br><span class="line">+&#125;);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>theme의 components 정의는 어떠한 관련된 component에서도 정의를 쉽게 찾아볼 수 있도록 compontns key 아래에 새롭게 구성되었다.</li>
-</ul>
-<ol>
-<li><code>prop</code></li>
-</ol>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">const</span> theme = createTheme(&#123;</span><br><span class="line">-  props: &#123;</span><br><span class="line">-    MuiButton: &#123;</span><br><span class="line">-      disableRipple: <span class="literal">true</span>,</span><br><span class="line">-    &#125;,</span><br><span class="line">-  &#125;,</span><br><span class="line">+  components: &#123;</span><br><span class="line">+    MuiButton: &#123;</span><br><span class="line">+      defaultProps: &#123;</span><br><span class="line">+        disableRipple: <span class="literal">true</span>,</span><br><span class="line">+      &#125;,</span><br><span class="line">+    &#125;,</span><br><span class="line">+  &#125;,</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
-<ol>
-<li><code>overrides</code></li>
-</ol>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">const</span> theme = createTheme(&#123;</span><br><span class="line">-  overrides: &#123;</span><br><span class="line">-    MuiButton: &#123;</span><br><span class="line">-      root: &#123; <span class="attr">padding</span>: <span class="number">0</span> &#125;,</span><br><span class="line">-    &#125;,</span><br><span class="line">-  &#125;,</span><br><span class="line">+  components: &#123;</span><br><span class="line">+    MuiButton: &#123;</span><br><span class="line">+      styleOverrides: &#123;</span><br><span class="line">+        root: &#123; <span class="attr">padding</span>: <span class="number">0</span> &#125;,</span><br><span class="line">+      &#125;,</span><br><span class="line">+    &#125;,</span><br><span class="line">+  &#125;,</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="Styles"><a href="#Styles" class="headerlink" title="Styles"></a>Styles</h3><ul>
-<li>기능을 더 잘 나타내기 위해 <code>fade</code> 에서 <code>alpha</code> 로 이름이 변경되었다. 이전의 이름은 입력 색상 값에 이미 alpha값이 있을 때 혼동을 야기했다. helper는 색상의 alpha 값을 override 한다.</li>
-</ul>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- <span class="keyword">import</span> &#123; fade &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+ <span class="keyword">import</span> &#123; alpha &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> classes = makeStyles(<span class="function"><span class="params">theme</span> =&gt;</span> (&#123;</span><br><span class="line">-  backgroundColor: fade(theme.palette.primary.main, theme.palette.action.selectedOpacity),</span><br><span class="line">+  backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>createStyles</code> 함수는 <code>@mui/material/styles</code> 에서 export 되는 것에서 <code>@mui/styles</code> 에서 export되는 것으로 변경되었다. 디펜던시를 core 패키지의 <code>@mui/styles</code> 로 이동시키는 것이 필요하다.</li>
-</ul>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; createStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="mui-styles"><a href="#mui-styles" class="headerlink" title="@mui/styles"></a>@mui/styles</h3><h3 id="ThemeProvider"><a href="#ThemeProvider" class="headerlink" title="ThemeProvider"></a>ThemeProvider</h3><p><code>@mui/styles</code> 와 <code>@mui/material</code>를 함께 사용한다면, <code>ThemeProvider</code> 를 <code>@mui/material/styles</code>에서 export 되던 것을 <code>@mui/styles</code>에서 export 되도록 변경해야 한다. 이 방법은 <code>@mui/styles</code>에서 export된 스타일링 유틸리티인 makeStyles, withStyles 등과 MUI component에서 context에서 제공되는 theme가 모두 사용되도록 할 수 있다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; ThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; ThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="Default-Theme-TypeScript"><a href="#Default-Theme-TypeScript" class="headerlink" title="Default Theme (TypeScript)"></a>Default Theme (TypeScript)</h3><p><code>@mui/styles</code> 패키지는 더이상 <code>@mui/material/styles</code> 의 일부가 아니다. <code>@mui/styles</code>를 <code>@mui/material</code> 과 함께 사용하는 경우에 DefaultTheme에 대해 모듈을 추가하여 적용해야 한다.</p>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in the file where you are creating the theme (invoking the function `createTheme()`)</span></span><br><span class="line"><span class="keyword">import</span> &#123; Theme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">declare <span class="built_in">module</span> <span class="string">'@mui/styles'</span> &#123;</span><br><span class="line">  interface DefaultTheme extends Theme &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="mui-material-colors"><a href="#mui-material-colors" class="headerlink" title="@mui/material/colors"></a>@mui/material/colors</h3><ul>
-<li>1 레벨 이상의 중첩된 import는 private이다. <code>@mui/material/colors/red</code> 에서 색상을 가져올 수 없다.</li>
-</ul>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> red <span class="keyword">from</span> <span class="string">'@mui/material/colors/red'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; red &#125; <span class="keyword">from</span> <span class="string">'@mui/material/colors'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="mui-material-styles"><a href="#mui-material-styles" class="headerlink" title="@mui/material/styles"></a>@mui/material/styles</h3><h3 id="createGenerateClassName"><a href="#createGenerateClassName" class="headerlink" title="createGenerateClassName"></a>createGenerateClassName</h3><p><code>createGenerateClassName</code> 함수는 더이상 <code>@mui/material/styles</code>에서 export되지 않는다. <code>@mui/styles</code>에서 직접 import해야 한다.</p>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; createGenerateClassName &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createGenerateClassName &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br></pre></td></tr></table></figure>
-<p>@mui/styles를 사용하지 않고 커스텀 클래스네임을 생성하려면 <a href="https://mui.com/guides/classname-generator/" target="_blank" rel="noopener">ClassNameGenerator</a>에서 세부내용을 확인한다.</p>
-<h3 id="createMuiTheme"><a href="#createMuiTheme" class="headerlink" title="createMuiTheme"></a>createMuiTheme</h3><p><code>createMuiTheme</code> 함수는 <code>ThemeProvider</code>를 좀더 직관적으로 사용할 수 있도록 하기 위해서 <code>createTheme</code>로 이름이 변경되었다.</p>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; createMuiTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">-<span class="keyword">const</span> theme = createMuiTheme(&#123;</span><br><span class="line">+<span class="keyword">const</span> theme = createTheme(&#123;</span><br></pre></td></tr></table></figure>
-<h3 id="jssPreset"><a href="#jssPreset" class="headerlink" title="jssPreset"></a>jssPreset</h3><ul>
-<li><code>jssPreset</code> 객체는 더이상 <code>@mui/material/styles</code> 에서 export되지 않는다. <code>@mui/styles</code>에서 바로 import해서 사용해야 한다.</li>
-</ul>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; jssPreset &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; jssPreset &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="makeStyles"><a href="#makeStyles" class="headerlink" title="makeStyles"></a>makeStyles</h3><ul>
-<li><code>makeStyles</code> JSS 유틸리티는 더이상 <code>@mui/material/styles</code> 에서 export되지 않기 때문에 대신 <code>@mui/styles/makeStyles</code>를 사용해야 한다. <code>defaultTheme</code> 를 더이상 사용할 수 없기 때문에 <code>ThemeProvider</code>를 어플리케이션의 루트에 추가하도록 한다. 만약 <code>@mui/material</code>와 함께 사용하고 있다면 <code>@mui/material/styles</code>에 있는 ThemeProvider 컴포넌트를 사용하는 것을 추천한다.</li>
-</ul>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; makeStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; makeStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createTheme, ThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">+<span class="keyword">const</span> theme = createTheme();</span><br><span class="line"> <span class="keyword">const</span> useStyles = makeStyles(<span class="function">(<span class="params">theme</span>) =&gt;</span> (&#123;</span><br><span class="line">   background: theme.palette.primary.main,</span><br><span class="line"> &#125;));</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">Component</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">const</span> classes = useStyles();</span><br><span class="line">   <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;classes.root&#125;</span> /&gt;</span></span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// In the root of your app</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">-  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Component</span> /&gt;</span></span>;</span><br><span class="line">+  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">ThemeProvider</span> <span class="attr">theme</span>=<span class="string">&#123;theme&#125;</span>&gt;</span><span class="tag">&lt;<span class="name">Component</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span><span class="tag">&lt;/<span class="name">ThemeProvider</span>&gt;</span></span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="MuiThemeProvider"><a href="#MuiThemeProvider" class="headerlink" title="MuiThemeProvider"></a>MuiThemeProvider</h3><p><code>MuiThemeProvider</code> 컴포넌트는 더이상 <code>@mui/material/styles</code>에서 export되지 않으므로 <code>ThemeProvider</code>를 대신 사용한다.</p>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; MuiThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; ThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="serverStyleSheets"><a href="#serverStyleSheets" class="headerlink" title="serverStyleSheets"></a>serverStyleSheets</h3><p><code>ServerStyleSheets</code> 컴포넌트는 더이상 <code>@mui/material/styles</code>에서 export되지 않으므로 <code>@mui/styles</code>에서 직접 import하도록 한다.</p>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; ServerStyleSheets &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; ServerStyleSheets &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="Styles-1"><a href="#Styles-1" class="headerlink" title="Styles"></a>Styles</h3><p><code>styled</code> JSS utility는 더이상 <code>@mui/material/styles</code>에서 export되지 않으므로 대신 <code>@mui/styles</code>에서 export된 것을 사용하도록 한다. <code>defaultTheme</code> 를 더이상 사용할 수 없기 때문에 <code>ThemeProvider</code>를 어플리케이션의 루트에 추가하도록 한다. 만약 <code>@mui/material</code>와 함께 사용하고 있다면 <code>@mui/material/styles</code>에 있는 ThemeProvider 컴포넌트를 사용하는 것을 추천한다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; styled &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; styled &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createTheme, ThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">+<span class="keyword">const</span> theme = createTheme();</span><br><span class="line"> <span class="keyword">const</span> MyComponent = styled(<span class="string">'div'</span>)(<span class="function">(<span class="params">&#123; theme &#125;</span>) =&gt;</span> (&#123; <span class="attr">background</span>: theme.palette.primary.main &#125;));</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">-  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> /&gt;</span></span>;</span><br><span class="line">+  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">ThemeProvider</span> <span class="attr">theme</span>=<span class="string">&#123;theme&#125;</span>&gt;</span><span class="tag">&lt;<span class="name">MyComponent</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span><span class="tag">&lt;/<span class="name">ThemeProvider</span>&gt;</span></span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="StylesProvider"><a href="#StylesProvider" class="headerlink" title="StylesProvider"></a>StylesProvider</h3><ul>
-<li><code>StylesProvider</code> 컴포넌트는 더이상 <code>@mui/material/styles</code>에서 export되지 않으므로 <code>@mui/styles</code>에서 바로 export하여 사용하도록 한다.</li>
-</ul>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; StylesProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; StylesProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="useThemeVariants"><a href="#useThemeVariants" class="headerlink" title="useThemeVariants"></a>useThemeVariants</h3><ul>
-<li><code>useThemeVariants</code> hook은 더이상 <code>@mui/material/styles</code> 에서 export 되지 않기 때문에 <code>@mui/styles</code> 에서 즉시 import하여 사용하도록 한다.</li>
-</ul>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; useThemeVariants &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; useThemeVariants &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="withStyles"><a href="#withStyles" class="headerlink" title="withStyles"></a>withStyles</h3><p><code>innerRef</code> prop은 <code>ref</code> prop으로 교체한다. Refs는 이제 자동으로 inner 컴포넌트에 전달된다.</p>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"> <span class="keyword">import</span> &#123; withStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">const</span> MyComponent = withStyles(&#123;</span><br><span class="line">   root: &#123;</span><br><span class="line">     backgroundColor: <span class="string">'red'</span>,</span><br><span class="line">   &#125;,</span><br><span class="line"> &#125;)(<span class="function">(<span class="params">&#123; classes &#125;</span>) =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;classes.root&#125;</span> /&gt;</span></span>);</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">MyOtherComponent</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">   <span class="keyword">const</span> ref = React.useRef();</span><br><span class="line">-  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> <span class="attr">innerRef</span>=<span class="string">&#123;ref&#125;</span> /&gt;</span></span>;</span><br><span class="line">+  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> <span class="attr">ref</span>=<span class="string">&#123;ref&#125;</span> /&gt;</span></span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p><code>withStyles</code> JSS utility는 더이상 <code>@mui/material/styles</code> 에서 export 되지 않기 때문에 <code>@mui/styles/withStyles</code> 를 대신 쓰도록 한다. <code>defaultTheme</code> 를 더이상 사용할 수 없기 때문에 <code>ThemeProvider</code>를 어플리케이션의 루트에 추가하도록 한다. 만약 <code>@mui/material</code>와 함께 사용하고 있다면 <code>@mui/material/styles</code>에 있는 ThemeProvider 컴포넌트를 사용하는 것을 추천한다.</p>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; withStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; withStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createTheme, ThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">+<span class="keyword">const</span> defaultTheme = createTheme();</span><br><span class="line"> <span class="keyword">const</span> MyComponent = withStyles(<span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">   <span class="keyword">const</span> &#123; classes, className, ...other &#125; = props;</span><br><span class="line">   <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;clsx(className,</span> <span class="attr">classes.root</span>)&#125; &#123;<span class="attr">...other</span>&#125; /&gt;</span></span></span><br><span class="line"> &#125;)(<span class="function">(<span class="params">&#123; theme &#125;</span>) =&gt;</span> (&#123; <span class="attr">root</span>: &#123; <span class="attr">background</span>: theme.palette.primary.main &#125;&#125;));</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">-  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> /&gt;</span></span>;</span><br><span class="line">+  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">ThemeProvider</span> <span class="attr">theme</span>=<span class="string">&#123;defaultTheme&#125;</span>&gt;</span><span class="tag">&lt;<span class="name">MyComponent</span> /&gt;</span><span class="tag">&lt;/<span class="name">ThemeProvider</span>&gt;</span></span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="withTheme"><a href="#withTheme" class="headerlink" title="withTheme"></a>withTheme</h3><p><code>withTheme</code> HOC utility는 <code>@mui/material/styles</code> 패키지에서 제거되었기 때문에 대신 <code>@mui/styles/withTheme</code>를 사용할 수 있다. <code>defaultTheme</code> 를 더이상 사용할 수 없기 때문에 <code>ThemeProvider</code>를 어플리케이션의 루트에 추가하도록 한다. 만약 <code>@mui/material</code>와 함께 사용하고 있다면 <code>@mui/material/styles</code>에 있는 ThemeProvider 컴포넌트를 사용하는 것을 추천한다.</p>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">import</span> &#123; withTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; withTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line">+<span class="keyword">import</span> &#123; createTheme, ThemeProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/material/styles'</span>;</span><br><span class="line"></span><br><span class="line">+<span class="keyword">const</span> theme = createTheme();</span><br><span class="line"> <span class="keyword">const</span> MyComponent = withTheme(<span class="function">(<span class="params">&#123; theme &#125;</span>) =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;props.theme.direction&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>);</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">-  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> /&gt;</span></span>;</span><br><span class="line">+  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">ThemeProvider</span> <span class="attr">theme</span>=<span class="string">&#123;theme&#125;</span>&gt;</span><span class="tag">&lt;<span class="name">MyComponent</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span><span class="tag">&lt;/<span class="name">ThemeProvider</span>&gt;</span></span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p><code>innerRef</code> prop를 ref prop으로 바꾼다. Ref는 이제 자동으로 내부 컴포넌트에 전달된다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; withTheme &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MyComponent = withTheme(<span class="function">(<span class="params">&#123; theme &#125;</span>) =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;props.theme.direction&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyOtherComponent</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> ref = React.useRef();</span><br><span class="line">- <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> <span class="attr">innerRef</span>=<span class="string">&#123;ref&#125;</span> /&gt;</span></span>;</span><br><span class="line">+ <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> <span class="attr">ref</span>=<span class="string">&#123;ref&#125;</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="withWidth"><a href="#withWidth" class="headerlink" title="withWidth"></a>withWidth</h3><p>이 HOC는 제거되었고, 대안으로 <code>[useMediaQuery</code> hook](<a href="https://mui.com/components/use-media-query/#migrating-from-withwidth)을" target="_blank" rel="noopener">https://mui.com/components/use-media-query/#migrating-from-withwidth)을</a> 쓸 수 있다.</p>
-<aside>
-💡 이는 응용 프로그램이 충돌하는 것을 방지하기 위해 하드 코딩된 기능을 적용하여 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<h3 id="mui-icons-matetial"><a href="#mui-icons-matetial" class="headerlink" title="mui/icons-matetial"></a>mui/icons-matetial</h3><h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><p>Github icon은 24px에서 22px로 크기가 감소되었다.</p>
-<h3 id="material-ui-pickers"><a href="#material-ui-pickers" class="headerlink" title="@material-ui/pickers"></a><strong>@material-ui/pickers</strong></h3><p><code>@material-ui/pickers</code>를 마이그레이션 하는 방법은 <a href="https://mui.com/guides/pickers-migration/" target="_blank" rel="noopener">다음 페이지</a>를 참조하도록 한다.</p>
-<hr>
-<h2 id="System"><a href="#System" class="headerlink" title="System"></a>System</h2><p>다음의 system function 및 속성은 사용되지 않는 css로 간주되어 이름이 변경되었다.</p>
-<ul>
-<li><code>gridGap</code> to <code>gap</code></li>
-<li><code>gridRowGap</code> to <code>rowGap</code></li>
-<li><code>gridColumnGap</code> to <code>columnGap</code></li>
-</ul>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<p>간격을 조정하는 unit인 <code>gap</code>, <code>rowGap</code>, <code>columnGap</code> 등을 사용할 때, 이전에 숫자로 사용하고 있었다면 theme.spacing과 더불어 새롭게 변환되기 위해 px를 덧붙여서 사용해야 한다.</p>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Box</span><br><span class="line">-  gap=&#123;<span class="number">2</span>&#125;</span><br><span class="line">+  gap=<span class="string">"2px"</span></span><br><span class="line"> &gt;</span><br></pre></td></tr></table></figure>
-<p>css prop은 styled-components와 emotion의 css prop이 충돌되는 것을 막기 위해 <code>sx</code>로 변경한다.</p>
-<aside>
-💡 이는 [preset-safe codemod](https://mui.com/guides/migration-v4/#preset-safe)에서 처리된다.
-
-</aside>
-
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">;-(<span class="xml"><span class="tag">&lt;<span class="name">Box</span> <span class="attr">css</span>=<span class="string">&#123;&#123;</span> <span class="attr">color:</span> '<span class="attr">primary.main</span>' &#125;&#125; /&gt;</span></span>) +</span><br><span class="line">&lt;Box sx=&#123;&#123; <span class="attr">color</span>: <span class="string">'primary.main'</span> &#125;&#125; /&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="Core-components"><a href="#Core-components" class="headerlink" title="Core components"></a>Core components</h3><p>core components는 스타일 엔진으로 emotion을 사용하기 때문에 emotion에 의해 사용되는 props들은 전파되지 않는다. 아래의 코드 스니펫처럼 props <code>as</code>는 <code>SomeOtherComponent</code>로 전파되지 않는다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;MuiComponent component=&#123;SomeOtherComponent&#125; <span class="keyword">as</span>=<span class="string">'button'</span> /&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<p><em>References</em><br><a href="https://mui.com/guides/migration-v4/" target="_blank" rel="noopener">Migration from v4 to v5 - MUI</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1834,7 +1563,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-count">113</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
