@@ -144,6 +144,163 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/10/25/201026_whatIsHttp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/25/201026_whatIsHttp/" class="post-title-link" itemprop="url">What is Http?</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-26 00:00:00" itemprop="dateCreated datePublished" datetime="2020-10-26T00:00:00+09:00">2020-10-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-02 18:20:24" itemprop="dateModified" datetime="2022-03-02T18:20:24+09:00">2022-03-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="HTTP-Hypertext-Transfer-Protocol"><a href="#HTTP-Hypertext-Transfer-Protocol" class="headerlink" title="HTTP(Hypertext Transfer Protocol)"></a>HTTP(Hypertext Transfer Protocol)</h2><ul>
+<li>HTML 문서와 같은 리소스들을 가져올 수 있도록 해주는 프로토콜(컴퓨터 내부에서, 또는 컴퓨터 사이에서 데이터의 교환 방식을 정의하는 규칙 체계).</li>
+<li>웹에서 이루어지는 모든 데이터 교환의 기초</li>
+<li>클라이언트-서버 프로토콜: (보통 웹브라우저인) 수신자 측에 의해 요청이 초기화되는 프로토콜</li>
+</ul>
+<p>client와 server가 서로 어떻게 커뮤니케이션하는지를 표준화한 TCP/IP 기반의 *<u>어플리케이션 계층 커뮤니케이션 프로토콜</u>이다.<strong>content가 어떻게 요청되고, 어떻게 인터넷을 통해 전송되는지를 정의한다.</strong></p>
+<hr>
+<ul>
+<li>*<u>어플리케이션 계층 프로토콜(application layer protocol)</u>: hosts(client와 server)가 어떻게 커뮤니케이션하는지를 표준화한 추상화된 계층이며, TCP/IP가 client와 server사이에 요청과 응답을 주고 받는 것에 의존한다.</li>
+</ul>
+<hr>
+<h2 id="HTTP-기반-시스템의-구성요소"><a href="#HTTP-기반-시스템의-구성요소" class="headerlink" title="HTTP 기반 시스템의 구성요소"></a>HTTP 기반 시스템의 구성요소</h2><p>각가의 개별적인 요청들은 서버로 전송되고, 서버는 전달받은 요청을 처리하여 <code>response</code>라고 불리는 응답을 제공한다. 그리고 이 <code>요청과 응답</code> 사이에는 다양한 작업을 수행하는 게이트웨이, 캐시 역할을 하는 프록시 등의 여러 개체들이 존재한다. 라우터, 모뎀 등의 개체도 존재하는데 웹은 계층적으로 설계되어 있기 떄문에 이들은 네트워크과 전송 계층 내로 숨겨지고, <em>HTTP는 어플리케이션 계층의 최상위에 있다.</em></p>
+<h3 id="클라이언트-사용자-에이전트"><a href="#클라이언트-사용자-에이전트" class="headerlink" title="클라이언트: 사용자 에이전트"></a>클라이언트: 사용자 에이전트</h3><p>사용자를 대신하여 동작하는 모든 도구, 주로 브라우저에 의해 수행된다. <strong>브라우저는 항상 요청을 보내는 개체이며, 결코 서버가 될 수 없다.</strong></p>
+<p>브라우저가 *<u>웹 페이지</u>를 표시하기 위해서는 페이지의 *<u>HTML 문서</u>를 가져오기 위한 요청을 전송한 뒤, 파일을 구문 분석하여 실행해야 할 스크립트와 하위 리소스들(보통 이미지와 비디오)을 잘 표시하기 위한 레이아웃 정보(CSS)에 대응하는 추가적인 요청들을 가져온다. 그리고, 하나의 완전한 문서인 웹페이지를 표시하기 위해 리소스들을 혼합한다. 즉, 하나의 완전한 문서는 텍스트, 레이아웃 설명, 이미지, 비디오, 스크립트 등 불러온(fetched) 하위 문서들로 재구성된다.</p>
+<hr>
+<ul>
+<li>*<u>웹페이지</u>: 하이퍼텍스트 문서. HTML 언어로 쓰여진 browser(브라우저)를 통해 보여지는 단순한 문서이다. 위에서 설명한 것처럼 웹 페이지는 다양한 다른 종류의 자원을 포함할 수 있다.</li>
+<li>*<u>HTML(*<u>HyperText</u> Markup Language)&lt;/u&gt;: 웹을 이루는 가장 기초적인 구성 요소로 웹 콘텐츠의 의미와 구조를 정의할 때 사용하고 웹 브라우저에 표시되는 글, 이미지 등의 다양한 컨텐츠를 표시하기 위해 <code>마크업</code>을 사용한다. 마크업은 \<head>, \<title>처럼 다양한 요소를 사용한다.</li>
+<li>*하이퍼텍스트:웹 페이지를 다른 페이지로 연결하는 링크로 웹의 근본적인 속성이다.</li>
+</ul>
+<hr>
+<h3 id="웹-서버"><a href="#웹-서버" class="headerlink" title="웹 서버"></a>웹 서버</h3><p>통신 채널의 반대편에 존재하는 클라이언트에 의한 요청에 대한 문서를 제공하는 서버.</p>
+<h3 id="프록시"><a href="#프록시" class="headerlink" title="프록시"></a>프록시</h3><p>웹 브라우저와 서버 사이에서는 수많은 컴퓨터와 머신이 HTTP 메시지를 이어 받고 전달하는데,여러 계층으로 이루어진 웹 스택 구조에서 이러한 컴퓨터/머신들은 대부분은 전송, 네트워크 혹은 물리 계층에서 동작하며, <em>성능에 상당히 큰 영향을 주지만 HTTP 계층에서는 이들이 어떻게 동작하는지 눈에 보이지 않는다.</em> <strong>이러한 컴퓨터/머신 중에서도 애플리케이션 계층에서 동작하는 것들을 일반적으로 프록시라고 부른다.</strong> 프록시는 눈에 보이거나 그렇지 않을 수도 있으며(프록시를 통해 요청이 변경되거나 변경되지 않는 경우를 말함) 다양한 기능들을 수행할 수 있다</p>
+<ul>
+<li>캐싱 (캐시는 공개 또는 비공개가 될 수 있다 (예: 브라우저 캐시))</li>
+<li>필터링 (바이러스 백신 스캔, 유해 컨텐츠 차단(자녀 보호) 기능)</li>
+<li>로드 밸런싱 (여러 서버들이 서로 다른 요청을 처리하도록 허용)</li>
+<li>인증 (다양한 리소스에 대한 접근 제어)</li>
+<li>로깅 (이력 정보를 저장)</li>
+</ul>
+<hr>
+<h2 id="HTTP의-기초"><a href="#HTTP의-기초" class="headerlink" title="HTTP의 기초"></a>HTTP의 기초</h2><ul>
+<li><code>간단하다</code>: HTTP/2가 다소 더 복잡해졌지만 여전히 HTTP 메세지를 프레임별로 캡슐화하여 간결함을 유지하고 있고, <strong>사람이 읽을 수 있도록 간단하게 고안되어 있다.</strong></li>
+<li><p><code>확장가능하다</code>: HTTP/1.0에서 소개된, *<u>HTTP 헤더</u>는 HTTP를 확장하고 실험하기 쉽게 만들어주었기 때문에, 클라이언트와 서버가 새로운 헤더의 시맨틱에 대해 간단한 합의만 한다면, 언제든지 새로운 기능을 추가할 수 있다.</p>
+</li>
+<li><p><code>stateless, but not sessionless</code>: 상태를 저장하지 않는다. 동일한 연결 상에서 연속하여 전달된 두 개의 요청 사이에는 연결고리가 없다. <strong>HTTP의 핵심은 상태가 없는 것이지만 HTTP 쿠키는 상태가 있는 세션을 만들도록 해준다.</strong> 헤더 확장성을 사용하여, 동일한 컨텍스트 또는 동일한 상태를 공유하기 위해 각각의 요청들에 세션을 만들도록 HTTP 쿠키가 추가된다.</p>
+</li>
+<li><code>HTTP와 connections</code>: 연결(connection)은 전송 계층에서 제어되므로 근본적으로 HTTP 영역 밖이다. HTTP는 연결될 수 있도록 하는 근본적인 전송 프로토콜을 요구하지 않는다. 다만 그저 신뢰할 수 있거나 메시지 손실이 없는(최소한의 오류는 표시) 연결을 요구할 뿐이다. HTTP는 연결이 필수는 아니지만 연결 기반인 TCP 표준에 의존한다.</li>
+</ul>
+<p>클라이언트와 서버가 HTTP를 요청/응답으로 교환하기 전에 여러 왕복이 필요한 프로세스인 TCP 연결을 설정해야 하고, 기본적인 TCP 연결은 Connection 헤더를 사용해 부분적으로 제어할 수 있다.</p>
+<hr>
+<ul>
+<li>*<u>HTTP 헤더</u>: 클라이언트와 서버가 요청 또는 응답으로 부가적인 정보를 전송할 수 있도록 해준다. HTTP 헤더는 대소문자를 구분하지 않는 이름과 콜론 ‘:’ 다음에 오는 값(줄 바꿈 없이)으로 이루어져있다. 값 앞에 붙은 빈 문자열은 무시된다.</li>
+</ul>
+<hr>
+<h2 id="HTTP로-제어할-수-있는-것"><a href="#HTTP로-제어할-수-있는-것" class="headerlink" title="HTTP로 제어할 수 있는 것"></a>HTTP로 제어할 수 있는 것</h2><ol>
+<li>캐시<br>HTTP로 문서가 캐시되는 방식을 제어할 수 있다. 서버는 캐시 대상과 기간을 프록시와 클라이언트에 지시할 수 있고 클라이언트는 저장된 문서를 무시하라고 중간 캐시 프록시에게 지시할 수 있다.</li>
+<li>origin 제약사항을 완화하기<br>스누핑과 다른 프라이버시 침해를 막기 위해, 브라우저는 웹 사이트 간의 엄격한 분리를 강제힌다. <strong>동일한 origin으로부터 온 페이지만이 웹 페이지의 전체 정보에 접근할 수 있다.</strong> 그런 제약 사항은 서버에 부담이 되지만, HTTP 헤더를 통해 그것을 완화시킬 수 있다. 그런 덕분에 문서는 다른 도메인으로부터 전달된 정보를 패치워크할 수 있다(그렇게 하려면 어떤 경우에 보안과 관련된 사항이 있을 수도 있다).</li>
+<li>인증<br><strong>어떤 페이지들은 보호되어 오로지 특정 사용자만이 그것에 접근할 수도 있다</strong>. 기본 인증은 HTTP를 통해 WWW-Authenticate 또는 유사한 헤더를 사용해 제공되거나, HTTP 쿠키를 사용해 특정 세션을 설정하여 이루어질 수도 있다.</li>
+<li>프록시와 터널링<br><strong>서버 혹은 클라이언트 혹은 그 둘 모두는 종종 인트라넷에 위치하며 다른 개체들에게 그들의 실제 주소를 숨기기도 한다.</strong> HTTP 요청은 네트워크 장벅을 가로지르기 위해 프록시를 통해 나가게 된다. 모든 프록시가 HTTP 프록시는 아니다. 예를 들면 SOCKS 프로토콜은 좀 더 저수준에서 동작한다. FTP와 같은 다른 프로토콜도 이 프록시를 통해 처리될 수 있다.</li>
+<li>세션<br><strong>쿠키 사용은 서버 상태를 요청과 연결하도록 해준다. 이것은 HTTP가 기본적으로 상태없는 프로토콜임에도 세션을 만들어주는 계기가 된다.</strong> 이것은 e-커머스 쇼핑 바구니를 위해서 유용할 뿐만 아니라 사용자 구성을 허용하는 모든 사이트에 대해서 유용하다.</li>
+</ol>
+<hr>
+<h2 id="HTTP의-흐름"><a href="#HTTP의-흐름" class="headerlink" title="HTTP의 흐름"></a>HTTP의 흐름</h2><ol>
+<li><code>TCP 연결을 연다</code>: 요청을 보내거나(혹은 여러개의 요청) 응답을 받는데 사용되고, 클라이언트는 새 연결을 열거나, 기존 연결을 재사용하거나, 서버에 대한 여러 TCP 연결을 열 수 있다.</li>
+<li><code>HTTP 메시지를 전송</code>: HTTP 메시지(HTTP/2 이전의)는 인간이 읽을 수 있다. HTTP/2에서는 이런 간단한 메시지가 프레임 속으로 캡슐화되어, 직접 읽는게 불가능하지만 원칙은 동일하다.</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET &#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: developer.mozilla.org</span><br><span class="line">Accept-Language: fr</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>서버에 의해 전송된 응답 읽어들이기</code>:</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">HTTP&#x2F;1.1 200 OK</span><br><span class="line">Date: Sat, 09 Oct 2010 14:28:02 GMT</span><br><span class="line">Server: Apache</span><br><span class="line">Last-Modified: Tue, 01 Dec 2009 20:18:22 GMT</span><br><span class="line">ETag: &quot;51142bc1-7449-479b075b2891b&quot;</span><br><span class="line">Accept-Ranges: bytes</span><br><span class="line">Content-Length: 29769</span><br><span class="line">Content-Type: text&#x2F;html</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html... (here comes the 29769 bytes of the requested web page)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>연결을 닫거나 다른 요청들을 위해 재사용하기</code></li>
+</ol>
+<hr>
+<h2 id="HTTP-메세지"><a href="#HTTP-메세지" class="headerlink" title="HTTP 메세지"></a>HTTP 메세지</h2><ul>
+<li>HTTP/1.1과 초기 HTTP 메시지: 사람이 읽을 수 있다.</li>
+<li>HTTP/2: 이 메시지들은 새로운 이진 구조인 프레임 안으로 임베드되어, 헤더의 압축과 다중화와 같은 최적화를 가능케 한다.</li>
+<li>HTTP 메시지의 두 가지 타입인 <code>요청(requests)과 응답(responses)</code>은 각자의 형식을 가지고 있다.</li>
+</ul>
+<h3 id="요청의-구성요소"><a href="#요청의-구성요소" class="headerlink" title="요청의 구성요소"></a><code>요청</code>의 구성요소</h3><ul>
+<li><code>HTTP 메서드</code>: <strong>보통 클라이언트가 수행하고자 하는 동작을 정의한 GET, POST 같은 동사나 OPTIONS나 HEAD와 같은 명사.</strong> 일반적으로, 클라이언트는 리소스를 가져오거나(GET을 사용하여) HTML 폼의 데이터를 전송(POST를 사용하여)하려고 하지만, 다른 경우에는 다른 동작이 요구될 수도 있다.</li>
+<li><code>가져오려는 리소스의 경로</code>: 예를 들면 프로토콜 (http://), 도메인 (developer.mozilla.org), 또는 TCP 포트 (80)인 요소들을 제거한 리소스의 URL.</li>
+<li><code>HTTP 프로토콜의 버전</code></li>
+<li><code>서버에 대한 추가 정보를 전달하는 선택적 헤더들</code></li>
+<li><code>응답의 본문과 유사한 본문</code>: POST와 같은 몇 가지 메서드를 위한, 전송된 리소스를 포함</li>
+</ul>
+<h3 id="응답의-구성요소"><a href="#응답의-구성요소" class="headerlink" title="응답의 구성요소"></a><code>응답</code>의 구성요소</h3><ul>
+<li>HTTP 프로토콜의 버전.</li>
+<li>요청의 성공 여부와, 그 이유를 나타내는 상태 코드.</li>
+<li>아무런 영향력이 없는, 상태 코드의 짧은 설명을 나타내는 상태 메시지.</li>
+<li>요청 헤더와 비슷한, HTTP 헤더들.</li>
+<li>선택 사항으로, 가져온 리소스가 포함되는 본문.</li>
+</ul>
+<hr>
+<h2 id="HTTP-기반-API"><a href="#HTTP-기반-API" class="headerlink" title="HTTP 기반 API"></a>HTTP 기반 API</h2><p>HTTP 기반으로 가장 일반적으로 사용된 API는 user agent와 서버간에 데이터를 교환하는데 사용될 수 있는 *<u>XMLHttpRequest API</u>이다. 최신 *<u>Fetch API</u>는 보다 강력하고 유연한 기능을 제공합니다.</p>
+<ul>
+<li>*<u>XMLHttpRequest(XHR) API</u>: <strong>XHR객체는 서버와 상호작용하기 위해 사용되며, 전체 페이지의 새로고침없이도 URL 로부터 데이터를 받아올 수 있다.</strong> 이는 웹 페이지가 사용자가 하고 있는 것을 방해하지 않으면서 페이지의 일부만 업데이트할 수 있도록 해준다. XMLHttpRequest 는 AJAX 프로그래밍에 주로 사용된다. 또한 XML만 받아올 수 있을 것 같아 보이지만, 모든 종류의 데이터를 받아오는데 사용할 수 있다. 또한 HTTP 이외의 프로토콜도 지원한다(file 과 ftp 포함). 이 XHR</li>
+<li>* Fetch API: 네트워크 통신을 포함한 리소스 취득을 위한 인터페이스가 정의되어 있다. XMLHttpRequest와 같은 비슷한 API가 존재하지만, Fetch API는 좀더 강력하고 유연한 조작이 가능하다.</li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://developer.mozilla.org/ko/docs/Web/HTML" target="_blank" rel="noopener">HTML: Hypertext Markup Language</a><br><a href="https://developer.mozilla.org/ko/docs/Learn/Common_questions/Pages_sites_servers_and_search_engines" target="_blank" rel="noopener">웹페이지, 웹사이트, 웹서버 그리고 검색엔진의 차이는 무엇일까요?</a><br><a href="https://developer.mozilla.org/ko/docs/Glossary/Protocol" target="_blank" rel="noopener">프로토콜</a><br><a href="https://kamranahmed.info/blog/2016/08/13/http-in-depth/" target="_blank" rel="noopener">Journey to HTTP/2</a><br><a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Overview" target="_blank" rel="noopener">HTTP 개요</a><br><a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers" target="_blank" rel="noopener">HTTP 헤더</a><br><a href="https://developer.mozilla.org/ko/docs/Web/API/XMLHttpRequest" target="_blank" rel="noopener">XMLHttpRequest</a><br><a href="https://developer.mozilla.org/ko/docs/Web/API/Fetch_API" target="_blank" rel="noopener">Fetch API</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/09/20/200921_asyncawait/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +332,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-25 00:01:44" itemprop="dateModified" datetime="2022-02-25T00:01:44+09:00">2022-02-25</time>
+                <time title="Modified: 2022-03-02 18:20:24" itemprop="dateModified" datetime="2022-03-02T18:20:24+09:00">2022-03-02</time>
               </span>
 
           
@@ -246,7 +403,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-25 00:01:44" itemprop="dateModified" datetime="2022-02-25T00:01:44+09:00">2022-02-25</time>
+                <time title="Modified: 2022-03-02 18:20:24" itemprop="dateModified" datetime="2022-03-02T18:20:24+09:00">2022-03-02</time>
               </span>
 
           
@@ -452,7 +609,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-25 00:01:44" itemprop="dateModified" datetime="2022-02-25T00:01:44+09:00">2022-02-25</time>
+                <time title="Modified: 2022-03-02 18:20:24" itemprop="dateModified" datetime="2022-03-02T18:20:24+09:00">2022-03-02</time>
               </span>
 
           
@@ -578,7 +735,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-25 00:01:44" itemprop="dateModified" datetime="2022-02-25T00:01:44+09:00">2022-02-25</time>
+                <time title="Modified: 2022-03-02 18:20:24" itemprop="dateModified" datetime="2022-03-02T18:20:24+09:00">2022-03-02</time>
               </span>
 
           
@@ -682,7 +839,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-25 00:01:44" itemprop="dateModified" datetime="2022-02-25T00:01:44+09:00">2022-02-25</time>
+                <time title="Modified: 2022-03-02 18:20:24" itemprop="dateModified" datetime="2022-03-02T18:20:24+09:00">2022-03-02</time>
               </span>
 
           
@@ -873,7 +1030,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-25 00:01:44" itemprop="dateModified" datetime="2022-02-25T00:01:44+09:00">2022-02-25</time>
+                <time title="Modified: 2022-03-02 18:20:24" itemprop="dateModified" datetime="2022-03-02T18:20:24+09:00">2022-03-02</time>
               </span>
 
           
@@ -974,7 +1131,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-25 00:01:44" itemprop="dateModified" datetime="2022-02-25T00:01:44+09:00">2022-02-25</time>
+                <time title="Modified: 2022-03-02 18:20:24" itemprop="dateModified" datetime="2022-03-02T18:20:24+09:00">2022-03-02</time>
               </span>
 
           
@@ -1061,7 +1218,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-25 00:01:44" itemprop="dateModified" datetime="2022-02-25T00:01:44+09:00">2022-02-25</time>
+                <time title="Modified: 2022-03-02 18:20:24" itemprop="dateModified" datetime="2022-03-02T18:20:24+09:00">2022-03-02</time>
               </span>
 
           
@@ -1228,7 +1385,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-25 00:01:44" itemprop="dateModified" datetime="2022-02-25T00:01:44+09:00">2022-02-25</time>
+                <time title="Modified: 2022-03-02 18:20:24" itemprop="dateModified" datetime="2022-03-02T18:20:24+09:00">2022-03-02</time>
               </span>
 
           
@@ -1286,114 +1443,6 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">      <span class="comment">// &#123;...위와 동일한 코드&#125;</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $fruits = <span class="built_in">document</span>.getElementById(<span class="string">"fruits"</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> $msg = <span class="built_in">document</span>.querySelector(<span class="string">".msg"</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">     <span class="function"><span class="keyword">function</span> <span class="title">activate</span><span class="params">(&#123; target &#125;)</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">      <span class="comment">// 이벤트를 발생시킨 요소(target)가 ul#fruits의 자식 요소가 아니라면 무시한다.</span></span></span><br><span class="line"></span><br><span class="line">      /*</span><br><span class="line">      상위 요소에 이벤트 핸들러를 등록할 때, 이벤트 타깃이 내가 기대한 DOM요소가 아닐 수도 있기 때문에</span><br><span class="line">      matches로 해당하는 이벤트 타깃이 있는지 확인한다.</span><br><span class="line">      matches: 인수로 전달된 선택자에 의해 특정 노드가 탐색 가능한지 확인한다.</span><br><span class="line">      */</span><br><span class="line"><span class="actionscript">      <span class="keyword">if</span> (!target.matches(<span class="string">'#fruits &gt; li'</span>)) <span class="keyword">return</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">      [...$fruits.children].forEach(<span class="function"><span class="params">$fruit</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="actionscript">        $fruit.classList.toggle(<span class="string">'active'</span>, $fruit === target);</span></span><br><span class="line">        $msg.textContent = target.id;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">    <span class="comment">// 이벤트 위임: 상위 요소(ul#fruits)는 하위 요소의 이벤트를 캐치할 수 있다.</span></span></span><br><span class="line">    /*</span><br><span class="line">    이벤트 객체의 currentTarget: 언제나 $fruits 요소</span><br><span class="line">    target 프로퍼티: 실제로 이벤트를 발생시킨 DOM 요소</span><br><span class="line">    두 가지가 서로 다른 DOM 요소를 가리킬 수도 있으므로 확실하게 하기 위해 $fruits에 이벤트를 바인딩한다.</span><br><span class="line">    */</span><br><span class="line">    $fruits.onclick = activate;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <hr>
 <p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/event" target="_blank" rel="noopener">이벤트</a><br><a href="https://ui.toast.com/weekly-pick/ko_20160826/" target="_blank" rel="noopener">왜 이벤트 위임(delegation)을 해야 하는가?</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/08/20/200821_callback/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/20/200821_callback/" class="post-title-link" itemprop="url">콜백패턴의 문제점</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-08-21 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-21T00:00:00+09:00">2020-08-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-25 00:01:44" itemprop="dateModified" datetime="2022-02-25T00:01:44+09:00">2022-02-25</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>자바스크립트에서 비동기 처리 : 콜백함수<br>ES6에서 비동기 처리 : 프로미스</p>
-</blockquote>
-<h2 id="자바스크립트에서-비동기-처리-콜백함수의-단점"><a href="#자바스크립트에서-비동기-처리-콜백함수의-단점" class="headerlink" title="자바스크립트에서 비동기 처리 : 콜백함수의 단점"></a>자바스크립트에서 비동기 처리 : 콜백함수의 단점</h2><p>비동기 함수 내부에서 비동기로 동작하는 코드가 있다면 코드가 완료되지 않았더라도 기다리지 않고 즉시 종료된다. 즉, 비동기 함수 내부의 비동기로 동작하는 코드는 비동기 함수가 종료된 후에 완료된다.<strong>따라서 비동기 함수 내부의 비동기로 동작하는 코드는 처리 결과를 외부로 반환하거나 상위 스코프의 변수에 할당해도 기대한 대로 동작하지 않는다.</strong></p>
-<h3 id="서버의-응답-결과를-콘솔에-출력하는-get-함수-✅"><a href="#서버의-응답-결과를-콘솔에-출력하는-get-함수-✅" class="headerlink" title="서버의 응답 결과를 콘솔에 출력하는 get 함수 ✅"></a>서버의 <code>응답 결과를 콘솔에 출력</code>하는 get 함수 ✅</h3><ul>
-<li>get 함수: 비동기 함수 (비동기로 동작하는 코드인 이벤트 핸들러 <code>onload</code>를 포함하고 있음.)</li>
-<li>onload: 비동기로 동작</li>
-<li>처리 순서: <code>get 함수 호출</code> -&gt; <code>GET 요청을 서버에 전송</code> -&gt; <code>onload 이벤트 핸들러 등록</code> -&gt;<u><code>undefined반환</code></u> -&gt; <u><code>즉시 종료</code></u></li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 서버의 응답 결과를 콘솔에 출력하는 코드 ✅</span></span><br><span class="line"><span class="comment">// GET 요청을 위한 비동기 함수</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">get</span> = (url) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">  xhr.open(<span class="string">"GET"</span>, url);</span><br><span class="line">  xhr.send();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 비동기로 동작하는 onload</span></span><br><span class="line">  xhr.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="comment">// 서버의 응답을 콘솔에 출력한다.</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(xhr.response));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.error(<span class="string">`<span class="subst">$&#123;xhr.status&#125;</span> <span class="subst">$&#123;xhr.statusText&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// id가 1인 post를 취득</span></span><br><span class="line"><span class="keyword">get</span>("https://jsonplaceholder.typicode.com/posts/1");</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="서버의-응답-결과를-반환하는-get-함수-✅"><a href="#서버의-응답-결과를-반환하는-get-함수-✅" class="headerlink" title="서버의 응답 결과를 반환하는 get 함수 ✅"></a>서버의 <code>응답 결과를 반환</code>하는 get 함수 ✅</h3><ul>
-<li>get 함수: 비동기 함수 (비동기로 동작하는 코드인 이벤트 핸들러 <code>onload</code>를 포함하고 있음.)</li>
-<li>onload: 비동기로 동작</li>
-<li>처리순서: <code>get 함수 호출</code> -&gt; <code>GET 요청을 서버에 전송</code> -&gt; <code>onload 이벤트 핸들러 등록</code> -&gt; <u><code>종료</code> -&gt; <code>undefined반환</code></u></li>
-</ul>
-<p>반환문인 <code>return JSON.parse(xhr.response);</code>은 <em>onload 이벤트 핸들러의 반환문이지 get 함수의 반환문이 아니다.</em> 따라서 get 함수에 대한 명시적인 반환문이 없으므로 <code>undefined</code>를 반환한다. 즉 onload 이벤트 핸들러의 반환값은 캐치할 수 없다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 서버의 응답 결과를 반환하는 코드 ✅</span></span><br><span class="line"><span class="comment">// GET 요청을 위한 비동기 함수</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">get</span> = (url) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">  xhr.open(<span class="string">"GET"</span>, url);</span><br><span class="line">  xhr.send();</span><br><span class="line"></span><br><span class="line">  xhr.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="comment">// ① 서버의 응답을 반환한다.</span></span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(xhr.response);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">$&#123;xhr.status&#125;</span> <span class="subst">$&#123;xhr.statusText&#125;</span>`</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ② id가 1인 post를 취득</span></span><br><span class="line"><span class="keyword">const</span> response = <span class="keyword">get</span>("https://jsonplaceholder.typicode.com/posts/1");</span><br><span class="line">console.log(response); // undefined</span><br></pre></td></tr></table></figure>
-<p>만약 get 함수의 상위에 변수를 선언한 후 onload 이벤트 내부에서 서버의 응답 결과를 할당하더라도 여전히 결과는 <code>undefined</code>이다. 그 이유는 처리 순서가 보장되지 않기 때문이다.</p>
-<h3 id="서버의-응답을-상위-스코프-변수에-할당한다면-✅"><a href="#서버의-응답을-상위-스코프-변수에-할당한다면-✅" class="headerlink" title="서버의 응답을 상위 스코프 변수에 할당한다면? ✅"></a>서버의 응답을 <code>상위 스코프 변수에 할당</code>한다면? ✅</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> todos;</span><br><span class="line"></span><br><span class="line"><span class="comment">// GET 요청을 위한 비동기 함수</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">get</span> = (url) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">  xhr.open(<span class="string">"GET"</span>, url);</span><br><span class="line">  xhr.send();</span><br><span class="line"></span><br><span class="line">  xhr.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="comment">// ① 서버의 응답을 상위 스코프의 변수에 할당한다.✅</span></span><br><span class="line">      todos = <span class="built_in">JSON</span>.parse(xhr.response);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.error(<span class="string">`<span class="subst">$&#123;xhr.status&#125;</span> <span class="subst">$&#123;xhr.statusText&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// id가 1인 post를 취득</span></span><br><span class="line"><span class="keyword">get</span>("https://jsonplaceholder.typicode.com/posts/1");</span><br><span class="line">console.log(todos); // ② undefined</span><br></pre></td></tr></table></figure>
-<p>위와 같이 get 함수의 상위에 전역 변수가 있고, onload 이벤트 내에서 서버의 응답 결과를 할당한 경우 처리과정은 아래와 같다.</p>
-<blockquote>
-<p><code>get 함수 호출</code>-&gt; <code>get 함수 평가 및 실행 컨텍스트 생성</code> -&gt; <code>콜 스택에 push</code> -&gt; <code>코드 실행</code> -&gt; <code>xhr.onload에 이벤트 핸들러 바인딩</code> -&gt; <code>get 함수 종료</code> -&gt; <code>get 함수 콜 스텍에서 pop</code> -&gt; <code>②console.log 호출 및 실행</code> -&gt; <code>console.log의 실행 컨텍스트 생성</code> -&gt; <code>콜 스택에 push</code> -&gt; <u><code>서버로부터 응답 도착</code></u> -&gt; <code>load 이벤트 발생</code> -&gt;</p>
-</blockquote>
-<p><strong>xhr.onload의 이벤트 핸들러는 즉시 실행되지 않는다.</strong> load 이벤트 발생 시 태스크 큐에서 대기하가다 콜 스텍이 비었을 때 콜 스텍으로 push 되어 실행된다. 즉 console.log가 종료된 후에야 실행되므로 예상했던 서버의 응답결과가 console.log에 출력되지 않고, <code>undefined</code>가 호출된다.</p>
-<p><code>xhr.onload에 이벤트 핸들러 task Queue에 push</code> -&gt; <code>콜 스텍에 있는 모든 실행 컨텍스트 pop됨</code> -&gt; <code>이벤트 루프</code> -&gt; <code>콜 스텍에 push</code>-&gt; <code>이벤트 핸들러 실행</code></p>
-<hr>
-<p>위와 같이 비동기 함수는 세 가지 문제가 있다.</p>
-<ol>
-<li><strong>비동기 처리 결과를 외부에 반환할 수 없다.</strong></li>
-<li><strong>상위 스코프의 변수에 할당할 수 없다.</strong></li>
-<li><strong>서버로부터 데이터를 받아오기 전에 데이터를 화면에 표시하려고 하면 오류가 발생</strong></li>
-</ol>
-<p>따라서 서버에 대한 응답을 처리하는 비동기 함수의 처리 결과는 비동기 함수 내부에서 수행해야 하고, 이를 위해 비동기 함수에 <code>콜백 함수</code>를 전달해서 처리한다. 그러나 콜백 패턴도 <code>비동기 함수 처리 결과</code> -&gt; <code>비동기 함수 호출</code>과 같은 패턴이 반복된다면 콜백 함수가 중첩되어 복잡해지는 다음과 같은 문제점을 가지고 있다.</p>
-<ol>
-<li><strong>콜백 헬</strong></li>
-<li><strong>에러 처리의 한계</strong></li>
-</ol>
-<h3 id="콜백-헬"><a href="#콜백-헬" class="headerlink" title="콜백 헬"></a>콜백 헬</h3><p>비동기 처리를 위해 콜백 함수를 연달아 사용할 경우 콜백 헬이 발생하여 가독성을 떨어뜨리고, 유지 보수를 어렵게 한다. 다음과 같이 서버로부터 응답받은 데이터를 활용하여 연속으로 get 요청을 보낼 경우 콜백 헬이 발생한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">get</span>("/step1", (a) =&gt; &#123;</span><br><span class="line">  <span class="keyword">get</span>(`/step2/$&#123;a&#125;<span class="string">`, (b) =&gt; &#123;</span></span><br><span class="line"><span class="string">    get(`</span>/step3/$&#123;b&#125;<span class="string">`, (c) =&gt; &#123;</span></span><br><span class="line"><span class="string">      get(`</span>/step4/$&#123;c&#125;<span class="string">`, (d) =&gt; &#123;</span></span><br><span class="line"><span class="string">        console.log(d);</span></span><br><span class="line"><span class="string">      &#125;);</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string">&#125;);</span></span><br></pre></td></tr></table></figure>
-<h3 id="에러-처리의-한계"><a href="#에러-처리의-한계" class="headerlink" title="에러 처리의 한계"></a>에러 처리의 한계</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Error!"</span>);</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="comment">// 에러를 캐치하지 못한다</span></span><br><span class="line">  <span class="built_in">console</span>.error(<span class="string">"캐치한 에러"</span>, e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>try 구문에서 콜백함수가 에러를 발생 시키는데 이 에러는 catch 블록에서 캐치되지 않는다. 에러는 호출자 방향으로 전파되는데, setTimeout 함수의 콜백함수를 호출한 것은 setTimeout이 아니기 때문에 이 함수의 콜백함수가 발생시킨 에러는 캐치되지 않는다.</p>
-<hr>
-<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/promise" target="_blank" rel="noopener">poiemaweb</a></p>
 
       
     </div>
@@ -1479,7 +1528,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

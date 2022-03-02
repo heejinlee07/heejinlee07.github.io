@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="블록체인의 기본 개념을 제대로 알지 못하면 블록체인의 전반적인 가치나 잠재적인 영향력을 가늠할 수 없을뿐더러 블록체인이 창출하는 부가가치를 이해하기가 어렵다. 또한 (블록체인을 포함해서) 새로운 기술에 대한 개념적 이헤가 부족하면 자극적이고 과장된 광고에 휩쓸려 비현실적이고 실현 불가능한 망상에 사로잡히기 쉬워 나중에 실망할 수도 있다. 따라서 이 책은">
+<meta property="og:type" content="article">
+<meta property="og:title" content="블록체인이 무엇인가?">
+<meta property="og:url" content="https://heejinlee07.github.io/2022/03/01/220302_blockchain/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="블록체인의 기본 개념을 제대로 알지 못하면 블록체인의 전반적인 가치나 잠재적인 영향력을 가늠할 수 없을뿐더러 블록체인이 창출하는 부가가치를 이해하기가 어렵다. 또한 (블록체인을 포함해서) 새로운 기술에 대한 개념적 이헤가 부족하면 자극적이고 과장된 광고에 휩쓸려 비현실적이고 실현 불가능한 망상에 사로잡히기 쉬워 나중에 실망할 수도 있다. 따라서 이 책은">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-01T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-02T09:20:24.903Z">
+<meta property="article:author" content="Heejin Lee">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2022/03/01/220302_blockchain/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>블록체인이 무엇인가? | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Developer</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/03/01/220302_blockchain/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          블록체인이 무엇인가?
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-02 00:00:00 / Modified: 18:20:24" itemprop="dateCreated datePublished" datetime="2022-03-02T00:00:00+09:00">2022-03-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>블록체인의 기본 개념을 제대로 알지 못하면 블록체인의 전반적인 가치나 잠재적인 영향력을 가늠할 수 없을뿐더러 블록체인이 창출하는 부가가치를 이해하기가 어렵다. 또한 (블록체인을 포함해서) 새로운 기술에 대한 개념적 이헤가 부족하면 자극적이고 과장된 광고에 휩쓸려 비현실적이고 실현 불가능한 망상에 사로잡히기 쉬워 나중에 실망할 수도 있다. 따라서 이 책은 ‘블록체인의 기본 개념’에 집중한다.<br>&lt;책 서문 발췌&gt;</p>
+</blockquote>
+<h1 id="1-소프트웨어-공학에서-변하지-않는-주요-개념들"><a href="#1-소프트웨어-공학에서-변하지-않는-주요-개념들" class="headerlink" title="1. 소프트웨어 공학에서 변하지 않는 주요 개념들"></a>1. 소프트웨어 공학에서 변하지 않는 주요 개념들</h1><h2 id="1-시스템을-보는-눈-장착하기"><a href="#1-시스템을-보는-눈-장착하기" class="headerlink" title="1. 시스템을 보는 눈 장착하기"></a>1. 시스템을 보는 눈 장착하기</h2><h3 id="시스템을-계층과-측면으로-분리해-분석하기"><a href="#시스템을-계층과-측면으로-분리해-분석하기" class="headerlink" title="시스템을 계층과 측면으로 분리해 분석하기"></a>시스템을 계층과 측면으로 분리해 분석하기</h3><p>시스템을 개념적으로 분리하기 위해 사용하는 구분 기준은 다음의 두 가지다.</p>
+<ul>
+<li>응용계층 vs 구현계층</li>
+<li>기능적 측면 vs 비기능적 측면</li>
+</ul>
+<h3 id="1-응용계층-vs-구현계층"><a href="#1-응용계층-vs-구현계층" class="headerlink" title="1. 응용계층 vs 구현계층"></a>1. 응용계층 vs 구현계층</h3><ul>
+<li>응용계층: 사용자의 요구사항</li>
+<li>구현계층: 요구사항을 실현. 구성요소는 본질적으로 기술적이다. 응용계층에서 사용자의 필요사항을 만족시키기 위한 수단.</li>
+</ul>
+<h3 id="2-기능적-측면-vs-비기능적-측면"><a href="#2-기능적-측면-vs-비기능적-측면" class="headerlink" title="2. 기능적 측면 vs 비기능적 측면"></a>2. 기능적 측면 vs 비기능적 측면</h3><ul>
+<li>기능적 측면: 시스템이 <code>무엇</code>을 하는가? 동사적 역할. e.g. 네트워크를 통한 데이터 전송, 음악 연주 등</li>
+<li>비기능적 측면: 시스템이 무엇을 <code>어떻게</code> 하는가? 부사적 역할. e.g. 멋진 인터페이스, 실행속도가 빠른 소프트웨어<ul>
+<li>보안: 정확성을 포함하는 개념</li>
+<li><code>무결성</code>: 시스템이 의도한 대로 작동하는 것. 보안과 정확성 모두를 포함하는 개념</li>
+</ul>
+</li>
+</ul>
+<h3 id="사용자는-응용계층의-기능적-측면을-중시한다"><a href="#사용자는-응용계층의-기능적-측면을-중시한다" class="headerlink" title="사용자는 응용계층의 기능적 측면을 중시한다."></a>사용자는 응용계층의 기능적 측면을 중시한다.</h3><p>응용계층의 기능적 측면은 사용자의 명확한 요구사항들이므로 시스템에서 가장 중요하게 부각된다. <strong>반면 구현계층의 비기능적 요소는 시스템의 주요 요소가 아니라 아주 당연한 것으로 여겨진다. 그런데 비기능적 요소 중 무결성 같은 것은 눈에 보이지 않지만 매우 중요하다.</strong></p>
+<h3 id="무결성의-주요-요소"><a href="#무결성의-주요-요소" class="headerlink" title="무결성의 주요 요소"></a>무결성의 주요 요소</h3><ul>
+<li>데이터 무결성: 시스템에서 사용하고 유지 관리하는 데이터는 완전하고 정확하며 모순이 없다.</li>
+<li>작동 무결성: 시스템은 의도한 대로 작동하며 논리적 오류가 없다.</li>
+<li>보안: 시스템은 허가받은 사용자에게만 데이터 및 기능에 대한 접근 권한을 부여할 수 있다.</li>
+</ul>
+<hr>
+<h2 id="2-큰-그림으로-바라보기"><a href="#2-큰-그림으로-바라보기" class="headerlink" title="2. 큰 그림으로 바라보기"></a>2. 큰 그림으로 바라보기</h2><h3 id="소프트웨어-아키텍처란-무엇이고-블록체인과-어떤-관계인가"><a href="#소프트웨어-아키텍처란-무엇이고-블록체인과-어떤-관계인가" class="headerlink" title="소프트웨어 아키텍처란 무엇이고 블록체인과 어떤 관계인가?"></a>소프트웨어 아키텍처란 무엇이고 블록체인과 어떤 관계인가?</h3><p>소프트웨어 시스템을 구현하는 방법은 여러가지가 있는데, <code>시스템 아키텍처</code>는 필수적으로 결정해야 한다. <em>시스템 아키텍처는 구성요소를 구조화하고, 구성요소 간 관계를 설정하는 방식을 의미한다.</em> 주로 사용되는 아키텍처는 <code>중앙 통제 방식</code>,<code>분산방식</code>이 있다.</p>
+<ul>
+<li>중앙 통제 방식<ul>
+<li>구성요소들이 하나의 중앙요소에 연결되며, 중앙 요소를 가운데 두고 나머지 요소들이 둘러싸고 있는 구조.</li>
+<li>모든 구성요소끼리 직접적으로 연결되지 않고 오직 중앙 요소와만 직접 연결되어 있다.</li>
+</ul>
+</li>
+<li>분산 방식<ul>
+<li>시스템을 통제하거나 조정하는 요소 없이 서로 연결된 네트워크 구조를 형성.</li>
+<li>모든 구성 요소와 직접적으로 연결된 노드는 단 하나도 없지만 모든 노드는 간접적으로 서로 완전히 연결되어 있다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="분산-시스템의-장점"><a href="#분산-시스템의-장점" class="headerlink" title="분산 시스템의 장점"></a>분산 시스템의 장점</h3><ol>
+<li>계산 능력이 뛰어나다.</li>
+</ol>
+<p>서로 연결된 모든 컴퓨터의 계산 능력이 합쳐져 발현되기 때문에 단일 컴퓨터보다 더 강력한 계산 능력을 가진다.</p>
+<ol>
+<li>비용이 절감된다.</li>
+</ol>
+<p>여러 대의 컴퓨터로 구성되므로 초기 구성 비용은 슈퍼 컴퓨터보다 많지만 유지 운영 비용은 훨씬 적다. 또 슈퍼 컴퓨터와 달리 개별 컴퓨터가 교체 될 때 전체 시스템에 별 영향을 끼치지 않는다.</p>
+<ol>
+<li>더 안정적이다.</li>
+</ol>
+<p>시스템을 구성하는 개별 컴퓨터가 고장나면 나머지 구성요소들이 그 일을 대신하기 떄문에 전체 네트워크는 문제없이 잘 작동한다.</p>
+<ol>
+<li>자연스럽게 확장된다.</li>
+</ol>
+<p>앞서 계산 능력은 연결된 모든 컴퓨터의 계산 능력을 합친 것이라 했으므로, 시스템에 컴퓨터를 추가하면 손쉽게 전체 계산 능력을 높일 수 있다.</p>
+<h3 id="분산-시스템의-단점"><a href="#분산-시스템의-단점" class="headerlink" title="분산 시스템의 단점"></a>분산 시스템의 단점</h3><ol>
+<li>조정 오버헤드가 발생한다.</li>
+</ol>
+<p>중앙 통제 방식과 달리 중앙 요소가 존재하지 않기 때문에 구성요소들 스스로 조정을 해야하는데 이 조정이 쉽지 않아 많은 자원이 소모되는 오버헤드가 발생한다.</p>
+<ol>
+<li>통신 오버헤드가 발생한다.</li>
+</ol>
+<p>조정을 위해서 통신이 필수적이고, 이 통신을 위해 계산 능력의 일부가 통신 프로토콜 지원 및 메시지 송수신 및 처리에 소모된다.</p>
+<ol>
+<li>네트워크 의존도가 높다.</li>
+</ol>
+<p>컴퓨터들은 네트워크를 통해 통신하는데, 모든 네트워크는 자체적인 결함과 장애 가능성이 내재되어 있기 때문에 통신과 조정에 영향을 끼친다. 그리고 네트워크가 없으면 각 구성요소 간의 협력이 불가하기 때문에 네트워크 의존도가 높다.</p>
+<ol>
+<li>프로그램이 복잡해진다.</li>
+</ol>
+<p>앞서 말한 단점들을 해결하기 위해 중앙 통제 방식에서는 필요없는 조정, 통신, 네트워크 이용에 관련된 추가적인 문제 해결 등이 필요하다.</p>
+<ol>
+<li>보안에 신경써야 한다.</li>
+</ol>
+<p>네트워크를 통한 통신은 계산 작업 시 데이터의 전송과 공유가 꼭 필요하다. 그러나 이런 행위로 인해 악의를 가진 개체가 정보에 접근하여 악용하는 보안문제가 발생할 수 있다.</p>
+<h3 id="사용자가-많아질수록-더-강력해지는-분산-P2P-시스템"><a href="#사용자가-많아질수록-더-강력해지는-분산-P2P-시스템" class="headerlink" title="사용자가 많아질수록 더 강력해지는 분산 P2P 시스템"></a>사용자가 많아질수록 더 강력해지는 분산 P2P 시스템</h3><blockquote>
+<p>Peer to Peer 네트워크 또는 P2P 네트워크. 분산 네트워크의 특수한 형태</p>
+</blockquote>
+<p>개별 컴퓨터(노드)로 구성된 시스템으로 중앙 노드의 조정 없이 네트워크의 모든 구성원이 서로에게 계산 자원을 제공한다. <strong>네트워크의 각 노드는 시스템 내에서 동등한 권리와 역할을 가지고, 모두가 자원의 공급자인 동시에 소비자이다.</strong> 사용자들의 컴퓨터를 분산 시스템을 구성하는 노드로 만든다는 아이디어를 배경으로 다양한 분야에 응용이 가능하다.</p>
+<h3 id="중앙-통제와-분산-시스템의-장점만-모은-혼합-시스템"><a href="#중앙-통제와-분산-시스템의-장점만-모은-혼합-시스템" class="headerlink" title="중앙 통제와 분산 시스템의 장점만 모은 혼합 시스템"></a>중앙 통제와 분산 시스템의 장점만 모은 혼합 시스템</h3><p>중앙 통제 시스템과 분산 시스템은 정반대의 구조를 가지고 있는데, 이 각각의 강정만 결합한 혼합 시스템이 있다.</p>
+<ul>
+<li><p>분산 시스템 내의 중앙 통제<br>분산 시스템 내부에 중앙 통제 요소를 구축한 아키텍처로 겉보기에 분산 시스템을 이루는 것처럼 보이지만 <strong>모든 노드는 중앙의 큰 원에 직접 연결되어 있다.</strong></p>
+</li>
+<li><p>중앙 통제 시스템 내의 분산 시스템<br>겉보기에 주변 노드가 모드 중앙의 큰 원에 직접 연결되어 있는 중앙 통제 시스템처럼 보이는데, 중앙의 큰 원 내부를 들여다보면 분산 시스템으로 구성되어 있다. 심지어 주변 구성요소들은 중앙 요소가 분산 시스템으로 이루어져 있는지 모를 수도 있다.</p>
+</li>
+</ul>
+<h3 id="분산-시스템인지-구분하는-방법"><a href="#분산-시스템인지-구분하는-방법" class="headerlink" title="분산 시스템인지 구분하는 방법"></a>분산 시스템인지 구분하는 방법</h3><p>전체 시스템을 동시에 종료할 수 있는 단일 구성요소가 있는지 찾는다. 이런 요소가 있다면 분산 시스템이 아니다.</p>
+<h3 id="큰-그림으로-본-블록체인의-목적"><a href="#큰-그림으로-본-블록체인의-목적" class="headerlink" title="큰 그림으로 본 블록체인의 목적"></a>큰 그림으로 본 블록체인의 목적</h3><p>소프트웨어 시스템 디자인에서 아키텍처의 선정은 시스템 구현 관점에서 목적 달성을 위한 수단이기 때문에 분산 방식 또는 중앙 통제 방식 중 어떤 것으로도 구현할 수 있다. 다만 어떤 아키텍처를 선택하느냐에 따라 시스템이 기능적, 비기능적 측면을 달성하는 방법에 영향을 미친다. <strong>특히 무결성에 대해서 두 가지 아키텍처가 매우 다른 방식으로 접근하기 때문에 이런 점에서 블록 체인이 중요하다.</strong> <code>블록체인은 분산 시스템이 무결성을 확보하게 해주는 도구이며, 분산 시스템의 무결성을 구현하고 유지하는 것이 바로 블록체인의 목적이다.</code>즉 구현계층의 비기능적 측면을 성취하게 해주는 도구이다.</p>
+<hr>
+<h2 id="3-P2P-시스템의-엄청난-잠재력"><a href="#3-P2P-시스템의-엄청난-잠재력" class="headerlink" title="3. P2P 시스템의 엄청난 잠재력"></a>3. P2P 시스템의 엄청난 잠재력</h2><h3 id="P2P-시스템이-세상을-어떻게-바꿀-것인가"><a href="#P2P-시스템이-세상을-어떻게-바꿀-것인가" class="headerlink" title="P2P 시스템이 세상을 어떻게 바꿀 것인가?"></a>P2P 시스템이 세상을 어떻게 바꿀 것인가?</h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/22/220223_item49to55/" rel="prev" title="타입스크립트 이펙티브 아이템 49 - 아이템 55">
+      <i class="fa fa-chevron-left"></i> 타입스크립트 이펙티브 아이템 49 - 아이템 55
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-소프트웨어-공학에서-변하지-않는-주요-개념들"><span class="nav-number">1.</span> <span class="nav-text">1. 소프트웨어 공학에서 변하지 않는 주요 개념들</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-시스템을-보는-눈-장착하기"><span class="nav-number">1.1.</span> <span class="nav-text">1. 시스템을 보는 눈 장착하기</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#시스템을-계층과-측면으로-분리해-분석하기"><span class="nav-number">1.1.1.</span> <span class="nav-text">시스템을 계층과 측면으로 분리해 분석하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-응용계층-vs-구현계층"><span class="nav-number">1.1.2.</span> <span class="nav-text">1. 응용계층 vs 구현계층</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-기능적-측면-vs-비기능적-측면"><span class="nav-number">1.1.3.</span> <span class="nav-text">2. 기능적 측면 vs 비기능적 측면</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#사용자는-응용계층의-기능적-측면을-중시한다"><span class="nav-number">1.1.4.</span> <span class="nav-text">사용자는 응용계층의 기능적 측면을 중시한다.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#무결성의-주요-요소"><span class="nav-number">1.1.5.</span> <span class="nav-text">무결성의 주요 요소</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-큰-그림으로-바라보기"><span class="nav-number">1.2.</span> <span class="nav-text">2. 큰 그림으로 바라보기</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#소프트웨어-아키텍처란-무엇이고-블록체인과-어떤-관계인가"><span class="nav-number">1.2.1.</span> <span class="nav-text">소프트웨어 아키텍처란 무엇이고 블록체인과 어떤 관계인가?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#분산-시스템의-장점"><span class="nav-number">1.2.2.</span> <span class="nav-text">분산 시스템의 장점</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#분산-시스템의-단점"><span class="nav-number">1.2.3.</span> <span class="nav-text">분산 시스템의 단점</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#사용자가-많아질수록-더-강력해지는-분산-P2P-시스템"><span class="nav-number">1.2.4.</span> <span class="nav-text">사용자가 많아질수록 더 강력해지는 분산 P2P 시스템</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#중앙-통제와-분산-시스템의-장점만-모은-혼합-시스템"><span class="nav-number">1.2.5.</span> <span class="nav-text">중앙 통제와 분산 시스템의 장점만 모은 혼합 시스템</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#분산-시스템인지-구분하는-방법"><span class="nav-number">1.2.6.</span> <span class="nav-text">분산 시스템인지 구분하는 방법</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#큰-그림으로-본-블록체인의-목적"><span class="nav-number">1.2.7.</span> <span class="nav-text">큰 그림으로 본 블록체인의 목적</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-P2P-시스템의-엄청난-잠재력"><span class="nav-number">1.3.</span> <span class="nav-text">3. P2P 시스템의 엄청난 잠재력</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#P2P-시스템이-세상을-어떻게-바꿀-것인가"><span class="nav-number">1.3.1.</span> <span class="nav-text">P2P 시스템이 세상을 어떻게 바꿀 것인가?</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">114</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
