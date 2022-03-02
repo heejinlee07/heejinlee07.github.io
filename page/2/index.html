@@ -144,6 +144,110 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/01/03/220104_rtkCreatApi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/03/220104_rtkCreatApi/" class="post-title-link" itemprop="url">RTK Query - createApi</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-04 00:00:00" itemprop="dateCreated datePublished" datetime="2022-01-04T00:00:00+09:00">2022-01-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-03 00:24:53" itemprop="dateModified" datetime="2022-03-03T00:24:53+09:00">2022-03-03</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="RTK-Query"><a href="#RTK-Query" class="headerlink" title="RTK Query"></a>RTK Query</h1><blockquote>
+<p>원문링크: <a href="https://redux-toolkit.js.org/rtk-query/api/createApi" target="_blank" rel="noopener">https://redux-toolkit.js.org/rtk-query/api/createApi</a></p>
+</blockquote>
+<p><strong>createApi는 RTK Query의 핵심이다.</strong> 이를 통해 해당하는 데이터를 가져오고 변환하는 방법을 구성하는 것을 포함하여 일련의 엔드포인트들로부터 데이터를 어떻게 회수(검색)해야하는 지에 대해 일련의 엔드포인트에 대한 방법을 정의할 수 있다. createApi는 여기에 캡슐화된 데이터 fetching와 caching 프로세스는 포함하는 Redux 로직(옵셔널한 React hooks)이 담겨있는 <a href="https://redux-toolkit.js.org/rtk-query/api/created-api/overview" target="_blank" rel="noopener">API slice structure</a>를 생성한다.</p>
+<p>💡 일반적으로 어플리케이션이 통신해야 하는 base URL 하나 당 하나의 API slice만 있어야 한다. 예를 들어 당신의 사이트가 /api/posts와 /api/users 모두에서 데이터를 fetch한다면 /api/를 base URL로 가지는 single API slice를 가지고 있고, posts와 users로 엔드포인트 정의를 분할했을 것이다. 이렇게 하면 엔드포인트에서 <a href="https://redux-toolkit.js.org/rtk-query/usage/automated-refetching#tags" target="_blank" rel="noopener">태그</a> 관계를 정의해서 <a href="https://redux-toolkit.js.org/rtk-query/usage/automated-refetching" target="_blank" rel="noopener">자동화된 re-fetching</a>의 이점을 효과적으로 사용할 수 있다.</p>
+<p>유지(maintainability)의 목적을 위해 모든 엔드포인트를 포한하는 single API slice를 유지하면서 여러 파일에 걸쳐 endpoint 정의를 분할해서 사용할 수 있다. injectEndpoints 속성을 사용하여 다른 파일의 엔드포인트를 <a href="https://redux-toolkit.js.org/rtk-query/usage/code-splitting" target="_blank" rel="noopener">code splitting</a>을 하는 방법은 <a href="https://redux-toolkit.js.org/rtk-query/usage/code-splitting" target="_blank" rel="noopener">code splitting</a>을 참조한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//example: src/services/pokemon.ts</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// React hook의 생성을 허용하려면 React의 특정 엔트리포인트를 사용해야 한다.</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span></span><br><span class="line"><span class="keyword">import</span> type &#123; Pokemon &#125; <span class="keyword">from</span> <span class="string">'./types'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// baseURL과 엔드포인트를 사용하여 서비스를 정의한다.</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> pokemonApi = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'pokemonApi'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'https://pokeapi.co/api/v2/'</span> &#125;),</span><br><span class="line">  endpoints: <span class="function">(<span class="params">builder</span>) =&gt;</span> (&#123;</span><br><span class="line">    getPokemonByName: builder.query&lt;Pokemon, string&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">name</span>) =&gt;</span> <span class="string">`pokemon/<span class="subst">$&#123;name&#125;</span>`</span>,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 컴포넌트에서 사용하기 위해 hooks를 export하고,</span></span><br><span class="line"><span class="comment">// 엔드포인트가 정의된 곳에 기반하여 자동 생성되도록 한다.</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123; useGetPokemonByNameQuery &#125; = pokemonApi</span><br></pre></td></tr></table></figure>
+<h2 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h2><p>createApi는 아래와 같은 옵션이 있는 단을 구성 객체(single configuration object)를 받아들인다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">baseQuery(args: InternalQueryArgs, <span class="attr">api</span>: BaseQueryApi, extraOptions?: DefinitionExtraOptions): any;</span><br><span class="line">  endpoints(build: EndpointBuilder&lt;InternalQueryArgs, TagTypes&gt;): Definitions;</span><br><span class="line">  extractRehydrationInfo?: (</span><br><span class="line">    action: AnyAction,</span><br><span class="line">    &#123;</span><br><span class="line">      reducerPath,</span><br><span class="line">    &#125;: &#123;</span><br><span class="line">      reducerPath: ReducerPath</span><br><span class="line">    &#125;</span><br><span class="line">  ) =&gt;</span><br><span class="line">    | <span class="literal">undefined</span></span><br><span class="line">    | CombinedState&lt;Definitions, TagTypes, ReducerPath&gt;</span><br><span class="line">  tagTypes?: readonly TagTypes[];</span><br><span class="line">  reducerPath?: ReducerPath;</span><br><span class="line">  serializeQueryArgs?: SerializeQueryArgs&lt;InternalQueryArgs&gt;;</span><br><span class="line">  keepUnusedDataFor?: number; <span class="comment">// value is in seconds</span></span><br><span class="line">  refetchOnMountOrArgChange?: boolean | number; <span class="comment">// value is in seconds</span></span><br><span class="line">  refetchOnFocus?: boolean;</span><br><span class="line">  refetchOnReconnect?: boolean;</span><br></pre></td></tr></table></figure>
+<h2 id="baseQuery"><a href="#baseQuery" class="headerlink" title="baseQuery"></a>baseQuery</h2><p>base query는 <code>queryFn</code> 옵션이 특정되지 않은 경우에 각 endpoint에서 사용된다. RTK Query는 <a href="https://redux-toolkit.js.org/rtk-query/api/fetchBaseQuery" target="_blank" rel="noopener">fetchBaseQuery</a>라고 불리는 유틸리티로 일반적인 사용 케이스에서 fetch를 감싸는 경량 wrapper로써 export된다. 만약 fetchBaseQuery가 요구 사항을 처리할 수 없는 경우에 <a href="https://redux-toolkit.js.org/rtk-query/usage/customizing-queries" target="_blank" rel="noopener">Customizing Queries</a>를 참조하도록 한다.</p>
+<p><strong>baseQuery function arguments</strong></p>
+<ul>
+<li>args: 주어진 endpoint에 대한 query 함수의 반환값</li>
+<li>api - signal, dispatch, getState, extra 속성을 포함하는 BaseQueryApi 객체<ul>
+<li>singal: Dom 요청을 중단하거나 요청이 중단되었는지 여부를 읽어들이는 데 사용할 수 있는 <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal" target="_blank" rel="noopener">AbortSignal</a> 객체</li>
+<li>dispatch: Redux store와 대응하게 하는 <code>store.dispatch</code> 매서드</li>
+<li>getState: 현재의 store 상태에 접근하기 위해 호출될 수 있는 함수</li>
+<li>extra: configureStore getDefaultMiddleware option에 thunk.extraArgument로 제공된다.</li>
+</ul>
+</li>
+<li>extraOptions: 주어진 endpoint를 위해 제공되는 선택적 extraOptions의 값</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Base Query signature</span></span><br><span class="line"><span class="keyword">export</span> type BaseQueryFn&lt;</span><br><span class="line">  Args = any,</span><br><span class="line">  Result = unknown,</span><br><span class="line">  <span class="built_in">Error</span> = unknown,</span><br><span class="line">  DefinitionExtraOptions = &#123;&#125;,</span><br><span class="line">  Meta = &#123;&#125;</span><br><span class="line">&gt; = (</span><br><span class="line">  args: Args,</span><br><span class="line">  api: BaseQueryApi,</span><br><span class="line">  extraOptions: DefinitionExtraOptions</span><br><span class="line">) =&gt; MaybePromise&lt;QueryReturnValue&lt;Result, <span class="built_in">Error</span>, Meta&gt;&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> interface BaseQueryApi &#123;</span><br><span class="line">  signal: AbortSignal</span><br><span class="line">  dispatch: ThunkDispatch&lt;any, any, any&gt;</span><br><span class="line">  getState: <span class="function"><span class="params">()</span> =&gt;</span> unknown</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> type QueryReturnValue&lt;T = unknown, E = unknown, M = unknown&gt; =</span><br><span class="line">  | &#123;</span><br><span class="line">      error: E</span><br><span class="line">      data?: <span class="literal">undefined</span></span><br><span class="line">      meta?: M</span><br><span class="line">    &#125;</span><br><span class="line">  | &#123;</span><br><span class="line">      error?: <span class="literal">undefined</span></span><br><span class="line">      data: T</span><br><span class="line">      meta?: M</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="endpoints"><a href="#endpoints" class="headerlink" title="endpoints"></a>endpoints</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> api = createApi(&#123;</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  endpoints: <span class="function"><span class="params">build</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="comment">// ...endpoints</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>endpoints는 서버에 대해 수행하려는 작업들의 집합이다. builder syntax를 사용해서 객체로 정의한다. 여기에는 <code>query, mutaion</code> 의 두 가지 기본적인 엔드포인트 유형이 있다.</p>
+<p>각 속성에 대한 세부내용이 궁금하여 <a href="https://redux-toolkit.js.org/rtk-query/api/createApi#anatomy-of-an-endpoint" target="_blank" rel="noopener">다음의 링크</a>를 참조한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Query endpoint definition</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> type QueryDefinition&lt;</span><br><span class="line">  QueryArg,</span><br><span class="line">  BaseQuery extends BaseQueryFn,</span><br><span class="line">  TagTypes extends string,</span><br><span class="line">  ResultType,</span><br><span class="line">  ReducerPath extends string = string</span><br><span class="line">&gt; = &#123;</span><br><span class="line">  query(arg: QueryArg): BaseQueryArg&lt;BaseQuery&gt;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* either `query` or `queryFn` can be present, but not both simultaneously */</span></span><br><span class="line">  queryFn(</span><br><span class="line">    arg: QueryArg,</span><br><span class="line">    api: BaseQueryApi,</span><br><span class="line">    extraOptions: BaseQueryExtraOptions&lt;BaseQuery&gt;,</span><br><span class="line">    baseQuery: <span class="function">(<span class="params">arg: Parameters&lt;BaseQuery&gt;[<span class="number">0</span>]</span>) =&gt;</span> ReturnType&lt;BaseQuery&gt;</span><br><span class="line">  ): MaybePromise&lt;QueryReturnValue&lt;ResultType, BaseQueryError&lt;BaseQuery&gt;&gt;&gt;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* transformResponse only available with `query`, not `queryFn` */</span></span><br><span class="line">  transformResponse?(</span><br><span class="line">    baseQueryReturnValue: BaseQueryResult&lt;BaseQuery&gt;,</span><br><span class="line">    meta: BaseQueryMeta&lt;BaseQuery&gt;,</span><br><span class="line">    arg: QueryArg</span><br><span class="line">  ): ResultType | <span class="built_in">Promise</span>&lt;ResultType&gt;</span><br><span class="line"></span><br><span class="line">  extraOptions?: BaseQueryExtraOptions&lt;BaseQuery&gt;</span><br><span class="line"></span><br><span class="line">  providesTags?: ResultDescription&lt;</span><br><span class="line">    TagTypes,</span><br><span class="line">    ResultType,</span><br><span class="line">    QueryArg,</span><br><span class="line">    BaseQueryError&lt;BaseQuery&gt;</span><br><span class="line">  &gt;</span><br><span class="line"></span><br><span class="line">  keepUnusedDataFor?: number</span><br><span class="line"></span><br><span class="line">  onQueryStarted?(</span><br><span class="line">    arg: QueryArg,</span><br><span class="line">    &#123;</span><br><span class="line">      dispatch,</span><br><span class="line">      getState,</span><br><span class="line">      extra,</span><br><span class="line">      requestId,</span><br><span class="line">      queryFulfilled,</span><br><span class="line">      getCacheEntry,</span><br><span class="line">      updateCachedData, <span class="comment">// available for query endpoints only</span></span><br><span class="line">    &#125;: QueryLifecycleApi</span><br><span class="line">  ): <span class="built_in">Promise</span>&lt;<span class="keyword">void</span>&gt;</span><br><span class="line"></span><br><span class="line">  onCacheEntryAdded?(</span><br><span class="line">    arg: QueryArg,</span><br><span class="line">    &#123;</span><br><span class="line">      dispatch,</span><br><span class="line">      getState,</span><br><span class="line">      extra,</span><br><span class="line">      requestId,</span><br><span class="line">      cacheEntryRemoved,</span><br><span class="line">      cacheDataLoaded,</span><br><span class="line">      getCacheEntry,</span><br><span class="line">      updateCachedData, <span class="comment">// available for query endpoints only</span></span><br><span class="line">    &#125;: QueryCacheLifecycleApi</span><br><span class="line">  ): <span class="built_in">Promise</span>&lt;<span class="keyword">void</span>&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Mutation endpoint definition</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> type MutationDefinition&lt;</span><br><span class="line">  QueryArg,</span><br><span class="line">  BaseQuery extends BaseQueryFn,</span><br><span class="line">  TagTypes extends string,</span><br><span class="line">  ResultType,</span><br><span class="line">  ReducerPath extends string = string,</span><br><span class="line">  Context = Record&lt;string, any&gt;</span><br><span class="line">&gt; = &#123;</span><br><span class="line">  query(arg: QueryArg): BaseQueryArg&lt;BaseQuery&gt;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* either `query` or `queryFn` can be present, but not both simultaneously */</span></span><br><span class="line">  queryFn(</span><br><span class="line">    arg: QueryArg,</span><br><span class="line">    api: BaseQueryApi,</span><br><span class="line">    extraOptions: BaseQueryExtraOptions&lt;BaseQuery&gt;,</span><br><span class="line">    baseQuery: <span class="function">(<span class="params">arg: Parameters&lt;BaseQuery&gt;[<span class="number">0</span>]</span>) =&gt;</span> ReturnType&lt;BaseQuery&gt;</span><br><span class="line">  ): MaybePromise&lt;QueryReturnValue&lt;ResultType, BaseQueryError&lt;BaseQuery&gt;&gt;&gt;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* transformResponse only available with `query`, not `queryFn` */</span></span><br><span class="line">  transformResponse?(</span><br><span class="line">    baseQueryReturnValue: BaseQueryResult&lt;BaseQuery&gt;,</span><br><span class="line">    meta: BaseQueryMeta&lt;BaseQuery&gt;,</span><br><span class="line">    arg: QueryArg</span><br><span class="line">  ): ResultType | <span class="built_in">Promise</span>&lt;ResultType&gt;</span><br><span class="line"></span><br><span class="line">  extraOptions?: BaseQueryExtraOptions&lt;BaseQuery&gt;</span><br><span class="line"></span><br><span class="line">  invalidatesTags?: ResultDescription&lt;TagTypes, ResultType, QueryArg&gt;</span><br><span class="line"></span><br><span class="line">  onQueryStarted?(</span><br><span class="line">    arg: QueryArg,</span><br><span class="line">    &#123;</span><br><span class="line">      dispatch,</span><br><span class="line">      getState,</span><br><span class="line">      extra,</span><br><span class="line">      requestId,</span><br><span class="line">      queryFulfilled,</span><br><span class="line">      getCacheEntry,</span><br><span class="line">    &#125;: MutationLifecycleApi</span><br><span class="line">  ): <span class="built_in">Promise</span>&lt;<span class="keyword">void</span>&gt;</span><br><span class="line"></span><br><span class="line">  onCacheEntryAdded?(</span><br><span class="line">    arg: QueryArg,</span><br><span class="line">    &#123;</span><br><span class="line">      dispatch,</span><br><span class="line">      getState,</span><br><span class="line">      extra,</span><br><span class="line">      requestId,</span><br><span class="line">      cacheEntryRemoved,</span><br><span class="line">      cacheDataLoaded,</span><br><span class="line">      getCacheEntry,</span><br><span class="line">    &#125;: MutationCacheLifecycleApi</span><br><span class="line">  ): <span class="built_in">Promise</span>&lt;<span class="keyword">void</span>&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>endpoints에 익숙해지는 방법</strong></p>
+<p>아래와 같이 getPosts를 키로 정의할 때, 이 이름이 api로부터 export되고, api.endpoints.getPosts.useQuery(), api.endpoints.getPosts.initiate(), api.endpoints.getPosts.select() 아래에서 reference될 수 있다는 것을 아는 것이 중요하다. 비슷한 방식으로 mutaion에도 적용이 되는데 useQuery대신 useMutaion이 적용된다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span></span><br><span class="line">interface Post &#123;</span><br><span class="line">  id: number</span><br><span class="line">  name: string</span><br><span class="line">&#125;</span><br><span class="line">type PostsResponse = Post[]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> api = createApi(&#123;</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  tagTypes: [<span class="string">'Posts'</span>],</span><br><span class="line">  endpoints: <span class="function">(<span class="params">build</span>) =&gt;</span> (&#123;</span><br><span class="line">    getPosts: build.query&lt;PostsResponse, <span class="keyword">void</span>&gt;(&#123;</span><br><span class="line">      query: <span class="function"><span class="params">()</span> =&gt;</span> <span class="string">'posts'</span>,</span><br><span class="line">      providesTags: <span class="function">(<span class="params">result</span>) =&gt;</span></span><br><span class="line">        result ? result.map(<span class="function">(<span class="params">&#123; id &#125;</span>) =&gt;</span> (&#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, id &#125;)) : [],</span><br><span class="line">    &#125;),</span><br><span class="line">    addPost: build.mutation&lt;Post, Partial&lt;Post&gt;&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">body</span>) =&gt;</span> (&#123;</span><br><span class="line">        url: <span class="string">`posts`</span>,</span><br><span class="line">        method: <span class="string">'POST'</span>,</span><br><span class="line">        body,</span><br><span class="line">      &#125;),</span><br><span class="line">      invalidatesTags: [<span class="string">'Posts'</span>],</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Auto-generated hooks</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123; useGetPostsQuery, useAddPostMutation &#125; = api</span><br><span class="line"></span><br><span class="line"><span class="comment">// Possible exports</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123; endpoints, reducerPath, reducer, middleware &#125; = api</span><br><span class="line"><span class="comment">// reducerPath, reducer, middleware are only used in store configuration</span></span><br><span class="line"><span class="comment">// endpoints will have:</span></span><br><span class="line"><span class="comment">// endpoints.getPosts.initiate(), endpoints.getPosts.select(), endpoints.getPosts.useQuery()</span></span><br><span class="line"><span class="comment">// endpoints.addPost.initiate(), endpoints.addPost.select(), endpoints.addPost.useMutation()</span></span><br><span class="line"><span class="comment">// see `createApi` overview for _all exports_</span></span><br></pre></td></tr></table></figure>
+<h3 id="extractRehydrationInfo"><a href="#extractRehydrationInfo" class="headerlink" title="extractRehydrationInfo"></a>extractRehydrationInfo</h3><p>모든 디스패치된 액션에 전달되는 함수이다. 이것이 undefined 이외의 값을 반환하면 해당 반환 값은 성공하였거나 실패한 커리를 rehydrate하는데 사용된다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//next-redux-wrapper rehydration example</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; HYDRATE &#125; <span class="keyword">from</span> <span class="string">'next-redux-wrapper'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> api = createApi(&#123;</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  extractRehydrationInfo(action, &#123; reducerPath &#125;) &#123;</span><br><span class="line">    <span class="keyword">if</span> (action.type === HYDRATE) &#123;</span><br><span class="line">      <span class="keyword">return</span> action.payload[reducerPath]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  endpoints: <span class="function"><span class="params">build</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="comment">// omitted</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>See also <a href="https://redux-toolkit.js.org/rtk-query/usage/server-side-rendering" target="_blank" rel="noopener">Server Side Rendering</a> and <a href="https://redux-toolkit.js.org/rtk-query/usage/persistence-and-rehydration" target="_blank" rel="noopener">Persistence and Rehydration</a>.</p>
+<h2 id="tagTypes"><a href="#tagTypes" class="headerlink" title="tagTypes"></a>tagTypes</h2><p>string tag type 이름들이 있는 배열이다. tag types를 지정하는 것은 선택적이나 caching과 invalidation에 사용하고 싶다면 정의해야 한다. tag type을 정의할 때, <code>providesTags</code> 와 함께 제공하고, <a href="https://redux-toolkit.js.org/rtk-query/api/createApi#endpoints" target="_blank" rel="noopener">endpoints</a>를 구성할 때 <code>invalidatesTags</code> 와 함께 <a href="https://redux-toolkit.js.org/rtk-query/usage/automated-refetching#invalidating-tags" target="_blank" rel="noopener">무효화</a>시킬 수 있다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> api = createApi(&#123;</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  tagTypes: [<span class="string">'Post'</span>, <span class="string">'User'</span>],</span><br><span class="line">  endpoints: <span class="function"><span class="params">build</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="comment">// ...endpoints</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="reducerPath"><a href="#reducerPath" class="headerlink" title="reducerPath"></a>reducerPath</h3><p>서비스가 당신의 store에 장착될 수 있도록 하는 unique key이다. 당신의 어플리케이션에서 createApi를 한 번 이상 호출했다면 당신은 매번 unique한 value를 제공해야 하고, default는 api이다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> apiOne = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'apiOne'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  endpoints: <span class="function"><span class="params">builder</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="comment">// ...endpoints</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> apiTwo = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'apiTwo'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  endpoints: <span class="function"><span class="params">builder</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="comment">// ...endpoints</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://redux-toolkit.js.org/rtk-query/api/createApi" target="_blank" rel="noopener">createApi</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/12/27/211228_substr/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +279,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-02 22:37:08" itemprop="dateModified" datetime="2022-03-02T22:37:08+09:00">2022-03-02</time>
+                <time title="Modified: 2022-03-03 00:24:53" itemprop="dateModified" datetime="2022-03-03T00:24:53+09:00">2022-03-03</time>
               </span>
 
           
@@ -328,7 +432,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-02 22:37:08" itemprop="dateModified" datetime="2022-03-02T22:37:08+09:00">2022-03-02</time>
+                <time title="Modified: 2022-03-03 00:24:53" itemprop="dateModified" datetime="2022-03-03T00:24:53+09:00">2022-03-03</time>
               </span>
 
           
@@ -712,7 +816,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-02 22:37:08" itemprop="dateModified" datetime="2022-03-02T22:37:08+09:00">2022-03-02</time>
+                <time title="Modified: 2022-03-03 00:24:53" itemprop="dateModified" datetime="2022-03-03T00:24:53+09:00">2022-03-03</time>
               </span>
 
           
@@ -806,7 +910,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-02 22:37:08" itemprop="dateModified" datetime="2022-03-02T22:37:08+09:00">2022-03-02</time>
+                <time title="Modified: 2022-03-03 00:24:53" itemprop="dateModified" datetime="2022-03-03T00:24:53+09:00">2022-03-03</time>
               </span>
 
           
@@ -885,7 +989,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-02 22:37:08" itemprop="dateModified" datetime="2022-03-02T22:37:08+09:00">2022-03-02</time>
+                <time title="Modified: 2022-03-03 00:24:53" itemprop="dateModified" datetime="2022-03-03T00:24:53+09:00">2022-03-03</time>
               </span>
 
           
@@ -993,7 +1097,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-02 22:37:08" itemprop="dateModified" datetime="2022-03-02T22:37:08+09:00">2022-03-02</time>
+                <time title="Modified: 2022-03-03 00:24:53" itemprop="dateModified" datetime="2022-03-03T00:24:53+09:00">2022-03-03</time>
               </span>
 
           
@@ -1103,7 +1207,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-02 22:37:08" itemprop="dateModified" datetime="2022-03-02T22:37:08+09:00">2022-03-02</time>
+                <time title="Modified: 2022-03-03 00:24:53" itemprop="dateModified" datetime="2022-03-03T00:24:53+09:00">2022-03-03</time>
               </span>
 
           
@@ -1211,7 +1315,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-02 22:37:08" itemprop="dateModified" datetime="2022-03-02T22:37:08+09:00">2022-03-02</time>
+                <time title="Modified: 2022-03-03 00:24:53" itemprop="dateModified" datetime="2022-03-03T00:24:53+09:00">2022-03-03</time>
               </span>
 
           
@@ -1334,7 +1438,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-02 22:37:08" itemprop="dateModified" datetime="2022-03-02T22:37:08+09:00">2022-03-02</time>
+                <time title="Modified: 2022-03-03 00:24:53" itemprop="dateModified" datetime="2022-03-03T00:24:53+09:00">2022-03-03</time>
               </span>
 
           
@@ -1440,112 +1544,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/29/210730_reduxToolkit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/29/210730_reduxToolkit/" class="post-title-link" itemprop="url">Redux-tookit 원문 번역</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-30 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-30T00:00:00+09:00">2021-07-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-02 22:37:08" itemprop="dateModified" datetime="2022-03-02T22:37:08+09:00">2022-03-02</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Redux-toolkit-원문-번역"><a href="#Redux-toolkit-원문-번역" class="headerlink" title="Redux-toolkit 원문 번역"></a>Redux-toolkit 원문 번역</h2><blockquote>
-<p>원문링크: <a href="https://redux-toolkit.js.org/introduction/getting-started#rtk-query" target="_blank" rel="noopener">https://redux-toolkit.js.org/introduction/getting-started#rtk-query</a></p>
-</blockquote>
-<p>Redux toolkt은 리덕스 로직을 표준화하기 위한 패키지이다. 원래는 리덕스가 가지고 있는 세가지 문제점을 지원하기 위해 만들어졌다.</p>
-<ul>
-<li>리덕스 스토어를 구성하는 방법이 지나치게 복잡하다.</li>
-<li>리덕스를 사용하기 위해 많은 패키지를 설치해야 한다</li>
-<li>리덕스는 지나치게 많은 보일러 플레이트 코드를 필요로 한다.</li>
-</ul>
-<p>리덕스가 가진 이러한 문제점에 대헤 모든 것을 커버할 순 없지만 create-react-app과 appllo-boost를 근간으로 하여 보다 추상화된 셋업 프로세스와 가장 많이 사용되는 use cases를 처리하기 위한 방법을 제공할 수 있을 뿐 아니라 사용자가 어플리케이션 코드를 단순화할 수 있는 유용한 유틸리티를 제공한다.</p>
-<p>리덕스 툴킷은 또한 data fetching과 캐싱을 할 수 있는 ‘RTK Query’를 포함하는데, 별도의 엔트리포인트 set로 패키지 안에 포함되어 있다. 옵셔널이지만 직접 data fetching 로직을 작성하지 않아도 된다.<br>이 툴은 리덕스 유저들에게 유용하다. 만약 당신이 프로젝트에 리덕스를 처음 적용해보는 유저거나 어플리케이션 내에 존재하는 코드를 단순화 시키고자 하는 익숙한 리덕스 유저든, 리덕스 툴킷은 당신의 리덕스 코드를 훨씬 좋게 만들 것이다.</p>
-<hr>
-<h2 id="설치방법"><a href="#설치방법" class="headerlink" title="설치방법"></a>설치방법</h2><h3 id="Create-React-App을-이용"><a href="#Create-React-App을-이용" class="headerlink" title="Create React App을 이용"></a>Create React App을 이용</h3><p>가장 추천되는 방법으로 official Redux + JS template 또는 create React App용 Redux + Ts template을 사용하는 것이다. 이 템플릿은 redux toolkit 및 react redux 구성 요소의 통합을 활용한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Redux + Plain JS template</span><br><span class="line">npx create-react-app my-app --template redux</span><br><span class="line"></span><br><span class="line"># Redux + TypeScript template</span><br><span class="line">npx create-react-app my-app --template redux-typescript</span><br></pre></td></tr></table></figure>
-<h3 id="기존-앱"><a href="#기존-앱" class="headerlink" title="기존 앱"></a>기존 앱</h3><p>redux toolkit은 모듈 번들러용 npm 패키지로 또는 노드 어플리케이션에서 사용 가능하다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># NPM</span><br><span class="line">npm install @reduxjs&#x2F;toolkit</span><br><span class="line"></span><br><span class="line"># Yarn</span><br><span class="line">yarn add @reduxjs&#x2F;toolkit</span><br></pre></td></tr></table></figure>
-<p>또는 window.RTK의 전역 변수로 정의된 precompiled UMD package로 사용가능하다. UMD package는 <code>&lt;script&gt;</code>태그로 바로 사용할 수 있다.</p>
-<hr>
-<h2 id="Redux-toolkit에-포함된-것"><a href="#Redux-toolkit에-포함된-것" class="headerlink" title="Redux-toolkit에 포함된 것"></a>Redux-toolkit에 포함된 것</h2><ul>
-<li><code>[configureStore()](https://redux-toolkit.js.org/api/configureStore)</code>: 단순화된 구성옵션과 좋은 기본값을 제공하기 위해 <code>createStore</code> 로 감싼다. 이는 자동으로 slice reducer와 결합할 수 있고, 사용자게 제공하는 리덕스 미들웨어가 무엇이든 간에 redux-thunk를 디폴트로 제공한다. 또 redux devtools extension을 사용할 수 있다.</li>
-<li><code>[createReducer()](https://redux-toolkit.js.org/api/createReducer)</code>: switch 문으로 액션 타입의 목록을 작성하는 대신, case reducer funxtion들로 액션타입의 목록을 제공한다. 추가로 자동으로 immer 라이브러리를 사용하여 immutable한 업데이트를 normal mutative 코드를 통해 단순화한다. 예를 들어 state.todos[3].completed = true.처럼.</li>
-<li><code>[createAction()](https://redux-toolkit.js.org/api/createAction)</code>: 주어진 액션 타입 문자열에 대한 action creator 함수를 생성한다. 이 함수는 스스로 toString()으로 정의되기 때문에 type 상수대신 사용할 수 있다.</li>
-<li><code>[createSlice()](https://redux-toolkit.js.org/api/createSlice)</code>: reducer 함수의 객체, a slice name, 초기값을 받아들여서 이와 상응하는 action creators, action types을 가진 slice reducer를 자동으로 생성한다.</li>
-<li><code>[createAsyncThunk](https://redux-toolkit.js.org/api/createAsyncThunk)</code>: 액션 타입 문자열을 받아들여서 promise를 return하는 함수를 반환하고, 이 promise에 근거하여 pending/fulfilled/rejected 의 액션 타입을 디스패치하는 thunk를 생성한다.</li>
-<li><code>[createEntityAdapter](https://redux-toolkit.js.org/api/createEntityAdapter)</code>: 스토어에 있는 정규화된 data(normalized date)를 관리하기 위해 재사용 가능한 리듀서와 selectors set를 생성한다.</li>
-<li>The <code>[createSelector</code> utility](<a href="https://redux-toolkit.js.org/api/createSelector" target="_blank" rel="noopener">https://redux-toolkit.js.org/api/createSelector</a>) from the <a href="https://github.com/reduxjs/reselect" target="_blank" rel="noopener">Reselect</a> library, re-exported for ease of use.</li>
-</ul>
-<hr>
-<h1 id="RTK-Query"><a href="#RTK-Query" class="headerlink" title="RTK Query"></a>RTK Query</h1><p>@reduxjs/toolkit package 에 옵셔널로 포함되어 제공되는 것이다. data fetching과 캐싱의 사용 사례를 해결하기 위해 제작되었고, app의 API 인터페이스 계틍을 정의하기 위해 작지만 강력한 툴셋을 제공한다. 웹 어플리케이션에서 데이터를 로딩하는 보통의 경우를 단순화하도록 만들어졌기 때문에 직접 data fetching과 캐싱 로직을 작성할 필요가 없다.</p>
-<p>RTK 쿼리는 실행을 위해 Redux Toolkit 코어 위에 구축되는데, 아키텍처 내부에서 redux를 내부적으로 사용하기 위함이다. RTK 쿼리를 쓰기 위해서 리덕스나 RTK에 대한 지식이 필요하지는 않지만 RTK 쿼리가 제공하는 모든 추가적인 global store 관리 기능을 탐색할 필요가 있고, RTK 쿼리를 완전하게 사용하여 요청 및 캐시 동작의 타임라인을 재현하고, 횡단하기 위해 Redux DevTools 브라우저 확장 프로그램을 설치해야한다.</p>
-<p>RTK 쿼리는 core Redux Toolkit package 내부에 설치되어있다. 아래 두 가지 엔트리 포인트를 통해 사용할 수 있다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* React-specific entry point that automatically generates</span></span><br><span class="line"><span class="comment">   hooks corresponding to the defined endpoints */</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApi &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="RTK-쿼리안에-들어-있는-것"><a href="#RTK-쿼리안에-들어-있는-것" class="headerlink" title="RTK 쿼리안에 들어 있는 것"></a>RTK 쿼리안에 들어 있는 것</h3><p>다음의 API가 포함된다.</p>
-<ul>
-<li><code>[createApi()](https://redux-toolkit.js.org/rtk-query/api/createApi)</code>: RTK 쿼리 기능의 핵심. 일련의 엔드포인트로부터 데이터를 어떻게 회수해오는지와 관련된 방법, 데이터를 fetch하고 transtorm하는 방법을 설명하는 엔드리 포인트 set를 정의할 수 있다. 보통 기본 URL당 하나의 API 슬라이스를 사용하여 app에서 한 번만 쓰여야 한다.</li>
-<li><code>[fetchBaseQuery()](https://redux-toolkit.js.org/rtk-query/api/fetchBaseQuery)</code>: 요청을 단순화하는 목적을 가진 작은 wrapper이다. 대부분의 사용자에게 createApi에서 권장되는 baseQuery로 사용된다.</li>
-<li><code>[&lt;ApiProvider /&gt;](https://redux-toolkit.js.org/rtk-query/api/ApiProvider)</code>: 리덕스 스토어가 아직 없는 상태에서 Provider로 사용할 수 있다.</li>
-<li><code>[setupListeners()](https://redux-toolkit.js.org/rtk-query/api/setupListeners)</code>: refetchOnMount, refetchOnReconnect 동작을 활성화하는 데 사용되는 유틸리티이다.</li>
-</ul>
-<hr>
-<p><em>References</em></p>
-<p><a href="https://redux-toolkit.js.org/introduction/getting-started#rtk-query" target="_blank" rel="noopener">Getting Started | Redux Toolkit</a><br><a href="https://youtu.be/9zySeP5vH9c" target="_blank" rel="noopener">Let’s Learn Modern Redux! (with Mark Erikson) - Learn With Jason</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1616,7 +1614,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">114</span>
+          <span class="site-state-item-count">115</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
