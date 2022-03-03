@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 18:14:32" itemprop="dateModified" datetime="2022-03-03T18:14:32+09:00">2022-03-03</time>
+                <time title="Modified: 2022-03-04 00:25:20" itemprop="dateModified" datetime="2022-03-04T00:25:20+09:00">2022-03-04</time>
               </span>
 
           
@@ -285,7 +285,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 18:14:32" itemprop="dateModified" datetime="2022-03-03T18:14:32+09:00">2022-03-03</time>
+                <time title="Modified: 2022-03-04 00:25:20" itemprop="dateModified" datetime="2022-03-04T00:25:20+09:00">2022-03-04</time>
               </span>
 
           
@@ -454,7 +454,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 18:14:32" itemprop="dateModified" datetime="2022-03-03T18:14:32+09:00">2022-03-03</time>
+                <time title="Modified: 2022-03-04 00:25:20" itemprop="dateModified" datetime="2022-03-04T00:25:20+09:00">2022-03-04</time>
               </span>
 
           
@@ -649,7 +649,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 18:14:32" itemprop="dateModified" datetime="2022-03-03T18:14:32+09:00">2022-03-03</time>
+                <time title="Modified: 2022-03-04 00:25:20" itemprop="dateModified" datetime="2022-03-04T00:25:20+09:00">2022-03-04</time>
               </span>
 
           
@@ -775,7 +775,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 18:14:32" itemprop="dateModified" datetime="2022-03-03T18:14:32+09:00">2022-03-03</time>
+                <time title="Modified: 2022-03-04 00:25:20" itemprop="dateModified" datetime="2022-03-04T00:25:20+09:00">2022-03-04</time>
               </span>
 
           
@@ -946,7 +946,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 18:14:32" itemprop="dateModified" datetime="2022-03-03T18:14:32+09:00">2022-03-03</time>
+                <time title="Modified: 2022-03-04 00:25:20" itemprop="dateModified" datetime="2022-03-04T00:25:20+09:00">2022-03-04</time>
               </span>
 
           
@@ -1126,140 +1126,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/12/210613_enum/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/12/210613_enum/" class="post-title-link" itemprop="url">열거형(enum)과 어서트(Assert)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-06-13 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-13T00:00:00+09:00">2021-06-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 18:14:32" itemprop="dateModified" datetime="2022-03-03T18:14:32+09:00">2022-03-03</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>가능한 경우의 수가 제한적인 경우, 이를 열거할 수 있다. 컴퓨터가 이해하기엔 정수와 다르지 않지만, 컴파일러에서는 enum으로 지정된 원소 외의 것이 들어오면 잡을 수 있다.</p>
-</blockquote>
-<ul>
-<li>정수형 상수의 집합 (부동소수점은 안된다.)</li>
-<li>각 원소마다 고유의 이름을 가짐</li>
-<li>집합 역시 고유의 이름을 가짐</li>
-<li>enum은 변수로 사용 가능</li>
-<li><u>enum은 사전에 정의된 값만 대입 가능하고, 정수형은 정수형 범위에 있는 어떤 값이든 대입 가능하다.</u></li>
-</ul>
-<h2 id="열거형의-정의-기본형"><a href="#열거형의-정의-기본형" class="headerlink" title="열거형의 정의(기본형)"></a>열거형의 정의(기본형)</h2><p>유사한 성질을 가진 정보들을 나열할 때 정수형 상수보다는 enum을 사용하도록 한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;정수형 상수</span><br><span class="line">const int HOME &#x3D; 1;</span><br><span class="line">const int SCHOOL &#x3D; 2;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;enum으로 나열</span><br><span class="line">enum EBookmark</span><br><span class="line">&#123;</span><br><span class="line">  HOME,</span><br><span class="line">  SCHOOL</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum &lt;이름&gt;</span><br><span class="line">&#123;</span><br><span class="line">  &lt;원소1&gt;,</span><br><span class="line">  &lt;원소2&gt;,</span><br><span class="line">  ...,</span><br><span class="line">  &lt;원소n&gt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>정의는 <code>함수 밖</code>에서 한다.</li>
-<li>첫 번째 원소의 기본값은 0</li>
-<li>아무 값도 대입해주지 않으면 원소의 값은 1씩 증가한다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">&#123;</span><br><span class="line">  enum EDirection</span><br><span class="line">  &#123;</span><br><span class="line">    North, &#x2F;&#x2F;0</span><br><span class="line">    South, &#x2F;&#x2F;1</span><br><span class="line">    East, &#x2F;&#x2F;2</span><br><span class="line">    West &#x2F;&#x2F;3</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="열거형의-정의-원소-값-직접-정의"><a href="#열거형의-정의-원소-값-직접-정의" class="headerlink" title="열거형의 정의(원소 값 직접 정의)"></a>열거형의 정의(원소 값 직접 정의)</h2><blockquote>
-<p>각 원소에 원하는 값을 대입 가능</p>
-</blockquote>
-<ul>
-<li>상수</li>
-<li>혹은 계산식</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">    North &#x3D; 5,</span><br><span class="line">    South &#x3D; 10,</span><br><span class="line">    East &#x3D; 15,</span><br><span class="line">    West &#x3D; East + 10</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">    North &#x3D; 5,</span><br><span class="line">    South, &#x2F;&#x2F;6</span><br><span class="line">    East, &#x2F;&#x2F;7</span><br><span class="line">    West &#x2F;&#x2F;8</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<blockquote>
-<p>대입 없이 변수를 정의만 하면 <code>값이 0인 원소가 기본</code>으로 들어간다.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North,</span><br><span class="line">  South,</span><br><span class="line">  East,</span><br><span class="line">  West</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">EDirection direction; &#x2F;&#x2F;EDirection.North (대입 없이 기본값만 정의했으므로 기본값은 0)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North &#x3D; -2,</span><br><span class="line">  South, &#x2F;&#x2F;-1</span><br><span class="line">  East, &#x2F;&#x2F;0</span><br><span class="line">  West &#x2F;&#x2F;1</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">EDirection direction; &#x2F;&#x2F;EDirection.East (초기화를 해주지 않으면 0인 East가 기본값이 된다.)</span><br></pre></td></tr></table></figure>
-<h2 id="열거형-변수-정의-및-대입"><a href="#열거형-변수-정의-및-대입" class="headerlink" title="열거형 변수 정의 및 대입"></a>열거형 변수 정의 및 대입</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;열거형 이름&gt; &lt;변수명&gt; &#x3D; &lt;열겨형 이름&gt;.&lt;열거형 원소&gt;</span><br></pre></td></tr></table></figure>
-<p>열거형 변수에는 해당 열거형의 원소만 대입 가능하다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North,</span><br><span class="line">  South,</span><br><span class="line">  East,</span><br><span class="line">  West</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">enum ESex</span><br><span class="line">&#123;</span><br><span class="line">  Female,</span><br><span class="line">  Male,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">EDrection direction1; &#x2F;&#x2F;선언</span><br><span class="line">EDrection direction2 &#x3D; EDrection.East; &#x2F;&#x2F;대입</span><br><span class="line"></span><br><span class="line">EDrection direction1 &#x3D; EDrection.East; &#x2F;&#x2F;OK</span><br><span class="line">EDrection direction2 &#x3D; ESex.Male; &#x2F;&#x2F;컴파일 오류</span><br><span class="line">EDrection direction3 &#x3D; 1; &#x2F;&#x2F;컴파일 오류</span><br></pre></td></tr></table></figure>
-<p><code>EDrection direction2 = ESex.Male;</code>이나 <code>EDrection direction3 = 1;</code>처럼 EDrection에 없는 값은 넣으면 컴파일 오류가 발생한다.</p>
-<h2 id="enum을-쓰면-좋은-점"><a href="#enum을-쓰면-좋은-점" class="headerlink" title="enum을 쓰면 좋은 점"></a>enum을 쓰면 좋은 점</h2><ul>
-<li>코드가 읽기 편하다.</li>
-<li>enum에 지정된 값 외에 다른 값이 들어가면 컴파일 오류가 발생하여 문제 발생을 사전에 예방할 수 있다.</li>
-<li>함수 매개변수로 쓰이면 함수가 요구하는 인자형을 빨리 알 수 있으므로 함수에 잘못된 값이 넘어가는 것을 예방할 수 있다.</li>
-</ul>
-<h2 id="enum의-꼼수"><a href="#enum의-꼼수" class="headerlink" title="enum의 꼼수"></a>enum의 꼼수</h2><p>enum의 마지막 원소를 배열 생성 시 배열 원소 개수로 사용 가능하다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North,</span><br><span class="line">  South,</span><br><span class="line">  East,</span><br><span class="line">  West,</span><br><span class="line">  MAX</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;어떤 함수</span><br><span class="line">string[] directions &#x3D; new string[(int)EDrection.MAX];</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt; directions.Length; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;코드</span><br><span class="line">  &#x2F;&#x2F;directions[i]로 접근 가능</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="어서트-Assert"><a href="#어서트-Assert" class="headerlink" title="어서트(Assert)"></a>어서트(Assert)</h2><p><code>코드 검증을 위한 코드.</code> enum을 수정하고, 그 enum을 쓰는 함수의 case문은 수정하지 않을 경우 해결하는 방법이 어서트이다.</p>
-<ul>
-<li>절대로 발생하지 않아야 하는 조건을 런타임 중에 검사<ul>
-<li>만약 발생한다면 코드가 올바르게 동작하지 않는 것</li>
-<li>함수의 선조건 검사에 쓰기 적당.</li>
-</ul>
-</li>
-<li><strong>디버그 모드에서만 동작</strong><ul>
-<li>릴리즈 모드에서 어서트 함수는 마치 주석처럼 무시된다.</li>
-<li>릴리즈 모드에서 동작하게 되면 성능 저하가 발생한다.</li>
-</ul>
-</li>
-<li>최종 제품의 성능저하 없이 개발 중에 문제를 고치는 바람직한 방법.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;방식 1</span><br><span class="line">Debug.Assert(&lt;표현식&gt;);</span><br><span class="line">Debug.Assert(menu &lt; 5); &#x2F;&#x2F; menu가 5 이상일 때 어서트 발생</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;방식 2 어서트가 발생했을 때 보여줄 메세지를 함께 작성</span><br><span class="line">Debug.Assert(&lt;표현식&gt;, &lt;메세지&gt;);</span><br><span class="line">Debug.Assert(menu &lt; 5, &quot;Wrong menu number!&quot;);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Debug.Assert()를 사용하기 위해서 <code>System.Diagnotics</code> 라이브러리를 추가해야 한다.</li>
-<li><code>using System.Diagnotics</code>로 추가한다.</li>
-<li>Assert() 안에 들어가는 조건은 참이라고 가정하고 작성되는 것이므로 <code>조건이 거짓일 때 프로그램은 일시 중단</code>되고, 어서트 메세지가 출력창에 출력된다.</li>
-</ul>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/12/210613_functionArray/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1291,7 +1157,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 18:14:32" itemprop="dateModified" datetime="2022-03-03T18:14:32+09:00">2022-03-03</time>
+                <time title="Modified: 2022-03-04 00:25:20" itemprop="dateModified" datetime="2022-03-04T00:25:20+09:00">2022-03-04</time>
               </span>
 
           
@@ -1406,6 +1272,140 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/12/210613_enum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/06/12/210613_enum/" class="post-title-link" itemprop="url">열거형(enum)과 어서트(Assert)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-06-13 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-13T00:00:00+09:00">2021-06-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-04 00:25:20" itemprop="dateModified" datetime="2022-03-04T00:25:20+09:00">2022-03-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>가능한 경우의 수가 제한적인 경우, 이를 열거할 수 있다. 컴퓨터가 이해하기엔 정수와 다르지 않지만, 컴파일러에서는 enum으로 지정된 원소 외의 것이 들어오면 잡을 수 있다.</p>
+</blockquote>
+<ul>
+<li>정수형 상수의 집합 (부동소수점은 안된다.)</li>
+<li>각 원소마다 고유의 이름을 가짐</li>
+<li>집합 역시 고유의 이름을 가짐</li>
+<li>enum은 변수로 사용 가능</li>
+<li><u>enum은 사전에 정의된 값만 대입 가능하고, 정수형은 정수형 범위에 있는 어떤 값이든 대입 가능하다.</u></li>
+</ul>
+<h2 id="열거형의-정의-기본형"><a href="#열거형의-정의-기본형" class="headerlink" title="열거형의 정의(기본형)"></a>열거형의 정의(기본형)</h2><p>유사한 성질을 가진 정보들을 나열할 때 정수형 상수보다는 enum을 사용하도록 한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;정수형 상수</span><br><span class="line">const int HOME &#x3D; 1;</span><br><span class="line">const int SCHOOL &#x3D; 2;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;enum으로 나열</span><br><span class="line">enum EBookmark</span><br><span class="line">&#123;</span><br><span class="line">  HOME,</span><br><span class="line">  SCHOOL</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum &lt;이름&gt;</span><br><span class="line">&#123;</span><br><span class="line">  &lt;원소1&gt;,</span><br><span class="line">  &lt;원소2&gt;,</span><br><span class="line">  ...,</span><br><span class="line">  &lt;원소n&gt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>정의는 <code>함수 밖</code>에서 한다.</li>
+<li>첫 번째 원소의 기본값은 0</li>
+<li>아무 값도 대입해주지 않으면 원소의 값은 1씩 증가한다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">&#123;</span><br><span class="line">  enum EDirection</span><br><span class="line">  &#123;</span><br><span class="line">    North, &#x2F;&#x2F;0</span><br><span class="line">    South, &#x2F;&#x2F;1</span><br><span class="line">    East, &#x2F;&#x2F;2</span><br><span class="line">    West &#x2F;&#x2F;3</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="열거형의-정의-원소-값-직접-정의"><a href="#열거형의-정의-원소-값-직접-정의" class="headerlink" title="열거형의 정의(원소 값 직접 정의)"></a>열거형의 정의(원소 값 직접 정의)</h2><blockquote>
+<p>각 원소에 원하는 값을 대입 가능</p>
+</blockquote>
+<ul>
+<li>상수</li>
+<li>혹은 계산식</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">    North &#x3D; 5,</span><br><span class="line">    South &#x3D; 10,</span><br><span class="line">    East &#x3D; 15,</span><br><span class="line">    West &#x3D; East + 10</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">    North &#x3D; 5,</span><br><span class="line">    South, &#x2F;&#x2F;6</span><br><span class="line">    East, &#x2F;&#x2F;7</span><br><span class="line">    West &#x2F;&#x2F;8</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>대입 없이 변수를 정의만 하면 <code>값이 0인 원소가 기본</code>으로 들어간다.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North,</span><br><span class="line">  South,</span><br><span class="line">  East,</span><br><span class="line">  West</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">EDirection direction; &#x2F;&#x2F;EDirection.North (대입 없이 기본값만 정의했으므로 기본값은 0)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North &#x3D; -2,</span><br><span class="line">  South, &#x2F;&#x2F;-1</span><br><span class="line">  East, &#x2F;&#x2F;0</span><br><span class="line">  West &#x2F;&#x2F;1</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">EDirection direction; &#x2F;&#x2F;EDirection.East (초기화를 해주지 않으면 0인 East가 기본값이 된다.)</span><br></pre></td></tr></table></figure>
+<h2 id="열거형-변수-정의-및-대입"><a href="#열거형-변수-정의-및-대입" class="headerlink" title="열거형 변수 정의 및 대입"></a>열거형 변수 정의 및 대입</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;열거형 이름&gt; &lt;변수명&gt; &#x3D; &lt;열겨형 이름&gt;.&lt;열거형 원소&gt;</span><br></pre></td></tr></table></figure>
+<p>열거형 변수에는 해당 열거형의 원소만 대입 가능하다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North,</span><br><span class="line">  South,</span><br><span class="line">  East,</span><br><span class="line">  West</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">enum ESex</span><br><span class="line">&#123;</span><br><span class="line">  Female,</span><br><span class="line">  Male,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">EDrection direction1; &#x2F;&#x2F;선언</span><br><span class="line">EDrection direction2 &#x3D; EDrection.East; &#x2F;&#x2F;대입</span><br><span class="line"></span><br><span class="line">EDrection direction1 &#x3D; EDrection.East; &#x2F;&#x2F;OK</span><br><span class="line">EDrection direction2 &#x3D; ESex.Male; &#x2F;&#x2F;컴파일 오류</span><br><span class="line">EDrection direction3 &#x3D; 1; &#x2F;&#x2F;컴파일 오류</span><br></pre></td></tr></table></figure>
+<p><code>EDrection direction2 = ESex.Male;</code>이나 <code>EDrection direction3 = 1;</code>처럼 EDrection에 없는 값은 넣으면 컴파일 오류가 발생한다.</p>
+<h2 id="enum을-쓰면-좋은-점"><a href="#enum을-쓰면-좋은-점" class="headerlink" title="enum을 쓰면 좋은 점"></a>enum을 쓰면 좋은 점</h2><ul>
+<li>코드가 읽기 편하다.</li>
+<li>enum에 지정된 값 외에 다른 값이 들어가면 컴파일 오류가 발생하여 문제 발생을 사전에 예방할 수 있다.</li>
+<li>함수 매개변수로 쓰이면 함수가 요구하는 인자형을 빨리 알 수 있으므로 함수에 잘못된 값이 넘어가는 것을 예방할 수 있다.</li>
+</ul>
+<h2 id="enum의-꼼수"><a href="#enum의-꼼수" class="headerlink" title="enum의 꼼수"></a>enum의 꼼수</h2><p>enum의 마지막 원소를 배열 생성 시 배열 원소 개수로 사용 가능하다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North,</span><br><span class="line">  South,</span><br><span class="line">  East,</span><br><span class="line">  West,</span><br><span class="line">  MAX</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;어떤 함수</span><br><span class="line">string[] directions &#x3D; new string[(int)EDrection.MAX];</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt; directions.Length; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;코드</span><br><span class="line">  &#x2F;&#x2F;directions[i]로 접근 가능</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="어서트-Assert"><a href="#어서트-Assert" class="headerlink" title="어서트(Assert)"></a>어서트(Assert)</h2><p><code>코드 검증을 위한 코드.</code> enum을 수정하고, 그 enum을 쓰는 함수의 case문은 수정하지 않을 경우 해결하는 방법이 어서트이다.</p>
+<ul>
+<li>절대로 발생하지 않아야 하는 조건을 런타임 중에 검사<ul>
+<li>만약 발생한다면 코드가 올바르게 동작하지 않는 것</li>
+<li>함수의 선조건 검사에 쓰기 적당.</li>
+</ul>
+</li>
+<li><strong>디버그 모드에서만 동작</strong><ul>
+<li>릴리즈 모드에서 어서트 함수는 마치 주석처럼 무시된다.</li>
+<li>릴리즈 모드에서 동작하게 되면 성능 저하가 발생한다.</li>
+</ul>
+</li>
+<li>최종 제품의 성능저하 없이 개발 중에 문제를 고치는 바람직한 방법.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;방식 1</span><br><span class="line">Debug.Assert(&lt;표현식&gt;);</span><br><span class="line">Debug.Assert(menu &lt; 5); &#x2F;&#x2F; menu가 5 이상일 때 어서트 발생</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;방식 2 어서트가 발생했을 때 보여줄 메세지를 함께 작성</span><br><span class="line">Debug.Assert(&lt;표현식&gt;, &lt;메세지&gt;);</span><br><span class="line">Debug.Assert(menu &lt; 5, &quot;Wrong menu number!&quot;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Debug.Assert()를 사용하기 위해서 <code>System.Diagnotics</code> 라이브러리를 추가해야 한다.</li>
+<li><code>using System.Diagnotics</code>로 추가한다.</li>
+<li>Assert() 안에 들어가는 조건은 참이라고 가정하고 작성되는 것이므로 <code>조건이 거짓일 때 프로그램은 일시 중단</code>되고, 어서트 메세지가 출력창에 출력된다.</li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/12/210613_cFunction2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1437,7 +1437,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 18:14:32" itemprop="dateModified" datetime="2022-03-03T18:14:32+09:00">2022-03-03</time>
+                <time title="Modified: 2022-03-04 00:25:20" itemprop="dateModified" datetime="2022-03-04T00:25:20+09:00">2022-03-04</time>
               </span>
 
           
@@ -1543,7 +1543,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 18:14:32" itemprop="dateModified" datetime="2022-03-03T18:14:32+09:00">2022-03-03</time>
+                <time title="Modified: 2022-03-04 00:25:20" itemprop="dateModified" datetime="2022-03-04T00:25:20+09:00">2022-03-04</time>
               </span>
 
           
