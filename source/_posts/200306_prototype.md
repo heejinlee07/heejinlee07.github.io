@@ -78,7 +78,7 @@ const Person = (name) => {
 };
 
 // non-constructor는 prototype 프로퍼티를 소유하지 않는다.
-console.log(Person.hasOwnProperty("prototype")); // false
+console.log(Person.hasOwnProperty('prototype')); // false
 
 // non-constructor는 프로토타입을 생성하지 않는다.
 console.log(Person.prototype); // undefined
@@ -144,7 +144,7 @@ function Person(name) {
 
 ## 생성자 함수에 의해 생성된 객체의 프로토타입
 
-생성자 함수에 의해 생성되는 객체의 프로토타입은 생성자 함수의 prototype 프로퍼티에 바인딩되어 있는 객체이다. 아럐 예제에서 사용자 정의 생성자 함수 Person과 더불어 생성된 프로토타입 Person.prototype의 프로퍼티는 constructor 뿐이다. 프로토타입은 객체이기 때문에 일반 객체처럼 프로토타입에도 프로퍼티를 추가/삭제할 수 있다.
+생성자 함수에 의해 생성되는 객체의 프로토타입은 생성자 함수의 prototype 프로퍼티에 바인딩되어 있는 객체이다. 아래 예제에서 사용자 정의 생성자 함수 Person과 더불어 생성된 프로토타입 Person.prototype의 프로퍼티는 constructor 뿐이다. 프로토타입은 객체이기 때문에 일반 객체처럼 프로토타입에도 프로퍼티를 추가/삭제할 수 있다.
 
 ```javascript
 function Person(name) {
@@ -156,8 +156,8 @@ Person.prototype.sayHello = function () {
   console.log(`Hi! My name is ${this.name}`);
 };
 
-const me = new Person("Lee");
-const you = new Person("Kim");
+const me = new Person('Lee');
+const you = new Person('Kim');
 
 me.sayHello(); // Hi! My name is Lee
 you.sayHello(); // Hi! My name is Kim
@@ -203,7 +203,7 @@ const Person = (function () {
   return Person;
 })();
 
-const me = new Person("Lee");
+const me = new Person('Lee');
 
 // 인스턴스 메소드
 me.sayHello = function () {
@@ -242,7 +242,7 @@ const Person = (function () {
   return Person;
 })();
 
-const me = new Person("Lee");
+const me = new Person('Lee');
 ```
 
 위와 같이 프로토타입을 객체로 교체하면 Person.prototype에 있던 `constructor`프로퍼티가 사라지기 때문에 me 객체의 생성자 함수는 Person이 아닌 Object가 나온다.
@@ -256,7 +256,7 @@ function Person(name) {
   this.name = name;
 }
 
-const me = new Person("Lee");
+const me = new Person('Lee');
 
 // 프로토타입으로 교체할 객체
 const parent = {
