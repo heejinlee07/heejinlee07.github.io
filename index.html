@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-04 10:04:02" itemprop="dateModified" datetime="2022-03-04T10:04:02+09:00">2022-03-04</time>
+                <time title="Modified: 2022-03-04 17:24:57" itemprop="dateModified" datetime="2022-03-04T17:24:57+09:00">2022-03-04</time>
               </span>
 
           
@@ -262,11 +262,34 @@
 </ul>
 <p>소유권 사용은 오직 허가박은 사람만 그 자산을 사용하도록 인증하고 승인하면서 식별도 필요하다.</p>
 <h3 id="속성으로-보안의-3가지-개념-이해하기"><a href="#속성으로-보안의-3가지-개념-이해하기" class="headerlink" title="속성으로 보안의 3가지 개념 이해하기"></a>속성으로 보안의 3가지 개념 이해하기</h3><ul>
-<li>식별</li>
-<li>인증</li>
-<li>승인</li>
+<li>식별 : <code>누구</code>라고 주장하는 것</li>
+<li>인증 : 당신과 당신이라고 주장하는 누군가가 <code>일치하는지 증명</code></li>
+<li><p>승인 : 사전에 인증된 개체에 대해 무엇인가에 대한 <code>접근을 허가하는 것.</code></p>
+</li>
+<li><p><code>식별</code>: <strong>이름 또는 다른 식별자를 사용해 ‘누군가’라고 주장하는 것.</strong> 식별을 통해 대상이 ‘누구’라고 주장할 수 있는데 그렇게 주장한 사람과 누구로 주장된 사람이 일치하는지는 증명할 수 없다.</p>
+</li>
+<li><p><code>인증</code>: <strong>어떤 사람이 다른 누군가를 사칭하는 것을 방지하기 위한 것.</strong> ‘누구’라고 주장한 사람과 ‘누구’로 주장된 사람이 일치하는지를 ‘무엇’을 통해 증명한다. 이때 ‘무엇’은 ‘누구’라고 주장되는 그 사람만의 고유한 무엇이어야 한다. (e.g. 지문, 얼굴 사진 등 고유성을 식별해 줄 수 있는 것.)</p>
+</li>
+<li><p><code>승인</code>: <strong>식별된 사람의 성질과 특성에 기반해 특정 자원이나 서비스에의 접근을 허가해 주는 것.</strong> 성공적인 인증과 함께 인증된 특정인이 가진 특성과 권리에 대한 평가를 토대로 얻는 최종 결과. 항상 이미 인증된 개체의 특성이나 성질을 특정 규칙과 비교 평가한 다음 이루어진다.</p>
+</li>
+</ul>
+<h3 id="원장은-소유권을-증명하기도-이전하기도-한다"><a href="#원장은-소유권을-증명하기도-이전하기도-한다" class="headerlink" title="원장은 소유권을 증명하기도, 이전하기도 한다"></a>원장은 소유권을 증명하기도, 이전하기도 한다</h3><p>원장은 두 가지 상반된 역할을 수행한다.</p>
+<ul>
+<li>원장에서 읽은 과거 데이터를 이용해 <strong>소유권을 증명해 주는 수단</strong>의 역할</li>
+<li>소유권의 이전이 발생한 경우 <strong>원장에 새로운 데이터를 생성하여 이 사실을 문서화</strong>해두는 역할</li>
+</ul>
+<p>원장이 누구에게나 공개되어 있다면 소유권 증명은 쉬워진다. 따라서 투명성은 소유권을 증명하는 기초가 되고, 소유권의 이전은 법적인 소유자에게만 배타적으로 허가된다.<br>|원장|원장|<br>|——|——|<br>|소유권 증명|소유권 이전|<br>|투명성|개인정보 보호|<br>|데이터 읽기|데이터 쓰기|<br>|데이터 이력 사용|신규 데이터 생성|<br>|상태 유지|상태 변경|</p>
+<p>원장은 위와 같이 두 가지 상반된 역할들을 수행하는데 블록체인도 이와 비슷하다. <em>누구나 읽을 수 있게 개방된 원장과 유사한 데이터 구조를 사지는 거대한 분산 P2P 시스템이기 때문이다.</em></p>
+<h3 id="소유권-관리자로-임명된-블록체인"><a href="#소유권-관리자로-임명된-블록체인" class="headerlink" title="소유권 관리자로 임명된 블록체인"></a>소유권 관리자로 임명된 블록체인</h3><p>정부 규제 원장처럼 형식을 갖춘 목격자를 만드는 것이 자산의 소유권을 명확히 하는 핵심 요소인데, 독립적인 목겨자들이 많아서 상호 영향을 받지 않는 증언을 많이 확보하는 것이 진실을 찾기 위한 이 접근방식의 핵심이다. 이러한 방식을 원장의 소유권 명확화에 적용하면 <em>조작될 위험이 있는 원장을 하나만 유지하는 대신 원장의 순수 분산 P2P 시스템을 활용해 다수의 노드가 동의하는 진실을 이용해 소유권을 확인하면 된다.</em> 즉 하나의 중앙 통제된 원장은 훼손이나 위조의 위험이 있기 때문에 하나의 중앙 통제된 원장 대신 소유권을 기록하는 개별 원장들의 그룹을 형성한 뒤 대다수의 개별 원장이 동의하는 진실을 사용해 소유권을 관리한다.</p>
+<ul>
+<li>소유권 관리를 위해 사용된 개별 원장은 소유권 관련 데이터를 저장하기 위해 사용된 블록체인-데이터-구조 하나와 같다.</li>
+<li>개별 원장들은 P2P 시스템의 컴퓨터(노드)에 저장된다.</li>
+<li>블록체인-알고리즘은 개별 노드들이 최종 판결의 기초가 되는 하나의 일관된 소유권 상태에 집단적으로 도달하게 해준다.</li>
+<li>시스템의 무결성이란 소유권에 대한 진실을 판단할 능력을 말한다.</li>
+<li>식별, 인증, 승인, 데이터 보안을 믿을 수 있는 수단으로 만들기 위해 암호화 기법이 필요하다.</li>
 </ul>
 <hr>
+<h2 id="7-이중사용-블록체인이-해결한다"><a href="#7-이중사용-블록체인이-해결한다" class="headerlink" title="7. 이중사용, 블록체인이 해결한다"></a>7. 이중사용, 블록체인이 해결한다</h2><h3 id="P2P-시스템의-취약성을-이용한-범죄-예방책"><a href="#P2P-시스템의-취약성을-이용한-범죄-예방책" class="headerlink" title="P2P 시스템의 취약성을 이용한 범죄 예방책"></a>P2P 시스템의 취약성을 이용한 범죄 예방책</h3><hr>
 <p><em>References</em><br>[블록체인 무엇인가?] 다니엘 드레셔 지음</p>
 
       
@@ -318,7 +341,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-04 10:04:02" itemprop="dateModified" datetime="2022-03-04T10:04:02+09:00">2022-03-04</time>
+                <time title="Modified: 2022-03-04 17:24:57" itemprop="dateModified" datetime="2022-03-04T17:24:57+09:00">2022-03-04</time>
               </span>
 
           
@@ -438,7 +461,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-04 10:04:02" itemprop="dateModified" datetime="2022-03-04T10:04:02+09:00">2022-03-04</time>
+                <time title="Modified: 2022-03-04 17:24:57" itemprop="dateModified" datetime="2022-03-04T17:24:57+09:00">2022-03-04</time>
               </span>
 
           
@@ -627,7 +650,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-04 10:04:02" itemprop="dateModified" datetime="2022-03-04T10:04:02+09:00">2022-03-04</time>
+                <time title="Modified: 2022-03-04 17:24:57" itemprop="dateModified" datetime="2022-03-04T17:24:57+09:00">2022-03-04</time>
               </span>
 
           
@@ -743,7 +766,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-04 10:04:02" itemprop="dateModified" datetime="2022-03-04T10:04:02+09:00">2022-03-04</time>
+                <time title="Modified: 2022-03-04 17:24:57" itemprop="dateModified" datetime="2022-03-04T17:24:57+09:00">2022-03-04</time>
               </span>
 
           
@@ -830,7 +853,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-04 10:04:02" itemprop="dateModified" datetime="2022-03-04T10:04:02+09:00">2022-03-04</time>
+                <time title="Modified: 2022-03-04 17:24:57" itemprop="dateModified" datetime="2022-03-04T17:24:57+09:00">2022-03-04</time>
               </span>
 
           
@@ -945,7 +968,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-04 10:04:02" itemprop="dateModified" datetime="2022-03-04T10:04:02+09:00">2022-03-04</time>
+                <time title="Modified: 2022-03-04 17:24:57" itemprop="dateModified" datetime="2022-03-04T17:24:57+09:00">2022-03-04</time>
               </span>
 
           
@@ -1115,7 +1138,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-04 10:04:02" itemprop="dateModified" datetime="2022-03-04T10:04:02+09:00">2022-03-04</time>
+                <time title="Modified: 2022-03-04 17:24:57" itemprop="dateModified" datetime="2022-03-04T17:24:57+09:00">2022-03-04</time>
               </span>
 
           
@@ -1297,7 +1320,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-04 10:04:02" itemprop="dateModified" datetime="2022-03-04T10:04:02+09:00">2022-03-04</time>
+                <time title="Modified: 2022-03-04 17:24:57" itemprop="dateModified" datetime="2022-03-04T17:24:57+09:00">2022-03-04</time>
               </span>
 
           
@@ -1395,7 +1418,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-04 10:04:02" itemprop="dateModified" datetime="2022-03-04T10:04:02+09:00">2022-03-04</time>
+                <time title="Modified: 2022-03-04 17:24:57" itemprop="dateModified" datetime="2022-03-04T17:24:57+09:00">2022-03-04</time>
               </span>
 
           
