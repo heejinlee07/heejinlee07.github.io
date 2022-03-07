@@ -28,7 +28,7 @@
 <meta property="og:description" content="3. 블록체인은 어떻게 작동하는가?8. 블록체인의 청사진 그리기 목표: 소유권을 관리하는 블록체인의 개발. 완전히 개방된 환경에서 작동하는 원장의 순수 분산 P2P 시스템에서 소유권을 관리하는 소프트웨어 디자인.  출발점: 개발 환경 공유하기 시스템은 순수 분산 P2P 시스템이고, 각 사용자가 기여한 계산 자원으로 이루어진다. 인터넷을 사용해 개별 노드의">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-06T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-03-07T07:58:21.644Z">
+<meta property="article:modified_time" content="2022-03-07T09:14:39.871Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -170,7 +170,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-03-07 00:00:00 / Modified: 16:58:21" itemprop="dateCreated datePublished" datetime="2022-03-07T00:00:00+09:00">2022-03-07</time>
+              <time title="Created: 2022-03-07 00:00:00 / Modified: 18:14:39" itemprop="dateCreated datePublished" datetime="2022-03-07T00:00:00+09:00">2022-03-07</time>
             </span>
 
           
@@ -240,7 +240,51 @@
 <li>해결해야 할 과제: 소유권에 대한 주장을 기록하고, <strong>소유권에 대한 증거까지 제공하여 소유권 자체를 증명하는 기록 방법을 찾아낸다.</strong></li>
 <li>아이디어: 소유권의 현 상태를 재산 목록 데이터 형태로 단순 기술하지 않고, <strong>소유권이 이전된 이력까지 원장에 빠짐없이 기록 보관한다.</strong></li>
 </ul>
-<h3 id="목록과-트랜잭션-데이터는-어떻게-다른가"><a href="#목록과-트랜잭션-데이터는-어떻게-다른가" class="headerlink" title="목록과 트랜잭션 데이터는 어떻게 다른가?"></a>목록과 트랜잭션 데이터는 어떻게 다른가?</h3>
+<h3 id="목록과-트랜잭션-데이터는-어떻게-다른가"><a href="#목록과-트랜잭션-데이터는-어떻게-다른가" class="headerlink" title="목록과 트랜잭션 데이터는 어떻게 다른가?"></a>목록과 트랜잭션 데이터는 어떻게 다른가?</h3><p>소유권을 기술한다는 점에서는 같고, 아래와 같은 차이점이 있다.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>소유권 목록</th>
+<th>트랜잭션 데이터</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>소유권 목록을 작성</td>
+<td>트랜잭션 데이터를 작성</td>
+</tr>
+<tr>
+<td>소유권의 <code>현 상태</code>를 기술</td>
+<td>소유권의 <code>이전 이력</code>을 기술</td>
+</tr>
+<tr>
+<td>e.g. 잔고증명서(은행 계좌의 현 잔고 표시)</td>
+<td>e.g. 거래내역조회서(출금, 입금 등의 내역을 모두 표시하여 보여줌)</td>
+</tr>
+<tr>
+<td><code>단순하게 소유권을 주장</code></td>
+<td><code>소유권을 설명하고 증명</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="작동-원리"><a href="#작동-원리" class="headerlink" title="작동 원리"></a>작동 원리</h3><p>블록체인 소유권 기록에 필요한 두 가지</p>
+<ol>
+<li>소유권 이전을 기술</li>
+<li>트랜잭션 이력을 유지</li>
+</ol>
+<h4 id="1-소유권-이전을-기술"><a href="#1-소유권-이전을-기술" class="headerlink" title="1. 소유권 이전을 기술"></a>1. 소유권 이전을 기술</h4><p>현 소유자의 소유권을 다른 사람에게 이전하는 행위를 트랜잭션이라 한다. 이때 데이터에 의도한 이전을 데이터에 기록하고, 이 데이터에는 소유권 이전에 필요한 모든 정보가 담긴다. 은행의 계좌이체 시 계좌이체 서식과 비슷하다. 단, 중앙 통제된 은행에서 동일한 수수료 체계를 사용하는 것과 달리 블록체인은 중앙 통제가 없는 분산 시스템이므로 통일된 수수료 체계가 없다. 블록체인은 트랙잭션을 기술하기 위해 다음의 정보를 이용한다.</p>
+<ol>
+<li>다른 계정으로 소유권을 이전하려는 계정의 식별자</li>
+<li>소유권을 이전받으려는 계정의 식별자</li>
+<li>이전하려는 재화의 총액</li>
+<li>이전이 완료되는 시각</li>
+<li>이전하기 위해 시스템에 지불해야 하는 수수료</li>
+<li>이전에 동의한다는 원소유자의 증명</li>
+</ol>
+<h4 id="2-트랜잭션-이력의-유지"><a href="#2-트랜잭션-이력의-유지" class="headerlink" title="2. 트랜잭션 이력의 유지"></a>2. 트랜잭션 이력의 유지</h4><p>트랜잭션의 수행은 트랜잭션 데이터에 기록된 대로 소유권의 이전이 일어난다는 것이며 원장에 트랙잭션 데이터를 추가한다는 의미이다.</p>
+
     </div>
 
     
@@ -318,7 +362,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-블록체인은-어떻게-작동하는가"><span class="nav-number">1.</span> <span class="nav-text">3. 블록체인은 어떻게 작동하는가?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#8-블록체인의-청사진-그리기"><span class="nav-number">1.1.</span> <span class="nav-text">8. 블록체인의 청사진 그리기</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#출발점-개발-환경-공유하기"><span class="nav-number">1.1.1.</span> <span class="nav-text">출발점: 개발 환경 공유하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#진행경로-7가지-과제-해결하기"><span class="nav-number">1.1.2.</span> <span class="nav-text">진행경로: 7가지 과제 해결하기</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-소유권-기록에서-모든-것이-시작된다"><span class="nav-number">1.2.</span> <span class="nav-text">9. 소유권 기록에서 모든 것이 시작된다</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#목표-누가-보더라도-명확히-알-수-있게-소유권-기록하기"><span class="nav-number">1.2.1.</span> <span class="nav-text">목표: 누가 보더라도 명확히 알 수 있게 소유권 기록하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#목록과-트랜잭션-데이터는-어떻게-다른가"><span class="nav-number">1.2.2.</span> <span class="nav-text">목록과 트랜잭션 데이터는 어떻게 다른가?</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-블록체인은-어떻게-작동하는가"><span class="nav-number">1.</span> <span class="nav-text">3. 블록체인은 어떻게 작동하는가?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#8-블록체인의-청사진-그리기"><span class="nav-number">1.1.</span> <span class="nav-text">8. 블록체인의 청사진 그리기</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#출발점-개발-환경-공유하기"><span class="nav-number">1.1.1.</span> <span class="nav-text">출발점: 개발 환경 공유하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#진행경로-7가지-과제-해결하기"><span class="nav-number">1.1.2.</span> <span class="nav-text">진행경로: 7가지 과제 해결하기</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-소유권-기록에서-모든-것이-시작된다"><span class="nav-number">1.2.</span> <span class="nav-text">9. 소유권 기록에서 모든 것이 시작된다</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#목표-누가-보더라도-명확히-알-수-있게-소유권-기록하기"><span class="nav-number">1.2.1.</span> <span class="nav-text">목표: 누가 보더라도 명확히 알 수 있게 소유권 기록하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#목록과-트랜잭션-데이터는-어떻게-다른가"><span class="nav-number">1.2.2.</span> <span class="nav-text">목록과 트랜잭션 데이터는 어떻게 다른가?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#작동-원리"><span class="nav-number">1.2.3.</span> <span class="nav-text">작동 원리</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-소유권-이전을-기술"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">1. 소유권 이전을 기술</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-트랜잭션-이력의-유지"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">2. 트랜잭션 이력의 유지</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
