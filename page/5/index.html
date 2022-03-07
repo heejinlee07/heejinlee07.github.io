@@ -144,6 +144,112 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/12/210613_cFunction2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/06/12/210613_cFunction2/" class="post-title-link" itemprop="url">함수의 범위</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-06-13 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-13T00:00:00+09:00">2021-06-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="범위"><a href="#범위" class="headerlink" title="범위"></a>범위</h2><blockquote>
+<p>기본적으로 어떤 범위 안에서 선언된 것은 범위 밖에서 쓰지 못한다.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  for (int i &#x3D; 0; i &lt; 10; ++i)</span><br><span class="line">  &#123;</span><br><span class="line">    string name &#x3D; &quot;Leon&quot;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;i, name은 for문 안에서 선언된 것이므로 for 문 밖에서 사용하려면 쓸 수 없다.</span><br><span class="line">  i &#x3D; 200; &#x2F;&#x2F;컴파일 오류</span><br><span class="line">  name &#x3D; &quot;hi&quot;; &#x2F;&#x2F;컴파일 오류</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>상위 범위에서 선언한 변수/상수는 하위 범위에서 사용 가능하다.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  string name &#x3D; &quot;Leon&quot;;</span><br><span class="line"></span><br><span class="line">  for (int i &#x3D; 0; i &lt; 10; ++i)</span><br><span class="line">  &#123;</span><br><span class="line">    name &#x3D; &quot;hi&quot;; &#x2F;&#x2F;OK</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="함수의-범위"><a href="#함수의-범위" class="headerlink" title="함수의 범위"></a>함수의 범위</h2><blockquote>
+<p>기본적으로 함수 안에서 선언한 모든 것은 <code>그 함수에서만</code> 사용 가능하다. 이를 <code>지역 변수</code> 라고 한다.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">static int AddNumbers(int num1, int num2)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;sum은 지역 변수이다. 외부에서 이 변수를 사용할 수 없다.</span><br><span class="line">  int sum &#x3D; num1 + num2;</span><br><span class="line">  return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>함수 밖에 있는 변수/상수는 사용할 수 없다.</p>
+</blockquote>
+<p>result가 선언된 Square는 Main함수와 같은 레벨에 있다. Main함수를 포함하고 있는 것은 Square가 아니라 Program이다. result가 Program 내부에서 선언되었다면 사용할 수 있었을 것이지만 Square 안에 선언되어 있기 때문에 컴파일 오류가 난다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">&#123;</span><br><span class="line">  static void Square(double number)</span><br><span class="line">  &#123;</span><br><span class="line">    double result &#x3D; number * number;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  static void Main(string[] args)</span><br><span class="line">  &#123;</span><br><span class="line">    double num &#x3D; double.Parse(Console.ReadLine());</span><br><span class="line">    Square(num);</span><br><span class="line">    Console.WriteLine($&quot;Result:  &#123;result&#125;&quot;); &#x2F;&#x2F;컴파일 오류</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>함수 매개변수, 반환값 모두 <code>복사된 것</code>. <code>값에 의한 전달</code></p>
+</blockquote>
+<p>함수 Square를 호출할 때 Main 함수 변수 number에 들어 있는 값을 <code>복사</code>해서 함수 Square의 매개변수 number에 대입한다. <code>double number</code>는 이름만 같을 뿐 소속이 다르다.(동명이인의 개념).</p>
+<p><code>number *= number</code>는 <code>number = number * number</code>와 같은 의미이다. 이 연산의 결과는 함수 Square의 매개변수 number에만 영향을 주고, Main 함수의 number는 함수 속 연산의 영향을 받지 않는다. (두 함수에 같은 이름의 변수가 있다고 동일한 변수가 아니다.)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static void Square(double number)</span><br><span class="line">&#123;</span><br><span class="line">  number *&#x3D; number;</span><br><span class="line">  return number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  double num &#x3D; 5;</span><br><span class="line">  double result &#x3D; Square(number); &#x2F;&#x2F;25</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="언제-함수를-작성할까"><a href="#언제-함수를-작성할까" class="headerlink" title="언제 함수를 작성할까?"></a>언제 함수를 작성할까?</h2><ul>
+<li>처음부터 함수로 시작하지 말자.</li>
+<li>현재 존재하는 혹은 향후에 발생 가능성이 높은 코드 중복을 피하고자 할 때 함수를 작성한다.</li>
+<li>코드 중복은 좋지 않다. 다른 사람이 중복 코드에 있는 버그를 고칠 때, 모든 코드를 수정할 것이라는 보장이 없기 때문.</li>
+</ul>
+<h2 id="함수를-잘-작성하는-방법"><a href="#함수를-잘-작성하는-방법" class="headerlink" title="함수를 잘 작성하는 방법"></a>함수를 잘 작성하는 방법</h2><h3 id="함수-대신-중괄호"><a href="#함수-대신-중괄호" class="headerlink" title="함수 대신 중괄호"></a>함수 대신 중괄호</h3><p>함수가 길어지면 동일한 이름의 지역 변수가 생기는 경우가 있다. 하지만 같은 범위 내에 이름이 중복되면 컴파일 에러가 발생한다. 이럴 경우 <code>중괄호</code>를 사용하여 범위를 분리시킨다. 이처럼 조건문이나 함수의 중괄호가 아니라 중괄호만 사용하여 새 범위를 만들 수도 있다.</p>
+<p>아래 코드에서 length는 2번 쓰여서 컴파일 에러가 발생할 것 같지만 발생하지 않는다. 아래 코드에서는 <code>중괄호를 사용하여 스코프를 분리해주었기 때문에 두 함수의 범위가 다르다.</code> 따라서 length라는 이름이 똑같이 쓰여도 에러가 발생하지 않는다. 각각의 length는 쓰여진 함수 내에서만 유효하기 때문이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">string[] names;</span><br><span class="line">&#123;</span><br><span class="line">  int length &#x3D; int.Parse(Console.ReadLine());</span><br><span class="line">  &#x2F;&#x2F;코드 생략</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int[] scores;</span><br><span class="line">&#123;</span><br><span class="line">  int length &#x3D; int.Parse(Console.ReadLine());</span><br><span class="line">  &#x2F;&#x2F;코드 생략</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="함수-대신-region과-endregion"><a href="#함수-대신-region과-endregion" class="headerlink" title="함수 대신 #region과 #endregion"></a>함수 대신 #region과 #endregion</h3><ul>
+<li><code>c# 전용</code></li>
+<li>긴 함수를 짧게 만들 수 있다. (<em>실제 함수 길이가 줄어드는 것은 아니다.</em>)</li>
+<li>VS에서 코드를 접거나 펼 수 있게 해준다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#region GetScores</span><br><span class="line">&#x2F;&#x2F;코드 생략</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#region &lt;이름&gt;</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/07/210608_cFunction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +281,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -342,7 +448,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -550,7 +656,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -692,7 +798,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -797,7 +903,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -924,7 +1030,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -1037,7 +1143,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -1196,7 +1302,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -1526,7 +1632,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -1841,176 +1947,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/05/09/210510_inputOutput/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/09/210510_inputOutput/" class="post-title-link" itemprop="url">출력, 상수</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-05-10 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-10T00:00:00+09:00">2021-05-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">using system;</span><br><span class="line"></span><br><span class="line">namespace HelloWorld</span><br><span class="line">&#123;</span><br><span class="line">  class Program</span><br><span class="line">  &#123;</span><br><span class="line">    &#x2F;&#x2F; 메인 함수</span><br><span class="line">    static void Main(string[] args)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;Hello world!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="메인-함수"><a href="#메인-함수" class="headerlink" title="메인 함수"></a>메인 함수</h2><ul>
-<li>시작점(entry point)</li>
-<li>c# 프로그램은 반드시 어떤 함수에서부터 실행되어야 한다.</li>
-<li>그 <code>어떤</code> 함수가 바로 <code>Main</code>함수이다. (또는 메서드라고 표현한다.)</li>
-<li>exe 파일을 실행하면 Main 함수가 자동으로 실행된다.</li>
-</ul>
-<h3 id="Main-함수-앞의-static"><a href="#Main-함수-앞의-static" class="headerlink" title="Main 함수 앞의 static"></a>Main 함수 앞의 static</h3><ul>
-<li>c#은 OOP 언어라서 기본적으로 static을 안쓰지만 Main 함수는 진입점, 프로그램에 딱 하나만 있는 것. 따라서 프로그램의 진입점은 딱 하나만 있기 때문에 static을 넣어서 정적이라고 표현.</li>
-<li>전역 함수가 된다.</li>
-</ul>
-<h3 id="string-args"><a href="#string-args" class="headerlink" title="string[] args"></a>string[] args</h3><ul>
-<li>메인 함수가 외부로부터 받는 데이터</li>
-<li>함수 인자 또는 메서드 인자라고 부른다.</li>
-<li>커맨드 라인으로부터 인자를 받는다.<ul>
-<li>커맨드 라인: exe 파일을 실행할 때 추가적으로 넣는 정보</li>
-<li><strong>e.g. HelloWorld.exe Hi C# is fun</strong> 는 Hi, C#, is, fun 총 네 개의 인자가 들어간다.</li>
-<li>이 인자들이 args 배열에 저장된다.</li>
-</ul>
-</li>
-</ul>
-<h2 id="void"><a href="#void" class="headerlink" title="void"></a>void</h2><ul>
-<li>반환형</li>
-<li>모든 함수는 반환형이 존재한다.</li>
-<li>실제로 값을 반환할 수도 있고, 반환하지 않을 수도 있다.</li>
-<li>함수가 어떤 형태의 데이터를 반환하는지.</li>
-<li>반환값이 없다는 의미.</li>
-</ul>
-<h2 id="반환형의-역할"><a href="#반환형의-역할" class="headerlink" title="반환형의 역할"></a>반환형의 역할</h2><ul>
-<li>커맨드 라인이 반환형을 받아서 exe 프로그램이 올바르게 실행되었는지 여부를 알 수 있다.<ul>
-<li>0: 성공을 의미</li>
-<li>0이 아닌 값: 오류 코드</li>
-</ul>
-</li>
-</ul>
-<h2 id="메인-메서드의-정수값-반환"><a href="#메인-메서드의-정수값-반환" class="headerlink" title="메인 메서드의 정수값 반환"></a>메인 메서드의 정수값 반환</h2><ul>
-<li>정수를 반환할 때 <code>int</code>를 사용한다.</li>
-<li>실제로 값을 반환할 때는 <code>return</code> 키워드를 사용한다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static int Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  return 0; &#x2F;&#x2F;0을 돌려보낸다.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="using-System"><a href="#using-System" class="headerlink" title="using System;"></a>using System;</h2><ul>
-<li>using은 c#에서 지시어라고 부른다.</li>
-<li>이것을 없애고 빌드하면 오류가 발생한다.</li>
-<li>using 지시어 다음에는 사용할 라이브러리(Console.WriteLine처럼 함수를 모아 놓은 것) 이름을 넣는다.</li>
-<li>프로그램에서 사용할 함수들이 들어있는 네임스페이스를 코드 맨 위에 using 지시어를 사용해서 컴퓨터에게 알린다.</li>
-</ul>
-<h2 id="컴파일"><a href="#컴파일" class="headerlink" title="컴파일"></a>컴파일</h2><ul>
-<li>소스코드를 기계 또는 VM이 이해할 수 있는 언어로 변경하는 행위</li>
-<li>컴파일러라는 프로그램을 사용(커맨드 라인, IDE)</li>
-<li>오류 또는 경고가 발생할 수 있다.</li>
-</ul>
-<h2 id="컴파일-오류"><a href="#컴파일-오류" class="headerlink" title="컴파일 오류"></a>컴파일 오류</h2><ul>
-<li>작성한 코드가 프로그래밍 언어의 규격에 위반된다.</li>
-<li>오류가 있으면 exe 파일이 생성되지 않는다.</li>
-<li>프로그램 실행 중 문제를 발견하는 것보다 낫다</li>
-<li>오류 목록 창에서 오류를 파악하기 어려울 때는 출력창에서 찾아도 된다.</li>
-<li>경고는 프로그래머의 실수처럼 보이는 것을 컴파일러가 찾아준다.</li>
-</ul>
-<h2 id="디버그-빌드-릴리즈-빌드"><a href="#디버그-빌드-릴리즈-빌드" class="headerlink" title="디버그 빌드, 릴리즈 빌드"></a>디버그 빌드, 릴리즈 빌드</h2><h3 id="디버그-빌드"><a href="#디버그-빌드" class="headerlink" title="디버그 빌드"></a>디버그 빌드</h3><ul>
-<li>개발자가 개발 중에 사용하는 실행파일</li>
-<li>디버깅에 유용한 정보가 많다.</li>
-<li>최적화는 거의 되어 있지 않다.</li>
-</ul>
-<h3 id="릴리즈-빌드"><a href="#릴리즈-빌드" class="headerlink" title="릴리즈 빌드"></a>릴리즈 빌드</h3><ul>
-<li>디버깅을 위한 정보가 적다.</li>
-<li>최적화가 잘 되어 있다.</li>
-<li>성능이 디버깅 모드보다 훨씬 빠르다.</li>
-</ul>
-<hr>
-<h2 id="여러값을-출력하기"><a href="#여러값을-출력하기" class="headerlink" title="여러값을 출력하기"></a>여러값을 출력하기</h2><blockquote>
-<p>화면에 글자를 출력할 때 사용하는 함수</p>
-</blockquote>
-<ul>
-<li>Console.WriteLine : 줄바꿈</li>
-<li>Console.Write : 같은 줄</li>
-</ul>
-<h3 id="구문"><a href="#구문" class="headerlink" title="구문"></a>구문</h3><ul>
-<li>한 줄짜리 코드: 보통 <code>;</code> 가 코드 끝에 있다.</li>
-<li>블록: 여러 줄의 코드로 이루어졌다.</li>
-<li>블록은 범위라고도 부르고, 코드를 <code>({})</code> 로 감싼다.</li>
-<li>주석: 코드와 관련된 내용을 메모할 때 사용, 컴파일할 때 무시되는 문장.<ul>
-<li>코드와 마찬가지로 계속 관리해야한다. (바뀐 내용이 있다면 업데이트 필요)</li>
-<li>너무 많이 쓰지 않도록 한다. 코드 자체가 그 자체로 이해되도록 작성할 것.</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="상수"><a href="#상수" class="headerlink" title="상수"></a>상수</h2><ul>
-<li>절대 변하지 않는 값, 매직 넘버.</li>
-<li>숫자, 문자 등을 포함</li>
-<li>int 형, double형, float형, bool형, char형</li>
-</ul>
-<h2 id="선언과-대입-정의"><a href="#선언과-대입-정의" class="headerlink" title="선언과 대입(정의)"></a>선언과 대입(정의)</h2><ul>
-<li>선언: 변수, 상수의 자료형과 이름을 컴퓨터에게 알려줌</li>
-<li>대입: 변수, 상수의 실제 값을 컴퓨터에게 알려줌.</li>
-<li>선언과 대입은 동시에 할 수 있다.</li>
-<li><code>const</code> 변수는 선언과 대입이 항상 동시에 일어난다.<ul>
-<li>한번 값을 대입 한 후 값을 바꾸고 싶지 않을 때 사용한다.</li>
-<li>선언과 대입이 이루어진 후 값을 변경하면 컴파일 오류가 발생한다.</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 선언</span><br><span class="line">float number;</span><br><span class="line">&#x2F;&#x2F;대입</span><br><span class="line">number &#x3D; 1.5;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;선언과 대입을 동시에</span><br><span class="line">float number &#x3D; 1.5;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;const를 쓰는 경우</span><br><span class="line">const float NUMBER &#x3D; 1.5;</span><br></pre></td></tr></table></figure>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -2081,7 +2017,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">117</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

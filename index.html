@@ -144,6 +144,63 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/03/07/220307_blockchain04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/07/220307_blockchain04/" class="post-title-link" itemprop="url">220307_blockchain04</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-07 16:44:50" itemprop="dateCreated datePublished" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/03/06/220307_blockchain03/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -169,7 +226,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-03-07 00:00:00 / Modified: 11:58:12" itemprop="dateCreated datePublished" datetime="2022-03-07T00:00:00+09:00">2022-03-07</time>
+              <time title="Created: 2022-03-07 00:00:00 / Modified: 16:44:50" itemprop="dateCreated datePublished" datetime="2022-03-07T00:00:00+09:00">2022-03-07</time>
             </span>
 
           
@@ -183,7 +240,60 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="3-블록체인은-어떻게-작동하는가"><a href="#3-블록체인은-어떻게-작동하는가" class="headerlink" title="3. 블록체인은 어떻게 작동하는가?"></a>3. 블록체인은 어떻게 작동하는가?</h1>
+          <h1 id="3-블록체인은-어떻게-작동하는가"><a href="#3-블록체인은-어떻게-작동하는가" class="headerlink" title="3. 블록체인은 어떻게 작동하는가?"></a>3. 블록체인은 어떻게 작동하는가?</h1><h2 id="8-블록체인의-청사진-그리기"><a href="#8-블록체인의-청사진-그리기" class="headerlink" title="8. 블록체인의 청사진 그리기"></a>8. 블록체인의 청사진 그리기</h2><blockquote>
+<p>목표: 소유권을 관리하는 블록체인의 개발. <code>완전히 개방된 환경에서 작동하는 원장의 순수 분산 P2P 시스템에서 소유권을 관리하는 소프트웨어 디자인.</code></p>
+</blockquote>
+<h3 id="출발점-개발-환경-공유하기"><a href="#출발점-개발-환경-공유하기" class="headerlink" title="출발점: 개발 환경 공유하기"></a>출발점: 개발 환경 공유하기</h3><ul>
+<li>시스템은 순수 분산 P2P 시스템이고, 각 사용자가 기여한 계산 자원으로 이루어진다.</li>
+<li>인터넷을 사용해 개별 노드의 네트워크를 연결한다.</li>
+<li>노드의 개수는 물론 노드의 안정성과 신뢰성도 전혀 알 수 없다.</li>
+<li>목표는 <code>디지털 재화의 소유권을 관리하는 것.</code></li>
+</ul>
+<h3 id="진행경로-7가지-과제-해결하기"><a href="#진행경로-7가지-과제-해결하기" class="headerlink" title="진행경로: 7가지 과제 해결하기"></a>진행경로: 7가지 과제 해결하기</h3><ol>
+<li>소유권 기술<ol>
+<li>블록체인으로 <code>무엇</code>을 하고 싶은지, <code>소유권을 어떻게 기술할 것인지</code>를 결정한다.</li>
+<li>트랜잭션은 소유권의 이전을 설명하는 좋은 방법이며, 트랜잭션 전체 이력은 현 소유자를 확인할 수 있는 핵심이 된다.</li>
+</ol>
+</li>
+<li>소유권 보호<ol>
+<li>타인이 다른 사람의 자산에 함부로 접근하지 못하도록 보호해줄 장치</li>
+<li><code>암호화 기술</code>을 통해 개별적 트랜잭션을 보호한다.</li>
+<li>소유권을 보호하는 과정: 소유주 <code>식별</code> -&gt; 소유주 <code>인증</code> -&gt; 소유주 본인에게만 자산 <code>접근 허가</code></li>
+</ol>
+</li>
+<li>트랜잭션 데이터 저장<ol>
+<li>트랜잭션 데이터는 소유권을 명확히 하는 핵심 요소이므로 안전한 방법으로 저장</li>
+</ol>
+</li>
+<li>신뢰할 수 없는 환경에 배분할 원장 준비<ol>
+<li>신뢰할 수 없는 환경에서 작동하는 원장의 분산 P2P 시스템을 디자인한다.</li>
+<li>이 말은 신뢰를 알 수 없는 환경에 있는 각 노드가 신뢰할 수 있는 행동을 할 때 인센티브가 더 돌아가도록 설계해서 전체 환경을 확률적으로 신뢰할 수 있도록 만든다는 것.</li>
+<li>신뢰할 수 없는 환경에서 원장의 복사본들이 신뢰할 수 없는 노드들 사이에 흩어져 있고, 원장을 통제하거나 조정하는 중앙 통제 노드가 존재하지 않아서 각 노드에게 원장의 제어를 맡긴다.</li>
+<li>이 상황에서 <code>트랜잭션을 바꾸지 못하도록 막아두는 것</code>으로 원장의 위조나 조작을 막을 수 있다.</li>
+<li><strong>원장과 트랜잭션 이력은 한번 기록되면 바꿀 수 없게 하는 것이다.</strong></li>
+<li>단 블록체인-데이터-구조에서 변경을 못하게 하면서 새로운 트랜잭션을 추가할 수 없으니 <code>추가 전용 블록체인-데이터-구조</code>로 만들어서 새 트랜잭션을 추가할 수 있도록 승인해야 한다.</li>
+</ol>
+</li>
+<li>원장 배분<ol>
+<li>원장을 추가 전용으로 만들고 요청하는 <code>누구에게나 복사본을</code> 만들어주면 원장의 분산 P2P 시스템을 구성할 수 있다.</li>
+</ol>
+</li>
+<li>원장에 새 트랜잭션 추가<ol>
+<li>분산 P2P 시스템은 개별적으로 추가 전용 블록체인-데이터-구조를 유지하는 구성원들로 구성된다.</li>
+<li><em>오직 유효하고 승인된 트랜잭션만 추가될 수 있도록 보장해야 한다.</em> 이를 위해 P2P 시스템의 구성원 모두에게 새로운 데이터를 추가할 수 있도록 허용하고, 각 구성원이 P2P 시스템의 각 피어를 감독하게 한다.</li>
+</ol>
+</li>
+<li>어느 원장이 진실인지 판단<ol>
+<li>P2P 시스템에서 개별 원장에 새로운 트랜잭션을 추가할 수 있도록 허용하면 모든 분산 P2P 시스템에서 발생하는 <code>각 피어들이 서로 다른 트랜잭션 데이터를 받을 가능성</code>이 생긴다.</li>
+<li>트랜잭션 이력은 합법적 소유자를 찾기 위한 기초가 되므로 시스템 내 서로 다른 이력이 충돌해서는 안되고, <strong>따라서 진실을 담고 있는 트랜잭션을 가려낼 기준이 필요하다.</strong></li>
+<li>순수 분산 P2P 시스템에는 어떤 트랜잭션 이력을 선택해야 할지 결정해 줄 중앙 통제 장치가 없기 때문에 <strong>모든 노드가 독립적인 다수 의견을 따라 진실된 트랜잭션 이력을 개별적으로 결정</strong>해서 문제를 해결하도록 한다.</li>
+<li>블록체인이 새 트랜잭션을 추가 전용 블록체인-데이터-구조에 추가하도록 허용하여 문제를 해결할 수 있다.</li>
+</ol>
+</li>
+</ol>
+<hr>
+<p><em>References</em><br>[블록체인 무엇인가?] 다니엘 드레셔 지음</p>
+
       
     </div>
 
@@ -233,7 +343,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -444,7 +554,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -564,7 +674,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -629,46 +739,59 @@
 </li>
 </ul>
 <h3 id="분산-시스템의-장점"><a href="#분산-시스템의-장점" class="headerlink" title="분산 시스템의 장점"></a>분산 시스템의 장점</h3><ol>
-<li>계산 능력이 뛰어나다.</li>
-</ol>
-<p>서로 연결된 모든 컴퓨터의 계산 능력이 합쳐져 발현되기 때문에 단일 컴퓨터보다 더 강력한 계산 능력을 가진다.</p>
+<li><p>계산 능력이 뛰어나다.</p>
 <ol>
-<li>비용이 절감된다.</li>
+<li>서로 연결된 모든 컴퓨터의 계산 능력이 합쳐져 발현되기 때문에 단일 컴퓨터보다 더 강력한 계산 능력을 가진다.</li>
 </ol>
-<p>여러 대의 컴퓨터로 구성되므로 초기 구성 비용은 슈퍼 컴퓨터보다 많지만 유지 운영 비용은 훨씬 적다. 또 슈퍼 컴퓨터와 달리 개별 컴퓨터가 교체 될 때 전체 시스템에 별 영향을 끼치지 않는다.</p>
+</li>
+<li><p>비용이 절감된다.</p>
 <ol>
-<li>더 안정적이다.</li>
+<li>여러 대의 컴퓨터로 구성되므로 초기 구성 비용은 슈퍼 컴퓨터보다 많지만 유지 운영 비용은 훨씬 적다. 또 슈퍼 컴퓨터와 달리 개별 컴퓨터가 교체 될 때 전체 시스템에 별 영향을 끼치지 않는다.</li>
 </ol>
-<p>시스템을 구성하는 개별 컴퓨터가 고장나면 나머지 구성요소들이 그 일을 대신하기 떄문에 전체 네트워크는 문제없이 잘 작동한다.</p>
+</li>
+<li><p>더 안정적이다.</p>
 <ol>
-<li>자연스럽게 확장된다.</li>
+<li>시스템을 구성하는 개별 컴퓨터가 고장나면 나머지 구성요소들이 그 일을 대신하기 떄문에 전체 네트워크는 문제없이 잘 작동한다.</li>
 </ol>
-<p>앞서 계산 능력은 연결된 모든 컴퓨터의 계산 능력을 합친 것이라 했으므로, 시스템에 컴퓨터를 추가하면 손쉽게 전체 계산 능력을 높일 수 있다.</p>
+</li>
+<li><p>자연스럽게 확장된다.</p>
+<ol>
+<li>앞서 계산 능력은 연결된 모든 컴퓨터의 계산 능력을 합친 것이라 했으므로, 시스템에 컴퓨터를 추가하면 손쉽게 전체 계산 능력을 높일 수 있다.</li>
+</ol>
+</li>
+</ol>
 <h3 id="분산-시스템의-단점"><a href="#분산-시스템의-단점" class="headerlink" title="분산 시스템의 단점"></a>분산 시스템의 단점</h3><ol>
-<li>조정 오버헤드가 발생한다.</li>
-</ol>
-<p>중앙 통제 방식과 달리 중앙 요소가 존재하지 않기 때문에 구성요소들 스스로 조정을 해야하는데 이 조정이 쉽지 않아 많은 자원이 소모되는 오버헤드가 발생한다.</p>
+<li><p>조정 오버헤드가 발생한다.</p>
 <ol>
-<li>통신 오버헤드가 발생한다.</li>
+<li>중앙 통제 방식과 달리 중앙 요소가 존재하지 않기 때문에 구성요소들 스스로 조정을 해야하는데 이 조정이 쉽지 않아 많은 자원이 소모되는 오버헤드가 발생한다.</li>
 </ol>
-<p>조정을 위해서 통신이 필수적이고, 이 통신을 위해 계산 능력의 일부가 통신 프로토콜 지원 및 메시지 송수신 및 처리에 소모된다.</p>
+</li>
+<li><p>통신 오버헤드가 발생한다.</p>
 <ol>
-<li>네트워크 의존도가 높다.</li>
+<li>조정을 위해서 통신이 필수적이고, 이 통신을 위해 계산 능력의 일부가 통신 프로토콜 지원 및 메시지 송수신 및 처리에 소모된다.</li>
 </ol>
-<p>컴퓨터들은 네트워크를 통해 통신하는데, 모든 네트워크는 자체적인 결함과 장애 가능성이 내재되어 있기 때문에 통신과 조정에 영향을 끼친다. 그리고 네트워크가 없으면 각 구성요소 간의 협력이 불가하기 때문에 네트워크 의존도가 높다.</p>
+</li>
+<li><p>네트워크 의존도가 높다.</p>
 <ol>
-<li>프로그램이 복잡해진다.</li>
+<li>컴퓨터들은 네트워크를 통해 통신하는데, 모든 네트워크는 자체적인 결함과 장애 가능성이 내재되어 있기 때문에 통신과 조정에 영향을 끼친다. 그리고 네트워크가 없으면 각 구성요소 간의 협력이 불가하기 때문에 네트워크 의존도가 높다.</li>
 </ol>
-<p>앞서 말한 단점들을 해결하기 위해 중앙 통제 방식에서는 필요없는 조정, 통신, 네트워크 이용에 관련된 추가적인 문제 해결 등이 필요하다.</p>
+</li>
+<li><p>프로그램이 복잡해진다.</p>
 <ol>
-<li>보안에 신경써야 한다.</li>
+<li>앞서 말한 단점들을 해결하기 위해 중앙 통제 방식에서는 필요없는 조정, 통신, 네트워크 이용에 관련된 추가적인 문제 해결 등이 필요하다.</li>
 </ol>
-<p>네트워크를 통한 통신은 계산 작업 시 데이터의 전송과 공유가 꼭 필요하다. 그러나 이런 행위로 인해 악의를 가진 개체가 정보에 접근하여 악용하는 보안문제가 발생할 수 있다.</p>
+</li>
+<li><p>보안에 신경써야 한다.</p>
+<ol>
+<li>네트워크를 통한 통신은 계산 작업 시 데이터의 전송과 공유가 꼭 필요하다. 그러나 이런 행위로 인해 악의를 가진 개체가 정보에 접근하여 악용하는 보안문제가 발생할 수 있다.</li>
+</ol>
+</li>
+</ol>
 <h3 id="사용자가-많아질수록-더-강력해지는-분산-P2P-시스템"><a href="#사용자가-많아질수록-더-강력해지는-분산-P2P-시스템" class="headerlink" title="사용자가 많아질수록 더 강력해지는 분산 P2P 시스템"></a>사용자가 많아질수록 더 강력해지는 분산 P2P 시스템</h3><blockquote>
 <p>Peer to Peer 네트워크 또는 P2P 네트워크. 분산 네트워크의 특수한 형태</p>
 </blockquote>
 <p>개별 컴퓨터(노드)로 구성된 시스템으로 중앙 노드의 조정 없이 네트워크의 모든 구성원이 서로에게 계산 자원을 제공한다. <strong>네트워크의 각 노드는 시스템 내에서 동등한 권리와 역할을 가지고, 모두가 자원의 공급자인 동시에 소비자이다.</strong> 사용자들의 컴퓨터를 분산 시스템을 구성하는 노드로 만든다는 아이디어를 배경으로 다양한 분야에 응용이 가능하다.</p>
-<h3 id="중앙-통제와-분산-시스템의-장점만-모은-혼합-시스템"><a href="#중앙-통제와-분산-시스템의-장점만-모은-혼합-시스템" class="headerlink" title="중앙 통제와 분산 시스템의 장점만 모은 혼합 시스템"></a>중앙 통제와 분산 시스템의 장점만 모은 혼합 시스템</h3><p>중앙 통제 시스템과 분산 시스템은 정반대의 구조를 가지고 있는데, 이 각각의 강정만 결합한 혼합 시스템이 있다.</p>
+<h3 id="중앙-통제와-분산-시스템의-장점만-모은-혼합-시스템"><a href="#중앙-통제와-분산-시스템의-장점만-모은-혼합-시스템" class="headerlink" title="중앙 통제와 분산 시스템의 장점만 모은 혼합 시스템"></a>중앙 통제와 분산 시스템의 장점만 모은 혼합 시스템</h3><p>중앙 통제 시스템과 분산 시스템은 정반대의 구조를 가지고 있는데, 이 각각의 강점만 결합한 혼합 시스템이 있다.</p>
 <ul>
 <li><p>분산 시스템 내의 중앙 통제<br>분산 시스템 내부에 중앙 통제 요소를 구축한 아키텍처로 겉보기에 분산 시스템을 이루는 것처럼 보이지만 <strong>모든 노드는 중앙의 큰 원에 직접 연결되어 있다.</strong></p>
 </li>
@@ -753,7 +876,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -869,7 +992,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -956,7 +1079,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -1071,7 +1194,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -1241,7 +1364,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 16:44:50" itemprop="dateModified" datetime="2022-03-07T16:44:50+09:00">2022-03-07</time>
               </span>
 
           
@@ -1388,104 +1511,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/07/220208_tsitem19to20/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/07/220208_tsitem19to20/" class="post-title-link" itemprop="url">타입스크립트 이펙티브 아이템 19 - 아이템 20</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-02-08 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-08T00:00:00+09:00">2022-02-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="아이템-19-추론-가능한-타입을-사용해-장황한-코드-방지하기"><a href="#아이템-19-추론-가능한-타입을-사용해-장황한-코드-방지하기" class="headerlink" title="아이템 19 추론 가능한 타입을 사용해 장황한 코드 방지하기"></a>아이템 19 추론 가능한 타입을 사용해 장황한 코드 방지하기</h2><p>타입스크립트가 결국 타입을 위한 언어이기 때문에 변수를 선언할 때마다 타입을 명시해야 한다고 생각하기 쉽다. <em>하지만 코드의 모든 변수에 타입을 선언하는 것은 비생산적이다.</em> 타입스크립트는 타입 추론이 된다면 명시적 타입 구문은 필요하지 않다. <code>let x = 12;</code>와 같은 구문은 x가 number로 추론되기 때문에 굳이 <code>let x: number = 12;</code>로 작성하지 않아도 되고, 객체와 배열에 대해서도 동일하다. 아래 예시에서 1️⃣은 2️⃣로 작성해도 동일하다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1️⃣</span></span><br><span class="line"><span class="keyword">const</span> person: &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  born: &#123;</span><br><span class="line">    where: <span class="built_in">string</span>;</span><br><span class="line">    when: <span class="built_in">string</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  died: &#123;</span><br><span class="line">    where: <span class="built_in">string</span>;</span><br><span class="line">    when: <span class="built_in">string</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125; = &#123;</span><br><span class="line">  name: <span class="string">'Sojourner Truth'</span>,</span><br><span class="line">  born: &#123;</span><br><span class="line">    where: <span class="string">'Swartekill, NY'</span>,</span><br><span class="line">    when: <span class="string">'c.1797'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  died: &#123;</span><br><span class="line">    where: <span class="string">'Battle Creek, MI'</span>,</span><br><span class="line">    when: <span class="string">'Nov. 26, 1883'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2️⃣</span></span><br><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  name: <span class="string">'Sojourner Truth'</span>,</span><br><span class="line">  born: &#123;</span><br><span class="line">    where: <span class="string">'Swartekill, NY'</span>,</span><br><span class="line">    when: <span class="string">'c.1797'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  died: &#123;</span><br><span class="line">    where: <span class="string">'Battle Creek, MI'</span>,</span><br><span class="line">    when: <span class="string">'Nov. 26, 1883'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>때로는 추론이 더 정확할 때가 있는데, 아래의 경우 명시적으로 string이라고 타입을 준 것 보다 추론된 ‘y’가 사실은 더 정확하다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> axis1: <span class="built_in">string</span> = <span class="string">'x'</span>; <span class="comment">// Type is string</span></span><br><span class="line"><span class="keyword">const</span> axis2 = <span class="string">'y'</span>; <span class="comment">// Type is "y"</span></span><br></pre></td></tr></table></figure>
-<p>아래 예시에서 Product의 id를 number라고 작성했다가 나중에 문자도 있을 수 있다는 것을 알게되어 string으로 작성했다고 가정해보자. 이 경우 선언된 타입과 함수 내의 타입이 일치하지 않아서 오류를 발생시킨다. 만약 여기서 명시적 타입 구문이 없었다면 문제없이 타입 체커를 통과했을 것이다. 그래서 이런 경우에는 비구조 할당문으로 구현하는 것이 더 나은 선택이다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Product &#123;</span><br><span class="line">  id: <span class="built_in">string</span>;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  price: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logProduct</span>(<span class="params">product: Product</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> id: <span class="built_in">number</span> = product.id;</span><br><span class="line">  <span class="comment">// ~~ Type 'string' is not assignable to type 'number'</span></span><br><span class="line">  <span class="keyword">const</span> name: <span class="built_in">string</span> = product.name;</span><br><span class="line">  <span class="keyword">const</span> price: <span class="built_in">number</span> = product.price;</span><br><span class="line">  <span class="built_in">console</span>.log(id, name, price);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//비구조 할당 - 여기에 추가로 명시적 타입 구문을 넣는 것은 불필요하다.</span></span><br><span class="line"><span class="keyword">interface</span> Product &#123;</span><br><span class="line">  id: <span class="built_in">string</span>;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  price: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logProduct</span>(<span class="params">product: Product</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; id, name, price &#125; = product;</span><br><span class="line">  <span class="built_in">console</span>.log(id, name, price);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>그러나 정보가 부족해서 타입스크립트가 스스로 판단하기 어려운 경우에는 명시적 타입 구문이 필요하다.</strong> 위 예제에서 logProduct 함수에서 매개밴수의 타입을 Product로 명시한 경우가 그 예이다. 이상적인 타입스크립트 코드는 함수/메서드 시그니처에 타입 구문을 포함하지만, 함수 내에서 생성된 지역변수에는 타입 구문을 넣지 않는 것이다. 단, 기본값이 있는 경우에는 타입 구문을 생략하기도 한다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseNumber</span>(<span class="params">str: <span class="built_in">string</span>, base = 10</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>타입이 추론될 수 있음에도 타입을 명시하고 싶은 경우가 있다. 객체 리터럴의 정의과 함수의 반환 타입을 명시할 때이다.</p>
-<h3 id="객체-리터럴의-정의"><a href="#객체-리터럴의-정의" class="headerlink" title="객체 리터럴의 정의"></a>객체 리터럴의 정의</h3><p>객체 리터럴에서 타입을 명시하면 잉여 속성 체크가 동작해서 실제로 실수가 방생한 부분에 정확하게 오류를 표시해 줄 수 있다. 아래 예시에서 타입 구문을 제거하면 잉여 속성 체크가 동작하지 않아서 실제 오류가 발생한 id쪽이 아니라 객체가 사용되는 곳에서 오류가 발생한다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Product &#123;</span><br><span class="line">  id: <span class="built_in">string</span>;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  price: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logProduct</span>(<span class="params">product: Product</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> id: <span class="built_in">number</span> = product.id;</span><br><span class="line">  <span class="comment">// ~~ Type 'string' is not assignable to type 'number'</span></span><br><span class="line">  <span class="keyword">const</span> name: <span class="built_in">string</span> = product.name;</span><br><span class="line">  <span class="keyword">const</span> price: <span class="built_in">number</span> = product.price;</span><br><span class="line">  <span class="built_in">console</span>.log(id, name, price);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> furby: Product = &#123;</span><br><span class="line">  name: <span class="string">'Furby'</span>,</span><br><span class="line">  id: <span class="number">630509430963</span>,</span><br><span class="line">  <span class="comment">// ~~ Type 'number' is not assignable to type 'string'</span></span><br><span class="line">  price: <span class="number">35</span>,</span><br><span class="line">&#125;;</span><br><span class="line">logProduct(furby);</span><br></pre></td></tr></table></figure>
-<h3 id="함수의-반환"><a href="#함수의-반환" class="headerlink" title="함수의 반환"></a>함수의 반환</h3><p>타입 추론이 가능한 경우에도 구현상의 오류가 함수를 호출한 곳까지 영향을 미치지 않도록 하기 위함이다. 반환 타입을 명시하면 구현상의 오류가 사용자 코드의 오류로 표시되지 않고, 오류의 위치를 제대로 표시해준다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cache: &#123; [ticker: <span class="built_in">string</span>]: <span class="built_in">number</span> &#125; = &#123;&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getQuote</span>(<span class="params">ticker: <span class="built_in">string</span></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//getQuote가 반환하는 것은 Promise.resolve(cache[ticker])이어야 한다.</span></span><br><span class="line">  <span class="comment">//따라서 여기에서 아래와 같은 오류가 발생해야 한다.</span></span><br><span class="line">  <span class="comment">//~~~~~~~~~~~~~ Type 'number' is not assignable to 'Promise&lt;number&gt;'</span></span><br><span class="line">  <span class="comment">//하지만 실제 오류는 가장 아래 getQuote를 호출한 코드에서 발생한다.</span></span><br><span class="line">  <span class="keyword">if</span> (ticker <span class="keyword">in</span> cache) &#123;</span><br><span class="line">    <span class="keyword">return</span> cache[ticker];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> fetch(<span class="string">`https://quotes.example.com/?q=<span class="subst">$&#123;ticker&#125;</span>`</span>)</span><br><span class="line">    .then(<span class="function">(<span class="params">response</span>) =&gt;</span> response.json())</span><br><span class="line">    .then(<span class="function">(<span class="params">quote</span>) =&gt;</span> &#123;</span><br><span class="line">      cache[ticker] = quote;</span><br><span class="line">      <span class="keyword">return</span> quote;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">considerBuying</span>(<span class="params">x: <span class="built_in">any</span></span>) </span>&#123;&#125;</span><br><span class="line">getQuote(<span class="string">'MSFT'</span>).then(considerBuying);</span><br><span class="line"><span class="comment">// ~~~~ Property 'then' does not exist on type</span></span><br><span class="line"><span class="comment">//        'number | Promise&lt;any&gt;'</span></span><br><span class="line"><span class="comment">//      Property 'then' does not exist on type 'number'</span></span><br></pre></td></tr></table></figure>
-<p>그 외에도 반환타입을 명시하는 것은 아래 두 가지 장점이 있다.</p>
-<ul>
-<li><code>함수를 더욱 명확하게 알기 쉽다.</code> 반환 타입을 명시하려면 입력, 출력 타입에 대해 알아야 하고 미리 명시해야만 하기 때문에 타입을 미리 작성하여 구현이 맞추어 주먹구구식으로 타입이 작성되는 것이 아닌 테스트 주도 개발처럼 작성할 수 있게 된다.</li>
-<li><code>명명된 타입을 사용할 수 있다.</code> 반환 타입을 명시하면 더욱 직관적인 표현이 되고, 반환 값을 별도의 타입으로 정의하면 타입에 대한 주석을 작설항 수 있어 함수에 대해 더 자세히 설명하게 된다.</li>
-</ul>
-<hr>
-<h2 id="아이템-20-다른-타입에는-다른-변수-사용하기"><a href="#아이템-20-다른-타입에는-다른-변수-사용하기" class="headerlink" title="아이템 20 다른 타입에는 다른 변수 사용하기"></a>아이템 20 다른 타입에는 다른 변수 사용하기</h2><p>자바스크립트에서는 한 변수를 다른 목적을 가지는 다른 타입으로 재사용해도 되는데, 타입스크립트에서는 이렇게 사용하면 두 가지 오류가 발생한다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//자바스크립트</span></span><br><span class="line"><span class="keyword">let</span> id = <span class="string">'12-34-56'</span>;</span><br><span class="line">fetchProduct(id); <span class="comment">//string으로 사용</span></span><br><span class="line"></span><br><span class="line">id = <span class="number">123456</span>;</span><br><span class="line">fetchProductBySerialNumber(id); <span class="comment">//number로 사용</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//타입스크립트</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchProduct</span>(<span class="params">id: <span class="built_in">string</span></span>) </span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchProductBySerialNumber</span>(<span class="params">id: <span class="built_in">number</span></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> id = <span class="string">'12-34-56'</span>;</span><br><span class="line">fetchProduct(id);</span><br><span class="line"></span><br><span class="line">id = <span class="number">123456</span>;</span><br><span class="line"><span class="comment">// ~~ '123456' is not assignable to type 'string'.</span></span><br><span class="line">fetchProductBySerialNumber(id);</span><br><span class="line"><span class="comment">// ~~ Argument of type 'string' is not assignable to</span></span><br><span class="line"><span class="comment">//    parameter of type 'number'</span></span><br></pre></td></tr></table></figure>
-<p>여기서 중요한 점은 <strong>변수의 값은 바뀔 수 있지만 타입은 바뀌지 않는다.</strong>는 점이다. 범위를 좁히는 방법으로 타입을 바꿀 수는 있지만 그것은 새로운 변수값을 포함하도록 확장하는 것이 아니라 타입을 더 작게 제한하는 것이다.</p>
-<h3 id="유니온-타입을-이용한-타입의-확장"><a href="#유니온-타입을-이용한-타입의-확장" class="headerlink" title="유니온 타입을 이용한 타입의 확장"></a>유니온 타입을 이용한 타입의 확장</h3><p>id가 string, number를 모두 포함할 수 있도록 타입을 확장하는 유니온을 통해 아래와 같이 작성하면 에러는 해결된다. 하지만 이렇게 작성하면 매번 id값이 string인지 number인지 확인해야 하기 때문에 이런 경우에는 별도의 변수로 작성하는 것이 낫다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchProduct</span>(<span class="params">id: <span class="built_in">string</span></span>) </span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchProductBySerialNumber</span>(<span class="params">id: <span class="built_in">number</span></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> id: <span class="built_in">string</span> | <span class="built_in">number</span> = <span class="string">'12-34-56'</span>;</span><br><span class="line">fetchProduct(id);</span><br><span class="line"></span><br><span class="line">id = <span class="number">123456</span>; <span class="comment">// OK</span></span><br><span class="line">fetchProductBySerialNumber(id); <span class="comment">// OK</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//유니온 타입 대신 별도의 변수로 작성</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchProduct</span>(<span class="params">id: <span class="built_in">string</span></span>) </span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchProductBySerialNumber</span>(<span class="params">id: <span class="built_in">number</span></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">const</span> id = <span class="string">'12-34-56'</span>;</span><br><span class="line">fetchProduct(id);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> serial = <span class="number">123456</span>; <span class="comment">// OK</span></span><br><span class="line">fetchProductBySerialNumber(serial); <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
-<p>무엇보다 변수를 재사용하는 방식은 타입 체커는 물론 사람에게도 혼란을 주기 때문에 지양해야 한다. 타입이 다른 경우 별도의 변수를 사용하는 것이 바람직한 이유는 다음과 같다.</p>
-<ul>
-<li>서로 관련이 없는 두 개의 값을 분리한다.</li>
-<li>변수명을 더 구체적으로 지을 수 있다.</li>
-<li>타입 추론을 향상시키며, 타입 구문이 불필요해진다.</li>
-<li>타입이 간결해진다.</li>
-<li>let 대신 const로 변수를 선언하게 된다. 이렇게 하면 코드가 간결하고, 타입 체커의 타입 추론이 용이하다.</li>
-</ul>
-<hr>
-<p><em>References</em><br>[이펙티브 타입스크립트] 댄 밴더캄 지음</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1556,7 +1581,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">117</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
