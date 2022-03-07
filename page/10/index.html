@@ -144,6 +144,75 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/14/200315_this/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/14/200315_this/" class="post-title-link" itemprop="url">this</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-15 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-15T00:00:00+09:00">2020-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>the object that is executing the current function.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//method -&gt; object itself.</span></span><br><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  play() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">video.play(); <span class="comment">// &#123;title: "a", play: f&#125;</span></span><br><span class="line"><span class="comment">// play는 video의 메소드이므로 this는 video 객체를 참조한다.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//video 객체가 끝난 후에 메소드를 사용해도 같은 결과가 나온다.</span></span><br><span class="line"></span><br><span class="line">video.stop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">video.stop(); <span class="comment">//&#123;title: "a", play: ƒ, stop: ƒ&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//function -&gt; global(window, global)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  play() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">playVideo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">playVideo();</span><br><span class="line"><span class="comment">//Window &#123;parent: Window, opener: null, top: Window, length: 0, frames: Window, …&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  play() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Video</span>(<span class="params">title</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.title = title;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> v = <span class="keyword">new</span> Video(<span class="string">"a"</span>); <span class="comment">//&#123;&#125;</span></span><br><span class="line"><span class="comment">//Video &#123;title: "a"&#125;</span></span><br><span class="line"><span class="comment">// 생성자 함수는 전역을 참조하는 것이 아니라 new가 생성할 빈 객체를 참조한다.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  tags: [<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>],</span><br><span class="line">  showTags() &#123;</span><br><span class="line">    <span class="keyword">this</span>.tags.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">tag</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// to get the current object and then get the tags property</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.title, tag);</span><br><span class="line">    &#125;, <span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">video.showTags();</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/14/200315_builtin_object/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +244,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -256,7 +325,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -326,7 +395,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -411,7 +480,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -503,7 +572,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -664,7 +733,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -747,7 +816,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -869,7 +938,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -988,7 +1057,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -1095,101 +1164,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/27/0228_rubberduck/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/27/0228_rubberduck/" class="post-title-link" itemprop="url">200228 러버덕 정리</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-28T00:00:00+09:00">2020-02-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="함수란"><a href="#함수란" class="headerlink" title="함수란?"></a>함수란?</h2><p>함수는 함수 정의와 호출, 실행의 일련의 과정을 거쳐 값을 반환하는 것으로 이 일련의 과정은 문(statement)들로 구현하고, 코드 븍록으로 감싸서 하나의 실행단위로 정의한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> 함수명 (<span class="params">매개변수</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> 반환값;</span><br><span class="line">&#125; <span class="comment">//함수 정의(함수 몸체)</span></span><br><span class="line">함수명(인수) <span class="comment">//함수 호출</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x,y</span>) </span>&#123;</span><br><span class="line">  returen x + y;</span><br><span class="line">&#125;</span><br><span class="line">add(<span class="number">2</span>,<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
-<ol>
-<li>함수 정의를 통해 함수를 생성한다. 위와 같이 호출하기 이전에 인수를 전달받을 매개변수와 실행할 문들, 반환할 값을 지정하는 것을 말한다.</li>
-</ol>
-<ul>
-<li>함수 선언문</li>
-<li>함수 표현식</li>
-<li>생성자 함수</li>
-<li>화살표 함수</li>
-</ul>
-<ol>
-<li>함수 객체를 가리키는 식별자(함수 이름으로 호출 x)로 호출한다.</li>
-<li>함수 외부에서 내부로 값을 전달할 필요가 있다면, 인수(argument)는 매개변수(parameter)를 통해 전달된다.</li>
-<li>값을 전달받으면 함수 내부에서 미리 정의된 문들을 실행하여 값을 반환한다.</li>
-</ol>
-<ul>
-<li>반환문은 함수의 실행을 중단하고, 함수 몸체를 빠져나간다.</li>
-<li>return 키워드 뒤에 지정한 값을 반환한다.</li>
-</ul>
-<h2 id="함수선언문과-함수표현식"><a href="#함수선언문과-함수표현식" class="headerlink" title="함수선언문과 함수표현식"></a>함수선언문과 함수표현식</h2><p>함수선언문과 함수표현식은 <code>함수 호이스팅 vs 변수 호이스팅</code>의 차이가 있다. 또한 생성시점이 다르기 때문에 함수선언문은 선언문 이전에 호출이 가능하고, 함수표현식은 표현식 이전에 호출이 불가능한다.</p>
-<ul>
-<li><code>함수선언문</code>: 런타임 이전에 함수 객체가 먼저 생성되고, 함수 이름과 동일한 이름의 식별자를 암묵적으로 생성하고 생성된 함수 객체를 할당한다. 따라서 <em>선언문 이전에 함수의 참조와 호출 모두 가능하다.</em></li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dir(add); <span class="comment">// ƒ add(x, y) 함수참조</span></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">// 7 함수호출</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>위와 같이 함수를 선언하면, 런타임 이전에 이미 함수 객체가 생성되어 할당까지 완료된 상태이므로, 선언문을 실행하는 런타임 이전에 값을 참조 또는 호출하여도 값이 반환된다.</p>
-<ul>
-<li><code>함수표현식</code>: 함수표현식은 변수 호이스팅과 동일하다. 변수 선언문과 할당문의 축약표현과 동일하게 동작한다. 런타임 이전에 <code>함수표현식</code>은 함수 객체가 아닌 <code>undefined</code>로 초기화된다. 그리고 런타임 때 평가되어 함수 리터럴은 할당문이 실행되는 시점에 비로소 함수 객체가 된다.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dir(sub); <span class="comment">// undefined 함수참조</span></span><br><span class="line"><span class="built_in">console</span>.log(sub(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">// TypeError: sub is not a function 함수호출</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sub = <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x - y;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>위와 같이 런타임 이전에 함수를 참조하면 <code>undefined</code>가 반환된다. 런타임 이전에 함수표현식은 <code>undefined</code>라는 값으로 초기화되어 있기 때문이다. 또한 값의 할당은 런타임 때 이루어지기 때문에 표현식 이전에 함수를 호출하면 <code>TypeError</code>가 발생한다.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1260,7 +1234,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-count">117</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

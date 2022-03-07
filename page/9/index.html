@@ -144,6 +144,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/19/200520_contextApi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/19/200520_contextApi/" class="post-title-link" itemprop="url">Context API</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-20 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-20T00:00:00+09:00">2020-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Context-API가-필요한-이유"><a href="#Context-API가-필요한-이유" class="headerlink" title="Context API가 필요한 이유"></a>Context API가 필요한 이유</h2><p>React의 데이터는 부모에서 자식으로 props를 통해 전달되는데, 자식 컴포넌트들이 늘어나면 전달해야하는 브릿지(중간에 의미없이 props만 전달하는 컴포넌트)가 늘어난다.</p>
+<p>Context API를 사용하면 네스팅 컴포넌트 트리(부모-&gt;자식-&gt;자식-&gt;자식…의 구조)를 타고 props를 명시적으로 넘겨주지 않아도 컴포넌트 간에 값을 공유하도록 할 수 있다. 이렇게 하면 멀리 떨어진 컴포넌트에게 상태 또는 상태관리 함수를 보낼 수 있다. dispatch를 이용하여 전달한다.</p>
+<blockquote>
+<p>context API: React 컴포넌트 트리 안에서 전역적(global)이라고 볼 수 있는 데이터를 공유할 수 있도록 고안된 방법. 선호 로케일, 테마, 데이터 캐시, 현재 로그인한 유저, 선호하는 언어 등을 관리할 때 사용.</p>
+</blockquote>
+<h2 id="언제-필요한가"><a href="#언제-필요한가" class="headerlink" title="언제 필요한가?"></a>언제 필요한가?</h2><p>다양한 레벨에 네스틴된 많은 컴포넌트에게 데이터를 전달할 때. <em>단, context는 컴포넌트를 그룹화한다는 의미이기 때문에 재사용이 어려워지므로 꼭 필요할 때만 쓰도록 한다.</em></p>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><ol>
+<li>React.CreateContext</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MyContext = React.createContext(defaultValue);</span><br></pre></td></tr></table></figure>
+<p>context 객체를 만든다. Context 객체를 구독하고 있는 컴포넌트를 렌더링할 때 React는 트리 상위에서 가장 가까이 있는 짝이 맞는 <code>Provider</code>로부터 현재값을 읽는다.</p>
+<ul>
+<li>defaultValue: 트리 안에서 적절한 <code>Provider</code>를 찾지 못했을 때 쓰임. <code>Provider</code>를 통해 <code>undefined</code>를 값으로 보내도 구독 컴포넌트들이 <code>defaultValue</code>를 읽지 않음.</li>
+</ul>
+<ol>
+<li>Context.Provider</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//상위 컴포넌트에서의 정의</span></span><br><span class="line">&lt;MyContext.Provider value=&#123;<span class="comment">/* 어떤 값 */</span>&#125;&gt;</span><br><span class="line">  &#123;하위 컴포넌트&#125;</span><br><span class="line">&lt;<span class="regexp">/MyContext.Provider&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Provider: Context 오브젝트에 포함된 React컴포넌트로 context를 구독하는 컴포넌트들에게 context의 변화를 알리는 역할을 한다.</li>
+</ul>
+<p>Context 변경 사항을 자손들에게 제공한다. Provider 의 Value는 하위의 모든 Consumer 에서 사용할 수 있으며, Provider 하위의 모든 Consumer 는 Provider 의 value가 변경 될 때마다 리렌더링 된다. Privider가 받은 value를 하위 컴포넌트에 넘길 때, 값을 전달 받을 수 있는 컴포넌트의 수 제한은 없다.</p>
+<ol>
+<li>Context.Consumer</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//하위 컴포넌트에서 정의</span></span><br><span class="line">&lt;MyContext.Consumer&gt;&#123;(value) =&gt;</span><br><span class="line"><span class="comment">//render something based on the context value</span></span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/MyContext.Consumer&gt;</span></span><br></pre></td></tr></table></figure>
+<p>MyContext Provide의 Value의 변경 사항을 구독하며, Context 에서 가장 가까운 Provider 의 Value 를 참조한다.</p>
+<p>함수 컴포넌트 안에서 context를 읽기 위해 쓸 수 있고, Context.Consumer의 자식은 <code>함수</code>여야 한다. 이 함수는 context의 현재값을 받고 React 노드를 반환한다.</p>
+<ol>
+<li>Hook의 useContext</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> value = useContext(MyContext);</span><br></pre></td></tr></table></figure>
+<p>Hook의 useContext로 Context 객체의 value를 가져올 수 있다.</p>
+<hr>
+<p><em>Reference</em><br><a href="https://ko.reactjs.org/docs/context.html#gatsby-focus-wrapper" target="_blank" rel="noopener">React</a><br><a href="https://glenncy.s3.ap-northeast-2.amazonaws.com/lecture/reactjs/chapter10.html" target="_blank" rel="noopener">fastCampusDocument</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/12/200513_react/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +274,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -266,7 +365,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -355,7 +454,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -456,7 +555,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -533,7 +632,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -619,7 +718,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -694,7 +793,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -947,7 +1046,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -1081,7 +1180,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -1144,75 +1243,6 @@
 <p>constructor 내부에서 this를 통해 정의한 인스턴스 프로퍼티는 인스턴스를 통해 클래스 외부에서 언제나 참조할 수 있다. 즉, 언제나 public이다.</p>
 </blockquote>
 <h2 id="상속에-의한-클래스-확장"><a href="#상속에-의한-클래스-확장" class="headerlink" title="상속에 의한 클래스 확장"></a>상속에 의한 클래스 확장</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/03/14/200315_this/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/14/200315_this/" class="post-title-link" itemprop="url">this</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-03-15 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-15T00:00:00+09:00">2020-03-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>the object that is executing the current function.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//method -&gt; object itself.</span></span><br><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  play() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">video.play(); <span class="comment">// &#123;title: "a", play: f&#125;</span></span><br><span class="line"><span class="comment">// play는 video의 메소드이므로 this는 video 객체를 참조한다.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//video 객체가 끝난 후에 메소드를 사용해도 같은 결과가 나온다.</span></span><br><span class="line"></span><br><span class="line">video.stop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">video.stop(); <span class="comment">//&#123;title: "a", play: ƒ, stop: ƒ&#125;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//function -&gt; global(window, global)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  play() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">playVideo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">playVideo();</span><br><span class="line"><span class="comment">//Window &#123;parent: Window, opener: null, top: Window, length: 0, frames: Window, …&#125;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  play() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Video</span>(<span class="params">title</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.title = title;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> v = <span class="keyword">new</span> Video(<span class="string">"a"</span>); <span class="comment">//&#123;&#125;</span></span><br><span class="line"><span class="comment">//Video &#123;title: "a"&#125;</span></span><br><span class="line"><span class="comment">// 생성자 함수는 전역을 참조하는 것이 아니라 new가 생성할 빈 객체를 참조한다.</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> video = &#123;</span><br><span class="line">  title: <span class="string">"a"</span>,</span><br><span class="line">  tags: [<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>],</span><br><span class="line">  showTags() &#123;</span><br><span class="line">    <span class="keyword">this</span>.tags.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">tag</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// to get the current object and then get the tags property</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.title, tag);</span><br><span class="line">    &#125;, <span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">video.showTags();</span><br></pre></td></tr></table></figure>
-
       
     </div>
 
@@ -1297,7 +1327,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-count">117</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

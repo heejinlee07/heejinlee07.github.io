@@ -144,6 +144,363 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/13/210717_collection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/13/210717_collection/" class="post-title-link" itemprop="url">컬렉션 - 리스트</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-14 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-14T00:00:00+09:00">2021-07-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="컬렉션"><a href="#컬렉션" class="headerlink" title="컬렉션"></a>컬렉션</h2><ul>
+<li>동일한 형의 여러 자료를 저장하는 공간</li>
+<li>자료구조의 일부</li>
+<li>다른 언어에서는 컨테이너라고도 부른다.</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>배열</th>
+<th>컬렉션</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지료구조</td>
+<td>자료구조</td>
+</tr>
+<tr>
+<td>요소의 수 바꿀 수 <code>있음</code></td>
+<td><strong>요소의 수 바꿀 수 <code>없음</code></strong></td>
+</tr>
+<tr>
+<td>유용한 함수 제공 <code>안함</code></td>
+<td><strong>유용한 함수 기본적으로 <code>제공함</code></strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="컬렉션-결정-시-고려사항"><a href="#컬렉션-결정-시-고려사항" class="headerlink" title="컬렉션 결정 시 고려사항"></a>컬렉션 결정 시 고려사항</h3><blockquote>
+<p>용도에 따라 다양하게 결정하게 된다. 어떤 컬렉션을 이용하는지에 따라 메모리 사용량, 성능이 달라진다.</p>
+</blockquote>
+<ul>
+<li>색인의 종류: 배열처럼 정형화된 색인, 임의의 key값(어떤 자료형이든 ok. 그러나 정형화된 색인이 아닌 것.)</li>
+<li>데이터 접근 패턴: 처음부터 끝까지 순회 or 중간에 데이터를 자주 넣고 빼는지 여부</li>
+</ul>
+<h3 id="컬렉션의-종류"><a href="#컬렉션의-종류" class="headerlink" title="컬렉션의 종류"></a>컬렉션의 종류</h3><ul>
+<li>단순 컬렉션: 길이가 바뀔 수 있는 배열</li>
+<li>복잡한 컬렉션: 자유로운 길이 + 다양한 요소 접근 방법(배열의 접근 방법을 쓸 수 없는 데이터도 있기 때문.)</li>
+</ul>
+<hr>
+<h3 id="1-리스트"><a href="#1-리스트" class="headerlink" title="1. 리스트"></a>1. 리스트</h3><ul>
+<li>배열과 거의 비슷</li>
+<li>색인(0부터 n)을 통해 데이터에 접근</li>
+<li><strong><em>그러나 배열의 길이(담을 수 있는 최대 요소 수)를 언제든 바꿀 수 있다.</em></strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;T&gt; &lt;변수명&gt; &#x3D; new List&lt;T&gt;();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;();</span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;();</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>&lt;T&gt;</code><ul>
+<li><strong>어떤 자료형을 담을지 표현한다.</strong></li>
+<li>제네릭 프로그래밍의 일부이다.</li>
+<li>c++에서는 템플릿 프로그래밍이라고도 한다.</li>
+</ul>
+</li>
+<li>리스트를 생성하는 코드</li>
+<li>리스트의 길이는 0</li>
+<li>배열 사용하는 곳에서는 다 사용하기 좋다.</li>
+</ul>
+<hr>
+<h3 id="총용량도-함께-생성하는-리스트-생성"><a href="#총용량도-함께-생성하는-리스트-생성" class="headerlink" title="총용량도 함께 생성하는 리스트 생성"></a><code>총용량</code>도 함께 생성하는 리스트 생성</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;T&gt; &lt;변수명&gt; &#x3D; new List&lt;T&gt;(int capacity);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>총용량이 capacity인 리스트를 생성하는 코드</li>
+<li>또 다른 오버로드 함수가 있다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(6);</span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(3);</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><code>총용량</code>도 함께 생성하는 리스트</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scores</td>
+<td><code>int</code></td>
+<td><code>int</code></td>
+<td><code>int</code></td>
+<td><code>int</code></td>
+<td><code>int</code></td>
+<td><code>int</code></td>
+</tr>
+<tr>
+<td>names</td>
+<td><code>string</code></td>
+<td><code>string</code></td>
+<td><code>string</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="리스트의-총용량과-길이"><a href="#리스트의-총용량과-길이" class="headerlink" title="리스트의 총용량과 길이"></a>리스트의 총용량과 길이</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int capacity &#x3D; list.Capacity; &#x2F;&#x2F;list는 List&lt;T&gt;</span><br><span class="line">int count &#x3D; list.Count; &#x2F;&#x2F;list는 List&lt;T&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>List&lt;T&gt;</code>의 현재 총용량과 사용량을 알려준다.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3); &#x2F;&#x2F; &#123;30, 40&#125;</span><br><span class="line">Console.WriteLine($&quot;&#123;scores.Capacity&#125;, &#123;scores.Count&#125;&quot;); &#x2F;&#x2F; &quot;3, 2&quot;</span><br><span class="line"></span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5); &#x2F;&#x2F; &#123;&quot;Bob&quot;, &quot;Alex&quot;, &quot;Bobby&quot;&#125;</span><br><span class="line">Console.WriteLine($&quot;&#123;scores.Capacity&#125;, &#123;scores.Count&#125;&quot;); &#x2F;&#x2F; &quot;5, 3&quot;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="리스트에-데이터-삽입하기"><a href="#리스트에-데이터-삽입하기" class="headerlink" title="리스트에 데이터 삽입하기"></a>리스트에 데이터 삽입하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Add(T data);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(6);</span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(3);</span><br><span class="line"></span><br><span class="line">scores.Add(10);</span><br><span class="line">scores.Add(30);</span><br><span class="line"></span><br><span class="line">names.Add(&quot;Bob&quot;);</span><br><span class="line">names.Add(&quot;Bobby&quot;);</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>리스트에 데이터 삽입</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scores</td>
+<td><code>10</code></td>
+<td><code>30</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>names</td>
+<td><code>Bob</code></td>
+<td><code>Bobby</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="리스트에-데이터-여러-개-삽입하기"><a href="#리스트에-데이터-여러-개-삽입하기" class="headerlink" title="리스트에 데이터 여러 개 삽입하기"></a>리스트에 데이터 여러 개 삽입하기</h3><blockquote>
+<p><code>배열</code>이나 <code>List&lt;T&gt;</code>가 매배견수가 된다.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddRange(IEnumerable&lt;T&gt; collection);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">int[] dummy &#x3D; &#123;10, 20&#125;;</span><br><span class="line"></span><br><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3);</span><br><span class="line">scores.AddRange(dummy);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 배열이 아닌 다른 리스트가 있을 때 그 리스트를 다른 리스트에 삽입.</span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5);</span><br><span class="line">names.Add(&quot;Bob&quot;);</span><br><span class="line">names.Add(&quot;Bobby&quot;);</span><br><span class="line"></span><br><span class="line">List&lt;string&gt; names1 &#x3D; new List&lt;string&gt;();</span><br><span class="line">&#x2F;&#x2F; 리스트 생성시 길이가 0이므로 임의의 크기 배열을 자동으로 생성</span><br><span class="line">names1.AddRange(names)</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>리스트에 데이터 여러개 삽입</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scores</td>
+<td><code>10</code></td>
+<td><code>20</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>names1</td>
+<td><code>Bob</code></td>
+<td><code>Bobby</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="리스트-중간에-데이터-넣기"><a href="#리스트-중간에-데이터-넣기" class="headerlink" title="리스트 중간에 데이터 넣기"></a>리스트 중간에 데이터 넣기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Insert(int index, T data);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>리스트의 <code>index번째</code>에 data를 넣기<br>잘못된 색인을 넣으면 에러 발생</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scroes &#x3D; new List&lt;int&gt;(3); &#x2F;&#x2F; &#123;30, 40&#125;</span><br><span class="line">scores.int(2, 10);</span><br><span class="line"></span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5); &#x2F;&#x2F; &#123;&quot;Bob&quot;, &quot;Bobby&quot;&#125;</span><br><span class="line">names.Insert(1, &quot;Alex&quot;) &#x2F;&#x2F;이미 요소가 있는 자리에 삽입하게 되면 그 자리를 차지하고,   원래 있던 요소는 뒤로 한 칸 밀린다.</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>리스트 중간에 데이터 삽입</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scores</td>
+<td><code>30</code></td>
+<td><code>40</code></td>
+<td><code>10</code></td>
+<td></td>
+</tr>
+<tr>
+<td>names</td>
+<td><code>Bob</code></td>
+<td><del>Bobby</del> -&gt; <code>Alex</code></td>
+<td><code>Bobby</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h3 id="리스트에-해당하는-데이터가-있는지"><a href="#리스트에-해당하는-데이터가-있는지" class="headerlink" title="리스트에 해당하는 데이터가 있는지?"></a>리스트에 해당하는 데이터가 있는지?</h3><blockquote>
+<p>해당 데이터가 있으면 참, 아니면 거짓을 반환</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bResult &#x3D; list.Contains(T data); &#x2F;&#x2F;list는 List&lt;T&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3); &#x2F;&#x2F; &#123;10, 30&#125;</span><br><span class="line">bool bResult1 &#x3D; scores.Contains(40); &#x2F;&#x2F;false</span><br><span class="line">bool bResult2 &#x3D; scores.Contains(30); &#x2F;&#x2F;true</span><br><span class="line"></span><br><span class="line">List&lt;int&gt; names &#x3D; new List&lt;string&gt;(5); &#x2F;&#x2F; &#123;&quot;Bob&quot;, &quot;Bobby&quot;&#125;</span><br><span class="line">bool bResult1 &#x3D; names.Contains(&quot;Bob&quot;); &#x2F;&#x2F;true</span><br><span class="line">bool bResult1 &#x3D; names.Contains(&quot;bobby&quot;); &#x2F;&#x2F;false - 대소문자 구분</span><br></pre></td></tr></table></figure>
+<h3 id="리스트에-해당하는-데이터가-어디에-있는지"><a href="#리스트에-해당하는-데이터가-어디에-있는지" class="headerlink" title="리스트에 해당하는 데이터가 어디에 있는지?"></a>리스트에 해당하는 데이터가 어디에 있는지?</h3><h4 id="1-IndexOf"><a href="#1-IndexOf" class="headerlink" title="1. IndexOf"></a>1. IndexOf</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int index &#x3D; list.IndexOf(T data); &#x2F;&#x2F;list는 List&lt;T&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>해당 데이터가 <code>처음</code>으로 나타난 위치의 색인을 반환</li>
+<li><strong>없다면 <code>-1</code>을 반환</strong></li>
+<li>다양한 오버로드 함수 있음.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3); &#x2F;&#x2F; &#123;30, 30&#125;</span><br><span class="line">int index1 &#x3D; scores.IndexOf(40); &#x2F;&#x2F;-1</span><br><span class="line">int index2 &#x3D; scores.IndexOf(30); &#x2F;&#x2F;0</span><br><span class="line"></span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5); &#x2F;&#x2F; &#123;&quot;Bob&quot;, &quot;Bobby&quot;&#125;</span><br><span class="line">int index1 &#x3D; names.IndexOf(&quot;Bob&quot;); &#x2F;&#x2F;0</span><br><span class="line">int index2 &#x3D; names.IndexOf(&quot;bobby&quot;); &#x2F;&#x2F;-1 - 대소문자 구분</span><br></pre></td></tr></table></figure>
+<h4 id="2-LastIndexOf"><a href="#2-LastIndexOf" class="headerlink" title="2. LastIndexOf"></a>2. LastIndexOf</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int index &#x3D; list.LasstIndexOf(T data); &#x2F;&#x2F;list는 List&lt;T&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>해당 데이터가 <code>마지막</code>으로 나타난 위치의 색인을 반환</li>
+<li><strong>없다면 <code>-1</code>을 반환</strong></li>
+<li>다양한 오버로드 함수 있음.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3); &#x2F;&#x2F; &#123;30, 30&#125;</span><br><span class="line">int index1 &#x3D; scores.LastIndexOf(40); &#x2F;&#x2F;-1</span><br><span class="line">int index2 &#x3D; scores.LastIndexOf(30); &#x2F;&#x2F;1</span><br><span class="line"></span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5); &#x2F;&#x2F; &#123;&quot;Bob&quot;, &quot;Bobby&quot;&#125;</span><br><span class="line">int index1 &#x3D; names.LastIndexOf(&quot;Bob&quot;); &#x2F;&#x2F;0</span><br><span class="line">int index2 &#x3D; names.LastIndexOf(&quot;bobby&quot;); &#x2F;&#x2F;-1 - 대소문자 구분</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="리스트에서-요소-삭제하기"><a href="#리스트에서-요소-삭제하기" class="headerlink" title="리스트에서 요소 삭제하기"></a>리스트에서 요소 삭제하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; list.Remove(T data); &#x2F;&#x2F;list는 List&lt;T&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>리스트에 해당하는 data가 있으면 첫번째 찾은 data만 지우고 참을 반환, 없으면 거짓을 반환</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3); &#x2F;&#x2F; &#123;10, 30, 40&#125;</span><br><span class="line">bool bSuccess1 &#x3D; scores.Remove(10); &#x2F;&#x2F;참</span><br><span class="line">&#x2F;&#x2F;요소를 삭제하면 삭제한 요소 뒤의 요소가 앞으로 당겨진다.</span><br><span class="line">bool bSuccess2 &#x3D; scores.Remove(100); &#x2F;&#x2F;거짓</span><br><span class="line"></span><br><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5); &#x2F;&#x2F; &#123;&quot;Bob&quot;, &quot;Alex&quot;, &quot;Bobby&quot;&#125;</span><br><span class="line">bool bSuccess1 &#x3D; names.Remove(&quot;Bob&quot;); &#x2F;&#x2F;참</span><br><span class="line">bool bSuccess2 &#x3D; names.Remove(&quot;Tom&quot;); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>리스트에서 요소 삭제</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scores</td>
+<td><del>10</del> -&gt; <code>30</code></td>
+<td><code>40</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>names</td>
+<td><code>Bob</code></td>
+<td><code>Alex</code></td>
+<td><code>Bobby</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="List-lt-T-gt-의-모든-요소를-삭제하기"><a href="#List-lt-T-gt-의-모든-요소를-삭제하기" class="headerlink" title="List&lt;T&gt;의 모든 요소를 삭제하기"></a><code>List&lt;T&gt;</code>의 모든 요소를 삭제하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.Clear(); &#x2F;&#x2F;list는 List&lt;T&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>List&lt;T&gt;</code>의 요소를 모두 지운다. <em>단, 용량을 지우는 것은 아니다.</em></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5);</span><br><span class="line">names.Clear();</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="리스트의-요소에-접근하기"><a href="#리스트의-요소에-접근하기" class="headerlink" title="리스트의 요소에 접근하기"></a>리스트의 요소에 접근하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 값 얻어오기</span><br><span class="line">T data &#x3D; list[index]; &#x2F;&#x2F;list는 List&lt;T&gt;, index는 정수형</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 값 대입하기</span><br><span class="line">list[index] &#x3D; &lt;T형 데이터&gt;; &#x2F;&#x2F;list는 List&lt;T&gt;, index는 정수형</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>리스트의 index번째 요소에 접근</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;int&gt; scores &#x3D; new List&lt;int&gt;(3); &#x2F;&#x2F;&#123;10, 30&#125;</span><br><span class="line">scores[2] &#x3D; 100; &#x2F;&#x2F;프로그램 실행 시 예외발생</span><br><span class="line">int myScore &#x3D; score[0]; &#x2F;&#x2F;myScore: 10</span><br><span class="line">scores[0] &#x3D; 100; &#x2F;&#x2F;&#123;100, 30&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="리스트에-순차적으로-접근하기"><a href="#리스트에-순차적으로-접근하기" class="headerlink" title="리스트에 순차적으로 접근하기"></a>리스트에 순차적으로 접근하기</h3><blockquote>
+<p><code>반복문</code>을 이용해서 접근 가능</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5); &#x2F;&#x2F; &#123;&quot;Bob&quot;, &quot;Alex&quot;, &quot;Bobby&quot;&#125;</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt; names.Count; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Name: &#123;names[i]&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="리스트에서-배열로-변환하기"><a href="#리스트에서-배열로-변환하기" class="headerlink" title="리스트에서 배열로 변환하기"></a>리스트에서 배열로 변환하기</h3><blockquote>
+<p><code>List&lt;T&gt;</code>에서 순수한 배열 T[]로 변환하는 함수</p>
+</blockquote>
+<ul>
+<li>더이상 추가나 삭제가 필요없을 때 배열 사용</li>
+<li>다른 곳에 데이터를 넘겨줄 때 그 데이터가 배열이라면 리스트를 배열로 변환</li>
+<li>e.g. <code>List&lt;int&gt;</code> -&gt; <code>int[]</code>, <code>List&lt;float&gt;</code> -&gt; <code>float[]</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">T[] array &#x3D; list.ToArray(); list는 List&lt;T&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5);</span><br><span class="line">names.Add(&quot;Bob&quot;);</span><br><span class="line">names.Add(&quot;Bobby&quot;);</span><br><span class="line">names.Add(&quot;Alex&quot;);</span><br><span class="line"></span><br><span class="line">string[] nameArray &#x3D; names.ToArray();</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/12/210713_stringBuilder/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +532,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -344,7 +701,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -454,7 +811,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -649,7 +1006,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -820,7 +1177,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -946,7 +1303,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -1157,7 +1514,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -1291,7 +1648,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -1437,7 +1794,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -1491,173 +1848,6 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#region GetScores</span><br><span class="line">&#x2F;&#x2F;코드 생략</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#region &lt;이름&gt;</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/07/210608_cFunction/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/07/210608_cFunction/" class="post-title-link" itemprop="url">함수</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-06-08 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-08T00:00:00+09:00">2021-06-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="함수"><a href="#함수" class="headerlink" title="함수"></a>함수</h2><ul>
-<li>입력이 들어가면 어떤 결과가 출력된다.</li>
-<li>중복되는 코드를 줄이는데 사용한다.</li>
-<li>자주 사용하는 코드의 재활용성이 올라간다.</li>
-</ul>
-<h2 id="함수-정의"><a href="#함수-정의" class="headerlink" title="함수 정의"></a>함수 정의</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static &lt;반환형&gt; &lt;함수명&gt;(&lt;매개변수 목록&gt;)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;함수 body</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>함수 시그니처(함수명(필수), static, 매개변수 목록)을 포함해야 한다.</li>
-<li>반환형, 함수 body는 필수이다.</li>
-</ul>
-<h3 id="반환형"><a href="#반환형" class="headerlink" title="반환형"></a>반환형</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;반환형이 있는 함수</span><br><span class="line">static int Add(int op1, int op2) &#x2F;&#x2F;반환형 int를 생략하면 안된다.</span><br><span class="line">&#123;</span><br><span class="line">  return op1 + op2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 없는 함수 return을 쓰지 않아도 된다.</span><br><span class="line">static void PrintHello(string name)</span><br><span class="line">&#123;</span><br><span class="line">Console.WriteLine($&quot;Hello, &#123;name&#125;!&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>프로그래밍 세계에세 함수의 출력</strong></li>
-<li><code>반환형은 반드시 선언해야한다.</code> (선언하지 않으면 컴파일 오류 발생.)</li>
-<li>반환값이 없을 수 있다. 없다면 <code>void</code> 사용.</li>
-<li>반환형이 <code>void</code>가 아니면 함수 body에 <code>return</code> 키워드를 사용하여 데이터를 반환한다.</li>
-<li>데이터를 반환하지 않으면 컴파일 오류 발생.</li>
-</ul>
-<h3 id="매개변수-목록"><a href="#매개변수-목록" class="headerlink" title="매개변수 목록"></a>매개변수 목록</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;2개의 매개변수가 있는 함수</span><br><span class="line">static int Add(int op1, int op2)</span><br><span class="line">&#123;</span><br><span class="line">  return op1 + op2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;매개변수가 없는 함수</span><br><span class="line">static void PrintHello()</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLonr(&#39;hello!;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>프로그래밍 세계에서의 임력</li>
-<li>int, byte와 같은 자료형 외에 int[], string과 같은 배열도 매개변수로 사용 가능.</li>
-<li><strong>필수가 아니다.</strong></li>
-<li>매개변수와 인자는 엄밀히 말하면 다르다.<ul>
-<li>매개변수: 함수를 정의할 때 함수의 입력값을 선언</li>
-<li>인자: 함수를 호출할 떄 함수로 전달하는 실제값</li>
-</ul>
-</li>
-</ul>
-<h3 id="메인함수의-매개변수에-데이터-전달하기"><a href="#메인함수의-매개변수에-데이터-전달하기" class="headerlink" title="메인함수의 매개변수에 데이터 전달하기"></a>메인함수의 매개변수에 데이터 전달하기</h3><p>메인함수는 프로그램을 실행할 때 자동으로 호출되는 함수로 이 메인함수에 매개변수를 넘기고 싶으면 visual studio 내부의 <strong><code>프로젝트 옵션</code> =&gt; <code>실행 구성</code> =&gt; <code>Default</code> =&gt; <code>인수</code></strong>에 전달하고 싶은 데이터를 입력한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  for (int i &#x3D; 0; i &lt; args.Length; ++i)</span><br><span class="line">  &#123;</span><br><span class="line">    Consol.WriteLine($&quot;args[&#123;i&#125;] &#x3D; &#123;args[i]&#125;&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>위에서 설명한 방법대로 <code>Hello, C# is fun!</code>이라고 데이터를 입력했다면 실행했을 때 아래와 같은 결과를 얻을 수 있다. args 요소 하나에 여러 단어를 넣고 싶을 때는 <code>&quot;Hello, C# is fun!&quot; Bye!</code>과 같이 문장을 큰따옴표로 감싼다.</p>
-<ul>
-<li>args[0] = Hello,</li>
-<li>args[1] = C#,</li>
-<li>args[2] = is,</li>
-<li>args[3] = fun!</li>
-</ul>
-<p>큰따옴표로 감싼 문장은 아래와 같이 출력된다.</p>
-<ul>
-<li>args[0] = Hello, C# is fun!</li>
-<li>args[1] = Bye!</li>
-</ul>
-<h3 id="배열의-길이-Length"><a href="#배열의-길이-Length" class="headerlink" title="배열의 길이 Length"></a>배열의 길이 Length</h3><blockquote>
-<p>&lt;배열 변수명&gt;.Length</p>
-</blockquote>
-<p>배열의 길이를 알려준다.</p>
-<h3 id="함수-Body"><a href="#함수-Body" class="headerlink" title="함수 Body"></a>함수 Body</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static int Add(int op1, int op2)</span><br><span class="line">&#123;</span><br><span class="line">  return op1 + op2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>함수의 기능을 구현한 코드 블록, 그 함수의 범위를 나타냄.</li>
-<li>중괄호를 이용하여 표현</li>
-<li><em>void가 아닌 반환형을 가지고 있다면</em> 반드시 <code>return</code> 키워드를 사용하여 데이터를 반환한다.</li>
-</ul>
-<h3 id="함수-이름"><a href="#함수-이름" class="headerlink" title="함수 이름"></a>함수 이름</h3><ul>
-<li>함수명은 어떻게 짓든지 상관없다.</li>
-<li>하지만 이해하기 쉽고, 가독성을 좋게 하기 위해 함수가 어떤 기능을 가졌는지 알 수 있도록 함수명을 정한다.</li>
-<li>호출자가 함수 내부를 알 필요가 없게 <strong>함수명을 명확하게</strong> 지어야 한다.</li>
-</ul>
-<h3 id="함수-호출"><a href="#함수-호출" class="headerlink" title="함수 호출"></a>함수 호출</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 있는 경우</span><br><span class="line">static int Add(int op1, int op2)</span><br><span class="line">&#123;</span><br><span class="line">  return op1 + op2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 있는 함수 호출</span><br><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  int result &#x3D; Add(123, 589);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 없는 경우</span><br><span class="line">static void PrintHello()</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;just hello!&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 없는 함수 호출</span><br><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  PrintHello();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>반환형이 있는 경우: <code>Add</code>함수의 반환형이 int이므로, return 되는 값을 int result에 저장하고, 함수를 소괄호를 써서 호출한다. 매개변수가 있을 경우 소괄호 내에 적어준다.</li>
-<li>반환형이 없는 경우: 변수에 할당할 필요없이 소괄호를 써서 호출하기만 하면 된다.</li>
-<li>함수 호출 시 인자는 변수, 상수 모두 가능하다. <code>int result = Add(123, 589);</code>에서 상수 123, 589 대신 변수를 이용하여(num1, num2 가 변수라 가정) <code>int result = Add(num1, num2);</code>처럼 사용할 수 있다.</li>
-</ul>
-<hr>
-<h2 id="메인-함수"><a href="#메인-함수" class="headerlink" title="메인 함수"></a>메인 함수</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="콘솔-화면-출력-함수"><a href="#콘솔-화면-출력-함수" class="headerlink" title="콘솔 화면 출력 함수"></a>콘솔 화면 출력 함수</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Console.Write();</span><br><span class="line">Console.WriteLine();</span><br></pre></td></tr></table></figure>
-<h2 id="키보드-입력-함수"><a href="#키보드-입력-함수" class="headerlink" title="키보드 입력 함수"></a>키보드 입력 함수</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Console.ReadLind();</span><br></pre></td></tr></table></figure>
-<h2 id="변환-함수"><a href="#변환-함수" class="headerlink" title="변환 함수"></a>변환 함수</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int.Parse();</span><br><span class="line">double.Parse();</span><br><span class="line">float.Parse();</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="코딩-표준"><a href="#코딩-표준" class="headerlink" title="코딩 표준"></a>코딩 표준</h2><h3 id="함수-1"><a href="#함수-1" class="headerlink" title="함수"></a>함수</h3><blockquote>
-<p>정확하게 어떤 기능을 하는지 알려주는 단어를 사용한다.</p>
-</blockquote>
-<ul>
-<li>동사로 시작</li>
-<li>제일 첫 글자는 대문자 혹은 소문자(회사마다 코딩 표준은 다름)</li>
-<li>여러 단어를 연결한다면 파스칼 표기법으로 사용.</li>
-</ul>
-<h3 id="매개변수와-지역변수"><a href="#매개변수와-지역변수" class="headerlink" title="매개변수와 지역변수"></a>매개변수와 지역변수</h3><blockquote>
-<p>정확하게 어떤 정보를 담는지 알려주는 단어 사용</p>
-</blockquote>
-<ul>
-<li>명사 사용</li>
-<li>제일 첫 글자는 소문자로 시작</li>
-<li>여러 단어를 연결한다면 카멜케이스 사용</li>
-</ul>
-<hr>
-<h2 id="선조건-후조건"><a href="#선조건-후조건" class="headerlink" title="선조건 후조건"></a>선조건 후조건</h2><blockquote>
-<p>함수가 무슨 일을 하는지에 대한 약속. 선조건을 만족하지 못하면 후조건을 보장할 수 없다.</p>
-</blockquote>
-<p><u>선조건</u></p>
-<ul>
-<li><code>함수 실행 시작 전</code>에 참으로 가정한 조건 e.g. Divede() 함수는 분모가 0이 아니어야 한다.</li>
-<li>함수 이름, 매개변수로 유추 가능하지만 부족하면 주석으로 추가 설명 (슬래시(/) 세번이면 자동으로 주석이 생성된다.)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;param name &#x3D; &quot;numerator&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">static float Divede(float number, float denominator)</span><br><span class="line">&#123;</span><br><span class="line">  return numerator &#x2F; denominator;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><u>후조건</u></p>
-<ul>
-<li>함수 <code>실행 후</code>에 보장되는 조건 e.g. 두 정수를 더하면 정수의 결과가 나온다.</li>
-<li>함수 이름과 반환형으로 유추 가능</li>
-</ul>
 <hr>
 <p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
 
@@ -1745,7 +1935,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-count">117</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

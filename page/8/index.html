@@ -144,6 +144,138 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/07/22/200723_cssSpecificity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/22/200723_cssSpecificity/" class="post-title-link" itemprop="url">CSS CASCADE</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-23 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-23T00:00:00+09:00">2020-07-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="WHAT-HAPPENS-TO-CSS-WHEN-WE-LOAD-UP-A-WEBPAGE"><a href="#WHAT-HAPPENS-TO-CSS-WHEN-WE-LOAD-UP-A-WEBPAGE" class="headerlink" title="WHAT HAPPENS TO CSS WHEN WE LOAD UP A WEBPAGE?"></a>WHAT HAPPENS TO CSS WHEN WE LOAD UP A WEBPAGE?</h2><ol>
+<li><p>LOAD HTML<br>user가 웹페이지를 오픈했을 때, html은 initial html file을 load하는 starting point가 된다.</p>
+</li>
+<li><p>parse HTML<br>이 단계에서 html head를 포함한 stylesheet를 찾아서 load하고 parse하기 시작한다. 즉 html 코드가 load되면 parse하기 시작하고, 코드를 line by line으로 decode한다. 그리고 css를 load하고 parse 한다.</p>
+<ul>
+<li>LOAD CSS &amp; PARSE CSS<ul>
+<li>cascade: 충돌하는 css 선언을 해결한다. (resolving conflicting css declaractions)</li>
+<li>process final css</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>RENDER TREE = DOM + CSSOM<br>위의 과정을 거쳐 브라우저는 <code>DOM</code>을 build하고 전체 web document가 생성된다.</p>
+<ul>
+<li>DOM(Document Object Model): decoding 된 전체 html code가 저장되는 곳이다.</li>
+<li>CSSOM(Css Object Model): css parse가 끝나면 final css가 tree-like structure인 이 곳에 저장된다.</li>
+</ul>
+</li>
+</ol>
+<h2 id="CSS-PARSING-PHASE"><a href="#CSS-PARSING-PHASE" class="headerlink" title="CSS PARSING PHASE"></a>CSS PARSING PHASE</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.my-class</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>selector: .my-class 부분</li>
+<li>Declaration Block: css rules. <code>color: blue;</code>와 같이 <code>Declaration</code>으로 구성되어 있다. <code>Declaration</code>은 <code>Property</code>인 <code>color</code>와 <code>Declared value</code>인 <code>20px</code>로 구성되어 있다.</li>
+</ul>
+<h2 id="CASCADE"><a href="#CASCADE" class="headerlink" title="CASCADE"></a>CASCADE</h2><p>서로 다른 stylesheets[different css sources: author, user, browser(user agent)]와 css rules와 declarations의 충돌을 해결하고 결합하는 과정으로 어떤 속성이 가중치가 있는지 체크하는 것이고, 특정 element에는 1가지 이상의 rule이 적용된다. cascade를 체크할 때 가장 중요한 것은 css rule이 어떠한 source를 기반으로 하는 것인지와 관련되어 있다.</p>
+<h3 id="different-css-sources"><a href="#different-css-sources" class="headerlink" title="different css sources"></a>different css sources</h3><ul>
+<li><p>User-Agent: 브라우저가 elemets에 제공하는 기본 스타일이며, 브라우저 마다 스타일이 다소 다르게 보여질 수 있다. css resets를 사용하여 user-agent styles를 override하는 방법을 쓰는 것이 이러한 차이를 상쇄시키는 방법 중 하나이다.</p>
+</li>
+<li><p>User: 브라우저 사용자에 의해 정의되고 제어된다. 보통 style을 override하거나 웹사이트 접근성을 추가하기 위한 것으로, 모든 사람이 가지고 있는 것은 아니다.</p>
+</li>
+<li><p>Author: HTML document에 선언된 css를 말한다. 일반적으로 프론트엔드 개발자가 작성하여 제어할 수 있는 것을 말한다.</p>
+</li>
+</ul>
+<p><em>그런데 css rules와 declarations의 충돌을 어떻게 해결한다는 것일까?</em></p>
+<blockquote>
+<p>which one takes precedence?<br><code>importance(weight)</code>, <code>specificity</code>, <code>source order</code></p>
+</blockquote>
+<ul>
+<li>importance(weight): 선언된 위치(css source)에 근거하여 각 선언(declaration)에 서로 다른 중요성을 부여하는 것으로 시작한다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. user &#96;!important&#96; declarations</span><br><span class="line">2. author &#96;!important&#96; declarations</span><br><span class="line">3. author declarations</span><br><span class="line">4. user declarations</span><br><span class="line">5. default browser declarations</span><br></pre></td></tr></table></figure>
+<p>그런데 만약 importance가 모두 같다면?</p>
+<ul>
+<li>specificity: 선언된 selector의 specificity를 비교하고 계산한다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. inline styles</span><br><span class="line">2. IDs</span><br><span class="line">3. classes, pseudo-classes, attribute</span><br><span class="line">4. elements, pseudo-elements</span><br></pre></td></tr></table></figure>
+<p>우선순위인 1번부터 차례로 다음과 같이 <code>(inline, IDs, classes, elements)</code>의 순서로 비교한다. 만약 비교한 결과가 (0,0,0,1), (0,1,0,1)이라면 전자가 specificity가 더 높은 것이다.</p>
+<p><em>그런데 만약 specificity가 모두 동일하다면?</em></p>
+<ul>
+<li>source order: 코드의 마지막 선언은 다른 모든 선언을 override하고 적용된다. 만약 3rd-party stylesheets를 사용한다면 author stylesheet는 늘 가장 마지막에 위치해야한다.</li>
+</ul>
+<p>내가 React project를 했을 때의 경험을 예시로 들어보겠다. 당시 SlidingPane이라는 라이브러리를 사용하여 팝업창을 구성했는데, 기본 설정된 배경색을 다른 색으로 변경했어야 했다. 그러나 이 라이브러리는 몹시 간결한 것이어서 그러한 변경에 대한 방법이 따로 설명되어 있지 않았다. 그래서 선택한 방법은 css파일에 변경해야 할 부분을 작성한 후 원래 있던 코드를 <code>background: #D9DBE0;</code>로 작성한 후 override하는 것이다.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 원래 코드: react-sliding-pane.css */</span></span><br><span class="line"><span class="selector-class">.slide-pane</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>: column;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">min-width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">8px</span> <span class="number">8px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.5</span>);</span><br><span class="line">  <span class="attribute">transition</span>: transform <span class="number">0.5s</span>;</span><br><span class="line">  <span class="attribute">will-change</span>: transform;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 내가 작성한 author 코드: Cart.css */</span></span><br><span class="line"><span class="selector-class">.slide-pane</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>: column;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#d9dbe0</span>;</span><br><span class="line">  <span class="attribute">min-width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">8px</span> <span class="number">8px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.5</span>);</span><br><span class="line">  <span class="attribute">transition</span>: transform <span class="number">0.5s</span>;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">will-change</span>: transform;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이렇게 작성 후 react로 작성된 Cart.js 파일의 상단에서 다음과 같은 순서로 import한다.</p>
+<blockquote>
+<p>import ‘react-sliding-pane/dist/react-sliding-pane.css’;<br>import ‘./Cart.css’;</p>
+</blockquote>
+<p>이렇게 하면 마지막에 import 된 <code>Cart.css</code>가 원래 존재하던 파일을 override하게 되기 때문에 배경색이 #fff에서 내가 설정한 #D9DBE0으로 변경된다.</p>
+<h2 id="CSS-Selector-Specificity"><a href="#CSS-Selector-Specificity" class="headerlink" title="CSS Selector Specificity"></a>CSS Selector Specificity</h2><p>CSS Selector Specificity를 비교하는 과정을 예시를 통해 보다 자세히 알아보겠다.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">id</span>=<span class="string">"nav"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"pull-right"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"button button-danger"</span> <span class="attr">href</span>=<span class="string">"link.html"</span>&gt;</span>Don't click here!<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>예시에서 <code>.button</code>과 <code>a</code>는 specificity가 낮은 편이기 때문에 다른 속성에서 우선순위에 밀려 배경색이 나타나지 않는다. 하지만 specificity가 낮더라도 <code>!important</code>를 선언하면 다른 어떤 속성보다도 우선순위를 갖고, 즉각 배경색이 버튼에 표시된다. 하지만 <code>!important</code>는 최소 한 번 사용하거나 되도록 쓰지 않는 것이 권장된다.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">50px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 클래스 1개. low specificity */</span></span><br><span class="line"><span class="selector-class">.button</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">background-color</span>: blue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 가장 specificity가 낮음 */</span></span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: purple;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* hover를 제외하면 이 선언이 세가지 중에 가장 우선순위가 높다. */</span></span><br><span class="line"><span class="selector-id">#nav</span> <span class="selector-tag">div</span><span class="selector-class">.pull-right</span> <span class="selector-tag">a</span><span class="selector-class">.button</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: orangered;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#nav</span> <span class="selector-tag">a</span><span class="selector-class">.button</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위의 코드에서 button에 마우스를 hover하면 색깔이 yellow로 바껴야 하지만, 아무런 변화가 없다. 그 이유는 pseudo class인 hover는 specificity에서 1으로 카운트되기 때문이다. 그러나 <code>#nav div.pull-right a.button</code> 이 경우 specificity는 id 1개, class 2개를 가지고 있다. <code>#nav a.button:hover</code>도 사실은 id 1개, class 2개를 가지고 있는 것인데, <code>hover</code>는 <em>class가 아니라 class인 것으로 여기는 pseudo class이다.</em> 따라서 전자는 2개의 elements를 가지고 있고, 후자는 1개의 elements를 가지고 있다. 결과적으로 <code>#nav div.pull-right a.button</code>가 훨씬 specificity가 높은 것이다. 따라서 hover는 적용되지 않는다. 만약 hover했을 때 색깔이 변경되도록 설정하고 싶다면 아래와 같이 코드를 바꾸어야 한다.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#nav</span> <span class="selector-tag">div</span><span class="selector-class">.pull-right</span> <span class="selector-tag">a</span><span class="selector-class">.button</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: orangered;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#nav</span> <span class="selector-tag">div</span><span class="selector-class">.pull-right</span> <span class="selector-tag">a</span><span class="selector-class">.button</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: green;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#nav</span> <span class="selector-tag">a</span><span class="selector-class">.button</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이렇게 코드를 작성하면 <code>#nav div.pull-right a.button</code>에 pesudo class인 <code>hover</code>가 추가되어 <code>hover</code>가 붙지 않은 elements와 비교했을 때 specificity가 높아진다. 따라서 hover했을 때 색깔이 green으로 바뀌는 것이다.</p>
+<hr>
+<p><em>References</em><br><a href="https://blog.logrocket.com/how-css-works-understanding-the-cascade-d181cd89a4d8/" target="_blank" rel="noopener">How CSS works: Understanding the cascade</a><br><a href="https://www.udemy.com/course/advanced-css-and-sass/learn/lecture/8274402#content" target="_blank" rel="noopener">Advanced css and sass</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/07/21/200722_cssReview/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +307,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -261,7 +393,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -364,7 +496,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -438,7 +570,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -568,7 +700,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -659,7 +791,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -726,7 +858,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -844,7 +976,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -992,7 +1124,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-07 11:58:12" itemprop="dateModified" datetime="2022-03-07T11:58:12+09:00">2022-03-07</time>
               </span>
 
           
@@ -1031,105 +1163,6 @@
 </ul>
 <hr>
 <p><em>References</em><br><a href="https://react.vlpt.us/redux-middleware/02-make-middleware.html" target="_blank" rel="noopener">모던리액트</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/19/200520_contextApi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/19/200520_contextApi/" class="post-title-link" itemprop="url">Context API</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-05-20 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-20T00:00:00+09:00">2020-05-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 11:53:04" itemprop="dateModified" datetime="2022-03-07T11:53:04+09:00">2022-03-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Context-API가-필요한-이유"><a href="#Context-API가-필요한-이유" class="headerlink" title="Context API가 필요한 이유"></a>Context API가 필요한 이유</h2><p>React의 데이터는 부모에서 자식으로 props를 통해 전달되는데, 자식 컴포넌트들이 늘어나면 전달해야하는 브릿지(중간에 의미없이 props만 전달하는 컴포넌트)가 늘어난다.</p>
-<p>Context API를 사용하면 네스팅 컴포넌트 트리(부모-&gt;자식-&gt;자식-&gt;자식…의 구조)를 타고 props를 명시적으로 넘겨주지 않아도 컴포넌트 간에 값을 공유하도록 할 수 있다. 이렇게 하면 멀리 떨어진 컴포넌트에게 상태 또는 상태관리 함수를 보낼 수 있다. dispatch를 이용하여 전달한다.</p>
-<blockquote>
-<p>context API: React 컴포넌트 트리 안에서 전역적(global)이라고 볼 수 있는 데이터를 공유할 수 있도록 고안된 방법. 선호 로케일, 테마, 데이터 캐시, 현재 로그인한 유저, 선호하는 언어 등을 관리할 때 사용.</p>
-</blockquote>
-<h2 id="언제-필요한가"><a href="#언제-필요한가" class="headerlink" title="언제 필요한가?"></a>언제 필요한가?</h2><p>다양한 레벨에 네스틴된 많은 컴포넌트에게 데이터를 전달할 때. <em>단, context는 컴포넌트를 그룹화한다는 의미이기 때문에 재사용이 어려워지므로 꼭 필요할 때만 쓰도록 한다.</em></p>
-<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><ol>
-<li>React.CreateContext</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MyContext = React.createContext(defaultValue);</span><br></pre></td></tr></table></figure>
-<p>context 객체를 만든다. Context 객체를 구독하고 있는 컴포넌트를 렌더링할 때 React는 트리 상위에서 가장 가까이 있는 짝이 맞는 <code>Provider</code>로부터 현재값을 읽는다.</p>
-<ul>
-<li>defaultValue: 트리 안에서 적절한 <code>Provider</code>를 찾지 못했을 때 쓰임. <code>Provider</code>를 통해 <code>undefined</code>를 값으로 보내도 구독 컴포넌트들이 <code>defaultValue</code>를 읽지 않음.</li>
-</ul>
-<ol>
-<li>Context.Provider</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//상위 컴포넌트에서의 정의</span></span><br><span class="line">&lt;MyContext.Provider value=&#123;<span class="comment">/* 어떤 값 */</span>&#125;&gt;</span><br><span class="line">  &#123;하위 컴포넌트&#125;</span><br><span class="line">&lt;<span class="regexp">/MyContext.Provider&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>Provider: Context 오브젝트에 포함된 React컴포넌트로 context를 구독하는 컴포넌트들에게 context의 변화를 알리는 역할을 한다.</li>
-</ul>
-<p>Context 변경 사항을 자손들에게 제공한다. Provider 의 Value는 하위의 모든 Consumer 에서 사용할 수 있으며, Provider 하위의 모든 Consumer 는 Provider 의 value가 변경 될 때마다 리렌더링 된다. Privider가 받은 value를 하위 컴포넌트에 넘길 때, 값을 전달 받을 수 있는 컴포넌트의 수 제한은 없다.</p>
-<ol>
-<li>Context.Consumer</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//하위 컴포넌트에서 정의</span></span><br><span class="line">&lt;MyContext.Consumer&gt;&#123;(value) =&gt;</span><br><span class="line"><span class="comment">//render something based on the context value</span></span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/MyContext.Consumer&gt;</span></span><br></pre></td></tr></table></figure>
-<p>MyContext Provide의 Value의 변경 사항을 구독하며, Context 에서 가장 가까운 Provider 의 Value 를 참조한다.</p>
-<p>함수 컴포넌트 안에서 context를 읽기 위해 쓸 수 있고, Context.Consumer의 자식은 <code>함수</code>여야 한다. 이 함수는 context의 현재값을 받고 React 노드를 반환한다.</p>
-<ol>
-<li>Hook의 useContext</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> value = useContext(MyContext);</span><br></pre></td></tr></table></figure>
-<p>Hook의 useContext로 Context 객체의 value를 가져올 수 있다.</p>
-<hr>
-<p><em>Reference</em><br><a href="https://ko.reactjs.org/docs/context.html#gatsby-focus-wrapper" target="_blank" rel="noopener">React</a><br><a href="https://glenncy.s3.ap-northeast-2.amazonaws.com/lecture/reactjs/chapter10.html" target="_blank" rel="noopener">fastCampusDocument</a></p>
 
       
     </div>
@@ -1215,7 +1248,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-count">117</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
