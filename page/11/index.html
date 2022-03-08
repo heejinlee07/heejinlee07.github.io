@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 18:14:39" itemprop="dateModified" datetime="2022-03-07T18:14:39+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
               </span>
 
           
@@ -270,7 +270,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 18:14:39" itemprop="dateModified" datetime="2022-03-07T18:14:39+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
               </span>
 
           
@@ -375,7 +375,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 18:14:39" itemprop="dateModified" datetime="2022-03-07T18:14:39+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
               </span>
 
           
@@ -472,7 +472,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 18:14:39" itemprop="dateModified" datetime="2022-03-07T18:14:39+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
               </span>
 
           
@@ -496,6 +496,128 @@
 <h2 id="그렇다면-전역-스코프에-변수가-할당되어-있다면-어떻게-될까"><a href="#그렇다면-전역-스코프에-변수가-할당되어-있다면-어떻게-될까" class="headerlink" title="그렇다면, 전역 스코프에 변수가 할당되어 있다면 어떻게 될까?"></a>그렇다면, 전역 스코프에 변수가 할당되어 있다면 어떻게 될까?</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">outer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> x = <span class="number">3</span>;</span><br><span class="line">  <span class="comment">// 중첩 함수</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">inner</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> y = <span class="number">2</span>;</span><br><span class="line">    <span class="comment">// 외부 함수의 변수를 참조할 수 있다.</span></span><br><span class="line">    <span class="built_in">console</span>.log(x + y);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> inner;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> content = outer();</span><br><span class="line">content();</span><br></pre></td></tr></table></figure>
 <p>outer 함수의 상위인 전역 스코프에 <code>let x = 1</code>이라는 값이 할당되어 있다. 이때 x+y의 값은 콘솔에 어떻게 출력될까? stack의 구조와 상위 구조로 가면서 변수 식별자를 찾는 것에 따라 x + y의 값은 이제 1 + 3을 한 4라는 값이 찍힐까?</p>
 <p>이 경우에는 함수가 한 번 호출되어 실행 컨텍스트를 한 번 돌아서 종료되면 stack에 저장되어 있는 값은 사라진다는 개념을 알아야한다. (해제된다는 개념이 더 정확할 것이다.) 만약 <code>let x = 1;</code>이 전역 스코프로 작성되고, outer 함수 내부에는 변수 x에 대한 할당이 따로 없었다면 3이라는 결과가 출력되었을 것이다.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/25/200225_scope/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/25/200225_scope/" class="post-title-link" itemprop="url">스코프 / Scope</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-26 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-26T00:00:00+09:00">2020-02-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="스코프"><a href="#스코프" class="headerlink" title="스코프"></a>스코프</h2><p>모든 식별자(변수 이름, 함수 이름, 클래스 이름 등)는 자신이 선언된 위치에 의해 다른 코드가 식별자 자신을 참조할 수 있는 유효 범위가 결정된다. 이를 스코프(Scope, 유효범위)라 한다. <em>즉, 스코프는 식별자가 유효한 범위를 말한다.</em></p>
+<p>스코프(유효 범위)를 통해 식별자인 변수 이름의 충돌을 방지하여 같은 이름의 변수를 사용할 수 있도록 한다. 스코프 내에서 식별자는 유일한 것으로 중복되어선 안된다. 따라서 만약 한 스코프 내에 ‘variable’라는 이름의 식별자가 있다면, 이 스코프 내에서는 한 번만 사용할 수 있다. 그러나 다른 스코프에서 동일한 이름의 ‘variable’라는 식별자를 사용하는 것은 가능하다.</p>
+<h2 id="스코프가-왜-중요한가"><a href="#스코프가-왜-중요한가" class="headerlink" title="스코프가 왜 중요한가?"></a>스코프가 왜 중요한가?</h2><ul>
+<li>네임스페이스 충돌을 방지할 수 있다.</li>
+<li>변수가 임의 수정되는 현상을 방지할 수 있다.</li>
+</ul>
+<h2 id="스코프의-종류"><a href="#스코프의-종류" class="headerlink" title="스코프의 종류"></a>스코프의 종류</h2><p>변수는 자신이 선언된 위치(전역 or 지역)에 의해 자신이 유효한 범위인 스코프가 결정됨.</p>
+<ul>
+<li><code>전역(global)</code>: 코드의 가장 바깥 영역, 전역 스코프, 전역 변수<ul>
+<li>전역 변수는 어디에서나 참조할 수 있다.</li>
+<li>함수나 블록 안에 들어 있지 않은 모든 변수를 의미한다.</li>
+</ul>
+</li>
+<li><code>지역(local)</code>: 함수 몸체 내부, 지역 스코프, 지역 변수<ul>
+<li>자신이 선언된 지역과 하위 지역(중첩 함수)에서만 참조할 수 있다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="스코프-체인"><a href="#스코프-체인" class="headerlink" title="스코프 체인"></a>스코프 체인</h2><p>스코프는 함수의 중첩에 의해 계층적 구조를 갖고, 모든 지역의 최상위 스코프는 <code>전역 스코프</code>이다. <strong>이처럼 스코프가 계층적으로 연결된 것을 스코프 체인</strong>이라 한다. <u>스코프 체인은 실행 컨텍스트의 렉시컬 환경(코드가 어기서 실행되었고, 주변에 어떤 코드가 있는 지에 관한 context)을 단방향으로 연결한 것이다.</u></p>
+<ul>
+<li><code>외부 함수</code>: 중첩 함수를 포함하는 함수</li>
+<li><code>중첩 함수</code>: 함수 몸체 내부에 정의한 함수</li>
+</ul>
+<p>자바스크립트 엔진은 스코프 체인을 따라 <strong>변수를 참조하는 코드의 스코프에서 상위 스코프 방향으로 이동</strong>하며 선언된 변수를 검색한다. 절대 하위 스코프로 내려가면서 식별자를 검색하는 일은 없다. 이는 상위 스코프에서 유효한 변수는 하위 스코프에서 자유롭게 참조할 수 있지만 <u>하위 스코프에서 유효한 변수를 상위 스코프에서 참조할 수 없다는 것을 의미한다.</u></p>
+<h2 id="함수-레벨-스코프"><a href="#함수-레벨-스코프" class="headerlink" title="함수 레벨 스코프"></a>함수 레벨 스코프</h2><ul>
+<li><code>함수 레벨 스코프</code>: 코드 블록이 아닌 <code>함수</code>에 의해서 생성된 코드 블록을 지역 스코프로 인정한다.</li>
+<li><code>블록 레벨 스코프</code>: 함수 몸체 만이 아니라 모든 코드 블록(if, for, while, try/catch 등)이 지역 스코프를 만든다. e.g. java, c 등</li>
+<li>단, var키워드는 함수 내부가 아닌 곳에서 선언하면 코드 블록 내에서 선언되었다 하더라도 <code>전역 변수</code>라서 중복선언을 허용하는데, 함수의 코드 블록만이 <code>지역 스코프</code>로 인정된다.</li>
+</ul>
+<h2 id="렉시컬-스코프"><a href="#렉시컬-스코프" class="headerlink" title="렉시컬 스코프"></a>렉시컬 스코프</h2><ul>
+<li><code>동적 스코프</code>: 함수 정의 시점에는 함수가 어디서 호출될 지 알 수 없다. 따라서 함수가 호출되는 시점에 동적으로 상위 스코프를 결정하는 것을 말한다.</li>
+<li><code>렉시컬 스코프 (정적 스코프)</code>: 함수 정의가 평가되는 시점에 상위 스코프가 정적으로 결정, 자바스크립트는 함수를 어디서 정의했는지에 따라 상위 스코프를 결정하므로 렉시컬 스코프를 따른다.</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">스코프</th>
+<th style="text-align:center">조건</th>
+<th style="text-align:left">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">동적 스코프</td>
+<td style="text-align:center">함수를 <code>호출</code>한 곳</td>
+<td style="text-align:left">함수 정의 시점에 함수가 호출될 곳이 어딘지 알 수 없음. <strong>함수가 호출되는 시점에 동적으로 상위 스코프 결정</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">정적(렉시컬) 스코프</td>
+<td style="text-align:center">함수를 <code>정의</code>한 곳</td>
+<td style="text-align:left">함수 정의 시점에 상위 스코프가 정적으로 결정됨. <strong>함수 호출 위치와는 관련없음.</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/scope" target="_blank" rel="noopener">poiemaweb</a></p>
 
       
     </div>
@@ -546,7 +668,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 18:14:39" itemprop="dateModified" datetime="2022-03-07T18:14:39+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
               </span>
 
           
@@ -679,128 +801,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/25/200225_scope/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/25/200225_scope/" class="post-title-link" itemprop="url">스코프 / Scope</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-26 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-26T00:00:00+09:00">2020-02-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 18:14:39" itemprop="dateModified" datetime="2022-03-07T18:14:39+09:00">2022-03-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="스코프"><a href="#스코프" class="headerlink" title="스코프"></a>스코프</h2><p>모든 식별자(변수 이름, 함수 이름, 클래스 이름 등)는 자신이 선언된 위치에 의해 다른 코드가 식별자 자신을 참조할 수 있는 유효 범위가 결정된다. 이를 스코프(Scope, 유효범위)라 한다. <em>즉, 스코프는 식별자가 유효한 범위를 말한다.</em></p>
-<p>스코프(유효 범위)를 통해 식별자인 변수 이름의 충돌을 방지하여 같은 이름의 변수를 사용할 수 있도록 한다. 스코프 내에서 식별자는 유일한 것으로 중복되어선 안된다. 따라서 만약 한 스코프 내에 ‘variable’라는 이름의 식별자가 있다면, 이 스코프 내에서는 한 번만 사용할 수 있다. 그러나 다른 스코프에서 동일한 이름의 ‘variable’라는 식별자를 사용하는 것은 가능하다.</p>
-<h2 id="스코프가-왜-중요한가"><a href="#스코프가-왜-중요한가" class="headerlink" title="스코프가 왜 중요한가?"></a>스코프가 왜 중요한가?</h2><ul>
-<li>네임스페이스 충돌을 방지할 수 있다.</li>
-<li>변수가 임의 수정되는 현상을 방지할 수 있다.</li>
-</ul>
-<h2 id="스코프의-종류"><a href="#스코프의-종류" class="headerlink" title="스코프의 종류"></a>스코프의 종류</h2><p>변수는 자신이 선언된 위치(전역 or 지역)에 의해 자신이 유효한 범위인 스코프가 결정됨.</p>
-<ul>
-<li><code>전역(global)</code>: 코드의 가장 바깥 영역, 전역 스코프, 전역 변수<ul>
-<li>전역 변수는 어디에서나 참조할 수 있다.</li>
-<li>함수나 블록 안에 들어 있지 않은 모든 변수를 의미한다.</li>
-</ul>
-</li>
-<li><code>지역(local)</code>: 함수 몸체 내부, 지역 스코프, 지역 변수<ul>
-<li>자신이 선언된 지역과 하위 지역(중첩 함수)에서만 참조할 수 있다.</li>
-</ul>
-</li>
-</ul>
-<h2 id="스코프-체인"><a href="#스코프-체인" class="headerlink" title="스코프 체인"></a>스코프 체인</h2><p>스코프는 함수의 중첩에 의해 계층적 구조를 갖고, 모든 지역의 최상위 스코프는 <code>전역 스코프</code>이다. <strong>이처럼 스코프가 계층적으로 연결된 것을 스코프 체인</strong>이라 한다. <u>스코프 체인은 실행 컨텍스트의 렉시컬 환경(코드가 어기서 실행되었고, 주변에 어떤 코드가 있는 지에 관한 context)을 단방향으로 연결한 것이다.</u></p>
-<ul>
-<li><code>외부 함수</code>: 중첩 함수를 포함하는 함수</li>
-<li><code>중첩 함수</code>: 함수 몸체 내부에 정의한 함수</li>
-</ul>
-<p>자바스크립트 엔진은 스코프 체인을 따라 <strong>변수를 참조하는 코드의 스코프에서 상위 스코프 방향으로 이동</strong>하며 선언된 변수를 검색한다. 절대 하위 스코프로 내려가면서 식별자를 검색하는 일은 없다. 이는 상위 스코프에서 유효한 변수는 하위 스코프에서 자유롭게 참조할 수 있지만 <u>하위 스코프에서 유효한 변수를 상위 스코프에서 참조할 수 없다는 것을 의미한다.</u></p>
-<h2 id="함수-레벨-스코프"><a href="#함수-레벨-스코프" class="headerlink" title="함수 레벨 스코프"></a>함수 레벨 스코프</h2><ul>
-<li><code>함수 레벨 스코프</code>: 코드 블록이 아닌 <code>함수</code>에 의해서 생성된 코드 블록을 지역 스코프로 인정한다.</li>
-<li><code>블록 레벨 스코프</code>: 함수 몸체 만이 아니라 모든 코드 블록(if, for, while, try/catch 등)이 지역 스코프를 만든다. e.g. java, c 등</li>
-<li>단, var키워드는 함수 내부가 아닌 곳에서 선언하면 코드 블록 내에서 선언되었다 하더라도 <code>전역 변수</code>라서 중복선언을 허용하는데, 함수의 코드 블록만이 <code>지역 스코프</code>로 인정된다.</li>
-</ul>
-<h2 id="렉시컬-스코프"><a href="#렉시컬-스코프" class="headerlink" title="렉시컬 스코프"></a>렉시컬 스코프</h2><ul>
-<li><code>동적 스코프</code>: 함수 정의 시점에는 함수가 어디서 호출될 지 알 수 없다. 따라서 함수가 호출되는 시점에 동적으로 상위 스코프를 결정하는 것을 말한다.</li>
-<li><code>렉시컬 스코프 (정적 스코프)</code>: 함수 정의가 평가되는 시점에 상위 스코프가 정적으로 결정, 자바스크립트는 함수를 어디서 정의했는지에 따라 상위 스코프를 결정하므로 렉시컬 스코프를 따른다.</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">스코프</th>
-<th style="text-align:center">조건</th>
-<th style="text-align:left">설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">동적 스코프</td>
-<td style="text-align:center">함수를 <code>호출</code>한 곳</td>
-<td style="text-align:left">함수 정의 시점에 함수가 호출될 곳이 어딘지 알 수 없음. <strong>함수가 호출되는 시점에 동적으로 상위 스코프 결정</strong></td>
-</tr>
-<tr>
-<td style="text-align:center">정적(렉시컬) 스코프</td>
-<td style="text-align:center">함수를 <code>정의</code>한 곳</td>
-<td style="text-align:left">함수 정의 시점에 상위 스코프가 정적으로 결정됨. <strong>함수 호출 위치와는 관련없음.</strong></td>
-</tr>
-</tbody>
-</table>
-</div>
-<hr>
-<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/scope" target="_blank" rel="noopener">poiemaweb</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/25/0225_rubberduck/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -832,7 +832,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 18:14:39" itemprop="dateModified" datetime="2022-03-07T18:14:39+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
               </span>
 
           
@@ -860,6 +860,103 @@
 <h2 id="if문과-삼항연산자"><a href="#if문과-삼항연산자" class="headerlink" title="if문과 삼항연산자"></a>if문과 삼항연산자</h2><p><code>if문</code>: 참/거짓을 판단하여 주어진 조건식의 평가 결과에 따라 코드블록 실행</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식<span class="number">1</span>) &#123;</span><br><span class="line">  <span class="comment">//조건식이 참일 때 실행</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (조건식<span class="number">2</span>) &#123;</span><br><span class="line">  <span class="comment">//조건식이 참일 때 실행 &#123;</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">//조건식1/2가 모두 거짓일 때 실행</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//else if는 여러 번 사용가능.</span></span><br></pre></td></tr></table></figure>
 <p><code>삼항조건연산자</code>: 참/거짓을 판단하여 조건식의 결과에 따른 값을 반환하므로 if문을 대체하여 사용가능<br>조건식 ? 조건식이 참일 때 반환할 값 : 조건식이 거짓일 때 반환할 값</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/200224_object_literal/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/23/200224_object_literal/" class="post-title-link" itemprop="url">객체 리터럴 / Object</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-24T00:00:00+09:00">2020-02-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="객체란"><a href="#객체란" class="headerlink" title="객체란?"></a>객체란?</h2><p>객체는 다양한 타입의 값(원시 값 또는 다른 객체)들을 하나의 단위로 구성한 복합적인 자료 구조이다. 0개 이상인 속성명(property)과 객체의 관련된 값이 중괄호({})로 묶여진다. 즉 <em>키(key)과 값(value)으로 구성된 프로퍼티(Property)들의 집합</em>이라고 할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">키워드 식별자 = &#123;</span><br><span class="line">  key(속성) : value(값)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> counter = &#123;</span><br><span class="line">  number : <span class="number">0</span>, <span class="comment">//프로퍼티</span></span><br><span class="line">  increase: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.num++; <span class="comment">//메소드</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>자바스크립트에 사용할 수 있는 모든 값이 프로퍼티 값이 될 수 있고, 함수도 사용할 수 있다. 이 경우 일반 함수와 구분하기 위해 메소드(Method)라 부른다.</p>
+<p><code>프로퍼티와 메소드의 역할</code></p>
+<ul>
+<li>프로퍼티: key와 value를 통해 객체의 상태를 나타낸다.</li>
+<li>메소드: 프로퍼티를 참조하고 조작할 수 있는 동작을 말한다.</li>
+</ul>
+<hr>
+<h2 id="객체-리터럴에-의한-객체-생성"><a href="#객체-리터럴에-의한-객체-생성" class="headerlink" title="객체 리터럴에 의한 객체 생성"></a>객체 리터럴에 의한 객체 생성</h2><p>클래스 기반 객체지향 언어: 클래스 사전정의, 필요한 시점에 new연산자와 생성자를 호출하여 인스턴스를 생성하여 객체 생성 (C++, java 등)<br>프로토타입 기반 객체지향 언어: 자바스크립트. <code>객체 리터럴</code>, Object 생성자 함수, 생성자 함수, Object.create 메소드, 클래스 (ES6) 등의 방법으로 객체 생성</p>
+<p><code>객체 리터럴</code><br>객체를 생성하는 표기법이며, 변수에 할당이 이루어지는 시점에 자바스크립트 엔진은 객체 리터럴을 해석하여 객체를 생성한다. <code>var empty = {};</code>와 같이 프로퍼티를 정의하지 않으면 빈 객체가 생성된다. 서버에게 주소를 넣어달라고 요청하는 것처럼 연속된 구조체나 연관된 데이터를 일정한 방법으로 변환하고자 할 때 많이 쓰인다.</p>
+<blockquote>
+<p>객체 리터럴의 중괄호({})는 코드블록이 아니다. 코드블록에는 중괄호 뒤이 세미콜론이 붙지 않지만, 객체 리터럴은 값으로 평가되는 표현식이므로 중괄호 뒤에 세미콜론을 붙인다.</p>
+</blockquote>
+<hr>
+<h2 id="프로퍼티"><a href="#프로퍼티" class="headerlink" title="프로퍼티"></a>프로퍼티</h2><ul>
+<li>프로퍼티 키 : 빈 문자열을 포함하는 모든 문자열 또는 symbol 값</li>
+<li>프로퍼티 값 : 자바스크립트에서 사용할 수 있는 모든 값</li>
+</ul>
+<p>프로퍼티 키는 프로퍼티 값에 접근할 수 있는 이름이며, 식별자 역할을 하며 식별자 네이밍 규칙을 준수하는 것이 권장된다.</p>
+<h2 id="프로퍼티-접근"><a href="#프로퍼티-접근" class="headerlink" title="프로퍼티 접근"></a>프로퍼티 접근</h2><p>마침표(.)를 사용하는 마침표 표기법(Dot notation) 또는 대괄호([…])를 사용하는 대괄호 표기법(Bracket notation)을 사용한다. 대괄호 표기법을 사용하는 경우, 대괄호 내부에 지정하는 프로퍼티 키는 반드시 따옴표로 감싼 문자열이어야 한다. 자바스크립트에서 사용 가능한 유효한 이름이 아닐 때도 반드시 대괄호 표기법을 사용하며, 대괄호 내의 프로퍼티 키는 따옴표로 감싼 문자열이어야 한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 마침표 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="comment">// 객체이름.접근하고자 하는 항목</span></span><br><span class="line"><span class="built_in">console</span>.log(person.name); <span class="comment">// Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 대괄호 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"name"</span>]); <span class="comment">// Lee</span></span><br></pre></td></tr></table></figure>
+<hr>
+<ul>
+<li><code>존재하지 않는 프로퍼티에 접근</code>: undefined를 반환. <em>referenceError가 발생하지 않는다.</em></li>
+<li><code>프로퍼티 값 갱신</code>: 이미 존재하는 프로퍼티에 값을 할당한다. <em>나중에 선언한 프로퍼티가 먼저 선언한 프로퍼티를 덮어쓴다.</em></li>
+<li><code>프로퍼티 동적 생성</code>: 존재하지 않는 프로퍼티에 값을 할당한다.</li>
+<li><code>프로퍼티 삭제</code>: delete 연산자를 사용한다. 이때 delete 연산자의 피연산자는 프로퍼티 값에 접근할 수 있는 표현식이어야 한다. 만약 존재하지 않는 프로퍼티를 삭제하면 아무런 에러없이 무시된다.</li>
+<li><code>프로퍼티 키 생략</code>: ES6에서 프로퍼티 값으로 변수를 사용할 때 변수 이름과 프로퍼티 키가 동일한 이름이면 프로퍼티 키를 생략할 수 있다.</li>
+</ul>
+<hr>
+<p><em>References</em></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Object_literals" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Basics" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/object-literal" target="_blank" rel="noopener">Poiemaweb</a></p>
 
       
     </div>
@@ -910,7 +1007,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 18:14:39" itemprop="dateModified" datetime="2022-03-07T18:14:39+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
               </span>
 
           
@@ -979,7 +1076,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 18:14:39" itemprop="dateModified" datetime="2022-03-07T18:14:39+09:00">2022-03-07</time>
+                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
               </span>
 
           
@@ -1051,103 +1148,6 @@
 <hr>
 <p><em>References</em></p>
 <p><a href="https://developer.mozilla.org/en-US/docs/Glossary/Type_conversion" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Glossary/Type_coercion" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/type-casting" target="_blank" rel="noopener">poiemaweb</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/23/200224_object_literal/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/23/200224_object_literal/" class="post-title-link" itemprop="url">객체 리터럴 / Object</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-24 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-24T00:00:00+09:00">2020-02-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 18:14:39" itemprop="dateModified" datetime="2022-03-07T18:14:39+09:00">2022-03-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="객체란"><a href="#객체란" class="headerlink" title="객체란?"></a>객체란?</h2><p>객체는 다양한 타입의 값(원시 값 또는 다른 객체)들을 하나의 단위로 구성한 복합적인 자료 구조이다. 0개 이상인 속성명(property)과 객체의 관련된 값이 중괄호({})로 묶여진다. 즉 <em>키(key)과 값(value)으로 구성된 프로퍼티(Property)들의 집합</em>이라고 할 수 있다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">키워드 식별자 = &#123;</span><br><span class="line">  key(속성) : value(값)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> counter = &#123;</span><br><span class="line">  number : <span class="number">0</span>, <span class="comment">//프로퍼티</span></span><br><span class="line">  increase: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.num++; <span class="comment">//메소드</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>자바스크립트에 사용할 수 있는 모든 값이 프로퍼티 값이 될 수 있고, 함수도 사용할 수 있다. 이 경우 일반 함수와 구분하기 위해 메소드(Method)라 부른다.</p>
-<p><code>프로퍼티와 메소드의 역할</code></p>
-<ul>
-<li>프로퍼티: key와 value를 통해 객체의 상태를 나타낸다.</li>
-<li>메소드: 프로퍼티를 참조하고 조작할 수 있는 동작을 말한다.</li>
-</ul>
-<hr>
-<h2 id="객체-리터럴에-의한-객체-생성"><a href="#객체-리터럴에-의한-객체-생성" class="headerlink" title="객체 리터럴에 의한 객체 생성"></a>객체 리터럴에 의한 객체 생성</h2><p>클래스 기반 객체지향 언어: 클래스 사전정의, 필요한 시점에 new연산자와 생성자를 호출하여 인스턴스를 생성하여 객체 생성 (C++, java 등)<br>프로토타입 기반 객체지향 언어: 자바스크립트. <code>객체 리터럴</code>, Object 생성자 함수, 생성자 함수, Object.create 메소드, 클래스 (ES6) 등의 방법으로 객체 생성</p>
-<p><code>객체 리터럴</code><br>객체를 생성하는 표기법이며, 변수에 할당이 이루어지는 시점에 자바스크립트 엔진은 객체 리터럴을 해석하여 객체를 생성한다. <code>var empty = {};</code>와 같이 프로퍼티를 정의하지 않으면 빈 객체가 생성된다. 서버에게 주소를 넣어달라고 요청하는 것처럼 연속된 구조체나 연관된 데이터를 일정한 방법으로 변환하고자 할 때 많이 쓰인다.</p>
-<blockquote>
-<p>객체 리터럴의 중괄호({})는 코드블록이 아니다. 코드블록에는 중괄호 뒤이 세미콜론이 붙지 않지만, 객체 리터럴은 값으로 평가되는 표현식이므로 중괄호 뒤에 세미콜론을 붙인다.</p>
-</blockquote>
-<hr>
-<h2 id="프로퍼티"><a href="#프로퍼티" class="headerlink" title="프로퍼티"></a>프로퍼티</h2><ul>
-<li>프로퍼티 키 : 빈 문자열을 포함하는 모든 문자열 또는 symbol 값</li>
-<li>프로퍼티 값 : 자바스크립트에서 사용할 수 있는 모든 값</li>
-</ul>
-<p>프로퍼티 키는 프로퍼티 값에 접근할 수 있는 이름이며, 식별자 역할을 하며 식별자 네이밍 규칙을 준수하는 것이 권장된다.</p>
-<h2 id="프로퍼티-접근"><a href="#프로퍼티-접근" class="headerlink" title="프로퍼티 접근"></a>프로퍼티 접근</h2><p>마침표(.)를 사용하는 마침표 표기법(Dot notation) 또는 대괄호([…])를 사용하는 대괄호 표기법(Bracket notation)을 사용한다. 대괄호 표기법을 사용하는 경우, 대괄호 내부에 지정하는 프로퍼티 키는 반드시 따옴표로 감싼 문자열이어야 한다. 자바스크립트에서 사용 가능한 유효한 이름이 아닐 때도 반드시 대괄호 표기법을 사용하며, 대괄호 내의 프로퍼티 키는 따옴표로 감싼 문자열이어야 한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"Lee"</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 마침표 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="comment">// 객체이름.접근하고자 하는 항목</span></span><br><span class="line"><span class="built_in">console</span>.log(person.name); <span class="comment">// Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 대괄호 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"name"</span>]); <span class="comment">// Lee</span></span><br></pre></td></tr></table></figure>
-<hr>
-<ul>
-<li><code>존재하지 않는 프로퍼티에 접근</code>: undefined를 반환. <em>referenceError가 발생하지 않는다.</em></li>
-<li><code>프로퍼티 값 갱신</code>: 이미 존재하는 프로퍼티에 값을 할당한다. <em>나중에 선언한 프로퍼티가 먼저 선언한 프로퍼티를 덮어쓴다.</em></li>
-<li><code>프로퍼티 동적 생성</code>: 존재하지 않는 프로퍼티에 값을 할당한다.</li>
-<li><code>프로퍼티 삭제</code>: delete 연산자를 사용한다. 이때 delete 연산자의 피연산자는 프로퍼티 값에 접근할 수 있는 표현식이어야 한다. 만약 존재하지 않는 프로퍼티를 삭제하면 아무런 에러없이 무시된다.</li>
-<li><code>프로퍼티 키 생략</code>: ES6에서 프로퍼티 값으로 변수를 사용할 때 변수 이름과 프로퍼티 키가 동일한 이름이면 프로퍼티 키를 생략할 수 있다.</li>
-</ul>
-<hr>
-<p><em>References</em></p>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Object_literals" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Basics" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/object-literal" target="_blank" rel="noopener">Poiemaweb</a></p>
 
       
     </div>
