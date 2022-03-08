@@ -158,7 +158,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2022/03/06/220307_blockchain03/" class="post-title-link" itemprop="url">블록체인 무엇인가? 3장 블록체인은 어떻게 작동하는가?</a>
+            <a href="/2022/03/06/220307_blockchain03/" class="post-title-link" itemprop="url">블록체인 무엇인가? 3장 블록체인은 어떻게 작동하는가? 8 ~ 11단계</a>
         </h1>
 
         <div class="post-meta">
@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
+                <time title="Modified: 2022-03-08 16:29:12" itemprop="dateModified" datetime="2022-03-08T16:29:12+09:00">2022-03-08</time>
               </span>
 
           
@@ -347,16 +347,16 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;INPUT</span><br><span class="line">Hello World!</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;OUTPUT</span><br><span class="line">MD5: ED076287532E86365E841E92BFC50D8C</span><br><span class="line">SHA1: 2EF7BDE608CE5404E97D5F042F95F89F1C232871</span><br><span class="line">SHA256: 7F83B1657FF1FC53B92DC18148A1D65DFC2D4B1FA3D677284ADDD200126D9069</span><br><span class="line">SHA512: 861844D6704E8573FEC34D967E20BCFEF3D424CF48BE04E6DC08F2BD58C729</span><br><span class="line">743371015EAD891CC3CF1C9D34B49264B510751B1FF9E537937BC46B5D6FF4ECC8</span><br></pre></td></tr></table></figure>
 <h3 id="해싱된-데이터의-5가지-패턴"><a href="#해싱된-데이터의-5가지-패턴" class="headerlink" title="해싱된 데이터의 5가지 패턴"></a>해싱된 데이터의 5가지 패턴</h3><p>하나의 데이터가 해시 함수에 입력되면 그 데이터에 해당하는 해시값이 생성되는데, <strong>이는 모든 독립된 데이터는 자신만의 고유한 암호화 해시값을 갖는다는 것을 의미한다.</strong> 만약 서로 독립적인 데이터들의 묶음에 대해 하나의 해시값만 생성하고 싶다면 아래의 5가지 패턴을 사용해서 해시 함수를 적용한다.</p>
 <ol>
-<li>독립 해싱<ol>
+<li><code>독립 해싱</code><ol>
 <li>각 데이터에 대해 독립적으로 해시 함수를 적용한다.</li>
 </ol>
 </li>
-<li>반복 해싱<ol>
+<li><code>반복 해싱</code><ol>
 <li>해시 출력값에 해시 함수를 한번 더 적용한다.</li>
 <li>해시값은 그 자제로 하나의 데이터로 간주할 수 있기 때문에 해시값을 다시 해시 함수에 입력해서 그에 해당하는 또 다른 해시값을 계산한다.</li>
 </ol>
 </li>
-<li>결합 해싱<ol>
+<li><code>결합 해싱</code><ol>
 <li>하나 이상의 데이터에 해싱을 한 번만 적용하여 단일 해시값을 얻는다.</li>
 <li>독립된 데이터들을 합쳐 하나의 데이터로 만들고 합쳐진 데이터의 해시값을 계산한다. (제공된 모든 데이터를 한꺼번에 결합)</li>
 <li>주어진 시간 안에 가용한 모든 데이터의 집합에 단일 해시값을 부여할 때 유용하다.</li>
@@ -364,7 +364,7 @@
 <li>결합된 데이터만 해시 함수에 전달되었기 때문에 개별 데이터의 해시값은 알 수 없다는 단점이 있다.</li>
 </ol>
 </li>
-<li>순차적 해싱<ol>
+<li><code>순차적 해싱</code><ol>
 <li>새로운 데이터가 도착할 때마다 기존의 해시값이 새로운 데이터와 합쳐져서 해시값을 즉시 갱신한다.</li>
 <li>결합 해싱과 반복 해싱을 동시에 사용하는 것이다.</li>
 <li>단일 해시값만 유지하면서 새로운 데이터가 도착하는 즉시 해시값을 갱신하고자 할 때 유용하다.</li>
@@ -372,7 +372,7 @@
 <li>old + new =&gt; brand new</li>
 </ol>
 </li>
-<li>계층적 해싱<ol>
+<li><code>계층적 해싱</code><ol>
 <li>두 해시값에 결합 해싱을 적용한다. 그러면 최상위에 단일 해시값을 가지는 작은 계층이 형성된다.</li>
 <li>결합 해싱과 유사하게 데이터 묶음에서 단일 해시값을 얻고자 하는 아이디어를 가지고 있다.</li>
 <li>길이가 매번 변하는 입력이 아니라 늘 일정한 길이의 해시값을 합치기 때문에 효율적이다.</li>
@@ -442,6 +442,37 @@
 </li>
 <li><code>작동하는 이유</code>: 데이터와 해시 참조를 연결하여 결합하므로 변경-감지 방식으로 데이터를 저장할 수 있다. 그러므로 이 구조에서 손상된 참조가 있다면 데이터가 변경되었다는 증거가 된다.</li>
 </ul>
+<h3 id="5-시간-소모적-계산량-유발"><a href="#5-시간-소모적-계산량-유발" class="headerlink" title="5. 시간-소모적 계산량 유발"></a>5. 시간-소모적 계산량 유발</h3><ul>
+<li><code>목표</code>: 해시값이 컴퓨터끼리 퍼즐 대결을 하는 데 사용될 수 있고, 컴퓨터의 계산 자원을 사용해야만 해결할 수 있는 퍼즐이 필요할 때가 있는데, <strong>이 퍼즐을 푸는 유일한 방법은 오로지 엄청난 양의 컴퓨터 계산 자원에 의존하는 것뿐이어야 한다.</strong> 해시값의 이런 용도가 블록체인의 가장 중요한 개념 중 하나이다. (비트코인을 캔다는 의미의 ‘채굴’은 블록을 만드는 행위이고, 직접 새 블록을 만들려면 반드시 해시 퍼즐을 풀어야 한다.)</li>
+<li><code>아이디어</code>: 비밀번호를 정확히 눌러야만 열리는 특수 자물쇠처럼 비밀번호를 알 때까지 가능한 모든 수의 조합을 반복해서 시도하는 방식이다. <code>해시 퍼즐은 오직 시행착오로만 해결할 수 있다.</code></li>
+<li><p><code>작동 원리</code>: 해시 퍼즐의 요소.</p>
+<ul>
+<li>변경되면 안 되는 주어진 데이터</li>
+<li>자유롭게 변경 가능한 데이터, 난스(nonce)</li>
+<li>적용할 해시 함수</li>
+<li>결합 해싱의 해시값에 주어진 제약 조건, 난이도(difficulty level)<blockquote>
+<p>데이터와 난스에 결합 해싱을 적용해 도출한 결과 해시값이 주어진 조건을 만족해야 한다.</p>
+<ul>
+<li>난스를 추측하고 데이터와 결합해 해시 함수를 사용해 해시값을 계산한 후 주어진 제약조건에 따라 결과 해시값을 평가한다.</li>
+<li>해시값이 제약조건을 만족하면 퍼즐이 풀린다. 이렇게 어떤 난스가 데이터와 결합해 생성한 해시값이 제약조건을 만족했을 때 그 난스를 <code>해답</code>이라 부른다.</li>
+<li>해시 퍼즐을 해결했다면 항상 그 특정 난스(해답)을 보여줘야 한다.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>해시 퍼즐의 난이도</code><ul>
+<li><strong>해시값이 특정 제약조건을 만족시키는 것이 해시 퍼즐의 핵심</strong></li>
+<li>해시 퍼즐에 사용하는 조건은 임의로 만들어서 안되고 표준화되어 컴퓨터끼리 서로 시합할 수 있어야 한다.</li>
+<li>해시 퍼즐에서 제약조건을 <code>난이도</code>라 부른다.</li>
+<li>난이도의 숫자는 해시값의 맨 앞 자리부터 최소 하나 이상의 0으로 채워진다. (난이도 10은 해시값의 맨 앞자리부터 연속된 10자리 이상이 0이어야 한다는 뜻이다.)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>작동하는 이유</code>: 해시 퍼즐은 해시 함수가 <code>일방향 함수</code>라는 성질에 전적으로 의존해 작동하기 때문에 제약조건을 연구하여 역함수로 해시 퍼즐을 해결하는 것은 불가하다.</p>
+</li>
+</ul>
+<hr>
+<p><em>References</em><br>[블록체인 무엇인가?] 다니엘 드레셔 지음</p>
 
       
     </div>
@@ -492,7 +523,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
+                <time title="Modified: 2022-03-08 16:29:12" itemprop="dateModified" datetime="2022-03-08T16:29:12+09:00">2022-03-08</time>
               </span>
 
           
@@ -703,7 +734,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
+                <time title="Modified: 2022-03-08 16:29:12" itemprop="dateModified" datetime="2022-03-08T16:29:12+09:00">2022-03-08</time>
               </span>
 
           
@@ -905,7 +936,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
+                <time title="Modified: 2022-03-08 16:29:12" itemprop="dateModified" datetime="2022-03-08T16:29:12+09:00">2022-03-08</time>
               </span>
 
           
@@ -1025,7 +1056,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
+                <time title="Modified: 2022-03-08 16:29:12" itemprop="dateModified" datetime="2022-03-08T16:29:12+09:00">2022-03-08</time>
               </span>
 
           
@@ -1141,7 +1172,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
+                <time title="Modified: 2022-03-08 16:29:12" itemprop="dateModified" datetime="2022-03-08T16:29:12+09:00">2022-03-08</time>
               </span>
 
           
@@ -1228,7 +1259,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
+                <time title="Modified: 2022-03-08 16:29:12" itemprop="dateModified" datetime="2022-03-08T16:29:12+09:00">2022-03-08</time>
               </span>
 
           
@@ -1343,7 +1374,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
+                <time title="Modified: 2022-03-08 16:29:12" itemprop="dateModified" datetime="2022-03-08T16:29:12+09:00">2022-03-08</time>
               </span>
 
           
@@ -1513,7 +1544,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
+                <time title="Modified: 2022-03-08 16:29:12" itemprop="dateModified" datetime="2022-03-08T16:29:12+09:00">2022-03-08</time>
               </span>
 
           
@@ -1695,7 +1726,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-08 13:03:18" itemprop="dateModified" datetime="2022-03-08T13:03:18+09:00">2022-03-08</time>
+                <time title="Modified: 2022-03-08 16:29:12" itemprop="dateModified" datetime="2022-03-08T16:29:12+09:00">2022-03-08</time>
               </span>
 
           
