@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="16. 블록체인이 데이터를 보호하는 방법목표블록체인이 유지하는 전체 트랜잭션 이력을 불변성 데이터로 만들어 위조나 조작이 없게 한다. 해결해야 할 과제누구에게나 개방된 순수 분산 P2P 시스템을 개방한 채 조작이나 위조의 위협으로부터 트랜잭션 데이터를 보호한다. 아이디어처음부터 아무도 이력을 조작하지 못하게 막아놓는다. 불변성은 읽기 전용의 다른 이름불변성">
+<meta property="og:type" content="article">
+<meta property="og:title" content="블록체인 무엇인가? 3장 블록체인은 어떻게 작동하는가? 16 ~ 18단계">
+<meta property="og:url" content="https://heejinlee07.github.io/2022/03/19/220320_blockchain03_16to18/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="16. 블록체인이 데이터를 보호하는 방법목표블록체인이 유지하는 전체 트랜잭션 이력을 불변성 데이터로 만들어 위조나 조작이 없게 한다. 해결해야 할 과제누구에게나 개방된 순수 분산 P2P 시스템을 개방한 채 조작이나 위조의 위협으로부터 트랜잭션 데이터를 보호한다. 아이디어처음부터 아무도 이력을 조작하지 못하게 막아놓는다. 불변성은 읽기 전용의 다른 이름불변성">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-19T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-20T14:40:15.088Z">
+<meta property="article:author" content="Heejin Lee">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2022/03/19/220320_blockchain03_16to18/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>블록체인 무엇인가? 3장 블록체인은 어떻게 작동하는가? 16 ~ 18단계 | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Developer</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/03/19/220320_blockchain03_16to18/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          블록체인 무엇인가? 3장 블록체인은 어떻게 작동하는가? 16 ~ 18단계
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-20 00:00:00 / Modified: 23:40:15" itemprop="dateCreated datePublished" datetime="2022-03-20T00:00:00+09:00">2022-03-20</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="16-블록체인이-데이터를-보호하는-방법"><a href="#16-블록체인이-데이터를-보호하는-방법" class="headerlink" title="16. 블록체인이 데이터를 보호하는 방법"></a>16. 블록체인이 데이터를 보호하는 방법</h2><h3 id="목표"><a href="#목표" class="headerlink" title="목표"></a>목표</h3><p>블록체인이 유지하는 <strong>전체 트랜잭션 이력을 불변성 데이터로 만들어 위조나 조작이 없게 한다.</strong></p>
+<h3 id="해결해야-할-과제"><a href="#해결해야-할-과제" class="headerlink" title="해결해야 할 과제"></a>해결해야 할 과제</h3><p>누구에게나 개방된 순수 분산 P2P 시스템을 개방한 채 조작이나 위조의 위협으로부터 트랜잭션 데이터를 보호한다.</p>
+<h3 id="아이디어"><a href="#아이디어" class="headerlink" title="아이디어"></a>아이디어</h3><p>처음부터 아무도 이력을 조작하지 못하게 막아놓는다.</p>
+<h3 id="불변성은-읽기-전용의-다른-이름"><a href="#불변성은-읽기-전용의-다른-이름" class="headerlink" title="불변성은 읽기 전용의 다른 이름"></a>불변성은 읽기 전용의 다른 이름</h3><p>불변성 데이터는 한번 생성되면 절대로 변경될 수 없고, 이러한 데이터는 읽기 전용 데이터라고도 한다. 데이터를 변경과 조작으로부터 보호하는 효과적인 방법이다.</p>
+<h2 id="작동원리"><a href="#작동원리" class="headerlink" title="작동원리"></a>작동원리</h2><blockquote>
+<p>트랜잭션 이력을 변경하는 일이 감당 불가라서 누구라도 단념하게 만드는 방법으로 트랜잭션 이력을 불변성 데이터로 만든다.</p>
+</blockquote>
+<h3 id="트랜잭션-이력을-불변성-데이터로-만드는-데-필요한-세-가지"><a href="#트랜잭션-이력을-불변성-데이터로-만드는-데-필요한-세-가지" class="headerlink" title="트랜잭션 이력을 불변성 데이터로 만드는 데 필요한 세 가지"></a>트랜잭션 이력을 불변성 데이터로 만드는 데 필요한 세 가지</h3><ul>
+<li>트랜잭션 이력을 저장할 때 아무리 사소한 조작이라도 바로 드러날 수 있게 한다.<ul>
+<li>아무리 사소한 변경이라도 데이터를 가리키는 해시 참조를 무효화 시켜서 몰래 조작이 불가하다.</li>
+</ul>
+</li>
+<li>변경된 데이터를 끼워넣으려면 엄청난 양을 다시 작성하도록 강제한다.<ul>
+<li>변경하려면 변경된 부분부터 헤드까지 전체 체인을 완전히 변경하거나 내버려둬야 한다.</li>
+</ul>
+</li>
+<li>트랜잭션 이력에 데이터를 추가, 변경, 재작성하는 작업에 엄청난 계산량이 필요하도록 한다.<ul>
+<li>블록체인-기술-모음은 블록체인-데이터-구조의 모든 블록에 대해 작성, 재작성, 추가 작업에 엄청난 계산 비용이 필요하게끔 만든다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="작동원리-세부-사항-살펴보기"><a href="#작동원리-세부-사항-살펴보기" class="headerlink" title="작동원리: 세부 사항 살펴보기"></a>작동원리: 세부 사항 살펴보기</h3><p>블록체인-데이터-구조의 새 블록 추가에는 많은 계산량이 들지 않지만 이것을 불변성으로 만들려면 새 목록을 추가하는 것이 많은 계산량을 필요로 하게끔 해야한다. 이를 위해서 아래와 같은 사항을 고려한다.</p>
+<ul>
+<li>필수 데이터</li>
+<li>새 블록 헤더를 생성하는 프로세스</li>
+<li>블록 헤더를 검증하는 규칙</li>
+</ul>
+<h4 id="필수-데이터"><a href="#필수-데이터" class="headerlink" title="필수 데이터"></a>필수 데이터</h4><p>블록체인-데이터-구조의 모든 블록 헤더는 최소한 다음의 데이터를 가진다.</p>
+<ul>
+<li>트랜잭션 데이터를 담고 있는 머클 트리의 루트</li>
+<li>이전 블록 헤더를 가리키는 해시 참조</li>
+<li>해시 퍼즐의 난이도</li>
+<li>해시 퍼즐 풀이를 시작한 시각</li>
+<li>해시 퍼즐을 해결할 수 있는 난스</li>
+</ul>
+<h4 id="새-블록을-생성하는-프로세스"><a href="#새-블록을-생성하는-프로세스" class="headerlink" title="새 블록을 생성하는 프로세스"></a>새 블록을 생성하는 프로세스</h4><ol>
+<li>새로 추가되는 트랜잭션을 담고 있는 머클 트리의 루트 얻기</li>
+<li>새 블록 헤더의 입장에서 이전 블록 헤더를 가리키는 해시 참조 생성하기</li>
+<li>필요 난이도 획득하기</li>
+<li>현재 시각 읽기</li>
+<li>1~4번에 언급된 데이터를 포함하는 예비 블록 헤더 생성하기</li>
+<li>예비 블록 헤더에 해당하는 해시 퍼즐 해결하기</li>
+<li>해시 퍼즐을 해결할 난스를 예비 헤더에 포함시켜 새 블록 완결하기</li>
+</ol>
+<h4 id="검증-규칙"><a href="#검증-규칙" class="headerlink" title="검증 규칙"></a>검증 규칙</h4><p>다음의 규칙을 준수한다.</p>
+<ol>
+<li>직전 블록을 가리키는 유효한 해시 참조가 있다.</li>
+<li>트랜잭션 데이터를 갖고 있는 머클 트리의 루트를 포함한다.</li>
+<li>정확한 난이도를 가지고 있어야 한다.</li>
+<li>타임 스탬프는 직전 블록 헤더의 타임 스탬프 이후여야 한다. (블록과 트랙잭션 데이터들이 추가 된 순서에 따라 정렬되어 있음을 보장)</li>
+<li>난스를 포함해야 한다.</li>
+<li>위 5개의 데이터 조각을 함친 해시값으로 난이도를 충족해야 한다.</li>
+</ol>
+<p>검증 규칙은 해시 퍼즐을 해결하고, 필요한 계산 비용을 지불한 블록만 추가되도록 보장한다. 이처럼 해시 퍼즐을 해결하여 블록체인-데이터-구조에 새 블록을 추가하는 행위를 마이닝 혹은 블록 마이닝이라 부른다.</p>
+<h3 id="작동하는-이유"><a href="#작동하는-이유" class="headerlink" title="작동하는 이유"></a>작동하는 이유</h3><p><strong>해시 참조가 가리키는 데이터에 변경이 있으면 그 즉시 해시 참조 자체를 손상시키는 성질</strong>에서 비롯되어, 데이터 조작이 있을 경우 영향받은 모든 블록을 다시 작성하게 한다. <em>결국 블록체인-데이터-구조의 불변성은 해시 퍼즐의 난이도에 달려 있다.</em> 난이도가 너무 낮으면 계산비용도 낮아져 조작의 가능성이 높아지고, 난이도가 너무 높으면 새 데이터를 추가하는 계산 비용도 높아져 새 데이터 추가에 대한 의욕이 상실될 수 있다. 따라서 블록체인 디자인 시 해시 퍼즐의 적절한 난이도를 결정하는 것이 매우 중요하다. 실제로는 새 블록이 추가되는 속도에 기초한 동적 난이도를 활용하는데, 새 블록의 추가 속도가 빨라지면 난이도를 높이고, 그 반대면 난이도를 낮추는 방식으로 적정 수준의 난이도를 유지한다.</p>
+<hr>
+<h2 id="17-컴퓨터들이-정보를-배분하는-방법"><a href="#17-컴퓨터들이-정보를-배분하는-방법" class="headerlink" title="17. 컴퓨터들이 정보를 배분하는 방법"></a>17. 컴퓨터들이 정보를 배분하는 방법</h2><h3 id="목표-1"><a href="#목표-1" class="headerlink" title="목표"></a>목표</h3><p>P2P 시스템을 구성하는 개별 컴퓨터들이 트랜잭션이 발생할 때마다 적절히 통보받아 자신의 트랜잭션 데이터 이력을 관리할 수 있도록 보장한다.</p>
+<h3 id="해결해야-할-과제-1"><a href="#해결해야-할-과제-1" class="headerlink" title="해결해야 할 과제"></a>해결해야 할 과제</h3><p>순수 분산 P2P 시스템에는 중앙 통제와 조정 장치가 없기 때문에 시스템의 모든 노드가 이러한 장치에 의지하지 않고 모든 트랜잭션 정보를 수신하도록 해주는 것이다.</p>
+<h3 id="아이디어-1"><a href="#아이디어-1" class="headerlink" title="아이디어"></a>아이디어</h3><p>P2P 시스템을 구성하는 컴퓨터들이 정보를 공유하고 교환하도록 하는 것인데, 노드 하나가 피어 노드에게 정보를 전달받으면 다른 피어에게 그 정보를 전달하고, 그 피어가 또 다른 피어에게 전달하는 방식으로 시스템 내 모든 노드가 정보를 전달받도록 한다.</p>
+<h2 id="작동원리-1"><a href="#작동원리-1" class="headerlink" title="작동원리"></a>작동원리</h2><p>분산 P2P 시스템의 컴퓨터는 디지털 네트워크를 통해 통신하기 때문에 노드들이 인터넷을 통해 서로 통신하도록 하는 방식으로 P2P 시스템을 구성할 수 있다. <em>단 노드가 네트워크를 통해 통신하고 언제든 단절과 재접속을 할 수 있다는 점이 메시지 전달에 영향을 미친다.</em> 네트워크에서 이루어지는 메시지 전달에는 아래와 같은 특성이 있다.</p>
+<ul>
+<li>손실될 가능성이 있다.</li>
+<li>한 번 이상 도달할 수 있다.</li>
+<li>전송한 순서와 다른 순서로 도착할 수 있다.</li>
+</ul>
+<p>이 특성때문에 통신에 장애가 발생할 수 있지만 아래의 방법으로 해결할 수 있다.</p>
+<ul>
+<li>새로운 정보를 받은 모든 노드는 자신이 통신하는 피어에게 전달하기 때문에 몇몇 메시지가 손실될 수 있어도 궁극적으로 모든 노드가 메시지를 수신하는 것을 보장한다.</li>
+<li>메시지는 디지털 지문 또는 암호화 해시값으로 식별 가능하므로 노드가 중복된 메시지를 식별해서 무시할 수 있다.</li>
+<li>트랜잭션 데이터와 블록 헤더에 타임 스탬프가 포함되어 있어서 노드들이 객관적인 시각 기준에 따라 메시지를 정렬할 수 있다.</li>
+</ul>
+<p><strong>P2P 시스템을 구성하는 노드 간 통신은 다음 세 가지 목적을 가진다.</strong></p>
+<blockquote>
+<ul>
+<li>기존 연결 유지</li>
+<li>새로운 연결</li>
+<li>새로운 정보 배포</li>
+</ul>
+</blockquote>
+<p>기존 연결 유지, 새로운 연결은 P2P 시스템 자체에 초점을 맞추고 있어서 피어 간 네트워크를 유지하고 약간의 디지털 관리 업무를 수행한다. 새로운 정보 배포는 블록체인-데이터-구조에 새로운 트랜잭션 데이터나 블록을 추가하는 것에 초점을 맞춘다.</p>
+<ul>
+<li>기존 연결 유지</li>
+</ul>
+<p>네트워크의 각 컴퓨터는 통신하는 피어 리스트를 독립적으로 유지하고, 피어 리스트는 시스템을 구성하는 전체 노드의 부분집합이다. 주기적으로 각 컴퓨터는 피어가 연결상태인지 확인하기 위해 핑(ping)하고 메시지를 보내고, 퐁(pong)으로 대답하도록 요청한다. 만약 이 메시지에 반복적으로 대답하지 않는 피어가 있다면 리스트에서 제거한다.</p>
+<ul>
+<li>새로운 연결</li>
+</ul>
+<p>P2P 시스템 내에 참여하고 싶은 컴퓨터는 시스템 내의 아무 노드에게나 시스템에 참여하고 싶다고 요청한다. 이렇게 요청을 받은 노드는 요청자인 피어의 주소를 피어 리스트에 추가하고 확인 응답을 보내고, 확인 응답을 받은 노드는 응답을 보낸 주소를 자신의 피어 리스트에 추가한다. 이렇게 되면 새로운 연결이 형성되어 시스템에 노드 하나가 더 증가한 것이다. 그리고 P2P 시스템에 참여할 때는 시스템의 일부인 다수의 노드와 연결을 형성한다. 특정 노드 하나의 연결이 끊어지더라도 시스템에 연결된 상태를 유지하기 위함이다.</p>
+<ul>
+<li>새로운 정보 배포</li>
+</ul>
+<p>새로 추가될 트랜잭션 데이터와 새 블록 정보를 통신을 통해 전달하는데, <em>소유권 관련 정보를 공유하는 일은 다음 3가지 경우에 발생한다.</em></p>
+<ul>
+<li>지속적인 방식<ul>
+<li>새로운 정보는 발생과 동시에 배포되고, 시스템에 연결된 모든 노드가 정보를 받는다.</li>
+</ul>
+</li>
+<li>갱신 방식<ul>
+<li>연결이 끊겼다가 다시 시스템에 연결되었을 때, 그 사이 놓친 트랜잭션 데이터와 블록에 대한 정보를 모두 받는다.</li>
+</ul>
+</li>
+<li>온보딩 절차의 일부로 갱신<ul>
+<li>시스템에 새로 참여한 노드는 트랜잭션 이력을 구축할 기회가 없었기 때문에 시스템 참여 직전까지 발생한 모든 트랜잭션 이력을 얻어와야 한다. 따라서 새로운 참여자가 참여하자 마자 모든 정보를 갖추어 노드가 될 수 있도록 보장한다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="작동하는-이유-1"><a href="#작동하는-이유-1" class="headerlink" title="작동하는 이유"></a>작동하는 이유</h2><p>앞서 살펴본 3가지 통신 방식이 새로운 컴퓨터가 시스템에 참여할 수 있도록 보장해주기 때문에 시스템이 확장되게 하면서 기존 연결 유지의 업무도 수행하게 한다. <strong>가장 중요한 점은 블록체인-데이터-구조 내 새로 추가되는 트랜잭션 데이터와 블록에 대한 모든 정보를 P2P 시스템의 전체 구성원이 궁극적으로 받아볼 수 있도록 보장한다는 것이다.</strong></p>
+<hr>
+<h2 id="18-블록체인-속-무한경쟁-사회"><a href="#18-블록체인-속-무한경쟁-사회" class="headerlink" title="18. 블록체인 속 무한경쟁 사회"></a>18. 블록체인 속 무한경쟁 사회</h2><h3 id="목표-2"><a href="#목표-2" class="headerlink" title="목표"></a>목표</h3><p>시스템의 무결성을 유지하면서 누구든지 트랜잭션 데이터 이력에 새로운 트랜잭션을 추가할 수 있도록 허용한다.</p>
+<h3 id="해결해야-할-과제-2"><a href="#해결해야-할-과제-2" class="headerlink" title="해결해야 할 과제"></a>해결해야 할 과제</h3><p>완전히 개방된 시스템에서 누구든 시스템에 참여하여 데이터를 전송할 수 있는데, 이 데이터들이 정확하다는 보장은 없다. <strong>따라서 시스템을 모두에게 개방하면서도 오직 유효한 트랜잭션만 추가될 수 있도록 보장하는 것이 필요하다.</strong></p>
+<h3 id="아이디어-2"><a href="#아이디어-2" class="headerlink" title="아이디어"></a>아이디어</h3><p>시스템의 모든 노드가 다른 피어 노드를 감시하도록 하면서 동시에 유효하고 승인된 트랜잭션을 추가하거나 타인의 작업에 오류를 발생했을 때 적절한 보상을 해주어 동기를 부여한다.</p>
+<h3 id="작동원리-구성요소들"><a href="#작동원리-구성요소들" class="headerlink" title="작동원리: 구성요소들"></a>작동원리: 구성요소들</h3><p>블록체인-알고리즘은 노드가 새 트랜잭션 데이터와 블록을 어떻게 처리할지 통제하는 일련의 명령어이다. 개별적 규칙과 절차는 다음과 같다.</p>
+<blockquote>
+<ol>
+<li>검증 규칙</li>
+<li>보상</li>
+<li>처벌</li>
+<li>경쟁</li>
+<li>피어 통제</li>
+</ol>
+</blockquote>
+<h4 id="1-검증-규칙"><a href="#1-검증-규칙" class="headerlink" title="1. 검증 규칙"></a>1. 검증 규칙</h4><p>블록체인-데이터-구조가 유효한 트랜잭션 데이터와 블록 헤더만으로 구성된 블록만을 가지도록 한다. 데이터 유효성의 검증에는 다음의 두 가지가 필요하다.</p>
+<blockquote>
+<ul>
+<li>트랜잭션 데이터 검증 규칙</li>
+<li>블록 헤더 검증 규칙</li>
+</ul>
+</blockquote>
+<ul>
+<li>트랜잭션 데이터 검증 규칙</li>
+</ul>
+<p>형식의 정확성, 의미상 정확성, 승인의 3요소이다. 이 규칙은 블록체인의 응용분야(블록체인이 어떤 산업분야에서 사용되는가)에 따라 서로 다른 검증 규칙을 가지게 된다.</p>
+<ul>
+<li>블록 헤더 검증 규칙</li>
+</ul>
+<p><em>형식과 의미의 정확성에 초점이 있고,</em> 트랜잭션 데이터의 내용과 무관한 블록체인-데이터-구조에 정보가 추가되는 방식과 관련 있다. 개별적 해시 퍼즐을 해결한 헤더를 가진 블록만 그 다음 단계로 넘어가고, 그렇지 못한 블록은 즉시 폐기된다.</p>
+<h4 id="2-보상"><a href="#2-보상" class="headerlink" title="2. 보상"></a>2. 보상</h4><p>유효한 블록 생성을 위해 블록의 고유 해시 퍼즐을 풀어야만 한다. 이때 피어가 해시 퍼즐을 푸는 부담(에너지, 시간, 돈 등)을 짊어지도록 하는 방법은 비용에 상응하는 보상을 제공하는 것이다. 블록체인-알고리즘이 유효한 블록을 제출한 노드가 보상을 받는 방식을 정의한다.</p>
+<h4 id="3-처벌"><a href="#3-처벌" class="headerlink" title="3. 처벌"></a>3. 처벌</h4><ul>
+<li>생성 당시엔 인정되었지만 나중에 유효하지 않거나 무용한 것으로 판명된 블록에 대해 <em>이미 지급된 보상을 회수한다.</em></li>
+<li>노드가 작업 증명을 했지만 블록이 중복되거나 너무 오래된 경우, 쓸모없는 경우에 <em>보상을 하지 않는다.</em></li>
+</ul>
+<h4 id="4-경쟁"><a href="#4-경쟁" class="headerlink" title="4. 경쟁"></a>4. 경쟁</h4><p>시스템을 유지하는데 드는 비용을 줄이면서 높은 작업 품질을 성취하는 최선의 방법으로 서로 경쟁하도록 만든다. 블록체인-알고리즘은 아래 두 가지 기준의 조합으로 지속적인 경쟁을 유발하며 적절히 보상한다.</p>
+<ul>
+<li>속도 경쟁</li>
+</ul>
+<p><strong>해시 퍼즐에 기초한다.</strong> 유효한 블록 생성의 핵심은 작업 증명을 생성하는 것이므로, 작업 증명은 곧 새 블록의 고유 해시 퍼즐을 해결했다는 의미이다. 모든 노드는 해시 퍼즐을 푸는 경쟁에 참여하게 되는데, 이 경쟁은 어떤 노드가 새 블록을 제출함과 동시에 끝난다. 새 블록을 제출한 노드는 품질 경쟁의 유일한 후보자가 된다.</p>
+<ul>
+<li>품질 경쟁</li>
+</ul>
+<p><strong>제출된 블록의 정확성에 초점을 맞춘다.</strong> 새 블록은 수신한 모든 모드는 트랜잭션 데이터와 블록 헤더의 검증 규칙에 기초하여 새 블록을 검증한다. <code>피어 통제</code>를 통해 매우 높은 정확성을 유지하도록 한다. 새 블록을 수령한 노드는 자신이 속도 경쟁에서 패했다는 사실을 깨달았으므로 꼼꼼한 심판관이 되고, 제출된 블록이 무효라면 또다시 속도 경쟁을 거쳐야 하므로 자신이 새 블록을 제출하여 승자가 될 수 있음을 알고 있다.</p>
+<h4 id="5-피어-통제"><a href="#5-피어-통제" class="headerlink" title="5. 피어 통제"></a>5. 피어 통제</h4><p>시스템의 모든 노드는 다른 노드의 감시자인데, 새 블록을 생성하고 트랜잭션을 검사하면서도 다른 노드가 생성한 블록을 수신해서 검토하고 검증하는 역할을 한다. 즉 새 블록의 생성과 유효하지 않은 트랜잭션 데이터와 블록의 감지, 거절, 제거에 기여한다.</p>
+<h3 id="작동원리-골격"><a href="#작동원리-골격" class="headerlink" title="작동원리: 골격"></a>작동원리: 골격</h3><p>시스템의 모든 노드는 다음 두 상태 중 하나에 속해 있다.</p>
+<ol>
+<li>피어에 의해 생성되고 제출된 새 블록을 평가 중</li>
+<li>스스로 새 블록을 만들어 다른 피어에게 평가받으려 열심히 노력 중</li>
+</ol>
+<p>블록체인-알고리즘의 중요 역할은 모든 노드가 동일한 작업 상태를 가지도록 보장하는 것이고, 동일한 작업 상태는 모든 블록이 동일한 트랜잭션 데이터 이력을 유지하게 하는 핵심 개념이다. 상태를 결정하는 것은 개별 노드에게 도착하는 메시지인데, 각 노드가 새 블록을 담고 있는 메시지를 받자마자 평가 상태로 스위치되고, 평가 상태가 완료되자마자 새 트랜잭션을 검증하고 자체적으로 새 블록을 생성하기 위한 상태로 스위치된다.</p>
+<h2 id="부정직한-노드는-어떻게-처리할까"><a href="#부정직한-노드는-어떻게-처리할까" class="headerlink" title="부정직한 노드는 어떻게 처리할까?"></a>부정직한 노드는 어떻게 처리할까?</h2><p>P2P 시스템에서 가장 두드러진 부정직한 행위는 다음과 같다.</p>
+<ul>
+<li>다른 사람으로 위장해 트랜잭션 제출</li>
+<li>유효하지 않은 트랜잭션 데이터나 블록을 인정</li>
+<li>노드를 다운시키기 위해 수많은 트랜잭션 데이터를 전송</li>
+<li>특정 트랜잭션 데이터 처리를 거부</li>
+<li>정보 전달을 거부</li>
+</ul>
+<p>이러한 부정직한 경우는 아래와 같이 처라힌다.</p>
+<ul>
+<li>해당 개인 키 소유자에게만 계정의 접근을 허용하는 트랜잭션의 보안 개념(비대칭 암호화 기법, 디지털 서명을 통한 식별, 인증, 승인)</li>
+<li>모든 노드가 결국 모든 정보를 수신하는 것을 보장.</li>
+<li>특정 노드가 잘못되거나 데이터 처리를 멈추어도 전체 시스템이 계속 작동하도록 보장하는 시스템 아키텍처</li>
+<li>블록체인-알고리즘</li>
+</ul>
+<p><strong>블록체인이 부정직한 노드를 처리하는 가장 큰 무기는 정직한 다수의 힘과 보상 및 처벌의 효과이다.</strong></p>
+<hr>
+<p><em>References</em><br>[블록체인 무엇인가?] 다니엘 드레셔 지음</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/07/220308_blockchain03_12to15/" rel="prev" title="블록체인 무엇인가? 3장 블록체인은 어떻게 작동하는가? 12 ~ 15단계">
+      <i class="fa fa-chevron-left"></i> 블록체인 무엇인가? 3장 블록체인은 어떻게 작동하는가? 12 ~ 15단계
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#16-블록체인이-데이터를-보호하는-방법"><span class="nav-number">1.</span> <span class="nav-text">16. 블록체인이 데이터를 보호하는 방법</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#목표"><span class="nav-number">1.1.</span> <span class="nav-text">목표</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#해결해야-할-과제"><span class="nav-number">1.2.</span> <span class="nav-text">해결해야 할 과제</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#아이디어"><span class="nav-number">1.3.</span> <span class="nav-text">아이디어</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#불변성은-읽기-전용의-다른-이름"><span class="nav-number">1.4.</span> <span class="nav-text">불변성은 읽기 전용의 다른 이름</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#작동원리"><span class="nav-number">2.</span> <span class="nav-text">작동원리</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#트랜잭션-이력을-불변성-데이터로-만드는-데-필요한-세-가지"><span class="nav-number">2.1.</span> <span class="nav-text">트랜잭션 이력을 불변성 데이터로 만드는 데 필요한 세 가지</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#작동원리-세부-사항-살펴보기"><span class="nav-number">2.2.</span> <span class="nav-text">작동원리: 세부 사항 살펴보기</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#필수-데이터"><span class="nav-number">2.2.1.</span> <span class="nav-text">필수 데이터</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#새-블록을-생성하는-프로세스"><span class="nav-number">2.2.2.</span> <span class="nav-text">새 블록을 생성하는 프로세스</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#검증-규칙"><span class="nav-number">2.2.3.</span> <span class="nav-text">검증 규칙</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#작동하는-이유"><span class="nav-number">2.3.</span> <span class="nav-text">작동하는 이유</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-컴퓨터들이-정보를-배분하는-방법"><span class="nav-number">3.</span> <span class="nav-text">17. 컴퓨터들이 정보를 배분하는 방법</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#목표-1"><span class="nav-number">3.1.</span> <span class="nav-text">목표</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#해결해야-할-과제-1"><span class="nav-number">3.2.</span> <span class="nav-text">해결해야 할 과제</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#아이디어-1"><span class="nav-number">3.3.</span> <span class="nav-text">아이디어</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#작동원리-1"><span class="nav-number">4.</span> <span class="nav-text">작동원리</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#작동하는-이유-1"><span class="nav-number">5.</span> <span class="nav-text">작동하는 이유</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-블록체인-속-무한경쟁-사회"><span class="nav-number">6.</span> <span class="nav-text">18. 블록체인 속 무한경쟁 사회</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#목표-2"><span class="nav-number">6.1.</span> <span class="nav-text">목표</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#해결해야-할-과제-2"><span class="nav-number">6.2.</span> <span class="nav-text">해결해야 할 과제</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#아이디어-2"><span class="nav-number">6.3.</span> <span class="nav-text">아이디어</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#작동원리-구성요소들"><span class="nav-number">6.4.</span> <span class="nav-text">작동원리: 구성요소들</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-검증-규칙"><span class="nav-number">6.4.1.</span> <span class="nav-text">1. 검증 규칙</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-보상"><span class="nav-number">6.4.2.</span> <span class="nav-text">2. 보상</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-처벌"><span class="nav-number">6.4.3.</span> <span class="nav-text">3. 처벌</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-경쟁"><span class="nav-number">6.4.4.</span> <span class="nav-text">4. 경쟁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-피어-통제"><span class="nav-number">6.4.5.</span> <span class="nav-text">5. 피어 통제</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#작동원리-골격"><span class="nav-number">6.5.</span> <span class="nav-text">작동원리: 골격</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#부정직한-노드는-어떻게-처리할까"><span class="nav-number">7.</span> <span class="nav-text">부정직한 노드는 어떻게 처리할까?</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

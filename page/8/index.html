@@ -144,6 +144,243 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/07/27/200728_arrayMethods/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/27/200728_arrayMethods/" class="post-title-link" itemprop="url">algorithm에 필요한 method 정리</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-28T00:00:00+09:00">2020-07-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-20 23:40:15" itemprop="dateModified" datetime="2022-03-20T23:40:15+09:00">2022-03-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="reverseString-Pseudocode"><a href="#reverseString-Pseudocode" class="headerlink" title="reverseString Pseudocode"></a>reverseString Pseudocode</h2><ol>
+<li>string를 배열로 만든다.</li>
+<li>배열 method를 사용하면 array 내부의 요소의 순서를 뒤집는다.</li>
+<li>순서가 뒤집힌 배열을 다시 string로 변환한다.</li>
+</ol>
+<blockquote>
+<p>example<br>“hello” -&gt; [‘h’, ‘e’, ‘l’, ‘l’, ‘o’] -&gt; [‘o’, ‘l’, ‘l’, ‘e’, ‘h’] -&gt; ‘olleh’</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(str); <span class="comment">//hello</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> splits = str.split(<span class="string">""</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(splits); <span class="comment">// ["h", "e", "l", "l", "o"]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> reversed = splits.reverse();</span><br><span class="line">  <span class="built_in">console</span>.log(reversed); <span class="comment">// ["o", "l", "l", "e", "h"]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> result = reversed.join(<span class="string">""</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(result); <span class="comment">//olleh</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reverse(<span class="string">"hello"</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="split"><a href="#split" class="headerlink" title="split()"></a>split()</h2><blockquote>
+<p>str.split([separator[, limit]])</p>
+</blockquote>
+<p>string을 구분자를 이용하여 여러 개의 문자열로 나눈다.</p>
+<ul>
+<li>매개변수: separator, limit 두 가지를 전달할 수 있다.<ul>
+<li>separator: 끊어야 할 부분을 나타내는 문자열로 실제 문자열이나 정규표현식을 받을 수 있다.</li>
+<li>limit: 끊어진 문자열의 최대 개수를 나타낸다. limit이 존재하면, 배열의 원소가 limit개가 되었을 때 split메소드가 중지된다.</li>
+</ul>
+</li>
+<li><p>반환값: 원본 문자열을 separator마다 끊은 <code>문자열의 결과를 담은 배열을 반환</code>한다.</p>
+<ul>
+<li>separator가 빈문자열(‘’)일 때: 원본 문자열을 한 글자씩 분리한 배열이 반환됨.</li>
+<li>separator가 공백이 있는 문자열(‘ ‘)일 때: 원본 문자열을 공백으로 구분한 배열이 반환됨.</li>
+<li>separator로 아무것도 주어지지 않았을 때: 원본 문자열 전체를 담은 배열이 반환됨.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hi = <span class="string">"hello there"</span>;</span><br><span class="line">hi.split(); <span class="comment">// ['hello there']</span></span><br><span class="line">hi.split(<span class="string">""</span>); <span class="comment">// ['h', 'e', 'l', 'o', 'o', 't', 'h', 'e', 'r', 'e']</span></span><br><span class="line"><span class="keyword">const</span> result = hi.split(<span class="string">" "</span>); <span class="comment">// ['hello', 'there']</span></span><br><span class="line"><span class="built_in">console</span>.log(result[<span class="number">1</span>]); <span class="comment">// there</span></span><br><span class="line">hi.split(<span class="string">" "</span>, <span class="number">3</span>); <span class="comment">// ['h', 'e', 'l']</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 정규 표현식 사용</span></span><br><span class="line"><span class="keyword">var</span> myString = <span class="string">"Hello 1 word. Sentence number 2."</span>;</span><br><span class="line"><span class="keyword">var</span> splits = myString.split(<span class="regexp">/(\d)/</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(splits); <span class="comment">// [ "Hello ", "1", " word. Sentence number ", "2", "." ]</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="reverse"><a href="#reverse" class="headerlink" title="reverse()"></a>reverse()</h2><blockquote>
+<p>a.reverse()</p>
+</blockquote>
+<p>배열의 순서를 반전하고, <code>반환값은 순서가 반전된 배열</code>이다.</p>
+<h2 id="join"><a href="#join" class="headerlink" title="join()"></a>join()</h2><p>배열의 모든 요소를 하나의 문자열로 만든다.</p>
+<blockquote>
+<p>arr.join([separator])</p>
+</blockquote>
+<ul>
+<li>매개변수: separator. 배열의 각 요소를 구분할 문자열을 지정한다.<ul>
+<li>separator가 빈문자열(‘’)일 때: 공백이 구분되지 않은 문자열이 반환됨.</li>
+<li>separator가 공백이 있는 문자열(‘ ‘)일 때: 단어 간 공백이 있는 문자열이 반환됨.</li>
+<li>separator로 아무것도 주어지지 않았을 때: 쉼표(,)로 구분된 문자열이 반환됨.</li>
+<li>separator로 특정 문자가 주어졌을 때: 특정 문자가 삽입된 문자열이 반환됨.</li>
+</ul>
+</li>
+<li>반환값: 배열의 모든 요소를 연결한 하나의 문자열 반환. arr.length가 0이면 빈 문자열 반환되고, 요소가 undefined나 null이면 빈 문자열로 변환됨.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> elements = [<span class="string">"Fire"</span>, <span class="string">"Air"</span>, <span class="string">"Water"</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join());</span><br><span class="line"><span class="comment">// expected output: "Fire,Air,Water"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join(<span class="string">""</span>));</span><br><span class="line"><span class="comment">// expected output: "FireAirWater"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join(<span class="string">" "</span>));</span><br><span class="line"><span class="comment">// expected output: "Fire Air Water"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join(<span class="string">"-"</span>));</span><br><span class="line"><span class="comment">// expected output: "Fire-Air-Water"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> emptyArray = [];</span><br><span class="line">emptyArray.join(); <span class="comment">//''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> nullInArray = [<span class="literal">null</span>];</span><br><span class="line">nullInArray.join(); <span class="comment">//''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> undefinedInArray = [<span class="literal">undefined</span>];</span><br><span class="line">undefinedInArray.join(); <span class="comment">//''</span></span><br></pre></td></tr></table></figure>
+<h2 id="method-chaining"><a href="#method-chaining" class="headerlink" title="method chaining"></a>method chaining</h2><p>return str.split(“”).reverse().join(“”);</p>
+<p>이렇게 method를 연결하여 한줄로 구현할 수도 있지만, 문자열에 grapheme clusters가 있을 경우, 유니코드 플래그를 설정해도 오류를 일으킬 수 있어서 esrever 등의 라이브러리를 쓰는 것이 권장된다.</p>
+<hr>
+<h2 id="만약-reverse-를-쓰지-않고-reverseString를-구현해야-한다면"><a href="#만약-reverse-를-쓰지-않고-reverseString를-구현해야-한다면" class="headerlink" title="만약 reverse()를 쓰지 않고 reverseString를 구현해야 한다면?"></a>만약 reverse()를 쓰지 않고 reverseString를 구현해야 한다면?</h2><ol>
+<li>for문을 이용</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> res = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; str.length; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> char = str[i];</span><br><span class="line">    res = char + res;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line">reverse(<span class="string">"hello"</span>);</span><br></pre></td></tr></table></figure>
+<p>argument로 전달된 ‘hello’의 length는 5이고, 총 5번 반복문을 돈다. 원리는 다음과 같다. ‘hello’가 있다면, h를 캐치하여 res의 첫번째 요소로 보내고, 그 다음 e를 캐치하여 res의 첫 번째 요소로 보낸다. 이를 구현하기 위해 <code>res = char + res;</code>로 코드를 구현한다. 이 코드에 따라 hello가 ‘olleh’가 될 때까지 반복문을 돈다.</p>
+<blockquote>
+<p>‘hello’ + ‘’<br>‘ello’ + ‘h’<br>‘llo’ + ‘eh’<br>‘lo’ + ‘leh’<br>‘o’ + ‘lleh’<br>‘’ + ‘olleh’</p>
+</blockquote>
+<ul>
+<li>1회차<br>char = h;<br>res = h + ‘’ -&gt; h가 된다.</li>
+<li>2회차<br>char = e;<br>res = e + h -&gt; eh가 된다.</li>
+<li>3회차<br>char = l;<br>res = l + eh -&gt; leh가 된다.</li>
+<li>4회차<br>char = l;<br>res = l + leh -&gt; lleh가 된다.</li>
+<li>5회차<br>char = o;<br>res = lleh + 0 -&gt; olleh가 된다.</li>
+</ul>
+<ol>
+<li>reduce method 이용하기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(<span class="string">""</span>).reduce(<span class="function">(<span class="params">output, char</span>) =&gt;</span> &#123;</span><br><span class="line">    output = char + output;</span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">  &#125;, <span class="string">""</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="reduce"><a href="#reduce" class="headerlink" title="reduce()"></a>reduce()</h2><blockquote>
+<p>arr.reduce(callback[, initialvalue])<br>[0,1,2,3,4].reduce(function(accumulator, currentValue, currentIndex, array) {<br>return accumulator + currentValue;<br>});</p>
+</blockquote>
+<p>배열의 각 요소에 대해 주어진 reduce 함수를 실행하고, 결과값을 반환한다. reduce함수는 아래와 같이 네 개의 인자를 가지는데, 함수의 반환 값은 누산기에 할당되고, 누산기는 순회 중 유지되고, 최종 결과는 하나의 값이 된다. 이때 원본 배열은 변경되지 않는다. accumulator, currentValue를 제외한 나머지 매개변수는 option이다.</p>
+<blockquote>
+<ol>
+<li>누산기 accumulator (acc)<br>콜백의 반환값을 누적한다.</li>
+<li>현재 값 currentValue (cur)<br>처리가 필요한 현재 요소</li>
+<li>현재 인덱스 currentIndex (idx)<br>처리할 현재 요소의 인덱스. initialValue가 있으면 0 혹은 1로 시작.</li>
+<li>원본 배열 array (src)<br>reduce()를 호출한 배열.</li>
+</ol>
+</blockquote>
+<ul>
+<li>initialValue</li>
+</ul>
+<p>callback의 최초 호출에서 첫 번째 인수에 제공하는 값. <em>빈 배열에서 초기값 없이 reduce()를 호출하면 오류가 발생한다.</em></p>
+<ul>
+<li>initialValue가 <em>있는</em> 경우: <code>인덱스 0</code>에서 시작. accumulator = initialValue(콜백의 최초 호출 시)</li>
+<li><p>initialValue가 <em>없는</em> 경우: <code>인덱스 1</code>에서 시작, 첫 번째 인덱스는 건너뛴다.</p>
+<ul>
+<li>accumulator !== initialValue</li>
+<li>accumulator = array[1]</li>
+<li>accumulator = currentValue의 두 번째 값</li>
+</ul>
+</li>
+<li><p>반환 값: 누적 계산의 결과 값이다.</p>
+<ul>
+<li>initialValue가 <em>없는</em> 경우 반환값<ul>
+<li>빈 배열에서 reduce()를 사용하면 TypeError 발생</li>
+<li>배열의 요소가 1개: 위치와 상관없이 단독 값을 callback 호출 없이 반환</li>
+</ul>
+</li>
+<li>initialValue가 <em>있는</em> 경우 반환값<ul>
+<li>initialValue가 있는데 빈 배열이 주어졌을 때 단독 값을 callback 호출 없이 반환</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> maxCallback = <span class="function">(<span class="params">acc, cur</span>) =&gt;</span> <span class="built_in">Math</span>.max(acc.x, cur.x);</span><br><span class="line"></span><br><span class="line"><span class="comment">// initialValue 없이 reduce()</span></span><br><span class="line">[].reduce(maxCallback); <span class="comment">// TypeError</span></span><br><span class="line">[&#123; <span class="attr">x</span>: <span class="number">22</span> &#125;].reduce(maxCallback); <span class="comment">// &#123; x: 22 &#125;</span></span><br><span class="line">[&#123; <span class="attr">x</span>: <span class="number">22</span> &#125;, &#123; <span class="attr">x</span>: <span class="number">42</span> &#125;].reduce(maxCallback); <span class="comment">// 42</span></span><br></pre></td></tr></table></figure>
+<h3 id="reduce-작동-방식"><a href="#reduce-작동-방식" class="headerlink" title="reduce() 작동 방식"></a>reduce() 작동 방식</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>].reduce(<span class="function"><span class="keyword">function</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  accumulator,</span></span></span><br><span class="line"><span class="function"><span class="params">  currentValue,</span></span></span><br><span class="line"><span class="function"><span class="params">  currentIndex,</span></span></span><br><span class="line"><span class="function"><span class="params">  array</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> accumulator + currentValue;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 화살표 함수를 사용</span></span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>].reduce(<span class="function">(<span class="params">prev, curr</span>) =&gt;</span> prev + curr);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(<span class="string">""</span>).reduce(<span class="function">(<span class="params">output, char</span>) =&gt;</span> &#123;</span><br><span class="line">    output = char + output;</span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">  &#125;, <span class="string">""</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reverse(<span class="string">"hello"</span>);</span><br></pre></td></tr></table></figure>
+<p>위의 함수는 아래의 구조와 같고, 아래와 같이 작동한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> array = str.split(<span class="string">""</span>); <span class="comment">// ["h", "e", "l", "l", "o"]</span></span><br><span class="line">  <span class="keyword">return</span> array.reduce(<span class="function">(<span class="params">output, char</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// return ["h", "e", "l", "l", "o"].reduce((output, char) =&gt; &#123;</span></span><br><span class="line">    output = char + output;</span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">  &#125;, <span class="string">""</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>구체적인 작동방식을 살펴보면 아래와 같다.</p>
+<ol>
+<li>initialValue:””가 주어져 있으므로, index 0에서 시작한다.</li>
+<li>주어진 array는 [“h”, “e”, “l”, “l”, “o”]이다.</li>
+<li>callback은 주어진 array의 length만큼 호출된다. 예제인 [“h”, “e”, “l”, “l”, “o”]의 경우 length는 5이다.</li>
+<li>반환값은 accumulator에 할당 되고 순회하면서 <code>accumulator + currentValue</code>의 연산이 이루어진 최종값이 반환된다. 예제의 경우 최종적으로 반환되는 값은 <code>olleh</code>이다.</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>callback</th>
+<th style="text-align:center">accumulator</th>
+<th style="text-align:center">currentValue</th>
+<th style="text-align:center">currentIndex</th>
+<th style="text-align:center">return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1번 째</td>
+<td style="text-align:center">“”</td>
+<td style="text-align:center">h</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">h</td>
+</tr>
+<tr>
+<td>2번 째</td>
+<td style="text-align:center">h</td>
+<td style="text-align:center">e</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">eh</td>
+</tr>
+<tr>
+<td>3번 째</td>
+<td style="text-align:center">eh</td>
+<td style="text-align:center">l</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">leh</td>
+</tr>
+<tr>
+<td>4번 째</td>
+<td style="text-align:center">leh</td>
+<td style="text-align:center">l</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">lleh</td>
+</tr>
+<tr>
+<td>5번 째</td>
+<td style="text-align:center">lleh</td>
+<td style="text-align:center">o</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">olleh</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><em>Preferences</em><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/split" target="_blank" rel="noopener">Array.protorype.split()/MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse" target="_blank" rel="noopener">Array.prototype.reverse()/MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/join" target="_blank" rel="noopener">Array.prototype.join()/MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noopener">Array.prototype.reduce()/MDN</a><br><a href="https://youtu.be/LmHHip-RpGw" target="_blank" rel="noopener">KodingKevin</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/07/23/200724_browserRendering/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +412,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
+                <time title="Modified: 2022-03-20 23:40:15" itemprop="dateModified" datetime="2022-03-20T23:40:15+09:00">2022-03-20</time>
               </span>
 
           
@@ -377,7 +614,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
+                <time title="Modified: 2022-03-20 23:40:15" itemprop="dateModified" datetime="2022-03-20T23:40:15+09:00">2022-03-20</time>
               </span>
 
           
@@ -509,7 +746,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
+                <time title="Modified: 2022-03-20 23:40:15" itemprop="dateModified" datetime="2022-03-20T23:40:15+09:00">2022-03-20</time>
               </span>
 
           
@@ -595,7 +832,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
+                <time title="Modified: 2022-03-20 23:40:15" itemprop="dateModified" datetime="2022-03-20T23:40:15+09:00">2022-03-20</time>
               </span>
 
           
@@ -698,7 +935,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
+                <time title="Modified: 2022-03-20 23:40:15" itemprop="dateModified" datetime="2022-03-20T23:40:15+09:00">2022-03-20</time>
               </span>
 
           
@@ -772,7 +1009,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
+                <time title="Modified: 2022-03-20 23:40:15" itemprop="dateModified" datetime="2022-03-20T23:40:15+09:00">2022-03-20</time>
               </span>
 
           
@@ -902,7 +1139,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
+                <time title="Modified: 2022-03-20 23:40:15" itemprop="dateModified" datetime="2022-03-20T23:40:15+09:00">2022-03-20</time>
               </span>
 
           
@@ -993,7 +1230,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
+                <time title="Modified: 2022-03-20 23:40:15" itemprop="dateModified" datetime="2022-03-20T23:40:15+09:00">2022-03-20</time>
               </span>
 
           
@@ -1060,7 +1297,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
+                <time title="Modified: 2022-03-20 23:40:15" itemprop="dateModified" datetime="2022-03-20T23:40:15+09:00">2022-03-20</time>
               </span>
 
           
@@ -1128,95 +1365,6 @@
 <h2 id="NavLink"><a href="#NavLink" class="headerlink" title="NavLink"></a>NavLink</h2><p>Link와 비슷하다. 현재 경로와 Link에서 사용하는 경로가 일치할 때 특정 스타일이나 CSS 클래스를 적용할 수 있는 컴포넌트를 말한다. NavLink가 활성화되었을 때 스타일을 적용하려면 <code>activeStyle</code>을 사용하고, CSS클래스를 적용할 것이면 <code>activeClassName</code>값을 props로 넣어준다.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Profiles = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> activeStyle = &#123;</span><br><span class="line">    background: <span class="string">"black"</span>,</span><br><span class="line">    color: <span class="string">"white"</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h3&gt;사용자목록:&lt;<span class="regexp">/h3&gt;</span></span><br><span class="line"><span class="regexp">      &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">        &lt;li&gt;</span></span><br><span class="line"><span class="regexp">          &lt;NavLink activeStyle=&#123;activeStyle&#125; to="/</span>profiles/velopert<span class="string">"&gt;</span></span><br><span class="line"><span class="string">            velopert</span></span><br><span class="line"><span class="string">          &lt;/NavLink&gt;</span></span><br><span class="line"><span class="string">        &lt;/li&gt;</span></span><br></pre></td></tr></table></figure>
 <p><em>Reference</em><br><a href="https://reacttraining.com/react-router/web/guides/quick-start" target="_blank" rel="noopener">react-router</a><br>리액트를 다루는 기술</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/05/31/200601_reduxMiddleware/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/31/200601_reduxMiddleware/" class="post-title-link" itemprop="url">What is Redux middleware?</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-06-01 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-01T00:00:00+09:00">2020-06-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Redux-middleware"><a href="#Redux-middleware" class="headerlink" title="Redux middleware"></a>Redux middleware</h2><p>액션이 dispatch 되어서 리듀서에서 이를 처리하기 전에 사전에 지정된 작업들을 설정. <em>액션과 리듀서 사이의 중간자</em>역할. 액션이 디스패치 된 다음, 리듀서에서 해당 액션을 받아와서 업데이트 하기 전, *추가적인 작업을 할 수 있다. 보통 비동기 작업을 처리할 때 사용한다.</p>
-<h3 id="추가적인-작업이란"><a href="#추가적인-작업이란" class="headerlink" title="추가적인 작업이란?"></a>추가적인 작업이란?</h3><ul>
-<li>특정 조건에 따라 액션이 무시되게 만들 수 있습니다.</li>
-<li>액션을 콘솔에 출력하거나, 서버쪽에 로깅을 할 수 있습니다.</li>
-<li>액션이 디스패치 됐을 때 이를 수정해서 리듀서에게 전달되도록 할 수 있습니다.</li>
-<li>특정 액션이 발생했을 때 이에 기반하여 다른 액션이 발생되도록 할 수 있습니다.</li>
-<li>특정 액션이 발생했을 때 특정 자바스크립트 함수를 실행시킬 수 있습니다.</li>
-</ul>
-<p>함수를 연달아서 두번 리턴하는 함수.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> middleware = <span class="function">(<span class="params">store</span>) =&gt;</span> <span class="function">(<span class="params">next</span>) =&gt;</span> <span class="function">(<span class="params">action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 하고 싶은 작업...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">middleware</span>(<span class="params">store</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//store: 리덕스 스토어의 인스턴스, dispatch, getState, subscribe 내장함수들이 들어있다.</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">next</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// next: next(action)의 형태로 액션을 다음 미들웨어에게 전달.</span></span><br><span class="line">    <span class="comment">// 다음 미들웨어가 없다면 리듀서에게 전달한다.</span></span><br><span class="line">    <span class="comment">//next를 호출하지 않으면 액션이 무시처리되어 리듀서에게 전달안됨.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">action</span>) </span>&#123;</span><br><span class="line">      <span class="comment">//action: 현재 처리하고 있는 액션 객체</span></span><br><span class="line">      <span class="comment">// 하고 싶은 작업...</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>리덕스 스토어에 여러 개의 미들웨어 등록 가능</em> 새로운 액션이 디스패치되면 첫 번째 등록한 미들웨어가 호출되고, next(action)을 호출하면 다음 미들웨어로 액션이 넘어간다. 미들웨어에서 store.dispatch를 사용하면 다른 액션을 추가로 발생시킬 수 있다.</p>
-<h2 id="redux-thunk"><a href="#redux-thunk" class="headerlink" title="redux-thunk"></a>redux-thunk</h2><p>redux-thunk를 사용하여 동기화된 액션을 네트워크 요청과 함께 사용할 수 있다. 이를 통해 action creator는 액션 객체 대신 함수를 반환할 수 있다. 이를 통해 action creator가 thunk가 되는 것이다. action creator가 함수를 반환하면 thunk middleware에 읳해 실행되는데, 이는 순수할 필요가 없다. 비동기 api 호출과 같은 사이드 이펙트가 허용되고, 동기적인 action을 보낸다.</p>
-<p>객체 대신 함수를 생성하는 액션 생성함수를 작성. 미들웨어 안에서는 액션 값을 객체가 아닌 함수로 받아오게 하여 액션이 함수타입이면 실행시키게 만들 수 있다. <em>즉, 액션 객체가 아닌 함수를 디스패치 할 수 있다.</em></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> thunk = <span class="function">(<span class="params">store</span>) =&gt;</span> <span class="function">(<span class="params">next</span>) =&gt;</span> <span class="function">(<span class="params">action</span>) =&gt;</span></span><br><span class="line">  <span class="keyword">typeof</span> action === <span class="string">"function"</span></span><br><span class="line">    ? action(store.dispatch, store.getState)</span><br><span class="line">    : next(action);</span><br><span class="line"></span><br><span class="line"><span class="comment">//dispatch할 때</span></span><br><span class="line"><span class="keyword">const</span> myThunk = <span class="function"><span class="params">()</span> =&gt;</span> <span class="function">(<span class="params">dispatch, getState</span>) =&gt;</span> &#123;</span><br><span class="line">  dispatch(&#123; <span class="attr">type</span>: <span class="string">"HELLO"</span> &#125;);</span><br><span class="line">  dispatch(&#123; <span class="attr">type</span>: <span class="string">"BYE"</span> &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">dispatch(myThunk());</span><br></pre></td></tr></table></figure>
-<p>미들웨어를 사용하면 함수를 디스패치 할 수 있는데, 이때 dispatch와 getState를 파라미터로 받아와야 한다. 이 함수를 만들어주는 함수를 thunk라 부른다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getComments = <span class="function"><span class="params">()</span> =&gt;</span> <span class="function">(<span class="params">dispatch, getState</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 액션을 dispatch할 수 있고,</span></span><br><span class="line">  <span class="comment">// getState를 사용하여 현재 상태를 조회할 수 있다.</span></span><br><span class="line">  <span class="keyword">const</span> id = getState().post.activeId;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 요청이 시작했음을 알리는 액션</span></span><br><span class="line">  dispatch(&#123;<span class="attr">type</span>: <span class="string">'GET_COMMENTS&#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  // 댓글을 조회하는 프로미스를 반환하는 getCommets가 있다고 가정했을 때</span></span><br><span class="line"><span class="string">  api</span></span><br><span class="line"><span class="string">    .getComments(id) //요청</span></span><br><span class="line"><span class="string">    .then(comments =&gt; dispatch(&#123;type:'</span>GET_COMMENTS_SUCCESS<span class="string">', id, comments&#125;))</span></span><br><span class="line"><span class="string">    //성공시</span></span><br><span class="line"><span class="string">    .catch(e =&gt; dispatch(&#123;type:'</span>GET_COMMENTS_ERROR<span class="string">',error: e&#125;)); //실패시</span></span><br><span class="line"><span class="string">&#125;;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//thunk 내에서 async/await 사용 가능</span></span><br><span class="line"><span class="keyword">const</span> getComments = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">async</span> (dispatch, getState) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> id = getState().post.activeId;</span><br><span class="line">  dispatch(&#123; <span class="attr">type</span>: <span class="string">"GET_COMMENTS"</span> &#125;);</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> comments = <span class="keyword">await</span> api.getComments(id);</span><br><span class="line">    dispatch(&#123; <span class="attr">type</span>: <span class="string">"GET_COMMENTS_SUCCESS"</span>, id, comments &#125;);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    dispatch(&#123; <span class="attr">type</span>: <span class="string">"GET_COMMENTS_ERROR"</span>, <span class="attr">error</span>: e &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="프로미스를-다룰-때-고려해야-할-사항"><a href="#프로미스를-다룰-때-고려해야-할-사항" class="headerlink" title="프로미스를 다룰 때 고려해야 할 사항"></a>프로미스를 다룰 때 고려해야 할 사항</h3><ul>
-<li>프로미스가 시작, 성공, 실패했을때 다른 액션을 디스패치해야합니다.</li>
-<li>각 프로미스마다 thunk 함수를 만들어주어야 합니다.</li>
-<li>리듀서에서 액션에 따라 로딩중, 결과, 에러 상태를 변경해주어야 합니다.</li>
-</ul>
-<hr>
-<p><em>References</em><br><a href="https://react.vlpt.us/redux-middleware/02-make-middleware.html" target="_blank" rel="noopener">모던리액트</a></p>
 
       
     </div>
@@ -1302,7 +1450,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-count">119</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
