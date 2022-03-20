@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-11 18:15:46" itemprop="dateModified" datetime="2022-03-11T18:15:46+09:00">2022-03-11</time>
+                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
               </span>
 
           
@@ -388,6 +388,23 @@
 </ol>
 <h3 id="블록체인-데이터-구조에서-트랜잭션-저장하는-방법"><a href="#블록체인-데이터-구조에서-트랜잭션-저장하는-방법" class="headerlink" title="블록체인-데이터-구조에서 트랜잭션 저장하는 방법"></a>블록체인-데이터-구조에서 트랜잭션 저장하는 방법</h3><p>각 블록은 블록 헤러를 가지고 있고, 이전 블록이 있으면 이전 블록 헤더를 가리키는 해시 참조를 가지고 있다. 다시 말하면 각기 다른 두 개의 머클 트리를 가리키는 해시 참조를 가지고 있다. 그리고 머클 트리 루트의 이름을 보며 이들이 가진 트랜잭션 데이터가 무엇인지 짐작할 수 있다. P2P 시스템을 생각해보면, <em>이 시스템에 참여했을 때 전체 트랜잭션 데이터, 모든 해시 참조값, 모든 블록헤더를 수신하게 된다.</em> <strong>즉 로컬 컴퓨터는 데이터를 모두 저장하고 저장된 데이터들을 가리키는 해시 참조를 가진 블록체인-데이터-구조를 생성한다.</strong> 여기서 주의할 점은 블록체인-데이터-구조에 각자의 헤더를 가진 수많은 블록이 존재하지만 전체 블록체인-데이터-구조는 오직 하나의 헤드만 가진다는 점이다.</p>
 <hr>
+<h2 id="15-잘-뜨개질된-블록체인-어떻게-변경할까"><a href="#15-잘-뜨개질된-블록체인-어떻게-변경할까" class="headerlink" title="15. 잘 뜨개질된 블록체인, 어떻게 변경할까?"></a>15. 잘 뜨개질된 블록체인, 어떻게 변경할까?</h2><h3 id="새로운-트랜잭션-추가하기"><a href="#새로운-트랜잭션-추가하기" class="headerlink" title="새로운 트랜잭션 추가하기"></a>새로운 트랜잭션 추가하기</h3><p>최초의 블록체인-데이터-구조는 단 두 개의 트랜잭션만 가지고 있는데, 새 트랜잭션 데이터를 추가하려면 다음의 세 단계를 수행한다.</p>
+<ol>
+<li>새로 추가하려는 모든 트랜잭션 데이터를 담고 있는 <code>새 머클 트리 생성</code></li>
+<li>이전 블록 헤더를 가리키는 해시 참조와 새로운 트랜잭션 데이터를 담고 있는 머클 트리의 루트를 포함하는 <code>새 블록 헤더 생성</code></li>
+<li><code>새 블록을 카리키는 해시 참조를 만들고 블록체인-데이터-구조의 헤드 갱신</code></li>
+</ol>
+<h3 id="변경-감지하기"><a href="#변경-감지하기" class="headerlink" title="변경 감지하기"></a>변경 감지하기</h3><p>블록체인-데이터-구조 내 변경이 발생하면 연쇄 반응을 일으켜 즉시 감지 가능하고, 변경 발생 유형은 아래와 같다.</p>
+<ol>
+<li>트랜잭션 데이터의 세부 사항 변경</li>
+<li>머클 트리의 트랜잭션을 변경하고, 해시 참조를 변경</li>
+<li>머클 트리의 트랜잭션과 그 해시 참조를 통째로 대체</li>
+<li>머클 트리 루트를 변경</li>
+<li>블록 헤더 참조를 변경</li>
+</ol>
+<p>위의 유형들처럼 트랜잭션이 하나 변경되면 부모 노드를 따라 연쇄반응을 일으켜 블록 헤더값이 변경된다. 이는 자신을 참조하는 블록의 헤더값에 영향을 끼치므로 모든 값에 영향을 미친다. 따라서 제대로 된 방법으로 데이터를 변경하려면 전체 해시 참조 연결고리를 모두 갱신해야하는데, <em>이는 변경된 데이터를 직접 가리키는 해시 참조로부터 시작하여 가장 최근 블록 헤더를 가리키는 해시 참조까지 모든 해시 참조를 갱신하여 변경 내용을 반영한다는 것이다.</em></p>
+<h3 id="의도한-변경-vs-의도하지-않은-변경"><a href="#의도한-변경-vs-의도하지-않은-변경" class="headerlink" title="의도한 변경 vs 의도하지 않은 변경"></a>의도한 변경 vs 의도하지 않은 변경</h3><p>해시 참조의 성질에 의해 블록체인-데이터-구조의 해시 참조는 의도된 변경, 의도하지 않은 변경을 구분하지 않고 동일하게 인식한다. 그리고 의도와 상관없이 어느 해시 참조 중 하나라도 유효하지 않으면 전체 데이터 구조가 무효화된다.</p>
+<hr>
 <p><em>References</em><br>[블록체인 무엇인가?] 다니엘 드레셔 지음</p>
 
       
@@ -439,7 +456,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-11 18:15:46" itemprop="dateModified" datetime="2022-03-11T18:15:46+09:00">2022-03-11</time>
+                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
               </span>
 
           
@@ -780,7 +797,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-11 18:15:46" itemprop="dateModified" datetime="2022-03-11T18:15:46+09:00">2022-03-11</time>
+                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
               </span>
 
           
@@ -991,7 +1008,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-11 18:15:46" itemprop="dateModified" datetime="2022-03-11T18:15:46+09:00">2022-03-11</time>
+                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
               </span>
 
           
@@ -1111,7 +1128,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-11 18:15:46" itemprop="dateModified" datetime="2022-03-11T18:15:46+09:00">2022-03-11</time>
+                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
               </span>
 
           
@@ -1313,7 +1330,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-11 18:15:46" itemprop="dateModified" datetime="2022-03-11T18:15:46+09:00">2022-03-11</time>
+                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
               </span>
 
           
@@ -1429,7 +1446,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-11 18:15:46" itemprop="dateModified" datetime="2022-03-11T18:15:46+09:00">2022-03-11</time>
+                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
               </span>
 
           
@@ -1516,7 +1533,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-11 18:15:46" itemprop="dateModified" datetime="2022-03-11T18:15:46+09:00">2022-03-11</time>
+                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
               </span>
 
           
@@ -1631,7 +1648,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-11 18:15:46" itemprop="dateModified" datetime="2022-03-11T18:15:46+09:00">2022-03-11</time>
+                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
               </span>
 
           
@@ -1801,7 +1818,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-11 18:15:46" itemprop="dateModified" datetime="2022-03-11T18:15:46+09:00">2022-03-11</time>
+                <time title="Modified: 2022-03-20 16:48:55" itemprop="dateModified" datetime="2022-03-20T16:48:55+09:00">2022-03-20</time>
               </span>
 
           
