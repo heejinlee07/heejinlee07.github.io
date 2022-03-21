@@ -16,7 +16,7 @@ tags:
 
 1. **컴포넌트 사이에서 상태와 관련된 로직을 재사용하기 어려움**
    class 컴포넌트가 주류로 사용되던 시기에 React 컴포넌트를 재사용하기 쉬울 것이라고 생각했으나 하나의 컴포넌트 안에 UI와 기능과 관련된 로직들이 함께 섞여있으니 재사용이 어려웠다. 그래서
-   `Presentational 컴포넌트와 Container 컴포넌트`패턴을 사용하였는데 간략히 설명하자면 Presentational 컴포넌트에는 UI관련 로직을 담고, Container 컴포넌트에서는 기능과 관련된 로직을 담는 것이다. 그런데 Container 컴포넌트는 Presentational 컴포넌트와 달리 기본적인 UI 뿐 아니라 state나 effect 또는 특정 기능을 위한 로직 등을 가지고 있기 떄문에 이 패턴 역시 컴포넌트의 재사용이 어렵다.
+   `Presentational 컴포넌트와 Container 컴포넌트`패턴을 사용하였는데 간략히 설명하자면 Presentational 컴포넌트에는 UI관련 로직을 담고, Container 컴포넌트에서는 기능과 관련된 로직을 담는 것이다. 그런데 Container 컴포넌트는 Presentational 컴포넌트와 달리 기본적인 UI 뿐 아니라 state나 effect 또는 특정 기능을 위한 로직 등을 가지고 있기 때문에 이 패턴 역시 컴포넌트의 재사용이 어렵다.
 
    그래서 render props, HOC를 통해 컴포넌트를 재구성하여 재사용을 쉽게 하려고 했지만 개발자 도구를 열면 `래퍼 지옥(wrapper hell)`이 발생하는 문제가 있었다. 이는 코드의 depth를 깊어지게 할 뿐 아니라 render props, HOC 등의 여러가지 로직이 여기저기 사용되면서 코드가 복잡해지고 추적이 어려워진다. 이렇게 되면 테스트와 재사용이 어려워진다.
 
@@ -26,34 +26,34 @@ tags:
 ```jsx
 class FriendStatus extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = { isOnline: null };
-    this.handleStatusChange = this.handleStatusChange.bind(this);
+    super(props)
+    this.state = { isOnline: null }
+    this.handleStatusChange = this.handleStatusChange.bind(this)
   }
 
   componentDidMount() {
     ChatAPI.subscribeToFriendStatus(
       this.props.friend.id,
       this.handleStatusChange
-    );
+    )
   }
   componentWillUnmount() {
     ChatAPI.unsubscribeFromFriendStatus(
       this.props.friend.id,
       this.handleStatusChange
-    );
+    )
   }
   handleStatusChange(status) {
     this.setState({
-      isOnline: status.isOnline,
-    });
+      isOnline: status.isOnline
+    })
   }
 
   render() {
     if (this.state.isOnline === null) {
-      return "Loading...";
+      return 'Loading...'
     }
-    return this.state.isOnline ? "Online" : "Offline";
+    return this.state.isOnline ? 'Online' : 'Offline'
   }
 }
 ```
@@ -83,23 +83,23 @@ class FriendStatus extends React.Component {
 function Form() {
   //useState1️⃣
   // 1. name이라는 state 변수를 사용
-  const [name, setName] = useState("Mary");
+  const [name, setName] = useState('Mary')
 
   //useEffect1️⃣
   // 2. Effect를 사용해 폼 데이터를 저장
   useEffect(function persistForm() {
-    localStorage.setItem("formData", name);
-  });
+    localStorage.setItem('formData', name)
+  })
 
   //useState2️⃣
   // 3. surname이라는 state 변수를 사용
-  const [surname, setSurname] = useState("Poppins");
+  const [surname, setSurname] = useState('Poppins')
 
   //useEffect2️⃣
   // 4. Effect를 사용해서 제목을 업데이트
   useEffect(function updateTitle() {
-    document.title = name + " " + surname;
-  });
+    document.title = name + ' ' + surname
+  })
 
   // ...
 }
@@ -112,20 +112,20 @@ function Form() {
 ```jsx
 function Form() {
   //useState1️⃣
-  const [name, setName] = useState("Mary");
+  const [name, setName] = useState('Mary')
 
   //useEffect1️⃣ -> skip
   useEffect(function persistForm() {
-    localStorage.setItem("formData", name);
-  });
+    localStorage.setItem('formData', name)
+  })
 
   //useState2️⃣
-  const [surname, setSurname] = useState("Poppins");
+  const [surname, setSurname] = useState('Poppins')
 
   //useEffect2️⃣
   useEffect(function updateTitle() {
-    document.title = name + " " + surname;
-  });
+    document.title = name + ' ' + surname
+  })
 
   // ...
 }

@@ -11,7 +11,7 @@ tags:
 ### 요소(elements)
 
 - elements: 각 컨텐츠를 감싸고 마크업한다. 엘리먼트 안에는 내용과 내용을 앞뒤로 감싸는 태그(여는 태그, 닫는 태그)가 있다. 엘리먼트 내부는 `<p>My cat is <strong>very</stong>grumpy.</p>`와 같이 중첩하여 사용할 수 있다.
-- 속성(attributes): 요소에 실제로 나타내고 싶진 않지만 추가적인 내용을 담고 싶을 떄 사용. `<p class="editor-note">My cat is very grumpy</p>`라는 예시에서 `class="editor-note"`를 말한다.
+- 속성(attributes): 요소에 실제로 나타내고 싶진 않지만 추가적인 내용을 담고 싶을 때 사용. `<p class="editor-note">My cat is very grumpy</p>`라는 예시에서 `class="editor-note"`를 말한다.
 
 ### 블럭 레벨 요소 vs 인라인 요소
 

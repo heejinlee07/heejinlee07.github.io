@@ -17,8 +17,8 @@ Next.js의 `pre-rendering`은 `static Generation`, `sever-side Rendering`의 두
 ```javascript
 export async function getStaticProps(context) {
   return {
-    props: {}, // will be passed to the page component as props
-  };
+    props: {} // will be passed to the page component as props
+  }
 }
 ```
 
@@ -35,22 +35,22 @@ context는 다음의 파라미터를 포함하는 `객체`이다.
 
 - props: 페이지 컴포넌트 구성 요소에서 전달받을 props가 있는 필수 개체이다. 반드시 직렬화 가능한 객체(serializable object)여야 한다.
 - revalidate: 페이지의 re-generation이 발생할 수 있는 시간(초)이며 선택적이다.
-- notFound: 페이지가 404 상태와 페이지를 반환할 수 있게 하는 선택적인 boolean 값이다. 단, `getStaticPaths`에서 리턴한 paths만 사전렌더되기 떄문에, fallback:false에서는 notFound가 필요하지 않다.
+- notFound: 페이지가 404 상태와 페이지를 반환할 수 있게 하는 선택적인 boolean 값이다. 단, `getStaticPaths`에서 리턴한 paths만 사전렌더되기 때문에, fallback:false에서는 notFound가 필요하지 않다.
 
 ```javascript
 export async function getStaticProps(context) {
-  const res = await fetch(`https://.../data`);
-  const data = await res.json();
+  const res = await fetch(`https://.../data`)
+  const data = await res.json()
 
   if (!data) {
     return {
-      notFound: true,
-    };
+      notFound: true
+    }
   }
 
   return {
-    props: {}, // will be passed to the page component as props
-  };
+    props: {} // will be passed to the page component as props
+  }
 }
 ```
 
@@ -58,21 +58,21 @@ export async function getStaticProps(context) {
 
 ```javascript
 export async function getStaticProps(context) {
-  const res = await fetch(`https://...`);
-  const data = await res.json();
+  const res = await fetch(`https://...`)
+  const data = await res.json()
 
   if (!data) {
     return {
       redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
+        destination: '/',
+        permanent: false
+      }
+    }
   }
 
   return {
-    props: {}, // will be passed to the page component as props
-  };
+    props: {} // will be passed to the page component as props
+  }
 }
 ```
 
@@ -87,11 +87,11 @@ export async function getStaticProps(context) {
 function Blog({ posts }) {
   return (
     <ul>
-      {posts.map((post) => (
+      {posts.map(post => (
         <li>{post.title}</li>
       ))}
     </ul>
-  );
+  )
 }
 
 // This function gets called at build time on server-side.
@@ -100,19 +100,19 @@ function Blog({ posts }) {
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
-  const res = await fetch("https://.../posts");
-  const posts = await res.json();
+  const res = await fetch('https://.../posts')
+  const posts = await res.json()
 
   // By returning { props: posts }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
-      posts,
-    },
-  };
+      posts
+    }
+  }
 }
 
-export default Blog;
+export default Blog
 ```
 
 ### 언제 `getStaticProps`를 사용해야 할까?

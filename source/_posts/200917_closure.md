@@ -25,19 +25,19 @@ tags:
 **이를 정리해서 말하자면 자바스크립트는 함수 호출이 아닌 함수 정의 시점에 스코프 체인을 따라 상위 스코프로 이동하면서 변수가 선언된 곳을 찾아서 참조한다.**
 
 ```javascript
-const x = 1;
+const x = 1
 
 function outerFunc() {
-  const x = 10;
-  innerFunc();
+  const x = 10
+  innerFunc()
 }
 
 function innerFunc() {
-  console.log(x); // 1
+  console.log(x) // 1
 }
 
-outerFunc();
-innerFunc();
+outerFunc()
+innerFunc()
 ```
 
 **위 함수의 실행 결과는 innerFunc()의 상위 스코프가 무엇이냐에 따라 다른 결과를 갖는다.**
@@ -45,26 +45,26 @@ innerFunc();
 - `함수가 호출된 곳 기준(동적 스코프)`: 이 기준으로 하면 innerFunc()의 상위 스코프는 outerFunc함수의 지역 스코프, 그리고 전역 스코프이다.
 - `함수가 정의된 곳 기준(정적 스코프)`: 이 기준에 따르면 innerFunc(), outerFunc() 모두 전역에서 정의되었고, 전역에서 선언된 함수는 전역 코드 실행 이전에 먼저 평가되어 함수 객체를 생성하고, 자신이 정의된 스코프인 전역 스코프를 상위 스코프로 사용한다. 따라서 이 경우 상위 스코프는 전역 스코프이다.
 
-자바스크립트는 정적 스코프를 따르기 때문에 이 경우 console.log에 찍히는 값은 1이다. 왜냐하면 함수가 어디서 호출되었느냐와 상관없이 자신이 정의된 전역 스코프를 상위 스코프로 여기기 떄문이다.
+자바스크립트는 정적 스코프를 따르기 때문에 이 경우 console.log에 찍히는 값은 1이다. 왜냐하면 함수가 어디서 호출되었느냐와 상관없이 자신이 정의된 전역 스코프를 상위 스코프로 여기기 때문이다.
 
 하지만 아래와 같은 경우 innerFunc()의 결과값은 1이 아닌 10이다. 그 이유는 innerFunc()가 전역에 선언된 것이 아니라 outerFunc()라는 외부함수 내에 선언된 중첩함수이기 때문이다.
 
 **전역 변수는 전역 스코프를 가지고, 어디서나 참조할 수 있지만 함수와 같은 지역 변수는 함수 몸체 내부를 지역 스코프로 가지고, 자신이 선언된 지역과 하위 지역인 중첩함수에서만 참조할 수 있다**. 자바스크립트는 스코프 체인을 따라 자신이 정의된 곳에서 상위로 이동하며 변수를 검색하는데 innerFunc()는 중첩함수이므로 이 함수의 상위 스코프는 전역이 아닌 innerFunc()를 감싸고 있는 outerFunc()가 된다. 즉, 이와 같이 전역에 선언된 것이 아닌 중첩함수는 계층적 구조를 가지기 때문에 내부 함수는 외부 함수의 값에 접근할 수 있어서 10이라는 값이 출력된다.
 
 ```javascript
-const x = 1;
+const x = 1
 
 function outerFunc() {
-  const x = 10;
+  const x = 10
 
   function innerFunc() {
-    console.log(x); // 10
+    console.log(x) // 10
   }
 
-  innerFunc();
+  innerFunc()
 }
 
-outerFunc();
+outerFunc()
 ```
 
 ---
@@ -97,17 +97,17 @@ outerFunc();
 
 ```javascript
 function makeFunc() {
-  var name = "Mozilla";
+  var name = 'Mozilla'
   function displayName() {
-    alert(name);
+    alert(name)
   }
-  return displayName;
+  return displayName
 }
 
-var myFunc = makeFunc();
+var myFunc = makeFunc()
 //myFunc변수에 displayName을 리턴함
 //유효범위의 어휘적 환경을 유지
-myFunc();
+myFunc()
 //리턴된 displayName 함수를 실행(name 변수에 접근)
 ```
 
