@@ -144,6 +144,85 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/09/25/210926_muiCssInjectionOrder/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/25/210926_muiCssInjectionOrder/" class="post-title-link" itemprop="url">MUI CSS injection order 원문 축약</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-26 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-26T00:00:00+09:00">2021-09-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>원문 링크: <a href="https://mui.com/styles/advanced/#string-templates" target="_blank" rel="noopener">https://mui.com/styles/advanced/#string-templates</a></p>
+</blockquote>
+<h2 id="CSS-injection-order"><a href="#CSS-injection-order" class="headerlink" title="CSS injection order"></a>CSS injection order</h2><blockquote>
+<p>CSS가 어떻게 브라우저에 의해 계산되는지 이해하는 것은 언제 스타일 오버라이딩이 되는지 알기 위한 키포인트이기 때문에 매우 중요하다. 이와 관련하여 MDN의 <a href="https://developer.mozilla.org/ko/docs/Web/CSS/Specificity" target="_blank" rel="noopener">어떻게 계산되는가?</a>를 읽어보는 것을 추천한다.</p>
+</blockquote>
+<p>기본적으로 style 태그는 페이지의 <code>&lt;head&gt;</code> 엘리먼트의 가장 마지막에 주입된다. 이 style 태그는 페이지의 다른 어떤 style 태그 (e.g. CSS module, styled components) 보다도 특수함을 가진다.</p>
+<h2 id="injectFirst"><a href="#injectFirst" class="headerlink" title="injectFirst"></a>injectFirst</h2><p><code>StylesProvider</code> 컴포넌트는 <code>injectFirst</code> prop를 가지고 있어서 head(낮은 우선순위)에서 가장 먼저 주입되는 style tag이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; StylesProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span></span><br><span class="line"></span><br><span class="line">;<span class="xml"><span class="tag">&lt;<span class="name">StylesProvider</span> <span class="attr">injectFirst</span>&gt;</span></span></span><br><span class="line"><span class="xml">  &#123;/* Your component tree.</span></span><br><span class="line"><span class="xml">      Styled components can override MUI's styles. */&#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">StylesProvider</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="makeStyles-withStyles-styled"><a href="#makeStyles-withStyles-styled" class="headerlink" title="makeStyles / withStyles / styled"></a>makeStyles / withStyles / styled</h2><p>주입되는 style tag는 makeStyles / withStyles / styled가 발생하는 같은 순위에서 발생한다. 예를 들어 color red가 아래 예시에서 우세하다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> clsx <span class="keyword">from</span> <span class="string">'clsx'</span></span><br><span class="line"><span class="keyword">import</span> &#123; makeStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> useStylesBase = makeStyles(&#123;</span><br><span class="line">  root: &#123;</span><br><span class="line">    color: <span class="string">'blue'</span> <span class="comment">// 🔵</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> useStyles = makeStyles(&#123;</span><br><span class="line">  root: &#123;</span><br><span class="line">    color: <span class="string">'red'</span> <span class="comment">// 🔴</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">MyComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Order doesn't matter</span></span><br><span class="line">  <span class="keyword">const</span> classes = useStyles()</span><br><span class="line">  <span class="keyword">const</span> classesBase = useStylesBase()</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Order doesn't matter</span></span><br><span class="line">  <span class="keyword">const</span> className = clsx(classes.root, classesBase.root)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// color: red 🔴 wins.</span></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;className&#125;</span> /&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>hook의 호출 순서와 class name의 연속적인 순서는 상관 없다.</p>
+<h2 id="insertionPoint"><a href="#insertionPoint" class="headerlink" title="insertionPoint"></a>insertionPoint</h2><p>JSS는 이러한 상황을 해결할 수 있는 <a href="https://github.com/cssinjs/jss/blob/master/docs/setup.md#specify-the-dom-insertion-point" target="_blank" rel="noopener">매커니즘</a>을 제공한다. HTML내에 삽입점을 추가하는 것으로 CSS 규칙이 components에 <a href="https://cssinjs.org/jss-api/?v=v10.8.0#attach-style-sheets-in-a-specific-order" target="_blank" rel="noopener">적용되는 순서를 제어할 수 있다.</a></p>
+<hr>
+<p><em>References</em><br><a href="https://mui.com/styles/advanced/#string-templates" target="_blank" rel="noopener">CSS injection order</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/09/24/210925_nextjsTypescript/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +254,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -283,7 +362,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -393,7 +472,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -501,7 +580,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -624,7 +703,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -765,7 +844,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -871,7 +950,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -971,7 +1050,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -1112,7 +1191,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -1204,127 +1283,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/18/210720_tsType/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/18/210720_tsType/" class="post-title-link" itemprop="url">타입스크립트의 기본 타입</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-19T00:00:00+09:00">2021-07-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="기본-타입"><a href="#기본-타입" class="headerlink" title="기본 타입"></a>기본 타입</h2><p>javaScript에는 string, number, boolean, null, undefined, symbol의 원시타입과 object, array, function 등의 객체가 있는데, typeScript에서도 거의 동일한 데이터를 지원한다. typeScript의 타입은 다음과 같다.</p>
-<ul>
-<li>Boolean</li>
-<li>Number</li>
-<li>String</li>
-<li>Object</li>
-<li>Array</li>
-<li>Null</li>
-<li>Undefined</li>
-<li><code>Tuple</code></li>
-<li><code>Enum</code></li>
-<li><code>Any</code></li>
-<li><code>Void</code></li>
-<li><code>Never</code></li>
-</ul>
-<h2 id="타입-표기-Type-Annotation"><a href="#타입-표기-Type-Annotation" class="headerlink" title="타입 표기(Type Annotation)"></a>타입 표기(Type Annotation)</h2><blockquote>
-<p><code>:</code>을 사용하여 표기한다.</p>
-</blockquote>
-<h3 id="1-Boolean"><a href="#1-Boolean" class="headerlink" title="1. Boolean"></a>1. Boolean</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//진위값</span></span><br><span class="line"><span class="keyword">const</span> show: <span class="built_in">boolean</span> = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="2-Number"><a href="#2-Number" class="headerlink" title="2. Number"></a>2. Number</h3><p>TypeScript의 모든 숫자는 부동 소수 값이다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> decimal: <span class="built_in">number</span> = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">let</span> hex: <span class="built_in">number</span> = <span class="number">0xf00d</span>;</span><br><span class="line"><span class="keyword">let</span> binary: <span class="built_in">number</span> = <span class="number">0b1010</span>;</span><br><span class="line"><span class="keyword">let</span> octal: <span class="built_in">number</span> = <span class="number">0o744</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="3-String"><a href="#3-String" class="headerlink" title="3. String"></a>3. String</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//JS 문자열 선언방식</span></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">'hello'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//TS 문자열</span></span><br><span class="line"><span class="keyword">const</span> tsStr: <span class="built_in">string</span> = <span class="string">'hello'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//x템플릿 문자열 사용가능</span></span><br><span class="line"><span class="keyword">let</span> fullName: <span class="built_in">string</span> = <span class="string">`Bob Bobbington`</span>;</span><br><span class="line"><span class="keyword">let</span> age: <span class="built_in">number</span> = <span class="number">37</span>;</span><br><span class="line"><span class="keyword">let</span> sentence: <span class="built_in">string</span> = <span class="string">`Hello, my name is <span class="subst">$&#123;fullName&#125;</span>.</span></span><br><span class="line"><span class="string">I'll be <span class="subst">$&#123;age + <span class="number">1</span>&#125;</span> years old next month.`</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="4-Array"><a href="#4-Array" class="headerlink" title="4. Array"></a>4. Array</h3><p>배열의 표현 방법은 두 가지가 있다.</p>
-<ul>
-<li>[]: 배열요소들을 나타내는 타입 뒤에 <code>[]</code>를 사용</li>
-<li>제네릭 배열 타입: <code>Array&lt;elemType&gt;</code></li>
-</ul>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TS 배열 선언방식 &lt;&gt;안에 작성된 타입만이 배열의 요소로 사용가능</span></span><br><span class="line"><span class="comment">//&lt;string&gt;으로 작성되었는데 number를 넣으면 에러 발생.</span></span><br><span class="line"><span class="keyword">const</span> tsArr: <span class="built_in">Array</span>&lt;<span class="built_in">number</span>&gt; = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">const</span> heroes: <span class="built_in">Array</span>&lt;<span class="built_in">string</span>&gt; = [<span class="string">'Capt'</span>, <span class="string">'hulk'</span>, <span class="string">'thor'</span>];</span><br><span class="line"><span class="comment">//배열 리터럴을 통해 선언할 수도 있다.</span></span><br><span class="line"><span class="keyword">const</span> items: <span class="built_in">number</span>[] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br></pre></td></tr></table></figure>
-<h3 id="5-Tuple"><a href="#5-Tuple" class="headerlink" title="5. Tuple"></a>5. Tuple</h3><p>요소의 타입과 개수가 고정된 배열 표현</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TS 튜플 - 배열의 특정 위치와 타입까지 설정.</span></span><br><span class="line"><span class="keyword">const</span> locations: [<span class="built_in">string</span>, <span class="built_in">number</span>] = [<span class="string">'gangnam'</span>, <span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//정해진 인덕스 외의 요소에 접근하면 오류 발생</span></span><br><span class="line">x[<span class="number">3</span>] = <span class="string">'world'</span>; <span class="comment">// 오류, '[string, number]' 타입에는 프로퍼티 '3'이 없습니다.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x[<span class="number">5</span>].toString()); <span class="comment">// '[string, number]' 타입에는 프로퍼티 '5'가 없습니다.</span></span><br></pre></td></tr></table></figure>
-<h3 id="6-enum"><a href="#6-enum" class="headerlink" title="6. enum"></a>6. enum</h3><p>c# 같은 언어에서 쓰는 것처럼 값의 집합에 더 나은 이름을 붙여준다. 즉 특정 값(상들의 집합을 말한다. 즉 <code>특정 값(상수)들의 집합</code>을 말한다. 값을 지정하면 지정한 값부터 멤버들의 번호를 매기고, 따로 지정하지 않았다면 <code>0</code>부터 시작하여 멤버들의 번호를 매긴다. 모든 값은 순차적으로 매기지 않고, 수동으로 설정해 줄 수도 있다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//따로 값을 매기지 않았으니 0부터 시작하여 순차적으로 번호가 매겨진다.</span></span><br><span class="line"><span class="keyword">enum</span> Color &#123;</span><br><span class="line">  Red,</span><br><span class="line">  Green,</span><br><span class="line">  Blue,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c: Color = Color.Green;</span><br><span class="line"></span><br><span class="line"><span class="comment">//수동으로 값 설정</span></span><br><span class="line"><span class="keyword">enum</span> Color &#123;</span><br><span class="line">  Red = <span class="number">1</span>,</span><br><span class="line">  Green = <span class="number">2</span>,</span><br><span class="line">  Blue = <span class="number">4</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> c: Color = Color.Green;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 매겨진 값을 사용해서 enum 멤버 이름을 알아낼 수 있다.</span></span><br><span class="line"><span class="comment">//아래 코드에서 2라는 값과 매칭되는 멤버의 이름을 알아낼 수 있다.</span></span><br><span class="line"><span class="keyword">enum</span> Color &#123;</span><br><span class="line">  Red = <span class="number">1</span>,</span><br><span class="line">  Green,</span><br><span class="line">  Blue,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> colorName: <span class="built_in">string</span> = Color[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(colorName); <span class="comment">// 값이 2인 'Green'이 출력됩니다.</span></span><br></pre></td></tr></table></figure>
-<h3 id="7-Object"><a href="#7-Object" class="headerlink" title="7. Object"></a>7. Object</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TS 객체</span></span><br><span class="line"><span class="keyword">const</span> obj: object = &#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> person: object = &#123;</span><br><span class="line">  name: <span class="string">'capt'</span>,</span><br><span class="line">  age: <span class="number">100</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//객체의 구체적인 타입 설정</span></span><br><span class="line"><span class="keyword">const</span> tsPerson: &#123; name: <span class="built_in">string</span>; age: <span class="built_in">number</span> &#125; = &#123;</span><br><span class="line">  name: <span class="string">'capt'</span>,</span><br><span class="line">  age: <span class="number">100</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="8-Any"><a href="#8-Any" class="headerlink" title="8. Any"></a>8. Any</h3><blockquote>
-<p>모든 타입 허용</p>
-</blockquote>
-<p>알지 못하는 타입을 표현해야 하는 경우(사용자로부터 받은 값 혹은 데이터, 서드파티 라이브러리와 같은 동적 컨텐츠에서 온 값) any를 사용하여 표기하면 컴파일 중에 점진적으로 타입 검사를 하거나 하지 않을 수 있다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//다음과 같이 타입의 일부만 알고 전체 타입을 모르는 경우 유용하다.</span></span><br><span class="line"><span class="keyword">let</span> list: <span class="built_in">any</span>[] = [<span class="number">1</span>, <span class="literal">true</span>, <span class="string">'free'</span>];</span><br><span class="line"></span><br><span class="line">list[<span class="number">1</span>] = <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="9-Void"><a href="#9-Void" class="headerlink" title="9. Void"></a>9. Void</h3><blockquote>
-<p>어떤 타입도 존재할 수 없다. <code>보통 함수에서 반환 값이 없을 때 반환값을 표현하기 위해 사용한다.</code></p>
-</blockquote>
-<p>Void 타입의 변수 선언은 undefined, null만 할당할 수 있다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">warnUser</span>(<span class="params"></span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'This is my warning message'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="10-Null-and-Undefined"><a href="#10-Null-and-Undefined" class="headerlink" title="10. Null and Undefined"></a>10. Null and Undefined</h3><p>유용하게 쓰는 경우가 거의 없다. <strong>모든 타입의 하위 타입</strong>이기 때문에 <code>number</code> 같은 타입에 할당할 수 있다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 이 외에 이 변수들에 할당할 수 있는 값이 없다.</span></span><br><span class="line"><span class="keyword">let</span> u: <span class="literal">undefined</span> = <span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">let</span> n: <span class="literal">null</span> = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="11-Never"><a href="#11-Never" class="headerlink" title="11. Never"></a>11. Never</h3><blockquote>
-<p>절대 발생할 수 없는 타입</p>
-</blockquote>
-<p>함수 표현식이나 화살표 함수 표현식에서 항상 오류를 발생시키거나 절대 반환하지 않는 반환 타입으로 쓰인다. 변수 또한 타입 가드에 의해 아무 타입도 얻지 못하게 좁혀지면 never 타입을 얻게 될 수 있다. 이 역시 <strong>모든 타입에 할당 가능한 하위 타입</strong>이다. 그러나 never 자신을 제외한 어떠한 타입도 never에 할당할 수 없다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// never를 반환하는 함수는 함수의 마지막에 도달할 수 없다.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">error</span>(<span class="params">message: <span class="built_in">string</span></span>): <span class="title">never</span> </span>&#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(message);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 반환 타입이 never로 추론된다.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fail</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> error(<span class="string">'Something failed'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// never를 반환하는 함수는 함수의 마지막에 도달할 수 없다.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">infiniteLoop</span>(<span class="params"></span>): <span class="title">never</span> </span>&#123;</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<p><em>References</em><br><a href="https://typescript-kr.github.io/pages/basic-types.html" target="_blank" rel="noopener">타입스크립트 핸드북</a><br><a href="https://joshua1988.github.io/ts/guide/basic-types.html#%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B8%B0%EB%B3%B8-%ED%83%80%EC%9E%85" target="_blank" rel="noopener">타입스크립트 핸드북</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1390,7 +1353,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">120</span>
+          <span class="site-state-item-count">121</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

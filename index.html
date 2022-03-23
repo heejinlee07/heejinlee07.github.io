@@ -144,6 +144,191 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/03/21/220322_blockchain_22to23/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/21/220322_blockchain_22to23/" class="post-title-link" itemprop="url">블록체인 무엇인가? 3장 블록체인은 어떻게 작동하는가? 22 ~ 23단계</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-22 00:00:00" itemprop="dateCreated datePublished" datetime="2022-03-22T00:00:00+09:00">2022-03-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="22-냉정하게-한계점-바라보기"><a href="#22-냉정하게-한계점-바라보기" class="headerlink" title="22. 냉정하게 한계점 바라보기"></a>22. 냉정하게 한계점 바라보기</h2><h3 id="블록체인-시스템이-가진-기술적-제약사항"><a href="#블록체인-시스템이-가진-기술적-제약사항" class="headerlink" title="블록체인 시스템이 가진 기술적 제약사항"></a>블록체인 시스템이 가진 기술적 제약사항</h3><blockquote>
+<ol>
+<li>개인정보 보호의 부재</li>
+<li>보안 모델</li>
+<li>제한적 확장성</li>
+<li>고비용</li>
+<li>숨겨진 중앙 통제</li>
+<li>유연성의 부재</li>
+<li>임계 크기</li>
+</ol>
+</blockquote>
+<h4 id="1-개인정보-보호의-부재"><a href="#1-개인정보-보호의-부재" class="headerlink" title="1. 개인정보 보호의 부재"></a>1. 개인정보 보호의 부재</h4><p>블록체인에서 발생하는 모든 트랜잭션에 대한 정보는 상세히 기록되고 누구나 읽을 수 있다. 이렇게 정보는 보호되지 않지만 개인정보는 철저히 보호된다. 하지만 개인정보가 누구의 것인지 상세하게 알 수 없기 때문에 개인정보 보호의 부재라기보다 개인정보의 부재라고 볼 수 있고, 이런 것을 중요시하는 응용 분야에서는 이로부터 비롯되는 제약사항이 있을 수 있다.</p>
+<h4 id="2-보안-모델"><a href="#2-보안-모델" class="headerlink" title="2. 보안 모델"></a>2. 보안 모델</h4><p>블록체인에서 트랜잭션 승인을 위해 <code>비대칭 암호화 기법</code>을 사용하는데 이는 가장 강력한 기법이기 때문에 강력한 보안이 가능하다. 하지만 블록체인 사용자가 개인 키를 분실하거나 개인 키가 타인의 손으로 넘어간 경우 계정 주인을 보호할 수 있는 추가 안전 장치가 없다. 비트코인은 개인 키의 해킹 등에 대비하는 몇 가지 안전장치를 제시하고 있다. 하지만 기본적으로 개인 키를 분실한 순간 보안은 무너졌다고 볼 수 있다.</p>
+<h4 id="3-제한적-확장성"><a href="#3-제한적-확장성" class="headerlink" title="3. 제한적 확장성"></a>3. 제한적 확장성</h4><p>블록체인은 누구나 새로운 트랜잭션 데이터를 추가할 수 있도록 개방되어 있는 한편, 트랜잭션 데이터가 조작되거나 위조되지 않도록 보장해야 한다. 이를 위해 새로운 블록이 추가될 때마다 해시 퍼즐을 풀어야 하는데, 이 퍼즐을 풀 때 상당히 많은 계산량이 소모되도록 설계되어 있다. 이는 트랜잭션의 조작을 막는 것에 좋은 방법이지만 <em>빠른 처리속도와 높은 확장성, 대용량 처리가 필요한 응용분야에서는 오히려 걸림돌이될 수 있다.</em></p>
+<h4 id="4-고비용"><a href="#4-고비용" class="headerlink" title="4. 고비용"></a>4. 고비용</h4><p>제한된 확장성과 관련 있는데, 해시 퍼즐을 풀 때 많은 계산량을 소모한다는 것은 그만큼 많은 비용(필요 계산 사이클, 물리적 시간, 소모 전력량 등)을 유발한다는 것이고, 전체 비용은 해시 퍼즐의 난이도에 달려있다.</p>
+<h4 id="5-숨겨진-중앙-통제"><a href="#5-숨겨진-중앙-통제" class="headerlink" title="5. 숨겨진 중앙 통제"></a>5. 숨겨진 중앙 통제</h4><p>해시 퍼즐을 해결하기 위해 특화된 하드웨어에 투자하여 더 많은 보상을 받아서 이윤을 창출하는 사람들이 있는데, 이와 반대로 특화된 하드웨어가 없는 사람은 전자에 비해 밀릴 수 밖에 없어 시스템을 떠나게 된다. 따라서 특화된 하드웨어로 강력한 계산 능력을 갖춘 소수만 남아 시스템을 장악하는 상황을 초래할 수 있고, 이 소수가 시스템의 무결성을 유지하는 책임을 나눠가지게 된다. 이렇게 되면 사실상 보이지 않는 중앙 통제 집단을 형성하여 피어 그룹이 집단적으로 무결성을 유지하도록 하는 분산 시스템의 근본을 위협한다. <em>즉 기술적으로는 분산 시스템이지만 시스템의 무결성은 소수의 개체에 의해서만 유지되는 것이다.</em></p>
+<h4 id="6-유연성의-부재"><a href="#6-유연성의-부재" class="headerlink" title="6. 유연성의 부재"></a>6. 유연성의 부재</h4><p>블록체인을 일단 가동하고 나면 변경, 업그레이드와 관련된 체계적 절차가 따로 없다. 이런 불변성은 블록체인 개발자가 체인 프로토콜의 버그를 고치거나 수정하기 어렵게 하고, 전체 블록체인-기술-모음을 유연성이 떨어지게 만든다.</p>
+<h4 id="7-임계-크기"><a href="#7-임계-크기" class="headerlink" title="7. 임계 크기"></a>7. 임계 크기</h4><p><em>트랜잭션 데이터를 조작으로부터 보호하여 신뢰성을 확보하는 장치는 대다수의 시스템 계산 자원이 <code>정직한 노드에 의해 통제</code>된다는 가정에 기반한다.</em> 그래서 모든 블록체인이 엄청난 계산력을 갖춘 공격자로부터 시스템을 보호하기 위해 <code>최소한의 정직한 노드</code>가 필요하다.</p>
+<h3 id="비기술적-문제-2가지"><a href="#비기술적-문제-2가지" class="headerlink" title="비기술적 문제 2가지"></a>비기술적 문제 2가지</h3><blockquote>
+<ol>
+<li>법적 수용성 부재</li>
+<li>사용자 수용성 부재</li>
+</ol>
+</blockquote>
+<h4 id="1-법적-수용성-부재"><a href="#1-법적-수용성-부재" class="headerlink" title="1. 법적 수용성 부재"></a>1. 법적 수용성 부재</h4><p>블록체인으로 분산 합의를 통해 소유권 이전 및 관리를 하는 것은 법적 효력에 대한 해석 문제를 야기하고, 이는 법적 제도 장치의 결여를 의미한다.</p>
+<h4 id="2-사용자-수용성-부재"><a href="#2-사용자-수용성-부재" class="headerlink" title="2. 사용자 수용성 부재"></a>2. 사용자 수용성 부재</h4><p>법적 수용성 부재와 같은 요소가 사용자들의 블록체인에 대한 불확실성을 가지게 하고, 사용 결정에 대한 관심을 감소시킨다. 또 지식과 교육의 부재로 기본 작동 원리에 대해 모르기 때문에 블록체인에 대해 신뢰하기도 어렵다.</p>
+<h3 id="어떻게-극복할-것인가"><a href="#어떻게-극복할-것인가" class="headerlink" title="어떻게 극복할 것인가?"></a>어떻게 극복할 것인가?</h3><h4 id="기술적-문제"><a href="#기술적-문제" class="headerlink" title="기술적 문제"></a>기술적 문제</h4><p>➡️ 모든 구성요소와 기술 수준을 조정한다. 블록체인의 기술적 제약사항을 극복하는 데 있어 주요 걸림돌은 기술을 개선하는 것과 기본 기술을 변경하는 것에 대한 구분이다.</p>
+<h4 id="비기술적-문제"><a href="#비기술적-문제" class="headerlink" title="비기술적 문제"></a>비기술적 문제</h4><p>➡️ 교육과 법제도의 개선이 적절한 수단이 될 수 있다.</p>
+<hr>
+<h2 id="23-다시-태어난-블록체인"><a href="#23-다시-태어난-블록체인" class="headerlink" title="23. 다시 태어난 블록체인"></a>23. 다시 태어난 블록체인</h2><h3 id="블록체인의-서로-상충되는-목표"><a href="#블록체인의-서로-상충되는-목표" class="headerlink" title="블록체인의 서로 상충되는 목표"></a>블록체인의 서로 상충되는 목표</h3><blockquote>
+<ol>
+<li>투명성 vs 개인정보 보호</li>
+<li>보안 vs 속도</li>
+</ol>
+</blockquote>
+<h4 id="1-투명성-vs-개인정보-보호"><a href="#1-투명성-vs-개인정보-보호" class="headerlink" title="1. 투명성 vs 개인정보 보호"></a>1. 투명성 vs 개인정보 보호</h4><p>블록체인이 소유권을 검증하는 핵심 개념이 개방성과 투명성이다. 개인정보 보호는 트랜잭션에 연계된 계좌번호나 이체금액 등의 세부 사항이 공개되지 않도록 하는 것인데, 소유권 명확화를 위해 모든 트랜잭션이 투명하게 관리되는 것과 서로 충돌한다.</p>
+<h4 id="2-보안-vs-속도"><a href="#2-보안-vs-속도" class="headerlink" title="2. 보안 vs 속도"></a>2. 보안 vs 속도</h4><p>블록체인은 트랜잭션 데이터를 보호하기 위해 해시 퍼즐을 풀 때 많은 계산량을 요구로 하는데, 이런 성질 때문에 속도와 확장성에 정면으로 반한다.</p>
+<h3 id="갈등의-근본-원인은-읽기와-쓰기-권한에-있다"><a href="#갈등의-근본-원인은-읽기와-쓰기-권한에-있다" class="headerlink" title="갈등의 근본 원인은 읽기와 쓰기 권한에 있다"></a>갈등의 근본 원인은 읽기와 쓰기 권한에 있다</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>기술적 제약사항</th>
+<th>갈등 요소</th>
+<th>기본 기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>개인정보 보호 부재</td>
+<td>투명성 vs 개인정보 보호</td>
+<td>트랜잭션 데이터 이력 읽기</td>
+</tr>
+<tr>
+<td>확장성 부재</td>
+<td>보안 vs 속도</td>
+<td>트랜잭션 데이터 쓰기</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="갈등-해결-4가지-버전의-블록체인을-등장시키다"><a href="#갈등-해결-4가지-버전의-블록체인을-등장시키다" class="headerlink" title="갈등 해결, 4가지 버전의 블록체인을 등장시키다"></a>갈등 해결, 4가지 버전의 블록체인을 등장시키다</h3><p>갈등은 절충점을 찾거나 한쪽의 희생을 감수하고 다른 한쪽을 선택하면 해결된다.</p>
+<h4 id="투명성과-개인정보-중-선택"><a href="#투명성과-개인정보-중-선택" class="headerlink" title="투명성과 개인정보 중 선택"></a>투명성과 개인정보 중 선택</h4><p>데이터를 읽을 권한을 누구에게 줄 것인가를 정하는 문제이다.</p>
+<ul>
+<li>공개 블록체인: 모든 사용자와 노드에게 트랜잭션 데이터를 읽을 수 있는 권한을 부여한다. (모두에게 읽기 권한 부여)</li>
+<li>비밀 블록체인: 사전에 선택된 사용자와 노드에게만 트랜잭션 데이터를 읽을 수 있는 권한을 부여한다. (제한된 사용자와 노드 그룹에게만 읽기 권한 부여)</li>
+</ul>
+<h4 id="보안과-속도-중-선택"><a href="#보안과-속도-중-선택" class="headerlink" title="보안과 속도 중 선택"></a>보안과 속도 중 선택</h4><ul>
+<li>무승인형 블록체인: 모두에게 쓰기 권한을 부여한다. 즉 누구나 트랜잭션을 검증하고 새 블록을 추가할 수 있다.</li>
+<li>승인형 블록체인: 온-보딩 프로세스를 거쳐 신뢰성이 확인된 소수의 노드와 사용자 그룹에게만 쓰기 권한을 허용한다. 쓰기 권한을 받은 소수마 트랜잭션의 검증과 분산 동의에 참가할 수 있다.</li>
+</ul>
+<h3 id="블록체인의-네-가지-버전-어떤-점이-다를까"><a href="#블록체인의-네-가지-버전-어떤-점이-다를까" class="headerlink" title="블록체인의 네 가지 버전, 어떤 점이 다를까?"></a>블록체인의 네 가지 버전, 어떤 점이 다를까?</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th style="text-align:center">읽기와 트랜잭션 생성 권한</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td style="text-align:center">모두 허용</td>
+<td>허가된 사용자만 허용</td>
+</tr>
+<tr>
+<td>쓰기권한</td>
+<td>모두 허용</td>
+<td style="text-align:center">공개&amp;무승인</td>
+<td>비밀&amp;무승인</td>
+</tr>
+<tr>
+<td></td>
+<td>허가된 사용자만 허용</td>
+<td style="text-align:center">공개&amp;승인</td>
+<td>비밀&amp;승인</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>위의 조합괸 버전들은 블록체인의 다음 세 가지 측면에 영향을 미친다.</p>
+<blockquote>
+<ol>
+<li>P2P 아키텍처</li>
+<li>분산 속성</li>
+<li>목적</li>
+</ol>
+</blockquote>
+<h4 id="1-P2P-아키텍처"><a href="#1-P2P-아키텍처" class="headerlink" title="1. P2P 아키텍처"></a>1. P2P 아키텍처</h4><p>시스템에 참여한 모든 컴퓨터에게 동등한 권리와 역할을 부여해야 하는데, 위에서 설명된 버전 중 일부는 <em>시스템을 구성하는 노드별로 읽기와 쓰기 권한에 차별을 둔다.</em> 따라서 동등한 권리와 역할을 부여한다는 P2P 시스템의 중요한 특성에 위배된다.</p>
+<h4 id="2-분산-속성"><a href="#2-분산-속성" class="headerlink" title="2. 분산 속성"></a>2. 분산 속성</h4><p>분산 시스템에서 중앙 통제나 조정장치가 없어야 한다. 그러나 위에서 설명된 버전 중 일부는 읽기와 쓰기 권한을 사전에 승인한 노드나 사용자 그룹으로 제한하고 있다. 그리고 이런 승인과 권한에 관한 규칙이 순수 분산 시스템에 의해 유지되고 관리되지 않는다면 중앙 통제 요소가 있다는 것이어서 분산 속성에 위배된다. 또 숨은 중앙 통제 요소가 있거나 내부적으로 분산 시스템을 활용하지만 모든 노드에게 접근제한이 있는 중앙 통제 시스템을 볼 수 있는데 이 경우 모두 분산과 중앙 통제 요소로 구성된 혼합시스템에 가깝다.</p>
+<h4 id="3-목적"><a href="#3-목적" class="headerlink" title="3. 목적"></a>3. 목적</h4><p>읽기와 쓰기 권한에 제한을 두는 것은 분산 P2P 시스템의 기본 성질을 변형시킬 뿐 아니라 노드의 신뢰성도 변화시킨다. 하지만 안정성과 신뢰성을 알 수 있는 특정된 개수의 노드로 구성된 환경에서도 블록체인의 역할이 존재한다.</p>
+<ul>
+<li>기술적 결함이나 컴퓨터 고장으로 작동하는 노드의 개수가 변경될 수 있다.</li>
+<li>모든 분산 시스템은 네트워크 장애로 인해 개별 메시지단위의 통신이 안정적이지 못하다.</li>
+<li>노드의 신뢰성을 100% 수준으로 보장할 수 없다.</li>
+</ul>
+<h3 id="블록채인의-목적-다시-정의하기"><a href="#블록채인의-목적-다시-정의하기" class="headerlink" title="블록채인의 목적 다시 정의하기"></a>블록채인의 목적 다시 정의하기</h3><p>노드별로 읽기와 쓰기 권한에 제약을 두면 블록체인의 주요 측면과 상충하는데 제약이 가장 많은 비밀-승인형 블록체인에서도 여전히 무결성 유지에 아주 중요하다.</p>
+<hr>
+<p><em>References</em><br>[블록체인 무엇인가?] 다니엘 드레셔 지음</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/03/20/220321_blockchain19_21/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +360,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -254,7 +439,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -493,7 +678,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -774,7 +959,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -1115,7 +1300,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -1326,7 +1511,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -1528,7 +1713,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -1648,7 +1833,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -1764,7 +1949,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
               </span>
 
           
@@ -1816,126 +2001,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/15/220216_item35to41/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/15/220216_item35to41/" class="post-title-link" itemprop="url">타입스크립트 이펙티브 아이템 35 - 아이템 41</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-02-16 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-16T00:00:00+09:00">2022-02-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-23 12:10:37" itemprop="dateModified" datetime="2022-03-23T12:10:37+09:00">2022-03-23</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="아이템-35-데이터가-아닌-API와-명세를-보고-타입-만들기"><a href="#아이템-35-데이터가-아닌-API와-명세를-보고-타입-만들기" class="headerlink" title="아이템 35 데이터가 아닌, API와 명세를 보고 타입 만들기"></a>아이템 35 데이터가 아닌, API와 명세를 보고 타입 만들기</h2><p>파일 형식, API, 명세 등 우리가 다루는 타입 중 최소한 몇 개는 프로젝트 외부에서 비롯된 것이다. <em>이런 경우 자동으로 타입 생성이 가능하다.</em> 단 중요한 포인트는 예시 데이터가 아니라 <code>명세</code>를 참고해서 타입을 생성한다는 것이다. 명세를 참고하지 않고 예시 데이터를 참고해서 타입을 작성하게 되면 눈앞에 있는 데이터만 고려하게 되므로 오류 발생을 야기하기 쉽다. 그래서 명세가 존재한다면 아래 예시처럼 이미 존재하는 타입스크립트 타입 선언을 명시해서 사용할 수 있다. 다만 이미 존재하는 타입 선언을 import해서 쓰더라도 GeometryCollection에 coordinates의 속성이 없다면 에러가 발생할 수 있다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// requires node modules: @types/geojson</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> BoundingBox &#123;</span><br><span class="line">  lat: [<span class="built_in">number</span>, <span class="built_in">number</span>];</span><br><span class="line">  lng: [<span class="built_in">number</span>, <span class="built_in">number</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">import</span> &#123; Feature, Geometry &#125; <span class="keyword">from</span> <span class="string">'geojson'</span>;</span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">let</span> f: Feature;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">helper</span>(<span class="params">coordinates: <span class="built_in">any</span>[]</span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">const</span> geometryHelper = <span class="function">(<span class="params">g: Geometry</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (geometry.type === <span class="string">'GeometryCollection'</span>) &#123;</span><br><span class="line">    geometry.geometries.forEach(geometryHelper);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    helper(geometry.coordinates); <span class="comment">// OK</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; geometry &#125; = f;</span><br><span class="line"><span class="keyword">if</span> (geometry) &#123;</span><br><span class="line">  geometryHelper(geometry);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>이럴 때는 아래와 같이명시적으로 해당하는 타입을 차단하는 방법을 사용할 수 있다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; geometry &#125; = f;</span><br><span class="line"><span class="keyword">if</span> (geometry) &#123;</span><br><span class="line">  <span class="keyword">if</span> (geometry.type === <span class="string">'GeometryCollection'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'GeometryCollection are not supported.'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    helper(geometry.coordinates); <span class="comment">// OK</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>하지만 명시적 타입 차단보다는 모든 타입을 지원하되 조건을 분기하여 helper함수를 지원하는 방식으로 작성해야 한다.</p>
-<hr>
-<h2 id="아이템-36-해당-분야의-용어로-타입-이름-짓기"><a href="#아이템-36-해당-분야의-용어로-타입-이름-짓기" class="headerlink" title="아이템 36 해당 분야의 용어로 타입 이름 짓기"></a>아이템 36 해당 분야의 용어로 타입 이름 짓기</h2><blockquote>
-<p>엄선된 타입, 속성, 변수의 이름은 의도를 명확히 하고, 코드와 타입의 추상화 수준을 높여 준다.</p>
-</blockquote>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 속성에 대한 정보가 모호하고,</span></span><br><span class="line"><span class="comment">// 선언된 용어로 그 의미를 파악하기 어렵다.</span></span><br><span class="line"><span class="keyword">interface</span> Animal &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  endangered: <span class="built_in">boolean</span>;</span><br><span class="line">  habitat: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> leopard: Animal = &#123;</span><br><span class="line">  name: <span class="string">'Snow Leopard'</span>,</span><br><span class="line">  endangered: <span class="literal">false</span>,</span><br><span class="line">  habitat: <span class="string">'tundra'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//위의 코드를 전문용어를 베이스로 하여</span></span><br><span class="line"><span class="comment">//보다 분명한 의미를 나타내도록 변경하였다.</span></span><br><span class="line"><span class="keyword">interface</span> Animal &#123;</span><br><span class="line">  commonName: <span class="built_in">string</span>;</span><br><span class="line">  genus: <span class="built_in">string</span>;</span><br><span class="line">  species: <span class="built_in">string</span>;</span><br><span class="line">  status: ConservationStatus;</span><br><span class="line">  climates: KoppenClimate[];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> ConservationStatus = <span class="string">'EX'</span> | <span class="string">'EW'</span> | <span class="string">'CR'</span> | <span class="string">'EN'</span> | <span class="string">'VU'</span> | <span class="string">'NT'</span> | <span class="string">'LC'</span>;</span><br><span class="line"><span class="keyword">type</span> KoppenClimate =</span><br><span class="line">  | <span class="string">'Af'</span></span><br><span class="line">  | <span class="string">'Am'</span></span><br><span class="line">  | <span class="string">'As'</span></span><br><span class="line">  | <span class="string">'Aw'</span></span><br><span class="line">  | <span class="string">'BSh'</span></span><br><span class="line">  | <span class="string">'BSk'</span></span><br><span class="line">  | <span class="string">'BWh'</span></span><br><span class="line">  | <span class="string">'BWk'</span></span><br><span class="line">  | <span class="string">'Cfa'</span>;</span><br><span class="line"><span class="keyword">const</span> snowLeopard: Animal = &#123;</span><br><span class="line">  commonName: <span class="string">'Snow Leopard'</span>,</span><br><span class="line">  genus: <span class="string">'Panthera'</span>,</span><br><span class="line">  species: <span class="string">'Uncia'</span>,</span><br><span class="line">  status: <span class="string">'VU'</span>, <span class="comment">// vulnerable</span></span><br><span class="line">  climates: [<span class="string">'ET'</span>, <span class="string">'EF'</span>, <span class="string">'Dfd'</span>], <span class="comment">// alpine or subalpine</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>이처럼 코드로 표현하고자 하는 모든 분야에는 <strong>주제를 설명하기 위한 전문 용어들이 존재한다.</strong> 전문 용어가 있다면 자체적으로 용어를 만들어 내기 보다 전문 용어를 사용하는 것이 좋지만 잘못 사용하여 혼란을 주지 않도록 아래의 세가지를 주의하여 정확하게 사용해야 한다.</p>
-<ul>
-<li>동일한 의미를 나타낼 때는 같은 용어를 사용한다.</li>
-<li>data, info, thing, item, object, entity와 같이 모호하고 의미없는 이름은 붙이지 않는다.</li>
-<li><strong>이름을 지을 때 포함된 내용이나 계산 방식이 아닌 데이터 자체가 무엇인지를 고려한다.</strong></li>
-</ul>
-<hr>
-<h2 id="아이템-37-공식-명칭에는-상표를-붙이기"><a href="#아이템-37-공식-명칭에는-상표를-붙이기" class="headerlink" title="아이템 37 공식 명칭에는 상표를 붙이기"></a>아이템 37 공식 명칭에는 상표를 붙이기</h2><p>타입스크립트가 가진 <em>구조적 타이핑 특성 때문에 코드가 이상한 결과를 낼 수 있다.</em> 1️⃣은 구조적 타이핑 관점에서는 문제가 없는데, 수학적으로는 2차원 벡터를 사용해야 이치에 맞다. 만약 calculateNorm 함수가 3차원 벡터를 허용하지 않게 하려면 2️⃣의 _brand처럼 <code>공식 명칭</code>을 사용한다. <strong>공식 명칭이란 상표(_brand)를 붙이는 것이다.</strong></p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1️⃣</span></span><br><span class="line"><span class="keyword">interface</span> Vector2D &#123;</span><br><span class="line">  x: <span class="built_in">number</span>;</span><br><span class="line">  y: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">calculateNorm</span>(<span class="params">p: Vector2D</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.sqrt(p.x * p.x + p.y * p.y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">calculateNorm(&#123; x: <span class="number">3</span>, y: <span class="number">4</span> &#125;); <span class="comment">// OK, result is 5</span></span><br><span class="line"><span class="keyword">const</span> vec3D = &#123; x: <span class="number">3</span>, y: <span class="number">4</span>, z: <span class="number">1</span> &#125;;</span><br><span class="line">calculateNorm(vec3D); <span class="comment">// OK! result is also 5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//2️⃣</span></span><br><span class="line"><span class="keyword">interface</span> Vector2D &#123;</span><br><span class="line">  _brand: <span class="string">'2d'</span>;</span><br><span class="line">  x: <span class="built_in">number</span>;</span><br><span class="line">  y: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">vec2D</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span></span>): <span class="title">Vector2D</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123; x, y, _brand: <span class="string">'2d'</span> &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">calculateNorm</span>(<span class="params">p: Vector2D</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.sqrt(p.x * p.x + p.y * p.y); <span class="comment">// Same as before</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">calculateNorm(vec2D(<span class="number">3</span>, <span class="number">4</span>)); <span class="comment">// OK, returns 5</span></span><br><span class="line"><span class="keyword">const</span> vec3D = &#123; x: <span class="number">3</span>, y: <span class="number">4</span>, z: <span class="number">1</span> &#125;;</span><br><span class="line">calculateNorm(vec3D);</span><br><span class="line"><span class="comment">// ~~~~~ Property '_brand' is missing in type...</span></span><br></pre></td></tr></table></figure>
-<p>위 예시처럼 <code>공식명칭(_brand)</code>을 붙여두면 Vector2D함수가 Vector2D만 받는 것을 보장하게 된다. <em>이 기법은 타입 시스템 내에서 표현할 수 없는 수많은 속성들을 모델링하는 데 사용하기도 한다.</em> 아래와 같이 number 타입에 상표도 단위를 붙여서 사용하는 것처럼 숫자의 단위를 문서화하는데 사용할 수도 있다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Meters = <span class="built_in">number</span> &amp; &#123; _brand: <span class="string">'meters'</span> &#125;;</span><br><span class="line"><span class="keyword">type</span> Seconds = <span class="built_in">number</span> &amp; &#123; _brand: <span class="string">'seconds'</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> meters = <span class="function">(<span class="params">m: <span class="built_in">number</span></span>) =&gt;</span> m <span class="keyword">as</span> Meters;</span><br><span class="line"><span class="keyword">const</span> seconds = <span class="function">(<span class="params">s: <span class="built_in">number</span></span>) =&gt;</span> s <span class="keyword">as</span> Seconds;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> oneKm = meters(<span class="number">1000</span>); <span class="comment">// Type is Meters</span></span><br><span class="line"><span class="keyword">const</span> oneMin = seconds(<span class="number">60</span>); <span class="comment">// Type is Seconds</span></span><br><span class="line"><span class="keyword">const</span> tenKm = oneKm * <span class="number">10</span>; <span class="comment">// Type is number</span></span><br><span class="line"><span class="keyword">const</span> v = oneKm / oneMin; <span class="comment">// Type is number</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="아이템-38-any-타입은-가능한-한-좁은-범위에서만-사용하기"><a href="#아이템-38-any-타입은-가능한-한-좁은-범위에서만-사용하기" class="headerlink" title="아이템 38 any 타입은 가능한 한 좁은 범위에서만 사용하기"></a>아이템 38 any 타입은 가능한 한 좁은 범위에서만 사용하기</h2><p>전통적으로 프로그래밍 언어들의 타입 시스템은 완전히 정적이거나 완전히 동적으로 구분되어 있다. 그러나 타입스크립트의 타입 시스템은 선택적이고 점진적이기 때문에 정적이면서도 동적인 특성을 동시에 가진다. 그래서 프로그램의 일부에만 타입스크립트를 적용할 수 있어 점진적 마이그레이션이 가능하다. 이 마이그레이션 단계에서 any 타입이 아주 중요한 역할을 하는데, any를 어떻게 현명하게 사용할 수 있을지 잘 고민해보아야 한다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Foo &#123;</span><br><span class="line">  foo: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> Bar &#123;</span><br><span class="line">  bar: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">expressionReturningFoo</span>(<span class="params"></span>): <span class="title">Foo</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">processBar</span>(<span class="params">b: Bar</span>) </span>&#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//1️⃣</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> x: <span class="built_in">any</span> = expressionReturningFoo(); <span class="comment">// Don't do this</span></span><br><span class="line">  processBar(x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2️⃣</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> x = expressionReturningFoo();</span><br><span class="line">  processBar(x <span class="keyword">as</span> <span class="built_in">any</span>); <span class="comment">// Prefer this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>위의 예제에서 x가 Foo와 Bar에 동시에 할당가능하다면 위와 같이 any를 사용한 두 가지 방법으로 해결할 수 있는데 1️⃣보다 2️⃣가 권장된다. 그 이유는 any 타입이 processBar 함수의 매개변수에만 사용된 표현식이라서 다른 코드에 영향을 미치지 않기 때문이다. 그래서 1️⃣의 x는 끝까지 any타입이고, 2️⃣에서 x는 Foo 타입을 유지한다. 1️⃣의 x가 끝까지 any 타입이기 때문에 아래와 같이 x를 반환하는 코드에서는 문제가 된다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> x: <span class="built_in">any</span> = expressionReturningFoo();</span><br><span class="line">  processBar(x);</span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">g</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> foo = f1(); <span class="comment">// Type is any</span></span><br><span class="line">  foo.fooMethod(); <span class="comment">// This call is unchecked!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>객체에서 any를 사용할 때도 조심해야 하는데, 아래와 같이 오류를 발생하는 코드가 있다고 생각해본다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> config: Config = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: <span class="number">2</span>,</span><br><span class="line">  c: &#123;</span><br><span class="line">    key: value,</span><br><span class="line">    <span class="comment">// ~~~ Property ... missing in type 'Bar' but required in type 'Foo'</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>여기서 발생하는 오류를 해결하기 위해 아래의 두 가지 방법으로 any를 쓸 수 있다. 하지만 1️⃣처럼 사용하면 다른 속성들인 a,b의 타입도 체크되지 않는다. 따라서 2️⃣와 같이 사용하도록 한다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1️⃣</span></span><br><span class="line"><span class="keyword">const</span> config: Config = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: <span class="number">2</span>,</span><br><span class="line">  c: &#123;</span><br><span class="line">    key: value,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125; <span class="keyword">as</span> <span class="built_in">any</span>; <span class="comment">// Don't do this!</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//2️⃣</span></span><br><span class="line"><span class="keyword">const</span> config: Config = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: <span class="number">2</span>, <span class="comment">// These properties are still checked</span></span><br><span class="line">  c: &#123;</span><br><span class="line">    key: value <span class="keyword">as</span> <span class="built_in">any</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="아이템-39-any를-구체적으로-변형해서-사용하기"><a href="#아이템-39-any를-구체적으로-변형해서-사용하기" class="headerlink" title="아이템 39 any를 구체적으로 변형해서 사용하기"></a>아이템 39 any를 구체적으로 변형해서 사용하기</h2><ul>
-<li>any는 타입의 범위가 매우 넓기 때문에 사용할 때는 정말로 모든 값이 허용되어야하만 하는지 면밀히 검토한다.</li>
-<li>any보다 더 정확하게 모델링할 수 있도록 <code>any[]</code> 또는 <code>{[id:string]:any}</code>또는 <code>() =&gt; any</code>를 사용한다.</li>
-<li><code>{[id:string]:any}</code>는 함수의 매개변수가 객체인데 값을 알 수 없는 경우에 쓰인다.</li>
-</ul>
-<hr>
-<h2 id="아이템-40-함수-안으로-타입-단언문-감추기"><a href="#아이템-40-함수-안으로-타입-단언문-감추기" class="headerlink" title="아이템 40 함수 안으로 타입 단언문 감추기"></a>아이템 40 함수 안으로 타입 단언문 감추기</h2><p>프로젝트 전반에 위험한 타입 단언문이 드러나 있는 것보다 <em>제대로 타입이 정의된 함수 안으로 타입 단언문을 감추는 것이 좋다.</em></p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">shallowEqual</span>(<span class="params">a: <span class="built_in">any</span>, b: <span class="built_in">any</span></span>): <span class="title">boolean</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">cacheLast</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">Function</span>&gt;(<span class="params">fn: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> lastArgs: <span class="built_in">any</span>[] | <span class="literal">null</span> = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">let</span> lastResult: <span class="built_in">any</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...args: <span class="built_in">any</span>[]</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!lastArgs || !shallowEqual(lastArgs, args)) &#123;</span><br><span class="line">      lastResult = fn(...args);</span><br><span class="line">      lastArgs = args;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> lastResult;</span><br><span class="line">  &#125; <span class="keyword">as</span> unknown <span class="keyword">as</span> T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>위 예제함수에서 함수 내부에는 any가 많이 보이지만 타입 정의에는 any가 없기 때문에 cacheLast를 호출하는 쪽에는 any가 사용됐는지 알 수 없다. 아래 예제에서 shallowobjectEqual은 객체를 매개변수로 하는 함수로 타입 정의는 간단하지만 구현이 복잡하다. 여기서 <code>b as any</code>로 선언할 수 있었던 것은 체크를 통해 <code>k in b</code>를 체크하였기 때문이다. 이 타입 단언문이 없다면 <code>k in b</code>가 b 객체에 k 속성이 있다는 것이 확인되었음에도 불구하고, <em>Element implicitly has an ‘any’ type because type ‘{}’ has no index signature</em> 에러가 발생한다. 이는 실제 에러가 아니기 때문에 any로 타입을 단언한 것이다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">shallowEqual</span>(<span class="params">a: <span class="built_in">any</span>, b: <span class="built_in">any</span></span>): <span class="title">boolean</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowObjectEqual</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">object</span>&gt;(<span class="params">a: T, b: T</span>): <span class="title">boolean</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> [k, aVal] of <span class="built_in">Object</span>.entries(a)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!(k <span class="keyword">in</span> b) || aVal !== (b <span class="keyword">as</span> <span class="built_in">any</span>)[k]) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.keys(a).length === <span class="built_in">Object</span>.keys(b).length;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>이처럼 타입 선언문은 일반적으로 타입을 위험하게 만들지만 상황에 따라 필요하기도 하고 현실적이 해결책이 되기도 한다. 불가피하게 사용해야 한다면, 정확한 정의를 가지는 함수 안으로 숨기도록 한다.</p>
-<hr>
-<h2 id="아이템-41-any의-진화를-이해하기"><a href="#아이템-41-any의-진화를-이해하기" class="headerlink" title="아이템 41 any의 진화를 이해하기"></a>아이템 41 any의 진화를 이해하기</h2><p><strong>타입스크립트에서 일반적으로 변수의 타입을 선언할 때 타입이 결정된다.</strong> null 체크 등을 통해 타입을 정제할 수는 있지만 새로운 값이 추가되도록 확장할 수 없다. 단 any 타입은 예외이다. 타입은 진화하는데 이는 타입 좁히기의 개념과 전혀 다르다.</p>
-<h3 id="배열에-다양한-타입의-요소를-넣으면-배열의-타입이-확장되며-진화한다"><a href="#배열에-다양한-타입의-요소를-넣으면-배열의-타입이-확장되며-진화한다" class="headerlink" title="배열에 다양한 타입의 요소를 넣으면 배열의 타입이 확장되며 진화한다."></a>배열에 다양한 타입의 요소를 넣으면 배열의 타입이 확장되며 진화한다.</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result = []; <span class="comment">// Type is any[]</span></span><br><span class="line">result.push(<span class="string">'a'</span>);</span><br><span class="line">result; <span class="comment">// Type is string[]</span></span><br><span class="line">result.push(<span class="number">1</span>);</span><br><span class="line">result; <span class="comment">// Type is (string | number)[]</span></span><br></pre></td></tr></table></figure>
-<h3 id="조건문에서-분기에-따라-타입이-변한다"><a href="#조건문에서-분기에-따라-타입이-변한다" class="headerlink" title="조건문에서 분기에 따라 타입이 변한다."></a>조건문에서 분기에 따라 타입이 변한다.</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> val; <span class="comment">// Type is any</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">Math</span>.random() &lt; <span class="number">0.5</span>) &#123;</span><br><span class="line">  val = <span class="regexp">/hello/</span>;</span><br><span class="line">  val; <span class="comment">// Type is RegExp</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  val = <span class="number">12</span>;</span><br><span class="line">  val; <span class="comment">// Type is number</span></span><br><span class="line">&#125;</span><br><span class="line">val; <span class="comment">// Type is number | RegExp</span></span><br></pre></td></tr></table></figure>
-<h3 id="변수의-초기값이-null일-때-진화한다"><a href="#변수의-초기값이-null일-때-진화한다" class="headerlink" title="변수의 초기값이 null일 때 진화한다."></a>변수의 초기값이 null일 때 진화한다.</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">somethingDangerous</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> val = <span class="literal">null</span>; <span class="comment">// Type is any</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  somethingDangerous();</span><br><span class="line">  val = <span class="number">12</span>;</span><br><span class="line">  val; <span class="comment">// Type is number</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="built_in">console</span>.warn(<span class="string">'alas!'</span>);</span><br><span class="line">&#125;</span><br><span class="line">val; <span class="comment">// Type is number | null</span></span><br></pre></td></tr></table></figure>
-<h3 id="noImplicitAny가-설정된-상태에서-변수의-타입이-암시적-any이다"><a href="#noImplicitAny가-설정된-상태에서-변수의-타입이-암시적-any이다" class="headerlink" title="noImplicitAny가 설정된 상태에서 변수의 타입이 암시적 any이다."></a>noImplicitAny가 설정된 상태에서 변수의 타입이 암시적 any이다.</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> val: <span class="built_in">any</span>; <span class="comment">// Type is any</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">Math</span>.random() &lt; <span class="number">0.5</span>) &#123;</span><br><span class="line">  val = <span class="regexp">/hello/</span>;</span><br><span class="line">  val; <span class="comment">// Type is any</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  val = <span class="number">12</span>;</span><br><span class="line">  val; <span class="comment">// Type is any</span></span><br><span class="line">&#125;</span><br><span class="line">val; <span class="comment">// Type is any</span></span><br></pre></td></tr></table></figure>
-<p>any타입의 진화는 암시적 any 타입에 어떤 값을 할당할 때만 발생한다. 그래서 어떤 변수가 암시적 any 상태일 때 어떠한 변수에도 할당하지 않고 값을 읽으려 하면 오류가 발생한다.</p>
-<hr>
-<p><em>References</em><br>[이펙티브 타입스크립트] 댄 밴더캄 지음</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2001,7 +2071,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">120</span>
+          <span class="site-state-item-count">121</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

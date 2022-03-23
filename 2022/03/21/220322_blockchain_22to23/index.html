@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="22. 냉정하게 한계점 바라보기블록체인 시스템이 가진 기술적 제약사항  개인정보 보호의 부재 보안 모델 제한적 확장성 고비용 숨겨진 중앙 통제 유연성의 부재 임계 크기   1. 개인정보 보호의 부재블록체인에서 발생하는 모든 트랜잭션에 대한 정보는 상세히 기록되고 누구나 읽을 수 있다. 이렇게 정보는 보호되지 않지만 개인정보는 철저히 보호된다. 하지만 개인정">
+<meta property="og:type" content="article">
+<meta property="og:title" content="블록체인 무엇인가? 3장 블록체인은 어떻게 작동하는가? 22 ~ 23단계">
+<meta property="og:url" content="https://heejinlee07.github.io/2022/03/21/220322_blockchain_22to23/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="22. 냉정하게 한계점 바라보기블록체인 시스템이 가진 기술적 제약사항  개인정보 보호의 부재 보안 모델 제한적 확장성 고비용 숨겨진 중앙 통제 유연성의 부재 임계 크기   1. 개인정보 보호의 부재블록체인에서 발생하는 모든 트랜잭션에 대한 정보는 상세히 기록되고 누구나 읽을 수 있다. 이렇게 정보는 보호되지 않지만 개인정보는 철저히 보호된다. 하지만 개인정">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-21T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-23T03:11:14.108Z">
+<meta property="article:author" content="Heejin Lee">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2022/03/21/220322_blockchain_22to23/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>블록체인 무엇인가? 3장 블록체인은 어떻게 작동하는가? 22 ~ 23단계 | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Developer</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/03/21/220322_blockchain_22to23/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          블록체인 무엇인가? 3장 블록체인은 어떻게 작동하는가? 22 ~ 23단계
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-22 00:00:00" itemprop="dateCreated datePublished" datetime="2022-03-22T00:00:00+09:00">2022-03-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-23 12:11:14" itemprop="dateModified" datetime="2022-03-23T12:11:14+09:00">2022-03-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="22-냉정하게-한계점-바라보기"><a href="#22-냉정하게-한계점-바라보기" class="headerlink" title="22. 냉정하게 한계점 바라보기"></a>22. 냉정하게 한계점 바라보기</h2><h3 id="블록체인-시스템이-가진-기술적-제약사항"><a href="#블록체인-시스템이-가진-기술적-제약사항" class="headerlink" title="블록체인 시스템이 가진 기술적 제약사항"></a>블록체인 시스템이 가진 기술적 제약사항</h3><blockquote>
+<ol>
+<li>개인정보 보호의 부재</li>
+<li>보안 모델</li>
+<li>제한적 확장성</li>
+<li>고비용</li>
+<li>숨겨진 중앙 통제</li>
+<li>유연성의 부재</li>
+<li>임계 크기</li>
+</ol>
+</blockquote>
+<h4 id="1-개인정보-보호의-부재"><a href="#1-개인정보-보호의-부재" class="headerlink" title="1. 개인정보 보호의 부재"></a>1. 개인정보 보호의 부재</h4><p>블록체인에서 발생하는 모든 트랜잭션에 대한 정보는 상세히 기록되고 누구나 읽을 수 있다. 이렇게 정보는 보호되지 않지만 개인정보는 철저히 보호된다. 하지만 개인정보가 누구의 것인지 상세하게 알 수 없기 때문에 개인정보 보호의 부재라기보다 개인정보의 부재라고 볼 수 있고, 이런 것을 중요시하는 응용 분야에서는 이로부터 비롯되는 제약사항이 있을 수 있다.</p>
+<h4 id="2-보안-모델"><a href="#2-보안-모델" class="headerlink" title="2. 보안 모델"></a>2. 보안 모델</h4><p>블록체인에서 트랜잭션 승인을 위해 <code>비대칭 암호화 기법</code>을 사용하는데 이는 가장 강력한 기법이기 때문에 강력한 보안이 가능하다. 하지만 블록체인 사용자가 개인 키를 분실하거나 개인 키가 타인의 손으로 넘어간 경우 계정 주인을 보호할 수 있는 추가 안전 장치가 없다. 비트코인은 개인 키의 해킹 등에 대비하는 몇 가지 안전장치를 제시하고 있다. 하지만 기본적으로 개인 키를 분실한 순간 보안은 무너졌다고 볼 수 있다.</p>
+<h4 id="3-제한적-확장성"><a href="#3-제한적-확장성" class="headerlink" title="3. 제한적 확장성"></a>3. 제한적 확장성</h4><p>블록체인은 누구나 새로운 트랜잭션 데이터를 추가할 수 있도록 개방되어 있는 한편, 트랜잭션 데이터가 조작되거나 위조되지 않도록 보장해야 한다. 이를 위해 새로운 블록이 추가될 때마다 해시 퍼즐을 풀어야 하는데, 이 퍼즐을 풀 때 상당히 많은 계산량이 소모되도록 설계되어 있다. 이는 트랜잭션의 조작을 막는 것에 좋은 방법이지만 <em>빠른 처리속도와 높은 확장성, 대용량 처리가 필요한 응용분야에서는 오히려 걸림돌이될 수 있다.</em></p>
+<h4 id="4-고비용"><a href="#4-고비용" class="headerlink" title="4. 고비용"></a>4. 고비용</h4><p>제한된 확장성과 관련 있는데, 해시 퍼즐을 풀 때 많은 계산량을 소모한다는 것은 그만큼 많은 비용(필요 계산 사이클, 물리적 시간, 소모 전력량 등)을 유발한다는 것이고, 전체 비용은 해시 퍼즐의 난이도에 달려있다.</p>
+<h4 id="5-숨겨진-중앙-통제"><a href="#5-숨겨진-중앙-통제" class="headerlink" title="5. 숨겨진 중앙 통제"></a>5. 숨겨진 중앙 통제</h4><p>해시 퍼즐을 해결하기 위해 특화된 하드웨어에 투자하여 더 많은 보상을 받아서 이윤을 창출하는 사람들이 있는데, 이와 반대로 특화된 하드웨어가 없는 사람은 전자에 비해 밀릴 수 밖에 없어 시스템을 떠나게 된다. 따라서 특화된 하드웨어로 강력한 계산 능력을 갖춘 소수만 남아 시스템을 장악하는 상황을 초래할 수 있고, 이 소수가 시스템의 무결성을 유지하는 책임을 나눠가지게 된다. 이렇게 되면 사실상 보이지 않는 중앙 통제 집단을 형성하여 피어 그룹이 집단적으로 무결성을 유지하도록 하는 분산 시스템의 근본을 위협한다. <em>즉 기술적으로는 분산 시스템이지만 시스템의 무결성은 소수의 개체에 의해서만 유지되는 것이다.</em></p>
+<h4 id="6-유연성의-부재"><a href="#6-유연성의-부재" class="headerlink" title="6. 유연성의 부재"></a>6. 유연성의 부재</h4><p>블록체인을 일단 가동하고 나면 변경, 업그레이드와 관련된 체계적 절차가 따로 없다. 이런 불변성은 블록체인 개발자가 체인 프로토콜의 버그를 고치거나 수정하기 어렵게 하고, 전체 블록체인-기술-모음을 유연성이 떨어지게 만든다.</p>
+<h4 id="7-임계-크기"><a href="#7-임계-크기" class="headerlink" title="7. 임계 크기"></a>7. 임계 크기</h4><p><em>트랜잭션 데이터를 조작으로부터 보호하여 신뢰성을 확보하는 장치는 대다수의 시스템 계산 자원이 <code>정직한 노드에 의해 통제</code>된다는 가정에 기반한다.</em> 그래서 모든 블록체인이 엄청난 계산력을 갖춘 공격자로부터 시스템을 보호하기 위해 <code>최소한의 정직한 노드</code>가 필요하다.</p>
+<h3 id="비기술적-문제-2가지"><a href="#비기술적-문제-2가지" class="headerlink" title="비기술적 문제 2가지"></a>비기술적 문제 2가지</h3><blockquote>
+<ol>
+<li>법적 수용성 부재</li>
+<li>사용자 수용성 부재</li>
+</ol>
+</blockquote>
+<h4 id="1-법적-수용성-부재"><a href="#1-법적-수용성-부재" class="headerlink" title="1. 법적 수용성 부재"></a>1. 법적 수용성 부재</h4><p>블록체인으로 분산 합의를 통해 소유권 이전 및 관리를 하는 것은 법적 효력에 대한 해석 문제를 야기하고, 이는 법적 제도 장치의 결여를 의미한다.</p>
+<h4 id="2-사용자-수용성-부재"><a href="#2-사용자-수용성-부재" class="headerlink" title="2. 사용자 수용성 부재"></a>2. 사용자 수용성 부재</h4><p>법적 수용성 부재와 같은 요소가 사용자들의 블록체인에 대한 불확실성을 가지게 하고, 사용 결정에 대한 관심을 감소시킨다. 또 지식과 교육의 부재로 기본 작동 원리에 대해 모르기 때문에 블록체인에 대해 신뢰하기도 어렵다.</p>
+<h3 id="어떻게-극복할-것인가"><a href="#어떻게-극복할-것인가" class="headerlink" title="어떻게 극복할 것인가?"></a>어떻게 극복할 것인가?</h3><h4 id="기술적-문제"><a href="#기술적-문제" class="headerlink" title="기술적 문제"></a>기술적 문제</h4><p>➡️ 모든 구성요소와 기술 수준을 조정한다. 블록체인의 기술적 제약사항을 극복하는 데 있어 주요 걸림돌은 기술을 개선하는 것과 기본 기술을 변경하는 것에 대한 구분이다.</p>
+<h4 id="비기술적-문제"><a href="#비기술적-문제" class="headerlink" title="비기술적 문제"></a>비기술적 문제</h4><p>➡️ 교육과 법제도의 개선이 적절한 수단이 될 수 있다.</p>
+<hr>
+<h2 id="23-다시-태어난-블록체인"><a href="#23-다시-태어난-블록체인" class="headerlink" title="23. 다시 태어난 블록체인"></a>23. 다시 태어난 블록체인</h2><h3 id="블록체인의-서로-상충되는-목표"><a href="#블록체인의-서로-상충되는-목표" class="headerlink" title="블록체인의 서로 상충되는 목표"></a>블록체인의 서로 상충되는 목표</h3><blockquote>
+<ol>
+<li>투명성 vs 개인정보 보호</li>
+<li>보안 vs 속도</li>
+</ol>
+</blockquote>
+<h4 id="1-투명성-vs-개인정보-보호"><a href="#1-투명성-vs-개인정보-보호" class="headerlink" title="1. 투명성 vs 개인정보 보호"></a>1. 투명성 vs 개인정보 보호</h4><p>블록체인이 소유권을 검증하는 핵심 개념이 개방성과 투명성이다. 개인정보 보호는 트랜잭션에 연계된 계좌번호나 이체금액 등의 세부 사항이 공개되지 않도록 하는 것인데, 소유권 명확화를 위해 모든 트랜잭션이 투명하게 관리되는 것과 서로 충돌한다.</p>
+<h4 id="2-보안-vs-속도"><a href="#2-보안-vs-속도" class="headerlink" title="2. 보안 vs 속도"></a>2. 보안 vs 속도</h4><p>블록체인은 트랜잭션 데이터를 보호하기 위해 해시 퍼즐을 풀 때 많은 계산량을 요구로 하는데, 이런 성질 때문에 속도와 확장성에 정면으로 반한다.</p>
+<h3 id="갈등의-근본-원인은-읽기와-쓰기-권한에-있다"><a href="#갈등의-근본-원인은-읽기와-쓰기-권한에-있다" class="headerlink" title="갈등의 근본 원인은 읽기와 쓰기 권한에 있다"></a>갈등의 근본 원인은 읽기와 쓰기 권한에 있다</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>기술적 제약사항</th>
+<th>갈등 요소</th>
+<th>기본 기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>개인정보 보호 부재</td>
+<td>투명성 vs 개인정보 보호</td>
+<td>트랜잭션 데이터 이력 읽기</td>
+</tr>
+<tr>
+<td>확장성 부재</td>
+<td>보안 vs 속도</td>
+<td>트랜잭션 데이터 쓰기</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="갈등-해결-4가지-버전의-블록체인을-등장시키다"><a href="#갈등-해결-4가지-버전의-블록체인을-등장시키다" class="headerlink" title="갈등 해결, 4가지 버전의 블록체인을 등장시키다"></a>갈등 해결, 4가지 버전의 블록체인을 등장시키다</h3><p>갈등은 절충점을 찾거나 한쪽의 희생을 감수하고 다른 한쪽을 선택하면 해결된다.</p>
+<h4 id="투명성과-개인정보-중-선택"><a href="#투명성과-개인정보-중-선택" class="headerlink" title="투명성과 개인정보 중 선택"></a>투명성과 개인정보 중 선택</h4><p>데이터를 읽을 권한을 누구에게 줄 것인가를 정하는 문제이다.</p>
+<ul>
+<li>공개 블록체인: 모든 사용자와 노드에게 트랜잭션 데이터를 읽을 수 있는 권한을 부여한다. (모두에게 읽기 권한 부여)</li>
+<li>비밀 블록체인: 사전에 선택된 사용자와 노드에게만 트랜잭션 데이터를 읽을 수 있는 권한을 부여한다. (제한된 사용자와 노드 그룹에게만 읽기 권한 부여)</li>
+</ul>
+<h4 id="보안과-속도-중-선택"><a href="#보안과-속도-중-선택" class="headerlink" title="보안과 속도 중 선택"></a>보안과 속도 중 선택</h4><ul>
+<li>무승인형 블록체인: 모두에게 쓰기 권한을 부여한다. 즉 누구나 트랜잭션을 검증하고 새 블록을 추가할 수 있다.</li>
+<li>승인형 블록체인: 온-보딩 프로세스를 거쳐 신뢰성이 확인된 소수의 노드와 사용자 그룹에게만 쓰기 권한을 허용한다. 쓰기 권한을 받은 소수마 트랜잭션의 검증과 분산 동의에 참가할 수 있다.</li>
+</ul>
+<h3 id="블록체인의-네-가지-버전-어떤-점이-다를까"><a href="#블록체인의-네-가지-버전-어떤-점이-다를까" class="headerlink" title="블록체인의 네 가지 버전, 어떤 점이 다를까?"></a>블록체인의 네 가지 버전, 어떤 점이 다를까?</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th style="text-align:center">읽기와 트랜잭션 생성 권한</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td style="text-align:center">모두 허용</td>
+<td>허가된 사용자만 허용</td>
+</tr>
+<tr>
+<td>쓰기권한</td>
+<td>모두 허용</td>
+<td style="text-align:center">공개&amp;무승인</td>
+<td>비밀&amp;무승인</td>
+</tr>
+<tr>
+<td></td>
+<td>허가된 사용자만 허용</td>
+<td style="text-align:center">공개&amp;승인</td>
+<td>비밀&amp;승인</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>위의 조합괸 버전들은 블록체인의 다음 세 가지 측면에 영향을 미친다.</p>
+<blockquote>
+<ol>
+<li>P2P 아키텍처</li>
+<li>분산 속성</li>
+<li>목적</li>
+</ol>
+</blockquote>
+<h4 id="1-P2P-아키텍처"><a href="#1-P2P-아키텍처" class="headerlink" title="1. P2P 아키텍처"></a>1. P2P 아키텍처</h4><p>시스템에 참여한 모든 컴퓨터에게 동등한 권리와 역할을 부여해야 하는데, 위에서 설명된 버전 중 일부는 <em>시스템을 구성하는 노드별로 읽기와 쓰기 권한에 차별을 둔다.</em> 따라서 동등한 권리와 역할을 부여한다는 P2P 시스템의 중요한 특성에 위배된다.</p>
+<h4 id="2-분산-속성"><a href="#2-분산-속성" class="headerlink" title="2. 분산 속성"></a>2. 분산 속성</h4><p>분산 시스템에서 중앙 통제나 조정장치가 없어야 한다. 그러나 위에서 설명된 버전 중 일부는 읽기와 쓰기 권한을 사전에 승인한 노드나 사용자 그룹으로 제한하고 있다. 그리고 이런 승인과 권한에 관한 규칙이 순수 분산 시스템에 의해 유지되고 관리되지 않는다면 중앙 통제 요소가 있다는 것이어서 분산 속성에 위배된다. 또 숨은 중앙 통제 요소가 있거나 내부적으로 분산 시스템을 활용하지만 모든 노드에게 접근제한이 있는 중앙 통제 시스템을 볼 수 있는데 이 경우 모두 분산과 중앙 통제 요소로 구성된 혼합시스템에 가깝다.</p>
+<h4 id="3-목적"><a href="#3-목적" class="headerlink" title="3. 목적"></a>3. 목적</h4><p>읽기와 쓰기 권한에 제한을 두는 것은 분산 P2P 시스템의 기본 성질을 변형시킬 뿐 아니라 노드의 신뢰성도 변화시킨다. 하지만 안정성과 신뢰성을 알 수 있는 특정된 개수의 노드로 구성된 환경에서도 블록체인의 역할이 존재한다.</p>
+<ul>
+<li>기술적 결함이나 컴퓨터 고장으로 작동하는 노드의 개수가 변경될 수 있다.</li>
+<li>모든 분산 시스템은 네트워크 장애로 인해 개별 메시지단위의 통신이 안정적이지 못하다.</li>
+<li>노드의 신뢰성을 100% 수준으로 보장할 수 없다.</li>
+</ul>
+<h3 id="블록채인의-목적-다시-정의하기"><a href="#블록채인의-목적-다시-정의하기" class="headerlink" title="블록채인의 목적 다시 정의하기"></a>블록채인의 목적 다시 정의하기</h3><p>노드별로 읽기와 쓰기 권한에 제약을 두면 블록체인의 주요 측면과 상충하는데 제약이 가장 많은 비밀-승인형 블록체인에서도 여전히 무결성 유지에 아주 중요하다.</p>
+<hr>
+<p><em>References</em><br>[블록체인 무엇인가?] 다니엘 드레셔 지음</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/20/220321_blockchain19_21/" rel="prev" title="블록체인 무엇인가? 3장 블록체인은 어떻게 작동하는가? 19 ~ 21단계">
+      <i class="fa fa-chevron-left"></i> 블록체인 무엇인가? 3장 블록체인은 어떻게 작동하는가? 19 ~ 21단계
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#22-냉정하게-한계점-바라보기"><span class="nav-number">1.</span> <span class="nav-text">22. 냉정하게 한계점 바라보기</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#블록체인-시스템이-가진-기술적-제약사항"><span class="nav-number">1.1.</span> <span class="nav-text">블록체인 시스템이 가진 기술적 제약사항</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-개인정보-보호의-부재"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 개인정보 보호의 부재</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-보안-모델"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 보안 모델</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-제한적-확장성"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 제한적 확장성</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-고비용"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 고비용</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-숨겨진-중앙-통제"><span class="nav-number">1.1.5.</span> <span class="nav-text">5. 숨겨진 중앙 통제</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-유연성의-부재"><span class="nav-number">1.1.6.</span> <span class="nav-text">6. 유연성의 부재</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-임계-크기"><span class="nav-number">1.1.7.</span> <span class="nav-text">7. 임계 크기</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#비기술적-문제-2가지"><span class="nav-number">1.2.</span> <span class="nav-text">비기술적 문제 2가지</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-법적-수용성-부재"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 법적 수용성 부재</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-사용자-수용성-부재"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 사용자 수용성 부재</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#어떻게-극복할-것인가"><span class="nav-number">1.3.</span> <span class="nav-text">어떻게 극복할 것인가?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#기술적-문제"><span class="nav-number">1.3.1.</span> <span class="nav-text">기술적 문제</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#비기술적-문제"><span class="nav-number">1.3.2.</span> <span class="nav-text">비기술적 문제</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23-다시-태어난-블록체인"><span class="nav-number">2.</span> <span class="nav-text">23. 다시 태어난 블록체인</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#블록체인의-서로-상충되는-목표"><span class="nav-number">2.1.</span> <span class="nav-text">블록체인의 서로 상충되는 목표</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-투명성-vs-개인정보-보호"><span class="nav-number">2.1.1.</span> <span class="nav-text">1. 투명성 vs 개인정보 보호</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-보안-vs-속도"><span class="nav-number">2.1.2.</span> <span class="nav-text">2. 보안 vs 속도</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#갈등의-근본-원인은-읽기와-쓰기-권한에-있다"><span class="nav-number">2.2.</span> <span class="nav-text">갈등의 근본 원인은 읽기와 쓰기 권한에 있다</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#갈등-해결-4가지-버전의-블록체인을-등장시키다"><span class="nav-number">2.3.</span> <span class="nav-text">갈등 해결, 4가지 버전의 블록체인을 등장시키다</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#투명성과-개인정보-중-선택"><span class="nav-number">2.3.1.</span> <span class="nav-text">투명성과 개인정보 중 선택</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#보안과-속도-중-선택"><span class="nav-number">2.3.2.</span> <span class="nav-text">보안과 속도 중 선택</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#블록체인의-네-가지-버전-어떤-점이-다를까"><span class="nav-number">2.4.</span> <span class="nav-text">블록체인의 네 가지 버전, 어떤 점이 다를까?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-P2P-아키텍처"><span class="nav-number">2.4.1.</span> <span class="nav-text">1. P2P 아키텍처</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-분산-속성"><span class="nav-number">2.4.2.</span> <span class="nav-text">2. 분산 속성</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-목적"><span class="nav-number">2.4.3.</span> <span class="nav-text">3. 목적</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#블록채인의-목적-다시-정의하기"><span class="nav-number">2.5.</span> <span class="nav-text">블록채인의 목적 다시 정의하기</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
