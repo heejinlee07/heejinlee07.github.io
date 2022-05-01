@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-30 16:43:26" itemprop="dateModified" datetime="2022-04-30T16:43:26+09:00">2022-04-30</time>
+                <time title="Modified: 2022-05-01 23:11:53" itemprop="dateModified" datetime="2022-05-01T23:11:53+09:00">2022-05-01</time>
               </span>
 
           
@@ -191,7 +191,7 @@
       
           <h2 id="아이템-35-데이터가-아닌-API와-명세를-보고-타입-만들기"><a href="#아이템-35-데이터가-아닌-API와-명세를-보고-타입-만들기" class="headerlink" title="아이템 35 데이터가 아닌, API와 명세를 보고 타입 만들기"></a>아이템 35 데이터가 아닌, API와 명세를 보고 타입 만들기</h2><p>파일 형식, API, 명세 등 우리가 다루는 타입 중 최소한 몇 개는 프로젝트 외부에서 비롯된 것이다. <em>이런 경우 자동으로 타입 생성이 가능하다.</em> 단 중요한 포인트는 예시 데이터가 아니라 <code>명세</code>를 참고해서 타입을 생성한다는 것이다. 명세를 참고하지 않고 예시 데이터를 참고해서 타입을 작성하게 되면 눈앞에 있는 데이터만 고려하게 되므로 오류 발생을 야기하기 쉽다. 그래서 명세가 존재한다면 아래 예시처럼 이미 존재하는 타입스크립트 타입 선언을 명시해서 사용할 수 있다. 다만 이미 존재하는 타입 선언을 import해서 쓰더라도 GeometryCollection에 coordinates의 속성이 없다면 에러가 발생할 수 있다.</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// requires node modules: @types/geojson</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> BoundingBox &#123;</span><br><span class="line">  lat: [<span class="built_in">number</span>, <span class="built_in">number</span>];</span><br><span class="line">  lng: [<span class="built_in">number</span>, <span class="built_in">number</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">import</span> &#123; Feature, Geometry &#125; <span class="keyword">from</span> <span class="string">'geojson'</span>;</span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">let</span> f: Feature;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">helper</span>(<span class="params">coordinates: <span class="built_in">any</span>[]</span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">const</span> geometryHelper = <span class="function">(<span class="params">g: Geometry</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (geometry.type === <span class="string">'GeometryCollection'</span>) &#123;</span><br><span class="line">    geometry.geometries.forEach(geometryHelper);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    helper(geometry.coordinates); <span class="comment">// OK</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; geometry &#125; = f;</span><br><span class="line"><span class="keyword">if</span> (geometry) &#123;</span><br><span class="line">  geometryHelper(geometry);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>이럴 때는 아래와 같이명시적으로 해당하는 타입을 차단하는 방법을 사용할 수 있다.</p>
+<p>이럴 때는 아래와 같이 명시적으로 해당하는 타입을 차단하는 방법을 사용할 수 있다.</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; geometry &#125; = f;</span><br><span class="line"><span class="keyword">if</span> (geometry) &#123;</span><br><span class="line">  <span class="keyword">if</span> (geometry.type === <span class="string">'GeometryCollection'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'GeometryCollection are not supported.'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    helper(geometry.coordinates); <span class="comment">// OK</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>하지만 명시적 타입 차단보다는 모든 타입을 지원하되 조건을 분기하여 helper함수를 지원하는 방식으로 작성해야 한다.</p>
 <hr>
@@ -290,7 +290,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-30 16:43:26" itemprop="dateModified" datetime="2022-04-30T16:43:26+09:00">2022-04-30</time>
+                <time title="Modified: 2022-05-01 23:11:53" itemprop="dateModified" datetime="2022-05-01T23:11:53+09:00">2022-05-01</time>
               </span>
 
           
@@ -315,7 +315,7 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> RequestPending &#123;</span><br><span class="line">  state: <span class="string">'pending'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> RequestError &#123;</span><br><span class="line">  state: <span class="string">'error'</span>;</span><br><span class="line">  error: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> RequestSuccess &#123;</span><br><span class="line">  state: <span class="string">'ok'</span>;</span><br><span class="line">  pageText: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> RequestState = RequestPending | RequestError | RequestSuccess;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> State &#123;</span><br><span class="line">  currentPage: <span class="built_in">string</span>;</span><br><span class="line">  requests: &#123; [page: <span class="built_in">string</span>]: RequestState &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>타입을 설계할 때 어떤 값들을 포함하고, 어떤 값들을 제외할지 신중하게 생각하도록 한다. 유효한 상태를 표현하는 값만 허용하면 코드를 작성하기 쉬워지고 타입 체크가 용이해진다.</p>
 <hr>
-<h2 id="아이템-29-사용할-때는-너그럽게-생성할-때는-엄격하게"><a href="#아이템-29-사용할-때는-너그럽게-생성할-때는-엄격하게" class="headerlink" title="아이템 29 사용할 때는 너그럽게, 생성할 때는 엄격하게"></a>아이템 29 사용할 때는 너그럽게, 생성할 때는 엄격하게</h2><p>함수의 시그니처는 <code>당신의 작업은 엄격하게, 다른 사랆의 작업은 너그럽게 받아들인다</code>는 일반적인 원칙을 따라야 한다. 즉 함수의 매개변수는 타입의 범위가 넓어도 되지만 결과를 반환할 때는 타입의 범위가 더 구체적이어야 한다.</p>
+<h2 id="아이템-29-사용할-때는-너그럽게-생성할-때는-엄격하게"><a href="#아이템-29-사용할-때는-너그럽게-생성할-때는-엄격하게" class="headerlink" title="아이템 29 사용할 때는 너그럽게, 생성할 때는 엄격하게"></a>아이템 29 사용할 때는 너그럽게, 생성할 때는 엄격하게</h2><p>함수의 시그니처는 <code>당신의 작업은 엄격하게, 다른 사람의 작업은 너그럽게 받아들인다</code>는 일반적인 원칙을 따라야 한다. 즉 함수의 매개변수는 타입의 범위가 넓어도 되지만 결과를 반환할 때는 타입의 범위가 더 구체적이어야 한다.</p>
 <ul>
 <li>viewportForBounds의 타입의 선언이 만들어지고 사용될 때처럼 너무 자유로우면 오류가 발생하기 쉽다.</li>
 <li>너무 자유롭다는 것은 수많은 선택적 속성(?)을 가지는 반환 타입을 가지고 있거나 유니온 타입을 사용하는 경우를 말한다.</li>
@@ -460,7 +460,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-30 16:43:26" itemprop="dateModified" datetime="2022-04-30T16:43:26+09:00">2022-04-30</time>
+                <time title="Modified: 2022-05-01 23:11:53" itemprop="dateModified" datetime="2022-05-01T23:11:53+09:00">2022-05-01</time>
               </span>
 
           
@@ -642,7 +642,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-30 16:43:26" itemprop="dateModified" datetime="2022-04-30T16:43:26+09:00">2022-04-30</time>
+                <time title="Modified: 2022-05-01 23:11:53" itemprop="dateModified" datetime="2022-05-01T23:11:53+09:00">2022-05-01</time>
               </span>
 
           
@@ -740,7 +740,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-30 16:43:26" itemprop="dateModified" datetime="2022-04-30T16:43:26+09:00">2022-04-30</time>
+                <time title="Modified: 2022-05-01 23:11:53" itemprop="dateModified" datetime="2022-05-01T23:11:53+09:00">2022-05-01</time>
               </span>
 
           
@@ -834,7 +834,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-30 16:43:26" itemprop="dateModified" datetime="2022-04-30T16:43:26+09:00">2022-04-30</time>
+                <time title="Modified: 2022-05-01 23:11:53" itemprop="dateModified" datetime="2022-05-01T23:11:53+09:00">2022-05-01</time>
               </span>
 
           
@@ -861,8 +861,7 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> LineChartOptions &#123;</span><br><span class="line">  logscale?: <span class="built_in">boolean</span>;</span><br><span class="line">  invertedYAxis?: <span class="built_in">boolean</span>;</span><br><span class="line">  areaChart?: <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> opts = &#123; logScale: <span class="literal">true</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> o: LineChartOptions = opts;</span><br><span class="line"><span class="comment">// ~ Type '&#123; logScale: boolean; &#125;' has no properties in common</span></span><br><span class="line"><span class="comment">//   with type 'LineChartOptions'</span></span><br></pre></td></tr></table></figure>
 <p>위 예시에서 LineChartOptions 타입은 모든 속성이 선택적이므로 모든 객체를 포함할 수 있는 약한 타입이다. 이 경우 타입스크립트가 값 타입과 선언 타입에 공통된 속성이 있는지 확인하는 별도의 체크를 수행한다. 오타를 잡는데 효과적이며 구조적으로 엄격하지 않지만 잉여 속성 체크와 다른 점은 약한 타입과 관련된 할당문마다 수행된다는 점이다. 따라서 임시 변수를 제거하더라도 공통 속성 체크는 여전히 동작한다.</p>
 <hr>
-<p>TL;DR</p>
-<ul>
+<h3 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h3><ul>
 <li>객체 리터럴을 변수에 할당하거나 함수에 매개변수로 전달할 때 잉여 체크 속성이 수행된다.</li>
 <li>잉여 속성 체크는 오류를 찾는 효과적인 방법이지만, 타입스크립트 타입 체커가 수행하는 일반적인 구조적 할당 가능성 체크와 역할이 다르다. 할당의 개념을 정확히 알아야 잉여 속성 체크와 일반적인 구조적 할당 가능성 체크를 구분할 수 있다.</li>
 <li>잉여 속성 체크에는 한계가 있다. 임시 변수를 도입하면 잉여 속성 체크를 건너뛸 수 있다.</li>
@@ -1073,7 +1072,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-30 16:43:26" itemprop="dateModified" datetime="2022-04-30T16:43:26+09:00">2022-04-30</time>
+                <time title="Modified: 2022-05-01 23:11:53" itemprop="dateModified" datetime="2022-05-01T23:11:53+09:00">2022-05-01</time>
               </span>
 
           
@@ -1177,7 +1176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-30 16:43:26" itemprop="dateModified" datetime="2022-04-30T16:43:26+09:00">2022-04-30</time>
+                <time title="Modified: 2022-05-01 23:11:53" itemprop="dateModified" datetime="2022-05-01T23:11:53+09:00">2022-05-01</time>
               </span>
 
           
@@ -1330,7 +1329,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-30 16:43:26" itemprop="dateModified" datetime="2022-04-30T16:43:26+09:00">2022-04-30</time>
+                <time title="Modified: 2022-05-01 23:11:53" itemprop="dateModified" datetime="2022-05-01T23:11:53+09:00">2022-05-01</time>
               </span>
 
           
@@ -1714,7 +1713,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-30 16:43:26" itemprop="dateModified" datetime="2022-04-30T16:43:26+09:00">2022-04-30</time>
+                <time title="Modified: 2022-05-01 23:11:53" itemprop="dateModified" datetime="2022-05-01T23:11:53+09:00">2022-05-01</time>
               </span>
 
           
