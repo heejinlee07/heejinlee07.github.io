@@ -144,6 +144,93 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/20/220221_item42to48/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/20/220221_item42to48/" class="post-title-link" itemprop="url">타입스크립트 이펙티브 아이템 42 - 아이템 48</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-21T00:00:00+09:00">2022-02-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="아이템-42-모르는-타입의-값에는-any-대신-unknown을-사용하기"><a href="#아이템-42-모르는-타입의-값에는-any-대신-unknown을-사용하기" class="headerlink" title="아이템 42 모르는 타입의 값에는 any 대신 unknown을 사용하기"></a>아이템 42 모르는 타입의 값에는 any 대신 unknown을 사용하기</h2><h3 id="any의-특성"><a href="#any의-특성" class="headerlink" title="any의 특성"></a>any의 특성</h3><ul>
+<li>어떠한 타입이든 any 타입에 할당 가능하다.</li>
+<li>any 타입은 never를 제외한 어떠한 타입으로도 할당 가능하다.</li>
+</ul>
+<p>이러한 any의 특성은 집합 기반의 타입시스템과 상충된다. 따라서 any를 쓰면 타입 체커가 무용지물이 된다. 마치 any와 같은 역할을 하면서 타입시스템에 부합하는 타입이 바로 <code>unknown</code>이다.</p>
+<h3 id="unknown의-특성"><a href="#unknown의-특성" class="headerlink" title="unknown의 특성"></a>unknown의 특성</h3><ul>
+<li>어떠한 타입도 unknown에 할당 가능하다.</li>
+<li>오직 unknown과 any에만 할당 가능하다.</li>
+</ul>
+<h3 id="never의-특성"><a href="#never의-특성" class="headerlink" title="never의 특성"></a>never의 특성</h3><ul>
+<li>어떤 타입도 never에 할당 할 수 없다.</li>
+<li>어떠한 타입으로도 할당 가능하다.</li>
+</ul>
+<hr>
+<h3 id="1-unknown의-함수의-반환값과-관련된-형태"><a href="#1-unknown의-함수의-반환값과-관련된-형태" class="headerlink" title="1. unknown의 함수의 반환값과 관련된 형태"></a>1. unknown의 함수의 반환값과 관련된 형태</h3><p><em>함수의 반환타입으로 any를 쓰는 것은 좋지 않기 때문에</em> 그보다는 함수를 호출한 곳에서 반환값을 원하는 타입으로 할당하는 것이 바람직하다. 그러나 함수의 반환값에 타입 선언을 강제할 수 없기 때문에 호출한 곳에서 타입 선언을 생략하면 아래 예제를 예시로 들었을 때 1️⃣, 2️⃣처럼 book 변수가 암시적 any타입이 되고, 사용되는 곳마다 타입 오류가 발생한다. 이런 경우에 any 대신 unknown을 쓰면 훨씬 안전하다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseYAML</span>(<span class="params">yaml: <span class="built_in">string</span></span>): <span class="title">any</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> Book &#123;</span><br><span class="line">  name: <span class="built_in">string</span></span><br><span class="line">  author: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">safeParseYAML</span>(<span class="params">yaml: <span class="built_in">string</span></span>): <span class="title">unknown</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> parseYAML(yaml)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> book = safeParseYAML(<span class="string">`</span></span><br><span class="line"><span class="string">  name: The Tenant of Wildfell Hall</span></span><br><span class="line"><span class="string">  author: Anne Brontë</span></span><br><span class="line"><span class="string">`</span>)</span><br><span class="line">alert(book.title)</span><br><span class="line"><span class="comment">// 1️⃣ - No error, alerts "undefined" at runtime</span></span><br><span class="line"><span class="comment">// ~~~~ Object is of type 'unknown'</span></span><br><span class="line">book(<span class="string">'read'</span>)</span><br><span class="line"><span class="comment">// No error, throws "TypeError: book is not a</span></span><br><span class="line"><span class="comment">// 2️⃣ - function" at runtime</span></span><br><span class="line"><span class="comment">// ~~~~~~~~~~ Object is of type 'unknown'</span></span><br></pre></td></tr></table></figure>
+<p>하지만 unknown인 타입의 값을 사용하려고 하거나 함수 호출 또는 연산을 진행할 때 오류가 발생하기 때문에 적절한 타입으로 변환하도록 강제할 수 있다.</p>
+<h3 id="2-변수선언과-관련된-unknown"><a href="#2-변수선언과-관련된-unknown" class="headerlink" title="2. 변수선언과 관련된 unknown"></a>2. 변수선언과 관련된 unknown</h3><p>어떠한 값이 있지만 그 타입을 모르는 경우에 사용한다.</p>
+<hr>
+<h2 id="아이템-43-몽키-패치보다는-안전한-타입을-사용하기"><a href="#아이템-43-몽키-패치보다는-안전한-타입을-사용하기" class="headerlink" title="아이템 43 몽키 패치보다는 안전한 타입을 사용하기"></a>아이템 43 몽키 패치보다는 안전한 타입을 사용하기</h2><p>몽키 패치는 프로그램이 런타임 되는 동안 사용되는 모듈이나 클래스를 변경하는 것이다. 자바스크립트는 객체와 클래스에 임의의 속성을 추가할 수 있을 만큼 유연하기 때문에 이 성질을 이용해서 전역 변수를 만들 수도 있다. 예를 들어 window나 document에 값을 할당해서 전역 변수를 만드는 것이다. 그런데 window 또는 DOM 노드에 데이터를 추가하면 그 데이터는 기본적으로 전역 변수기 때문에 프로그랢 내에서 의존성을 만들고, 사이드 이펙트를 만들 수 있다. 그리고 타입스크립트의 타입 체커는 아래와 같이 임의로 추가한 속성에 대해서 알지 못한다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.monkey = <span class="string">'Tamarin'</span></span><br><span class="line"><span class="comment">// ~~~~~~ Property 'monkey' does not exist on type 'Document'</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br>[이펙티브 타입스크립트] 댄 밴더캄 지음</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/15/220216_item35to41/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +262,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-01 23:19:22" itemprop="dateModified" datetime="2022-05-01T23:19:22+09:00">2022-05-01</time>
+                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
               </span>
 
           
@@ -290,7 +377,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-01 23:19:22" itemprop="dateModified" datetime="2022-05-01T23:19:22+09:00">2022-05-01</time>
+                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
               </span>
 
           
@@ -460,7 +547,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-01 23:19:22" itemprop="dateModified" datetime="2022-05-01T23:19:22+09:00">2022-05-01</time>
+                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
               </span>
 
           
@@ -642,7 +729,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-01 23:19:22" itemprop="dateModified" datetime="2022-05-01T23:19:22+09:00">2022-05-01</time>
+                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
               </span>
 
           
@@ -740,7 +827,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-01 23:19:22" itemprop="dateModified" datetime="2022-05-01T23:19:22+09:00">2022-05-01</time>
+                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
               </span>
 
           
@@ -834,7 +921,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-01 23:19:22" itemprop="dateModified" datetime="2022-05-01T23:19:22+09:00">2022-05-01</time>
+                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
               </span>
 
           
@@ -1072,7 +1159,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-01 23:19:22" itemprop="dateModified" datetime="2022-05-01T23:19:22+09:00">2022-05-01</time>
+                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
               </span>
 
           
@@ -1176,7 +1263,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-01 23:19:22" itemprop="dateModified" datetime="2022-05-01T23:19:22+09:00">2022-05-01</time>
+                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
               </span>
 
           
@@ -1329,7 +1416,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-01 23:19:22" itemprop="dateModified" datetime="2022-05-01T23:19:22+09:00">2022-05-01</time>
+                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
               </span>
 
           
@@ -1678,100 +1765,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/10/03/211004_tsOmitExclude/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/03/211004_tsOmitExclude/" class="post-title-link" itemprop="url">A difference between TypeScript Omit and exclude</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-10-04 00:00:00" itemprop="dateCreated datePublished" datetime="2021-10-04T00:00:00+09:00">2021-10-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-01 23:19:22" itemprop="dateModified" datetime="2022-05-01T23:19:22+09:00">2022-05-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Keyof-Type-Operator"><a href="#Keyof-Type-Operator" class="headerlink" title="Keyof Type Operator"></a>Keyof Type Operator</h2><p>Keyof Type Operator는 객체타입을 취하여 key인 stirng 또는 numeric 리터럴 유니언을 생성한다. 아래 예시에서 <code>type P</code>는 <code>“x” | “y”</code>인 타입과 같다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Point = &#123; x: <span class="built_in">number</span>; y: <span class="built_in">number</span> &#125;;</span><br><span class="line"><span class="keyword">type</span> P = keyof Point;</span><br><span class="line"><span class="comment">//type P = “x” | “y”</span></span><br></pre></td></tr></table></figure>
-<p>type이 string, 또는 number 인덱스 시그니처가 있으면 keyof가 이 types를 대신 반환한다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Arrayish = &#123; [n: <span class="built_in">number</span>]: unknown &#125;;</span><br><span class="line"><span class="keyword">type</span> A = keyof Arrayish;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> A = <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Mapish = &#123; [k: <span class="built_in">string</span>]: <span class="built_in">boolean</span> &#125;;</span><br><span class="line"><span class="keyword">type</span> M = keyof Mapish;</span><br></pre></td></tr></table></figure>
-<p>이 예시에서 <code>M</code>은 <code>string | number</code>이다. 이는 JavaScript object keys가 언제나 string로 강제전환되기 때문이다. <strong>그래서 <code>obj[0]</code>은 언제나 <code>obj[&quot;0&quot;]</code>과 같다.</strong> <code>keyof</code>타입은 <code>mapped types</code>와 결합해서 사용할 때 특히 유용하다.</p>
-<hr>
-<h2 id="Omit-lt-Type-Keys-gt"><a href="#Omit-lt-Type-Keys-gt" class="headerlink" title="Omit&lt;Type, Keys&gt;"></a><code>Omit&lt;Type, Keys&gt;</code></h2><p><code>Type</code>에서 type을 구성하는 모든 속성을 선택하여 <code>keys</code>에 의해 제거될 수 있도록 한다. (key는 string 리터럴이거나 string 리터럴의 유니언이다.)</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Todo &#123;</span><br><span class="line">  title: <span class="built_in">string</span>;</span><br><span class="line">  description: <span class="built_in">string</span>;</span><br><span class="line">  completed: <span class="built_in">boolean</span>;</span><br><span class="line">  createdAt: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> TodoPreview = Omit&lt;Todo, <span class="string">'description'</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> todo: TodoPreview = &#123;</span><br><span class="line">  title: <span class="string">'Clean room'</span>,</span><br><span class="line">  completed: <span class="literal">false</span>,</span><br><span class="line">  createdAt: <span class="number">1615544252770</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">todo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> todo: TodoPreview;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> TodoInfo = Omit&lt;Todo, <span class="string">'completed'</span> | <span class="string">'createdAt'</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> todoInfo: TodoInfo = &#123;</span><br><span class="line">  title: <span class="string">'Pick up kids'</span>,</span><br><span class="line">  description: <span class="string">'Kindergarten closes at 5pm'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">todoInfo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> todoInfo: TodoInfo;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="Exclude-lt-Type-ExcludedUnion-gt"><a href="#Exclude-lt-Type-ExcludedUnion-gt" class="headerlink" title="Exclude&lt;Type, ExcludedUnion&gt;"></a><code>Exclude&lt;Type, ExcludedUnion&gt;</code></h2><p><code>Type</code>으로부터 type을 제외하고 모든 union 멤버가 <code>ExcludedUnion</code>으로 할당될 수 있도록 한다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> T0 = Exclude&lt;<span class="string">'a'</span> | <span class="string">'b'</span> | <span class="string">'c'</span>, <span class="string">'a'</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> T0 = <span class="string">'b'</span> | <span class="string">'c'</span>;</span><br><span class="line"><span class="keyword">type</span> T1 = Exclude&lt;<span class="string">'a'</span> | <span class="string">'b'</span> | <span class="string">'c'</span>, <span class="string">'a'</span> | <span class="string">'b'</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> T1 = <span class="string">'c'</span>;</span><br><span class="line"><span class="keyword">type</span> T2 = Exclude&lt;<span class="built_in">string</span> | <span class="built_in">number</span> | <span class="function">(<span class="params">(<span class="params"></span>) =&gt; <span class="built_in">void</span></span>), <span class="params">Function</span>&gt;;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="params">type</span> <span class="params">T2</span> = <span class="params">string</span> | <span class="params">number</span>;</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="Omit-vs-Exclude"><a href="#Omit-vs-Exclude" class="headerlink" title="Omit vs Exclude"></a>Omit vs Exclude</h2><p>아래 <code>StudentInfo</code>에 대해 Omit과 Exclude를 사용해보면 어떻게 될까?</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> StudentInfo &#123;</span><br><span class="line">  isStudent: <span class="built_in">boolean</span>;</span><br><span class="line">  firstName?: <span class="built_in">string</span>;</span><br><span class="line">  lastName?: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="StudentInfo라는-type에-Omit을-사용해보면-다음과-같다"><a href="#StudentInfo라는-type에-Omit을-사용해보면-다음과-같다" class="headerlink" title="StudentInfo라는 type에 Omit을 사용해보면 다음과 같다."></a>StudentInfo라는 type에 Omit을 사용해보면 다음과 같다.</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> OmitStudentData &#123;</span><br><span class="line">  age: <span class="built_in">number</span>;</span><br><span class="line">  studentName: keyof Omit&lt;StudentInfo, <span class="string">'lastName'</span>&gt;;</span><br><span class="line">  memo: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>type Omit&lt;T, K extends string | number | symbol&gt; = { [P in Exclude&lt;keyof T, K&gt;]: T[P];}</code></p>
-</blockquote>
-<p>Omit은 object type인 <code>StudentInfo</code>를 취해서 type 중 특정한 타입을 제거한다. 여기서 StudentInfo의 속성 <code>{ isStudent: boolean, firstName?: string, lastName?: string }</code>중 key가 ‘lastName’인 속성을 제거하고자 했다. 따라서 결과는 아래와 같다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> StudentInfo &#123;</span><br><span class="line">  isStudent: <span class="built_in">boolean</span>;</span><br><span class="line">  firstName?: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="StudentInfo라는-type에-Exclude를-사용해보면-다음과-같다"><a href="#StudentInfo라는-type에-Exclude를-사용해보면-다음과-같다" class="headerlink" title="StudentInfo라는 type에 Exclude를 사용해보면 다음과 같다."></a>StudentInfo라는 type에 Exclude를 사용해보면 다음과 같다.</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> ExcludeStudentData &#123;</span><br><span class="line">  age: <span class="built_in">number</span>;</span><br><span class="line">  studentName: Exclude&lt;keyof StudentInfo, <span class="string">'lastName'</span>&gt;;</span><br><span class="line">  memo: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>type Exclude&lt;T, U&gt; = T extends U ? never : T</code></p>
-</blockquote>
-<p>Exclude는 union 멤버의 구성요소를 제거한다. 여기서 Exclude는 Union Type을 취해서 StudentInfo의 Union Type은 <code>Exclude&lt;&#39;isStudent&#39; | &#39;firstName&#39; | &#39;lastName&#39; | &#39;lastName&#39;&gt;</code>와 같은 형태가 되는데, <code>&#39;lastName&#39;</code>을 제외한 나머지 <code>&lt;&#39;isStudent&#39; | &#39;firstName&#39;&gt;</code>이 union 멤버가 된다. 따라서 결과는 아래와 같다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> StudentInfo &#123;</span><br><span class="line">  isStudent: <span class="built_in">boolean</span>;</span><br><span class="line">  firstName?: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong><em>Omit, Exclude를 쓴 결과는 동일하지만 과정상 Omit은 특정 속성을 제거한 결과를 제공한다는 점, Exclude는 속성을 제거하는 것이 아니라 특정 Union Type을 제외한 나머지 Union Type을 제거한다는 차이가 있다.</em></strong></p>
-<hr>
-<p><em>References</em><br><a href="https://www.typescriptlang.org/docs/handbook/2/keyof-types.html#the-keyof-type-operator" target="_blank" rel="noopener">The keyof type operator</a><br><a href="https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys" target="_blank" rel="noopener">Omit<Type, Keys></a><br><a href="https://www.typescriptlang.org/docs/handbook/utility-types.html#excludetype-excludedunion" target="_blank" rel="noopener">Exclude<Type, ExcludedUnion></a><br><a href="https://stackoverflow.com/questions/56916532/difference-b-w-only-exclude-and-omit-pick-exclude-typescript" target="_blank" rel="noopener">Difference b/w only Exclude and Omit (Pick &amp; Exclude) Typescript</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1842,7 +1835,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-count">122</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
