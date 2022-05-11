@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -270,6 +270,177 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/03/210704_stringSeparated/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/03/210704_stringSeparated/" class="post-title-link" itemprop="url">문자열 분할</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-04 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-04T00:00:00+09:00">2021-07-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="문자열-분할"><a href="#문자열-분할" class="headerlink" title="문자열 분할"></a>문자열 분할</h2><p>게임 몬스터 데이터를 읽어와야한다고 가정한다. 각 몬스터는 어떤 특정한 정형화된 형식을 만들어야 프로그램으로 읽을 수 있다.</p>
+<p><strong><u>1. 키와 값</u></strong><br>키가 어떤 용도의 데이터인지 알려준다. 파일 안에서 순서가 바뀌어도 상관없다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;name, HP, MP의 키값으로 데이터를 찾기 때문에 순서가 바뀌어도 상관없다.</span><br><span class="line">name: &quot;Pokemon&quot;</span><br><span class="line">HP:1</span><br><span class="line">MP: 1000</span><br></pre></td></tr></table></figure>
+<p>위의 경우 보통 한 몬스터의 데이터만 한 파일 안에 저장한다. 만약 여러 몬스터 데이터를 저장해야 한다면 방법은 아래 두 가지가 있다.</p>
+<ul>
+<li>몬스터 하나당 파일 하나: 파일이 너무 많아진다는 단점이 있고, 이는 성능저하의 원인이 된다.</li>
+<li>한 파일에 배열과 같은 형태로 집어 넣는다: XML 또는 아래 코드와 같은 JSON 형태<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"monstars"</span>: [</span><br><span class="line">    &#123;<span class="attr">"name"</span>: <span class="string">"Pokemon1"</span>, <span class="attr">"HP"</span>:<span class="number">1</span>, <span class="attr">"MP"</span>: <span class="number">1000</span>&#125;</span><br><span class="line">    &#123;<span class="attr">"name"</span>: <span class="string">"Pokemon2"</span>, <span class="attr">"HP"</span>:<span class="number">2</span>, <span class="attr">"MP"</span>: <span class="number">2000</span>&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong><u>2. 표</u></strong><br>정형화된 다수의 데이터를 한 곳에 저장하기 용이하다. 아래 표처럼 엑셀과 같은 형태. 열 색인으로 어떤 용도의 데이터인지 결정한다. 순서를 바꿀 수는 없다.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>HP</th>
+<th>MP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pokemon1</td>
+<td>1</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>pokemon2</td>
+<td>2</td>
+<td>2000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>표의 형태를 사용하는 경우 흔히 <code>엑셀파일</code>을 이용한다. 엑셀파일은 텍스트 파일이 아니기 때문에 CSV(comma-separated values)파일로 저장 가능하다. CSV는 텍스트 파일이며 각 값은 아래와 같이 쉼표로 분리된다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name, HP, MP</span><br><span class="line">pokemon1, 1, 1000</span><br><span class="line">pokemon2, 2, 2000</span><br></pre></td></tr></table></figure>
+<p>몬스터 CSV데이터를 읽는 의사 코드</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">string[] lines &#x3D;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;pokemon1,1,1000&quot;,</span><br><span class="line">  &quot;pokemon2,2,2000&quot;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt;lines; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  string line &#x3D; lines[i];</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;for 문을 써서 문자열을 읽어온 뒤 string[] tokens에 저장</span><br><span class="line"></span><br><span class="line">  Console.WriteLine($&quot;몬스터 경고: tokens[0] (HP: &#123;tokens[1]&#125;, MP: &#123;tokens[2]&#125;)&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="토큰을-읽어오는-법"><a href="#토큰을-읽어오는-법" class="headerlink" title="토큰을 읽어오는 법"></a>토큰을 읽어오는 법</h2><blockquote>
+<p>토큰: 연속된 데이터에서 쪼갤 수 있는 가장 작은 단위</p>
+</blockquote>
+<ul>
+<li>별도의 for문이 필요</li>
+<li>string의 <code>IndexOf()</code>, <code>Substring()</code> 등의 함수 또는 첨자 연산자([])를 이용해서 구현 가능</li>
+</ul>
+<h3 id="IndexOf"><a href="#IndexOf" class="headerlink" title="IndexOf()"></a>IndexOf()</h3><blockquote>
+<p>&lt;문자열 변수 이름&gt;.IndexOf(char);</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string message &#x3D; &quot;C# is very very fun!&quot;;</span><br><span class="line">int index &#x3D; message.IndexOf(&#39;v&#39;); &#x2F;&#x2F;6 반환</span><br></pre></td></tr></table></figure>
+<p><strong>char의 위치를 찾아서 색인을 반환하는 함수</strong></p>
+<ul>
+<li>문자가 문자열에 여러 번 나타나면 가장 처음에 나타난 곳의 색인을 반환한다.</li>
+<li>찾는 문자가 문자열에 없다면 <code>-1</code>을 반환한다.</li>
+<li>LastIndexOf()는 찾고자 하는 문자열이 가장 마지막에서부터 처음 나타난 곳의 색인을 반환하다.</li>
+</ul>
+<h3 id="Substring"><a href="#Substring" class="headerlink" title="Substring()"></a>Substring()</h3><blockquote>
+<p>&lt;문자열 변수 이름&gt;.Substring(&lt;색인&gt;);</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string nameMessage &#x3D; &quot;name: pokeMon&quot;;</span><br><span class="line">string name &#x3D; namemessage.Substring(6); &#x2F;&#x2F;pokeMon 반환</span><br></pre></td></tr></table></figure>
+<p><strong>지정된 문자 위치(&lt;색인&gt;)에서부터의 문자열을 반환하는 함수</strong></p>
+<h3 id="첨자-연산자"><a href="#첨자-연산자" class="headerlink" title="첨자 연산자([])"></a>첨자 연산자([])</h3><blockquote>
+<p>&lt;문자열 변수 이름&gt;[&lt;색인&gt;];</p>
+</blockquote>
+<p>for문을 돌린다고 가정하면 각 문자열이 어느 위치에 들어있는 지 알아야 하고, 이럴 때 첨자 연산자를 사용한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string HPMessage &#x3D; &quot;HP: 100&quot;;</span><br><span class="line">char ch &#x3D; HPMessage[4]; &#x2F;&#x2F; &#39;1&#39;</span><br></pre></td></tr></table></figure>
+<p><strong>&lt;색인&gt; 위치에 있는 문자 하나를 반환한다.</strong></p>
+<hr>
+<h2 id="문자열-토크나이저"><a href="#문자열-토크나이저" class="headerlink" title="문자열 토크나이저"></a>문자열 토크나이저</h2><h2 id="Split"><a href="#Split" class="headerlink" title="Split()"></a>Split()</h2><blockquote>
+<p>&lt;문자열 변수 이름&gt;.Split(char);</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string text &#x3D; &quot;pokemon,1,10000&quot;;</span><br><span class="line">string[] tokens &#x3D; text.Split(&#39;,&#39;); &#x2F;&#x2F; &#123;&quot;pokemon&quot;, &quot;1&quot;, &quot;10000&quot;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>char는 문자열을 쪼갤 때 사용할 구분 문자</li>
+<li><strong>원본 문자열은 변경 없이 그대로 유지</strong></li>
+<li>쪼갠 문자열을 문자열 배열로 반환</li>
+<li>여러 버전의 Split() 함수가 존재</li>
+</ul>
+<h3 id="여러-개의-구분-문자가-문자열에-있을-때"><a href="#여러-개의-구분-문자가-문자열에-있을-때" class="headerlink" title="여러 개의 구분 문자가 문자열에 있을 때"></a>여러 개의 구분 문자가 문자열에 있을 때</h3><blockquote>
+<p>&lt;문자열 변수 이름&gt;.Split(char[]);</p>
+</blockquote>
+<p>문자형 배열(char[])에 여러 개의 구분 문자를 대입한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string text &#x3D; &quot;pokemon,1:10000&quot;;</span><br><span class="line"></span><br><span class="line">char[] delimiters &#x3D; &#123;&#39;,&#39;, &#39;:&#39;&#125;;</span><br><span class="line">string[] tokens &#x3D; text.Split(delimiters); &#x2F;&#x2F; &#123;&quot;pokemon&quot;, &quot;1&quot;, &quot;10000&quot;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="구분-문자-사이가-비어-있을-때"><a href="#구분-문자-사이가-비어-있을-때" class="headerlink" title="구분 문자 사이가 비어 있을 때"></a>구분 문자 사이가 비어 있을 때</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string text &#x3D; &quot;pokemon, 1, 10000:, 10&quot;;</span><br><span class="line"></span><br><span class="line">char[] delimiters &#x3D; &#123;&#39;,&#39;, &#39;:&#39;&#125;;</span><br><span class="line">string[] tokens &#x3D; text.Split(delimiters); &#x2F;&#x2F; &#123;&quot;pokemon&quot;, &quot;1&quot;, &quot;10000&quot;, &quot;&quot;, &quot;10&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>‘,’ 또는 ‘:’를 기준으로 문자열을 쪼개고 있기 때문에 ‘10000:,’과 같은 케이스에서 <code>&quot;&quot;</code>가 나온다. 이럴 때 <code>String.IsNullOrEmpty(String)</code>나 for문을 사용하여 빈 문자열을 걸러줄 수 있다. 또는 <code>StringSplitOptions.RemoveEmptyEntries</code>를 사용하여 걸러줄 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string text &#x3D; &quot;pokemon, 1, 10000:, 10&quot;;</span><br><span class="line"></span><br><span class="line">char[] delimiters &#x3D; &#123;&#39;,&#39;, &#39;:&#39;&#125;;</span><br><span class="line">string[] tokens &#x3D; text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries); &#x2F;&#x2F; &#123;&quot;pokemon&quot;, &quot;1&quot;, &quot;10000&quot;, &quot;10&quot;&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Trim"><a href="#Trim" class="headerlink" title="Trim()"></a>Trim()</h2><blockquote>
+<p>&lt;문자열 변수 이름&gt;.Trim();</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">string firstName &#x3D; &quot;              Leon&quot;;</span><br><span class="line">string lastName &#x3D; &quot;kim                &quot;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;문자열 앞뒤 공백 제거</span><br><span class="line">string trimmedFirstName &#x3D; firstName.Trim(); &#x2F;&#x2F;&quot;Leon&quot;</span><br><span class="line">string trimmedLastName &#x3D; lastName.Trim(); &#x2F;&#x2F;&quot;kim&quot;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;문자열 앞 공백 제거</span><br><span class="line">string trimmedFirstName &#x3D; firstName.TrimStart(); &#x2F;&#x2F;&quot;Leon&quot;</span><br><span class="line">string trimmedLastName &#x3D; lastName.TrimStart(); &#x2F;&#x2F;&quot;kim</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;문자열 뒤 공백 제거</span><br><span class="line">string trimmedFirstName &#x3D; firstName.TrimEnd(); &#x2F;&#x2F;&quot;              Leon&quot;</span><br><span class="line">string trimmedLastName &#x3D; lastName.TrimEnd(); &#x2F;&#x2F;&quot;kim&quot;</span><br></pre></td></tr></table></figure>
+<p><strong><u>Trim()</u></strong></p>
+<ul>
+<li><code>문자열 앞뒤</code>로 있는 공백을 없앤 후 문자열을 반환</li>
+<li><strong>원본 문자열은 변경 없이 그대로 유지</strong></li>
+</ul>
+<p><strong><u>TrimStart()</u></strong></p>
+<ul>
+<li><code>문자열 시작</code>에서 공백을 제거 후 문자열을 반환</li>
+<li><strong>원본 문자열은 변경 없이 그대로 유지</strong></li>
+</ul>
+<p><strong><u>TrimEnd()</u></strong></p>
+<ul>
+<li><code>문자열 뒤</code>에서 공백을 제거 후 문자열을 반환</li>
+<li><strong>원본 문자열은 변경 없이 그대로 유지</strong></li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/28/210629_arrayInArray/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -301,7 +472,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -481,6 +652,140 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/12/210613_enum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/06/12/210613_enum/" class="post-title-link" itemprop="url">열거형(enum)과 어서트(Assert)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-06-13 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-13T00:00:00+09:00">2021-06-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>가능한 경우의 수가 제한적인 경우, 이를 열거할 수 있다. 컴퓨터가 이해하기엔 정수와 다르지 않지만, 컴파일러에서는 enum으로 지정된 원소 외의 것이 들어오면 잡을 수 있다.</p>
+</blockquote>
+<ul>
+<li>정수형 상수의 집합 (부동소수점은 안된다.)</li>
+<li>각 원소마다 고유의 이름을 가짐</li>
+<li>집합 역시 고유의 이름을 가짐</li>
+<li>enum은 변수로 사용 가능</li>
+<li><u>enum은 사전에 정의된 값만 대입 가능하고, 정수형은 정수형 범위에 있는 어떤 값이든 대입 가능하다.</u></li>
+</ul>
+<h2 id="열거형의-정의-기본형"><a href="#열거형의-정의-기본형" class="headerlink" title="열거형의 정의(기본형)"></a>열거형의 정의(기본형)</h2><p>유사한 성질을 가진 정보들을 나열할 때 정수형 상수보다는 enum을 사용하도록 한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;정수형 상수</span><br><span class="line">const int HOME &#x3D; 1;</span><br><span class="line">const int SCHOOL &#x3D; 2;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;enum으로 나열</span><br><span class="line">enum EBookmark</span><br><span class="line">&#123;</span><br><span class="line">  HOME,</span><br><span class="line">  SCHOOL</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum &lt;이름&gt;</span><br><span class="line">&#123;</span><br><span class="line">  &lt;원소1&gt;,</span><br><span class="line">  &lt;원소2&gt;,</span><br><span class="line">  ...,</span><br><span class="line">  &lt;원소n&gt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>정의는 <code>함수 밖</code>에서 한다.</li>
+<li>첫 번째 원소의 기본값은 0</li>
+<li>아무 값도 대입해주지 않으면 원소의 값은 1씩 증가한다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">&#123;</span><br><span class="line">  enum EDirection</span><br><span class="line">  &#123;</span><br><span class="line">    North, &#x2F;&#x2F;0</span><br><span class="line">    South, &#x2F;&#x2F;1</span><br><span class="line">    East, &#x2F;&#x2F;2</span><br><span class="line">    West &#x2F;&#x2F;3</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="열거형의-정의-원소-값-직접-정의"><a href="#열거형의-정의-원소-값-직접-정의" class="headerlink" title="열거형의 정의(원소 값 직접 정의)"></a>열거형의 정의(원소 값 직접 정의)</h2><blockquote>
+<p>각 원소에 원하는 값을 대입 가능</p>
+</blockquote>
+<ul>
+<li>상수</li>
+<li>혹은 계산식</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">    North &#x3D; 5,</span><br><span class="line">    South &#x3D; 10,</span><br><span class="line">    East &#x3D; 15,</span><br><span class="line">    West &#x3D; East + 10</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">    North &#x3D; 5,</span><br><span class="line">    South, &#x2F;&#x2F;6</span><br><span class="line">    East, &#x2F;&#x2F;7</span><br><span class="line">    West &#x2F;&#x2F;8</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>대입 없이 변수를 정의만 하면 <code>값이 0인 원소가 기본</code>으로 들어간다.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North,</span><br><span class="line">  South,</span><br><span class="line">  East,</span><br><span class="line">  West</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">EDirection direction; &#x2F;&#x2F;EDirection.North (대입 없이 기본값만 정의했으므로 기본값은 0)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North &#x3D; -2,</span><br><span class="line">  South, &#x2F;&#x2F;-1</span><br><span class="line">  East, &#x2F;&#x2F;0</span><br><span class="line">  West &#x2F;&#x2F;1</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">EDirection direction; &#x2F;&#x2F;EDirection.East (초기화를 해주지 않으면 0인 East가 기본값이 된다.)</span><br></pre></td></tr></table></figure>
+<h2 id="열거형-변수-정의-및-대입"><a href="#열거형-변수-정의-및-대입" class="headerlink" title="열거형 변수 정의 및 대입"></a>열거형 변수 정의 및 대입</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;열거형 이름&gt; &lt;변수명&gt; &#x3D; &lt;열겨형 이름&gt;.&lt;열거형 원소&gt;</span><br></pre></td></tr></table></figure>
+<p>열거형 변수에는 해당 열거형의 원소만 대입 가능하다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North,</span><br><span class="line">  South,</span><br><span class="line">  East,</span><br><span class="line">  West</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">enum ESex</span><br><span class="line">&#123;</span><br><span class="line">  Female,</span><br><span class="line">  Male,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">EDrection direction1; &#x2F;&#x2F;선언</span><br><span class="line">EDrection direction2 &#x3D; EDrection.East; &#x2F;&#x2F;대입</span><br><span class="line"></span><br><span class="line">EDrection direction1 &#x3D; EDrection.East; &#x2F;&#x2F;OK</span><br><span class="line">EDrection direction2 &#x3D; ESex.Male; &#x2F;&#x2F;컴파일 오류</span><br><span class="line">EDrection direction3 &#x3D; 1; &#x2F;&#x2F;컴파일 오류</span><br></pre></td></tr></table></figure>
+<p><code>EDrection direction2 = ESex.Male;</code>이나 <code>EDrection direction3 = 1;</code>처럼 EDrection에 없는 값은 넣으면 컴파일 오류가 발생한다.</p>
+<h2 id="enum을-쓰면-좋은-점"><a href="#enum을-쓰면-좋은-점" class="headerlink" title="enum을 쓰면 좋은 점"></a>enum을 쓰면 좋은 점</h2><ul>
+<li>코드가 읽기 편하다.</li>
+<li>enum에 지정된 값 외에 다른 값이 들어가면 컴파일 오류가 발생하여 문제 발생을 사전에 예방할 수 있다.</li>
+<li>함수 매개변수로 쓰이면 함수가 요구하는 인자형을 빨리 알 수 있으므로 함수에 잘못된 값이 넘어가는 것을 예방할 수 있다.</li>
+</ul>
+<h2 id="enum의-꼼수"><a href="#enum의-꼼수" class="headerlink" title="enum의 꼼수"></a>enum의 꼼수</h2><p>enum의 마지막 원소를 배열 생성 시 배열 원소 개수로 사용 가능하다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North,</span><br><span class="line">  South,</span><br><span class="line">  East,</span><br><span class="line">  West,</span><br><span class="line">  MAX</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;어떤 함수</span><br><span class="line">string[] directions &#x3D; new string[(int)EDrection.MAX];</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt; directions.Length; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;코드</span><br><span class="line">  &#x2F;&#x2F;directions[i]로 접근 가능</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="어서트-Assert"><a href="#어서트-Assert" class="headerlink" title="어서트(Assert)"></a>어서트(Assert)</h2><p><code>코드 검증을 위한 코드.</code> enum을 수정하고, 그 enum을 쓰는 함수의 case문은 수정하지 않을 경우 해결하는 방법이 어서트이다.</p>
+<ul>
+<li>절대로 발생하지 않아야 하는 조건을 런타임 중에 검사<ul>
+<li>만약 발생한다면 코드가 올바르게 동작하지 않는 것</li>
+<li>함수의 선조건 검사에 쓰기 적당.</li>
+</ul>
+</li>
+<li><strong>디버그 모드에서만 동작</strong><ul>
+<li>릴리즈 모드에서 어서트 함수는 마치 주석처럼 무시된다.</li>
+<li>릴리즈 모드에서 동작하게 되면 성능 저하가 발생한다.</li>
+</ul>
+</li>
+<li>최종 제품의 성능저하 없이 개발 중에 문제를 고치는 바람직한 방법.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;방식 1</span><br><span class="line">Debug.Assert(&lt;표현식&gt;);</span><br><span class="line">Debug.Assert(menu &lt; 5); &#x2F;&#x2F; menu가 5 이상일 때 어서트 발생</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;방식 2 어서트가 발생했을 때 보여줄 메세지를 함께 작성</span><br><span class="line">Debug.Assert(&lt;표현식&gt;, &lt;메세지&gt;);</span><br><span class="line">Debug.Assert(menu &lt; 5, &quot;Wrong menu number!&quot;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Debug.Assert()를 사용하기 위해서 <code>System.Diagnotics</code> 라이브러리를 추가해야 한다.</li>
+<li><code>using System.Diagnotics</code>로 추가한다.</li>
+<li>Assert() 안에 들어가는 조건은 참이라고 가정하고 작성되는 것이므로 <code>조건이 거짓일 때 프로그램은 일시 중단</code>되고, 어서트 메세지가 출력창에 출력된다.</li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/12/210613_functionArray/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -512,7 +817,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -627,140 +932,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/12/210613_enum/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/12/210613_enum/" class="post-title-link" itemprop="url">열거형(enum)과 어서트(Assert)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-06-13 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-13T00:00:00+09:00">2021-06-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>가능한 경우의 수가 제한적인 경우, 이를 열거할 수 있다. 컴퓨터가 이해하기엔 정수와 다르지 않지만, 컴파일러에서는 enum으로 지정된 원소 외의 것이 들어오면 잡을 수 있다.</p>
-</blockquote>
-<ul>
-<li>정수형 상수의 집합 (부동소수점은 안된다.)</li>
-<li>각 원소마다 고유의 이름을 가짐</li>
-<li>집합 역시 고유의 이름을 가짐</li>
-<li>enum은 변수로 사용 가능</li>
-<li><u>enum은 사전에 정의된 값만 대입 가능하고, 정수형은 정수형 범위에 있는 어떤 값이든 대입 가능하다.</u></li>
-</ul>
-<h2 id="열거형의-정의-기본형"><a href="#열거형의-정의-기본형" class="headerlink" title="열거형의 정의(기본형)"></a>열거형의 정의(기본형)</h2><p>유사한 성질을 가진 정보들을 나열할 때 정수형 상수보다는 enum을 사용하도록 한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;정수형 상수</span><br><span class="line">const int HOME &#x3D; 1;</span><br><span class="line">const int SCHOOL &#x3D; 2;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;enum으로 나열</span><br><span class="line">enum EBookmark</span><br><span class="line">&#123;</span><br><span class="line">  HOME,</span><br><span class="line">  SCHOOL</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum &lt;이름&gt;</span><br><span class="line">&#123;</span><br><span class="line">  &lt;원소1&gt;,</span><br><span class="line">  &lt;원소2&gt;,</span><br><span class="line">  ...,</span><br><span class="line">  &lt;원소n&gt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>정의는 <code>함수 밖</code>에서 한다.</li>
-<li>첫 번째 원소의 기본값은 0</li>
-<li>아무 값도 대입해주지 않으면 원소의 값은 1씩 증가한다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">&#123;</span><br><span class="line">  enum EDirection</span><br><span class="line">  &#123;</span><br><span class="line">    North, &#x2F;&#x2F;0</span><br><span class="line">    South, &#x2F;&#x2F;1</span><br><span class="line">    East, &#x2F;&#x2F;2</span><br><span class="line">    West &#x2F;&#x2F;3</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="열거형의-정의-원소-값-직접-정의"><a href="#열거형의-정의-원소-값-직접-정의" class="headerlink" title="열거형의 정의(원소 값 직접 정의)"></a>열거형의 정의(원소 값 직접 정의)</h2><blockquote>
-<p>각 원소에 원하는 값을 대입 가능</p>
-</blockquote>
-<ul>
-<li>상수</li>
-<li>혹은 계산식</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">    North &#x3D; 5,</span><br><span class="line">    South &#x3D; 10,</span><br><span class="line">    East &#x3D; 15,</span><br><span class="line">    West &#x3D; East + 10</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">    North &#x3D; 5,</span><br><span class="line">    South, &#x2F;&#x2F;6</span><br><span class="line">    East, &#x2F;&#x2F;7</span><br><span class="line">    West &#x2F;&#x2F;8</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<blockquote>
-<p>대입 없이 변수를 정의만 하면 <code>값이 0인 원소가 기본</code>으로 들어간다.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North,</span><br><span class="line">  South,</span><br><span class="line">  East,</span><br><span class="line">  West</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">EDirection direction; &#x2F;&#x2F;EDirection.North (대입 없이 기본값만 정의했으므로 기본값은 0)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North &#x3D; -2,</span><br><span class="line">  South, &#x2F;&#x2F;-1</span><br><span class="line">  East, &#x2F;&#x2F;0</span><br><span class="line">  West &#x2F;&#x2F;1</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">EDirection direction; &#x2F;&#x2F;EDirection.East (초기화를 해주지 않으면 0인 East가 기본값이 된다.)</span><br></pre></td></tr></table></figure>
-<h2 id="열거형-변수-정의-및-대입"><a href="#열거형-변수-정의-및-대입" class="headerlink" title="열거형 변수 정의 및 대입"></a>열거형 변수 정의 및 대입</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;열거형 이름&gt; &lt;변수명&gt; &#x3D; &lt;열겨형 이름&gt;.&lt;열거형 원소&gt;</span><br></pre></td></tr></table></figure>
-<p>열거형 변수에는 해당 열거형의 원소만 대입 가능하다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North,</span><br><span class="line">  South,</span><br><span class="line">  East,</span><br><span class="line">  West</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">enum ESex</span><br><span class="line">&#123;</span><br><span class="line">  Female,</span><br><span class="line">  Male,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;메인 함수</span><br><span class="line">EDrection direction1; &#x2F;&#x2F;선언</span><br><span class="line">EDrection direction2 &#x3D; EDrection.East; &#x2F;&#x2F;대입</span><br><span class="line"></span><br><span class="line">EDrection direction1 &#x3D; EDrection.East; &#x2F;&#x2F;OK</span><br><span class="line">EDrection direction2 &#x3D; ESex.Male; &#x2F;&#x2F;컴파일 오류</span><br><span class="line">EDrection direction3 &#x3D; 1; &#x2F;&#x2F;컴파일 오류</span><br></pre></td></tr></table></figure>
-<p><code>EDrection direction2 = ESex.Male;</code>이나 <code>EDrection direction3 = 1;</code>처럼 EDrection에 없는 값은 넣으면 컴파일 오류가 발생한다.</p>
-<h2 id="enum을-쓰면-좋은-점"><a href="#enum을-쓰면-좋은-점" class="headerlink" title="enum을 쓰면 좋은 점"></a>enum을 쓰면 좋은 점</h2><ul>
-<li>코드가 읽기 편하다.</li>
-<li>enum에 지정된 값 외에 다른 값이 들어가면 컴파일 오류가 발생하여 문제 발생을 사전에 예방할 수 있다.</li>
-<li>함수 매개변수로 쓰이면 함수가 요구하는 인자형을 빨리 알 수 있으므로 함수에 잘못된 값이 넘어가는 것을 예방할 수 있다.</li>
-</ul>
-<h2 id="enum의-꼼수"><a href="#enum의-꼼수" class="headerlink" title="enum의 꼼수"></a>enum의 꼼수</h2><p>enum의 마지막 원소를 배열 생성 시 배열 원소 개수로 사용 가능하다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">enum EDirection</span><br><span class="line">&#123;</span><br><span class="line">  North,</span><br><span class="line">  South,</span><br><span class="line">  East,</span><br><span class="line">  West,</span><br><span class="line">  MAX</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;어떤 함수</span><br><span class="line">string[] directions &#x3D; new string[(int)EDrection.MAX];</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt; directions.Length; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;코드</span><br><span class="line">  &#x2F;&#x2F;directions[i]로 접근 가능</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="어서트-Assert"><a href="#어서트-Assert" class="headerlink" title="어서트(Assert)"></a>어서트(Assert)</h2><p><code>코드 검증을 위한 코드.</code> enum을 수정하고, 그 enum을 쓰는 함수의 case문은 수정하지 않을 경우 해결하는 방법이 어서트이다.</p>
-<ul>
-<li>절대로 발생하지 않아야 하는 조건을 런타임 중에 검사<ul>
-<li>만약 발생한다면 코드가 올바르게 동작하지 않는 것</li>
-<li>함수의 선조건 검사에 쓰기 적당.</li>
-</ul>
-</li>
-<li><strong>디버그 모드에서만 동작</strong><ul>
-<li>릴리즈 모드에서 어서트 함수는 마치 주석처럼 무시된다.</li>
-<li>릴리즈 모드에서 동작하게 되면 성능 저하가 발생한다.</li>
-</ul>
-</li>
-<li>최종 제품의 성능저하 없이 개발 중에 문제를 고치는 바람직한 방법.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;방식 1</span><br><span class="line">Debug.Assert(&lt;표현식&gt;);</span><br><span class="line">Debug.Assert(menu &lt; 5); &#x2F;&#x2F; menu가 5 이상일 때 어서트 발생</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;방식 2 어서트가 발생했을 때 보여줄 메세지를 함께 작성</span><br><span class="line">Debug.Assert(&lt;표현식&gt;, &lt;메세지&gt;);</span><br><span class="line">Debug.Assert(menu &lt; 5, &quot;Wrong menu number!&quot;);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Debug.Assert()를 사용하기 위해서 <code>System.Diagnotics</code> 라이브러리를 추가해야 한다.</li>
-<li><code>using System.Diagnotics</code>로 추가한다.</li>
-<li>Assert() 안에 들어가는 조건은 참이라고 가정하고 작성되는 것이므로 <code>조건이 거짓일 때 프로그램은 일시 중단</code>되고, 어서트 메세지가 출력창에 출력된다.</li>
-</ul>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/12/210613_cFunction2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -792,7 +963,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -898,7 +1069,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -1065,7 +1236,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -1273,7 +1444,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -1415,7 +1586,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -1467,133 +1638,6 @@
 <li>기본적으로 같은 데이터 방식</li>
 <li>일부 언어에서는 char 배열을 쓰면 되니까 문자열을 지원안한다.</li>
 <li><strong>배열은 고정 길이를 가지고 있다.</strong></li>
-</ul>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/05/28/210529_logicalConfitionStatement/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/28/210529_logicalConfitionStatement/" class="post-title-link" itemprop="url">논리 및 조건 연산자</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-29T00:00:00+09:00">2021-05-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="논리-연산자"><a href="#논리-연산자" class="headerlink" title="논리 연산자"></a>논리 연산자</h2><blockquote>
-<p>논리연산자 AND와 OR은 비트 연산자 &amp;, |와 비슷하다.</p>
-</blockquote>
-<ul>
-<li><code>&amp;&amp;</code>: 좌항과 우항이 모두 참인가? =&gt; <strong>좌항, 우항이 모두 참이면 참</strong>, 하나라도 참이 아니면 거짓</li>
-<li><code>||</code>: 좌항 혹은 우항이 하나라도 참인가? =&gt; <strong>좌항, 우항 하나라도 참이면 참</strong>, 둘 다 참이 아니면 거짓</li>
-<li><code>!</code>: 단항 연산자, 우항의 불리언 결과를 반대로 만든다 =&gt; 우항이 거짓이면 참, 참이면 거짓이다.</li>
-</ul>
-<h3 id="OR-연산자"><a href="#OR-연산자" class="headerlink" title="OR(||) 연산자"></a>OR(||) 연산자</h3><blockquote>
-<p>주의: if문 안의 표현식들이 종종 평가되지 않을 때가 있다.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(1 + 1 &#x3D;&#x3D; 2) || (1 + 2 &#x3D;&#x3D; 2)</span><br></pre></td></tr></table></figure>
-<p><code>if(1 + 1 == 2)</code>를 평가하면 <code>참</code>이므로 두번 째 표현식 <code>(1 + 2 == 2)</code>는 실행되지 않는다. OR 연산자는 <code>참 | 참 = 참</code>이거나 <code>참 | 거짓 = 참</code>이다. 따라서 앞의 결과가 참이면 뒤의 코드인 <code>1 + 2 == 2</code>는 실행하지 않는다. 즉 표현식 평가를 하지 않는다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(1 + 2 &#x3D;&#x3D; 2) || (1 + 1 &#x3D;&#x3D; 2)</span><br></pre></td></tr></table></figure>
-<p>위와 같이 순서를 바꾸었을 때 <code>(1 + 2 == 2)</code>를 평가하면 <code>거짓</code>이다. 위의 경우 OR연산자(||)는 <code>거짓 | 참 = 참</code> 또는 <code>거짓 | 거짓 = 거짓</code>의 조건이 가능하다. 즉 뒤의 코드인 <code>if(1 + 1 == 2)</code>를 평가해야 그 평가 결과에 따라 참 또는 거짓이 될 수 있다. 이 경우에는 뒤의 코드까지 표현식 평가를 진행해야 한다.</p>
-<h3 id="AND-amp-연산자"><a href="#AND-amp-연산자" class="headerlink" title="AND(&amp;) 연산자"></a>AND(&amp;) 연산자</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(1 + 1 &#x3D;&#x3D; 2 &amp;&amp; 1 + 2 &#x3D;&#x3D; 2)</span><br></pre></td></tr></table></figure>
-<p><code>(1 + 1 == 2)</code>는 표현식 평가 결과가 참이다. 하지만 AND연산자(&amp;)는 <code>참 &amp; 참 = 참</code> 또는 <code>참 &amp; 거짓 = 거짓</code>의 조건이 가능한다. 즉 뒤의 코드인 <code>1 + 2 == 2</code>를 평가해야 그 평가 결과에 따라 참 또는 거짓이 될 수 있다. 따라서 뒤의 코드까지 표현식 평가를 진행해야 한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(1 + 2 &#x3D;&#x3D; 2 &amp;&amp; 1 + 1 &#x3D;&#x3D; 2)</span><br></pre></td></tr></table></figure>
-<p><code>1 + 2 == 2</code>의 결과가 거짓이다. AND 연산자는 <code>거짓 &amp; 참 = 거짓</code>이거나 <code>거짓 &amp; 거짓 = 거짓</code>이다. 따라서 앞의 결과가 거짓이면 뒤의 코드인 <code>1 + 1 == 2</code>는 평가하지 않아도 된다.</p>
-<h3 id="if문의-다른-표현법"><a href="#if문의-다른-표현법" class="headerlink" title="if문의 다른 표현법"></a>if문의 다른 표현법</h3><p>아래 if 문의 <code>(!(a == b || c == d))</code>의 코드를 다른 방식으로 표현하면 <code>(a != b &amp;&amp; c != d)</code>이다. 이것이 가능한 이유는 아래와 같다.</p>
-<blockquote>
-<p><code>!(a == b) !(||) !(c==d)</code> =&gt; <code>!(a == b) == (a !== b)</code> =&gt; <code>!(||) == &amp;&amp;</code> =&gt; <code>!(c == d) == (c !== d)</code> =&gt; <code>(a != b &amp;&amp; c != d)</code></p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if(!(a &#x3D;&#x3D; b || c &#x3D;&#x3D; d))</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;do something</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(a !&#x3D; b &amp;&amp; c !&#x3D; d)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;do something</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="if-else-if-if-문과-논리"><a href="#if-else-if-if-문과-논리" class="headerlink" title="if/else if/if 문과 논리"></a>if/else if/if 문과 논리</h2><p><strong><u>불필요한 연산을 피한다.</u></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">string scoreString &#x3D; Console.ReadLine();</span><br><span class="line">int score &#x3D; int.Parse(scoreString);</span><br><span class="line"></span><br><span class="line">if(score &gt;&#x3D; 90)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;hello1&quot;);</span><br><span class="line">&#125;</span><br><span class="line">if(score &lt; 90 &amp;&amp; score &gt;&#x3D; 80)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;hello2&quot;);</span><br><span class="line">&#125;</span><br><span class="line">if(score &lt; 80 &amp;&amp; score &gt;&#x3D; 70)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;hello3&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>위의 코드는 아래와 같은 형태로 바꿀 수 있다. 첫 번째 if문의 조건 <code>score &gt;= 90</code>를 통과했다면 이미 90점 이상은 아닌, 미만이라는 뜻이다. 따라서 두번째 평가식에서 <code>score &lt; 90 &amp;&amp; score &gt;= 80</code>와 같은 코드를 짤 필요가 없다. 참고로 Console.ReadLine();은 아래와 같이 변수 할당하지 않고 사용해도 된다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">string scoreString &#x3D; Console.ReadLine();</span><br><span class="line">int score &#x3D; int.Parse(scoreString);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; score에서 바로 사용한다.</span><br><span class="line">int score &#x3D; int.Parse(Console.ReadLine());</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">string scoreString &#x3D; Console.ReadLine();</span><br><span class="line">int score &#x3D; int.Parse(scoreString);</span><br><span class="line"></span><br><span class="line">if(score &gt;&#x3D; 90)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;hello1&quot;);</span><br><span class="line">&#125;</span><br><span class="line">if(score &gt;&#x3D; 80)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;hello2&quot;);</span><br><span class="line">&#125;</span><br><span class="line">if(score &gt;&#x3D; 70)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;hello3&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>아래의 코드도 <code>else if</code>가 불필요하게 사용되었다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">string scoreString &#x3D; Console.ReadLine();</span><br><span class="line">int score &#x3D; int.Parse(scoreString);</span><br><span class="line"></span><br><span class="line">if( score &gt;&#x3D; 90 )</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;hello1&quot;);</span><br><span class="line">&#125;</span><br><span class="line">else if (score &lt; 90 &amp;&amp; score &gt;&#x3D; 80)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;hello2&quot;);</span><br><span class="line">&#125;</span><br><span class="line">else if (score &lt; 80 &amp;&amp; score &gt;&#x3D; 70)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;hello3&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>아래의 코드는 완전히 잘못 구현한 조건식이다. score에 두 번째 조건식에 해당하는 80보다 크거나 같은 숫자, 세번 째 조건식에 해당하는 90보다 크거나 같은 숫자가 입력되면 두 숫자 모두 <code>score &gt;= 70</code>의 조건을 만족하기 때문에 첫 번째 조건문에서 평가가 끝나버린다. 따라서 실행되고자 원했던 예상하는 if 조건문에 도달하지 못하게 된다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">string scoreString &#x3D; Console.ReadLine();</span><br><span class="line">int score &#x3D; int.Parse(scoreString);</span><br><span class="line"></span><br><span class="line">if(score &gt;&#x3D; 70)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;hello1&quot;);</span><br><span class="line">&#125;</span><br><span class="line">if(score &gt;&#x3D; 80)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;hello2&quot;);</span><br><span class="line">&#125;</span><br><span class="line">if(score &gt;&#x3D; 90)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;hello3&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="조건-연산자"><a href="#조건-연산자" class="headerlink" title="조건 연산자"></a>조건 연산자</h2><blockquote>
-<p>(불리언 표현식) ? 반환값1(불리언 표현식이 참) : 반환값2(불리언 표현식이 거짓)</p>
-</blockquote>
-<ul>
-<li><strong>조건 연산자를 다른 말로 삼항 연산자라 한다.</strong></li>
-<li><code>?</code>와 <code>!</code>의 두 가지 기호를 사용한다.</li>
-<li>불리언 표현식을 평가하여 참과 거짓일 때 서로 다른 반환값을 반환한다.</li>
-<li>매우 간단한 비교를 할 때는 if/else 구문보다 훨씬 빠르다.</li>
-<li><strong>남용하면 가독성이 떨어지기 때문에 삼항 연산자 안에 삼항 연산자를 사용하는 식의 구조로 사용하지 않도록 한다.</strong></li>
-</ul>
-<h2 id="연산자-우선순위"><a href="#연산자-우선순위" class="headerlink" title="연산자 우선순위"></a>연산자 우선순위</h2><ul>
-<li>수학과 마찬가지로 대부분 연산자 결합 순서는 왼쪽에서 오른쪽으로 결합한다.(결합법칙)</li>
-<li>소수 연산자만이 오른쪽에서 왼쪽으로 대입한다. e.g. a = b = c + d 는 c + d부터 더한 후 b에 대입하고, 그것을 최종적으로 a에 대입한다.</li>
-<li>증감 연산자는 곱셈에 우선한다.</li>
-<li>*, / 는 +, - 에 우선한다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; ++a * d; &#x2F;&#x2F; x &#x3D; (++a) * d</span><br><span class="line">x &#x3D; a++ * d; &#x2F;&#x2F; x &#x3D; (a++) * d</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>주의 : 우선순위와 평가 순서는 다르다.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (1 + 1 &#x3D;&#x3D; 2 || 3 + 2 &#x3D;&#x3D; 5 &amp;&amp; 1 + 2 &#x3D;&#x3D; 2)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>우선순위는 <code>&amp;&amp;</code>가 <code>||</code>보다 높다.</li>
-<li>하지만 <code>3 + 2 == 5</code>, <code>1 + 2 == 2</code>는 실행조차 되지 않는다.</li>
-<li><strong><code>||</code> 및 <code>&amp;&amp;</code> 연산자는 왼쪽에 있는 표현식의 평가를 강제하기 때문이다.</strong></li>
 </ul>
 <hr>
 <p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
@@ -1682,7 +1726,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">123</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

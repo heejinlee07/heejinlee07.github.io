@@ -28,7 +28,7 @@
 <meta property="og:description" content="자바스립트는 동기적이다. 동기적이라는 말은 자바스크립트가 싱글 스레드이기 때문에 한 번에 한 가지 task만 수행할 수 있다는 의미이다. 즉, 어떤 task1이 실행되면 이 task의 처리가 끝나기 전까지 다음 task인 task2는 실행되지 못하고, task1이 끝날 때까지 기다려야 한다. 그런데 브라우저 환경에서 task가 동기적으로 차리되면 예를 들어">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-05-08T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-10T01:36:16.313Z">
+<meta property="article:modified_time" content="2022-05-11T00:16:14.364Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -200,7 +200,7 @@
 <li><code>지금</code> 실행 중인 프로그램 chunk</li>
 <li><code>나중에</code> 실행 할 프로그램 chunk</li>
 </ol>
-<p>여기서 <code>나중</code>은 <code>지금</code>의 직후가 아니며, <code>지금</code> 끝낼 수 없는 작업은 비동기적으로 처리되기 때문에 프로그램을 중단하지 않는다. AJAX를 예로 들자면 이 함수는 비동기적으로 어떠한 task를 <code>지금</code> 요철하고 <code>나중</code>에 결과를 받고, <code>지금</code>부터 <code>나중</code>까지 기다리는 최적의 방법은 <code>콜백 함수</code>를 이용하는 것이다.</p>
+<p>여기서 <code>나중</code>은 <code>지금</code>의 직후가 아니며, <code>지금</code> 끝낼 수 없는 작업은 비동기적으로 처리되기 때문에 프로그램을 중단하지 않는다. AJAX를 예로 들자면 이 함수는 비동기적으로 어떠한 task를 <code>지금</code> 요청하고 <code>나중</code>에 결과를 받고, <code>지금</code>부터 <code>나중</code>까지 기다리는 최적의 방법은 <code>콜백 함수</code>를 이용하는 것이다.</p>
 <h3 id="이벤트-루프"><a href="#이벤트-루프" class="headerlink" title="이벤트 루프"></a>이벤트 루프</h3><p><strong>앞서 말했지만 자바스크립트는 동기적이라서 주어진 요청(task)가 주어지면 주어진대로 순서대로 처리할 뿐이다.</strong> 자바스크립트 엔진은 웹 브라우저와 같은 호스팅 환경에서 실행되는데, 이벤트 루프가 여러 프로그램 chunk를 시간에 따라 매 순간 한 번씩 엔진을 실행시키도록 한다. 즉 자바스크립트 엔진이 동기적으로 코드를 실행할 때 AJAX, 콜백함수와 같이 비동기 처리 함수가 있다면 브라우저 환경이 이벤트 루프를 통해 실행을 스케줄링 하는 것이다. 이 스케줄링이 비동기적으로 처리되기 때문에 자바스크립트 자체는 동기적이지만 브라우저 환경에서의 실행 스케줄링은 비동기적이라고 할 수 있다. 구현방식을 단순화해서 구현하면 다음과 같다.</p>
 <p><strong>while문의 무한 루프에서 매 순회를 틱이라 하는데, 한 번 틱이 발생할 때, 큐에 있는 이벤트(콜백 함수)를 선입 선출하여 실행한다.</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//eventLoop는 큐(선입, 선출) 역할을 하는 배열</span></span><br><span class="line"><span class="keyword">var</span> eventLoop = [];</span><br><span class="line"><span class="keyword">var</span> event;</span><br><span class="line"></span><br><span class="line"><span class="comment">//'무한'실행</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="comment">//'틱' 발생 (틱: 이벤트 루프를 한 차례 순회하는 것)</span></span><br><span class="line">  <span class="keyword">if</span> (eventLoop.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">//큐에 있는 다음 이벤트 조회</span></span><br><span class="line">    event = eventLoop.shift();</span><br><span class="line">    <span class="comment">//이제 다음 이벤트 실행</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      event();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      reportError(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -261,7 +261,10 @@
     <a href="/2022/03/21/220322_blockchain_22to23/" rel="prev" title="블록체인 무엇인가? 4장 블록체인은 한계는 무엇이고 어떻게 극복할 것인가? 22 ~ 23단계">
       <i class="fa fa-chevron-left"></i> 블록체인 무엇인가? 4장 블록체인은 한계는 무엇이고 어떻게 극복할 것인가? 22 ~ 23단계
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/09/220510_promise/" rel="next" title="자바스크립트의 프로미스">
+      자바스크립트의 프로미스 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -335,7 +338,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">123</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

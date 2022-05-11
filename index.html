@@ -144,6 +144,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/05/09/220510_promise/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/09/220510_promise/" class="post-title-link" itemprop="url">자바스크립트의 프로미스</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-05-10 00:00:00" itemprop="dateCreated datePublished" datetime="2022-05-10T00:00:00+09:00">2022-05-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>자바스크립트의 비동기성을 표현하는 기본 단위로써 콜백이 있는데, 콜백은 순차성과 믿음성이 결여되는 문제점이 있었다. 특히 콜백이 가진 제어의 역전은 실행 흐름을 서드 파티에 의존해야 하기 때문에 요청을 보내면 그 요청이 잘되기를 바라는 방법이 최선이었다. 이런 문제점을 보완하고 좀 더 나은 방법으로 비동기 처리를 할 수 있는 방법으로 <code>프로미스</code>가 등장하게 되는데, <code>제어의 되역전</code>을 아이디어로 삼는다. <strong>즉 실행 흐름을 서드 파티와 같은 다른 파트에 넘겨주지 않고도 개발자가 작업의 실행 결과와 다음 task에 대해 제어할 수 있는 것이다.</strong></p>
+<h2 id="프로미스의-미랫값-지금값-나중값"><a href="#프로미스의-미랫값-지금값-나중값" class="headerlink" title="프로미스의 미랫값, 지금값, 나중값"></a>프로미스의 미랫값, 지금값, 나중값</h2><p><strong><code>미랫값</code>은 <code>시간 독립적인 값(Time Independent)</code>이다.</strong> 시간의 흐름과 상관없이 미래에 성공 또는 실패로 귀결되는 값이다. 이 미랫값은 원래 내가 가지고 있던 값 자체와 교환된다. 미랫값이 성공이면 나는 언제가 되었든 반드시 원래 가지고 있던 값을 받게 되고, 실패이면 값을 받지 못한다. 그리고 이러한 미랫값을 다루는 방법이 콜백이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1️⃣</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">getX, getY, cb</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x, y;</span><br><span class="line"></span><br><span class="line">  getX(<span class="function"><span class="keyword">function</span> (<span class="params">xVal</span>) </span>&#123;</span><br><span class="line">    x = xVal;</span><br><span class="line">    <span class="comment">//둘 다 준비됐나?</span></span><br><span class="line">    <span class="keyword">if</span> (y != <span class="literal">undefined</span>) &#123;</span><br><span class="line">      cb(x + y); <span class="comment">//더해서 보내</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  getY(<span class="function"><span class="keyword">function</span> (<span class="params">yVal</span>) </span>&#123;</span><br><span class="line">    y = yVal;</span><br><span class="line">    <span class="comment">//둘 다 준비됐나?</span></span><br><span class="line">    <span class="keyword">if</span> (x != <span class="literal">undefined</span>) &#123;</span><br><span class="line">      cb(x + y); <span class="comment">//더해서 보내</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//fetchX()와 fetchY()는 동기/비동기 함수</span></span><br><span class="line">add(fetchX, fetchY, <span class="function"><span class="keyword">function</span> (<span class="params">sum</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(sum); <span class="comment">//너무 쉽지?</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>위의 코드가 비동기 패턴이 아니라 일반 함수라고 가정해보자면, x,y의 값은 <code>지금</code>존재하는 구체적인 값이라는 가정 하에 연산이 진행될 것이다. 아래 예시를 통해 지금값에 대해 보충해 보겠다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//2️⃣</span></span><br><span class="line"><span class="keyword">var</span> x,</span><br><span class="line">  y = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x + y); <span class="comment">//NaN &lt;- x는 아직 세팅 전이다.</span></span><br></pre></td></tr></table></figure>
+<p>이 2️⃣번 예시는 비동기 패턴이 아닌 일반적인 계산 로직을 담고 있는 코드이다. 이 로직에서 x + y 가 연산되는 시점에서 코드는 x, y가 <code>지금</code> 존재하고 있는, 귀결(Resolved)된 값이라고 생각하고 연산이 이루어진다. 그렇기 때문에 x는 아직 할당 전이어서 실질적인 값은 undefined인데 지금 값이 존재한다고 가정되어 undefined + 2로 계산이 되어 NaN이라는 결과를 얻은 것이다.</p>
+<p>만약 이 함수에서 x, y의 값을 연산할 때 <code>지금</code> 둘 중 하나라도 준비가 덜 됐으면 될 때까지 기다렸다가 <code>나중</code>에 값을 얻었을 때 연산을 진행한다고 가정해보자. 즉 코드에서 x, y를 <code>지금</code> 존재하는 귀결된 값이라고 가정하는 것이 아니라 <strong>미래에 실패 또는 성공할 값이라고 가정하고 연산을 진행하는 것이다.</strong> 그렇다면 결과값은 두 가지 값 모두 순조롭게 할당이 완료되어 성공적으로 정상적인 값을 출력하거나, <code>나중</code>까지 기다렸는데도 정상적인 값이 할당되지 않아 undefined + 2로 계산된 것처럼 정상적인 결과를 출력하는데 실패하게 될 것이다. 그래서 x, y의 구체적인 연산 결과는 당장 예측할 수 없지만 그 값이 미래에 반드시 성공 또는 실패될 것이라는 사실을 예측할 수 있게 된다.</p>
+<p>다시 돌아와서 1️⃣번 예제의 비동기 패턴을 살펴보자. <em>비동기 프로그래밍의 핵심은 <code>지금</code>에 해당하는 부분과 <code>나중</code>에 해당하는 부분 사이의 관계라고 하였다.</em> 1️⃣번 예제에서 <code>지금</code>부터 <code>나중</code>까지 기다리는 최적의 방법으로 <code>콜백 함수</code>를 사용한다. 위에 설명했던 것처럼 지금 값이 귀결되어 있는지와 상관없이 일단 add() 함수를 호출하여 작성된 로직을 수행한다. add() 함수 내부의 x, y는 add()입장에서 실행되는 지금 시점에서 값이 준비되어 있는지 아닌지는 관심 밖이다. 여기서 <strong>x,y는 미랫값으로 취급된다.</strong> 따라서 그 값이 어떤 것인지와 상관없이 add()의 결과는 성공 또는 실패 일 것이라고 예측할 수 있게 된다.즉 x,y의 값이 <code>지금</code> 존재하는 값일 수도 있고, 나중에 값을 얻게 될 수도 있는데, 여기서는 <code>지금</code>과 <code>나중</code>의 어떤 때라도 결과론적으로 똑같이 일관적으로 동작할 수 있게 하기 위해서 이 두 가지 모두를 <code>나중</code>으로 만들어서 모든 작업을 나중에 얻게 될 성공 또는 실패의 값으로 비동기화시킨 것이다.</p>
+<p><em>정리하자면 어떤 로직을 수행할 때, 값이 지금 존재하는지를 알기 여려운 경우, 해당 값을 지금 값이 존재하는지, 미래에 어느 시점에 존재하는 값으로 바뀌는지는 알 수 없지만 값 자체를 <code>나중</code>에 언젠가는 존재할 값이라는 가정 하에 로직을 수행하고, <code>나중</code>에 그 값을 얻게 되면, 그 값은 구체적으로 로직의 연산 결과를 반환하는 값은 아니지만 반드시 성공 또는 실패한 값이다.</em></p>
+<p>이 개념을 기억하며 프로미스 함수를 좀 더 자세히 살펴보자. 위 예제의 x + y를 프로미스 함수로 나타낸 것이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">xPromise, yPromise</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.all([xPromise, yPromise]).then(<span class="function"><span class="keyword">function</span> (<span class="params">values</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> values[<span class="number">0</span>] + values[<span class="number">1</span>];</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(fetchX(), fetchY()).then(</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">sum</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(sum);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.error(err);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>Promise.all([])은 프로미스 배열을 인자로 받아서 프로미스가 모두 귀결될 때까지 기다렸다가 새 프로미스를 만들어 반환한다. 그리고 프로미스가 귀결되면 X와 Y 값을 받아 더하고, then에서 파라미터로 전달받은 values는 앞에서 귀결된 프로미스가 전달해 준 메시지 배열이다. 그리고 fetchX()와 fetchY()는 제각기 값을 가진 프로미스를 반환하는데, 지금 또는 나중에 준비된다. add()의 결과로 두 숫자의 합이 담긴 프로미스를 받으면 이제 반환된 프로미스가 귀결될 때까지 대기하기 위해 then()을 연쇄 호출한다.</p>
+<p>위 예제에는 두 개의 프로미스 계층이 있다. 먼저 두 프로미스 fetchX()와 fetchY()를 호출하여 반환된 값은 add()에 전달된다. 프로미스 속의 원래 값은 지금 또는 나중에 준비되는데 그 시점과는 상관없이 각 프로미스가 같은 결과를 내게끔 정규화하고, <strong>미랫값 X,Y는 시간 독립적으로 추론이 가능하다.</strong> 그리고 그 다음 프로미스 계층은 add()가 Promise.all을 거쳐 반환한 프로미스인데, then()을 호출하고 대기한다. add()가 끝나면 덧셈을 마친 미랫값이 콘솔에 출력된다.</p>
+<p><strong>이렇게 프로미스는 <code>Fulfillment</code> 또는 <code>Rejection</code>으로 귀결될 수 있다.</strong> 여기서 Fulfillment는 항상 프로그램이 귀결값을 결정짓고, Rejection은 프로그램 로직에 따라 직접 세팅되거나 런타임 예외에 의해 암시적으로 생겨난다.</p>
+<p>그리고 프로미스 then() 함수는 Fulfillment 함수를 첫 번째 인자로, Rejection 함수를 두 번째 인자로 넘겨받는다. 그렇기 때문에 X나 Y의 조회 시 문제가 있거나 연산에 실패하면 add()가 반환하는 프로미스는 버려지고, then()의 두 번째 에러 처리 콜백이 이 프로미스에서 Rejection을 받는다.</p>
+<p>요약해보자면 프로미스는 시간 의존적인 상태를 외부로부터 캡슐화하기 때문에 타이밍 또는 내부 결과값에 상관없이 예측 가능한 방향으로 조합할 수 있다. 또 프로미스는 일단 귀결(Resolved)되면 그 상태가 그대로 유지되는 불변값이다.</p>
+<h2 id="프로미스"><a href="#프로미스" class="headerlink" title="프로미스"></a>프로미스</h2><blockquote>
+<p>프로미스 객체는 비동기 작업이 맞이할 미래의 완료 또는 실패와 그 결과 값이다.</p>
+</blockquote>
+<p>위에서 보았던 여러 예제를 통해 프로미스의 성격에 대해 알아보았다. 프로미스에서는 미랫값이라는 개념이 중요했다. 미랫값은 지금 당장은 값은 알 수 없고, 어느 시점에 그 값이 확정되는지 알 수 없지만 성공 또는 실패일 것으로 추론할 수 있는 값이었다. 프로미스는 이처럼 지금 당장 실행하는 시점에서 아직 알려지지 않을 수도 있는 값을 위한 대리자이고, 미랫값 개념을 콜백으로 다루는데, 비동기 연산이 종료된 이후에 결과 값과 실패 사유를 처리하기 위한 처리기를 연결할 수 있다. 그래서 프로미스를 사용하면 비동기 메서드에서 마치 동기 메서드처럼 값을 반환할 수 있다. 다만 최종 결과를 반환하는 것이 아니고, <code>미래의 어떤 시점에 결과를 제공하겠다는 &#39;약속&#39;(프로미스)을 반환한다.</code></p>
+<p>그래서 프로미스는 다음 중 하나의 상태를 가진다.</p>
+<ul>
+<li>대기(pending): 이행하지도, 거부하지도 않은 초기 상태.</li>
+<li>이행(Fulfillment): 연산이 성공적으로 완료됨.</li>
+<li>거부(Rejection): 연산이 실패함.</li>
+</ul>
+<p>Promise가 생성된 시점에 대기 중인 프로미스 값은 성공적으로 이행(Fulfillment)이 되어서 위 예제에서 처럼 X + Y의 값을 얻을 수도 있고, 오류와 같은 이유로 인해 이행이 불가하여 거부(Rejection)될 수도 있다. 그리고 프로미스가 이행이나 거부로 귀결되면 then 메서드에 의해서 처리기들이 호출된다. 이 프로미스는 시간 의존적인 상태를 외부로부터 캡슐화하기 때문에 <strong>프로미스 자체는 시간 독립적이고,</strong> 따라서 언젠가 이행(Fulfillment)되거나 거부(Rejection)될 것을 예측하여 로직을 구성할 수 있다.</p>
+<h2 id="프로미스의-완료-이벤트"><a href="#프로미스의-완료-이벤트" class="headerlink" title="프로미스의 완료 이벤트"></a>프로미스의 완료 이벤트</h2><blockquote>
+<p>프로미스는 각각 미래값으로서 작동하지만 <em>프로미스의 귀결은 비동기 작업의 여러 단계를 흐름 제어하기 위한 체계이다.</em></p>
+</blockquote>
+<p>어떤 일을 하는 foo()라는 함수를 호출한다고 했을 때,</p>
+<ul>
+<li>전통적인 자바스크립트 사고 방식 :알림 자체를 하나의 이벤트로 보고 리스닝하고, foo()의 완료 이벤트를 리스닝함으로써 알림 요건을 재구성한다.</li>
+<li>콜백에 : foo()에서 넘겨준 콜백을 호출하면 성립된다.</li>
+<li>프로미스에서 : foo()에서 이벤트를 리스닝하고 있다가 알림을 받게 되면 다음으로 진행한다.</li>
+</ul>
+<p>아래는 프로미스의 예제이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">foo(x) &#123;</span><br><span class="line">  <span class="comment">//뭔가 시간이 제법 걸리는 일을 한다.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">on(foo <span class="string">"완료"</span>) &#123;</span><br><span class="line">  <span class="comment">// 이제 다음 단계로 갈 수 있다.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">on(foo <span class="string">"에러"</span>) &#123;</span><br><span class="line">  <span class="comment">//어랏, foo()에서 뭔가 잘못됐다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>foo()를 호출한 뒤에 완료, 에러 이벤트를 각각 리스닝하는 이벤트 리스너를 설정했다. foo()를 호출하면 foo()에서 이벤트를 받아 어떻게 처리하는지를 신경쓰지 않아도 되고, foo()의 결과는 완료 아니면 에러인 <code>관심사의 분리</code>가 된다.</p>
+<p>이러한 코드는 사실상 일반적으로 콜백이 지향하는 코드와 정반대이다. 아래 예제를 보면 foo()에 콜백 함수를 넘겨주는 대신 <em>foo()가 이벤트 구독기를 반환하고 여기에 콜백 함수를 넣는다.</em> 이처럼 콜백 패턴을 뒤집는다는 것은 사실상 <code>제어의 되역전</code>으로 서드파티와 같은 다른 파트에 주었던 실행 흐름의 제어권을 호출부에 되돌려 둔 것이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//뭔가 시간이 제법 걸리는 일을 시작한다.</span></span><br><span class="line">  <span class="comment">//이벤트 구독기를 생성하여 반환한다.</span></span><br><span class="line">  <span class="keyword">return</span> listener;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> evt = foo(<span class="number">42</span>);</span><br><span class="line"></span><br><span class="line">evt.on(<span class="string">'completion'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//이제 다음 단계로 갈 수 있다.</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">evt.on(<span class="string">'failure'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//어랏, foo()에서 뭔가 잘못됐다.</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>이 <code>제어의 되역전</code>으로 인해 이제 관심사를 분리할 수 있게 된다. 아래와 같은 코드가 있으면 bar()나 baz()는 foo()가 호출되어 처리되는 것에 신경 쓸 필요 없고, foo()도 마찬가지로 누군가 자신을 기다리고 있다는 사실을 몰라도 된다. 이렇게 분리된 관심사 간에 중재자 역할을 evt가 하는 것이고, 이것이 프로미스와 매우 유사하다. 프로미스식으로 아래 코드를 다시 작성한다면 foo()는 프로미스 인스턴스를 생성해서 반환하고, 이 프로미스를 bar()와 baz()에 전달할 것이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> evt = foo(<span class="number">42</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//bar()는 foo()의 완료 이벤트를 리스닝한다.</span></span><br><span class="line">bar(evt);</span><br><span class="line"><span class="comment">//baz()는 foo()의 완료 이벤트를 리스닝한다.</span></span><br><span class="line">baz(evt;)</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noopener">Promise</a><br>[YOU DON’T KNOW JS] 카일 심슨 지음</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/05/08/220509_asynchronous/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +284,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -199,7 +308,7 @@
 <li><code>지금</code> 실행 중인 프로그램 chunk</li>
 <li><code>나중에</code> 실행 할 프로그램 chunk</li>
 </ol>
-<p>여기서 <code>나중</code>은 <code>지금</code>의 직후가 아니며, <code>지금</code> 끝낼 수 없는 작업은 비동기적으로 처리되기 때문에 프로그램을 중단하지 않는다. AJAX를 예로 들자면 이 함수는 비동기적으로 어떠한 task를 <code>지금</code> 요철하고 <code>나중</code>에 결과를 받고, <code>지금</code>부터 <code>나중</code>까지 기다리는 최적의 방법은 <code>콜백 함수</code>를 이용하는 것이다.</p>
+<p>여기서 <code>나중</code>은 <code>지금</code>의 직후가 아니며, <code>지금</code> 끝낼 수 없는 작업은 비동기적으로 처리되기 때문에 프로그램을 중단하지 않는다. AJAX를 예로 들자면 이 함수는 비동기적으로 어떠한 task를 <code>지금</code> 요청하고 <code>나중</code>에 결과를 받고, <code>지금</code>부터 <code>나중</code>까지 기다리는 최적의 방법은 <code>콜백 함수</code>를 이용하는 것이다.</p>
 <h3 id="이벤트-루프"><a href="#이벤트-루프" class="headerlink" title="이벤트 루프"></a>이벤트 루프</h3><p><strong>앞서 말했지만 자바스크립트는 동기적이라서 주어진 요청(task)가 주어지면 주어진대로 순서대로 처리할 뿐이다.</strong> 자바스크립트 엔진은 웹 브라우저와 같은 호스팅 환경에서 실행되는데, 이벤트 루프가 여러 프로그램 chunk를 시간에 따라 매 순간 한 번씩 엔진을 실행시키도록 한다. 즉 자바스크립트 엔진이 동기적으로 코드를 실행할 때 AJAX, 콜백함수와 같이 비동기 처리 함수가 있다면 브라우저 환경이 이벤트 루프를 통해 실행을 스케줄링 하는 것이다. 이 스케줄링이 비동기적으로 처리되기 때문에 자바스크립트 자체는 동기적이지만 브라우저 환경에서의 실행 스케줄링은 비동기적이라고 할 수 있다. 구현방식을 단순화해서 구현하면 다음과 같다.</p>
 <p><strong>while문의 무한 루프에서 매 순회를 틱이라 하는데, 한 번 틱이 발생할 때, 큐에 있는 이벤트(콜백 함수)를 선입 선출하여 실행한다.</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//eventLoop는 큐(선입, 선출) 역할을 하는 배열</span></span><br><span class="line"><span class="keyword">var</span> eventLoop = [];</span><br><span class="line"><span class="keyword">var</span> event;</span><br><span class="line"></span><br><span class="line"><span class="comment">//'무한'실행</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="comment">//'틱' 발생 (틱: 이벤트 루프를 한 차례 순회하는 것)</span></span><br><span class="line">  <span class="keyword">if</span> (eventLoop.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">//큐에 있는 다음 이벤트 조회</span></span><br><span class="line">    event = eventLoop.shift();</span><br><span class="line">    <span class="comment">//이제 다음 이벤트 실행</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      event();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      reportError(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -292,7 +401,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -477,7 +586,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -570,7 +679,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -809,7 +918,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -1090,7 +1199,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -1431,7 +1540,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -1642,7 +1751,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -1762,7 +1871,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -1929,122 +2038,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/22/220223_item49to55/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/22/220223_item49to55/" class="post-title-link" itemprop="url">타입스크립트 이펙티브 아이템 49 - 아이템 55</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-02-23 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-23T00:00:00+09:00">2022-02-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="아이템-49-콜백에서-this에-대한-타입-제공하기"><a href="#아이템-49-콜백에서-this에-대한-타입-제공하기" class="headerlink" title="아이템 49 콜백에서 this에 대한 타입 제공하기"></a>아이템 49 콜백에서 this에 대한 타입 제공하기</h2><p>this는 let,const와 달리 dynamic scope이기 때문에 정의된 방식이 아닌 <code>호출된 방식</code>에 따라 값이 달라진다. 아래 코드는 현재의 객체 인스턴스를 참조하는 <code>클래스</code>에서 많이 쓰이는 this이다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> C &#123;</span><br><span class="line">  vals = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">  logSquares() &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> val of <span class="keyword">this</span>.vals) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(val * val)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> c = <span class="keyword">new</span> C()</span><br><span class="line"><span class="keyword">const</span> method = c.logSquares</span><br><span class="line">method()</span><br></pre></td></tr></table></figure>
-<p>이 코드는 런타임에 <em>uncaught TypeError: undefined의 ‘vals’속성을 읽을 수 없습니다.</em>는 오류를 발생시킨다. 그 이유는 <code>c.logSquares</code>가 <code>C.prototype.logSquares</code>를 호출하고, <code>this 값을 c로 바인딩</code>하는 두 가지 작업을 수행하기 때문이다. 이 작업에 따르면 this의 값은 undefined로 설정된다. 이런 문제를 해결하는 첫 번째 방법은 <code>call</code>을 사용해서 명시적으로 this를 바인딩하는 것이다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> c = <span class="keyword">new</span> C()</span><br><span class="line"><span class="keyword">const</span> method = c.logSquares</span><br><span class="line">method.call(c) <span class="comment">// 제곱 출력</span></span><br></pre></td></tr></table></figure>
-<p>이처럼 명시적인 <code>this 바인딩</code>을 통해 this의 타입에 대해 구체화할 수 있다. this 바인딩은 어떤 것에도 가능하며, 콜백 함수에도 쓰일 수 있다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">makeButton</span>(<span class="params">props: &#123; text: <span class="built_in">string</span>; onClick: () =&gt; <span class="built_in">void</span> &#125;</span>): <span class="title">void</span></span></span><br><span class="line"><span class="function"><span class="title">class</span> <span class="title">ResetButton</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> makeButton(&#123; text: <span class="string">'Reset'</span>, onClick: <span class="keyword">this</span>.onClick &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  onClick() &#123;</span><br><span class="line">    alert(<span class="string">`Reset <span class="subst">$&#123;<span class="keyword">this</span>&#125;</span>`</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>그런데 여기서도 this 바인딩 문제로 인해 <em>Reset이 정의되지 않았다는 에러가 발생한다.</em> 이때 해결하는 방법은 아래와 같이 <code>생성자에서 메서드에 this를 바인딩시키는 것이다.</code></p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">makeButton</span>(<span class="params">props: &#123; text: <span class="built_in">string</span>; onClick: () =&gt; <span class="built_in">void</span> &#125;</span>): <span class="title">void</span></span></span><br><span class="line"><span class="function"><span class="title">class</span> <span class="title">ResetButton</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.onClick = <span class="keyword">this</span>.onClick.bind(<span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> makeButton(&#123; text: <span class="string">'Reset'</span>, onClick: <span class="keyword">this</span>.onClick &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  onClick() &#123;</span><br><span class="line">    alert(<span class="string">`Reset <span class="subst">$&#123;<span class="keyword">this</span>&#125;</span>`</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>onClick()은 ResetButton.proptotype의 속성을 정의한다. 따라서 ResetButton의 모든 인스턴스에 공유된다. 그런데 위와 같이 생성자 함수에 바인딩하게 되면 onClick 속성에 this가 바인딩되어 해당 인스턴스에 생성된다. onClick 인스턴스 속성은 프로토타입 속성보다 앞에 놓이므로 <code>render() 메서드의 this.onClick은 바인딩된 함수를 참조하게 된다.</code> 하지만 onClick을 화살표 함수로 바꾸는 방법으로 좀 더 간단하게 해결할 수도 있다. 그 이유는 화살표 함수 내부에서 this를 참조하면 상위 컨텍스트의 this를 그대로 참조하기 때문이다. 따라서 ResetButton이 생성될 때 마다 제대로 바인딩된 this를 가지는 새 함수를 생성한다.</p>
-<hr>
-<h2 id="아이템-50-오버로딩-타입보다는-조건부-타입을-사용하기"><a href="#아이템-50-오버로딩-타입보다는-조건부-타입을-사용하기" class="headerlink" title="아이템 50 오버로딩 타입보다는 조건부 타입을 사용하기"></a>아이템 50 오버로딩 타입보다는 조건부 타입을 사용하기</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">number</span> | <span class="built_in">string</span></span>): <span class="title">number</span> | <span class="title">string</span></span></span><br><span class="line"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">any</span></span>) </span>&#123;</span></span><br><span class="line"><span class="function">  <span class="title">return</span> <span class="title">x</span> + <span class="title">x</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x</span>) </span>&#123;</span></span><br><span class="line"><span class="function">  <span class="title">return</span> <span class="title">x</span> + <span class="title">x</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>함수 오버로딩(동일한 이름에 매개변수만 다른 여러 버전의 함수를 허용하는 것.단, 타입 수준에서 동작)의 개념을 통해 위와 같이 함수의 타입 정보를 추가한다. 그런데 이렇게 작성하면 선언문에서 number타입을 매개변수로 넣고, string타입을 반환하는 경우도 포함되어 있어서 모호한 지점이 생긴다. 이런 상황에서 <code>첫 번째 해결법은 제너릭을 사용하는 것</code>이다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">number</span> | <span class="title">string</span>&gt;(<span class="params">x: T</span>): <span class="title">T</span></span></span><br><span class="line"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">any</span></span>) </span>&#123;</span></span><br><span class="line"><span class="function">  <span class="title">return</span> <span class="title">x</span> + <span class="title">x</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">const</span> <span class="title">num</span> = <span class="title">double</span>(<span class="params">12</span>) // <span class="title">Type</span> <span class="title">is</span> 12</span></span><br><span class="line"><span class="function"><span class="title">const</span> <span class="title">str</span> = <span class="title">double</span>(<span class="params">'x'</span>) // <span class="title">Type</span> <span class="title">is</span> "<span class="title">x</span>"</span></span><br></pre></td></tr></table></figure>
-<p>제너릭 타입을 쓰면서 앞서 말했던 number로 선언되어 string 타입을 반환하는 경우에 대해서 해결은 되었으나 지나치게 구체적인 타입이 되었다. string을 넣으면 string만 반환해야 하게 되었다. 좀 더 다른 방법으로 <code>여러 가지 타입 선언으로 분리</code>해 볼 수 있다. 함수의 구현체는 하나여도 타입 선언은 여러 개 만들 수 있기 때문에 함수 타입을 보다 명확하게 할 수 있다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">number</span></span>): <span class="title">number</span></span></span><br><span class="line"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">string</span></span>): <span class="title">string</span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">any</span></span>) </span>&#123;</span></span></span><br><span class="line"><span class="function"><span class="function">  <span class="title">return</span> <span class="title">x</span> + <span class="title">x</span></span></span></span><br><span class="line"><span class="function"><span class="function">&#125;</span></span></span><br><span class="line"><span class="function"><span class="function"></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="title">const</span> <span class="title">num</span> = <span class="title">double</span>(<span class="params">12</span>) // <span class="title">Type</span> <span class="title">is</span> <span class="title">number</span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="title">const</span> <span class="title">str</span> = <span class="title">double</span>(<span class="params">'x'</span>) // <span class="title">Type</span> <span class="title">is</span> <span class="title">string</span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x: <span class="built_in">number</span> | <span class="built_in">string</span></span>) </span>&#123;</span></span></span><br><span class="line"><span class="function"><span class="function">  <span class="title">return</span> <span class="title">double</span>(<span class="params">x</span>)</span></span></span><br><span class="line"><span class="function"><span class="function">  // ~ <span class="title">Argument</span> <span class="title">of</span> <span class="title">type</span> '<span class="title">string</span> | <span class="title">number</span>' <span class="title">is</span> <span class="title">not</span> <span class="title">assignable</span></span></span></span><br><span class="line"><span class="function"><span class="function">  //   <span class="title">to</span> <span class="title">parameter</span> <span class="title">of</span> <span class="title">type</span> '<span class="title">string</span>'</span></span></span><br><span class="line"><span class="function"><span class="function">&#125;</span></span></span><br></pre></td></tr></table></figure>
-<p>단 유니온 타입에 대해서는 문제가 발생한다. <strong>타입스크립트는 오버로딩 타입 중에서 일치하는 타입을 찾을 때까지 순차적으로 검색한다.</strong> 마지막 선언인 string까지 검색했을 때 string | number 타입은 string에 할당할 수 없기 때문에 에러가 발생하는 것이다. 이때는 <code>오버로딩 타입으로 string|number를 추가</code>하여 문제를 해결할 수 있고, 더 좋은 방법은 아래와 같이 <code>조건부 타입</code>을 사용하는 것이다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">number</span> | <span class="title">string</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  x: T</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">T</span> <span class="title">extends</span> <span class="title">string</span> ? <span class="title">string</span> : <span class="title">number</span></span></span><br><span class="line"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">any</span></span>) </span>&#123;</span></span><br><span class="line"><span class="function">  <span class="title">return</span> <span class="title">x</span> + <span class="title">x</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>조건부 타입을 사용하면 아래와 같이 반환 타입이 정교해진다.</p>
-<ul>
-<li>T가 string의 부분 집합이면 반환 타입이 string이다.</li>
-<li>그 외의 경우는 반환 타입이 number이다.</li>
-</ul>
-<p>이처럼 조건부 타입은 개별 타입의 유니온으로 일반화하기 때문에 타입이 더욱 정확해진다. 조건부 타입은 타입 체커가 단일 표현식으로 받아들이기 때문에 타입 오버로딩에서 유니온 문제가 발생했을 때 문제를 해결할 수 있다.</p>
-<hr>
-<h2 id="아이템-51-의존성-분리를-위해-미러-타입-사용하기"><a href="#아이템-51-의존성-분리를-위해-미러-타입-사용하기" class="headerlink" title="아이템 51 의존성 분리를 위해 미러 타입 사용하기"></a>아이템 51 의존성 분리를 위해 미러 타입 사용하기</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseCSV</span>(<span class="params">contents: <span class="built_in">string</span> | Buffer</span>): </span>&#123; [column: <span class="built_in">string</span>]: <span class="built_in">string</span> &#125;[] &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> contents === <span class="string">'object'</span>) &#123;</span><br><span class="line">    <span class="comment">// It's a buffer</span></span><br><span class="line">    <span class="keyword">return</span> parseCSV(contents.toString(<span class="string">'utf8'</span>))</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// COMPRESS</span></span><br><span class="line">  <span class="keyword">return</span> []</span><br><span class="line">  <span class="comment">// END</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>다음 코드는 NodeJs 사용자를 위해 매개변수에 Buffer 타입을 허용한 예시이다. 그리고 Buffer의 타입 정의는 npm install —save-dev @types/node로 설치하여 얻을 수 있다. 단 타입 선언이 @types/node에 의존하기 때문에 devDependencies로 포함해야 하는데 이를 포함하면 <em>@types와 무관한 자바스크립트 개발자 또는 NodeJS와 무관한 타입스크립트 웹 개발자</em>에게 혼란을 줄 수 있다. 그 이유는 두 그룹 사용자가 사용하지 않는 모듈이 포함되어 있기 때문이다. Buffer는 NodeJS 개발자에게만 필요하다. 따라서 Buffer를 사용하는 대신 아래와 같이 필요한 메서드와 속성만 별도로 작성하는 방식으로 개선할 수 있다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> CsvBuffer &#123;</span><br><span class="line">  toString(encoding: <span class="built_in">string</span>): <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseCSV</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  contents: <span class="built_in">string</span> | CsvBuffer</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): </span>&#123; [column: <span class="built_in">string</span>]: <span class="built_in">string</span> &#125;[] &#123;</span><br><span class="line">  <span class="comment">// COMPRESS</span></span><br><span class="line">  <span class="keyword">return</span> []</span><br><span class="line">  <span class="comment">// END</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>만약 작성 중인 라이브러리가 의존하는 라이브러리의 구현과 무관하게 타입에만 의존한다면, 필요한 선언부만 추출해서 작성 중인 라이브러리에 넣는 미러링을 고려해 볼 수 있다.</strong></p>
-<hr>
-<h2 id="아이템-52-테스팅-타입의-함정에-주의하기"><a href="#아이템-52-테스팅-타입의-함정에-주의하기" class="headerlink" title="아이템 52 테스팅 타입의 함정에 주의하기"></a>아이템 52 테스팅 타입의 함정에 주의하기</h2><p>타입 선언도 테스트를 거쳐야 하고, dtslint 또는 타입 시스템 외부의 타입을 검사하는 도구를 사용할 수 있다. 타입 선언이 예상한 타입으로 결과를 내는지 체크할 수 있는 한 가지 방법은 <code>함수를 호출하는 테스트 파일의 작성</code>이다. 그러나 단순히 함수를 실행만 하는 테스트 코드를 작성하는 것보다는 <code>반환 타입을 체크하는 것이 중요하다.</code> 반환값을 특정 타입의 변수에 할당하여 간단히 반환 타입을 체크할 수 있는 방법은 다음과 같다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> lengths: <span class="built_in">number</span>[] = map([<span class="string">'john'</span>, <span class="string">'paul'</span>], <span class="function"><span class="params">name</span> =&gt;</span> name.length)</span><br></pre></td></tr></table></figure>
-<p>이 코드는 불필요한 타입 선언에 해당하지만 테스트 관점에서는 매우 중요하다. 그런데 테스팅을 위해서 할당하는 방법에는 두 가지 문제가 있다.</p>
-<ul>
-<li><p>불필요한 변수를 만들어야 하고, 일부 린팅 규칙을 비활성화해야한다.</p>
-<ul>
-<li><strong>변수를 도입하는 대신 헬퍼 함수를 정의하는 것으로 해결한다.</strong></li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">assertType</span>&lt;<span class="title">T</span>&gt;(<span class="params">x: T</span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">assertType&lt;<span class="built_in">number</span>[]&gt;(map([<span class="string">'john'</span>, <span class="string">'paul'</span>], <span class="function"><span class="params">name</span> =&gt;</span> name.length))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>두 타입이 동일한지에 대한 체크 대신 <strong>할당 가능성을 체크한다.</strong></p>
-</li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> n = <span class="number">12</span></span><br><span class="line">assertType&lt;<span class="built_in">number</span>&gt;(n) <span class="comment">//정상</span></span><br></pre></td></tr></table></figure>
-<p>n 심벌은 타입이 숫자 리터럴 12인데, 12는 number의 서브타입이라서 할당 가능성 체크를 통과한다. 그러나 객체 타입 체크해서 문제가 발생한다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> beatles = [<span class="string">'john'</span>, <span class="string">'paul'</span>, <span class="string">'george'</span>, <span class="string">'ringo'</span>]</span><br><span class="line">assertType&lt;&#123; name: <span class="built_in">string</span> &#125;[]&gt;(</span><br><span class="line">  map(beatles, <span class="function"><span class="params">name</span> =&gt;</span> (&#123;</span><br><span class="line">    name,</span><br><span class="line">    inYellowSubmarine: name === <span class="string">'ringo'</span></span><br><span class="line">  &#125;))</span><br><span class="line">) <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
-<p>map은 {name: string, inYellowSubmarine: boolean}객체의 배열을 반환하는데, 반환된 배열은 {name: string}[]에 할당 가능하지만 inYellowSubmarine 속성에 대해 체크되지 않는다.</p>
-<h3 id="assertType-사용-방법"><a href="#assertType-사용-방법" class="headerlink" title="assertType 사용 방법"></a>assertType 사용 방법</h3><p>아래 예제처럼 parameters와 ReturnType 제너릭 타입을 이용해서 함수의 매개변수 타입과 반환 타입만 분리하여 테스트한다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> double = <span class="function">(<span class="params">x: <span class="built_in">number</span></span>) =&gt;</span> <span class="number">2</span> * x</span><br><span class="line"><span class="keyword">let</span> p: Parameters&lt;<span class="keyword">typeof</span> double&gt; = <span class="literal">null</span>!</span><br><span class="line">assertType&lt;[<span class="built_in">number</span>, <span class="built_in">number</span>]&gt;(p)</span><br><span class="line"><span class="comment">//                           ~ Argument of type '[number]' is not</span></span><br><span class="line"><span class="comment">//                             assignable to parameter of type [number, number]</span></span><br><span class="line"><span class="keyword">let</span> r: ReturnType&lt;<span class="keyword">typeof</span> double&gt; = <span class="literal">null</span>!</span><br><span class="line">assertType&lt;<span class="built_in">number</span>&gt;(r) <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="아이템-53-타입스크립트-기능보다는-ECMAScript-기능을-사용하기"><a href="#아이템-53-타입스크립트-기능보다는-ECMAScript-기능을-사용하기" class="headerlink" title="아이템 53 타입스크립트 기능보다는 ECMAScript 기능을 사용하기"></a>아이템 53 타입스크립트 기능보다는 ECMAScript 기능을 사용하기</h2><p>타입스크립트 초기 버전에는 자바스크립트가 가진 결함들도 수용해야 했기 때문에 독립적으로 개발한 클래스, 열거형, 모듈 시스템을 포함시켰다. 시간이 흐르면서 부족했던 부분들을 내장 기능으로 추가하게 되었는데 <em>자바스크립트에 새로 추가된 기능은 타입스크립트 초기 버전에서 독립적으로 개발했던 기능과 호환성 문제를 발생시킨다.</em> 그래서 타입스크립트는 <strong>자바스크립트의 신규 기능을 그대로 채택하고 타입스크립트 초기 버전</strong>과 호환성을 포기하는 방법을 택했다. 그런데 이 기능과 타입스크립트 팀은 타입만 발전시킨다는 원칙이 세워지기 이전에 이미 사용되던 몇 가지 기능들이 있고, 이런 것들이 타입 공간(타입스크립트), 값 공간(자바스크립트)의 경계를 혼란스럽게 하기 때문에 사용을 지양해야 한다.</p>
-<hr>
-<p><em>References</em><br>[이펙티브 타입스크립트] 댄 밴더캄 지음</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -2115,7 +2108,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">123</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

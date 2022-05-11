@@ -144,6 +144,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/08/19/200820_restApi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/19/200820_restApi/" class="post-title-link" itemprop="url">REST API</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-20 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-20T00:00:00+09:00">2020-08-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="REST-Representational-State-Transfer"><a href="#REST-Representational-State-Transfer" class="headerlink" title="REST(Representational State Transfer)"></a>REST(Representational State Transfer)</h2><p>2000년도에 로이 필딩 (Roy Fielding)의 박사학위 논문에서 최초로 소개된 개념</p>
+<ul>
+<li>REST: <code>HTTP를 기반</code>으로 클라이언트가 서버의 리소스에 접근하는 방식을 규정한 아키텍처</li>
+<li>REST API: REST를 기반으로 서비스 API를 구현한 것</li>
+</ul>
+<h2 id="REST-API의-구성"><a href="#REST-API의-구성" class="headerlink" title="REST API의 구성"></a>REST API의 구성</h2><ul>
+<li>자원(RESOURCE) - URI</li>
+<li>행위(Verb) - HTTP METHOD</li>
+<li>표현(Representations) - 페이로드</li>
+</ul>
+<h2 id="REST-API-설계-원칙"><a href="#REST-API-설계-원칙" class="headerlink" title="REST API 설계 원칙"></a>REST API 설계 원칙</h2><ol>
+<li><strong>자원의 위치를 나타내는 URI는 리소스를 표현해야 한다. 리소스를 식별할 수 있는 이름은 <code>명사형</code>으로 사용한다.</strong></li>
+<li><strong>리소스에 대한 행위는 HTTP Method(GET, POST, PUT, DELETE)로 표현한다. 클라이언트가 서버에게 요청의 종류와 목적(리소스에 대한 행위)를 알리는 방법을 말한다.</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">URI는 리소스를 표현하는 데 중점을 두고 있으므로 명사형으로 명시</span><br><span class="line">&#96;delete&#96;처럼 리소스에 대한 행위를 표현하면 안된다.</span><br><span class="line"></span><br><span class="line">GET &#x2F;weathers&#x2F;delete&#x2F;1 -&gt; X</span><br><span class="line"></span><br><span class="line">리소스에 대한 행위는 가장 앞에 있는 &#96;GET&#96;과 같은 HTTP Method로</span><br><span class="line">어떠한 행위를 할 것인지를 표현한다.</span><br><span class="line">GET &#x2F;weathers&#x2F;1 -&gt; O</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>HTTP Method(GET, POST, PUT, DELETE)<br>리소스에 대한 정의는 다음의 HTTP 요청 메소드를 이용하여 CRUD를 한다. CRUD는 컴퓨터 소프트웨어가 가지는 기본적인 데이터 처리 기능인 <em>Create(생성), Read(읽기), Update(갱신), Delete(삭제)를 묶어서 일컫는 말</em>이다. 사용자 인터페이스가 갖추어야 할 기능(정보의 참조/검색/갱신)을 가리키는 용어로서도 사용된다.</p>
+<p>| HTTP Method |      종류      |       목적       | 페이로드 |<br>| :————-: | :——————: | :———————: | :———: |<br>|     GET     | index/retrieve | 리소스 조회/취득 |  <strong>X</strong>   |<br>|    POST     |     create     |   리소스 생성    |  <strong>O</strong>   |<br>|     PUT     |    replace     | 리소스 전체교체  |  <strong>O</strong>   |<br>|    PATCH    |     update     | 리소스 일부 수정 |  <strong>O</strong>   |<br>|   DELETE    |     delete     |   리소스 삭제    |  <strong>X</strong>   |</p>
+</li>
+</ol>
+<h2 id="URI-설계-시-주의사항"><a href="#URI-설계-시-주의사항" class="headerlink" title="URI 설계 시 주의사항"></a>URI 설계 시 주의사항</h2><ol>
+<li>슬래시(/)는 계층 관계를 나타낼 때 사용</li>
+<li>URI 마지막 문자로 슬래시(/)를 포함하지 않는다.</li>
+<li>하이픈(-)은 URI 가독성을 높이는데 사용</li>
+<li>밑줄(_)은 URI에 사용하지 않는다.</li>
+<li>URI 경로에는 소문자가 적합하다.</li>
+<li>파일 확장자는 URI에 포함시키지 않는다.</li>
+</ol>
+<h3 id="리소스-간의-관계를-표현"><a href="#리소스-간의-관계를-표현" class="headerlink" title="리소스 간의 관계를 표현"></a>리소스 간의 관계를 표현</h3><p>/리소스명/리소스 ID/관계가 있는 다른 리소스명</p>
+<p>ex) GET : /users/{userid}/devices<br>(일반적으로 소유 ‘has’의 관계를 표현할 때)</p>
+<p>서브 리소스에 명시적으로 표현<br>ex) GET : /users/{userid}/likes/devices<br>(관계명이 애매하거나 구체적 표현이 필요할 때)</p>
+<h3 id="자원을-표현"><a href="#자원을-표현" class="headerlink" title="자원을 표현"></a>자원을 표현</h3><p>컬렉션과 도큐먼트로 URI에 표현</p>
+<ul>
+<li>Collection: 문서 또는 객체들의 집합. <u>컬렉션은 복수형으로 사용</u></li>
+<li>Document: 문서</li>
+</ul>
+<p>ex) http_://restapi.example.com/sports(<strong>collection</strong>)/soccer(<strong>Document</strong>)/players(<strong>collection</strong>)/13(<strong>Document</strong>)</p>
+<h2 id="HTTP-응답-상태-코드"><a href="#HTTP-응답-상태-코드" class="headerlink" title="HTTP 응답 상태 코드"></a>HTTP 응답 상태 코드</h2><ol>
+<li>정상적인 수행<br>200: 클라이언트의 요청을 정상적으로 수행함.</li>
+<li>클라이언트 에러 응답<br>404: 요청받은 리소스를 찾을 수 없음.</li>
+<li>서버 에러 응답<br>500: 서버가 처리 방법을 모르는 상황. 서버에 문제가 있다.</li>
+<li>리다이렉션<br>301: 요청한 리소스의 URI가 변경되었음</li>
+</ol>
+<hr>
+<p><em>References</em><br><a href="https://meetup.toast.com/posts/92" target="_blank" rel="noopener">TOAST</a><br><a href="https://ko.wikipedia.org/wiki/CRUD" target="_blank" rel="noopener">CRUD</a><br><a href="https://developer.mozilla.org/ko/docs/Glossary/URI" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/rest-api" target="_blank" rel="noopener">poiemaweb</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/08/18/200819_ajax/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +284,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -313,7 +422,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -408,7 +517,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -531,7 +640,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -768,7 +877,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -970,7 +1079,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -1102,7 +1211,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -1188,7 +1297,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -1291,7 +1400,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
+                <time title="Modified: 2022-05-11 09:16:14" itemprop="dateModified" datetime="2022-05-11T09:16:14+09:00">2022-05-11</time>
               </span>
 
           
@@ -1315,136 +1424,6 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//또다른 예시</span></span><br><span class="line"><span class="keyword">const</span> red = <span class="string">"빨간색"</span>;</span><br><span class="line"><span class="keyword">const</span> blue = <span class="string">"파란색"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">favoriteColors</span>(<span class="params">texts, ...values</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> texts.reduce(</span><br><span class="line">    (result, text, i) =&gt;</span><br><span class="line">      <span class="string">`<span class="subst">$&#123;result&#125;</span><span class="subst">$&#123;text&#125;</span><span class="subst">$&#123;values[i] ? <span class="string">`&lt;b&gt;<span class="subst">$&#123;values[i]&#125;</span>&lt;/b&gt;`</span> : <span class="string">""</span>&#125;</span>`</span>,</span><br><span class="line">    <span class="string">""</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">favoriteColors<span class="string">`제가 좋아하는 색은 <span class="subst">$&#123;red&#125;</span>과 <span class="subst">$&#123;blue&#125;</span>입니다.`</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//제가 좋아하는 색은 &lt;b&gt;빨간색&lt;/b&gt;과 &lt;b&gt;파란색&lt;/b&gt;입니다.</span></span><br></pre></td></tr></table></figure>
 <hr>
 <p><em>Refetences</em><br><a href="https://react.vlpt.us/styling/03-styled-components.html" target="_blank" rel="noopener">modern react -velopert</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/06/21/200622_teamProject/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/21/200622_teamProject/" class="post-title-link" itemprop="url">Team Project</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-06-22 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-22T00:00:00+09:00">2020-06-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 10:36:16" itemprop="dateModified" datetime="2022-05-10T10:36:16+09:00">2022-05-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="soft-development-life-cycle"><a href="#soft-development-life-cycle" class="headerlink" title="soft development life cycle"></a>soft development life cycle</h2><p>소프트웨어를 계획/개발/시험/배포하는 과정<br>요구사항 분석 -&gt; 설계 -&gt; 구현 -&gt; 테스트 -&gt; 유지 및 보수</p>
-<ul>
-<li>build&amp;fix: 일단 만들고 고침.</li>
-<li>Prototype: 최소한의 요구사항 분석 후 프로토타입을 제작하여 고객의 요구를 개발에 적극적으로 도입. 고객 평가가 중요한 프로덕트에 도입하는 모델. 외주의 느낌. 핵심기능을 모두 구현 + 부가기능을 붙이는 방식</li>
-<li>Waterfall: 요구사항 분석 -&gt; 설계 -&gt; 구현 -&gt; 운용이 순차적으로 진행. 대규모 팁에 적합. 각 단계를 완료하기 전까지 다음 단계로 넘어가지 않음. 분석이나 설계에서 빠진 사항이 있을 때 다음 단계에서 보충하기 어려움. 다시 cycle를 돌려야함.</li>
-<li>Spiral: 목표설정 -&gt; 위험분석 -&gt; 개발 및 검증 -&gt; 고객평가/다음단계수립을 반복. 점진적으로 단계를 반복수행하여 위험을 최소화. 대형 시스템 구축에 유리. 안정성.</li>
-<li>Agile software development:<ul>
-<li>프로젝트의 생명주기동안 반복적인 개발을 촉진하는 모델</li>
-<li>리스크에 대한 고민은 최소화. 분석 최소화. 문서화 생략. 속도와 코드가 핵심.</li>
-<li>TMP(Too Much Plan) TLP(Too Less Plan)의 타협.</li>
-<li>Code-oriented Methodology</li>
-<li>XP(eXtreme Programming), Scrum 등의 상세 방법론 존재. 흔히 사용되며, 최근엔 이 두가지를 섞어서 쓰는 방법이 많이 쓰임.</li>
-<li>직위체계가 사라지는 현상이 있어서 많이 안쓰기도 함.</li>
-</ul>
-</li>
-</ul>
-<h2 id="eXtreme-Programming"><a href="#eXtreme-Programming" class="headerlink" title="eXtreme Programming"></a>eXtreme Programming</h2><ul>
-<li>클라이언트 중심: 고객 중심의 양질의 소프트웨어를 빠른 시간 안에 전달한다.</li>
-<li>Business Requirements의 변동이 심한 경우 적합.</li>
-<li>Test Driven Development. 모듈에 대한 Test가 핵심.</li>
-</ul>
-<h3 id="XP-Key-Process"><a href="#XP-Key-Process" class="headerlink" title="XP - Key Process"></a>XP - Key Process</h3><ul>
-<li>Role: Project Manager, Technical writer, Interaction Designer, Architect, Tester, Programmer, User(stakeholder). 롤이 부여되고, 각자의 역할이 존재.</li>
-<li>planning: 2주 주기로 계획을 세우고 , 프로토타입을 통해 개발 방향 점검</li>
-<li>Test Driven Development: test code를 먼저 작성하고 기능을 개발한 뒤, 테스트를 통해 검증.</li>
-<li>pair programming: 2인 이상의 팀을 이뤄 한명이 drive하고, 한명은 QA 또는 navigator로 참여.</li>
-</ul>
-<h2 id="Scrum"><a href="#Scrum" class="headerlink" title="Scrum"></a>Scrum</h2><ul>
-<li>상호, 점진적 개발방법론</li>
-<li>개발할 기능, 수정사항에 대해 우선순위를 부여한 뒤, 이 순서대로 Task 진행</li>
-<li>매일 15분의 회의 진행</li>
-<li>1~4주의 Sprint(기획~리뷰)</li>
-<li>데일리 스크럼 필요: 내가 어떤 것을 하고 있는지, 어떤 것을 보충해야하는지에 대해 서로 논의.</li>
-</ul>
-<h3 id="Scrum-Key-Process"><a href="#Scrum-Key-Process" class="headerlink" title="Scrum - Key Process"></a>Scrum - Key Process</h3><ul>
-<li>Role: produce owner, scrum master, developer</li>
-<li>product backlog: 제품 전체의 요구사항</li>
-<li>planning meeting: sprint 목표와 sprint backlog 계획</li>
-<li>sprint backlog</li>
-<li>daily scrum: 어제 한 일, 오늘 할 일, issue 등 공유</li>
-</ul>
-<ol>
-<li>sprint 주기: 2주(deadline:중간발표, 최종발표일). 릴리즈 가능한 상태일 것</li>
-<li>requirement analysis -&gt; design -&gt; implementation(scrum with XP)</li>
-</ol>
-<ul>
-<li>planning meeting: sprint 기간 중 구현할 내용계획</li>
-<li>sprint backlog 작성: m/h 추산 및 분배를 통해 task분배</li>
-<li>daily scrum</li>
-<li>test-driven development(optional): 테스트코드 먼저 작성해 본 후 코드 작성</li>
-</ul>
-<h2 id="Before-Implementation"><a href="#Before-Implementation" class="headerlink" title="Before Implementation"></a>Before Implementation</h2><p>요구사항 분석을 통한 specification 작성. 필요한 기능에 대한 기획(사이트맵의 느낌)</p>
-<ul>
-<li><p>requirement analysis</p>
-<ul>
-<li>client</li>
-<li>functional</li>
-<li>external interface</li>
-</ul>
-</li>
-<li><p>wireframe, usecase(user flow), stroyboard(각 페이지가 어떻게 유기적으로 움직이는가)</p>
-</li>
-<li>design prototype(FE)</li>
-<li>ERD(Entity Relationship Diagram)(BE)</li>
-<li>API Design (FE + BE)</li>
-</ul>
 
       
     </div>
@@ -1530,7 +1509,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">123</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
