@@ -144,6 +144,328 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/03/01/220302_blockchain01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/01/220302_blockchain01/" class="post-title-link" itemprop="url">블록체인 무엇인가? 1장 소프트웨어 공학에서 변하지 않는 주요 개념들</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-02 00:00:00" itemprop="dateCreated datePublished" datetime="2022-03-02T00:00:00+09:00">2022-03-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>블록체인의 기본 개념을 제대로 알지 못하면 블록체인의 전반적인 가치나 잠재적인 영향력을 가늠할 수 없을뿐더러 블록체인이 창출하는 부가가치를 이해하기가 어렵다. 또한 (블록체인을 포함해서) 새로운 기술에 대한 개념적 이해가 부족하면 자극적이고 과장된 광고에 휩쓸려 비현실적이고 실현 불가능한 망상에 사로잡히기 쉬워 나중에 실망할 수도 있다. 따라서 이 책은 ‘블록체인의 기본 개념’에 집중한다.<br>&lt;책 서문 발췌&gt;</p>
+</blockquote>
+<h1 id="1-소프트웨어-공학에서-변하지-않는-주요-개념들"><a href="#1-소프트웨어-공학에서-변하지-않는-주요-개념들" class="headerlink" title="1. 소프트웨어 공학에서 변하지 않는 주요 개념들"></a>1. 소프트웨어 공학에서 변하지 않는 주요 개념들</h1><h2 id="1-시스템을-보는-눈-장착하기"><a href="#1-시스템을-보는-눈-장착하기" class="headerlink" title="1. 시스템을 보는 눈 장착하기"></a>1. 시스템을 보는 눈 장착하기</h2><h3 id="시스템을-계층과-측면으로-분리해-분석하기"><a href="#시스템을-계층과-측면으로-분리해-분석하기" class="headerlink" title="시스템을 계층과 측면으로 분리해 분석하기"></a>시스템을 계층과 측면으로 분리해 분석하기</h3><p>시스템을 개념적으로 분리하기 위해 사용하는 구분 기준은 다음의 두 가지다.</p>
+<ul>
+<li>응용계층 vs 구현계층</li>
+<li>기능적 측면 vs 비기능적 측면</li>
+</ul>
+<h3 id="1-응용계층-vs-구현계층"><a href="#1-응용계층-vs-구현계층" class="headerlink" title="1. 응용계층 vs 구현계층"></a>1. 응용계층 vs 구현계층</h3><ul>
+<li>응용계층: 사용자의 요구사항</li>
+<li>구현계층: 요구사항을 실현. 구성요소는 본질적으로 기술적이다. 응용계층에서 사용자의 필요사항을 만족시키기 위한 수단.</li>
+</ul>
+<h3 id="2-기능적-측면-vs-비기능적-측면"><a href="#2-기능적-측면-vs-비기능적-측면" class="headerlink" title="2. 기능적 측면 vs 비기능적 측면"></a>2. 기능적 측면 vs 비기능적 측면</h3><ul>
+<li>기능적 측면: 시스템이 <code>무엇</code>을 하는가? 동사적 역할. e.g. 네트워크를 통한 데이터 전송, 음악 연주 등</li>
+<li>비기능적 측면: 시스템이 무엇을 <code>어떻게</code> 하는가? 부사적 역할. e.g. 멋진 인터페이스, 실행속도가 빠른 소프트웨어<ul>
+<li>보안: 정확성을 포함하는 개념</li>
+<li><code>무결성(integrity)</code>: 시스템이 의도한 대로 작동하는 것. 보안과 정확성 모두를 포함하는 개념</li>
+</ul>
+</li>
+</ul>
+<h3 id="사용자는-응용계층의-기능적-측면을-중시한다"><a href="#사용자는-응용계층의-기능적-측면을-중시한다" class="headerlink" title="사용자는 응용계층의 기능적 측면을 중시한다."></a>사용자는 응용계층의 기능적 측면을 중시한다.</h3><p>응용계층의 기능적 측면은 사용자의 명확한 요구사항들이므로 시스템에서 가장 중요하게 부각된다. <strong>반면 구현계층의 비기능적 요소는 시스템의 주요 요소가 아니라 아주 당연한 것으로 여겨진다. 그런데 비기능적 요소 중 무결성 같은 것은 눈에 보이지 않지만 매우 중요하다.</strong></p>
+<h3 id="무결성의-주요-요소"><a href="#무결성의-주요-요소" class="headerlink" title="무결성의 주요 요소"></a>무결성의 주요 요소</h3><ul>
+<li>데이터 무결성: 시스템에서 사용하고 유지 관리하는 데이터는 완전하고 정확하며 모순이 없다.</li>
+<li>작동 무결성: 시스템은 의도한 대로 작동하며 논리적 오류가 없다.</li>
+<li>보안: 시스템은 허가받은 사용자에게만 데이터 및 기능에 대한 접근 권한을 부여할 수 있다.</li>
+</ul>
+<hr>
+<h2 id="2-큰-그림으로-바라보기"><a href="#2-큰-그림으로-바라보기" class="headerlink" title="2. 큰 그림으로 바라보기"></a>2. 큰 그림으로 바라보기</h2><p>노드, 컴퓨터, 피어는 동일한 의미를 가질 때가 많지만 반드시 그렇지 않다. 구조에 따라 단일 컴퓨터가 복수의 노드 역할을 할 수 있고, 하나의 노드에 복수의 컴퓨터가 연결되어 있을 수도 있다.</p>
+<ul>
+<li>피어:<ul>
+<li>전체 시스템 노드 중 나와 직접 연결된 노드. 이더리움에서 구분해서 사용한다.</li>
+<li>일대일의 의미를 강조하거나 노드를 사용해 특정 행위를 하는 사람의 관점에서 피어라 부름.</li>
+</ul>
+</li>
+<li>노드: 보통의 책에서 전체 시스템 내의 한 요소임을 강조할 때 사용.</li>
+<li>컴퓨터: 공유하는 자원 측면에 대해 기술할 때.</li>
+</ul>
+<h3 id="소프트웨어-아키텍처란-무엇이고-블록체인과-어떤-관계인가"><a href="#소프트웨어-아키텍처란-무엇이고-블록체인과-어떤-관계인가" class="headerlink" title="소프트웨어 아키텍처란 무엇이고 블록체인과 어떤 관계인가?"></a>소프트웨어 아키텍처란 무엇이고 블록체인과 어떤 관계인가?</h3><p>소프트웨어 시스템을 구현하는 방법은 여러가지가 있는데, <code>시스템 아키텍처</code>는 필수적으로 결정해야 한다. <em>시스템 아키텍처는 구성요소를 구조화하고, 구성요소 간 관계를 설정하는 방식을 의미한다.</em> 주로 사용되는 아키텍처는 <code>중앙 통제 방식</code>,<code>분산방식</code>이 있다.</p>
+<ul>
+<li>중앙 통제 방식<ul>
+<li>구성요소들이 하나의 중앙요소에 연결되며, 중앙 요소를 가운데 두고 나머지 요소들이 둘러싸고 있는 구조.</li>
+<li>모든 구성요소끼리 직접적으로 연결되지 않고 오직 중앙 요소와만 직접 연결되어 있다.</li>
+</ul>
+</li>
+<li>분산 방식<ul>
+<li>시스템을 통제하거나 조정하는 요소 없이 서로 연결된 네트워크 구조를 형성.</li>
+<li>모든 구성 요소와 직접적으로 연결된 노드는 단 하나도 없지만 모든 노드는 간접적으로 서로 완전히 연결되어 있다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="분산-시스템의-장점"><a href="#분산-시스템의-장점" class="headerlink" title="분산 시스템의 장점"></a>분산 시스템의 장점</h3><ol>
+<li><p>계산 능력이 뛰어나다.</p>
+<ol>
+<li>서로 연결된 모든 컴퓨터의 계산 능력이 합쳐져 발현되기 때문에 단일 컴퓨터보다 더 강력한 계산 능력을 가진다.</li>
+</ol>
+</li>
+<li><p>비용이 절감된다.</p>
+<ol>
+<li>여러 대의 컴퓨터로 구성되므로 초기 구성 비용은 슈퍼 컴퓨터보다 많지만 유지 운영 비용은 훨씬 적다. 또 슈퍼 컴퓨터와 달리 개별 컴퓨터가 교체 될 때 전체 시스템에 별 영향을 끼치지 않는다.</li>
+</ol>
+</li>
+<li><p>더 안정적이다.</p>
+<ol>
+<li>시스템을 구성하는 개별 컴퓨터가 고장나면 나머지 구성요소들이 그 일을 대신하기 때문에 전체 네트워크는 문제없이 잘 작동한다.</li>
+</ol>
+</li>
+<li><p>자연스럽게 확장된다.</p>
+<ol>
+<li>앞서 계산 능력은 연결된 모든 컴퓨터의 계산 능력을 합친 것이라 했으므로, 시스템에 컴퓨터를 추가하면 손쉽게 전체 계산 능력을 높일 수 있다.</li>
+</ol>
+</li>
+</ol>
+<h3 id="분산-시스템의-단점"><a href="#분산-시스템의-단점" class="headerlink" title="분산 시스템의 단점"></a>분산 시스템의 단점</h3><ol>
+<li><p>조정 오버헤드가 발생한다.</p>
+<ol>
+<li>중앙 통제 방식과 달리 중앙 요소가 존재하지 않기 때문에 구성요소들 스스로 조정을 해야하는데 이 조정이 쉽지 않아 많은 자원이 소모되는 오버헤드가 발생한다.</li>
+</ol>
+</li>
+<li><p>통신 오버헤드가 발생한다.</p>
+<ol>
+<li>조정을 위해서 통신이 필수적이고, 이 통신을 위해 계산 능력의 일부가 통신 프로토콜 지원 및 메시지 송수신 및 처리에 소모된다.</li>
+</ol>
+</li>
+<li><p>네트워크 의존도가 높다.</p>
+<ol>
+<li>컴퓨터들은 네트워크를 통해 통신하는데, 모든 네트워크는 자체적인 결함과 장애 가능성이 내재되어 있기 때문에 통신과 조정에 영향을 끼친다. 그리고 네트워크가 없으면 각 구성요소 간의 협력이 불가하기 때문에 네트워크 의존도가 높다.</li>
+</ol>
+</li>
+<li><p>프로그램이 복잡해진다.</p>
+<ol>
+<li>앞서 말한 단점들을 해결하기 위해 중앙 통제 방식에서는 필요없는 조정, 통신, 네트워크 이용에 관련된 추가적인 문제 해결 등이 필요하다.</li>
+</ol>
+</li>
+<li><p>보안에 신경써야 한다.</p>
+<ol>
+<li>네트워크를 통한 통신은 계산 작업 시 데이터의 전송과 공유가 꼭 필요하다. 그러나 이런 행위로 인해 악의를 가진 개체가 정보에 접근하여 악용하는 보안문제가 발생할 수 있다.</li>
+</ol>
+</li>
+</ol>
+<h3 id="사용자가-많아질수록-더-강력해지는-분산-P2P-시스템"><a href="#사용자가-많아질수록-더-강력해지는-분산-P2P-시스템" class="headerlink" title="사용자가 많아질수록 더 강력해지는 분산 P2P 시스템"></a>사용자가 많아질수록 더 강력해지는 분산 P2P 시스템</h3><blockquote>
+<p>Peer to Peer 네트워크 또는 P2P 네트워크. 분산 네트워크의 특수한 형태</p>
+</blockquote>
+<p>개별 컴퓨터(노드)로 구성된 시스템으로 중앙 노드의 조정 없이 네트워크의 모든 구성원이 서로에게 계산 자원을 제공한다. <strong>네트워크의 각 노드는 시스템 내에서 동등한 권리와 역할을 가지고, 모두가 자원의 공급자인 동시에 소비자이다.</strong> 사용자들의 컴퓨터를 분산 시스템을 구성하는 노드로 만든다는 아이디어를 배경으로 다양한 분야에 응용이 가능하다.</p>
+<h3 id="중앙-통제와-분산-시스템의-장점만-모은-혼합-시스템"><a href="#중앙-통제와-분산-시스템의-장점만-모은-혼합-시스템" class="headerlink" title="중앙 통제와 분산 시스템의 장점만 모은 혼합 시스템"></a>중앙 통제와 분산 시스템의 장점만 모은 혼합 시스템</h3><p>중앙 통제 시스템과 분산 시스템은 정반대의 구조를 가지고 있는데, 이 각각의 강점만 결합한 혼합 시스템이 있다.</p>
+<ul>
+<li><p>분산 시스템 내의 중앙 통제<br>분산 시스템 내부에 중앙 통제 요소를 구축한 아키텍처로 겉보기에 분산 시스템을 이루는 것처럼 보이지만 <strong>모든 노드는 중앙의 큰 원에 직접 연결되어 있다.</strong></p>
+</li>
+<li><p>중앙 통제 시스템 내의 분산 시스템<br>겉보기에 주변 노드가 모드 중앙의 큰 원에 직접 연결되어 있는 중앙 통제 시스템처럼 보이는데, 중앙의 큰 원 내부를 들여다보면 분산 시스템으로 구성되어 있다. 심지어 주변 구성요소들은 중앙 요소가 분산 시스템으로 이루어져 있는지 모를 수도 있다.</p>
+</li>
+</ul>
+<h3 id="분산-시스템인지-구분하는-방법"><a href="#분산-시스템인지-구분하는-방법" class="headerlink" title="분산 시스템인지 구분하는 방법"></a>분산 시스템인지 구분하는 방법</h3><p>전체 시스템을 동시에 종료할 수 있는 단일 구성요소가 있는지 찾는다. 이런 요소가 있다면 분산 시스템이 아니다.</p>
+<h3 id="큰-그림으로-본-블록체인의-목적"><a href="#큰-그림으로-본-블록체인의-목적" class="headerlink" title="큰 그림으로 본 블록체인의 목적"></a>큰 그림으로 본 블록체인의 목적</h3><p>소프트웨어 시스템 디자인에서 아키텍처의 선정은 시스템 구현 관점에서 목적 달성을 위한 수단이기 때문에 분산 방식 또는 중앙 통제 방식 중 어떤 것으로도 구현할 수 있다. 다만 어떤 아키텍처를 선택하느냐에 따라 시스템이 기능적, 비기능적 측면을 달성하는 방법에 영향을 미친다. <strong>특히 무결성에 대해서 두 가지 아키텍처가 매우 다른 방식으로 접근하기 때문에 이런 점에서 블록 체인이 중요하다.</strong> <code>블록체인은 분산 시스템이 무결성을 확보하게 해주는 도구이며, 분산 시스템의 무결성을 구현하고 유지하는 것이 바로 블록체인의 목적이다.</code>즉 구현계층의 비기능적 측면을 성취하게 해주는 도구이다.</p>
+<hr>
+<h2 id="3-P2P-시스템의-엄청난-잠재력"><a href="#3-P2P-시스템의-엄청난-잠재력" class="headerlink" title="3. P2P 시스템의 엄청난 잠재력"></a>3. P2P 시스템의 엄청난 잠재력</h2><h3 id="P2P-시스템이-세상을-어떻게-바꿀-것인가"><a href="#P2P-시스템이-세상을-어떻게-바꿀-것인가" class="headerlink" title="P2P 시스템이 세상을 어떻게 바꿀 것인가?"></a>P2P 시스템이 세상을 어떻게 바꿀 것인가?</h3><p>P2P 시스템이 음악산업을 어떻게 변화시켰는지를 보면서 블록체인과 어떤 관계가 있는지 살펴본다. 전통적인 음악산업은 음악가와 스튜디오가 계약을 맺고, 스튜디오가 음악가의 노래를 녹음해서 다양한 유통채널을 통해 판매하는 구조로 운영되어 왔다. 스튜디오가 사실상 음악가와 음악을 청취하고자 하는 사람들 사이의 <code>중개자</code>역할을 한 것이다. 중개자로서 스튜디오는 음반제작 전반에 관한 독점적 지식을 가지고 있었는데 2000년대 이후 음악의 디지털화, 개인 PC 보급 확대, 인터넷의 등장 등이 스튜디오를 더이상 필요하지 않게 만들었다. 즉 스튜디오가 가지고 있던 독점적인 지식인 제작, 마케팅, 판매를 스튜디오를 거치지 않고도 가능하게 된 것이다. 특히 냅스터라는 소프트웨어의 등장은 P2P 접근방식으로 MP3 파일을 공유하는 방식으로 음악을 소비하게 해주었기 때문에 스튜디오의 효용성이 더욱 떨어지게 되었다. 냅스터의 사례처럼 <strong>중개자 역할을 개인간의 상호작용으로 대체한다.</strong>는 아이디어를 기반으로 P2P 시스템이 음악 산업이 생태계 전쳬를 뒤흔든 것이다.</p>
+<p>그런데 이런 P2P 시스템은 앞으로도 무형의 상품이나 디지털화된 상품 또는 서비스를 중개하는 역할을 주업으로 하는 산업에 큰 영향을 미치게 될 것이고, 결국은 이런 산업의 생태계도 P2P로 대체될 가능성이 높다. 금융업이 대표적인 예라고 할 수 있다. 대부분의 돈과 자산은 물리적인 지폐나 동전으로 거래되기 보다는 금융회사의 중앙 정보 기술 시스템에 저장되어 있고, 은행은 소비하는 사람들과 회사 사이의 중개자 역할을 주로 수행한다. 다만 간단한 거래 하나에도 상당수 많은 중개자가 관여하고 있어서 오랜 처리 시간과 많은 거래 비용을 필요로 하는 상황이다. 만약 P2P 거래 시스템을 사용한다면 훨씬 적은 시간과 비용을 들여 거래를 진행할 수 있다. 현재 은행의 중앙 통제 시스템에 비해 P2P 시스템은 중개자를 통해 간접적으로 상호작용하지 않고 거래 당사자끼리 직접 상호작용하기 때문에 처리 시간과 비용이 줄어든다.</p>
+<h3 id="P2P-시스템과-블록체인은-어떤-관련이-있나"><a href="#P2P-시스템과-블록체인은-어떤-관련이-있나" class="headerlink" title="P2P 시스템과 블록체인은 어떤 관련이 있나?"></a>P2P 시스템과 블록체인은 어떤 관련이 있나?</h3><ol>
+<li>P2P 시스템의 정의</li>
+</ol>
+<blockquote>
+<p>여러 노드(개별 컴퓨터)들로 구성된 분산 소프트웨어 시스템. <code>한 노드의 자원을 다른 노드들이 직접 사용</code>할 수 있다는 특징이 있다.</p>
+</blockquote>
+<p>P2P 시스템에 참여하면 사용자의 컴퓨터는 시스템의 노드로 전환되고, 모든 노드에게는 동등한 권리와 역할이 주어진다. <strong>즉 시스템의 모든 노드는 동일한 기능과 책임을 가지고, 모든 사용자의 컴퓨터는 자원의 공급자인 동시에 소비자가 된다.</strong></p>
+<ol>
+<li>P2P 시스템의 아키텍처</li>
+</ol>
+<blockquote>
+<p>P2P 시스템의 구조는 <code>분산 컴퓨터 시스템</code></p>
+</blockquote>
+<p>개별 노드로 구성된 컴퓨터들은 서로 자원을 공유한다. 순수 분산 P2P 시스템은 중앙에서 통제하거나 조정하는 어떤 요소도 없다. 따라서 모든 노드는 동일한 과제를 수행하고, 자원과 서비스의 생산자인 동시에 소비자 역할을 한다. 물론 중앙 통제 요소를 가지는 P2P 시스템도 존재한다. 이 시스템은 중앙 통제와 분산 시스템이 장점만을 뽑아 만들어진 것으로 중앙 노드를 이용해 노드 간 상호작용을 중개하고, 피어 노드가 제공하는 서비스 목록들을 유지 관리하고 노드를 검색하고 식별한다.</p>
+<ol>
+<li>P2P 시스템과 블록체인의 연관성</li>
+</ol>
+<blockquote>
+<p>블록체인은 분산 시스템에서 무결성을 확보하고 유지하는 도구이다. <code>즉 순수 분산 P2P 시스템은 무결성의 확보와 유지를 위해 블록체인을 사용한다.</code></p>
+</blockquote>
+<p>이러한 P2P 시스템과 블록체인의 연관성 때문에 블록체인이 중요한 요소가 된 것이고, 무결성을 유지하고 확보하기 위한 도구라는 점보다 더욱 중요한 점은 <code>탈중개화</code>이다. 블록체인은 단지 <code>탈중개화</code>를 위한 도구일 뿐이다.</p>
+<hr>
+<p><em>References</em><br>[블록체인 무엇인가?] 다니엘 드레셔 지음</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/03/01/220302_item56to62/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/01/220302_item56to62/" class="post-title-link" itemprop="url">타입스크립트 이펙티브 아이템 56 - 아이템 62</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-02 00:00:00" itemprop="dateCreated datePublished" datetime="2022-03-02T00:00:00+09:00">2022-03-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="아이템-56-정보를-감추는-목적으로-private-사용하지-않기"><a href="#아이템-56-정보를-감추는-목적으로-private-사용하지-않기" class="headerlink" title="아이템 56 정보를 감추는 목적으로 private 사용하지 않기"></a>아이템 56 정보를 감추는 목적으로 private 사용하지 않기</h2><p>자바스크립트는 클래스에 비공개 속성을 만들 수 없다. 비공개 속성임을 나태내기 위해 <code>언더스코어(_)</code>를 접두사로 붙이던 것이 관례로 인정되어 왔던 것 뿐이다. <em>하지만 언더스코어를 붙이는 것은 비공개라고 표시한 것 뿐, 일반적인 속성과 동일하게 클래스 외부로 공개되어 있다.</em></p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Diary &#123;</span><br><span class="line">  <span class="keyword">private</span> secret = <span class="string">'cheated on my English test'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> diary = <span class="keyword">new</span> Diary()</span><br><span class="line">;(diary <span class="keyword">as</span> <span class="built_in">any</span>).secret <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
+<p>타입스크립트에서 위의 예시처럼 public, protected, private 접근 제어자를 사용하기 때문에 규칙을 강제하는 것으로 오해하기 쉬운데 <strong>이는 타입스크립트 키워드이기 때문에 컴파일 후에 제거된다.</strong> 그래서 타입스크립트의 컴파일되면 위의 예제는 아래의 예제처럼 자바스크립트 코드(target=ES2017)로 변환된다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Diary &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.secret = <span class="string">'cheated on my English test'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> diary = <span class="keyword">new</span> Diary()</span><br><span class="line">diary.secret</span><br></pre></td></tr></table></figure>
+<p>컴파일 후에 확인해보면 타입스크립트 키워드인 private이 제거되었고, secret은 일반적인 속성이어서 접근할 수 있다. 즉 언더스코어의 관례처럼 타입스크립트의 접근 제어자들도 런타임에는 아무런 효력이 없다. 심지어 타입스크립트 상태에서도 단언문을 사용하면 private에 접근 가능하다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">declare <span class="function"><span class="keyword">function</span> <span class="title">hash</span>(<span class="params">text: string</span>): <span class="title">number</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">class</span> <span class="title">PasswordChecker</span> </span>&#123;</span><br><span class="line">  checkPassword: <span class="function">(<span class="params">password: string</span>) =&gt;</span> boolean</span><br><span class="line">  <span class="keyword">constructor</span>(passwordHash: number) &#123;</span><br><span class="line">    <span class="keyword">this</span>.checkPassword = <span class="function">(<span class="params">password: string</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> hash(password) === passwordHash</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> checker = <span class="keyword">new</span> PasswordChecker(hash(<span class="string">'s3cret'</span>))</span><br><span class="line">checker.checkPassword(<span class="string">'s3cret'</span>) <span class="comment">// Returns true</span></span><br></pre></td></tr></table></figure>
+<p>따라서 정보를 감추기 위한 목적으로 private을 사용하면 안된다. <em>자바스크립트에서 정보를 숨기기 위한 가장 효과적은 방법은 클로저이다.</em> 위의 예시는 생성자에서 클로저를 만드는 예시이다. 이렇게 작성하면 PasswordChecker의 생성자 외부에서 passwordHash 변수에 접근할 수 없어서 정보를 숨기는 목적은 달성하게 되는데, 주의사항이 있다. passwordHash를 생성자 외부에서 접근할 수 없기 때문에 passwordHash에 접근해야 하는 메서드는 생성자 내부에 정의되어야 한다. 또 메서드 정의가 생성자 내부에 존재하게 되면, 인스턴스를 생성할 때마다 각 메서드의 복사본이 생성되기 때문에 메모리를 낭비하게 된다. 클로저를 쓰지 않으면 현재 표준화가 진행 중인 비공개 필드 기능을 사용할 수 있는데, 접두사 #을 붙여서 타입 체크과 런타임 모두에서 비공개로 만드는 역할을 한다.</p>
+<hr>
+<h2 id="아이템-57-소스맵을-사용하여-타입스크립트-디버깅하기"><a href="#아이템-57-소스맵을-사용하여-타입스크립트-디버깅하기" class="headerlink" title="아이템 57 소스맵을 사용하여 타입스크립트 디버깅하기"></a>아이템 57 소스맵을 사용하여 타입스크립트 디버깅하기</h2><p>타입스크립트 코드를 실행한다는 것은 타입스크립트 컴파일러가 생성한 자바스크립트 코드를 생성한다는 것이다. 그런데 변환된 자바스크립트 코드는 복잡해서 디버깅하기가 어렵다. <strong>디버깅하기 쉽도록 해결책을 내놓은 것이 소스맵이다.</strong> 소스맵은 변환된 코드의 위치와 심벌들을 원본 코드의 원래 위치와 심벌들로 매핑한다. 보통 자바스크립트로 변환된 코드는 원본 코드와 거의 비슷해서 디버깅하기 쉽지만 복잡하게 변환된다면 소스맵이 필요하다. 타입스크립트가 소스맵을 생성할 수 있도록 tsconfig.json에 소스맵 옵션을 다음과 같이 설정한다.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compiletOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"sourceMap"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="아이템-58-모던-자바스크립트로-작성하기"><a href="#아이템-58-모던-자바스크립트로-작성하기" class="headerlink" title="아이템 58 모던 자바스크립트로 작성하기"></a>아이템 58 모던 자바스크립트로 작성하기</h2><p>타입스크립트 코드를 특정 버전의 자바스크립트로 컴파일 할 수 있다. 즉 타입스크립트를 자바스크립트 트랜스 파일러로 사용할 수 있다. 옛날 버전의 자바스크립트 코드를 타입스크립트 컴파일러에서 동작하게 만들면 그 이후 회신 버전의 자바스크립트 기능을 코드에 추가해도 문제가 없다. 이렇게 옛날 버전의 자바스크립트 코드를 최신 버전의 자바스크립트로 바꾸는 작업이 타입스크립트로 전환하는 작업의 일부라 볼 수 있다. <em>타입스크립트는 자바스크립트의 상위 집합이기 때문에 코드를 최신 버전으로 바꾸다 보면 타입스크립트의 일부를 저절로 익힐 수 있다.</em> 타입스크립트 도입 시 가장 중요하나 기능은 ECMAScript 모듈과 ES2015 클래스이다.</p>
+<h3 id="ECMA-모듈-사용하기"><a href="#ECMA-모듈-사용하기" class="headerlink" title="ECMA 모듈 사용하기"></a>ECMA 모듈 사용하기</h3><p>ES2015부터 import, export를 사용하는 ECMAScript 모듈이 표준이 되었다. 따라서 자바스크립트 코드가 단일 파일이거나 비표준 모듈 시스템을 사용 중이라면 ES 모듈로 전환해야 한다. 이 과정에서 웹팩이나 ts-node와 같은 도구가 필요할 수도 있다. ES 모듈 시스템은 모듈 단위로 전환할 수 있게 해주기 때문에 점진적 마이그레이션이 원활해진다.</p>
+<h3 id="프로토타입-대신-클래스-사용하기"><a href="#프로토타입-대신-클래스-사용하기" class="headerlink" title="프로토타입 대신 클래스 사용하기"></a>프로토타입 대신 클래스 사용하기</h3><p>자바스크립트에서 프로토타입 기반의 객체 모델을 사용하는데, 많은 개발자들이 클래스 기반 모델을 선호했기 때문에 ES2015에서 class 키워드를 사용하는 클래스 기반 모델이 도입되었다. <em>만약 단순한 객체를 다룰 때 프로토타입을 사용하고 있었다면 클래스로 바꾸는 것이 좋다.</em></p>
+<h3 id="var-대신-let-const-사용하기"><a href="#var-대신-let-const-사용하기" class="headerlink" title="var 대신 let/const 사용하기"></a>var 대신 let/const 사용하기</h3><p>var 키워드에는 스코프 규칙의 문제가 있었고, let이나 const를 쓰는 것으로 이러한 문제를 피할 수 있었다. var로 되어있던 코드를 let이나 const로 수정하면 일부 코드에서 타입스크립트가 오류를 표시할 수 있다. 만약 오류가 발생했다면 잠재적으로 스코프 문제가 존재하는 코드이니 수정이 필요하다.</p>
+<h3 id="for-대신-for-of-또는-배열-메서드-사용하기"><a href="#for-대신-for-of-또는-배열-메서드-사용하기" class="headerlink" title="for(;;) 대신 for-of 또는 배열 메서드 사용하기"></a>for(;;) 대신 for-of 또는 배열 메서드 사용하기</h3><p>과거에는 자바스크립트가 배열을 순회할 때 for 루프를 사용했는데 모던 자바스크립트에는 <code>for~of</code>가 존재하기 때문에 이를 사용하면 된다. for~of가 for문에 비해 코드가 짧고 인덱스 변수를 사용하지 않기 때문에 실수를 줄일 수 있다. 만약 인덱스 변수가 필요하다면 forEach를 사용하면 되고, 비슷한 루프문으로 for~in도 있지만 몇 가지 문제점이 있으므로 쓰지 않는 것이 좋다.</p>
+<h3 id="함수-표현식보다-화살표-함수-사용하기"><a href="#함수-표현식보다-화살표-함수-사용하기" class="headerlink" title="함수 표현식보다 화살표 함수 사용하기"></a>함수 표현식보다 화살표 함수 사용하기</h3><p>this 키워드는 일반 변수들과 다른 스코프 규칙을 가지기 때문에 가장 어려운 개념 중 하나이다. 그러나 화살표 함수를 사용하면 상위 스코프의 this를 유지할 수 있다. 컴파일러 옵션에 noImplicitThis(또는 strict)를 설정하면 타입스크립트가 this 바인딩 관련된 오류를 표시해준다.</p>
+<h3 id="단축-객체-표현과-구조-분해-할당-사용하기"><a href="#단축-객체-표현과-구조-분해-할당-사용하기" class="headerlink" title="단축 객체 표현과 구조 분해 할당 사용하기"></a>단축 객체 표현과 구조 분해 할당 사용하기</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">1</span>,</span><br><span class="line">  y = <span class="number">2</span>,</span><br><span class="line">  z = <span class="number">3</span></span><br><span class="line"><span class="keyword">const</span> pt = &#123;</span><br><span class="line">  x: x,</span><br><span class="line">  y: y,</span><br><span class="line">  z: z</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위와 같은 코드는 아래와 같이 구조 분해 할당을 이용하여 더 간단하게 표현할 수 있다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">1</span>,</span><br><span class="line">  y = <span class="number">2</span>,</span><br><span class="line">  z = <span class="number">3</span></span><br><span class="line"><span class="keyword">const</span> pt = &#123; x, y, z &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="함수-매개변수-기본값-사용하기"><a href="#함수-매개변수-기본값-사용하기" class="headerlink" title="함수 매개변수 기본값 사용하기"></a>함수 매개변수 기본값 사용하기</h3><p>자바스크립트의 함수의 모든 매개변수는 선택적(생략 가능)이며, 매개변수를 지정하지 않았을 때는 undefined로 간주된다. 매개변수에 기본값을 직접 지정할 수도 있는데 이렇게 하면 코드가 간결해진다.</p>
+<h3 id="저수준-프로미스나-콜백-대신-async-await-사용하기"><a href="#저수준-프로미스나-콜백-대신-async-await-사용하기" class="headerlink" title="저수준 프로미스나 콜백 대신 async/await 사용하기"></a>저수준 프로미스나 콜백 대신 async/await 사용하기</h3><p>async/await가 코드의 가독성을 높이는 것 뿐 아니라 비동기 코드에 타입 정보가 전달되어 타입 추론을 가능하게 한다.</p>
+<h3 id="연관-배열에-객체-대신-Map과-Set-사용하기"><a href="#연관-배열에-객체-대신-Map과-Set-사용하기" class="headerlink" title="연관 배열에 객체 대신 Map과 Set 사용하기"></a>연관 배열에 객체 대신 Map과 Set 사용하기</h3><h3 id="타입스크립트에-use-strict-넣지-않기"><a href="#타입스크립트에-use-strict-넣지-않기" class="headerlink" title="타입스크립트에 use strict 넣지 않기"></a>타입스크립트에 use strict 넣지 않기</h3><p>버그가 될 수 있는 코드 패턴에 오류를 표시해 주는 엄격 모드가 ES5에서 도입되었는데 타입스크립트에서 수행되는 안정성 검사가 엄격 모드보다 훨싼 더 엄격한 체크를 수행한다.</p>
+<hr>
+<h2 id="아이템-59-타입스크립트-도입-전에-ts-check와-JSDoc으로-시험해-보기"><a href="#아이템-59-타입스크립트-도입-전에-ts-check와-JSDoc으로-시험해-보기" class="headerlink" title="아이템 59 타입스크립트 도입 전에 @ts-check와 JSDoc으로 시험해 보기"></a>아이템 59 타입스크립트 도입 전에 @ts-check와 JSDoc으로 시험해 보기</h2><p>@ts-check 지시자를 써서 타입 체커가 파일을 분석하고, 발견된 오류를 보고하도록 지시할 수 있다. 단 매우 느슨한 수준으로 타입 체크를 수행하고, noImplicitAny를 해제한 것보다 헐거운 체크를 수행한다. <em>JSDoc의 @types 구문을 사용해서 타입 단언을 대체할 수 있는데 이때 중요한 것은 타입을 감싸는 중괄호가 필요하다는 것이다.</em> 이처럼 자바스크립트 환경에서도 @ts-check 지시자와 JSDoc 주석으로 타입스크립트와 비슷한 경험의 작업이 가능하다.</p>
+<h2 id="아이템-60-allowJs로-타입스크립트와-자바스크립트-같이-사용하기"><a href="#아이템-60-allowJs로-타입스크립트와-자바스크립트-같이-사용하기" class="headerlink" title="아이템 60 allowJs로 타입스크립트와 자바스크립트 같이 사용하기"></a>아이템 60 allowJs로 타입스크립트와 자바스크립트 같이 사용하기</h2><p>마이그레이션 기간 중에 자바스크립트와 타입스크립트가 동시에 동작할 수 있도록 해야 한다. 이 두 가지가 공존할 수 있도록 하는 핵심은 <code>allowJs</code>컴파일러 옵션이다. 타입스크립트 파일과 자바스크립트 파일을 서로 임포트할 수 있게 해준다. 타입 체크와 관련이 없지만 기존 빌드 과정에 타입스크립트 컴파일러를 추가하기 위해서도 allowJs 옵션이 필요하고, 모듈 단위로 타입스크립트로 전환하는 과정에서 테스트를 수행해야 하기 때문에도 이 옵션이 필요하다.</p>
+<hr>
+<h2 id="아이템-61-의존성-관계에-따라-모듈-단위로-전환하기"><a href="#아이템-61-의존성-관계에-따라-모듈-단위로-전환하기" class="headerlink" title="아이템 61 의존성 관계에 따라 모듈 단위로 전환하기"></a>아이템 61 의존성 관계에 따라 모듈 단위로 전환하기</h2><p>점진적 마이그레이션에서는 모듈 단위로 각개격파하는 것이 이상적인데, 한 모듈을 골라서 타입 정보를 추가하면 <em>해당 모듈이 의존하는 모듈에서 비롯되는 타입 오류</em>가 발생하게 된다. 따라서 다른 모듈에 의존하지 않는 최하단 모듈부터 시작하여 의존성의 최상단에 있는 모듈을 마지막으로 완성해야 한다.</p>
+<ul>
+<li>서드파티 라이브러리 타입 정보를 가장 먼저 해결한다.</li>
+</ul>
+<p>프로젝트 내에 존재하는 모듈은 서드파티 라이브러리에 의존하지만 서드파티 라이브러리는 해당 모듈에 의존하지 않기 때문에 가장 먼저 타입 정보를 해결해야 한다. <code>@types</code>모듈을 설치하면 된다. (e.g. @types/lodash)</p>
+<ul>
+<li>외부 API의 타입 정보 추가</li>
+</ul>
+<p>프로젝트 내의 모듈은 API에 의존하지만 API는 해당 모듈에 의존하지 않기 때문에 먼저 해결한다. 단 특별한 문맥이 없어서 타입스크립트가 추론하기 어렵기 때문에 <strong>API에 대한 사양을 기반으로 타입 정보를 생성하도록 한다.</strong></p>
+<ul>
+<li><p>의존성 관계도에서 가장 의존성이 낮은 모듈부터 타입 정보 추가<br>대부분의 프로젝트 최하단에 유틸리티 종류의 모듈이 위치하는 패턴이 있다. <strong>이때 중요한 것은 타입정보를 추가한 것이지 리팩토링을 하려 해서는 안된다.</strong></p>
+</li>
+<li><p>선언되지 않은 클래스 멤버</p>
+</li>
+</ul>
+<p>자바스크립트에서 클래스 멤버 변수를 선언할 필요가 없지만 타입스크립트에서는 명시적으로 선언해야 한다.</p>
+<ul>
+<li>타입이 바뀌는 값</li>
+</ul>
+<p>자바스크립트일 때 문제가 없다가 타입스크립트가 되는 순간 오류가 발생하는 값들이 많은데, 한꺼번에 객체를 생성하여 간단히 오류를 해결할 수 있다. 한꺼번에 생성이 어렵다면 타입 단언문을 사용할 수 있다. <em>단, 당장 마이그레이션이 최우선이라 임시 방편으로 사용한 것이지 마이그레이션이 완료된 후에는 적절한 방법으로 타입을 선언해야 한다.</em> 또한 자바스크립트에서 JSDoc와 @ts-check를 사용해서 타입 정보를 추가했다면 타입스크립트로 전환하는 순간 타입 정보가 무효화 된다는 것에 유의하도록 한다.</p>
+<ul>
+<li>테스트 코드를 타입스크립트로 전환<br>로직 코드가 테스트 코드에 의존하지 않기 때문에, 테스트 코드는 항상 의존성 관계도의 최상단에 위치한다. 따라서 최하단의 모듈부터 마이그레이션 하는 중에도 테스트는 정상적으로 수행할 수 있다.</li>
+</ul>
+<hr>
+<h2 id="아이템-62-마이그레이션의-완성을-위해-noImplicitAny-설정하기"><a href="#아이템-62-마이그레이션의-완성을-위해-noImplicitAny-설정하기" class="headerlink" title="아이템 62 마이그레이션의 완성을 위해 noImplicitAny 설정하기"></a>아이템 62 마이그레이션의 완성을 위해 noImplicitAny 설정하기</h2><p>만약 noImplicitAny를 설정하지 않았다면 타입 선언에서 비롯되는 실제 오류를 완벽하게 잡을 수 없으므로 마이그레이션이 완료되었다고 말하기 어렵다. 아래와 같은 코드는 <code>noImplicitAny:true</code>를 설정한 순간 에러가 발생하게 된다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// tsConfig: &#123;"noImplicitAny":true,"strictNullChecks":false&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// HIDE</span></span><br><span class="line"><span class="keyword">class</span> Chart &#123;</span><br><span class="line">  indices: <span class="built_in">number</span>[]</span><br><span class="line">  <span class="comment">// END</span></span><br><span class="line">  getRanges() &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> r of <span class="keyword">this</span>.indices) &#123;</span><br><span class="line">      <span class="keyword">const</span> low = r[<span class="number">0</span>]</span><br><span class="line">      <span class="comment">// ~~~~ Element implicitly has an 'any' type because</span></span><br><span class="line">      <span class="comment">//      type 'Number' has no index signature</span></span><br><span class="line">      <span class="keyword">const</span> high = r[<span class="number">1</span>]</span><br><span class="line">      <span class="comment">// ~~~~ Element implicitly has an 'any' type because</span></span><br><span class="line">      <span class="comment">//      type 'Number' has no index signature</span></span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// HIDE</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// END</span></span><br></pre></td></tr></table></figure>
+<p>noImplicitAny를 설정할 때는 로컬에만 설정하고 작업을 하여 점진적 마이그레이션이 가능하도록 한다.</p>
+<hr>
+<p><em>References</em><br>[이펙티브 타입스크립트] 댄 밴더캄 지음</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/22/220223_item49to55/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +497,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 12:40:35" itemprop="dateModified" datetime="2022-05-18T12:40:35+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
               </span>
 
           
@@ -291,7 +613,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 12:40:35" itemprop="dateModified" datetime="2022-05-18T12:40:35+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
               </span>
 
           
@@ -378,7 +700,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 12:40:35" itemprop="dateModified" datetime="2022-05-18T12:40:35+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
               </span>
 
           
@@ -493,7 +815,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 12:40:35" itemprop="dateModified" datetime="2022-05-18T12:40:35+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
               </span>
 
           
@@ -663,7 +985,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 12:40:35" itemprop="dateModified" datetime="2022-05-18T12:40:35+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
               </span>
 
           
@@ -845,7 +1167,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 12:40:35" itemprop="dateModified" datetime="2022-05-18T12:40:35+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
               </span>
 
           
@@ -943,7 +1265,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 12:40:35" itemprop="dateModified" datetime="2022-05-18T12:40:35+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
               </span>
 
           
@@ -1037,7 +1359,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 12:40:35" itemprop="dateModified" datetime="2022-05-18T12:40:35+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
               </span>
 
           
@@ -1240,263 +1562,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/01/03/220104_rtkCreatApi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/03/220104_rtkCreatApi/" class="post-title-link" itemprop="url">RTK Query - createApi</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-01-04 00:00:00" itemprop="dateCreated datePublished" datetime="2022-01-04T00:00:00+09:00">2022-01-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 12:40:35" itemprop="dateModified" datetime="2022-05-18T12:40:35+09:00">2022-05-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="RTK-Query"><a href="#RTK-Query" class="headerlink" title="RTK Query"></a>RTK Query</h1><blockquote>
-<p>원문링크: <a href="https://redux-toolkit.js.org/rtk-query/api/createApi" target="_blank" rel="noopener">https://redux-toolkit.js.org/rtk-query/api/createApi</a></p>
-</blockquote>
-<p><strong>createApi는 RTK Query의 핵심이다.</strong> 이를 통해 해당하는 데이터를 가져오고 변환하는 방법을 구성하는 것을 포함하여 일련의 엔드포인트들로부터 데이터를 어떻게 회수(검색)해야하는 지에 대해 일련의 엔드포인트에 대한 방법을 정의할 수 있다. createApi는 여기에 캡슐화된 데이터 fetching와 caching 프로세스는 포함하는 Redux 로직(옵셔널한 React hooks)이 담겨있는 <a href="https://redux-toolkit.js.org/rtk-query/api/created-api/overview" target="_blank" rel="noopener">API slice structure</a>를 생성한다.</p>
-<p>💡 일반적으로 어플리케이션이 통신해야 하는 base URL 하나 당 하나의 API slice만 있어야 한다. 예를 들어 당신의 사이트가 /api/posts와 /api/users 모두에서 데이터를 fetch한다면 /api/를 base URL로 가지는 single API slice를 가지고 있고, posts와 users로 엔드포인트 정의를 분할했을 것이다. 이렇게 하면 엔드포인트에서 <a href="https://redux-toolkit.js.org/rtk-query/usage/automated-refetching#tags" target="_blank" rel="noopener">태그</a> 관계를 정의해서 <a href="https://redux-toolkit.js.org/rtk-query/usage/automated-refetching" target="_blank" rel="noopener">자동화된 re-fetching</a>의 이점을 효과적으로 사용할 수 있다.</p>
-<p>유지(maintainability)의 목적을 위해 모든 엔드포인트를 포한하는 single API slice를 유지하면서 여러 파일에 걸쳐 endpoint 정의를 분할해서 사용할 수 있다. injectEndpoints 속성을 사용하여 다른 파일의 엔드포인트를 <a href="https://redux-toolkit.js.org/rtk-query/usage/code-splitting" target="_blank" rel="noopener">code splitting</a>을 하는 방법은 <a href="https://redux-toolkit.js.org/rtk-query/usage/code-splitting" target="_blank" rel="noopener">code splitting</a>을 참조한다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//example: src/services/pokemon.ts</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// React hook의 생성을 허용하려면 React의 특정 엔트리포인트를 사용해야 한다.</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span></span><br><span class="line"><span class="keyword">import</span> type &#123; Pokemon &#125; <span class="keyword">from</span> <span class="string">'./types'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// baseURL과 엔드포인트를 사용하여 서비스를 정의한다.</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> pokemonApi = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'pokemonApi'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'https://pokeapi.co/api/v2/'</span> &#125;),</span><br><span class="line">  endpoints: <span class="function">(<span class="params">builder</span>) =&gt;</span> (&#123;</span><br><span class="line">    getPokemonByName: builder.query&lt;Pokemon, string&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">name</span>) =&gt;</span> <span class="string">`pokemon/<span class="subst">$&#123;name&#125;</span>`</span>,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 컴포넌트에서 사용하기 위해 hooks를 export하고,</span></span><br><span class="line"><span class="comment">// 엔드포인트가 정의된 곳에 기반하여 자동 생성되도록 한다.</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123; useGetPokemonByNameQuery &#125; = pokemonApi</span><br></pre></td></tr></table></figure>
-<h2 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h2><p>createApi는 아래와 같은 옵션이 있는 단을 구성 객체(single configuration object)를 받아들인다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">baseQuery(args: InternalQueryArgs, <span class="attr">api</span>: BaseQueryApi, extraOptions?: DefinitionExtraOptions): any;</span><br><span class="line">  endpoints(build: EndpointBuilder&lt;InternalQueryArgs, TagTypes&gt;): Definitions;</span><br><span class="line">  extractRehydrationInfo?: (</span><br><span class="line">    action: AnyAction,</span><br><span class="line">    &#123;</span><br><span class="line">      reducerPath,</span><br><span class="line">    &#125;: &#123;</span><br><span class="line">      reducerPath: ReducerPath</span><br><span class="line">    &#125;</span><br><span class="line">  ) =&gt;</span><br><span class="line">    | <span class="literal">undefined</span></span><br><span class="line">    | CombinedState&lt;Definitions, TagTypes, ReducerPath&gt;</span><br><span class="line">  tagTypes?: readonly TagTypes[];</span><br><span class="line">  reducerPath?: ReducerPath;</span><br><span class="line">  serializeQueryArgs?: SerializeQueryArgs&lt;InternalQueryArgs&gt;;</span><br><span class="line">  keepUnusedDataFor?: number; <span class="comment">// value is in seconds</span></span><br><span class="line">  refetchOnMountOrArgChange?: boolean | number; <span class="comment">// value is in seconds</span></span><br><span class="line">  refetchOnFocus?: boolean;</span><br><span class="line">  refetchOnReconnect?: boolean;</span><br></pre></td></tr></table></figure>
-<h2 id="baseQuery"><a href="#baseQuery" class="headerlink" title="baseQuery"></a>baseQuery</h2><p>base query는 <code>queryFn</code> 옵션이 특정되지 않은 경우에 각 endpoint에서 사용된다. RTK Query는 <a href="https://redux-toolkit.js.org/rtk-query/api/fetchBaseQuery" target="_blank" rel="noopener">fetchBaseQuery</a>라고 불리는 유틸리티로 일반적인 사용 케이스에서 fetch를 감싸는 경량 wrapper로써 export된다. 만약 fetchBaseQuery가 요구 사항을 처리할 수 없는 경우에 <a href="https://redux-toolkit.js.org/rtk-query/usage/customizing-queries" target="_blank" rel="noopener">Customizing Queries</a>를 참조하도록 한다.</p>
-<p><strong>baseQuery function arguments</strong></p>
-<ul>
-<li>args: 주어진 endpoint에 대한 query 함수의 반환값</li>
-<li>api - signal, dispatch, getState, extra 속성을 포함하는 BaseQueryApi 객체<ul>
-<li>singal: Dom 요청을 중단하거나 요청이 중단되었는지 여부를 읽어들이는 데 사용할 수 있는 <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal" target="_blank" rel="noopener">AbortSignal</a> 객체</li>
-<li>dispatch: Redux store와 대응하게 하는 <code>store.dispatch</code> 매서드</li>
-<li>getState: 현재의 store 상태에 접근하기 위해 호출될 수 있는 함수</li>
-<li>extra: configureStore getDefaultMiddleware option에 thunk.extraArgument로 제공된다.</li>
-</ul>
-</li>
-<li>extraOptions: 주어진 endpoint를 위해 제공되는 선택적 extraOptions의 값</li>
-</ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Base Query signature</span></span><br><span class="line"><span class="keyword">export</span> type BaseQueryFn&lt;</span><br><span class="line">  Args = any,</span><br><span class="line">  Result = unknown,</span><br><span class="line">  <span class="built_in">Error</span> = unknown,</span><br><span class="line">  DefinitionExtraOptions = &#123;&#125;,</span><br><span class="line">  Meta = &#123;&#125;</span><br><span class="line">&gt; = (</span><br><span class="line">  args: Args,</span><br><span class="line">  api: BaseQueryApi,</span><br><span class="line">  extraOptions: DefinitionExtraOptions</span><br><span class="line">) =&gt; MaybePromise&lt;QueryReturnValue&lt;Result, <span class="built_in">Error</span>, Meta&gt;&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> interface BaseQueryApi &#123;</span><br><span class="line">  signal: AbortSignal</span><br><span class="line">  dispatch: ThunkDispatch&lt;any, any, any&gt;</span><br><span class="line">  getState: <span class="function"><span class="params">()</span> =&gt;</span> unknown</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> type QueryReturnValue&lt;T = unknown, E = unknown, M = unknown&gt; =</span><br><span class="line">  | &#123;</span><br><span class="line">      error: E</span><br><span class="line">      data?: <span class="literal">undefined</span></span><br><span class="line">      meta?: M</span><br><span class="line">    &#125;</span><br><span class="line">  | &#123;</span><br><span class="line">      error?: <span class="literal">undefined</span></span><br><span class="line">      data: T</span><br><span class="line">      meta?: M</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="endpoints"><a href="#endpoints" class="headerlink" title="endpoints"></a>endpoints</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> api = createApi(&#123;</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  endpoints: <span class="function"><span class="params">build</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="comment">// ...endpoints</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>endpoints는 서버에 대해 수행하려는 작업들의 집합이다. builder syntax를 사용해서 객체로 정의한다. 여기에는 <code>query, mutaion</code> 의 두 가지 기본적인 엔드포인트 유형이 있다.</p>
-<p>각 속성에 대한 세부내용이 궁금하여 <a href="https://redux-toolkit.js.org/rtk-query/api/createApi#anatomy-of-an-endpoint" target="_blank" rel="noopener">다음의 링크</a>를 참조한다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Query endpoint definition</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> type QueryDefinition&lt;</span><br><span class="line">  QueryArg,</span><br><span class="line">  BaseQuery extends BaseQueryFn,</span><br><span class="line">  TagTypes extends string,</span><br><span class="line">  ResultType,</span><br><span class="line">  ReducerPath extends string = string</span><br><span class="line">&gt; = &#123;</span><br><span class="line">  query(arg: QueryArg): BaseQueryArg&lt;BaseQuery&gt;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* either `query` or `queryFn` can be present, but not both simultaneously */</span></span><br><span class="line">  queryFn(</span><br><span class="line">    arg: QueryArg,</span><br><span class="line">    api: BaseQueryApi,</span><br><span class="line">    extraOptions: BaseQueryExtraOptions&lt;BaseQuery&gt;,</span><br><span class="line">    baseQuery: <span class="function">(<span class="params">arg: Parameters&lt;BaseQuery&gt;[<span class="number">0</span>]</span>) =&gt;</span> ReturnType&lt;BaseQuery&gt;</span><br><span class="line">  ): MaybePromise&lt;QueryReturnValue&lt;ResultType, BaseQueryError&lt;BaseQuery&gt;&gt;&gt;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* transformResponse only available with `query`, not `queryFn` */</span></span><br><span class="line">  transformResponse?(</span><br><span class="line">    baseQueryReturnValue: BaseQueryResult&lt;BaseQuery&gt;,</span><br><span class="line">    meta: BaseQueryMeta&lt;BaseQuery&gt;,</span><br><span class="line">    arg: QueryArg</span><br><span class="line">  ): ResultType | <span class="built_in">Promise</span>&lt;ResultType&gt;</span><br><span class="line"></span><br><span class="line">  extraOptions?: BaseQueryExtraOptions&lt;BaseQuery&gt;</span><br><span class="line"></span><br><span class="line">  providesTags?: ResultDescription&lt;</span><br><span class="line">    TagTypes,</span><br><span class="line">    ResultType,</span><br><span class="line">    QueryArg,</span><br><span class="line">    BaseQueryError&lt;BaseQuery&gt;</span><br><span class="line">  &gt;</span><br><span class="line"></span><br><span class="line">  keepUnusedDataFor?: number</span><br><span class="line"></span><br><span class="line">  onQueryStarted?(</span><br><span class="line">    arg: QueryArg,</span><br><span class="line">    &#123;</span><br><span class="line">      dispatch,</span><br><span class="line">      getState,</span><br><span class="line">      extra,</span><br><span class="line">      requestId,</span><br><span class="line">      queryFulfilled,</span><br><span class="line">      getCacheEntry,</span><br><span class="line">      updateCachedData, <span class="comment">// available for query endpoints only</span></span><br><span class="line">    &#125;: QueryLifecycleApi</span><br><span class="line">  ): <span class="built_in">Promise</span>&lt;<span class="keyword">void</span>&gt;</span><br><span class="line"></span><br><span class="line">  onCacheEntryAdded?(</span><br><span class="line">    arg: QueryArg,</span><br><span class="line">    &#123;</span><br><span class="line">      dispatch,</span><br><span class="line">      getState,</span><br><span class="line">      extra,</span><br><span class="line">      requestId,</span><br><span class="line">      cacheEntryRemoved,</span><br><span class="line">      cacheDataLoaded,</span><br><span class="line">      getCacheEntry,</span><br><span class="line">      updateCachedData, <span class="comment">// available for query endpoints only</span></span><br><span class="line">    &#125;: QueryCacheLifecycleApi</span><br><span class="line">  ): <span class="built_in">Promise</span>&lt;<span class="keyword">void</span>&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Mutation endpoint definition</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> type MutationDefinition&lt;</span><br><span class="line">  QueryArg,</span><br><span class="line">  BaseQuery extends BaseQueryFn,</span><br><span class="line">  TagTypes extends string,</span><br><span class="line">  ResultType,</span><br><span class="line">  ReducerPath extends string = string,</span><br><span class="line">  Context = Record&lt;string, any&gt;</span><br><span class="line">&gt; = &#123;</span><br><span class="line">  query(arg: QueryArg): BaseQueryArg&lt;BaseQuery&gt;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* either `query` or `queryFn` can be present, but not both simultaneously */</span></span><br><span class="line">  queryFn(</span><br><span class="line">    arg: QueryArg,</span><br><span class="line">    api: BaseQueryApi,</span><br><span class="line">    extraOptions: BaseQueryExtraOptions&lt;BaseQuery&gt;,</span><br><span class="line">    baseQuery: <span class="function">(<span class="params">arg: Parameters&lt;BaseQuery&gt;[<span class="number">0</span>]</span>) =&gt;</span> ReturnType&lt;BaseQuery&gt;</span><br><span class="line">  ): MaybePromise&lt;QueryReturnValue&lt;ResultType, BaseQueryError&lt;BaseQuery&gt;&gt;&gt;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* transformResponse only available with `query`, not `queryFn` */</span></span><br><span class="line">  transformResponse?(</span><br><span class="line">    baseQueryReturnValue: BaseQueryResult&lt;BaseQuery&gt;,</span><br><span class="line">    meta: BaseQueryMeta&lt;BaseQuery&gt;,</span><br><span class="line">    arg: QueryArg</span><br><span class="line">  ): ResultType | <span class="built_in">Promise</span>&lt;ResultType&gt;</span><br><span class="line"></span><br><span class="line">  extraOptions?: BaseQueryExtraOptions&lt;BaseQuery&gt;</span><br><span class="line"></span><br><span class="line">  invalidatesTags?: ResultDescription&lt;TagTypes, ResultType, QueryArg&gt;</span><br><span class="line"></span><br><span class="line">  onQueryStarted?(</span><br><span class="line">    arg: QueryArg,</span><br><span class="line">    &#123;</span><br><span class="line">      dispatch,</span><br><span class="line">      getState,</span><br><span class="line">      extra,</span><br><span class="line">      requestId,</span><br><span class="line">      queryFulfilled,</span><br><span class="line">      getCacheEntry,</span><br><span class="line">    &#125;: MutationLifecycleApi</span><br><span class="line">  ): <span class="built_in">Promise</span>&lt;<span class="keyword">void</span>&gt;</span><br><span class="line"></span><br><span class="line">  onCacheEntryAdded?(</span><br><span class="line">    arg: QueryArg,</span><br><span class="line">    &#123;</span><br><span class="line">      dispatch,</span><br><span class="line">      getState,</span><br><span class="line">      extra,</span><br><span class="line">      requestId,</span><br><span class="line">      cacheEntryRemoved,</span><br><span class="line">      cacheDataLoaded,</span><br><span class="line">      getCacheEntry,</span><br><span class="line">    &#125;: MutationCacheLifecycleApi</span><br><span class="line">  ): <span class="built_in">Promise</span>&lt;<span class="keyword">void</span>&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>endpoints에 익숙해지는 방법</strong></p>
-<p>아래와 같이 getPosts를 키로 정의할 때, 이 이름이 api로부터 export되고, api.endpoints.getPosts.useQuery(), api.endpoints.getPosts.initiate(), api.endpoints.getPosts.select() 아래에서 reference될 수 있다는 것을 아는 것이 중요하다. 비슷한 방식으로 mutaion에도 적용이 되는데 useQuery대신 useMutaion이 적용된다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span></span><br><span class="line">interface Post &#123;</span><br><span class="line">  id: number</span><br><span class="line">  name: string</span><br><span class="line">&#125;</span><br><span class="line">type PostsResponse = Post[]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> api = createApi(&#123;</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  tagTypes: [<span class="string">'Posts'</span>],</span><br><span class="line">  endpoints: <span class="function">(<span class="params">build</span>) =&gt;</span> (&#123;</span><br><span class="line">    getPosts: build.query&lt;PostsResponse, <span class="keyword">void</span>&gt;(&#123;</span><br><span class="line">      query: <span class="function"><span class="params">()</span> =&gt;</span> <span class="string">'posts'</span>,</span><br><span class="line">      providesTags: <span class="function">(<span class="params">result</span>) =&gt;</span></span><br><span class="line">        result ? result.map(<span class="function">(<span class="params">&#123; id &#125;</span>) =&gt;</span> (&#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, id &#125;)) : [],</span><br><span class="line">    &#125;),</span><br><span class="line">    addPost: build.mutation&lt;Post, Partial&lt;Post&gt;&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">body</span>) =&gt;</span> (&#123;</span><br><span class="line">        url: <span class="string">`posts`</span>,</span><br><span class="line">        method: <span class="string">'POST'</span>,</span><br><span class="line">        body,</span><br><span class="line">      &#125;),</span><br><span class="line">      invalidatesTags: [<span class="string">'Posts'</span>],</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Auto-generated hooks</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123; useGetPostsQuery, useAddPostMutation &#125; = api</span><br><span class="line"></span><br><span class="line"><span class="comment">// Possible exports</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123; endpoints, reducerPath, reducer, middleware &#125; = api</span><br><span class="line"><span class="comment">// reducerPath, reducer, middleware are only used in store configuration</span></span><br><span class="line"><span class="comment">// endpoints will have:</span></span><br><span class="line"><span class="comment">// endpoints.getPosts.initiate(), endpoints.getPosts.select(), endpoints.getPosts.useQuery()</span></span><br><span class="line"><span class="comment">// endpoints.addPost.initiate(), endpoints.addPost.select(), endpoints.addPost.useMutation()</span></span><br><span class="line"><span class="comment">// see `createApi` overview for _all exports_</span></span><br></pre></td></tr></table></figure>
-<h3 id="extractRehydrationInfo"><a href="#extractRehydrationInfo" class="headerlink" title="extractRehydrationInfo"></a>extractRehydrationInfo</h3><p>모든 디스패치된 액션에 전달되는 함수이다. 이것이 undefined 이외의 값을 반환하면 해당 반환 값은 성공하였거나 실패한 커리를 rehydrate하는데 사용된다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//next-redux-wrapper rehydration example</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; HYDRATE &#125; <span class="keyword">from</span> <span class="string">'next-redux-wrapper'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> api = createApi(&#123;</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  extractRehydrationInfo(action, &#123; reducerPath &#125;) &#123;</span><br><span class="line">    <span class="keyword">if</span> (action.type === HYDRATE) &#123;</span><br><span class="line">      <span class="keyword">return</span> action.payload[reducerPath]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  endpoints: <span class="function"><span class="params">build</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="comment">// omitted</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>See also <a href="https://redux-toolkit.js.org/rtk-query/usage/server-side-rendering" target="_blank" rel="noopener">Server Side Rendering</a> and <a href="https://redux-toolkit.js.org/rtk-query/usage/persistence-and-rehydration" target="_blank" rel="noopener">Persistence and Rehydration</a>.</p>
-<h2 id="tagTypes"><a href="#tagTypes" class="headerlink" title="tagTypes"></a>tagTypes</h2><p>string tag type 이름들이 있는 배열이다. tag types를 지정하는 것은 선택적이나 caching과 invalidation에 사용하고 싶다면 정의해야 한다. tag type을 정의할 때, <code>providesTags</code> 와 함께 제공하고, <a href="https://redux-toolkit.js.org/rtk-query/api/createApi#endpoints" target="_blank" rel="noopener">endpoints</a>를 구성할 때 <code>invalidatesTags</code> 와 함께 <a href="https://redux-toolkit.js.org/rtk-query/usage/automated-refetching#invalidating-tags" target="_blank" rel="noopener">무효화</a>시킬 수 있다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> api = createApi(&#123;</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  tagTypes: [<span class="string">'Post'</span>, <span class="string">'User'</span>],</span><br><span class="line">  endpoints: <span class="function"><span class="params">build</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="comment">// ...endpoints</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="reducerPath"><a href="#reducerPath" class="headerlink" title="reducerPath"></a>reducerPath</h3><p>서비스가 당신의 store에 장착될 수 있도록 하는 unique key이다. 당신의 어플리케이션에서 createApi를 한 번 이상 호출했다면 당신은 매번 unique한 value를 제공해야 하고, default는 api이다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> apiOne = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'apiOne'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  endpoints: <span class="function"><span class="params">builder</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="comment">// ...endpoints</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> apiTwo = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'apiTwo'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  endpoints: <span class="function"><span class="params">builder</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="comment">// ...endpoints</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<hr>
-<p><em>References</em><br><a href="https://redux-toolkit.js.org/rtk-query/api/createApi" target="_blank" rel="noopener">createApi</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/12/27/211228_substr/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/27/211228_substr/" class="post-title-link" itemprop="url">문자열 자르기와 관련된 함수 (substr, substring, slice)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-28 00:00:00" itemprop="dateCreated datePublished" datetime="2021-12-28T00:00:00+09:00">2021-12-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 12:40:35" itemprop="dateModified" datetime="2022-05-18T12:40:35+09:00">2022-05-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="substr"><a href="#substr" class="headerlink" title="substr"></a>substr</h2><blockquote>
-<p>💡 substr은 새로운 웹사이트에서는 더이상 사용되지 않는다. 웹 표준에서 제거된 것은 아니지만 다른 매서드로 대체하는 것이 바람직하다.</p>
-</blockquote>
-<p>문자열에서 특정 위치에서 시작하여 특정 문자 수 만큼의 문자들을 반환한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'hello'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.substr(<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line"><span class="comment">// expected output: "el"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.substr(<span class="number">2</span>))</span><br><span class="line"><span class="comment">// expected output: "llo"</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>str.substr(start[, length])<br>str.substr(시작위치의 인덱스, 추출한 문자의 length )</p>
-</blockquote>
-<ul>
-<li>start 값이 양수이고, 문자열 전체 길이보다 크거나 같으면 빈 문자열을 반환한다.</li>
-<li>start가 음수이면 문자열 끝에서 start 숫자만큼 뺀 곳에서 시작한다.</li>
-<li>start가 음수이고, 절대값이 문자열 전체보다 크면 문자열의 0번째 인덱스부터 시작</li>
-<li>length가 0 이거나 음수이면 빈 문자열 반환한다.</li>
-<li>length가 생략되었다면 문자열의 끝까지 추출하여 반환한다.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'helloworld'</span></span><br><span class="line"></span><br><span class="line">str.substr(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">// 1번째 index에서 2개 추출</span></span><br><span class="line"><span class="comment">// expected output:'el'</span></span><br><span class="line">str.substr(<span class="number">-3</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">// 전체 문자열 길이 10에서 -3만큼 뺀 곳에서 시작하여 2개 추출</span></span><br><span class="line"><span class="comment">// expected output:'rl'</span></span><br><span class="line">str.substr(<span class="number">-3</span>)</span><br><span class="line"><span class="comment">// start가 음수이므로 전체 문자열 길리 10에서 -3만큼 뺀 곳에서 시작,</span></span><br><span class="line"><span class="comment">// length는 생략되었으므로 문자열의 끝까지 추출</span></span><br><span class="line"><span class="comment">// expected output:'rld'</span></span><br><span class="line">str.substr(<span class="number">1</span>)</span><br><span class="line"><span class="comment">// 1번째 인덱스에서 시작하여 length는 생략되었으므로 문자열의 끝까지 추출</span></span><br><span class="line"><span class="comment">// expected output:'elloworld'</span></span><br><span class="line">str.substr(<span class="number">-20</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">// start가 음수이고, 절대값이 문자열 전체보다 크면 문자열의 0번째 인덱스부터 시작하여 2개 추출</span></span><br><span class="line"><span class="comment">// expected output:'he'</span></span><br><span class="line">str.substr(<span class="number">20</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">// start가 양수이나 문자열 전체 길이보다 크기 때문에 빈 문자열 반환</span></span><br><span class="line"><span class="comment">// expected output:''</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="substring"><a href="#substring" class="headerlink" title="substring"></a>substring</h2><p>시작 인덱스로 부터 종료 인덱스 전 까지 문자열의 부분 문자열을 반환</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'hello'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.substr(<span class="number">1</span>, <span class="number">3</span>))</span><br><span class="line"><span class="comment">// expected output: "el"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.substr(<span class="number">2</span>))</span><br><span class="line"><span class="comment">// expected output: "llo"</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>str.substring(indexStart[, indexEnd])<br>str.substring(시작 인덱스, 마지막 인덱스(포함하지 않음))<br>return 값: 기존문자열의 부분 문자열</p>
-</blockquote>
-<ul>
-<li>시작 인덱스부터 문자를 추출하여 <em>마지막 인덱스가 포함되지 않아도 된다.</em></li>
-<li>indexEnd가 생략되었다면 문자열 끝까지 모든 문자를 추출한다.</li>
-<li>indexStart, indexEnd가 같을 경우 빈 문자열을 반환한다.</li>
-<li>indexStart가 indexEnd보다 클 경우 두 개의 인자를 바꾼 것처럼 작동한다.</li>
-<li>0보다 작은 인자 값을 가지면 0, stringName.length보다 큰 인자값을 가지면 stringName.length로 처리된다.</li>
-<li>NaN 값은 0으로 처리된다.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> anyString = <span class="string">'helloworld'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Displays 'h'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line"><span class="comment">//indexStart가 indexEnd보다 클 경우 substring(0, 1)처럼 두 개의 인자를 바꾼듯이 작동한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">1</span>, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// Displays 'hello'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">0</span>, <span class="number">6</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">//Displays 'world'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">//Displays 'wo'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">4</span>, <span class="number">7</span>))</span><br><span class="line"><span class="comment">//indexStart가 indexEnd보다 클 경우 substring(4, 7)처럼 두 개의 인자를 바꾼듯이 작동한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">7</span>, <span class="number">4</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// Displays 'helloworld'</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">0</span>, <span class="number">10</span>))</span><br><span class="line"><span class="comment">//stringName.length보다 큰 인자값을 가지면 stringName.length로 처리된다.</span></span><br><span class="line"><span class="built_in">console</span>.log(anyString.substring(<span class="number">0</span>, <span class="number">15</span>))</span><br></pre></td></tr></table></figure>
-<h3 id="substring-와-length-속성을-같이-사용하기"><a href="#substring-와-length-속성을-같이-사용하기" class="headerlink" title="substring()와 length 속성을 같이 사용하기"></a>substring()와 length 속성을 같이 사용하기</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Displays 'orld' the last 4 characters</span></span><br><span class="line"><span class="keyword">const</span> anyString = <span class="string">'helloworld'</span></span><br><span class="line"><span class="keyword">const</span> anyString4 = anyString.substring(anyString.length - <span class="number">4</span>)</span><br><span class="line"><span class="built_in">console</span>.log(anyString4)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Displays 'world' the last 5 characters</span></span><br><span class="line"><span class="keyword">const</span> anyString = <span class="string">'helloworld'</span></span><br><span class="line"><span class="keyword">const</span> anyString5 = anyString.substring(anyString.length - <span class="number">5</span>)</span><br><span class="line"><span class="built_in">console</span>.log(anyString5)</span><br></pre></td></tr></table></figure>
-<p>substring 메서드와 length 송성을 사용하여 특정 문자열의 마지막 문자를 추출할 수 있다. 이 방법을 사용하면 <code>anyString.substring(4, 7)</code>과 같이 시작인덱스와 마지막인덱스를 알지 않아도 된다.</p>
-<h3 id="substring-와-substr-의-차이점"><a href="#substring-와-substr-의-차이점" class="headerlink" title="substring()와 substr()의 차이점"></a>substring()와 substr()의 차이점</h3><p><strong>substring()와 substr()에는 미묘한 차이가 있으므로 주의해야 한다.</strong> substring()은 시작과 마지막 인덱스를 의미하는데, substr()은 시작인덱스와 반환된 문자열에 포함할 문자 수를 나타낸다.</p>
-<ul>
-<li>str.substring(indexStart[, indexEnd])</li>
-<li>str.substr(start[, length])</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> text = <span class="string">'helloworld'</span></span><br><span class="line"><span class="comment">//2번째 인덱스에서 시작하여 5번째 인덱스 전까지 추출</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substring(<span class="number">2</span>, <span class="number">5</span>)) <span class="comment">// =&gt; "llo"</span></span><br><span class="line"><span class="comment">//2번째 인덱스에서 시작하여 3개까지 추출</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substr(<span class="number">2</span>, <span class="number">3</span>)) <span class="comment">// =&gt; "llo"</span></span><br></pre></td></tr></table></figure>
-<h3 id="substring-와-slice-의-차이점"><a href="#substring-와-slice-의-차이점" class="headerlink" title="substring()와 slice()의 차이점"></a>substring()와 slice()의 차이점</h3><p>substring()와 slice()는 거의 똑같은데, 미묘하게 다른 점이 존재한다. <em>특히 부정적인 인수를 처리하는 방식에 차이가 있다.</em></p>
-<ul>
-<li>substring(): indexStart가 indexEnd보다 클 경우 <em>두 가지 인수를 바꾼듯이 작동한다.</em></li>
-<li>slice(): indexStart가 indexEnd보다 클 경우 <em>빈 문자열을 반환한다.</em></li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> text = <span class="string">'helloworld'</span></span><br><span class="line"><span class="comment">//indexStart가 indexEnd보다 크기 때문에 text.substring(2,5)처럼 작동한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substring(<span class="number">5</span>, <span class="number">2</span>)) <span class="comment">// =&gt; "llo"</span></span><br><span class="line"><span class="comment">//indexStart가 indexEnd보다 크기 때문에 빈문자열을 반환한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(text.slice(<span class="number">5</span>, <span class="number">2</span>)) <span class="comment">// =&gt; ""</span></span><br></pre></td></tr></table></figure>
-<p>두 가지 인수 모두 음수거나 NaN인 경우, substring()</p>
-<ul>
-<li>substring(): 두 가지 인수 모두 음수거나 NaN인 경우 <em>인수가 0인 것처럼 처리한다.</em></li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//substring(0, 2)인 것처럼 처리</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substring(<span class="number">-5</span>, <span class="number">2</span>)) <span class="comment">// =&gt; "he"</span></span><br><span class="line"><span class="comment">//substring(0)인 것처럼 처리</span></span><br><span class="line"><span class="built_in">console</span>.log(text.substring(<span class="number">-5</span>, <span class="number">-2</span>)) <span class="comment">// =&gt; ""</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>slice(): 두 가지 인수 모두 음수거나 NaN인 경우 <em>NaN인수는 0처럼 취급하지만, 음수일 때는 문자열 끝에서 역방향으로 계산한다.</em></li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//text.slice(0,0)처럼 취급</span></span><br><span class="line"><span class="built_in">console</span>.log(text.slice(<span class="number">-5</span>, <span class="number">2</span>)) <span class="comment">// =&gt; ""</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// indexStart가 -5이므로 문자열 길이 10 - 5의 5번째에서 시작</span></span><br><span class="line"><span class="comment">// indexEnd가 -2이므로 문자열 길이 10에서 10 - 2의 8번째에서 추출 종료.</span></span><br><span class="line"><span class="comment">// text.slice(5, 8)과 같은 결과</span></span><br><span class="line"><span class="built_in">console</span>.log(text.slice(<span class="number">-5</span>, <span class="number">-2</span>)) <span class="comment">// =&gt; "wor"</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="slice"><a href="#slice" class="headerlink" title="slice"></a>slice</h2><p>문자열의 일부를 추출하면서 새로운 문자열을 반환하기 때문에 다른 문자열에 영향을 미치지 않으며, 마지막 인덱스 직전까지 추출한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'The quick brown fox jumps over the lazy dog.'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">31</span>))</span><br><span class="line"><span class="comment">// expected output: "the lazy dog."</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">4</span>, <span class="number">19</span>))</span><br><span class="line"><span class="comment">// expected output: "quick brown fox"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">-4</span>))</span><br><span class="line"><span class="comment">// expected output: "dog."</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">-9</span>, <span class="number">-5</span>))</span><br><span class="line"><span class="comment">// expected output: "lazy"</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>str.slice(beginIndex[, endIndex])<br>str.slice(추출시작점 인덱스[, 종료인덱스, 주어진 인덱스 직전까지 추출])<br>return 값 : 추출된 부분을 담는 새로운 문자열</p>
-</blockquote>
-<ul>
-<li>beginIndex<ul>
-<li>음수가 올 경우, strLength(문자열 길이) + beginIndex로 취급 (e.g. beginIndex가 -3이면 시작점은 strLength -3)</li>
-<li>beginIndex가 strLength보다 크면 <em>빈 문자열 반환</em></li>
-</ul>
-</li>
-<li>endIndex<ul>
-<li>추출 종료점 인덱스 위치의 문자는 추출에 포함되지 않고, <em>그 직전까지 추출된다.</em></li>
-<li>endIndex가 생략되었다면 문자열 마지막까지 추출한다.</li>
-<li>음수라면 endIndex는 strLength + endIndex로 취급된다. (e.g. endInedx가 -3이면 종료점은 strLength -3)</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str1 = <span class="string">'The morning is upon us.'</span>, <span class="comment">// the length of str1 is 23.</span></span><br><span class="line">  str2 = str1.slice(<span class="number">1</span>, <span class="number">8</span>),</span><br><span class="line">  str3 = str1.slice(<span class="number">4</span>, <span class="number">-2</span>),</span><br><span class="line">  str4 = str1.slice(<span class="number">12</span>),</span><br><span class="line">  str5 = str1.slice(<span class="number">30</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str2) <span class="comment">// OUTPUT: he morn</span></span><br><span class="line"><span class="built_in">console</span>.log(str3) <span class="comment">// OUTPUT: morning is upon u</span></span><br><span class="line"><span class="built_in">console</span>.log(str4) <span class="comment">// OUTPUT: is upon us.</span></span><br><span class="line"><span class="built_in">console</span>.log(str5) <span class="comment">// OUTPUT: ""</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//slice는 새로운 문자열은 반환하기 때문에 str1은 그대로이다.</span></span><br><span class="line"><span class="built_in">console</span>.log(str1) <span class="comment">// OUTPUT: The morning is upon us.</span></span><br></pre></td></tr></table></figure>
-<h3 id="음수-인덱스로-slice-사용"><a href="#음수-인덱스로-slice-사용" class="headerlink" title="음수 인덱스로 slice()사용"></a>음수 인덱스로 slice()사용</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'The morning is upon us.'</span></span><br><span class="line">str.slice(<span class="number">-3</span>) <span class="comment">// returns 'us.'</span></span><br><span class="line">str.slice(<span class="number">-3</span>, <span class="number">-1</span>) <span class="comment">// returns 'us'</span></span><br><span class="line">str.slice(<span class="number">0</span>, <span class="number">-1</span>) <span class="comment">// returns 'The morning is upon us'</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>beginIndex가 음수일 때<br>beginIndex는 문자열의 끝에서부터 역방향으로 11개를 세고, endIndex는 시작점부터 순방향으로 16개를 센다.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">-11</span>, <span class="number">16</span>)) <span class="comment">// =&gt; "is u";</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>endIndex가 음수일 때<br>beginIndex는 문자열의 시작점부터 순방향으로 11개를 세고, endIndex는 끝에서부터 역방향으로 7개를 센다.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">11</span>, <span class="number">-7</span>)) <span class="comment">// =&gt; "is u";</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>beginIndex, endIndex 모두 음수일 때<br>beginIndex는 끝에서부터 5까지 역순으로 계산하여 시작인덱스를 찾았고, 끝에서부터 1까지 역순으로 계산하여 마지막 인덱스를 찾는다. beginIndex가 -5이므로 문자열 길이 23 - 5의 18번째에서 시작한다. endIndex는 -1이므로 문자열 길이 23에서 23 - 1의 22번째에서 추출을 종료한다.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(str.slice(<span class="number">-5</span>, <span class="number">-1</span>)) <span class="comment">// =&gt; "n us";</span></span><br></pre></td></tr></table></figure>
-<hr>
-<p><em>References</em><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/substr" target="_blank" rel="noopener">String.prototype.substr()</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/substring" target="_blank" rel="noopener">String.prototype.substring()</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice" target="_blank" rel="noopener">String.prototype.slice()</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1567,7 +1632,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

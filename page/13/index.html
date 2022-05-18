@@ -144,7 +144,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/21/200223_operator/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/21/200222_datatype/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -158,7 +158,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/21/200223_operator/" class="post-title-link" itemprop="url">연산자 / operator</a>
+            <a href="/2020/02/21/200222_datatype/" class="post-title-link" itemprop="url">데이터 타입/ Data type</a>
         </h1>
 
         <div class="post-meta">
@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 12:40:35" itemprop="dateModified" datetime="2022-05-18T12:40:35+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
               </span>
 
           
@@ -189,111 +189,74 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="연산자"><a href="#연산자" class="headerlink" title="연산자"></a>연산자</h2><p>하나 이상의 표현식을 대상으로 산술, 할당, 비교, 논리, 타입, 지수 연산(operation) 등을 수행해 하나의 값을 만든다. 이때 연산의 대상을 피연산자(Operand)라 하고, 이는 값으로 평가될 수 있는 표현식이어야 한다.</p>
+          <h2 id="데이터-타입"><a href="#데이터-타입" class="headerlink" title="데이터 타입"></a>데이터 타입</h2><p>자바스크립트의 모든 값은 데이터 타입을 갖는다. 자바스크립트(ES6)는 7개의 데이터 타입을 제공한다. 7개의 데이터 타입은 원시 타입(primitive type)과 객체 타입(object/reference type)으로 분류할 수 있다.</p>
 <ul>
-<li>변수와 값을 어떻게 작동하게 할 것인지에 관한 것.</li>
-<li>프로그래밍 언어에서 특정 연산을 하도록 하는 문자.</li>
-<li>테스트 수행, 연산, 문자열 합치기 등등에 사용.</li>
-<li><code>연산자의 부수 효과:</code>s 대부분의 연산자는 다른 코드에 영향을 주지 않는다. 하지만 일부 연산자는 부수 효과가 있다. 부수 효과가 있는 연산자는 할당(=) 연산자, 증가/감소(++/–) 연산자, delete 연산자이다.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">target variable = source value</span><br><span class="line">a = <span class="number">42</span> (<span class="number">42</span> 값을 a에 할당한다.)</span><br><span class="line">값 + 값 = 새로운 값</span><br></pre></td></tr></table></figure>
-<p><code>피연산자, 피연산자 + 연산자의 조합으로 이루어진 연산자 표현식 모두 &#39;값&#39;으로 평가될 수 있어야 한다.</code></p>
-<h2 id="산술-연산자-Arithmetic-Operator"><a href="#산술-연산자-Arithmetic-Operator" class="headerlink" title="산술 연산자 (Arithmetic Operator)"></a>산술 연산자 (Arithmetic Operator)</h2><p>피연산자를 대상으로 수학적 계산(사칙 연산)을 수행해 새로운 숫자 값을 만들며, 피연산자의 개수에 따라 이항 산술 연산자 or 단항 산술 연산자로 구분한다. <em>산술 연산이 불가능한 경우, NaN을 반환한다.</em></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">덧셈(+) : <span class="number">5</span> + <span class="number">2</span>; <span class="comment">// 7</span></span><br><span class="line">뺄셈(-) : <span class="number">5</span> - <span class="number">2</span>; <span class="comment">// 3</span></span><br><span class="line">곱셈(*) : <span class="number">5</span> * <span class="number">2</span>; <span class="comment">// 10</span></span><br><span class="line">나눗셈(<span class="regexp">/) : 5 /</span> <span class="number">2</span>; <span class="comment">// 2.5</span></span><br><span class="line">나머지(%) : <span class="number">5</span> % <span class="number">2</span>; <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<h3 id="이항-산술-연산자-Binary-operators"><a href="#이항-산술-연산자-Binary-operators" class="headerlink" title="이항 산술 연산자 (Binary operators)"></a>이항 산술 연산자 (Binary operators)</h3><p>2개의 피연산자를 산술 연산하여 숫자 타입의 값을 만든다. <em>피연산자의 값을 변경하는 부수 효과는 없다. 언제나 새로운 값을 만들 뿐이다.</em></p>
-<blockquote>
-<p>operand1 operator operand2 ex) 3 + 4</p>
-</blockquote>
-<h3 id="단항-산술-연산자-Unary-operators"><a href="#단항-산술-연산자-Unary-operators" class="headerlink" title="단항 산술 연산자 (Unary operators)"></a>단항 산술 연산자 (Unary operators)</h3><p>1개의 피연산자를 산술 연산하여 숫자 타입의 값을 만든다. 주로 반복문에서 많이 쓰인다.</p>
-<blockquote>
-<p>operator operand or operand operator ex) a++ or ++a</p>
-</blockquote>
-<p><code>주의: 이항 산술 연산자와 달리 증가/감소(++/–) 연산자는 피연산자의 값을 변경하는 부수 효과가 있다.</code></p>
-<p><code>증가/감소(++/--) 연산자는 위치에 따른 의미</code><br>.전위 증가/감소 연산자: 피연산자의 앞에 위치하여 먼저 피연산자의 값을 증가/감소시킨 후, 다른 연산을 수행한다.<br>.증가/감소(++/—) 연산자: 피연산자의 뒤에 위치하여 먼저 다른 연산을 수행한 후, 피연산자의 값을 증가/감소시킨다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num1 = <span class="number">4</span>;</span><br><span class="line">++num1; <span class="comment">// -&gt; 5;</span></span><br><span class="line">num1; <span class="comment">// -&gt; 5;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* ++num1는 num1의 값을 먼저 증가시킨 후 할당한다.</span></span><br><span class="line"><span class="comment">(선증가 후할당) */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> num2 = <span class="number">4</span>;</span><br><span class="line">num2++; <span class="comment">// -&gt; 4;</span></span><br><span class="line">num2; <span class="comment">//-&gt; 5;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* num2++은 num2의 값을 먼저 할당한 후 증가시킨다.</span></span><br><span class="line"><span class="comment">(선할당 후증가) */</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="문자열-연결-연산자-String-operators"><a href="#문자열-연결-연산자-String-operators" class="headerlink" title="문자열 연결 연산자 (String operators)"></a>문자열 연결 연산자 (String operators)</h2><p><code>+</code>연산자는 피연산자 중 하나 이상이 문자열인 경우 문자열 연결 연산자로 동작한다. 참고로 javascript에서 true는 1, false는 0과 같다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"my "</span> + <span class="string">"string"</span>); <span class="comment">// console logs the string "my string".</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 문자열 연결 연산자</span></span><br><span class="line"><span class="string">"1"</span> + <span class="number">2</span>; <span class="comment">// -&gt; '12'</span></span><br><span class="line"><span class="number">1</span> + <span class="string">"2"</span>; <span class="comment">// -&gt; '12'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// true는 1로 타입 변환된다.</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">true</span>; <span class="comment">// -&gt; 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// false는 0으로 타입 변환된다.</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">false</span>; <span class="comment">// -&gt; 1</span></span><br></pre></td></tr></table></figure>
-<p><code>암묵적 타입 변환(Implicit coercion) 또는 타입 강제 변환(Type coercion)</code><br>개발자의 의도와는 상관없이 자바스크립트 엔진에 의해 암묵적으로 타입이 자동 변환되기도 한다. 위 예제에서 1 + true를 연산하면 자바스크립트 엔진은 암묵적으로 불리언 타입의 값인 true를 숫자 타입인 1로 타입을 강제 변환한 후 연산을 수행한다.</p>
-<hr>
-<h2 id="할당-연산자-Assignment-Operator"><a href="#할당-연산자-Assignment-Operator" class="headerlink" title="할당 연산자 (Assignment Operator)"></a>할당 연산자 (Assignment Operator)</h2><ul>
-<li>우항에 있는 피연산자의 평가 결과를 좌항에 있는 변수에 할당한다.</li>
-<li>좌항의 피연산자는 우항의 피연산자의 값에 기초한다.</li>
-<li>x = y는 y의 값을 x에 할당하겠다는 뜻이다.</li>
-</ul>
-<p><code>할당 연산자는 좌항의 변수에 값을 할당하므로 변수의 값이 변하는 부수 효과가 있다.</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">=	: x = <span class="number">5</span>	    = x = <span class="number">5</span></span><br><span class="line">+=	: x += <span class="number">5</span>	= x = x + <span class="number">5</span></span><br><span class="line">-=	: x -= <span class="number">5</span>	= x = x - <span class="number">5</span></span><br><span class="line">*=	: x *= <span class="number">5</span>	= x = x * <span class="number">5</span></span><br><span class="line">/=	: x /= <span class="number">5</span>	= x = x / <span class="number">5</span></span><br><span class="line">%=	: x %= <span class="number">5</span>	= x = x % <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//우항의 값을 좌항의 변수값에 할당한 후, 새로운 변수 값을 반환한다.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">3</span>; <span class="comment">//x는 3이라는 값을 담고 있다.</span></span><br><span class="line"><span class="keyword">var</span> y = <span class="number">4</span>; <span class="comment">//y는 4라는 값을 담고 있다.</span></span><br><span class="line"></span><br><span class="line">x *= y; <span class="comment">//x는  12라는 값을 담고 있다.</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="비교-연산자-Comparison-operators"><a href="#비교-연산자-Comparison-operators" class="headerlink" title="비교 연산자 (Comparison operators)"></a>비교 연산자 (Comparison operators)</h2><p>두 값(좌항과 우항)의 피연산자를 비교한 다음 그 결과로 <code>불리언 값을 반환</code>한다. 비교 연산자는 <em>if 문이나 for 문과 같은 제어문의 조건식에서 주로 사용한다.</em></p>
-<h3 id="동등-일치-비교-연산자"><a href="#동등-일치-비교-연산자" class="headerlink" title="동등/일치 비교 연산자"></a>동등/일치 비교 연산자</h3><p>좌항과 우항의 피연산자가 같은 값을 갖는지 비교하여 <code>불리언 값을 반환</code>한다. 동등 비교 연산자는 느슨한 비교를 하지만 일치 비교 연산자는 엄격한 비교를 한다.</p>
-<ul>
-<li>== 동등 비교: x == y x와 y의 값이 같음</li>
-<li>=== 일치 비교: x === y x와 y의 값과 타입이 같음</li>
-<li>!= 부동등 비교: x != y //x와 y의 값이 다름</li>
-<li>!== 불일치 비교: x !== y //x와 y의 값과 타입이 다름</li>
-</ul>
-<blockquote>
-<p>동등 비교(==) 연산자는 좌항과 우항의 피연산자를 비교할 때 먼저 암묵적 타입 변환을 통해 타입을 일치시킨 후, 같은 값인지 비교한다.<br>타입은 다르지만 암묵적 타입 변환을 통해 타입을 일치시키면 동등하다.<br>5 == ‘5’; // -&gt; true</p>
-</blockquote>
-<p>다음을 주의하여야 한다.</p>
-<ul>
-<li>NaN === NaN; : false;</li>
-<li>0 === -0; : true;</li>
-<li>0 == -0 : true;</li>
-</ul>
-<h3 id="대소-관계-비교-연산자"><a href="#대소-관계-비교-연산자" class="headerlink" title="대소 관계 비교 연산자"></a>대소 관계 비교 연산자</h3><p>피연산자의 크기를 비교하여 불리언 값을 반환한다.</p>
-<ul>
-<li><code>&gt;</code>: x &gt; y : x가 y보다 크다</li>
-<li><code>&lt;</code>: x &lt; y : x가 y보다 작다</li>
-<li><code>&gt;=</code>: x &gt;= y : x가 y보다 같거나 크다</li>
-<li><code>&lt;=</code>: x &lt;= y : x가 y보다 같거나 크다</li>
-</ul>
-<hr>
-<h2 id="삼항-조건-연산자-ternary-operator"><a href="#삼항-조건-연산자-ternary-operator" class="headerlink" title="삼항 조건 연산자 (ternary operator)"></a>삼항 조건 연산자 (ternary operator)</h2><blockquote>
-<p>조건식 ? 조건식이 true일때 반환할 값 : 조건식이 false일때 반환할 값</p>
-</blockquote>
-<p>조건식의 평가 결과에 따라 반환할 값을 결정한다. 조건식이 참이면 콜론(:) 앞의 두번째 피연산자가 평가되어 반환되고, 거짓이면 콜론(:) 뒤의 세번째 피연산자가 평가되어 반환된다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 % 2는 0이고 0은 false로 암묵적 타입 변환된다.</span></span><br><span class="line"><span class="keyword">var</span> result = x % <span class="number">2</span> ? <span class="string">"홀수"</span> : <span class="string">"짝수"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(result); <span class="comment">// 짝수</span></span><br></pre></td></tr></table></figure>
-<h2 id="논리-연산자-Logical-Operator"><a href="#논리-연산자-Logical-Operator" class="headerlink" title="논리 연산자 (Logical Operator)"></a>논리 연산자 (Logical Operator)</h2><p>우항과 좌항의 피연산자(부정 논리 연산자의 경우, 우항의 피연산자)를 논리 연산한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">||	논리합(OR)	✕</span><br><span class="line">&amp;&amp;	논리곱(AND)	✕</span><br><span class="line">!	  부정(NOT)  ✕</span><br></pre></td></tr></table></figure>
-<p>논리 부정(!) 연산자는 언제나 불리언 값을 반환한다. 단, 피연산자가 반드시 불리언 값일 필요는 없다. 논리합(||) 또는 논리곱(&amp;&amp;) 연산자 표현식의 평가 결과는 불리언 값이 아닐 수도 있다. 논리합(||) 또는 논리곱(&amp;&amp;) 연산자 표현식은 언제나 2개의 피연산자 중 어느 한쪽으로 평가된다.</p>
-<h2 id="쉼표-연산자"><a href="#쉼표-연산자" class="headerlink" title="쉼표 연산자"></a>쉼표 연산자</h2><p>왼쪽 피연산자부터 차례대로 피연산자를 평가하고 마지막 피연산자의 평가가 끝나면 마지막 피연산자의 평가 결과를 반환한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x, y, z;</span><br><span class="line"></span><br><span class="line">(x = <span class="number">1</span>), (y = <span class="number">2</span>), (z = <span class="number">3</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-<h2 id="그룹-연산자"><a href="#그룹-연산자" class="headerlink" title="그룹 연산자"></a>그룹 연산자</h2><p>연산자 우선순위(Operator precedence)와 관련있다. 일부 연산자는 합계 (프로그래밍에서 표현식이라고 함)의 결과를 계산할 때 다른 연산자보다 먼저 적용된다. JavaScript의 연산자 우선 순위는 수학 시간에 배운 것처럼 곱하기와 나누기는 항상 먼저 수행 한 다음 더하기와 빼기 (합은 항상 왼쪽에서 오른쪽으로 평가됨) 따라서 먼저 연산하고 싶은 부분을 그룹 연산자<code>()</code>로 묶어서 우선 순위를 조절할 수 있다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span> * <span class="number">2</span> + <span class="number">3</span>; <span class="comment">// -&gt; 23</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 그룹 연산자를 사용하여 우선 순위 조절</span></span><br><span class="line"><span class="number">10</span> * (<span class="number">2</span> + <span class="number">3</span>); <span class="comment">// -&gt; 50</span></span><br></pre></td></tr></table></figure>
-<h2 id="typeof-연산자"><a href="#typeof-연산자" class="headerlink" title="typeof 연산자"></a>typeof 연산자</h2><p>피연산자의 데이터 타입을 문자열로 반환한다. typeof 연산자는 7가지 문자열 “string”, “number”, “boolean”, “undefined”, “symbol”, “object”, “function” 중 하나를 반환한다. “null”을 반환하는 경우는 없으며 함수의 경우 “function”을 반환한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typeof</span> foo === <span class="literal">null</span>; <span class="comment">// -&gt; false</span></span><br><span class="line">foo === <span class="literal">null</span>; <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
-<p>typeof 연산자로 null 값을 연산해 보면 “null”이 아닌 “object”를 반환하는데 이는 자바스크립트의 첫 번째 버전의 버그이다. 따라서 null 타입을 확인할 때는 typeof 연산자 보다는 연산자(===)을 사용하는 것이 좋다. 또한 선언하지 않은 식별자를 typeof 연산자로 연산해 보면 ReferenceError가 발생하지 않고 “undefined”를 반환한다.</p>
-<h2 id="지수-연산자"><a href="#지수-연산자" class="headerlink" title="지수 연산자"></a>지수 연산자</h2><p>ES7에서 새롭게 도입된 지수 연산자는 좌항의 피연산자를 밑으로, 우항의 피연산자를 지수로 거듭 제곱하여 숫자 타입의 값을 반환한다. 이항 연산자 중 우선순위가 가장 높다. 참고로 지수 연산자 이전에는 Math.pow(2,2)와 같이 사용하였다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span> ** <span class="number">2</span>; <span class="comment">// -&gt; 4</span></span><br><span class="line"><span class="number">2</span> ** <span class="number">2.5</span>; <span class="comment">// -&gt; 5.65685424949238</span></span><br><span class="line"><span class="number">2</span> ** <span class="number">0</span>; <span class="comment">// -&gt; 1</span></span><br><span class="line"><span class="number">2</span> ** <span class="number">-2</span>; <span class="comment">// -&gt; 0.25</span></span><br><span class="line">(<span class="number">-5</span>) ** <span class="number">2</span>; <span class="comment">// -&gt; 25</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">5</span>;</span><br><span class="line">num **= <span class="number">2</span>; <span class="comment">// -&gt;25</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="옵셔널-체이닝-optional-chaining"><a href="#옵셔널-체이닝-optional-chaining" class="headerlink" title="옵셔널 체이닝(optional chaining)"></a>옵셔널 체이닝(optional chaining)</h2><blockquote>
-<p>obj?.prop<br>obj?.[expr]<br>arr?.[index]<br>func?.(args)</p>
-</blockquote>
-<p>좌항의 피연산자가 null 또는 undefined인 경우 undefined를 반환, 그렇지 않으면 우항의 프로퍼티 참조를 이어간다. <em>논리 연산자 &amp;&amp;와 같은 기능이다.</em></p>
-<ol>
-<li><p>&amp;&amp;를 사용할 때: 중첩된 구조의 객체 obj에서 하위 중첩된 하위 속성을 찾을 때 다음과 같이 사용한다. obj.first는 태스트 없이 obj.first.second에 직접 접근할 때 생기는 에러를 방지하기 위해서 값에 접근하기 전에 null 또는 undefined가 아니라는 점을 검증하는 것이다.</p>
-<blockquote>
-<p>let nestedProp = obj.first &amp;&amp; obj.first.second;</p>
-</blockquote>
+<li><p><code>원시 타입(primitive type)</code>: 숫자, 문자열, 불리언, undefined, null, symbol</p>
 </li>
-<li><p>옵셔널 체이닝을 사용: &amp;&amp;를 사용할 때 처럼 명시적인 테스트가 필요없다.<br><code>?.</code>의 옵셔널 체이닝을 사용함으로써 obj.first.second에 접근하기 전에 obj.first가 null 또는 undefined가 아니라는 것을 암묵적으로 확인한다.</p>
-<blockquote>
-<p>let nestedProp = obj.first?.second;</p>
-</blockquote>
+<li><p><code>객체 타입(object/reference type)</code>: 객체, 함수, 배열 등</p>
 </li>
-<li><p>obj.first가 null or undefined라면 undefined가 반환된다. 그렇지 않으면 우항의 프로퍼티 참조를 이어간다.</p>
+</ul>
+<h3 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h3><p>typeof를 사용하면 자료형이 무엇인지 확인할 수 있다. 아래와 같이 <code>typeof 피연산자</code>의 형태로 사용한다.</p>
 <blockquote>
-<p>let nestedProp =<br>obj.first === null || obj.first === undefined ? undefined : obj.first.second;</p>
+<p>typeof operand<br>typeof(operand)</p>
 </blockquote>
-</li>
-</ol>
-<p>다음과 같이 이벤트 핸들러를 다룰 때 유용하다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Written as of ES2019</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params">onContent, onError</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// ... do something with the data</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    <span class="keyword">if</span> (onError) &#123;</span><br><span class="line">      <span class="comment">// Testing if onError really exists</span></span><br><span class="line">      onError(err.message);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Using optional chaining with function calls</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params">onContent, onError</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// ... do something with the data</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    onError?.(err.message); <span class="comment">// no exception if onError is undefined</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="number">42</span>);</span><br><span class="line"><span class="comment">// expected output: "number"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="string">"blubber"</span>);</span><br><span class="line"><span class="comment">// expected output: "string"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">true</span>);</span><br><span class="line"><span class="comment">// expected output: "boolean"</span></span><br></pre></td></tr></table></figure>
+<h3 id="typeof-null-‘object’-인-이유는"><a href="#typeof-null-‘object’-인-이유는" class="headerlink" title="typeof null === ‘object’ 인 이유는?"></a>typeof null === ‘object’ 인 이유는?</h3><p>typeof null은 ‘null’을 반환하지 않는다. <em>null의 타입은 원시타입인데, <code>object</code>를 반환한다.</em> 이는 첫 번째 자바스크립트 버전의 고칠 수 없는 버그이다. 만약 고치게 될 경우 기존 코드에 영향을 미칠 수 있기 때문이다.</p>
 <hr>
-<p><em>References</em></p>
-<p><a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/First_steps/Math" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Operator_precedence" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Optional_chaining" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/operator" target="_blank" rel="noopener">Poiemaweb</a></p>
+<h2 id="숫자-타입"><a href="#숫자-타입" class="headerlink" title="숫자 타입"></a>숫자 타입</h2><p>자바스크립트의 숫자는 <code>실수 타입</code> 하나만 존재한다. (C, Java와 같은 언어는 정수와 실수 등으로 숫자를 구분함.) 정수나 음의 정수 등도 모두 실수로 처리한다.</p>
+<ul>
+<li>정수, 실수, 2진수, 8진수, 16진수 리터럴은 모두 메모리에 배정밀도 64비트 부동소수점 형식의 2진수로 저장</li>
+<li>자바스크립트는 2진수, 8진수, 16진수를 표현하기 위한 데이터 타입을 제공하지 않기 때문에 이들 값을 참조하면 모두 10진수로 해석된다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> binary = <span class="number">0b01000001</span>; <span class="comment">// 2진수</span></span><br><span class="line"><span class="keyword">var</span> octal = <span class="number">0o101</span>; <span class="comment">// 8진수</span></span><br><span class="line"><span class="keyword">var</span> hex = <span class="number">0x41</span>; <span class="comment">// 16진수</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 표기법만 다를 뿐 모두 같은 값이다.</span></span><br><span class="line"><span class="built_in">console</span>.log(binary); <span class="comment">// 65</span></span><br><span class="line"><span class="built_in">console</span>.log(octal); <span class="comment">// 65</span></span><br><span class="line"><span class="built_in">console</span>.log(hex); <span class="comment">// 65</span></span><br><span class="line"><span class="built_in">console</span>.log(binary === octal); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(octal === hex); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>javascript는 모든 수를 실수로 처리하기 때문에 정수와 정수를 나눴을 때 실수가 나올 수도 있다. (<code>ex. console.log(3/2) //1.5</code>)</p>
+<ul>
+<li>다음과 같은 3가지 특별한 값을 표현할 수도 있다. NaN의 경우 반드시 대소문자를 구별해야 한다.<ul>
+<li>Infinity : 양의 무한대</li>
+<li>Infinity : 음의 무한대</li>
+<li>NaN : 산술 연산 불가(not-a-number)</li>
+</ul>
+</li>
+</ul>
+<h2 id="문자열-타입"><a href="#문자열-타입" class="headerlink" title="문자열 타입"></a>문자열 타입</h2><p>텍스트 데이터를 나타내는 데 사용하며, 0개 이상의 16bit 유니코드 문자(UTF-16) 들의 집합이다. 작은 따옴표(‘’), 큰 따옴표(“”) 또는 백틱(``)으로 텍스트를 감싸서 사용한다.</p>
+<blockquote>
+<p>‘abc’, ‘’, “”, `a` 모두 문자열이다.</p>
+</blockquote>
+<p><em>만약 문자열을 따옴표(‘’)로 감싸지 않는다면?</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> string = <span class="string">"hello"</span>;</span><br><span class="line"><span class="keyword">typeof</span> string; <span class="comment">// "string"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = hello;</span><br><span class="line"><span class="comment">//ReferenceError: hello is not defined</span></span><br></pre></td></tr></table></figure>
+<p>위와 같이 문자열을 따옴표(‘’)로 감싸지 않으면 자바스크립트 엔진은 문자열을 키워드나 식별자와 같은 토큰으로 인식하므로 에러가 발생한다. <em>문자열을 따옴표로 감싸는 이유는 키워드, 식별자 같은 토큰과 구분하기 위해서이기 때문이다.</em> 또한 스페이스와 같은 공백 문자도 따옴표 없이는 사용할 수 없다.</p>
+<h2 id="템플럿-리터럴"><a href="#템플럿-리터럴" class="headerlink" title="템플럿 리터럴"></a>템플럿 리터럴</h2><p>ES6부터 도입되었으며, 작은 따옴표(‘’) 또는 큰 따옴표(“”) 같은 일반적인 따옴표 대신 백틱(backtick) (``)을 사용한다.</p>
+<h3 id="멀티라인-문자열"><a href="#멀티라인-문자열" class="headerlink" title="멀티라인 문자열"></a>멀티라인 문자열</h3><p>일반문자열에서는 개행이 허용되지 않으므로 백슬래시(\)로 시작하는 이스케이프 시퀀스를 사용해야 하지만, 백틱(``)을 사용하면 개행하지 않아도 되고, 공백도 있는 그대로 적용된다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//일반문자열은 이스케이프 시퀀스를 사용하여 줄바꿈한다. (줄바꿈 /n)</span></span><br><span class="line"><span class="keyword">var</span> template = <span class="string">'&lt;ul&gt;\n\t&lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(template);</span><br><span class="line"></span><br><span class="line"><span class="comment">//템플릿 문자열은 이스케이프 시퀀스가 없어도 줄바꿈 가능 (백틱사용)</span></span><br><span class="line"><span class="keyword">var</span> template = <span class="string">`&lt;ul&gt;</span></span><br><span class="line"><span class="string">  &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">&lt;/ul&gt;`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(template);</span><br></pre></td></tr></table></figure>
+<h3 id="표현식-삽입"><a href="#표현식-삽입" class="headerlink" title="표현식 삽입"></a>표현식 삽입</h3><p><code>${ }</code>으로 표현식을 감싸서 사용한다. 이때 표현식의 평가 결과가 문자열이 아니더라도 문자열로 강제 타입 변환되어 삽입된다. 단, 템플릿 리터럴을 일반 문자열에서 삽입하면 문자열로 취급된다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//일반 문자열은 '+'연산자로 문자열을 연결한다.</span></span><br><span class="line"><span class="keyword">var</span> first = <span class="string">"hello"</span>;</span><br><span class="line"><span class="keyword">var</span> second = <span class="string">"world"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(first + <span class="string">" "</span> + second); <span class="comment">//hello world</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//템플릿 리터럴</span></span><br><span class="line"><span class="keyword">var</span> first = <span class="string">"hello"</span>;</span><br><span class="line"><span class="keyword">var</span> second = <span class="string">"world"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;first&#125;</span> <span class="subst">$&#123;second&#125;</span>`</span>); <span class="comment">//hello world</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="불리언-타입"><a href="#불리언-타입" class="headerlink" title="불리언 타입"></a>불리언 타입</h2><p>논리적 참, 거짓을 나타내는 <code>true</code>와 <code>false</code>를 말한다. 제어문에서 주로 사용한다.</p>
+<h2 id="undefined-타입"><a href="#undefined-타입" class="headerlink" title="undefined 타입"></a>undefined 타입</h2><p>개발자가 의도적으로 할당하기 위한 값이 아니라 자바스크립트 엔진이 변수를 초기화할 때 사용하는 값. 변수 선언이 되면 자바스크립트 엔진은 <code>undefined</code>를 암묵적으로 할당한다. <em>변수 참조 시 <code>undefined</code>가 반환된다면 변수 선언 후 아직 할당이 이루어지지 않았음을 알 수 있다.</em></p>
+<h2 id="null-타입"><a href="#null-타입" class="headerlink" title="null 타입"></a>null 타입</h2><p>변수에 값이 없다는 것을 의도적으로 명시(의도적 부재 Intentional absence)하고 싶다면 <code>undefined</code>가 아니라 <code>null</code>을 할당한다. <em><code>null</code>을 할당하는 것은 변수가 이전에 참조하던 값을 더이상 참조하지 않겠다는 의미이며, 가비지 컬렉팅이 이루어질 것이다.</em></p>
+<h2 id="symbole-타입"><a href="#symbole-타입" class="headerlink" title="symbole 타입"></a>symbole 타입</h2><p>ES6에서 새롭게 추가된 7번째 타입으로 변경 불가능한 원시 타입이며, 다른 값과 중복되지 않는다. 심볼은 주로 이름의 충돌 위험이 없는 객체의 유일한 프로퍼티 키(property key)를 만들기 위해 사용한다. 함수를 호출해 생성하지만 참조할 수는 없다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 심볼 값 생성</span></span><br><span class="line"><span class="keyword">var</span> key = <span class="built_in">Symbol</span>(<span class="string">"key"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> key); <span class="comment">// symbol</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 객체 생성</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 심볼 key를 이름의 충돌 위험이 없는 유일한 프로퍼티 키로 사용한다.</span></span><br><span class="line">obj[key] = <span class="string">"value"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj[key]); <span class="comment">// value</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="데이터-타입의-필요성"><a href="#데이터-타입의-필요성" class="headerlink" title="데이터 타입의 필요성"></a>데이터 타입의 필요성</h2><ul>
+<li><p>데이터 타입에 의한 메모리 공간의 확보와 참조<br>자바스크립트 엔진은 데이터 타입, 즉 값의 종류에 따라 정해진 크기의 메모리 공간을 확보한다. 즉, 변수에 할당되는 값의 데이터 타입에 따라 확보해야 할 메모리 공간의 크기가 결정된다.</p>
+</li>
+<li><p>데이터 타입에 의한 값의 해석</p>
+<ul>
+<li>값을 저장할 때 확보해야 하는 메모리 공간의 크기를 결정하기 위해</li>
+<li>값을 참조할 때 한번에 읽어 들여야 할 메모리 공간의 크기를 결정하기 위해</li>
+<li>메모리에서 읽어 들인 2진수를 어떻게 해석할 지를 결정하기 위해</li>
+</ul>
+</li>
+</ul>
+<h2 id="정적-타입-static-strong-type"><a href="#정적-타입-static-strong-type" class="headerlink" title="정적 타입(static/strong type)"></a>정적 타입(static/strong type)</h2><p>C나 Java와 같은 정적 타입(Static/Strong type) 언어는 변수를 선언할 때 변수에 할당할 수 있는 값의 종류, 즉 데이터 타입을 사전에 선언해야 한다. 이를 명시적 타입 선언(explicit type declaration)이라 한다.</p>
+<h2 id="동적-타입-Dynamic-Weak-type"><a href="#동적-타입-Dynamic-Weak-type" class="headerlink" title="동적 타입(Dynamic/Weak type)"></a>동적 타입(Dynamic/Weak type)</h2><p>자바스크립트는 값을 할당하는 시점에 변수의 타입이 동적으로 결정되고 변수의 타입을 언제든지 자유롭게 변경할 수 있다. <em>다시 말해 자바스크립트 변수는 선언이 아닌 할당에 의해 타입이 결정된다.</em> 그리고 재할당에 의해 변수의 타입은 언제든지 동적으로 변할 수 있다.</p>
+<ul>
+<li>변수는 꼭 필요한 경우에만 사용, 변수보다는 상수를 사용하여 값의 변경을 억제한다.</li>
+<li>식별자 네이밍 규칙에 따라 변수 이름은 의미를 파악하기 쉽게 네이밍한다.</li>
+<li>변수의 유효 범위(스코프)는 최대한 좁게 만들며, 전역 변수는 최대한 사용하지 않는다.</li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/type" target="_blank" rel="noopener">Poiemaweb</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/typeof" target="_blank" rel="noopener">MDN</a><br><a href="https://2ality.com/2013/10/typeof-null.html" target="_blank" rel="noopener">2ality</a></p>
 
       
     </div>
@@ -313,7 +276,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/20/200222_mutable_immutable/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/21/200223_ternary_operator_pratice/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -327,7 +290,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/20/200222_mutable_immutable/" class="post-title-link" itemprop="url">왜 원시타입은 변경불가하고, 객체는 가능할까?</a>
+            <a href="/2020/02/21/200223_ternary_operator_pratice/" class="post-title-link" itemprop="url">삼항조건연산자 실습</a>
         </h1>
 
         <div class="post-meta">
@@ -337,14 +300,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-21T00:00:00+09:00">2020-02-21</time>
+              <time title="Created: 2020-02-22 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-22T00:00:00+09:00">2020-02-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 12:40:35" itemprop="dateModified" datetime="2022-05-18T12:40:35+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
               </span>
 
           
@@ -359,22 +322,149 @@
 
       
           <blockquote>
-<p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
+<p>삼항조건연산자-&gt; 조건식 ? 조건식이 true일때 반환할 값 : 조건식이 false일때 반환할 값</p>
 </blockquote>
-<p><code>원시타입</code>의 값은 <strong>변경불가</strong>의 값이다. 따라서 원래 할당되어 있던 값을 변경하는 것이 아니라 재할당이 이루어진다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">5</span>; <span class="comment">// a = 5</span></span><br><span class="line"><span class="keyword">let</span> b = a; <span class="comment">// b = 5;</span></span><br><span class="line">a = <span class="number">6</span>; <span class="comment">// a = 6;</span></span><br></pre></td></tr></table></figure>
-<p>처음 5라는 값을 a라는 변수에 할당하고, 다음으로 5라는 값을 담고 있는 a의 값을 b에 할당하였을 때,<br>b의 값 5는 a의 값 5가 들어있는 메모리 공간을 차지하는 것이 아니라 새로운 공간을 차지하여 값을 할당한다. 그리고 a를 6이라고 재할당하면 이 역시 새로운 공간을 차지한다.</p>
-<p><em>객체의 경우는 어떨까?</em></p>
-<p><code>객체</code>는 <strong>변경가능</strong>한 값이기 때문에 새로운 공간에 값을 재할당하는 것이 아니라 원래 할당된 공간의 값을 변경한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  word: <span class="string">"hello"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line"><span class="comment">//b  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line">a.word = <span class="string">"world"</span>;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"world"&#125;</span></span><br></pre></td></tr></table></figure>
-<p><code>{word: &quot;hello&quot;}</code>라는 객체를 a라는 변수에 할당하였고, 그 다음 b에 a의 값을 할당하였을 때,<br>b는 새로운 메모리 공간을 차지하는 대신 처음 a가 만들어 둔 <code>{word: &quot;hello&quot;}</code>라는 값이 든 공간을 바라보게 된다. 즉, a와 b라는 서로 다른 식별자가 <code>{word: &quot;hello&quot;}</code>라는 값이 들어 있는 하나의 공간을 공유하는 것이다.<br>따라서 a의 word라는 프로퍼티를 world로 변경하면 새로운 공간에 <code>{word: &quot;world&quot;}</code>라는 값을 담는 것이 아니라 원래 <code>{word: &quot;hello&quot;}</code>가 있던 공간의 프로퍼티를 <code>{word: &quot;world&quot;}</code>로 변경한다. b.word를 해도 같은 결과가 나온다.</p>
+<ol>
+<li>양수 또는 음수를 출력하는 if문</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"양수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  kind = <span class="string">"음수"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>if문을 삼항조건연산자로 써보기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">kind = num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : <span class="string">"음수"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(kind);</span><br></pre></td></tr></table></figure>
+<p><em>양수, 음수 외에 ‘0’이라는 숫자가 출력되는 조건도 추가하고 싶다면? (0은 음수도 양수도 아니다.)</em></p>
+<ol>
+<li>양수, 음수 또는 ‘0’을 출력하는 if문</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"양수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (num &lt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"음수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  kind = <span class="string">"영"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>if문을 삼항조건연산자로 써보기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">kind = num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : num &lt; <span class="number">0</span> ? <span class="string">"음수"</span> : <span class="string">"영"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">kind = num ? (num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : <span class="string">"음수"</span>) : <span class="string">"영"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">//양수</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>술 구매 가능 여부를 출력하는 if문</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">19</span>;</span><br><span class="line"><span class="keyword">var</span> canDrinkAlcohol = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (age &gt; <span class="number">19</span>) &#123;</span><br><span class="line">  canDrinkAlcohol = <span class="string">"OK. You can buy alcohol."</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  canDrinkAlcohol = <span class="string">"No. You can't buy alcohol."</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(canDrinkAlcohol);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>if문을 삼항조건연산자로 써보기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">19</span>;</span><br><span class="line"><span class="keyword">var</span> canDrinkAlcohol = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">canDrinkAlcohol =</span><br><span class="line">  age &gt; <span class="number">19</span> ? <span class="string">"OK. You can buy alcohol."</span> : <span class="string">"No. You can't buy alcohol."</span>;</span><br><span class="line"><span class="built_in">console</span>.log(canDrinkAlcohol);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>신장을 출력하는 if문</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> height = <span class="number">169</span>;</span><br><span class="line"><span class="keyword">var</span> result = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result =</span><br><span class="line">  height &gt; <span class="number">169</span></span><br><span class="line">    ? <span class="string">"wow, you are taller than me"</span></span><br><span class="line">    : height &lt; <span class="number">169</span></span><br><span class="line">    ? <span class="string">"You are little bit shorter than me."</span></span><br><span class="line">    : <span class="string">"You and me are the same height."</span>;</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>if문을 삼항조건연산자로 써보기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> height = <span class="number">169</span>;</span><br><span class="line"><span class="keyword">var</span> result = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (height &gt; <span class="number">169</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"wow, you are taller than me"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (height &lt; <span class="number">169</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"You are little bit shorter than me."</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"You and me are the same height."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/21/200223_control-flow-statement/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/21/200223_control-flow-statement/" class="post-title-link" itemprop="url">제어문 / Control flow statement</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-22 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-22T00:00:00+09:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="제어문"><a href="#제어문" class="headerlink" title="제어문"></a>제어문</h2><p>주어진 조건에 따라 코드 블록을 실행(조건문)하거나 반복 실행(반복문)할 때 사용한다. 일반적으로 코드는 위에서 아래 방향으로 순차적으로 실행된다. 제어문을 사용하면 코드의 실행 흐름을 인위적으로 제어할 수 있다.</p>
+<h2 id="블록문-Block-statement-Compound-statement"><a href="#블록문-Block-statement-Compound-statement" class="headerlink" title="블록문 (Block statement/Compound statement)"></a>블록문 (Block statement/Compound statement)</h2><p>0개 이상의 문을 중괄호로 묶은 것으로 코드 블록 또는 블록이라고 부르기도 한다. 자바스크립트는 블록문을 하나의 실행 단위로 취급한다.</p>
+<p><code>문의 끝에는 세미 콜론(;)을 붙이는 것이 일반적이지만 블록문의 끝에는 세미콜론을 붙이지 않는다.</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 블록문</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">var</span> foo = <span class="number">10</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(foo); <span class="comment">//10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//제어문</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (x &lt; <span class="number">10</span>) &#123;</span><br><span class="line">  x++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
 <hr>
-<p><em>그렇다면 변수를 할당할 때 재할당이 불가능한 키워드 <strong>const</strong>를 사용한다면 어떻게 될까?</em></p>
-<p><code>const a = 5;</code>라고 할당한 후, <code>a = 6;</code>이라고 재할당하면 const는 재할당이 되지 않기 때문에 오류가 발생한다. 하지만 객체의 경우라면 어떻게 될까?</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a = &#123;num: 3&#125;</span></span><br><span class="line">a.num = <span class="number">5</span>;</span><br><span class="line"><span class="comment">//a = &#123;num: 5&#125;</span></span><br></pre></td></tr></table></figure>
-<p>const는 재할당을 할 수 없지만 다음과 같이 객체가 할당되면 객체의 프로퍼티는 변경할 수 있다.<br>처음 const a라는 변수에 <code>{num : 3}</code>를 할당한다. 그러면 이 값은 하나의 메모리 공간을 차지하게 된다.<br>이때 a의 num라는 프로퍼티에 접근하여 <code>a.num = 5;</code>라고 값을 할당한 후 a를 참조하면 값이 5로 바뀌어 있다.</p>
-<p>하지만 다음과 같이 코드를 사용하면 const는 재할당을 할 수 없기 때문에 오류가 발생한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line">a = &#123;</span><br><span class="line">  num: <span class="number">5</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="조건문-conditional-statement"><a href="#조건문-conditional-statement" class="headerlink" title="조건문 (conditional statement)"></a>조건문 (conditional statement)</h2><p>주어진 조건식(conditional expression)의 평가 결과에 따라 코드 블럭(블록문)의 실행을 결정한다. <em>조건식은 불리언 값으로 평가될 수 있는 표현식이다.</em></p>
+<h3 id="if…else문"><a href="#if…else문" class="headerlink" title="if…else문"></a>if…else문</h3><p>주어진 조건식(불리언 값으로 평가될 수 있는 표현식)의 평가 결과, 즉 논리적 참 또는 거짓에 따라 실행할 코드 블록을 결정한다. 조건식의 평가 결과가 참(true)일 경우, if 문 다음의 코드 블록이 실행되고 거짓(false)일 경우, else 문 다음의 코드 블록이 실행된다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식) &#123;</span><br><span class="line">  <span class="comment">// 조건식이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// 조건식이 거짓이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>조건식을 추가하여 조건에 따라 실행될 코드 블록을 늘리고 싶으면 else if 문을 사용한다.</p>
+<h3 id="else-if문"><a href="#else-if문" class="headerlink" title="else if문"></a>else if문</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식<span class="number">1</span>) &#123;</span><br><span class="line">  <span class="comment">// 조건식1이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (조건식<span class="number">2</span>) &#123;</span><br><span class="line">  <span class="comment">// 조건식2이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// 조건식1과 조건식2가 모두 거짓이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>else if 문과 else 문은 옵션이다. 즉, 사용할 수도 있고 사용하지 않을 수도 있다. if 문과 else 문은 2번 이상 사용할 수 없지만 else if 문은 여러 번 사용할 수 있다.</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> kind;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"양수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (num &lt; <span class="number">0</span>) &#123;</span><br><span class="line">  kind = <span class="string">"음수"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  kind = <span class="string">"영"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">// 양수</span></span><br></pre></td></tr></table></figure>
+<p>if…else문은 아래와 같이 삼항 조건 연산자로 바꿔 쓸 수 있다. 삼항 조건 연산자의 구조는 <code>조건식 ? 조건식이 true일때 반환할 값 : 조건식이 false일때 반환할 값</code>이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 0은 false로 취급된다.</span></span><br><span class="line"><span class="keyword">var</span> kind = num ? (num &gt; <span class="number">0</span> ? <span class="string">"양수"</span> : <span class="string">"음수"</span>) : <span class="string">"영"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(kind); <span class="comment">// 양수</span></span><br></pre></td></tr></table></figure>
+<p>단, 삼항 조건 연산자는 값으로 평가되는 표현식을 만들기 때문에 변수에 할당이 가능하고, if…else문은 표현식이 아닌 문이기 때문에 변수에 할당이 불가하다.</p>
+<h3 id="switch문"><a href="#switch문" class="headerlink" title="switch문"></a>switch문</h3><p>먼저 주어진 해당 표현식을 평가하고, 입력한 표현식과 동일한 값으로 평가되는 표현식을 찾는다.(엄격비교가 이루어진다, ===) 그리고 일치하는 case 문으로 실행 순서를 이동시킨 후 해당 case의 문(statement)을 실행한다. case문은 값을 지정한 후 콜론으로 마치고, 그 후에는 실행될 문이 온다.</p>
+<p>만약 switch문의 표현식과 일치하는 case를 찾지 못하면 실행 순서는 default문으로 이동하고 해당 문을 실행한다. default는 보통 가장 마지막에 위치하며, 옵션이므로 사용할 수도 있고 사용하지 않을 수도 있다. <em>만약 default문이 없다면 switch문이 종료될 때까지 계속 실행된다.</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (표현식) &#123;</span><br><span class="line">  <span class="keyword">case</span> 값<span class="number">1</span>:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 값<span class="number">1</span>과 일치하면 실행될 문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> 값<span class="number">2</span>:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 값<span class="number">2</span>와 일치하면 실행될 문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> 값N:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 값N과 일치하면 실행될 문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    <span class="keyword">switch</span> 문의 표현식과 일치하는 표현식을 갖는 <span class="keyword">case</span> 문이 없을 때 실행될 문;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> expr = <span class="string">"Papayas"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span> (expr) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"Oranges"</span>:</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Oranges are $0.59 a pound."</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"Mangoes"</span>:</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"Papayas"</span>:</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Mangoes and papayas are $2.79 a pound."</span>);</span><br><span class="line">    <span class="comment">// expected output: "Mangoes and papayas are $2.79 a pound."</span></span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Sorry, we are out of "</span> + expr + <span class="string">"."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위 switch문은 먼저 주어진 표현식 <code>const expr = &quot;Papayas&quot;;</code>를 평가하고, 동일한 값으로 평가되는 표현식을 찾는다. 따라서 값이 일치하는 <code>case &quot;Papayas&quot;:</code>로 실행순서가 이동하며, 지정된 문을 실행한다. 따라서 <code>&quot;Mangoes and papayas are $2.79 a pound.&quot;</code>라는 값을 실행하고, <code>break</code>가 있기 때문에 코드 블록을 탈출한다.</p>
+<p><em><code>break</code>를 쓰지 않으면 어떻게 될까?</em></p>
+<p><code>폴스루(fall through)</code>현상이 발생한다. 표현식과 동일한 case문을 실행한 후 switch문을 탈출하지 않고 switch문이 끝날 때까지 이후의 모든 case문과 default문을 실행하는 것을 말한다.</p>
+<hr>
+<h2 id="반복문-Loop-statement"><a href="#반복문-Loop-statement" class="headerlink" title="반복문 (Loop statement)"></a>반복문 (Loop statement)</h2><p>주어진 조건식의 평가 결과가 참인 경우 코드 블럭을 실행한 후 조건식을 다시 검사하여 여전히 참인 경우 코드 블록을 다시 실행한다. 이는 조건식이 거짓일 때까지 반복된다.</p>
+<h3 id="for문"><a href="#for문" class="headerlink" title="for문"></a>for문</h3><p>조건식이 거짓으로 판별될 때까지 코드 블록을 반복 실행한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (변수 선언문 또는 할당문; 조건식; 증감식) &#123;</span><br><span class="line">  조건식이 참인 경우 반복 실행될 문;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; <span class="number">1</span>++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>변수 선언문은 for문을 실행했을 때 처음 단 한번만 실행된다.</li>
+<li>선언문 실행 후 조건식으로 순서가 이동한 후 값이 true라면 코드 블록으로 이동하여 코드를 실행한다. <em>증감문으로 바로 이동하는 것이 아니다.</em> false라면 for문의 실행이 종료된다.</li>
+<li>코드 블록으로 이동하여 실행한 후 실행이 종료되면 증감식으로 이동하여 i를 1 증가한다.</li>
+<li>증감식 실행 후 다시 조건식으로 이동하여 값을 평가한다. 조건식이 false가 될 때까지 순서에 따라 실행을 반복한다.</li>
+</ul>
+<h3 id="while문"><a href="#while문" class="headerlink" title="while문"></a>while문</h3><p>while 문은 주어진 조건식의 평가 결과가 참이면 코드 블록을 계속해서 반복 실행한다. 조건문의 평가 결과가 거짓이 되면 실행을 종료한다. 단, 조건식의 평가 결과가 언제나 참이면 무한루프가 된다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// count가 3보다 작을 때까지 코드 블록을 계속 반복 실행한다.</span></span><br><span class="line"><span class="keyword">while</span> (count &lt; <span class="number">3</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count);</span><br><span class="line">  count++;</span><br><span class="line">&#125; <span class="comment">// 0 1 2</span></span><br></pre></td></tr></table></figure>
+<h3 id="do…while문"><a href="#do…while문" class="headerlink" title="do…while문"></a>do…while문</h3><p>코드 블록을 먼저 실행하고 조건식을 평가한다. 따라서 코드 블록은 무조건 한번 이상 실행된다.</p>
+<hr>
+<h2 id="break문"><a href="#break문" class="headerlink" title="break문"></a>break문</h2><p>이블 문, 반복문(for, for…in, for…of, while, do…while) 또는 switch 문의 코드 블록을 탈출한다. 레이블 문, 반복문, switch 문의 코드 블록 이외에 break 문을 사용하면 SyntaxError(문법 에러)가 발생한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">break</span>; <span class="comment">// Uncaught SyntaxError: Illegal break statement</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="continue문"><a href="#continue문" class="headerlink" title="continue문"></a>continue문</h2><p>반복문의 코드 블록 실행을 현 지점에서 중단하고 반복문의 증감식으로 이동한다. break 문처럼 반복문을 탈출하지는 않는다.</p>
+<hr>
+<p><em>References</em><br><a href="https://poiemaweb.com/fastcampus/control-flow" target="_blank" rel="noopener">Poiemaweb</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/switch" target="_blank" rel="noopener">MDN</a></p>
 
       
     </div>
@@ -425,7 +515,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 12:40:35" itemprop="dateModified" datetime="2022-05-18T12:40:35+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
               </span>
 
           
@@ -515,6 +605,87 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/20/200222_mutable_immutable/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/20/200222_mutable_immutable/" class="post-title-link" itemprop="url">왜 원시타입은 변경불가하고, 객체는 가능할까?</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-21T00:00:00+09:00">2020-02-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-18 13:09:35" itemprop="dateModified" datetime="2022-05-18T13:09:35+09:00">2022-05-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
+</blockquote>
+<p><code>원시타입</code>의 값은 <strong>변경불가</strong>의 값이다. 따라서 원래 할당되어 있던 값을 변경하는 것이 아니라 재할당이 이루어진다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">5</span>; <span class="comment">// a = 5</span></span><br><span class="line"><span class="keyword">let</span> b = a; <span class="comment">// b = 5;</span></span><br><span class="line">a = <span class="number">6</span>; <span class="comment">// a = 6;</span></span><br></pre></td></tr></table></figure>
+<p>처음 5라는 값을 a라는 변수에 할당하고, 다음으로 5라는 값을 담고 있는 a의 값을 b에 할당하였을 때,<br>b의 값 5는 a의 값 5가 들어있는 메모리 공간을 차지하는 것이 아니라 새로운 공간을 차지하여 값을 할당한다. 그리고 a를 6이라고 재할당하면 이 역시 새로운 공간을 차지한다.</p>
+<p><em>객체의 경우는 어떨까?</em></p>
+<p><code>객체</code>는 <strong>변경가능</strong>한 값이기 때문에 새로운 공간에 값을 재할당하는 것이 아니라 원래 할당된 공간의 값을 변경한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  word: <span class="string">"hello"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line"><span class="comment">//b  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line">a.word = <span class="string">"world"</span>;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"world"&#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>{word: &quot;hello&quot;}</code>라는 객체를 a라는 변수에 할당하였고, 그 다음 b에 a의 값을 할당하였을 때,<br>b는 새로운 메모리 공간을 차지하는 대신 처음 a가 만들어 둔 <code>{word: &quot;hello&quot;}</code>라는 값이 든 공간을 바라보게 된다. 즉, a와 b라는 서로 다른 식별자가 <code>{word: &quot;hello&quot;}</code>라는 값이 들어 있는 하나의 공간을 공유하는 것이다.<br>따라서 a의 word라는 프로퍼티를 world로 변경하면 새로운 공간에 <code>{word: &quot;world&quot;}</code>라는 값을 담는 것이 아니라 원래 <code>{word: &quot;hello&quot;}</code>가 있던 공간의 프로퍼티를 <code>{word: &quot;world&quot;}</code>로 변경한다. b.word를 해도 같은 결과가 나온다.</p>
+<hr>
+<p><em>그렇다면 변수를 할당할 때 재할당이 불가능한 키워드 <strong>const</strong>를 사용한다면 어떻게 될까?</em></p>
+<p><code>const a = 5;</code>라고 할당한 후, <code>a = 6;</code>이라고 재할당하면 const는 재할당이 되지 않기 때문에 오류가 발생한다. 하지만 객체의 경우라면 어떻게 될까?</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a = &#123;num: 3&#125;</span></span><br><span class="line">a.num = <span class="number">5</span>;</span><br><span class="line"><span class="comment">//a = &#123;num: 5&#125;</span></span><br></pre></td></tr></table></figure>
+<p>const는 재할당을 할 수 없지만 다음과 같이 객체가 할당되면 객체의 프로퍼티는 변경할 수 있다.<br>처음 const a라는 변수에 <code>{num : 3}</code>를 할당한다. 그러면 이 값은 하나의 메모리 공간을 차지하게 된다.<br>이때 a의 num라는 프로퍼티에 접근하여 <code>a.num = 5;</code>라고 값을 할당한 후 a를 참조하면 값이 5로 바뀌어 있다.</p>
+<p>하지만 다음과 같이 코드를 사용하면 const는 재할당을 할 수 없기 때문에 오류가 발생한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line">a = &#123;</span><br><span class="line">  num: <span class="number">5</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -585,7 +756,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
