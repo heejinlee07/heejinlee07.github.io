@@ -144,6 +144,122 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/01/04/210105_pseudoClass/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/04/210105_pseudoClass/" class="post-title-link" itemprop="url">pseudo-class vs pseudo-element</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-05 00:00:00" itemprop="dateCreated datePublished" datetime="2021-01-05T00:00:00+09:00">2021-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-20 13:26:51" itemprop="dateModified" datetime="2022-05-20T13:26:51+09:00">2022-05-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="pseudo-class"><a href="#pseudo-class" class="headerlink" title="pseudo-class"></a>pseudo-class</h2><blockquote>
+<p>가상 클래스 또는 의사 클래스라고 한다.</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* form */</span></span><br><span class="line"><span class="selector-tag">selector</span><span class="selector-pseudo">:pseudo-class</span> &#123;</span><br><span class="line">  <span class="attribute">property</span>: value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>선택자에 추가하는 키워드. 선택한 요소가 특별한 상태를 만족할 때 변화를 주기 위해 사용한다. 예를 들어 <code>element:hover</code>를 사용하면 element에 마우스 포인터가 올라갈 때만 특정 변화가 발생한다. 아래와 같이 사용하면 버튼 요소에 사용자가 마우스를 올렸을 때만 글자 색상이 파란색으로 변경된다.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">button</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="자주-쓰이는-pseudo-class"><a href="#자주-쓰이는-pseudo-class" class="headerlink" title="자주 쓰이는 pseudo-class"></a>자주 쓰이는 pseudo-class</h2><ol>
+<li><p>LVHA<br><strong>(:link — :visited — :hover — :active)</strong>의 순서를 말하는데, <em>:active, :visited, :focus</em>는 실제 스타일링 할 때 보다는 예시로 자주 사용된다. 주의할 점은 <code>:active</code>는 자신보다 뒤에 위치하고, 동등한 명시성을 가진 <strong>(:link, :hover, :visited)</strong>를 덮어쓰기 때문에 가장 마지막에 배치되어야 한다.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:link</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125; <span class="comment">/* 방문하지 않은 링크 */</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:visited</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: purple;</span><br><span class="line">&#125; <span class="comment">/* 방문한 링크 */</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: yellow;</span><br><span class="line">&#125; <span class="comment">/* 마우스를 올린 링크 */</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:active</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125; <span class="comment">/* 활성화한 링크 */</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:active</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#eee</span>;</span><br><span class="line">&#125; <span class="comment">/* 활성화한 문단 */</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>:active<br>사용자가 활성화한 요소를 나타낸다. 마우스를 사용할 때, <code>활성</code>이란 마우스 버튼을 누르는 순간부터 떼는 시점까지를 의미한다. 보통 \<a\>,\<button\>과 함께 사용한다.</li>
+<li>:hover<br>사용자가 포인팅 장치를 사용하여 상호작용 중인 요소를 선택한다. :active가 마우스를 클릭하는 동안을 의미한다면 :hover는 마우스 포인터가 특정 요소에 올라가 있는 동안을 의미한다. 보통 사용자의 마우스 포인터(커서)가 요소 위에 올라가 있을 때 선택된다. <strong>단, :hover는 터치스크린에서 활성화하지 않거나 터치한 직후에 또는 터치 이후 다른 요소를 터치하기 전까지 계속 활성화 할 수도 있어서 문제가 많다.</strong> 이를 주의하여 제한적으로 hover 효과를 주거나 hover가 불가능한 장치에서도 콘텐츠 접근에 문제가 없도록 개발해야 한다.</li>
+</ul>
+</li>
+<li><p>형제 요소 선택</p>
+<ul>
+<li>:first-child<br>형제 요소 중 첫 요소. 초기에는 부모가 있는 요소만 선택가능했으나 Selectors Level 4부터 제한이 사라졌다. 아래 예시에서 css를 다음과 같이 작성하면 원래 아무것도 선택되지 않았다. \<p\> 태그는 부모 요소가 아니기 때문이다. 그러나 지금은 선택이 가능하다.</li>
+<li>:nth-child<br>형제 사이에서의 순서에 따라 요소를 선택한다. <code>nth-child(1)</code>는 형제 요소 중 첫 번째 요소를 선택하는 것이다.</li>
+<li>:last-child<br>형제 요소 중 가장 마지막 요소. \<div\> 태그가 여러 개 있다고 가정할 때, 가장 마지막 \<div\>에게만 <code>margin-bottom: 10px;</code>을 주고 싶다면 <code>div:last-child:</code>의 형태로 사용한다. 반대로 모든 \<div\>에 동일하게 <code>margin-bottom: 10px;</code>을 주되, 가장 마지막 \<div\>에는 별도의 margin을 주고 싶지 않다면 <code>div:not:last-child</code>와 같이 사용할 수 있다.</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>This text is selected!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>This text isn't selected.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">p</span><span class="selector-pseudo">:first-child</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">p</span><span class="selector-pseudo">:nth-child(1)</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="pseudo-element"><a href="#pseudo-element" class="headerlink" title="pseudo-element"></a>pseudo-element</h2><blockquote>
+<p>의사 요소, 또는 가상 요소라 한다.</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* form */</span></span><br><span class="line"><span class="selector-tag">selector</span><span class="selector-pseudo">::pseudo-element</span> &#123;</span><br><span class="line">  <span class="attribute">property</span>: value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>선택자에 추가하는 키워드. 선택한 요소의 일부분에만 스타일을 입힐 수 있다. 이때 하나의 선택자에는 하나의 의사 요소만 사용 가능하다. 예를 들어 <code>::first-child</code>를 사용하면 문단 첫 줄의 글씨체만 바꿀 수 있다.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* The first line of every &lt;p&gt; element. */</span></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">::first-line</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">  <span class="attribute">text-transform</span>: uppercase;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="pseudo-class-vs-pseudo-element"><a href="#pseudo-class-vs-pseudo-element" class="headerlink" title="pseudo-class vs pseudo-element"></a>pseudo-class vs pseudo-element</h2><ol>
+<li>규칙<br>의사 클래스는 <code>(:)</code>를 사용하고, 의사 요소는 <code>(::)</code>를 사용한다. 의사 클래스는 <code>특정 상태</code>에 스타일을 적용할 때 사용하고, 의사 요소는 <code>특정 부분</code>에 스타일을 적용할 때 사용한다. 즉 의사 클래스는 사용자가 마우스를 클릭하거나 마우스 커서를 특정 요소 위에 올려두었을 때의 <code>특정 상태</code>에 이르렀을 때 변화를 주기 위해 사용하고, 의사 요소는 아래와 같이 특정 요소의 앞이나 뒤에 장식 요소를 추가할 수 있다. 보통 <code>content</code>와 함께 사용된다.</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* a 태그 뒤에 삽입 */</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">'♥'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* a 태그 뒤에 삽입 */</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">'♥'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>우선 순위<br>같은 요소가 여러 선언의 대상일 때 어떤 것이 우선 적용되는지를 결정하는 <strong>우선 순위 점수에서 가상클래스가 가상요소보다 순위가 높다.</strong> 우선순위 점수는 다음과 같다.</p>
+<ol>
+<li>!important: 이를 사용하면 다른 모든 요소를 무시하고 가장 최우선으로 적용된다.</li>
+<li>명시도: 선언된 선택자의 명시도를 우선순위에 따라 계산한다.<ol>
+<li>inline styles</li>
+<li>IDs</li>
+<li>classes, <code>pseudo-class</code>, attribute</li>
+<li>elements, <code>pseudo-element</code></li>
+</ol>
+</li>
+<li>선언 순서 : 명시도 점수가 같다면, 가장 마지막에 선언된 것이 우선순위를 가진다.</li>
+</ol>
+</li>
+</ol>
+<hr>
+<p><em>References</em><br><a href="https://developer.mozilla.org/ko/docs/Web/CSS/Pseudo-classes" target="_blank" rel="noopener">pseudo-class</a><br><a href="https://developer.mozilla.org/ko/docs/Web/CSS/Pseudo-elements" target="_blank" rel="noopener">pseudo-element</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/11/23/201124_next_image/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +291,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 22:06:37" itemprop="dateModified" datetime="2022-05-18T22:06:37+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-20 13:26:51" itemprop="dateModified" datetime="2022-05-20T13:26:51+09:00">2022-05-20</time>
               </span>
 
           
@@ -300,7 +416,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 22:06:37" itemprop="dateModified" datetime="2022-05-18T22:06:37+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-20 13:26:51" itemprop="dateModified" datetime="2022-05-20T13:26:51+09:00">2022-05-20</time>
               </span>
 
           
@@ -457,7 +573,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 22:06:37" itemprop="dateModified" datetime="2022-05-18T22:06:37+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-20 13:26:51" itemprop="dateModified" datetime="2022-05-20T13:26:51+09:00">2022-05-20</time>
               </span>
 
           
@@ -528,7 +644,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 22:06:37" itemprop="dateModified" datetime="2022-05-18T22:06:37+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-20 13:26:51" itemprop="dateModified" datetime="2022-05-20T13:26:51+09:00">2022-05-20</time>
               </span>
 
           
@@ -734,7 +850,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 22:06:37" itemprop="dateModified" datetime="2022-05-18T22:06:37+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-20 13:26:51" itemprop="dateModified" datetime="2022-05-20T13:26:51+09:00">2022-05-20</time>
               </span>
 
           
@@ -860,7 +976,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 22:06:37" itemprop="dateModified" datetime="2022-05-18T22:06:37+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-20 13:26:51" itemprop="dateModified" datetime="2022-05-20T13:26:51+09:00">2022-05-20</time>
               </span>
 
           
@@ -964,7 +1080,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 22:06:37" itemprop="dateModified" datetime="2022-05-18T22:06:37+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-20 13:26:51" itemprop="dateModified" datetime="2022-05-20T13:26:51+09:00">2022-05-20</time>
               </span>
 
           
@@ -1155,7 +1271,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 22:06:37" itemprop="dateModified" datetime="2022-05-18T22:06:37+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-20 13:26:51" itemprop="dateModified" datetime="2022-05-20T13:26:51+09:00">2022-05-20</time>
               </span>
 
           
@@ -1256,7 +1372,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 22:06:37" itemprop="dateModified" datetime="2022-05-18T22:06:37+09:00">2022-05-18</time>
+                <time title="Modified: 2022-05-20 13:26:51" itemprop="dateModified" datetime="2022-05-20T13:26:51+09:00">2022-05-20</time>
               </span>
 
           
@@ -1293,173 +1409,6 @@
 <hr>
 <p><em>References</em></p>
 <p><a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-tree-construction?hl=ko" target="_blank" rel="noopener">렌더링 트리 생성, 레이아웃 및 페인트</a><br><a href="https://velopert.com/3236" target="_blank" rel="noopener">[번역] 리액트에 대해서 그 누구도 제대로 설명하기 어려운 것 – 왜 Virtual DOM 인가?</a><br><a href="https://ko.reactjs.org/docs/faq-internals.html" target="_blank" rel="noopener">Virtual DOM과 Internals</a><br><a href="https://meetup.toast.com/posts/110" target="_blank" rel="noopener">React 렌더링과 성능 알아보기</a><br><a href="https://ko.reactjs.org/docs/rendering-elements.html" target="_blank" rel="noopener">엘리먼트 렌더링</a><br><a href="https://ko.reactjs.org/docs/reconciliation.html#gatsby-focus-wrapper" target="_blank" rel="noopener">재조정</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/08/23/200824_promise/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/23/200824_promise/" class="post-title-link" itemprop="url">Promise</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-08-24 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-24T00:00:00+09:00">2020-08-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-18 22:06:37" itemprop="dateModified" datetime="2022-05-18T22:06:37+09:00">2022-05-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="프로미스의-등장"><a href="#프로미스의-등장" class="headerlink" title="프로미스의 등장"></a>프로미스의 등장</h2><p>자바스크립트는 비동기 처리를 위한 하나의 패턴으로 콜백 함수를 사용한다. 하지만 전통적인 콜백 패턴은 콜백 헬로 인해 가독성이 나쁘고 비동기 처리 중 발생한 에러의 처리가 곤란하며 여러 개의 비동기 처리를 한번에 처리하는 데도 한계가 있다. ES6에서는 비동기 처리를 위한 또 다른 패턴으로 프로미스(Promise)를 도입했다. <strong>프로미스는 전통적인 콜백 패턴이 가진 단점을 보완하며 비동기 처리 시점을 명확하게 표현할 수 있다는 장점이 있다.</strong></p>
-<h2 id="프로미스의-생성"><a href="#프로미스의-생성" class="headerlink" title="프로미스의 생성"></a>프로미스의 생성</h2><p>Promise 생성자 함수를 new 연산자와 함께 호출하면 프로미스(<code>Promise 객체: 비동기 처리 상태와 처리 결과를 관리</code>)를 생성한다. Promise 객체는 비동기 작업이 맞이할 미래의 완료 또는 실패, 그 결과 값을 나타낸다. 또한 비동기 액션이 종료된 이후, 성공했을 때의 value나 실패 이유를 처리하기 위한 handler를 연결할 수 있도록 한다. <strong>이처럼 프로미스를 사용하면 비동기 메서드에서도 동기 메서드처럼 최종 value를 반환할 수 있다.</strong> 다만 즉시 최종 value를 반환하지는 않고, 비동기 메서드가 프로미스를 반환하면 프로미스가 미래의 어떤 시점에 받을 value를 제공한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 프로미스 생성</span></span><br><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// Promise 함수의 콜백 함수 내부에서 비동기 처리를 수행한다.</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* 비동기 처리 성공 */</span>) &#123;</span><br><span class="line">    resolve(<span class="string">'result'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123; <span class="comment">/* 비동기 처리 실패 */</span></span><br><span class="line">    reject(<span class="string">'failure reason'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="프로미스의-상태"><a href="#프로미스의-상태" class="headerlink" title="프로미스의 상태"></a>프로미스의 상태</h2><p>프로미스가 생성된 후 기본적으로 pending 상태를 가지고, 비동기 처리 수행의 성공 또는 실패에 따라 아래와 같이 상태가 변경된다. 그리고 필연적으로 아래 상태에 따라 resolved 되거나 unresolved된다.</p>
-<p><img src="https://mdn.mozillademos.org/files/8633/promises.png" alt="promise"><br>[사진출처 - MDN]</p>
-<ul>
-<li>대기(pending): 비동기 처리가 이행하거나 거부되지 않은 초기 상태.</li>
-<li>이행(fulfilled): 비동기 처리가 성공적으로 완료됨.</li>
-<li>거부(rejected): 비동기 처리가 실패함.</li>
-<li>settled: 비동기 처리가 수행되었고, pending이 아니면서 fulfilled 또는 rejected일 때를 말한다. <strong>settled는 상태가 아니다.</strong> 표현의 편의를 위한 언어적 표현일 뿐이다. 일단 settled 상태가 되면 더는 다른 상태로 변화할 수 없다.</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">states</th>
-<th style="text-align:center">meaning</th>
-<th style="text-align:center">value</th>
-<th style="text-align:center">condition</th>
-<th>fates</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">fulfilled</td>
-<td style="text-align:center">비동기 처리가 수행된 상태 (성공)</td>
-<td style="text-align:center">처리결과값</td>
-<td style="text-align:center">resolve 호출</td>
-<td>resolved</td>
-</tr>
-<tr>
-<td style="text-align:center">rejected</td>
-<td style="text-align:center">비동기 처리가 수행된 상태 (실패)</td>
-<td style="text-align:center">에러</td>
-<td style="text-align:center">reject 호출</td>
-<td>resolved</td>
-</tr>
-<tr>
-<td style="text-align:center">pending</td>
-<td style="text-align:center">비동기 처리 수행 전, fulfilled도 아니고, rejected도 아닌 상태</td>
-<td style="text-align:center">undefined</td>
-<td style="text-align:center">프로미스 생성직후 기본 상태</td>
-<td>unresolved or resolved</td>
-</tr>
-</tbody>
-</table>
-</div>
-<hr>
-<h2 id="프로미스의-후속-처리-메서드"><a href="#프로미스의-후속-처리-메서드" class="headerlink" title="프로미스의 후속 처리 메서드"></a>프로미스의 후속 처리 메서드</h2><p>프로미스가 fulfilled 상태이거나 rejected 상태 일 때 이에 대한 후속 처리가 필요하다. 이처럼 프로미스의 비동기 처리 상태가 변화하면 후속 처리 메서드에 인수로 전달한 콜백 함수를 선택적으로 호출하고, <strong>모든 후속 처리 메서드는 프로미스를 반환하며 비동기로 동작한다.</strong></p>
-<h3 id="Promise-prototype-then"><a href="#Promise-prototype-then" class="headerlink" title="Promise.prototype.then"></a>Promise.prototype.then</h3><p><strong>언제나 Promise를 return하고, 두 개의 콜백 함수를 인수로 전달받는다.</strong> 그리고 Promise가 이행하거나 거부했을 때, 각각에 해당하는 핸들러 함수(onFulfilled나 onRejected)가 비동기적으로 실행된다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">p.then(onFulfilled, onRejected);</span><br><span class="line"></span><br><span class="line">p.then(</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 이행</span></span><br><span class="line">    <span class="comment">// onFulfilled: Promise가 수행될 때 호출되는 Function</span></span><br><span class="line">    <span class="comment">// 인수: 이행 값(fulfillment value)</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">reason</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 거부</span></span><br><span class="line">    <span class="comment">// onRejected: Promise가 거부될 때 호출되는 Function</span></span><br><span class="line">    <span class="comment">// 인수: 거부 이유(rejection reason)</span></span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p><u>반환값</u></p>
-<ul>
-<li>① fulfilled 상태: 비동기 처리 성공(이행). 프로미스의 비동기 처리 결과를 콜백함수의 인수로 받음.</li>
-<li>② rejected 상태: 비동기 처리 실패(거부). 프로미스의 에러를 인수로 전달받음.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fulfilled ①</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> resolve(<span class="string">"fulfilled"</span>)).then(</span><br><span class="line">  (v) =&gt; <span class="built_in">console</span>.log(v),</span><br><span class="line">  (e) =&gt; <span class="built_in">console</span>.error(e)</span><br><span class="line">); <span class="comment">// fulfilled</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// rejected ②</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">_, reject</span>) =&gt;</span> reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"rejected"</span>))).then(</span><br><span class="line">  (v) =&gt; <span class="built_in">console</span>.log(v),</span><br><span class="line">  (e) =&gt; <span class="built_in">console</span>.error(e)</span><br><span class="line">); <span class="comment">// Error: rejected</span></span><br></pre></td></tr></table></figure>
-<p>Promise가 이행하거나 거부했을 때, 각각에 해당하는 핸들러 함수(onFulfilled나 onRejected)가 비동기적으로 실행되는 조건은 다음과 같다.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">반환조건</th>
-<th style="text-align:center">반환값</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">함수가 값을 반환</td>
-<td style="text-align:center">then에서 반환한 프로미스의 반환값</td>
-</tr>
-<tr>
-<td style="text-align:center">값을 반환하지 않음</td>
-<td style="text-align:center">undefined</td>
-</tr>
-<tr>
-<td style="text-align:center">오류 발생</td>
-<td style="text-align:center">then에서 반환한 프로미스의 오류값</td>
-</tr>
-<tr>
-<td style="text-align:center">이미 이행한 프로미스 반환</td>
-<td style="text-align:center">then에서 반환한 프로미스의 결과값</td>
-</tr>
-<tr>
-<td style="text-align:center">이미 거부한 프로미스 반환</td>
-<td style="text-align:center">then에서 반환한 프로미스의 결과값으로 거부</td>
-</tr>
-<tr>
-<td style="text-align:center">대기 중인 프로미스 반환</td>
-<td style="text-align:center">프로미스의 이행 여부와 결과값</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="Promise-prototype-catch"><a href="#Promise-prototype-catch" class="headerlink" title="Promise.prototype.catch"></a>Promise.prototype.catch</h3><p><strong>한 개의 콜백 함수를 인수로 전달받고, 프로미스가 <code>rejected</code>일 때만 호출된다.</strong> 그리고 언제나 프로미스를 반환한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">p.catch(onRejected);</span><br><span class="line"></span><br><span class="line">p.catch(<span class="function"><span class="keyword">function</span> (<span class="params">reason</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// rejection</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// rejected</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">_, reject</span>) =&gt;</span> reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"rejected"</span>))).catch(<span class="function">(<span class="params">e</span>) =&gt;</span></span><br><span class="line">  <span class="built_in">console</span>.log(e)</span><br><span class="line">); <span class="comment">// Error: rejected</span></span><br></pre></td></tr></table></figure>
-<h3 id="Promise-prototype-finally"><a href="#Promise-prototype-finally" class="headerlink" title="Promise.prototype.finally"></a>Promise.prototype.finally</h3><p>언제나 프로미스를 반환하고, <strong>한 개의 콜백함수를 인수로 전달받으며, 프로미스의 성공, 실패와 상관없이 무조건 한 번 호출된다.</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;).finally(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">"finally"</span>)); <span class="comment">// finally</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="프로미스-체이닝"><a href="#프로미스-체이닝" class="headerlink" title="프로미스 체이닝"></a>프로미스 체이닝</h2><p>후속처리 메서드인 then, catch, finally는 언제나 프로미스를 반환하므로 연속적으로 호출할 수 있다. 이를 프로미스 체이닝이라 한다. 만약 후속 처리 메서드의 콜백 함수가 프로미스가 아닌 값을 반환하더라도 그 값을 암묵적으로 resolve 또는 reject하여 프로미스를 생성하여 반환한다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> url = <span class="string">"https://jsonplaceholder.typicode.com"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// id가 1인 post의 userId를 취득</span></span><br><span class="line">promiseGet(<span class="string">`<span class="subst">$&#123;url&#125;</span>/posts/1`</span>)</span><br><span class="line">  <span class="comment">// 취득한 post의 userId로 user 정보를 취득</span></span><br><span class="line">  <span class="comment">//userId: promiseGet 함수가 반환한 프로미스가 resolve한 값</span></span><br><span class="line">  .then(<span class="function">(<span class="params">&#123; userId &#125;</span>) =&gt;</span> promiseGet(<span class="string">`<span class="subst">$&#123;url&#125;</span>/users/<span class="subst">$&#123;userId&#125;</span>`</span>))</span><br><span class="line">  <span class="comment">//return: 콜백 함수가 반환한 프로미스</span></span><br><span class="line">  <span class="comment">//userInfo: 첫 번째 then 메서드가 반한한 프로미스가 resolve한 값</span></span><br><span class="line">  .then(<span class="function">(<span class="params">userInfo</span>) =&gt;</span> <span class="built_in">console</span>.log(userInfo))</span><br><span class="line">  <span class="comment">//return: 콜백 함수가 반환한 값(undefined)을 resolve한 프로미스</span></span><br><span class="line">  <span class="comment">//err: promiseGet 함수 또는 앞선 후속 처리 메서드가 반환한 프로미스가 reject한 값</span></span><br><span class="line">  .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> <span class="built_in">console</span>.error(err));</span><br><span class="line"><span class="comment">//return: 콜백 함수가 반환한 값(undefined)을 resolve한 프로미스</span></span><br></pre></td></tr></table></figure>
-<hr>
-<p><em>References</em><br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noopener">MDN</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/then" target="_blank" rel="noopener">MDN</a><br><a href="https://poiemaweb.com/fastcampus/promise" target="_blank" rel="noopener">poiemaweb</a><br><a href="https://github.com/domenic/promises-unwrapping/blob/master/docs/states-and-fates.md" target="_blank" rel="noopener">States and fates</a></p>
 
       
     </div>
@@ -1545,7 +1494,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
