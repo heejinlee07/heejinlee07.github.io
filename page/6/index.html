@@ -144,6 +144,173 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/07/210608_cFunction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/06/07/210608_cFunction/" class="post-title-link" itemprop="url">함수</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-06-08 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-08T00:00:00+09:00">2021-06-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-23 12:06:47" itemprop="dateModified" datetime="2022-05-23T12:06:47+09:00">2022-05-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="함수"><a href="#함수" class="headerlink" title="함수"></a>함수</h2><ul>
+<li>입력이 들어가면 어떤 결과가 출력된다.</li>
+<li>중복되는 코드를 줄이는데 사용한다.</li>
+<li>자주 사용하는 코드의 재활용성이 올라간다.</li>
+</ul>
+<h2 id="함수-정의"><a href="#함수-정의" class="headerlink" title="함수 정의"></a>함수 정의</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static &lt;반환형&gt; &lt;함수명&gt;(&lt;매개변수 목록&gt;)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;함수 body</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>함수 시그니처(함수명(필수), static, 매개변수 목록)을 포함해야 한다.</li>
+<li>반환형, 함수 body는 필수이다.</li>
+</ul>
+<h3 id="반환형"><a href="#반환형" class="headerlink" title="반환형"></a>반환형</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;반환형이 있는 함수</span><br><span class="line">static int Add(int op1, int op2) &#x2F;&#x2F;반환형 int를 생략하면 안된다.</span><br><span class="line">&#123;</span><br><span class="line">  return op1 + op2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 없는 함수 return을 쓰지 않아도 된다.</span><br><span class="line">static void PrintHello(string name)</span><br><span class="line">&#123;</span><br><span class="line">Console.WriteLine($&quot;Hello, &#123;name&#125;!&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>프로그래밍 세계에세 함수의 출력</strong></li>
+<li><code>반환형은 반드시 선언해야한다.</code> (선언하지 않으면 컴파일 오류 발생.)</li>
+<li>반환값이 없을 수 있다. 없다면 <code>void</code> 사용.</li>
+<li>반환형이 <code>void</code>가 아니면 함수 body에 <code>return</code> 키워드를 사용하여 데이터를 반환한다.</li>
+<li>데이터를 반환하지 않으면 컴파일 오류 발생.</li>
+</ul>
+<h3 id="매개변수-목록"><a href="#매개변수-목록" class="headerlink" title="매개변수 목록"></a>매개변수 목록</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;2개의 매개변수가 있는 함수</span><br><span class="line">static int Add(int op1, int op2)</span><br><span class="line">&#123;</span><br><span class="line">  return op1 + op2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;매개변수가 없는 함수</span><br><span class="line">static void PrintHello()</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLonr(&#39;hello!;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>프로그래밍 세계에서의 임력</li>
+<li>int, byte와 같은 자료형 외에 int[], string과 같은 배열도 매개변수로 사용 가능.</li>
+<li><strong>필수가 아니다.</strong></li>
+<li>매개변수와 인자는 엄밀히 말하면 다르다.<ul>
+<li>매개변수: 함수를 정의할 때 함수의 입력값을 선언</li>
+<li>인자: 함수를 호출할 때 함수로 전달하는 실제값</li>
+</ul>
+</li>
+</ul>
+<h3 id="메인함수의-매개변수에-데이터-전달하기"><a href="#메인함수의-매개변수에-데이터-전달하기" class="headerlink" title="메인함수의 매개변수에 데이터 전달하기"></a>메인함수의 매개변수에 데이터 전달하기</h3><p>메인함수는 프로그램을 실행할 때 자동으로 호출되는 함수로 이 메인함수에 매개변수를 넘기고 싶으면 visual studio 내부의 <strong><code>프로젝트 옵션</code> =&gt; <code>실행 구성</code> =&gt; <code>Default</code> =&gt; <code>인수</code></strong>에 전달하고 싶은 데이터를 입력한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  for (int i &#x3D; 0; i &lt; args.Length; ++i)</span><br><span class="line">  &#123;</span><br><span class="line">    Consol.WriteLine($&quot;args[&#123;i&#125;] &#x3D; &#123;args[i]&#125;&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위에서 설명한 방법대로 <code>Hello, C# is fun!</code>이라고 데이터를 입력했다면 실행했을 때 아래와 같은 결과를 얻을 수 있다. args 요소 하나에 여러 단어를 넣고 싶을 때는 <code>&quot;Hello, C# is fun!&quot; Bye!</code>과 같이 문장을 큰따옴표로 감싼다.</p>
+<ul>
+<li>args[0] = Hello,</li>
+<li>args[1] = C#,</li>
+<li>args[2] = is,</li>
+<li>args[3] = fun!</li>
+</ul>
+<p>큰따옴표로 감싼 문장은 아래와 같이 출력된다.</p>
+<ul>
+<li>args[0] = Hello, C# is fun!</li>
+<li>args[1] = Bye!</li>
+</ul>
+<h3 id="배열의-길이-Length"><a href="#배열의-길이-Length" class="headerlink" title="배열의 길이 Length"></a>배열의 길이 Length</h3><blockquote>
+<p>&lt;배열 변수명&gt;.Length</p>
+</blockquote>
+<p>배열의 길이를 알려준다.</p>
+<h3 id="함수-Body"><a href="#함수-Body" class="headerlink" title="함수 Body"></a>함수 Body</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static int Add(int op1, int op2)</span><br><span class="line">&#123;</span><br><span class="line">  return op1 + op2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>함수의 기능을 구현한 코드 블록, 그 함수의 범위를 나타냄.</li>
+<li>중괄호를 이용하여 표현</li>
+<li><em>void가 아닌 반환형을 가지고 있다면</em> 반드시 <code>return</code> 키워드를 사용하여 데이터를 반환한다.</li>
+</ul>
+<h3 id="함수-이름"><a href="#함수-이름" class="headerlink" title="함수 이름"></a>함수 이름</h3><ul>
+<li>함수명은 어떻게 짓든지 상관없다.</li>
+<li>하지만 이해하기 쉽고, 가독성을 좋게 하기 위해 함수가 어떤 기능을 가졌는지 알 수 있도록 함수명을 정한다.</li>
+<li>호출자가 함수 내부를 알 필요가 없게 <strong>함수명을 명확하게</strong> 지어야 한다.</li>
+</ul>
+<h3 id="함수-호출"><a href="#함수-호출" class="headerlink" title="함수 호출"></a>함수 호출</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 있는 경우</span><br><span class="line">static int Add(int op1, int op2)</span><br><span class="line">&#123;</span><br><span class="line">  return op1 + op2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 있는 함수 호출</span><br><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  int result &#x3D; Add(123, 589);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 없는 경우</span><br><span class="line">static void PrintHello()</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(&quot;just hello!&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;반환형이 없는 함수 호출</span><br><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  PrintHello();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>반환형이 있는 경우: <code>Add</code>함수의 반환형이 int이므로, return 되는 값을 int result에 저장하고, 함수를 소괄호를 써서 호출한다. 매개변수가 있을 경우 소괄호 내에 적어준다.</li>
+<li>반환형이 없는 경우: 변수에 할당할 필요없이 소괄호를 써서 호출하기만 하면 된다.</li>
+<li>함수 호출 시 인자는 변수, 상수 모두 가능하다. <code>int result = Add(123, 589);</code>에서 상수 123, 589 대신 변수를 이용하여(num1, num2 가 변수라 가정) <code>int result = Add(num1, num2);</code>처럼 사용할 수 있다.</li>
+</ul>
+<hr>
+<h2 id="메인-함수"><a href="#메인-함수" class="headerlink" title="메인 함수"></a>메인 함수</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="콘솔-화면-출력-함수"><a href="#콘솔-화면-출력-함수" class="headerlink" title="콘솔 화면 출력 함수"></a>콘솔 화면 출력 함수</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Console.Write();</span><br><span class="line">Console.WriteLine();</span><br></pre></td></tr></table></figure>
+<h2 id="키보드-입력-함수"><a href="#키보드-입력-함수" class="headerlink" title="키보드 입력 함수"></a>키보드 입력 함수</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Console.ReadLind();</span><br></pre></td></tr></table></figure>
+<h2 id="변환-함수"><a href="#변환-함수" class="headerlink" title="변환 함수"></a>변환 함수</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int.Parse();</span><br><span class="line">double.Parse();</span><br><span class="line">float.Parse();</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="코딩-표준"><a href="#코딩-표준" class="headerlink" title="코딩 표준"></a>코딩 표준</h2><h3 id="함수-1"><a href="#함수-1" class="headerlink" title="함수"></a>함수</h3><blockquote>
+<p>정확하게 어떤 기능을 하는지 알려주는 단어를 사용한다.</p>
+</blockquote>
+<ul>
+<li>동사로 시작</li>
+<li>제일 첫 글자는 대문자 혹은 소문자(회사마다 코딩 표준은 다름)</li>
+<li>여러 단어를 연결한다면 파스칼 표기법으로 사용.</li>
+</ul>
+<h3 id="매개변수와-지역변수"><a href="#매개변수와-지역변수" class="headerlink" title="매개변수와 지역변수"></a>매개변수와 지역변수</h3><blockquote>
+<p>정확하게 어떤 정보를 담는지 알려주는 단어 사용</p>
+</blockquote>
+<ul>
+<li>명사 사용</li>
+<li>제일 첫 글자는 소문자로 시작</li>
+<li>여러 단어를 연결한다면 카멜케이스 사용</li>
+</ul>
+<hr>
+<h2 id="선조건-후조건"><a href="#선조건-후조건" class="headerlink" title="선조건 후조건"></a>선조건 후조건</h2><blockquote>
+<p>함수가 무슨 일을 하는지에 대한 약속. 선조건을 만족하지 못하면 후조건을 보장할 수 없다.</p>
+</blockquote>
+<p><u>선조건</u></p>
+<ul>
+<li><code>함수 실행 시작 전</code>에 참으로 가정한 조건 e.g. Divede() 함수는 분모가 0이 아니어야 한다.</li>
+<li>함수 이름, 매개변수로 유추 가능하지만 부족하면 주석으로 추가 설명 (슬래시(/) 세번이면 자동으로 주석이 생성된다.)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;param name &#x3D; &quot;numerator&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">static float Divede(float number, float denominator)</span><br><span class="line">&#123;</span><br><span class="line">  return numerator &#x2F; denominator;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><u>후조건</u></p>
+<ul>
+<li>함수 <code>실행 후</code>에 보장되는 조건 e.g. 두 정수를 더하면 정수의 결과가 나온다.</li>
+<li>함수 이름과 반환형으로 유추 가능</li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/06/05/210606_multidimensionalArray/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +342,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-20 13:27:10" itemprop="dateModified" datetime="2022-05-20T13:27:10+09:00">2022-05-20</time>
+                <time title="Modified: 2022-05-23 12:06:47" itemprop="dateModified" datetime="2022-05-23T12:06:47+09:00">2022-05-23</time>
               </span>
 
           
@@ -383,7 +550,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-20 13:27:10" itemprop="dateModified" datetime="2022-05-20T13:27:10+09:00">2022-05-20</time>
+                <time title="Modified: 2022-05-23 12:06:47" itemprop="dateModified" datetime="2022-05-23T12:06:47+09:00">2022-05-23</time>
               </span>
 
           
@@ -525,7 +692,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-20 13:27:10" itemprop="dateModified" datetime="2022-05-20T13:27:10+09:00">2022-05-20</time>
+                <time title="Modified: 2022-05-23 12:06:47" itemprop="dateModified" datetime="2022-05-23T12:06:47+09:00">2022-05-23</time>
               </span>
 
           
@@ -630,7 +797,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-20 13:27:10" itemprop="dateModified" datetime="2022-05-20T13:27:10+09:00">2022-05-20</time>
+                <time title="Modified: 2022-05-23 12:06:47" itemprop="dateModified" datetime="2022-05-23T12:06:47+09:00">2022-05-23</time>
               </span>
 
           
@@ -757,7 +924,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-20 13:27:10" itemprop="dateModified" datetime="2022-05-20T13:27:10+09:00">2022-05-20</time>
+                <time title="Modified: 2022-05-23 12:06:47" itemprop="dateModified" datetime="2022-05-23T12:06:47+09:00">2022-05-23</time>
               </span>
 
           
@@ -870,7 +1037,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-20 13:27:10" itemprop="dateModified" datetime="2022-05-20T13:27:10+09:00">2022-05-20</time>
+                <time title="Modified: 2022-05-23 12:06:47" itemprop="dateModified" datetime="2022-05-23T12:06:47+09:00">2022-05-23</time>
               </span>
 
           
@@ -1029,7 +1196,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-20 13:27:10" itemprop="dateModified" datetime="2022-05-20T13:27:10+09:00">2022-05-20</time>
+                <time title="Modified: 2022-05-23 12:06:47" itemprop="dateModified" datetime="2022-05-23T12:06:47+09:00">2022-05-23</time>
               </span>
 
           
@@ -1359,7 +1526,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-20 13:27:10" itemprop="dateModified" datetime="2022-05-20T13:27:10+09:00">2022-05-20</time>
+                <time title="Modified: 2022-05-23 12:06:47" itemprop="dateModified" datetime="2022-05-23T12:06:47+09:00">2022-05-23</time>
               </span>
 
           
@@ -1709,7 +1876,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-20 13:27:10" itemprop="dateModified" datetime="2022-05-20T13:27:10+09:00">2022-05-20</time>
+                <time title="Modified: 2022-05-23 12:06:47" itemprop="dateModified" datetime="2022-05-23T12:06:47+09:00">2022-05-23</time>
               </span>
 
           
@@ -1844,183 +2011,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/05/08/210509_programmingLanguage/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/08/210509_programmingLanguage/" class="post-title-link" itemprop="url">프로그래밍 언어의 분류</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-05-09 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-09T00:00:00+09:00">2021-05-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-20 13:27:10" itemprop="dateModified" datetime="2022-05-20T13:27:10+09:00">2022-05-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>고수준 언어, 저수준 언어가 고급, 저급의 개념이 아니다. 저수준 언어, 고수준 언어의 정의는 상대적이다.</p>
-<h2 id="저수준-언어"><a href="#저수준-언어" class="headerlink" title="저수준 언어"></a>저수준 언어</h2><ul>
-<li>컴퓨터가 이해하기 쉬운 언어에 가깝다.</li>
-<li>0과 1로만 이루어졌다.</li>
-<li>기계어</li>
-<li>컴퓨터가 바로 이해할 수 있으므로 변환 과정이 필요 없다.</li>
-</ul>
-<h3 id="기계어"><a href="#기계어" class="headerlink" title="기계어"></a>기계어</h3><ul>
-<li>네이티브 코드라고도 부른다.</li>
-<li>2진수, 0과 1</li>
-<li>원조 저수준 언어</li>
-<li>모든 프로그래밍 언어는 이 기계어로 번역되어야 한다.</li>
-</ul>
-<h2 id="고수준-언어"><a href="#고수준-언어" class="headerlink" title="고수준 언어"></a>고수준 언어</h2><ul>
-<li>인간이 이해하기 쉬운 언어에 가깝다.</li>
-<li>인간이 사용하는 언어로 이루어졌다.(for, while, if…)</li>
-<li>어셈블리어, c, c++, java, c#</li>
-<li>컴퓨터가 이해하는 <code>기계어</code>로 변환하는 과정이 필요하다.</li>
-</ul>
-<h3 id="어셈블리어"><a href="#어셈블리어" class="headerlink" title="어셈블리어"></a>어셈블리어</h3><ul>
-<li>사람이 읽기에 조금 더 편하기 때문에 엄밀히 말하면 고수준 언어이다.</li>
-<li>대부분 기계어랑 일대일로 대응한다. 그렇기 때문에 저수준 언어라고 하기도 한다.</li>
-</ul>
-<h2 id="고수준-프로그래밍-언어"><a href="#고수준-프로그래밍-언어" class="headerlink" title="고수준 프로그래밍 언어"></a>고수준 프로그래밍 언어</h2><p>어셈블리어는 기계어보다는 사람에게 친숙하지만 여전히 불편하다. 그래서 보다 사람에게 친근한 <code>고수준 프로그래밍 언어</code>가 나왔다. e.g. int addResult = 3 + 4; 3과 4를 더한 후 addResult에 저장한다.</p>
-<ul>
-<li>사람이 쓰는 말에 매우 가까워졌다.</li>
-<li>어셈블리어처럼 기계와어 일대일 대응은 불가능하다.</li>
-<li>c, c++, java, c#, javascript 등.</li>
-<li>메모리를 누가 관리하는지에 따라 매니지드 언어, 언매니지드 언어로 나뉜다.</li>
-</ul>
-<hr>
-<h2 id="컴파일-언어"><a href="#컴파일-언어" class="headerlink" title="컴파일 언어"></a>컴파일 언어</h2><ul>
-<li>소스 코드 -&gt; 컴파일러 -&gt; 기계어 -&gt; 실행</li>
-<li>소스 코드를 기계가 이해할 수 있는 기계어로 바꿔준다.</li>
-<li>c, c++</li>
-<li>오프라인 컴파일러가 고수준 언어를 네이티브 코드로 컴파일</li>
-<li>다양한 최적화 가능</li>
-<li>플랫폼(e.g. mac OS, 32비트 윈도우, 아이폰)마다 다른 exe 파일을 컴파일 해야한다.</li>
-</ul>
-<h2 id="JIT-컴파일-언어"><a href="#JIT-컴파일-언어" class="headerlink" title="JIT 컴파일 언어"></a>JIT 컴파일 언어</h2><ul>
-<li>컴파일 언어와 인터프리터 언어의 중간단계</li>
-<li>소스코드 -&gt; 컴파일러 -&gt; 중간언어 코드(기계처럼 보이게 프로그램을 짜고, 그 프로그램이 이해하는 코드) -&gt; JIT 컴파일러 -&gt; 기계어 -&gt; 실행</li>
-<li>c#, java, WASM(webAssembly)</li>
-<li>오프라인 컴파일러가 소스 코드를 중간 언어로 컴파일</li>
-<li>플랫폼 별로 VM(가상 머신, vitual machine)를 설치해야 함.</li>
-<li>프로그램 실행 중 VM이 중간 언어를 기계가 이해하는 언어로 바꿔서 실행.</li>
-<li>java, c#은 플랫폼에 종속적이지 않고 VM에 종송적이다.</li>
-</ul>
-<h2 id="인터프리터-언어"><a href="#인터프리터-언어" class="headerlink" title="인터프리터 언어"></a>인터프리터 언어</h2><ul>
-<li>소스 코드 -&gt; 인터프리터 언어 -&gt; 기계어 -&gt; 실행</li>
-<li>컴파일 단계가 없다</li>
-<li>javascript, python, lua, php</li>
-<li>실행 중에 고수준 언어를 네이티브 코드로 바꿔서 실행한다.</li>
-<li>실제로 실행하기 전까지 코드의 문제를 잡아낼 수 없다.</li>
-</ul>
-<h2 id="강한-타입-약한-타입-언어"><a href="#강한-타입-약한-타입-언어" class="headerlink" title="강한 타입, 약한 타입 언어"></a>강한 타입, 약한 타입 언어</h2><p>변수선언(변수 용도)와 관련이 있다.</p>
-<ul>
-<li>약한 타입: 변수형을 선언한 후 변수형을 변경할 수 있다 e.g. javascript</li>
-<li>강한 타입: 변수형을 선언한 후 변수형을 변경할 수 없다 e.g. c, c++, c#(약한타입도 지원), java 등</li>
-</ul>
-<p>상용 코드를 작성할 때는 강한 타입 언어들이 일반적으로 더 낫다.</p>
-<hr>
-<h2 id="매니지드-언어-언매니지드-언어"><a href="#매니지드-언어-언매니지드-언어" class="headerlink" title="매니지드 언어, 언매니지드 언어"></a>매니지드 언어, 언매니지드 언어</h2><ul>
-<li>누가 메모리의 수명(라이프사이클)을 관리하는지가 핵심</li>
-<li>프로그램에서 큰 데이터를 사용하려면 운영체제(OS)로부터 독점적으로 사용할 메모리를 확보해야 한다.</li>
-<li>데이터를 다 사용한 뒤에는 OS에 메모리는 반환해야 한다.</li>
-</ul>
-<blockquote>
-<p>매니지드 언어: 프로그래머가 책임지고 메모리를 반환한다.<br>언매니지드 언어: 프로그래밍 언어가 더 이상 메모리를 사용 안 하는 상황을 판단하여 메모리를 반환해 준다.</p>
-</blockquote>
-<p>매니지드 언어가 실수가 적고 편하지만 효율적이지는 않다. 언매니지드 언어를 배우면 하드웨어 지식을 쌓을 수 있다.</p>
-<p><u>성능이 중요하지 않은 프로그램을 만들 때</u><br>매니지드 언어를 많이 사용한다. e.g. java, c#, javascript, lua</p>
-<p><u>성능이 중요한 프로그램을 만들 때</u><br>언매니지드 언어를 많이 사용한다. e.g. c, c++</p>
-<p><u>언매니지드 언어를 배워야 하는 이유</u></p>
-<ul>
-<li>메모리 동작원리</li>
-<li>CPU 동작원리</li>
-<li>컴퓨터처럼 생각하는 방법</li>
-<li>매니지드 언어에서 지원하는 모든 마법같은 기능들의 동작원리</li>
-</ul>
-<hr>
-<h2 id="프로그래밍-패러다임-절차적-언어"><a href="#프로그래밍-패러다임-절차적-언어" class="headerlink" title="프로그래밍 패러다임 - 절차적 언어"></a>프로그래밍 패러다임 - 절차적 언어</h2><ul>
-<li>가장 단순한 형태의 프로그래밍 언어</li>
-<li>함수를 실행하면 결과가 바로 반횐된다.</li>
-<li>그 결과를 저장하고 싶으면 별도의 공간에 보관한다</li>
-<li>기능과 자료저장의 분리</li>
-<li>순서에 따라 코드를 실행한다.</li>
-<li>대표적인 언어: c언어</li>
-</ul>
-<h2 id="프로그래밍-패러다임-OOP-언어"><a href="#프로그래밍-패러다임-OOP-언어" class="headerlink" title="프로그래밍 패러다임 - OOP 언어"></a>프로그래밍 패러다임 - OOP 언어</h2><ul>
-<li>사람에게 직관적</li>
-<li>기능과 자료를 하나의 개체(object)에 합쳤다.<ul>
-<li>물체의 개념</li>
-<li>오역으로 인해 주로 객체하고 부른다.</li>
-</ul>
-</li>
-<li>가장 널리 쓰이는 프로그래밍 패러다임<ul>
-<li>사람에게 매우 직관적이다.</li>
-<li>복잡한 프로그램의 구조를 잡기 쉽다.</li>
-</ul>
-</li>
-</ul>
-<h2 id="프로그래밍-패러다임-함수형-언어"><a href="#프로그래밍-패러다임-함수형-언어" class="headerlink" title="프로그래밍 패러다임 - 함수형 언어"></a>프로그래밍 패러다임 - 함수형 언어</h2><ul>
-<li>절차적 언어랑 비슷하게 함수가 있다.</li>
-<li>그러나 상태의 변화가 없다(불변성)</li>
-</ul>
-<h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><ul>
-<li>강한 타입 언어</li>
-<li>매니지드 언어</li>
-<li>OOP</li>
-</ul>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -2091,7 +2081,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">126</span>
+          <span class="site-state-item-count">127</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
