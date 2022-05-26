@@ -14,8 +14,8 @@ tags:
 
 ```javascript
 var expense = {
-  type: "Business",
-  amount: "$45 USD",
+  type: 'Business',
+  amount: '$45 USD',
 };
 
 var type = expense.type;
@@ -45,8 +45,8 @@ _객체 디스트럭처링 할당 방법_
 
 ```javascript
 var savedFiled = {
-  extension: "jpg",
-  name: "repost",
+  extension: 'jpg',
+  name: 'repost',
   size: 14040,
 };
 
@@ -62,17 +62,17 @@ function es6FileSummary({ name, extension, size }, { color }) {
   return `${color} The fils ${name}.${extension} is of size ${size}`;
 }
 
-console.log(es6FileSummary(savedFiled, { color: "red" }));
+console.log(es6FileSummary(savedFiled, { color: 'red' }));
 ```
 
 ## 중첩된 객체의 디스트럭처링 할당
 
 ```javascript
 const person = {
-  name: "Lee",
+  name: 'Lee',
   address: {
-    zipCode: "03068",
-    city: "Seoul",
+    zipCode: '03068',
+    city: 'Seoul',
   },
 };
 
@@ -84,17 +84,17 @@ console.log(city); // 'Seoul'
 
 ```javascript
 var metadata = {
-  title: "Scratchpad",
+  title: 'Scratchpad',
   translations: [
     {
-      locale: "de",
+      locale: 'de',
       localization_tags: [],
-      last_edit: "2014-04-14T08:43:37",
-      url: "/de/docs/Tools/Scratchpad",
-      title: "JavaScript-Umgebung",
+      last_edit: '2014-04-14T08:43:37',
+      url: '/de/docs/Tools/Scratchpad',
+      title: 'JavaScript-Umgebung',
     },
   ],
-  url: "/en-US/docs/Tools/Scratchpad",
+  url: '/en-US/docs/Tools/Scratchpad',
 };
 
 var {
@@ -131,7 +131,7 @@ console.log(one, two, three); // 1 2 3
 ```
 
 - 프로퍼티를 디스트럭처링하고 싶을 때는 {}, 기준: 프로퍼티 키
-- Element를 디스트럭처렁 하고 싶을 때는 [], 기준: 인덱스
+- Element를 디스트럭처링하고 싶을 때는 [], 기준: 인덱스
 
 ---
 
