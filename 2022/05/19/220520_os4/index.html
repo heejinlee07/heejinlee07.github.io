@@ -28,7 +28,7 @@
 <meta property="og:description" content="CPU: 프로그램의 기계어 명령을 실제로 수행하는 컴퓨터 내의 중앙 처리 장치  CPU는 일반적으로 시스템 내에 하나 뿐이기 때문에 여러 프로그램이 동시에 수행되는 시분할 환경에서 매우 효율적으로 관리되어야 한다. 프로그램 실행에는 CPU 내에서 수행되는 기계어 명령은 다음의 세 가지가 있다.  CPU 내에서 수행되는 명령 메모리 접근을 필요로 하는 명령">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-05-19T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-26T03:24:20.544Z">
+<meta property="article:modified_time" content="2022-06-02T06:48:53.984Z">
 <meta property="article:author" content="Heejin Lee">
 <meta name="twitter:card" content="summary">
 
@@ -176,7 +176,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-26 12:24:20" itemprop="dateModified" datetime="2022-05-26T12:24:20+09:00">2022-05-26</time>
+                <time title="Modified: 2022-06-02 15:48:53" itemprop="dateModified" datetime="2022-06-02T15:48:53+09:00">2022-06-02</time>
               </span>
 
           
@@ -238,6 +238,30 @@
 <li><code>대기 시간</code>: 프로세스가 CPU 버스트 기간 중 준비 큐에서 기다린 시간의 합</li>
 <li><code>응답 시간</code>: 프로세스가 CPU 요청 시점부터 처음으로 CPU를 얻을 때까지 걸린 시간. 시분할 환경에서 매우 중요함.</li>
 </ol>
+<hr>
+<h2 id="스케줄링-알고리즘"><a href="#스케줄링-알고리즘" class="headerlink" title="스케줄링 알고리즘"></a>스케줄링 알고리즘</h2><h3 id="1-FCFS-First-Come-First-Served"><a href="#1-FCFS-First-Come-First-Served" class="headerlink" title="1. FCFS (First-Come First-Served)"></a>1. FCFS (First-Come First-Served)</h3><blockquote>
+<p>프로세스가 <code>준비 큐에 도착한 시간 순서대로</code> CPU를 할당</p>
+</blockquote>
+<p>비선점형으로 먼저 요청한 프로세스가 자발적으로 CPU를 반납할 때까지 선점하지 않는다. 따라서 먼저 도착한 프로세스가 작업 시간이 길 경우 다수의 프로세스들이 앞 작업이 끝날 때까지 기다려야 해서 평균 대기 시간이 길어질 수 있다. <em>이렇게 CPU 버스트가 긴 프로세스 다음에 짧은 프로세스가 도착해서 오랜 시간을 기다려야 한다면</em> 이를 <code>콘보이 현상</code>이라고 한다. 이런 경우 I/O 장치의 활용도까지도 떨어지게 된다. 그래서 짧은 프로세스가 도착하면 평균 대기 시간은 짧아지고, 프로세스의 성격에 따라 긴 프로세스가 먼저 도착하면 평균 대기 시간이 길어진다.</p>
+<h3 id="2-SJF-Shortest-Job-First"><a href="#2-SJF-Shortest-Job-First" class="headerlink" title="2. SJF (Shortest-Job-First)"></a>2. SJF (Shortest-Job-First)</h3><blockquote>
+<p>CPU 버스트가 가장 짧은 프로세스에게 제일 먼저 CPU를 할당</p>
+</blockquote>
+<p>평균 대기 시간을 가장 짧게 하는 최적을 알고리즘이다.</p>
+<ul>
+<li>비선점형 방식: 현재 CPU에서 실행중인 프로세스의 남은 CPU 버스트 시간보다 더 짧은 프로세스가 도착하면 CPU를 빼앗긴다. (SRTF: Shortest Remaining Time First)</li>
+<li>선점형 방식: 현재 CPU를 점유하고 있는 프로세스가 CPU 버스트를 모두 수행하고 스스로 CPU를 내어놓을 때까지 스케줄링을 하지 않는다.</li>
+</ul>
+<p>시분할 환경에서는 중간중간 새로운 프로세스가 도착하는 경우가 발생하기 때문에 선점형 방식이 평균 대기 시간을 가장 많이 줄일 수 있다. 하지만 프로세스의 CPU 버스트 시간을 미리 알 수 없기 때문에 과거의 CPU 버스트 시간을 통해 시간을 예측해서 프로세스에 CPU를 할당한다. <em>그런데 어떠한 프로세스가 시작되었는데, 그 다음으로 CPU 버스트가 짧은 프로세스가 계속 도착해서 CPU를 빼앗기게 되고, 짧은 프로세스가 계속 도착하게 되면 처음 프로세스는 영원히 CPU를 할당받을 수 없을 수 있고,</em> 이를 <code>기아(starvation) 현상</code>이라 한다.</p>
+<h3 id="3-우선순위-스케줄링"><a href="#3-우선순위-스케줄링" class="headerlink" title="3. 우선순위 스케줄링"></a>3. 우선순위 스케줄링</h3><blockquote>
+<p>준비 큐에서 기다리는 프로세스들 중에 <code>우선순위가 가장 높은 프로세스</code>에게 제일 먼저 할당</p>
+</blockquote>
+<p>우선순위는 우선순위값을 통해 표시해서 그 값이 작을수록 높은 우선순위를 가지는 것이다. 우선순위 스케줄링도 SJF처럼 기아 현상이 있을 수 있는데, 우선순위가 높은 프로세스가 계속 도착하면 우선순위가 낮은 프로세스는 CPU를 얻지 못하고, 계속 대기해야 하기 때문이다. 이를 해결하기 위해서 <code>노화 기업(aging)</code>을 사용하고, 이는 <em>기다리는 시간이 길어지면 우선순위를 조금씩 높여 언젠가는 가장 높은 우선순위가 되어 CPU를 할당받을 수 있게 하는 것이다.</em></p>
+<h3 id="4-라운드-로빈-스케줄링"><a href="#4-라운드-로빈-스케줄링" class="headerlink" title="4. 라운드 로빈 스케줄링"></a>4. 라운드 로빈 스케줄링</h3><blockquote>
+<p>시분할 시스템의 성질을 가장 잘 활용한 새로운 의미의 스케줄링 방식</p>
+</blockquote>
+<p>각 프로세스가 CPU를 연속적으로 사용할 수 있는 시간이 제한되며, 시간이 경과한 프로세스가 있으면 CPU를 회수해서 준비 큐에 있는 다른 프로세스에게 CPU를 할당한다. <strong>각 프로세스마다 한 번에 CPU를 연속적으로 사용할 수 있는 최대 시간은 할당 시간이라 부른다.</strong> 할당시간이 너무 길면 FCFS처럼 콘보이 현상이 발생할 수 있고, 반대로 너무 짧으면 CPU 프로세스 교체가 빈번해서 문맥 교환에 오버헤드가 커진다. 따라서 할당 시간은 수십 밀리세컨드 정도의 규모로 설정한다. <em>라운드 로빈은 여러 종류의 이질적인 프로세스가 같이 실행되는 환경에서 효과적이고, 대화형 프로세스의 빠른 응답 시간을 보장할 수 있다는 장점이 있다.</em></p>
+<hr>
+<p><em>References</em><br><a href="http://www.kocw.net/home/search/kemView.do?kemId=1046323" target="_blank" rel="noopener">운영체제</a><br>[운영 체제와 정보 기술의 원리] 반효경 지음</p>
 
     </div>
 
@@ -253,10 +277,13 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/05/19/220520_os3/" rel="prev" title="Operating Systems - 프로세스 관리">
-      <i class="fa fa-chevron-left"></i> Operating Systems - 프로세스 관리
+    <a href="/2022/05/15/220516_os2/" rel="prev" title="Operating Systems - 컴퓨터 시스템의 동작 원리">
+      <i class="fa fa-chevron-left"></i> Operating Systems - 컴퓨터 시스템의 동작 원리
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/19/220520_os3/" rel="next" title="Operating Systems - 프로세스 관리">
+      Operating Systems - 프로세스 관리 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -316,7 +343,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU-스케줄러"><span class="nav-number">1.</span> <span class="nav-text">CPU 스케줄러</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#스케줄링-방식"><span class="nav-number">1.1.</span> <span class="nav-text">스케줄링 방식</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#디스패치"><span class="nav-number">2.</span> <span class="nav-text">디스패치</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#스케줄링의-성능-평가"><span class="nav-number">3.</span> <span class="nav-text">스케줄링의 성능 평가</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU-스케줄러"><span class="nav-number">1.</span> <span class="nav-text">CPU 스케줄러</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#스케줄링-방식"><span class="nav-number">1.1.</span> <span class="nav-text">스케줄링 방식</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#디스패치"><span class="nav-number">2.</span> <span class="nav-text">디스패치</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#스케줄링의-성능-평가"><span class="nav-number">3.</span> <span class="nav-text">스케줄링의 성능 평가</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#스케줄링-알고리즘"><span class="nav-number">4.</span> <span class="nav-text">스케줄링 알고리즘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-FCFS-First-Come-First-Served"><span class="nav-number">4.1.</span> <span class="nav-text">1. FCFS (First-Come First-Served)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-SJF-Shortest-Job-First"><span class="nav-number">4.2.</span> <span class="nav-text">2. SJF (Shortest-Job-First)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-우선순위-스케줄링"><span class="nav-number">4.3.</span> <span class="nav-text">3. 우선순위 스케줄링</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-라운드-로빈-스케줄링"><span class="nav-number">4.4.</span> <span class="nav-text">4. 라운드 로빈 스케줄링</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
