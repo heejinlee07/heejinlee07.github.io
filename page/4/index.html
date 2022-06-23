@@ -144,6 +144,411 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/09/25/210926_muiCssInjectionOrder/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/25/210926_muiCssInjectionOrder/" class="post-title-link" itemprop="url">MUI CSS injection order 원문 축약</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-26 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-26T00:00:00+09:00">2021-09-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-23 11:05:58" itemprop="dateModified" datetime="2022-06-23T11:05:58+09:00">2022-06-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>원문 링크: <a href="https://mui.com/styles/advanced/#string-templates" target="_blank" rel="noopener">https://mui.com/styles/advanced/#string-templates</a></p>
+</blockquote>
+<h2 id="CSS-injection-order"><a href="#CSS-injection-order" class="headerlink" title="CSS injection order"></a>CSS injection order</h2><blockquote>
+<p>CSS가 어떻게 브라우저에 의해 계산되는지 이해하는 것은 언제 스타일 오버라이딩이 되는지 알기 위한 키포인트이기 때문에 매우 중요하다. 이와 관련하여 MDN의 <a href="https://developer.mozilla.org/ko/docs/Web/CSS/Specificity" target="_blank" rel="noopener">어떻게 계산되는가?</a>를 읽어보는 것을 추천한다.</p>
+</blockquote>
+<p>기본적으로 style 태그는 페이지의 <code>&lt;head&gt;</code> 엘리먼트의 가장 마지막에 주입된다. 이 style 태그는 페이지의 다른 어떤 style 태그 (e.g. CSS module, styled components) 보다도 특수함을 가진다.</p>
+<h2 id="injectFirst"><a href="#injectFirst" class="headerlink" title="injectFirst"></a>injectFirst</h2><p><code>StylesProvider</code> 컴포넌트는 <code>injectFirst</code> prop를 가지고 있어서 head(낮은 우선순위)에서 가장 먼저 주입되는 style tag이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; StylesProvider &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span></span><br><span class="line"></span><br><span class="line">;<span class="xml"><span class="tag">&lt;<span class="name">StylesProvider</span> <span class="attr">injectFirst</span>&gt;</span></span></span><br><span class="line"><span class="xml">  &#123;/* Your component tree.</span></span><br><span class="line"><span class="xml">      Styled components can override MUI's styles. */&#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">StylesProvider</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="makeStyles-withStyles-styled"><a href="#makeStyles-withStyles-styled" class="headerlink" title="makeStyles / withStyles / styled"></a>makeStyles / withStyles / styled</h2><p>주입되는 style tag는 makeStyles / withStyles / styled가 발생하는 같은 순위에서 발생한다. 예를 들어 color red가 아래 예시에서 우세하다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> clsx <span class="keyword">from</span> <span class="string">'clsx'</span></span><br><span class="line"><span class="keyword">import</span> &#123; makeStyles &#125; <span class="keyword">from</span> <span class="string">'@mui/styles'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> useStylesBase = makeStyles(&#123;</span><br><span class="line">  root: &#123;</span><br><span class="line">    color: <span class="string">'blue'</span> <span class="comment">// 🔵</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> useStyles = makeStyles(&#123;</span><br><span class="line">  root: &#123;</span><br><span class="line">    color: <span class="string">'red'</span> <span class="comment">// 🔴</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">MyComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Order doesn't matter</span></span><br><span class="line">  <span class="keyword">const</span> classes = useStyles()</span><br><span class="line">  <span class="keyword">const</span> classesBase = useStylesBase()</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Order doesn't matter</span></span><br><span class="line">  <span class="keyword">const</span> className = clsx(classes.root, classesBase.root)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// color: red 🔴 wins.</span></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;className&#125;</span> /&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>hook의 호출 순서와 class name의 연속적인 순서는 상관 없다.</p>
+<h2 id="insertionPoint"><a href="#insertionPoint" class="headerlink" title="insertionPoint"></a>insertionPoint</h2><p>JSS는 이러한 상황을 해결할 수 있는 <a href="https://github.com/cssinjs/jss/blob/master/docs/setup.md#specify-the-dom-insertion-point" target="_blank" rel="noopener">매커니즘</a>을 제공한다. HTML내에 삽입점을 추가하는 것으로 CSS 규칙이 components에 <a href="https://cssinjs.org/jss-api/?v=v10.8.0#attach-style-sheets-in-a-specific-order" target="_blank" rel="noopener">적용되는 순서를 제어할 수 있다.</a></p>
+<hr>
+<p><em>References</em><br><a href="https://mui.com/styles/advanced/#string-templates" target="_blank" rel="noopener">CSS injection order</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/09/24/210925_nextjsTypescript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/24/210925_nextjsTypescript/" class="post-title-link" itemprop="url">Next.js와 TypeScript 원문 번역</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-25 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-25T00:00:00+09:00">2021-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-23 11:05:58" itemprop="dateModified" datetime="2022-06-23T11:05:58+09:00">2022-06-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>원문링크: <a href="https://nextjs.org/docs/basic-features/typescript#incremental-type-checking" target="_blank" rel="noopener">https://nextjs.org/docs/basic-features/typescript#incremental-type-checking</a></p>
+</blockquote>
+<h2 id="create-next-app-support"><a href="#create-next-app-support" class="headerlink" title="create-next-app support"></a>create-next-app support</h2><p>TypeScript project를 <code>create-next-app</code>과 함께 <code>--ts</code>, <code>--typescript</code> 를 사용하여 아래와 같이 생성할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npx create-next-app --ts</span><br><span class="line"># or</span><br><span class="line">yarn create next-app --typescript</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Existing-projects"><a href="#Existing-projects" class="headerlink" title="Existing projects"></a>Existing projects</h2><p>이미 존재하는 project에 적용하려면 root folder에 빈 <code>tsconfig.json</code> file을 생성한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch tsconfig.json</span><br></pre></td></tr></table></figure>
+<p>Next.js는 자동으로 이 파일 안에 default values를 설정한다. custom <a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html" target="_blank" rel="noopener">complier options</a>로 <code>tsconfig.json</code>을 작성하는 것 또한 지원된다.</p>
+<blockquote>
+<p>Next.js는 TypeScript를 핸들링하기 위해 Babel을 사용하는데 몇가지 <a href="https://babeljs.io/docs/en/babel-plugin-transform-typescript#caveats" target="_blank" rel="noopener">주의사항</a>이 있고 <a href="https://babeljs.io/docs/en/babel-plugin-transform-typescript#typescript-compiler-options" target="_blank" rel="noopener">일부 컴파일러 옵션은 다르게 처리된다.</a></p>
+</blockquote>
+<p><code>next(npm run dev or yarn dev)</code>를 실행하면, Next.js가 setup을 완료하기 위해 설치가 필요한 패키지를 안내한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br><span class="line"></span><br><span class="line"># You&#39;ll see instructions like these:</span><br><span class="line">#</span><br><span class="line"># Please install typescript, @types&#x2F;react, and @types&#x2F;node by running:</span><br><span class="line">#</span><br><span class="line">#         yarn add --dev typescript @types&#x2F;react @types&#x2F;node</span><br><span class="line">#</span><br><span class="line"># ...</span><br></pre></td></tr></table></figure>
+<p>이렇게 하면 <code>.js</code> 파일을 <code>.tsx</code>로 전환할 준비가 완료되었고, TypeScript를 사용할 수 있게 된다.</p>
+<hr>
+<blockquote>
+<p><code>next-env.d.ts</code>라는 이름의 파일이 프로젝트의 root에 생성된다. 이 파일은 TypeScript complier가 Next.js의 type을 선택하도록 한다. 이는 매번 변경되므로 <strong>임의로 삭제하거나 편집하지 않도록 한다.</strong></p>
+<p>TypeScript <code>strict</code> 모드는 기본적으로 꺼져있다. TypeScript를 편하게 사용하려면 <code>tsconfig.json</code>파일 내에 이 모드를 켜도록 한다.</p>
+<p><code>next-env.d.ts</code>를 편집하는 대신 <code>additional.d.ts</code>와 같은 새 파일을 추가한 다음, <code>tsconfig.json</code> 의 <a href="https://www.typescriptlang.org/tsconfig#include" target="_blank" rel="noopener">include</a> 배열에서 참조하여 새로운 타입 유형을 추가할 수 있다.</p>
+</blockquote>
+<p>기본적으로 Next.js는 <code>next build</code>의 일부로 type checking를 수행한다. 개발하는 동안에는 code editior를 이용하여 type checking을 할 것을 추천한다.</p>
+<p>만약 error report를 무시하고 싶다면, <a href="https://nextjs.org/docs/api-reference/next.config.js/ignoring-typescript-errors" target="_blank" rel="noopener">Ignoring TypeScript errors</a>와 관련된 문서를 확인하도록 한다.</p>
+<hr>
+<h2 id="Static-Generation-and-Server-side-Rendering"><a href="#Static-Generation-and-Server-side-Rendering" class="headerlink" title="Static Generation and Server-side Rendering"></a>Static Generation and Server-side Rendering</h2><p><code>getStaticProps</code>, <code>getStaticPaths</code>, <code>getServerSideProps</code>을 위해 각각 <code>getStaticProps</code>, <code>getStaticPaths</code>, <code>getServerSideProps</code> type을 사용할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; GetStaticProps, GetStaticPaths, GetServerSideProps &#125; <span class="keyword">from</span> <span class="string">'next'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getStaticProps: GetStaticProps = <span class="keyword">async</span> (context) =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getStaticPaths: GetStaticPaths = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getServerSideProps: GetServerSideProps = <span class="keyword">async</span> (context) =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>만약 <code>getInitialProps</code>를 사용하려면 <a href="https://nextjs.org/docs/api-reference/data-fetching/getInitialProps#typescript" target="_blank" rel="noopener">이 링크</a>를 참조한다.</p>
+</blockquote>
+<hr>
+<h2 id="API-Routes"><a href="#API-Routes" class="headerlink" title="API Routes"></a>API Routes</h2><p>아래 예제는 API routes의 빌트인 타입을 사용하는 방법이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> type &#123; NextApiRequest, NextApiResponse &#125; <span class="keyword">from</span> <span class="string">'next'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (req: NextApiRequest, <span class="attr">res</span>: NextApiResponse) =&gt; &#123;</span><br><span class="line">  res.status(<span class="number">200</span>).json(&#123; <span class="attr">name</span>: <span class="string">'John Doe'</span> &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>reponse data에 type을 사용할 수도 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> type &#123; NextApiRequest, NextApiResponse &#125; <span class="keyword">from</span> <span class="string">'next'</span>;</span><br><span class="line"></span><br><span class="line">type Data = &#123;</span><br><span class="line">  name: string,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (req: NextApiRequest, <span class="attr">res</span>: NextApiResponse&lt;Data&gt;) =&gt; &#123;</span><br><span class="line">  res.status(<span class="number">200</span>).json(&#123; <span class="attr">name</span>: <span class="string">'John Doe'</span> &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Custom-App"><a href="#Custom-App" class="headerlink" title="Custom App"></a>Custom App</h2><p>만약 <a href="https://nextjs.org/docs/advanced-features/custom-app" target="_blank" rel="noopener">custom App</a>을 사용한다면 빌트인 타입인 <code>AppProps</code>를 사용할 수 있고 파일 이름을 <code>./pages/_app.tsx</code>와 같이 변경할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// import App from "next/app";</span></span><br><span class="line"><span class="keyword">import</span> type &#123; AppProps <span class="comment">/*, AppContext */</span> &#125; <span class="keyword">from</span> <span class="string">'next/app'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyApp</span>(<span class="params">&#123; Component, pageProps &#125;: AppProps</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Component</span> &#123;<span class="attr">...pageProps</span>&#125; /&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Only uncomment this method if you have blocking data requirements for</span></span><br><span class="line"><span class="comment">// every single page in your application. This disables the ability to</span></span><br><span class="line"><span class="comment">// perform automatic static optimization, causing every page in your app to</span></span><br><span class="line"><span class="comment">// be server-side rendered.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// MyApp.getInitialProps = async (appContext: AppContext) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   // calls page's `getInitialProps` and fills `appProps.pageProps`</span></span><br><span class="line"><span class="comment">//   const appProps = await App.getInitialProps(appContext);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//   return &#123; ...appProps &#125;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> MyApp;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Path-aliases-and-baseUrl"><a href="#Path-aliases-and-baseUrl" class="headerlink" title="Path aliases and baseUrl"></a>Path aliases and baseUrl</h2><p>Next.js는 자동으로 tsconfig.json <code>paths</code>와 <code>baseUrl</code> 옵션을 제공한다. Module Path aliases와 관련된 특징을 더 알아보고 싶다면 <a href="https://nextjs.org/docs/advanced-features/module-path-aliases" target="_blank" rel="noopener">이 링크</a>를 참조한다.</p>
+<h2 id="Type-checking-next-config-js"><a href="#Type-checking-next-config-js" class="headerlink" title="Type checking next.config.js"></a>Type checking next.config.js</h2><p><code>next.config.js</code> 파일은 반드시 JavaScript 파일이어야 하고, Babel이나 TypeScript로 parse되어서는 안된다.하지만 아래와 같이 JSDoc를 이용해서 IDE에서의 몇 가지 type checking를 추가할 수는 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; @ts-check</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @type &#123;import(&#39;next&#39;).NextConfig&#125;</span><br><span class="line"> **&#x2F;</span><br><span class="line">const nextConfig &#x3D; &#123;</span><br><span class="line">  &#x2F;* config options here *&#x2F;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; nextConfig</span><br></pre></td></tr></table></figure>
+<h2 id="Incremental-type-checking"><a href="#Incremental-type-checking" class="headerlink" title="Incremental type checking"></a>Incremental type checking</h2><p><code>v10.2.1</code>부터 Next.js는 <a href="https://www.typescriptlang.org/tsconfig#incremental" target="_blank" rel="noopener">incremental type checking</a>를 <code>tsconfig.json</code>에서 사용할 수 있도록 지원한다. 이는 대규모 application에서 type checking을 빠르게 할 수 있도록 돕는다. 최소한 <code>v4.3.2</code>이상의 TypeScript를 사용하고 있다면 최고의 성능을 경험하기 위해 이를 사용하는 것이 추천된다.</p>
+<hr>
+<p><em>References</em><br><a href="https://nextjs.org/docs/basic-features/typescript#incremental-type-checking" target="_blank" rel="noopener">Next.js - TypeScript</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/09/01/210902_axios/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/01/210902_axios/" class="post-title-link" itemprop="url">Axios</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-02 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-02T00:00:00+09:00">2021-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-23 11:05:58" itemprop="dateModified" datetime="2022-06-23T11:05:58+09:00">2022-06-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>원문링크: <a href="https://axios-http.com/" target="_blank" rel="noopener">https://axios-http.com/</a></p>
+</blockquote>
+<h2 id="Axios란"><a href="#Axios란" class="headerlink" title="Axios란"></a>Axios란</h2><p>node.js와 브라우저를 위한 promise 기반의 HTTP Client. 브라우저와 nodejs에서 동일한 코드가 동일하게 동작한다. server-side에서는 native 기반의 node.js httop 모듈을 사용하고, client(브라우저)에서는 XMLHttpRequests를 사용한다.</p>
+<h2 id="특징"><a href="#특징" class="headerlink" title="특징"></a>특징</h2><ul>
+<li>브라우저로부터 XMLHttpRequests를 만든다.</li>
+<li>node.js로부터 http 요청을 만든다.</li>
+<li>Promise API를 보조한다.</li>
+<li>request와 response를 중간에서 가로채어 관리한다.</li>
+<li>request와 response 데이터를 전송한다.</li>
+<li>request를 취소한다.</li>
+<li>JSON data에 대한 자동 변환.</li>
+<li>XSRF로부터 보호하기 위해 client side를 보조한다.</li>
+</ul>
+<h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><p><strong>1. using npm</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install axios</span><br></pre></td></tr></table></figure>
+<p><strong>2. using bower</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower install axios</span><br></pre></td></tr></table></figure>
+<p><strong>3. using yarn</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn add axios</span><br></pre></td></tr></table></figure>
+<p><strong>4. using jsDelivr CDN</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>5. Using unpkg CDN</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/axios/dist/axios.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="예시"><a href="#예시" class="headerlink" title="예시"></a>예시</h2><h3 id="CommonJS-usage"><a href="#CommonJS-usage" class="headerlink" title="CommonJS usage"></a>CommonJS usage</h3><p>TypeScript typings (for intellisense / autocomplete)이 가능하게 하기 위해 CommonJS를 사용할 때는 아래 예시처럼 <code>require()</code>를 import한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> axios = <span class="built_in">require</span>(<span class="string">'axios'</span>).default;</span><br><span class="line"></span><br><span class="line"><span class="comment">// axios.&lt;method&gt;를 쓰게 되면 autocomplete과 parameter typings의 사용이 가능해진다.</span></span><br></pre></td></tr></table></figure>
+<h3 id="GET-request를-수행하는-예제"><a href="#GET-request를-수행하는-예제" class="headerlink" title="GET request를 수행하는 예제"></a>GET request를 수행하는 예제</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> axios = <span class="built_in">require</span>(<span class="string">'axios'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Make a request for a user with a given ID</span></span><br><span class="line">axios</span><br><span class="line">  .get(<span class="string">'/user?ID=12345'</span>)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// handle success</span></span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// handle error</span></span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 항상 실행된다.</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 선택적으로 위의 요청을 아래와 같이 수행할 수 있다.</span></span><br><span class="line">axios</span><br><span class="line">  .get(<span class="string">'/user'</span>, &#123;</span><br><span class="line">    params: &#123;</span><br><span class="line">      ID: <span class="number">12345</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 항상 실행된다.</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// async/await를 쓰고 싶다면 'async' 키워드를 function/method의 바깥쪽에 붙여준다.</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getUser</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> axios.get(<span class="string">'/user?ID=12345'</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="POST-Requests"><a href="#POST-Requests" class="headerlink" title="POST Requests"></a>POST Requests</h2><p>Axios를 가지고 POST request를 요청하는 방법</p>
+<h3 id="POST-request를-수행하는-예제"><a href="#POST-request를-수행하는-예제" class="headerlink" title="POST request를 수행하는 예제"></a>POST request를 수행하는 예제</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">axios</span><br><span class="line">  .post(<span class="string">'/user'</span>, &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span>,</span><br><span class="line">    lastName: <span class="string">'Flintstone'</span>,</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="여러-요청을-동시에-수행하는-예제"><a href="#여러-요청을-동시에-수행하는-예제" class="headerlink" title="여러 요청을 동시에 수행하는 예제"></a>여러 요청을 동시에 수행하는 예제</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserAccount</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios.get(<span class="string">'/user/12345'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserPermissions</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios.get(<span class="string">'/user/12345/permissions'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.all([getUserAccount(), getUserPermissions()]).then(<span class="function"><span class="keyword">function</span> (<span class="params">results</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> acct = results[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">const</span> perm = results[<span class="number">1</span>];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Axios-API"><a href="#Axios-API" class="headerlink" title="Axios API"></a>Axios API</h2><p>request는 관련된 config를 통해 axios로 전달된다.</p>
+<h3 id="axios-config"><a href="#axios-config" class="headerlink" title="axios(config)"></a>axios(config)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// POST request를 보낸다.</span></span><br><span class="line">axios(&#123;</span><br><span class="line">  method: <span class="string">'post'</span>,</span><br><span class="line">  url: <span class="string">'/user/12345'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span>,</span><br><span class="line">    lastName: <span class="string">'Flintstone'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// node.js remote image에 대한 GET request</span></span><br><span class="line">axios(&#123;</span><br><span class="line">  method: <span class="string">'get'</span>,</span><br><span class="line">  url: <span class="string">'http://bit.ly/2mTM3nY'</span>,</span><br><span class="line">  responseType: <span class="string">'stream'</span>,</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">  response.data.pipe(fs.createWriteStream(<span class="string">'ada_lovelace.jpg'</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="axios-url-config"><a href="#axios-url-config" class="headerlink" title="axios(url[, config])"></a>axios(url[, config])</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Send a GET request (default method)</span></span><br><span class="line">axios(<span class="string">'/user/12345'</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="Request-method-aliases"><a href="#Request-method-aliases" class="headerlink" title="Request method aliases"></a>Request method aliases</h3><p>편의를 위해 지원되는 모든 요청 메서드에 대한 alias가 제공된다. alias method인 url, method, data 속성을 쓸 때는 config에 작성할 필요없다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">axios.request(config)</span><br><span class="line">axios.get(url[, config])</span><br><span class="line">axios.delete(url[, config])</span><br><span class="line">axios.head(url[, config])</span><br><span class="line">axios.options(url[, config])</span><br><span class="line">axios.post(url[, data[, config]])</span><br><span class="line">axios.put(url[, data[, config]])</span><br><span class="line">axios.patch(url[, data[, config]])</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="The-Axios-Instance"><a href="#The-Axios-Instance" class="headerlink" title="The Axios Instance"></a>The Axios Instance</h2><h3 id="Creating-an-instance"><a href="#Creating-an-instance" class="headerlink" title="Creating an instance"></a>Creating an instance</h3><p>custom config를 통해 axios의 새로운 인스턴스를 생성할 수 있다.</p>
+<h3 id="axios-create-config"><a href="#axios-create-config" class="headerlink" title="axios.create([config])"></a>axios.create([config])</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">  baseURL: <span class="string">'https://some-domain.com/api/'</span>,</span><br><span class="line">  timeout: <span class="number">1000</span>,</span><br><span class="line">  headers: &#123; <span class="string">'X-Custom-Header'</span>: <span class="string">'foobar'</span> &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Instance-methods"><a href="#Instance-methods" class="headerlink" title="Instance methods"></a>Instance methods</h3><p>사용 가능한 인스턴스 메소드는 아래와 같다. 명시된 config는 instance config와 병합된다.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">axios#request(config)</span><br><span class="line">axios#get(url[, config])</span><br><span class="line">axios#delete(url[, config])</span><br><span class="line">axios#head(url[, config])</span><br><span class="line">axios#options(url[, config])</span><br><span class="line">axios#post(url[, data[, config]])</span><br><span class="line">axios#put(url[, data[, config]])</span><br><span class="line">axios#patch(url[, data[, config]])</span><br><span class="line">axios#getUri([config])</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://axios-http.com/" target="_blank" rel="noopener">Axios</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/08/25/210826_rtk-mutation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/25/210826_rtk-mutation/" class="post-title-link" itemprop="url">RTK Query Mutation 원문 번역</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-26 00:00:00" itemprop="dateCreated datePublished" datetime="2021-08-26T00:00:00+09:00">2021-08-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-23 11:05:58" itemprop="dateModified" datetime="2022-06-23T11:05:58+09:00">2022-06-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>원문링크: <a href="https://redux-toolkit.js.org/rtk-query/usage/mutations" target="_blank" rel="noopener">https://redux-toolkit.js.org/rtk-query/usage/mutations</a></p>
+</blockquote>
+<h1 id="Mutation"><a href="#Mutation" class="headerlink" title="Mutation"></a>Mutation</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>mutation은 서버에 데이터 업데이트를 보낼 때 사용하고, 이를 로컬 캐시에 적용하도록 한다. 또 유효하지 않은 데이터를 걸러내고, 강제로 re-fetch할 수 있도록 한다.</p>
+<h2 id="Defining-Mutation-Endpoints"><a href="#Defining-Mutation-Endpoints" class="headerlink" title="Defining Mutation Endpoints"></a>Defining Mutation Endpoints</h2><p>Mutation Endpoints는 createApi의 endpoints 섹션에 return 되는 객체로 정의된다. 정의되는 곳에서는 builder.mutation() 메소드를 통해 정의한다.</p>
+<p>Mutation Endpoints는 URL(URL query params를 포함하는)의 구조의 query 콜백이나 queryFn 콜백에 정의해야 되는데, queryFn callback은 임의로 async 로직을 구성하고 결과를 반환한다. query 콜백은 URL, request 메소드에 사용하는 HTTP 메소드를 포함한 객체를 반환한다.</p>
+<p>query 콜백이 URL을 생성하기 위한 추가 데이터가 필요한 경우에는 단일 인수로 작성되어야 하고, 만약 여러 파라미터를 전달할 예정이라면 단일 옵션 개체(option object)의 형태로 전달되어야 한다.</p>
+<p>Mutation endpoints는 결과가 캐시되기 전에 response 내용을 수정하고, tags를 정의하여 캐시 무효화를 식별하고, 캐시 항목이 추가 및 제거될 때까지 전체 라이프 사이클 콜백을 제공한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Example of all mutation endpoint options</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Post &#125; <span class="keyword">from</span> <span class="string">'./types'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> api = createApi(&#123;</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123;</span><br><span class="line">    baseUrl: <span class="string">'/'</span>,</span><br><span class="line">  &#125;),</span><br><span class="line">  tagTypes: [<span class="string">'Post'</span>],</span><br><span class="line">  endpoints: <span class="function">(<span class="params">build</span>) =&gt;</span> (&#123;</span><br><span class="line">    updatePost: build.mutation&lt;Post, Partial&lt;Post&gt; &amp; Pick&lt;Post, <span class="string">'id'</span>&gt;&gt;(&#123;</span><br><span class="line">      <span class="comment">// note: an optional `queryFn` may be used in place of `query`</span></span><br><span class="line">      query: <span class="function">(<span class="params">&#123; id, ...patch &#125;</span>) =&gt;</span> (&#123;</span><br><span class="line">        url: <span class="string">`post/<span class="subst">$&#123;id&#125;</span>`</span>,</span><br><span class="line">        method: <span class="string">'PATCH'</span>,</span><br><span class="line">        body: patch,</span><br><span class="line">      &#125;),</span><br><span class="line">      <span class="comment">// Pick out data and prevent nested properties in a hook or selector</span></span><br><span class="line">      transformResponse: <span class="function">(<span class="params">response: &#123; data: Post &#125;</span>) =&gt;</span> response.data,</span><br><span class="line">      invalidatesTags: [<span class="string">'Post'</span>],</span><br><span class="line">      <span class="comment">// onQueryStarted is useful for optimistic updates</span></span><br><span class="line">      <span class="comment">// The 2nd parameter is the destructured `MutationLifecycleApi`</span></span><br><span class="line">      <span class="keyword">async</span> onQueryStarted(</span><br><span class="line">        arg,</span><br><span class="line">        &#123; dispatch, getState, queryFulfilled, requestId, extra, getCacheEntry &#125;</span><br><span class="line">      ) &#123;&#125;,</span><br><span class="line">      <span class="comment">// The 2nd parameter is the destructured `MutationCacheLifecycleApi`</span></span><br><span class="line">      <span class="keyword">async</span> onCacheEntryAdded(</span><br><span class="line">        arg,</span><br><span class="line">        &#123;</span><br><span class="line">          dispatch,</span><br><span class="line">          getState,</span><br><span class="line">          extra,</span><br><span class="line">          requestId,</span><br><span class="line">          cacheEntryRemoved,</span><br><span class="line">          cacheDataLoaded,</span><br><span class="line">          getCacheEntry,</span><br><span class="line">        &#125;</span><br><span class="line">      ) &#123;&#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>onQueryStarted는 <a href="https://redux-toolkit.js.org/rtk-query/usage/optimistic-updates" target="_blank" rel="noopener">optimistic update</a>에 사용할 수 있다.</p>
+<hr>
+<h2 id="Performing-Mutations-with-React-Hooks"><a href="#Performing-Mutations-with-React-Hooks" class="headerlink" title="Performing Mutations with React Hooks"></a>Performing Mutations with React Hooks</h2><h3 id="Mutation-Hook-Behavior"><a href="#Mutation-Hook-Behavior" class="headerlink" title="Mutation Hook Behavior"></a>Mutation Hook Behavior</h3><p>useQuery와 달리 useMutation는 tuple을 반환한다. tuple의 첫 번째 아이템은 ‘trigger’ 함수이고, 두 번째 아이템은 status, error, data를 포함하는 객체이다.</p>
+<p>useQuery hook과 달리 useMutation은 자동으로 실행되지 않는다. mutation을 실행하기 위해서 hook의 첫 번째 tuple 값인 trigger 함수를 호출해야 한다. <a href="https://redux-toolkit.js.org/rtk-query/api/created-api/hooks#usemutation" target="_blank" rel="noopener">useMutaion</a>과 관련된 자세한 내용은 링크를 참조한다.</p>
+<h3 id="Frequently-Used-Mutation-Hook-Return-Values"><a href="#Frequently-Used-Mutation-Hook-Return-Values" class="headerlink" title="Frequently Used Mutation Hook Return Values"></a>Frequently Used Mutation Hook Return Values</h3><p>useMutation hook은 mutaion trigger 함수를 포함하는 tuple과 mutation 결과와 관련된 속성을 포함하는 객체를 반환한다 하였다.</p>
+<p>mutaion trigger 함수가 호출될 때 해당 엔드포인트에 대한 요청을 시작한다. mutation trigger를 호출하면 upwarp 속성이 포함된 프로미스를 반환하는데, 이 속성을 호출하는 것을 통해 mutation 호출을 풀고, raw한 reponse와 error를 제공할 수 있다. 이는 mutation의 호출되는 영역에서 성공/실패 여부를 결정하는 경우에 유용하다.</p>
+<p>mutation result는 mutation 요청에 대한 가장 최신의 data와 같은 속성을 포함하는 객체인데, 이 뿐 만 아니라 현재 요청한 라이프사이클 state에 대한 boolean 속성도 포함하고 있다.</p>
+<p>아래는 mutation result 객체에서 가장 자주 사용하는 속성들이다. <a href="https://redux-toolkit.js.org/rtk-query/api/created-api/hooks#usemutation" target="_blank" rel="noopener">useMutation</a>가 return하는 전체 속성에 대한 내용은 링크를 참조한다.</p>
+<ul>
+<li>data: 존재하는 경우에, 가장 최신의 trigger response로 부터 반환된 데이터. 만약 동일한 hook의 인스턴스에서 후속 trigger가 호출되면 새로운 데이터를 받기 전에는 undefined를 반환한다. 이전 데이터에서 새로운 데이터로의 원활한 전환을 위해서 컴포넌트 레벨의 고려해야 한다.</li>
+<li>error: 존재하는 경우 에러의 결과.</li>
+<li>isUninitialized: true일 때, mutation이 아직 발생하지 않았음을 나타낸다.</li>
+<li>isLoading: true일 경우에 mutation이 아직 발생했고, reponse를 기다리는 중임을 나타낸다.</li>
+<li>isSuccess: true일 경우에 마자믹으로 실행된 mutation에서 성공적인 요청으로 부터 얻은 데이터가 있음을 나타낸다.</li>
+<li>isError: true일 때, 마지막으로 실행된 mutation에서 error 상태를 얻었음을 나타낸다.</li>
+</ul>
+<p>note: RTK 쿼리에서 mutation은 <a href="https://redux-toolkit.js.org/rtk-query/usage/queries#frequently-used-query-hook-return-values" target="_blank" rel="noopener">query</a>가 그런 것 처럼 ‘loading’와 ‘fetching’ 사이에 시멘틱한 구분을 포함하고 있지 않다. mutation은 후속 call이 반드시 관련이 있는 것이라고 가정하지 않기 때문에, mutation은 ‘no fetching’과 같은 컨셉이 없고, ‘loading’ 또는 ‘not loading’의 컨셉을 가진다.</p>
+<hr>
+<h2 id="Standard-Mutation-Example"><a href="#Standard-Mutation-Example" class="headerlink" title="Standard Mutation Example"></a>Standard Mutation Example</h2><p>페이지 하단의 updataPost mutation의 완전한 수정된 예시이다. 이 시나리오에서 post는 useQuery로 fetch되었고, post의 이름을 수정할 수 있는 EditablePostName 컴포넌트가 렌더된다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//src/features/posts/PostDetail.tsx</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> PostDetail = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; id &#125; = useParams&lt;&#123; <span class="attr">id</span>: any &#125;&gt;()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> &#123; <span class="attr">data</span>: post &#125; = useGetPostQuery(id)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [</span><br><span class="line">    updatePost, <span class="comment">// This is the mutation trigger</span></span><br><span class="line">    &#123; <span class="attr">isLoading</span>: isUpdating &#125;, <span class="comment">// This is the destructured mutation result</span></span><br><span class="line">  ] = useUpdatePostMutation()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Box p=&#123;<span class="number">4</span>&#125;&gt;</span><br><span class="line">      &lt;EditablePostName</span><br><span class="line">        name=&#123;post.name&#125;</span><br><span class="line">        onUpdate=&#123;(name) =&gt; &#123;</span><br><span class="line">          <span class="comment">// If you want to immediately access the result of a mutation, you need to chain `.unwrap()`</span></span><br><span class="line">          <span class="comment">// if you actually want the payload or to catch the error.</span></span><br><span class="line">          <span class="comment">// Example: `updatePost().unwrap().then(fulfilled =&gt; console.log(fulfilled)).catch(rejected =&gt; console.error(rejected))</span></span><br><span class="line"></span><br><span class="line">          <span class="keyword">return</span> (</span><br><span class="line">            <span class="comment">// Execute the trigger with the `id` and updated `name`</span></span><br><span class="line">            updatePost(&#123; id, name &#125;)</span><br><span class="line">          )</span><br><span class="line">        &#125;&#125;</span><br><span class="line">        isLoading=&#123;isUpdating&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">    &lt;<span class="regexp">/Box&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Advanced-Mutations-with-Revalidation"><a href="#Advanced-Mutations-with-Revalidation" class="headerlink" title="Advanced Mutations with Revalidation"></a>Advanced Mutations with Revalidation</h2><p>일반적으로 개발자가 mutation(revalidation)을 수행한 후 로컬 데이터 캐시를 서버와 재동기화하려는 경우가 매우 흔하다. RTK Query는 이에 대해 보다 중앙집권화 된 접근방법을 취함으로써 API 정의에서 invalidation 동작을 구성해야 한다. <a href="https://redux-toolkit.js.org/rtk-query/usage/automated-refetching#advanced-invalidation-with-abstract-tag-ids" target="_blank" rel="noopener">Advanced Invalidation with abstract tag IDs</a>를 통해 RTK Query와 Invalidation에 대한 자세한 내용을 참조하라.</p>
+<h2 id="Revalidation-Example"><a href="#Revalidation-Example" class="headerlink" title="Revalidation Example"></a>Revalidation Example</h2><p>post의 <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete" target="_blank" rel="noopener">CRUD service</a> 예시이다. 이는 <a href="https://redux-toolkit.js.org/rtk-query/usage/automated-refetching#selectively-invalidating-lists" target="_blank" rel="noopener">Selectively invalidating lists</a>의 전략을 구현하고, 실제 어플리케이션을 위한 좋은 기반을 제공한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//src/app/services/posts.ts</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Or from '@reduxjs/toolkit/query' if not using the auto-generated hooks</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query/react'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> interface Post &#123;</span><br><span class="line">  id: number</span><br><span class="line">  name: string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type PostsResponse = Post[]</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> postApi = createApi(&#123;</span><br><span class="line">  reducerPath: <span class="string">'postsApi'</span>,</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123; <span class="attr">baseUrl</span>: <span class="string">'/'</span> &#125;),</span><br><span class="line">  tagTypes: [<span class="string">'Posts'</span>],</span><br><span class="line">  endpoints: <span class="function">(<span class="params">build</span>) =&gt;</span> (&#123;</span><br><span class="line">    getPosts: build.query&lt;PostsResponse, <span class="keyword">void</span>&gt;(&#123;</span><br><span class="line">      query: <span class="function"><span class="params">()</span> =&gt;</span> <span class="string">'posts'</span>,</span><br><span class="line">      <span class="comment">// Provides a list of `Posts` by `id`.</span></span><br><span class="line">      <span class="comment">// If any mutation is executed that `invalidate`s any of these tags, this query will re-run to be always up-to-date.</span></span><br><span class="line">      <span class="comment">// The `LIST` id is a "virtual id" we just made up to be able to invalidate this query specifically if a new `Posts` element was added.</span></span><br><span class="line">      providesTags: <span class="function">(<span class="params">result</span>) =&gt;</span></span><br><span class="line">        <span class="comment">// is result available?</span></span><br><span class="line">        result</span><br><span class="line">          ? <span class="comment">// successful query</span></span><br><span class="line">            [</span><br><span class="line">              ...result.map(<span class="function">(<span class="params">&#123; id &#125;</span>) =&gt;</span> (&#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, id &#125; <span class="keyword">as</span> <span class="keyword">const</span>)),</span><br><span class="line">              &#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, <span class="attr">id</span>: <span class="string">'LIST'</span> &#125;,</span><br><span class="line">            ]</span><br><span class="line">          : <span class="comment">// an error occurred, but we still want to refetch this query when `&#123; type: 'Posts', id: 'LIST' &#125;` is invalidated</span></span><br><span class="line">            [&#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, <span class="attr">id</span>: <span class="string">'LIST'</span> &#125;],</span><br><span class="line">    &#125;),</span><br><span class="line">    addPost: build.mutation&lt;Post, Partial&lt;Post&gt;&gt;(&#123;</span><br><span class="line">      query(body) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          url: <span class="string">`post`</span>,</span><br><span class="line">          method: <span class="string">'POST'</span>,</span><br><span class="line">          body,</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// Invalidates all Post-type queries providing the `LIST` id - after all, depending of the sort order,</span></span><br><span class="line">      <span class="comment">// that newly created post could show up in any lists.</span></span><br><span class="line">      invalidatesTags: [&#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, <span class="attr">id</span>: <span class="string">'LIST'</span> &#125;],</span><br><span class="line">    &#125;),</span><br><span class="line">    getPost: build.query&lt;Post, number&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">id</span>) =&gt;</span> <span class="string">`post/<span class="subst">$&#123;id&#125;</span>`</span>,</span><br><span class="line">      providesTags: <span class="function">(<span class="params">result, error, id</span>) =&gt;</span> [&#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, id &#125;],</span><br><span class="line">    &#125;),</span><br><span class="line">    updatePost: build.mutation&lt;Post, Partial&lt;Post&gt;&gt;(&#123;</span><br><span class="line">      query(data) &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; id, ...body &#125; = data</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          url: <span class="string">`post/<span class="subst">$&#123;id&#125;</span>`</span>,</span><br><span class="line">          method: <span class="string">'PUT'</span>,</span><br><span class="line">          body,</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// Invalidates all queries that subscribe to this Post `id` only.</span></span><br><span class="line">      <span class="comment">// In this case, `getPost` will be re-run. `getPosts` *might*  rerun, if this id was under its results.</span></span><br><span class="line">      invalidatesTags: <span class="function">(<span class="params">result, error, &#123; id &#125;</span>) =&gt;</span> [&#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, id &#125;],</span><br><span class="line">    &#125;),</span><br><span class="line">    deletePost: build.mutation&lt;&#123; <span class="attr">success</span>: boolean; id: number &#125;, number&gt;(&#123;</span><br><span class="line">      query(id) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          url: <span class="string">`post/<span class="subst">$&#123;id&#125;</span>`</span>,</span><br><span class="line">          method: <span class="string">'DELETE'</span>,</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// Invalidates all queries that subscribe to this Post `id` only.</span></span><br><span class="line">      invalidatesTags: <span class="function">(<span class="params">result, error, id</span>) =&gt;</span> [&#123; <span class="attr">type</span>: <span class="string">'Posts'</span>, id &#125;],</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123;</span><br><span class="line">  useGetPostsQuery,</span><br><span class="line">  useAddPostMutation,</span><br><span class="line">  useGetPostQuery,</span><br><span class="line">  useUpdatePostMutation,</span><br><span class="line">  useDeletePostMutation,</span><br><span class="line">&#125; = postApi</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="Optimistic-Updates"><a href="#Optimistic-Updates" class="headerlink" title="Optimistic Updates"></a>Optimistic Updates</h1><p><a href="https://redux-toolkit.js.org/rtk-query/usage/optimistic-updates" target="_blank" rel="noopener">https://redux-toolkit.js.org/rtk-query/usage/optimistic-updates</a></p>
+<p>useMutation을 통해 이미 존재하고 있는 일부 데이터에 대한 업데이트를 수행하고자 할 때 RTK Query는 optimistic 업데이트를 실행하기 위한 몇가지 tool을 제공한다. 이는 사용자에게 변경사항이 즉시 적용된다는 인상을 주고 싶을 때 유용한 패턴이다.</p>
+<p>핵심 개념은 다음과 같다:</p>
+<ul>
+<li>quey 또는 mutation이 시작 될 때 , onQueryStarted가 실행된다.</li>
+<li><code>api.util.updateQueryData</code> 를 통해 캐시된 데이터를 수동으로 업데이트한다.</li>
+<li>promiseResult가 reject일 때 <code>.undo</code> 를 통해 이전 디스패치에서 반환된 객체의 속성으로 롤백한다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// Optimistic update mutation example (async await)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createApi, fetchBaseQuery &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit/query'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Post &#125; <span class="keyword">from</span> <span class="string">'./types'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> api = createApi(&#123;</span><br><span class="line">  baseQuery: fetchBaseQuery(&#123;</span><br><span class="line">    baseUrl: <span class="string">'/'</span>,</span><br><span class="line">  &#125;),</span><br><span class="line">  tagTypes: [<span class="string">'Post'</span>],</span><br><span class="line">  endpoints: <span class="function">(<span class="params">build</span>) =&gt;</span> (&#123;</span><br><span class="line">    getPost: build.query&lt;Post, number&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">id</span>) =&gt;</span> <span class="string">`post/<span class="subst">$&#123;id&#125;</span>`</span>,</span><br><span class="line">      providesTags: [<span class="string">'Post'</span>],</span><br><span class="line">    &#125;),</span><br><span class="line">    updatePost: build.mutation&lt;<span class="keyword">void</span>, Pick&lt;Post, <span class="string">'id'</span>&gt; &amp; Partial&lt;Post&gt;&gt;(&#123;</span><br><span class="line">      query: <span class="function">(<span class="params">&#123; id, ...patch &#125;</span>) =&gt;</span> (&#123;</span><br><span class="line">        url: <span class="string">`post/<span class="subst">$&#123;id&#125;</span>`</span>,</span><br><span class="line">        method: <span class="string">'PATCH'</span>,</span><br><span class="line">        body: patch,</span><br><span class="line">      &#125;),</span><br><span class="line">      invalidatesTags: [<span class="string">'Post'</span>],</span><br><span class="line">      <span class="keyword">async</span> onQueryStarted(&#123; id, ...patch &#125;, &#123; dispatch, queryFulfilled &#125;) &#123;</span><br><span class="line">        <span class="keyword">const</span> patchResult = dispatch(</span><br><span class="line">          api.util.updateQueryData(<span class="string">'getPost'</span>, id, (draft) =&gt; &#123;</span><br><span class="line">            <span class="built_in">Object</span>.assign(draft, patch)</span><br><span class="line">          &#125;)</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">await</span> queryFulfilled</span><br><span class="line">        &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">          patchResult.undo()</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://redux-toolkit.js.org/rtk-query/usage/mutations" target="_blank" rel="noopener">RTK Query Mutations</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/08/18/210819_rtkQuery/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +580,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-22 17:21:39" itemprop="dateModified" datetime="2022-06-22T17:21:39+09:00">2022-06-22</time>
+                <time title="Modified: 2022-06-23 11:05:58" itemprop="dateModified" datetime="2022-06-23T11:05:58+09:00">2022-06-23</time>
               </span>
 
           
@@ -298,7 +703,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-22 17:21:39" itemprop="dateModified" datetime="2022-06-22T17:21:39+09:00">2022-06-22</time>
+                <time title="Modified: 2022-06-23 11:05:58" itemprop="dateModified" datetime="2022-06-23T11:05:58+09:00">2022-06-23</time>
               </span>
 
           
@@ -439,7 +844,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-22 17:21:39" itemprop="dateModified" datetime="2022-06-22T17:21:39+09:00">2022-06-22</time>
+                <time title="Modified: 2022-06-23 11:05:58" itemprop="dateModified" datetime="2022-06-23T11:05:58+09:00">2022-06-23</time>
               </span>
 
           
@@ -545,7 +950,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-22 17:21:39" itemprop="dateModified" datetime="2022-06-22T17:21:39+09:00">2022-06-22</time>
+                <time title="Modified: 2022-06-23 11:05:58" itemprop="dateModified" datetime="2022-06-23T11:05:58+09:00">2022-06-23</time>
               </span>
 
           
@@ -614,6 +1019,133 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/19/210720_hashset/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/19/210720_hashset/" class="post-title-link" itemprop="url">컬렉션 - 해시셋, 컬렉션과 같이 쓰면 유용한 것들</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-20T00:00:00+09:00">2021-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-23 11:05:58" itemprop="dateModified" datetime="2022-06-23T11:05:58+09:00">2022-06-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>딕셔너리와 매우 비슷하다. <strong>차이점은 해시셋은 키만 있다는 점이다.</strong></li>
+<li>리스트와 딕셔너리를 쓰는 경우가 거의 90%이므로 거의 쓸 일이 없고, 특별할 때만 쓴다.</li>
+<li>중복 데이터를 제거할 때 가장 쓰기 편하다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;T&gt; &lt;변수명&gt; &#x3D; new HastSet &lt;T&gt;(); &#x2F;&#x2F;T는 저장할 키의 자료형</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt; ();</span><br><span class="line">HastSet&lt;string&gt; studentNames &#x3D; new HashSet &lt;string&gt; ();</span><br></pre></td></tr></table></figure>
+<h2 id="해시셋에-요소-추가하기"><a href="#해시셋에-요소-추가하기" class="headerlink" title="해시셋에 요소 추가하기"></a>해시셋에 요소 추가하기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; HastSet&lt;T&gt;.Add(T data);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><em>해시셋에 <code>없는 키</code>면</em> 새 요소로 추가한 후 참을 반환</li>
+<li><em>해시셋에 <code>있는 키</code>면</em> 거짓을 반환</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;();</span><br><span class="line">bool bSuccess1 &#x3D; studentIDs.Add(123); &#x2F;&#x2F;참</span><br><span class="line">bool bSuccess2 &#x3D; studentIDs.Add(456); &#x2F;&#x2F;참</span><br><span class="line">bool bSuccess3 &#x3D; studentIDs.Add(123); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
+<h2 id="이-요소가-해시셋에-있나요"><a href="#이-요소가-해시셋에-있나요" class="headerlink" title="이 요소가 해시셋에 있나요?"></a>이 요소가 해시셋에 있나요?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bConatin &#x3D; HastSet&lt;T&gt;.Contain(T data);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><em>해시셋에 <code>있는 키</code>면</em> 참을 반환</li>
+<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">bool bContain1 &#x3D; studentIDs.Contains(123); &#x2F;&#x2F;참</span><br><span class="line">bool bContain2 &#x3D; studentIDs.Contains(178); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
+<h2 id="해시셋-요소-삭제"><a href="#해시셋-요소-삭제" class="headerlink" title="해시셋 요소 삭제"></a>해시셋 요소 삭제</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bRemoved &#x3D; HastSet&lt;T&gt;.Remove(T data);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><em>해시셋에 <code>있는 키</code>면</em> 요소를 삭제한 후 참을 반환</li>
+<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">bool bRemoved1 &#x3D; studentIDs.Remove(123); &#x2F;&#x2F;참</span><br><span class="line">bool bRemoved2 &#x3D; studentIDs.Remove(178); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
+<h2 id="해시셋의-모든-요소-삭제"><a href="#해시셋의-모든-요소-삭제" class="headerlink" title="해시셋의 모든 요소 삭제"></a>해시셋의 모든 요소 삭제</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HastSet&lt;T&gt;.clear();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">studentID.Clear();</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="해시셋의-요소-가져오기"><a href="#해시셋의-요소-가져오기" class="headerlink" title="해시셋의 요소 가져오기"></a>해시셋의 요소 가져오기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; HastSet&lt;T&gt;.TryGetValue(T Key, out T key);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><em>해시셋에 <code>있는 키</code>면</em> 요소를 키에 연결된 요소를 out 매개변수에 대압하고 참을 반환</li>
+<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">int id;</span><br><span class="line">bool bSuccess &#x3D; studentIDs.TryGetValue(456, out iff)</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="컬렉션과-같이-쓰면-유용한-것들"><a href="#컬렉션과-같이-쓰면-유용한-것들" class="headerlink" title="컬렉션과 같이 쓰면 유용한 것들"></a>컬렉션과 같이 쓰면 유용한 것들</h2><p>리스트를 예로 들어, 순차적으로 요소를 탐색할 때 i가 왜 필요한지에 대한 의문이 생긴다. 또 부등호를 잘못 쓰는 것처럼 실수할 가능성도 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5);</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt; names.Count; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Name: &#123;names[i]&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h3><p>어떤 컬렉션이든 순회할 수 있는 방법이 있으면서 실수를 방지하는 좋은 방법이 바로 <code>foreach</code>이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreach (T&lt;변수명&gt; in List&lt;T&gt;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>foreach 문 안의 T는 리스트 선안할 때 사용한 자료형이다.</li>
+<li>&lt;변수명&gt;은 foreach 문 범위에서만 사용된다.</li>
+</ul>
+<h3 id="리스트와-foreach문"><a href="#리스트와-foreach문" class="headerlink" title="리스트와 foreach문"></a>리스트와 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(4096);</span><br><span class="line"></span><br><span class="line">foreach (string name in names)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="딕셔너리와-foreach문"><a href="#딕셔너리와-foreach문" class="headerlink" title="딕셔너리와 foreach문"></a>딕셔너리와 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foreach (KeyValuePair&lt;TKey, TValue&gt; &lt;변수명&gt; in Dictionary&lt;TKey, TValue&gt;)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>KeyValuePair<TKey, TValue>의 TKey, TValue는 각각 딕셔너리를 선언할 때 사용한 키와 값의 자료형이다.</li>
+<li>&lt;변수명&gt;은 foreach 문 범위에서만 사용된다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line"></span><br><span class="line">foreach (KeyValuePair&lt;string, string&gt; score in students)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WrtieLine($&quot;key: &#123;score.key&#125;, value: &#123;score.Value&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="배열-과-foreach문"><a href="#배열-과-foreach문" class="headerlink" title="배열([])과 foreach문"></a>배열([])과 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreach (T &lt;변수명&gt; in T[])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">float scores &#x3D; &#123;30.5f, 41.0f&#125;</span><br><span class="line"></span><br><span class="line">foreach (float score in scores)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(score);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="var"><a href="#var" class="headerlink" title="var"></a>var</h3><p>딕셔너리 foreach문이 작성해야하는 코드가 길고, 매번 keyValuePair<TKey, TValue>를 써야한다는 문제점을 var가 해결해준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line"></span><br><span class="line">foreach (var score in students)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Key: &#123;score.key&#125;, value: &#123;score.value&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>묵시적 자료형 : 컴파일러가 알아서 자료형을 추론해줌.</li>
+<li><strong>지역 변수</strong>에서만 사용 가능.</li>
+<li>긴 자료형을 짧게 줄여준다.</li>
+<li><strong>반드시 선언과 동시에 대입해주어야 한다.</strong></li>
+<li>대입하는 값을 통해 명백하게 자료형을 알 수 있을 때만 사용한다.</li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/19/210720_oop/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -645,7 +1177,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-22 17:21:39" itemprop="dateModified" datetime="2022-06-22T17:21:39+09:00">2022-06-22</time>
+                <time title="Modified: 2022-06-23 11:05:58" itemprop="dateModified" datetime="2022-06-23T11:05:58+09:00">2022-06-23</time>
               </span>
 
           
@@ -751,652 +1283,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/19/210720_hashset/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/19/210720_hashset/" class="post-title-link" itemprop="url">컬렉션 - 해시셋, 컬렉션과 같이 쓰면 유용한 것들</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-20T00:00:00+09:00">2021-07-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-22 17:21:39" itemprop="dateModified" datetime="2022-06-22T17:21:39+09:00">2022-06-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>딕셔너리와 매우 비슷하다. <strong>차이점은 해시셋은 키만 있다는 점이다.</strong></li>
-<li>리스트와 딕셔너리를 쓰는 경우가 거의 90%이므로 거의 쓸 일이 없고, 특별할 때만 쓴다.</li>
-<li>중복 데이터를 제거할 때 가장 쓰기 편하다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;T&gt; &lt;변수명&gt; &#x3D; new HastSet &lt;T&gt;(); &#x2F;&#x2F;T는 저장할 키의 자료형</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt; ();</span><br><span class="line">HastSet&lt;string&gt; studentNames &#x3D; new HashSet &lt;string&gt; ();</span><br></pre></td></tr></table></figure>
-<h2 id="해시셋에-요소-추가하기"><a href="#해시셋에-요소-추가하기" class="headerlink" title="해시셋에 요소 추가하기"></a>해시셋에 요소 추가하기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; HastSet&lt;T&gt;.Add(T data);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><em>해시셋에 <code>없는 키</code>면</em> 새 요소로 추가한 후 참을 반환</li>
-<li><em>해시셋에 <code>있는 키</code>면</em> 거짓을 반환</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;();</span><br><span class="line">bool bSuccess1 &#x3D; studentIDs.Add(123); &#x2F;&#x2F;참</span><br><span class="line">bool bSuccess2 &#x3D; studentIDs.Add(456); &#x2F;&#x2F;참</span><br><span class="line">bool bSuccess3 &#x3D; studentIDs.Add(123); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<h2 id="이-요소가-해시셋에-있나요"><a href="#이-요소가-해시셋에-있나요" class="headerlink" title="이 요소가 해시셋에 있나요?"></a>이 요소가 해시셋에 있나요?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bConatin &#x3D; HastSet&lt;T&gt;.Contain(T data);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><em>해시셋에 <code>있는 키</code>면</em> 참을 반환</li>
-<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">bool bContain1 &#x3D; studentIDs.Contains(123); &#x2F;&#x2F;참</span><br><span class="line">bool bContain2 &#x3D; studentIDs.Contains(178); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<h2 id="해시셋-요소-삭제"><a href="#해시셋-요소-삭제" class="headerlink" title="해시셋 요소 삭제"></a>해시셋 요소 삭제</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bRemoved &#x3D; HastSet&lt;T&gt;.Remove(T data);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><em>해시셋에 <code>있는 키</code>면</em> 요소를 삭제한 후 참을 반환</li>
-<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">bool bRemoved1 &#x3D; studentIDs.Remove(123); &#x2F;&#x2F;참</span><br><span class="line">bool bRemoved2 &#x3D; studentIDs.Remove(178); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<h2 id="해시셋의-모든-요소-삭제"><a href="#해시셋의-모든-요소-삭제" class="headerlink" title="해시셋의 모든 요소 삭제"></a>해시셋의 모든 요소 삭제</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HastSet&lt;T&gt;.clear();</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">studentID.Clear();</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="해시셋의-요소-가져오기"><a href="#해시셋의-요소-가져오기" class="headerlink" title="해시셋의 요소 가져오기"></a>해시셋의 요소 가져오기</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; HastSet&lt;T&gt;.TryGetValue(T Key, out T key);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><em>해시셋에 <code>있는 키</code>면</em> 요소를 키에 연결된 요소를 out 매개변수에 대압하고 참을 반환</li>
-<li><em>해시셋에 <code>없는 키</code>면</em> 거짓을 반환</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;int&gt; studentIDs &#x3D; new HashSet &lt;int&gt;(); &#x2F;&#x2F;&#123;123, 456&#125;</span><br><span class="line">int id;</span><br><span class="line">bool bSuccess &#x3D; studentIDs.TryGetValue(456, out iff)</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="컬렉션과-같이-쓰면-유용한-것들"><a href="#컬렉션과-같이-쓰면-유용한-것들" class="headerlink" title="컬렉션과 같이 쓰면 유용한 것들"></a>컬렉션과 같이 쓰면 유용한 것들</h2><p>리스트를 예로 들어, 순차적으로 요소를 탐색할 때 i가 왜 필요한지에 대한 의문이 생긴다. 또 부등호를 잘못 쓰는 것처럼 실수할 가능성도 있다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(5);</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 0; i &lt; names.Count; ++i)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Name: &#123;names[i]&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h3><p>어떤 컬렉션이든 순회할 수 있는 방법이 있으면서 실수를 방지하는 좋은 방법이 바로 <code>foreach</code>이다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreach (T&lt;변수명&gt; in List&lt;T&gt;)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>foreach 문 안의 T는 리스트 선안할 때 사용한 자료형이다.</li>
-<li>&lt;변수명&gt;은 foreach 문 범위에서만 사용된다.</li>
-</ul>
-<h3 id="리스트와-foreach문"><a href="#리스트와-foreach문" class="headerlink" title="리스트와 foreach문"></a>리스트와 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; names &#x3D; new List&lt;string&gt;(4096);</span><br><span class="line"></span><br><span class="line">foreach (string name in names)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="딕셔너리와-foreach문"><a href="#딕셔너리와-foreach문" class="headerlink" title="딕셔너리와 foreach문"></a>딕셔너리와 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foreach (KeyValuePair&lt;TKey, TValue&gt; &lt;변수명&gt; in Dictionary&lt;TKey, TValue&gt;)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>KeyValuePair<TKey, TValue>의 TKey, TValue는 각각 딕셔너리를 선언할 때 사용한 키와 값의 자료형이다.</li>
-<li>&lt;변수명&gt;은 foreach 문 범위에서만 사용된다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line"></span><br><span class="line">foreach (KeyValuePair&lt;string, string&gt; score in students)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WrtieLine($&quot;key: &#123;score.key&#125;, value: &#123;score.Value&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="배열-과-foreach문"><a href="#배열-과-foreach문" class="headerlink" title="배열([])과 foreach문"></a>배열([])과 foreach문</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreach (T &lt;변수명&gt; in T[])</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">float scores &#x3D; &#123;30.5f, 41.0f&#125;</span><br><span class="line"></span><br><span class="line">foreach (float score in scores)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine(score);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="var"><a href="#var" class="headerlink" title="var"></a>var</h3><p>딕셔너리 foreach문이 작성해야하는 코드가 길고, 매번 keyValuePair<TKey, TValue>를 써야한다는 문제점을 var가 해결해준다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line"></span><br><span class="line">foreach (var score in students)</span><br><span class="line">&#123;</span><br><span class="line">  Console.WriteLine($&quot;Key: &#123;score.key&#125;, value: &#123;score.value&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>묵시적 자료형 : 컴파일러가 알아서 자료형을 추론해줌.</li>
-<li><strong>지역 변수</strong>에서만 사용 가능.</li>
-<li>긴 자료형을 짧게 줄여준다.</li>
-<li><strong>반드시 선언과 동시에 대입해주어야 한다.</strong></li>
-<li>대입하는 값을 통해 명백하게 자료형을 알 수 있을 때만 사용한다.</li>
-</ul>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/18/210720_tsType/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/18/210720_tsType/" class="post-title-link" itemprop="url">타입스크립트의 기본 타입</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-19T00:00:00+09:00">2021-07-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-22 17:21:39" itemprop="dateModified" datetime="2022-06-22T17:21:39+09:00">2022-06-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="기본-타입"><a href="#기본-타입" class="headerlink" title="기본 타입"></a>기본 타입</h2><p>javaScript에는 string, number, boolean, null, undefined, symbol의 원시타입과 object, array, function 등의 객체가 있는데, typeScript에서도 거의 동일한 데이터를 지원한다. typeScript의 타입은 다음과 같다.</p>
-<ul>
-<li>Boolean</li>
-<li>Number</li>
-<li>String</li>
-<li>Object</li>
-<li>Array</li>
-<li>Null</li>
-<li>Undefined</li>
-<li><code>Tuple</code></li>
-<li><code>Enum</code></li>
-<li><code>Any</code></li>
-<li><code>Void</code></li>
-<li><code>Never</code></li>
-</ul>
-<h2 id="타입-표기-Type-Annotation"><a href="#타입-표기-Type-Annotation" class="headerlink" title="타입 표기(Type Annotation)"></a>타입 표기(Type Annotation)</h2><blockquote>
-<p><code>:</code>을 사용하여 표기한다.</p>
-</blockquote>
-<h3 id="1-Boolean"><a href="#1-Boolean" class="headerlink" title="1. Boolean"></a>1. Boolean</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//진위값</span></span><br><span class="line"><span class="keyword">const</span> show: <span class="built_in">boolean</span> = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="2-Number"><a href="#2-Number" class="headerlink" title="2. Number"></a>2. Number</h3><p>TypeScript의 모든 숫자는 부동 소수 값이다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> decimal: <span class="built_in">number</span> = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">let</span> hex: <span class="built_in">number</span> = <span class="number">0xf00d</span>;</span><br><span class="line"><span class="keyword">let</span> binary: <span class="built_in">number</span> = <span class="number">0b1010</span>;</span><br><span class="line"><span class="keyword">let</span> octal: <span class="built_in">number</span> = <span class="number">0o744</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="3-String"><a href="#3-String" class="headerlink" title="3. String"></a>3. String</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//JS 문자열 선언방식</span></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">'hello'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//TS 문자열</span></span><br><span class="line"><span class="keyword">const</span> tsStr: <span class="built_in">string</span> = <span class="string">'hello'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//x템플릿 문자열 사용가능</span></span><br><span class="line"><span class="keyword">let</span> fullName: <span class="built_in">string</span> = <span class="string">`Bob Bobbington`</span>;</span><br><span class="line"><span class="keyword">let</span> age: <span class="built_in">number</span> = <span class="number">37</span>;</span><br><span class="line"><span class="keyword">let</span> sentence: <span class="built_in">string</span> = <span class="string">`Hello, my name is <span class="subst">$&#123;fullName&#125;</span>.</span></span><br><span class="line"><span class="string">I'll be <span class="subst">$&#123;age + <span class="number">1</span>&#125;</span> years old next month.`</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="4-Array"><a href="#4-Array" class="headerlink" title="4. Array"></a>4. Array</h3><p>배열의 표현 방법은 두 가지가 있다.</p>
-<ul>
-<li>[]: 배열요소들을 나타내는 타입 뒤에 <code>[]</code>를 사용</li>
-<li>제네릭 배열 타입: <code>Array&lt;elemType&gt;</code></li>
-</ul>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TS 배열 선언방식 &lt;&gt;안에 작성된 타입만이 배열의 요소로 사용가능</span></span><br><span class="line"><span class="comment">//&lt;string&gt;으로 작성되었는데 number를 넣으면 에러 발생.</span></span><br><span class="line"><span class="keyword">const</span> tsArr: <span class="built_in">Array</span>&lt;<span class="built_in">number</span>&gt; = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">const</span> heroes: <span class="built_in">Array</span>&lt;<span class="built_in">string</span>&gt; = [<span class="string">'Capt'</span>, <span class="string">'hulk'</span>, <span class="string">'thor'</span>];</span><br><span class="line"><span class="comment">//배열 리터럴을 통해 선언할 수도 있다.</span></span><br><span class="line"><span class="keyword">const</span> items: <span class="built_in">number</span>[] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br></pre></td></tr></table></figure>
-<h3 id="5-Tuple"><a href="#5-Tuple" class="headerlink" title="5. Tuple"></a>5. Tuple</h3><p>요소의 타입과 개수가 고정된 배열 표현</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TS 튜플 - 배열의 특정 위치와 타입까지 설정.</span></span><br><span class="line"><span class="keyword">const</span> locations: [<span class="built_in">string</span>, <span class="built_in">number</span>] = [<span class="string">'gangnam'</span>, <span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//정해진 인덕스 외의 요소에 접근하면 오류 발생</span></span><br><span class="line">x[<span class="number">3</span>] = <span class="string">'world'</span>; <span class="comment">// 오류, '[string, number]' 타입에는 프로퍼티 '3'이 없습니다.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x[<span class="number">5</span>].toString()); <span class="comment">// '[string, number]' 타입에는 프로퍼티 '5'가 없습니다.</span></span><br></pre></td></tr></table></figure>
-<h3 id="6-enum"><a href="#6-enum" class="headerlink" title="6. enum"></a>6. enum</h3><p>c# 같은 언어에서 쓰는 것처럼 값의 집합에 더 나은 이름을 붙여준다. 즉 특정 값(상들의 집합을 말한다. 즉 <code>특정 값(상수)들의 집합</code>을 말한다. 값을 지정하면 지정한 값부터 멤버들의 번호를 매기고, 따로 지정하지 않았다면 <code>0</code>부터 시작하여 멤버들의 번호를 매긴다. 모든 값은 순차적으로 매기지 않고, 수동으로 설정해 줄 수도 있다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//따로 값을 매기지 않았으니 0부터 시작하여 순차적으로 번호가 매겨진다.</span></span><br><span class="line"><span class="keyword">enum</span> Color &#123;</span><br><span class="line">  Red,</span><br><span class="line">  Green,</span><br><span class="line">  Blue,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c: Color = Color.Green;</span><br><span class="line"></span><br><span class="line"><span class="comment">//수동으로 값 설정</span></span><br><span class="line"><span class="keyword">enum</span> Color &#123;</span><br><span class="line">  Red = <span class="number">1</span>,</span><br><span class="line">  Green = <span class="number">2</span>,</span><br><span class="line">  Blue = <span class="number">4</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> c: Color = Color.Green;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 매겨진 값을 사용해서 enum 멤버 이름을 알아낼 수 있다.</span></span><br><span class="line"><span class="comment">//아래 코드에서 2라는 값과 매칭되는 멤버의 이름을 알아낼 수 있다.</span></span><br><span class="line"><span class="keyword">enum</span> Color &#123;</span><br><span class="line">  Red = <span class="number">1</span>,</span><br><span class="line">  Green,</span><br><span class="line">  Blue,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> colorName: <span class="built_in">string</span> = Color[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(colorName); <span class="comment">// 값이 2인 'Green'이 출력됩니다.</span></span><br></pre></td></tr></table></figure>
-<h3 id="7-Object"><a href="#7-Object" class="headerlink" title="7. Object"></a>7. Object</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TS 객체</span></span><br><span class="line"><span class="keyword">const</span> obj: object = &#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> person: object = &#123;</span><br><span class="line">  name: <span class="string">'capt'</span>,</span><br><span class="line">  age: <span class="number">100</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//객체의 구체적인 타입 설정</span></span><br><span class="line"><span class="keyword">const</span> tsPerson: &#123; name: <span class="built_in">string</span>; age: <span class="built_in">number</span> &#125; = &#123;</span><br><span class="line">  name: <span class="string">'capt'</span>,</span><br><span class="line">  age: <span class="number">100</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="8-Any"><a href="#8-Any" class="headerlink" title="8. Any"></a>8. Any</h3><blockquote>
-<p>모든 타입 허용</p>
-</blockquote>
-<p>알지 못하는 타입을 표현해야 하는 경우(사용자로부터 받은 값 혹은 데이터, 서드파티 라이브러리와 같은 동적 컨텐츠에서 온 값) any를 사용하여 표기하면 컴파일 중에 점진적으로 타입 검사를 하거나 하지 않을 수 있다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//다음과 같이 타입의 일부만 알고 전체 타입을 모르는 경우 유용하다.</span></span><br><span class="line"><span class="keyword">let</span> list: <span class="built_in">any</span>[] = [<span class="number">1</span>, <span class="literal">true</span>, <span class="string">'free'</span>];</span><br><span class="line"></span><br><span class="line">list[<span class="number">1</span>] = <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="9-Void"><a href="#9-Void" class="headerlink" title="9. Void"></a>9. Void</h3><blockquote>
-<p>어떤 타입도 존재할 수 없다. <code>보통 함수에서 반환 값이 없을 때 반환값을 표현하기 위해 사용한다.</code></p>
-</blockquote>
-<p>Void 타입의 변수 선언은 undefined, null만 할당할 수 있다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">warnUser</span>(<span class="params"></span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'This is my warning message'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="10-Null-and-Undefined"><a href="#10-Null-and-Undefined" class="headerlink" title="10. Null and Undefined"></a>10. Null and Undefined</h3><p>유용하게 쓰는 경우가 거의 없다. <strong>모든 타입의 하위 타입</strong>이기 때문에 <code>number</code> 같은 타입에 할당할 수 있다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 이 외에 이 변수들에 할당할 수 있는 값이 없다.</span></span><br><span class="line"><span class="keyword">let</span> u: <span class="literal">undefined</span> = <span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">let</span> n: <span class="literal">null</span> = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="11-Never"><a href="#11-Never" class="headerlink" title="11. Never"></a>11. Never</h3><blockquote>
-<p>절대 발생할 수 없는 타입</p>
-</blockquote>
-<p>함수 표현식이나 화살표 함수 표현식에서 항상 오류를 발생시키거나 절대 반환하지 않는 반환 타입으로 쓰인다. 변수 또한 타입 가드에 의해 아무 타입도 얻지 못하게 좁혀지면 never 타입을 얻게 될 수 있다. 이 역시 <strong>모든 타입에 할당 가능한 하위 타입</strong>이다. 그러나 never 자신을 제외한 어떠한 타입도 never에 할당할 수 없다.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// never를 반환하는 함수는 함수의 마지막에 도달할 수 없다.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">error</span>(<span class="params">message: <span class="built_in">string</span></span>): <span class="title">never</span> </span>&#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(message);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 반환 타입이 never로 추론된다.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fail</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> error(<span class="string">'Something failed'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// never를 반환하는 함수는 함수의 마지막에 도달할 수 없다.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">infiniteLoop</span>(<span class="params"></span>): <span class="title">never</span> </span>&#123;</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<p><em>References</em><br><a href="https://typescript-kr.github.io/pages/basic-types.html" target="_blank" rel="noopener">타입스크립트 핸드북</a><br><a href="https://joshua1988.github.io/ts/guide/basic-types.html#%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B8%B0%EB%B3%B8-%ED%83%80%EC%9E%85" target="_blank" rel="noopener">타입스크립트 핸드북</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/18/210720_tsInterface/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/18/210720_tsInterface/" class="post-title-link" itemprop="url">타입스크립트의 인터페이스, 함수</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-19T00:00:00+09:00">2021-07-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-22 17:21:39" itemprop="dateModified" datetime="2022-06-22T17:21:39+09:00">2022-06-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="인터체이스"><a href="#인터체이스" class="headerlink" title="인터체이스"></a>인터체이스</h2><blockquote>
-<p>상호 간에 정의한 약속 혹은 규칙. 보통 다음과 같은 범주에 대해 약속을 정의할 수 있다.</p>
-</blockquote>
-<ul>
-<li>객체의 스펙(속성과 속성의 타입)</li>
-<li>함수의 파라미터</li>
-<li>함수의 스펙(파라미터, 반환 타입 등)</li>
-<li>배열과 객체를 접근하는 방식</li>
-<li>클래스</li>
-</ul>
-<p>typeScript의 핵심 원칙 중 하나는 <code>덕 타이핑</code> 또는 <code>구조적 서브타이핑</code>이다. 타입 검사가 <code>값의 형태에 초점</code>을 맞추고 있다는 것이다. 인터페이스는 이런 타입들의 이름을 짓고, 코드 안의 계약을 정의하고, 프로젝트 외부에서 사용하는 코드의 계약을 정의한다.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/17/210718_dictionary/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/17/210718_dictionary/" class="post-title-link" itemprop="url">컬렉션 - 딕셔너리</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-18 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-18T00:00:00+09:00">2021-07-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-22 17:21:39" itemprop="dateModified" datetime="2022-06-22T17:21:39+09:00">2022-06-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="딕셔너리"><a href="#딕셔너리" class="headerlink" title="딕셔너리"></a>딕셔너리</h2><blockquote>
-<p><code>List&lt;T&gt;</code>와 달리 색인이 0~n 사이의 수가 아니라 <code>임의의 데이터형</code>이다. 사전과 비슷하게 키를 이용해 그 키에 해당하는 값을 찾는다.</p>
-<blockquote>
-<p>키(key): 임의의 데이터형. 어떠한 데이터형도 키로 쓸 수 있다.<br>값(value): 실제 저장되는 값</p>
-</blockquote>
-</blockquote>
-<ul>
-<li>딕셔너리는 배열처럼 연속된 메모리에 내부 데이터를 저장할 수 없다. 따라서 배열이 더 효율적이다.</li>
-<li>다른 언어에서는 맵(map)이라고 한다.</li>
-<li>배열처럼 0, 1, 2… 이런 식으로 순서대로 저장하기 힘든 경우에 쓰면 좋다.</li>
-<li>데이터 저장 공간이 크고, 배열 중간에 데이터를 삽입 및 삭제를 자주해야하는 경우 쓰면 좋다.</li>
-</ul>
-<h3 id="딕셔너리-생성"><a href="#딕셔너리-생성" class="headerlink" title="딕셔너리 생성"></a>딕셔너리 생성</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;TKey, TValue&gt; &lt;변수명&gt; &#x3D; new Dictionary&lt;TKey, TValue&gt;();</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;int, string&gt; students &#x3D; new Dictionary&lt;int, string&gt;();</span><br><span class="line">Dictionary&lt;int, int&gt; scores &#x3D; new Dictionary&lt;int, int&gt;();</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>TKey</code>: 어떤 자료형의 키를 담을지 표현</li>
-<li><code>TValue</code>: 어떤 자료형의 값을 담을지 표현</li>
-</ul>
-<h3 id="딕셔너리에-데이터-추가하기"><a href="#딕셔너리에-데이터-추가하기" class="headerlink" title="딕셔너리에 데이터 추가하기"></a>딕셔너리에 데이터 추가하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dictionary.Add(TKey, TValue);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>키와 매핑되는 값을 딕셔너리에 추가</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">students.Add(&quot;A1&quot;,&quot;Bob&quot;);</span><br><span class="line">students.Add(&quot;A2&quot;,&quot;Bobby&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;이미 들어 있는 키로 새로운 데이터를 추가하면?</span><br><span class="line">students.Add(&quot;A2&quot;,&quot;Alex&quot;); &#x2F;&#x2F; 에러 발생</span><br></pre></td></tr></table></figure>
-<h3 id="중복된-키를-확인-후-데이터-추가하기"><a href="#중복된-키를-확인-후-데이터-추가하기" class="headerlink" title="중복된 키를 확인 후 데이터 추가하기"></a>중복된 키를 확인 후 데이터 추가하기</h3><blockquote>
-<p>이미 있는 키를 가지고 새로운 데이터를 추가하려고 하면 에러가 발생하기 때문에 이를 해결하기 위해 중복된 키가 있는지 확인 후 추가한다.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bSuccess &#x3D; Dictionary&lt;TKey, TValue&gt;.TryAdd(Tkey key, TValue value);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">bool bSuccess1 &#x3D; students.TryAdd(&quot;A1&quot;, &quot;Bob&quot;); &#x2F;&#x2F;거짓</span><br><span class="line">bool bSuccess1 &#x3D; students.TryAdd(&quot;A3&quot;, &quot;Alex&quot;); &#x2F;&#x2F;참</span><br></pre></td></tr></table></figure>
-<ul>
-<li>딕셔너리 안에 키가 이미 있으면 거짓 반환</li>
-<li><strong>딕셔너리 안에 키가 없으면 새로운 값을 넣고 참을 반환</strong></li>
-</ul>
-<hr>
-<h3 id="딕셔너리-안에-키가-있는지-확인하기"><a href="#딕셔너리-안에-키가-있는지-확인하기" class="headerlink" title="딕셔너리 안에 키가 있는지 확인하기"></a>딕셔너리 안에 키가 있는지 확인하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bContain &#x3D; Dictionary&lt;TKey, TValue&gt;.ContainsKey(TKey, key);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>딕셔너리 안에 키가 있으면 참, 없으면 거짓 반환</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">bool bContain1 &#x3D; students.ContainKey(&quot;A1&quot;); &#x2F;&#x2F;참</span><br><span class="line">bool bContain2 &#x3D; students.ContainKey(&quot;Bob&quot;); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<h3 id="딕셔너리-안에-밸류가-있는지-확인하기"><a href="#딕셔너리-안에-밸류가-있는지-확인하기" class="headerlink" title="딕셔너리 안에 밸류가 있는지 확인하기"></a>딕셔너리 안에 밸류가 있는지 확인하기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bContain &#x3D; Dictionary&lt;TKey, TValue&gt;.ContainsValue(TKey, key);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>딕셔너리 안에 키가 있으면 참, 없으면 거짓 반환</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">bool bContain1 &#x3D; students.ContainsValue(&quot;Bob&quot;); &#x2F;&#x2F;참</span><br><span class="line">bool bContain2 &#x3D; students.ContainsValue(&quot;Alex&quot;); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="딕셔너리의-모든-요소-삭제하기"><a href="#딕셔너리의-모든-요소-삭제하기" class="headerlink" title="딕셔너리의 모든 요소 삭제하기"></a>딕셔너리의 모든 요소 삭제하기</h3><blockquote>
-<p>딕셔너리의 모든 요소를 삭제</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;TKey, TValue&gt;.Clear();</span><br></pre></td></tr></table></figure>
-<h3 id="딕셔너리-안에-있는-요소-삭제"><a href="#딕셔너리-안에-있는-요소-삭제" class="headerlink" title="딕셔너리 안에 있는 요소 삭제"></a>딕셔너리 안에 있는 요소 삭제</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bRemoved &#x3D; Dictionary&lt;TKey, TValue&gt;.Remove(TKey, key);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>딕셔너리 안에 키가 있으면 <strong>요소를 삭제 후 참</strong>, 없으면 거짓 반환</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">bool bRemoved1 &#x3D; students.Remove(&quot;A1&quot;); &#x2F;&#x2F;참</span><br><span class="line">bool bRemoved2 &#x3D; students.Remove(&quot;A3&quot;); &#x2F;&#x2F;거짓</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="딕셔너리에서-키와-매핑된-값-가져오기"><a href="#딕셔너리에서-키와-매핑된-값-가져오기" class="headerlink" title="딕셔너리에서 키와 매핑된 값 가져오기"></a>딕셔너리에서 키와 매핑된 값 가져오기</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool bFound &#x3D; Dictionary&lt;TKey, TValue&gt;.TryGetValue(TKey, key, out TValue value);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>딕셔너리 안에 키가 있으면 값을 <code>out 매개변수에 대입하고 참을 반환</code></li>
-<li>딕셔너리 안에 키가 없으면 거짓 반환</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">string value;</span><br><span class="line">bool bFound &#x3D; students.TryGetValue(&quot;A1&quot;, out value)</span><br></pre></td></tr></table></figure>
-<h3 id="요소-추가-접근법"><a href="#요소-추가-접근법" class="headerlink" title="요소 추가/접근법 - []"></a>요소 추가/접근법 - []</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;TKey, TValue&gt;[key] &#x3D; value;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>키가 이미 있다면 연결된 값 변경</li>
-<li><strong>키가 없다면 키와 값을 새로운 원소로 추가</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, string&gt; students &#x3D; new Dictionary&lt;string, string&gt;();</span><br><span class="line">&#x2F;&#x2F; &#123;(&quot;A1&quot;, &quot;Bob&quot;),(&quot;A2&quot;, &quot;Bobby&quot;)&#125;</span><br><span class="line"></span><br><span class="line">students[&quot;A1&quot;] &#x3D; &quot;Tomas&quot;</span><br><span class="line">string student &#x3D; students[&quot;A3&quot;] &#x2F;&#x2F; throws an exception</span><br><span class="line">students[&quot;A2&quot;] &#x3D; &quot;Jason&quot;</span><br></pre></td></tr></table></figure>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>[] 사용</th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>key</td>
-<td>A1</td>
-<td>A2</td>
-<td><code>A3</code></td>
-</tr>
-<tr>
-<td>value</td>
-<td><del>Bob</del> -&gt; <code>Tomas</code></td>
-<td>Bobby</td>
-<td><code>Jason</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2021/07/15/210716_decimal/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/15/210716_decimal/" class="post-title-link" itemprop="url">부동소수점형의 정밀도 문제와 decimal형</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-16 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-16T00:00:00+09:00">2021-07-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-22 17:21:39" itemprop="dateModified" datetime="2022-06-22T17:21:39+09:00">2022-06-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="부동소수점형의-정밀도-문제"><a href="#부동소수점형의-정밀도-문제" class="headerlink" title="부동소수점형의 정밀도 문제"></a>부동소수점형의 정밀도 문제</h2><p><u><strong>float형은 정밀도 문제가 있다.</strong> 아래 코드에서 num1과 num2가 다른데 같다고 취급하고 있다.</u></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  float num1 &#x3D; 0.099999999999f;</span><br><span class="line">  float num2 &#x3D; 0.1f;</span><br><span class="line"></span><br><span class="line">  if(num1 &#x3D;&#x3D; num2)</span><br><span class="line">  &#123;</span><br><span class="line">    console.WriteLine(&quot;same&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>부동소수점형은 언제나 <code>근사값</code>이다.</li>
-<li>비트 수는 정해져 있는데 표현할 숫자가 너무 많다.</li>
-<li>예를 들어 0과 1 사이에는 무수히 많은 수가 있어서 정확하게 출력하기 어렵다.</li>
-<li>정수는 열거형이라 이러한 문제가 없다.</li>
-<li>위의 예시처럼 부동소수점에서 근접한 두 수는 같은 값이 될 수 있다.</li>
-<li>돈과 관련된 프로그램에서는 오차가 발생한다.</li>
-</ul>
-<p><strong><em>그럼에도 부동소수점 형을 쓰는 이유는?</em></strong><br>CPU에서 자체적으로 지원하는 유일한 실수형으로 계산이 빠르다. 돈과 관련된 경우 아닌 경우에는 다른 곳에서 써도 크게 문제되지 않는다.</p>
-<hr>
-<h2 id="부동소수점형의-정밀도-문제를-해결하는-방법"><a href="#부동소수점형의-정밀도-문제를-해결하는-방법" class="headerlink" title="부동소수점형의 정밀도 문제를 해결하는 방법"></a>부동소수점형의 정밀도 문제를 해결하는 방법</h2><h3 id="1-정수로-변환해서-쓰기"><a href="#1-정수로-변환해서-쓰기" class="headerlink" title="1. 정수로 변환해서 쓰기"></a>1. 정수로 변환해서 쓰기</h3><p><u>더하기, 빼기의 경우</u></p>
-<ul>
-<li>미국 달러의 경우 금액에 100을 곱해서 연산 (e.g. $10.10 + $0.01 = $10.11 -&gt; 1010 + 1 = 1011)</li>
-<li>화면에 보여줄 때 100으로 나누고 반올림하여 보여준다.</li>
-<li>단, 정수가 표현할 수 있는 범위까지만 표현 가능하다.<ul>
-<li>32비트 정수(0 ~ 4,294,967,295)에서 문제가 될 수 있다. 64비트 정수(0 ~ 9,223,372,036,853,775,807)는 범위가 커서 크게 문제되지 않지만, 환율계산과 같이 소수점 자리를 계산하는 경우, 소수점 9자리까지 계산해야 한다면 문제가 된다.</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-문자열로-표현하기"><a href="#2-문자열로-표현하기" class="headerlink" title="2. 문자열로 표현하기"></a>2. 문자열로 표현하기</h3><ul>
-<li>문자열은 무한의 길이를 가지기 때문에 숫자가 아닌 문자열로 저장한다.</li>
-<li>두 숫자를 계산할 때 문자열에서 각 자리의 문자를 숫자로 바꾼 뒤 뒤에서부터 한 자리 씩 계산한다.</li>
-<li><p>문제점</p>
-<ul>
-<li>받아올림, 받아내림이 번거롭다.</li>
-<li>만약 + 연산자를 잘못 사용하면 의도치 않은 결과를 얻게 된다. 예를 들어 두 숫자를 더한 값을 얻고 싶었는데, 컴퓨터가 문자열로 인식하여 문자열을 더해버려서 “10.01” + “0.01” -&gt; “10.010.01”과 같은 값을 얻을 수 있다.</li>
-</ul>
-</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th><strong>“10.01” + “0.01”</strong></th>
-<th>[0]</th>
-<th>[1]</th>
-<th>[2]</th>
-<th>[3]</th>
-<th>[4]</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>string</strong></td>
-<td>1</td>
-<td>0</td>
-<td>.</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td><strong>string</strong></td>
-<td>0</td>
-<td>.</td>
-<td>0</td>
-<td>1</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>int</strong></td>
-<td><code>1</code></td>
-<td>0+0=<code>0</code></td>
-<td>.</td>
-<td>0+0=<code>0</code></td>
-<td>1+1 =<code>2</code></td>
-</tr>
-<tr>
-<td><strong>결과(string)</strong></td>
-<td><code>10.02</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<hr>
-<h3 id="3-decimal-자료형"><a href="#3-decimal-자료형" class="headerlink" title="3. decimal 자료형"></a>3. decimal 자료형</h3><blockquote>
-<p>부동소수점형의 정밀도 문제를 해결하기 위해 c#에 존재하는 자료형</p>
-<blockquote>
-<p>표현범위: ± 1.0 x 10 <sup>-28</sup> ~ ± 7.9228 x 10<sup>28</sup><br>정밀도: 28 ~ 29</p>
-</blockquote>
-</blockquote>
-<ul>
-<li>CPU 자체에서 지원하는 형은 아니다.</li>
-<li>금융권에서 돈 계산에 쓰기 적합하다.</li>
-<li>일부 언어에도 (e.g. java - BigDecimal) 비슷한 해결책이 있다.</li>
-</ul>
-<p><u>decimal 자료형 사용하기</u></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">decimal num1 &#x3D; 10.1234567778797898989m; &#x2F;&#x2F;ok</span><br><span class="line">&#x2F;&#x2F;m 키워드가 없으면 double이고, double형을 decimal에 대입하려 했기 때문에 오류 발생.</span><br><span class="line">decimal num2 &#x3D; 10.1234567778797898989;</span><br><span class="line">decimal num3 &#x3D; 10m; &#x2F;&#x2F;ok</span><br><span class="line">decimal num4 &#x3D; 10; &#x2F;&#x2F;ok</span><br></pre></td></tr></table></figure>
-<p><strong>접미사 <code>m</code>을 사용한다.</strong></p>
-<ul>
-<li><code>정수</code>일 때는 묵시적 변환을 허용하기 때문에 안붙여도 된다.</li>
-<li><code>부동소수점</code>일 때는 명시적 변환만 허용하기 때문에 <em>반드시 붙여야 한다.</em></li>
-</ul>
-<p><u>decimal과 다른 자료형 간의 변환</u></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">decimal num1 &#x3D; 10.1234567778797898989m;</span><br><span class="line">decimal num2 &#x3D; 10.123456777898989m;</span><br><span class="line">decimal num3 &#x3D; 10m;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;명시적 변환은 모두 ok</span><br><span class="line">&#x2F;&#x2F;묵시적 변환은 오류 발생</span><br><span class="line">float num4 &#x3D; num1; &#x2F;&#x2F; 컴파일 오류</span><br><span class="line">float num5 &#x3D; (float)num1; &#x2F;&#x2F;ok</span><br><span class="line">num2 &#x3D; num5; &#x2F;&#x2F;컴파일 오류</span><br><span class="line">num2 &#x3D; (decimal)num5; &#x2F;&#x2F;ok</span><br><span class="line"></span><br><span class="line">int num6 &#x3D; num3; &#x2F;&#x2F;컴파일 오류</span><br><span class="line">int num7 &#x3D; (int)num3; &#x2F;&#x2F;ok</span><br><span class="line">num3 &#x3D; num7; &#x2F;&#x2F;ok</span><br></pre></td></tr></table></figure>
-<hr>
-<p><em>References</em><br><a href="https://www.udemy.com/share/101tfkAEYTcVxXTXQJ/" target="_blank" rel="noopener">실무 프로그래밍 입문(C#)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1462,7 +1353,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"heejinlee07.github.io","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="상태 관리상태 관리가 되려면 아래 기능을 할 수 있어야 한다.  최초값 저장 현재 값 읽기 값을 업데이트  Recoil은 왜 필요할까? React의 내장 상태관리 기능의 한계점 극복 최대한 react스러운 API 유지 사용하기 위한 부속 라이브러리 최소화  React 상태 관리 로직의 한계점 컴포넌트의 상태는 공통되는 부모 컴포넌트까지 올라가야 하고, 심할">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Recoil">
+<meta property="og:url" content="https://heejinlee07.github.io/2022/06/21/220622_recoil/index.html">
+<meta property="og:site_name" content="Heejin">
+<meta property="og:description" content="상태 관리상태 관리가 되려면 아래 기능을 할 수 있어야 한다.  최초값 저장 현재 값 읽기 값을 업데이트  Recoil은 왜 필요할까? React의 내장 상태관리 기능의 한계점 극복 최대한 react스러운 API 유지 사용하기 위한 부속 라이브러리 최소화  React 상태 관리 로직의 한계점 컴포넌트의 상태는 공통되는 부모 컴포넌트까지 올라가야 하고, 심할">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-06-21T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-23T02:05:58.124Z">
+<meta property="article:author" content="Heejin Lee">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://heejinlee07.github.io/2022/06/21/220622_recoil/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Recoil | Heejin</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Heejin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Front-end Developer</p>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/06/21/220622_recoil/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Recoil
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-06-22 00:00:00" itemprop="dateCreated datePublished" datetime="2022-06-22T00:00:00+09:00">2022-06-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-23 11:05:58" itemprop="dateModified" datetime="2022-06-23T11:05:58+09:00">2022-06-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="상태-관리"><a href="#상태-관리" class="headerlink" title="상태 관리"></a>상태 관리</h2><p>상태 관리가 되려면 아래 기능을 할 수 있어야 한다.</p>
+<ul>
+<li>최초값 저장</li>
+<li>현재 값 읽기</li>
+<li>값을 업데이트</li>
+</ul>
+<h2 id="Recoil은-왜-필요할까"><a href="#Recoil은-왜-필요할까" class="headerlink" title="Recoil은 왜 필요할까?"></a>Recoil은 왜 필요할까?</h2><ul>
+<li>React의 내장 상태관리 기능의 한계점 극복</li>
+<li>최대한 react스러운 API 유지</li>
+<li>사용하기 위한 부속 라이브러리 최소화</li>
+</ul>
+<h2 id="React-상태-관리-로직의-한계점"><a href="#React-상태-관리-로직의-한계점" class="headerlink" title="React 상태 관리 로직의 한계점"></a>React 상태 관리 로직의 한계점</h2><ul>
+<li>컴포넌트의 상태는 공통되는 부모 컴포넌트까지 올라가야 하고, 심할 경우 어플리케이션 상단까지 올라아가햔다.</li>
+<li>Context API는 확정되지 않은 수의 값을 저장하는데 적합하지 않고, 최적화 관점에서 한계점이 명확하다. state관리보다는 의존성 주입의 개념에 가깝다고 볼 수 있다.</li>
+</ul>
+<h2 id="Recoil의-접근-방법"><a href="#Recoil의-접근-방법" class="headerlink" title="Recoil의 접근 방법"></a>Recoil의 접근 방법</h2><ul>
+<li>React Tree에 직교되는 형태로 존재하는 방향 그래프로 구성되어 있다. 예를 들어 Redux를 쓰려면 react-redux를 사용해서 react와 연결시켜주어야 했으나 Recoil은 그런 장치가 필요없다.</li>
+<li>상태의 변경은 이 그래프를 따라 React component로 흘러들어간다. 따라서 component의 로직을 건드리지 않아도 상태 데이터를 단독으로 변경할 수 있다.</li>
+</ul>
+<h2 id="Recoil의-철학"><a href="#Recoil의-철학" class="headerlink" title="Recoil의 철학"></a>Recoil의 철학</h2><ul>
+<li>보일러 플레이트가 적다.</li>
+<li>React의 로컬 상태와 유사한 간단한 인터페이스</li>
+<li>Concurrent Mode와 호환</li>
+<li>코드 상호간의 낮은 결합도를 통해 Code spliting 용이성 확보</li>
+<li><code>파생 데이터</code>를 사용함으로써 데이터를 사용하는 컴포넌트에서 임의로 데이터를 바꾸는 로직을 가져가지 않아도 된다. 가져와서 useEffect로 바꿔주기를 하지 않고, 로직 자체를 <code>Recoil atom</code>에 귀속시킬 수 있다.</li>
+</ul>
+<h2 id="Core-concept"><a href="#Core-concept" class="headerlink" title="Core concept"></a>Core concept</h2><h3 id="유연하게-상태-관리-가능"><a href="#유연하게-상태-관리-가능" class="headerlink" title="유연하게 상태 관리 가능"></a>유연하게 상태 관리 가능</h3><blockquote>
+<p>공통적으로 필요한 데이터를 어떻게 저장할 것인가?</p>
+</blockquote>
+<ul>
+<li>ContextAPI를 사용하면 다이나믹하게 구성할 수 없고, Coupling이 발생한다.</li>
+<li>Provider가 추가될 떄마다 Tree는 다시 reconciling을 해줘야 하는 이슈</li>
+<li>React의 로컬 컴포넌트 state와 동일하게 batching와 같은 작업들이 모두 라이브러리 내부에서 처리된다.</li>
+</ul>
+<h3 id="파생-데이터-생성이-용이"><a href="#파생-데이터-생성이-용이" class="headerlink" title="파생 데이터 생성이 용이"></a>파생 데이터 생성이 용이</h3><ul>
+<li>상태와 관련 있거나 상태로부터 만들어진 것들</li>
+<li>상호 의존적인 state를 만들 필요가 없다. (두 개 이상의 atom을 참고한 또 하나의 atom..)</li>
+<li>pure function으로 atom 데이터를 사용할 수 있도록 해준다. 정말 데이터에 변화가 있을 때만 recompute 하도록 해준다.</li>
+</ul>
+<h3 id="어플리케이션-단의-상태-observing-가능"><a href="#어플리케이션-단의-상태-observing-가능" class="headerlink" title="어플리케이션 단의 상태 observing 가능"></a>어플리케이션 단의 상태 observing 가능</h3><hr>
+<h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install recoil</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">yarn add recoil</span><br></pre></td></tr></table></figure>
+<h3 id="ESLint"><a href="#ESLint" class="headerlink" title="ESLint"></a>ESLint</h3><p>eslint-plugin-react-hooks을 사용하는 경우 아래와 같이 설정한다. useRecoilCallback()을 사용하기 위해 전달된 종속성이 잘못 지정되었을 때 경고를 표시하고 해결 방안을 제시하기 때문이다.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 수정된 .eslint 설정</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"plugins"</span>: [<span class="string">"react-hooks"</span>],</span><br><span class="line">  <span class="attr">"rules"</span>: &#123;</span><br><span class="line">    <span class="attr">"react-hooks/rules-of-hooks"</span>: <span class="string">"error"</span>,</span><br><span class="line">    <span class="attr">"react-hooks/exhaustive-deps"</span>: [</span><br><span class="line">      <span class="string">"warn"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"additionalHooks"</span>: <span class="string">"useRecoilCallback"</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="React"><a href="#React" class="headerlink" title="React"></a>React</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npx create-react-app my-app</span><br><span class="line"></span><br><span class="line">npm install recoil</span><br><span class="line">or</span><br><span class="line">yarn add recoil</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="RecoilRoot"><a href="#RecoilRoot" class="headerlink" title="RecoilRoot"></a>RecoilRoot</h2><p>부모 트리 어딘가에 RecoilRoot가 필요하다. 보통 루트 컴포넌트가 적절하다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Root Component</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  RecoilRoot,</span><br><span class="line">  atom,</span><br><span class="line">  selector,</span><br><span class="line">  useRecoilState,</span><br><span class="line">  useRecoilValue,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'recoil'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;RecoilRoot&gt;</span><br><span class="line">      &lt;CharacterCounter /&gt;</span><br><span class="line">    &lt;<span class="regexp">/RecoilRoot&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="atoms"><a href="#atoms" class="headerlink" title="atoms"></a>atoms</h2><ul>
+<li><code>상태(state)</code>의 일부</li>
+<li>데이터를 보관하는 기본 단위</li>
+<li>업데이트와 구독이 가능하다. atom의 값을 읽는 컴포넌트들은 암묵적으로 atom을 구독한다.</li>
+<li>React의 로컬 컴포넌트 상태 대신 사용할 수 있다.</li>
+<li><strong>동일한 atom이 여러 컴포넌트에서 사용되면 모든 컴포넌트는 상태를 공유한다. atom이 업데이트 되면 각각의 구독된 컴포넌트가 새로운 값을 반영하여 다시 렌더링된다.</strong></li>
+<li>어느 컴포넌트에서나 읽고 쓸 수 있다.</li>
+<li>Redux로 따지면 Reducer와 같이 전체 store의 일부분을 차지하지만 훨씬 적은 보일러 플레이트를 차지하고 작은 단위로 관리할 수 있다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fontSizeState = atom(&#123;</span><br><span class="line">  key: <span class="string">'fontSizeState'</span>,</span><br><span class="line">  <span class="keyword">default</span>: <span class="number">14</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>key: 디버깅, 지속싱 및 모든 atoms의 map을 볼 수 있는 특정 고급 API에 사용되는 고유한 키가 필요하다.</li>
+<li>key값은 전역적으로 고유해야 한다. 2개의 atom이 같은 키를 갖는 것은 오류이다.</li>
+<li>React 컴포넌트의 상태처럼 기본값을 가진다.</li>
+</ul>
+<h2 id="useRecoilState"><a href="#useRecoilState" class="headerlink" title="useRecoilState"></a>useRecoilState</h2><ul>
+<li>atom을 읽고 쓰게 하기 위해서 사용한다.</li>
+<li>컴포넌트에서 atom을 읽고 쓸 때 사용한다. React의 useState와 유사하지만 <code>컴포넌트 간에 공유될 수 있다.</code>는 차이점이 있다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FontButton</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [fontSize, setFontSize] = useRecoilState(fontSizeState);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;button</span><br><span class="line">      onClick=&#123;() =&gt; setFontSize(<span class="function">(<span class="params">size</span>) =&gt;</span> size + <span class="number">1</span>)&#125;</span><br><span class="line">      style=&#123;&#123; fontSize &#125;&#125;</span><br><span class="line">    &gt;</span><br><span class="line">      Click to Enlarge</span><br><span class="line">    &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>버튼을 클릭하면 버튼의 글꼴 크기가 1만큼 증가하며, fontSizeState atom을 사용하는 다른 컴포넌트의 글꼴 크기도 같이 변화한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Text</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [fontSize, setFontSize] = useRecoilState(fontSizeState);</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">fontSize</span> &#125;&#125;&gt;</span>This text will increase in size too.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="atomFamily"><a href="#atomFamily" class="headerlink" title="atomFamily"></a>atomFamily</h2><ul>
+<li>writable한 recoilState atom을 반환하는 함수를 반환한다.</li>
+<li>atom들의 모음집으로 저장한다. 기본적으로 Recoil 내부적으로 Caching와 같은 최적화를 진행해준다.</li>
+<li>일반적으로 atom은 RecoilRoot 단위로 등록이 되지만, 여기서 atomFamily는 사용처가 약간 다르다. 예를 들어 UI Prototyping 툴을 만들 때, 각각의 UI element에 대해 position이나 width, height와 같은 값들을 가지고 있다고 가정할 때, 이런걸 리스트로 보관하면서 memoizing해도 되지만 atomFamily를 사용하면 Recoil에서 이런 부분들을 처리해준다.</li>
+</ul>
+<h2 id="selector"><a href="#selector" class="headerlink" title="selector"></a>selector</h2><ul>
+<li><code>파생된 상태(derived state)</code>의 일부를 나타내고 이는 <code>상태의 변화</code>를 의미한다.</li>
+<li>순수 함수이다.</li>
+<li>상위의 atoms나 selectors가 업데이트되면 하위의 selector 함수도 다시 실행된다.</li>
+<li>컴포넌트들은 selectors를 atoms처럼 구독할 수 있고, selectors가 변경되면 컴포넌트들도 다시 렌더링된다.</li>
+<li><strong>selectors는 상태를 기반으로 하는 파생 데이터를 계산하는 데 사용된다.</strong> 최소한의 상태 집합만 atoms에 저장하고 다른 모든 파생되는 데이터는 selectors에 명시한 함수를 통해 효율적으로 계산하는 방식으로 쓸모없는 상태의 보존을 방지한다.</li>
+<li>어떤 컴포넌트가 자신을 필요로 하는지 자신은 어떤 상태에 의존하는지 추적하기 때문에 함수적이 접근방식을 매우 효율적으로 만든다.</li>
+<li>컴포넌트의 관점에서 selectors와 atoms는 동일한 인터페이스를 가지고, 서로 대체할 수 있다.</li>
+<li>atom, 다른 selector들을 조합할 수 있다.</li>
+<li>파생되는 상태를 생성한다.</li>
+<li>dependency에 해당되는 atom이 업데이트되면 같이 업데이트 되기 때문에 관리의 부담이 없다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fontSizeLabelState = selector(&#123;</span><br><span class="line">  key: <span class="string">'fontSizeLabelState'</span>,</span><br><span class="line">  <span class="keyword">get</span>: (&#123; <span class="keyword">get</span> &#125;) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> fontSize = <span class="keyword">get</span>(fontSizeState);</span><br><span class="line">    const unit = 'px';</span><br><span class="line"></span><br><span class="line">    return `$&#123;fontSize&#125;$&#123;unit&#125;<span class="string">`;</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">&#125;);</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>get: 계산될 함수. 전달되는 get 인자를 통해 다른 atoms, selectors에 접근할 수 있고, 이때 자동으로 종속 관계가 생성되므로 참조했던 다른 atoms나 selector가 업데이트되면 이 함수도 다시 실행된다.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FontButton</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [fontSize, setFontSize] = useRecoilState(fontSizeState);</span><br><span class="line">  <span class="keyword">const</span> fontSizeLabel = useRecoilValue(fontSizeLabelState);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;div&gt;Current font size: $&#123;fontSizeLabel&#125;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">      &lt;button onClick=&#123;setFontSize(fontSize + 1)&#125; style=&#123;&#123; fontSize &#125;&#125;&gt;</span></span><br><span class="line"><span class="regexp">        Click to Enlarge</span></span><br><span class="line"><span class="regexp">      &lt;/</span>button&gt;</span><br><span class="line">    &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>fontSizeLabelState: selector는 fontSizeState하는 하나의 atom에 의존성을 갖는다.<ul>
+<li>이 selector는 fontSizeState를 입력으로 사용하고 형식화된 글꼴 크기 레이블을 출력으로 반환하는 순수 함수처럼 동작한다.</li>
+<li>useRecoilValue()를 사용해서 읽는다.</li>
+<li>writable하지 않기 때문에 useRecoilState()를 이용하지 않는다.</li>
+</ul>
+</li>
+<li>위 FontButton 예제에서 버튼을 클릭하면 버튼의 글꼴 크기가 증가하면서도 현재 글꼴 크기를 반영하도록 글꼴 크기 레이블을 업데이트하는 두 가지 작업이 수행된다.</li>
+</ul>
+<h2 id="React에서-사용하는-API"><a href="#React에서-사용하는-API" class="headerlink" title="React에서 사용하는 API"></a>React에서 사용하는 API</h2><ul>
+<li>useRecoilValue: 기존에 사용하던 리액트의 로컬 상태 API와 동일한 형태로 사용 가능<ul>
+<li>atom, selector 모두 동일한 API를 사용하기에 변경이 필요할 때 언제는 Component 수정을 최소화하고 Recoil State를 변경할 수 있다.</li>
+<li>하나의 atom이나 selector를 인자로 받아 대응하는 값을 반환한다.</li>
+</ul>
+</li>
+<li>useRecoilCallback: 리액트의 useCallback과 유사하면, 다만 recoil state를 사용할 수 있는 API를<ul>
+<li>atom이나 selector가 업데이트 되었을 때, react componet를 리렌더하고 비동기적으로 recoil state를 읽는다.</li>
+<li>Render-time에 하고 싶지 않은 시간이 오래걸리는 비동기 액션을 수행한다.</li>
+<li>Recoil state를 read하거나 write하는 side-effect를 수행한다.</li>
+<li>render-time에는 어떤 atom이나 selector를 업데이트하고 싶은지 알 수 없다<ul>
+<li>이 경우에는 useSetRecoilState를 사용할 수 없기 떄문이다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>useRecoilCallback은 atom, selector state에 대한 스냅샷을 가지고 있기 때문에 특정 상태값을 사용하고 싶지만 deps에 반영하고 싶지 않을 때 유용하게 사용할 수 있다.</li>
+<li>대표적으로 logger와 같은 케이스에서 유용하게 사용할 수 있다.</li>
+</ul>
+<hr>
+<h2 id="왜-Recoil인가"><a href="#왜-Recoil인가" class="headerlink" title="왜 Recoil인가?"></a>왜 Recoil인가?</h2><ul>
+<li>낮은 진입장벽, 간단한 API (Redux의 Action, Store, Reducer와 같은 개념을 모두 익힐 필요 없다.)</li>
+<li>React API와 굉장히 유사하여 대체하기가 용이하다.</li>
+<li>비동기 데이터 처리가 용이하다.</li>
+<li>atomFamily, selectorFamily를 이용하여 국소적으로 사용하는 상태를 생성할 때 용이하다.</li>
+<li>atomEffects 등을 이용하여 변화하는 값을 atom 자체적으로 트래킹할 수 있다.</li>
+</ul>
+<h2 id="Recoil의-한계점"><a href="#Recoil의-한계점" class="headerlink" title="Recoil의 한계점"></a>Recoil의 한계점</h2><ul>
+<li>atomEffect를 비롯한 많은 API가 여전히 실험적이다</li>
+<li>서버 사이드 렌더링 환경에서 안정성이 미흡하다.</li>
+</ul>
+<hr>
+<p><em>References</em><br><a href="https://www.youtube.com/watch?v=H10KNVxF6_s&amp;t=180s" target="_blank" rel="noopener">왜 Recoil을 써야 하는가?</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/16/220617_graphQL/" rel="prev" title="GraphQL & Apollo">
+      <i class="fa fa-chevron-left"></i> GraphQL & Apollo
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/21/220622_apolloClient/" rel="next" title="Apollo Client">
+      Apollo Client <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#상태-관리"><span class="nav-number">1.</span> <span class="nav-text">상태 관리</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recoil은-왜-필요할까"><span class="nav-number">2.</span> <span class="nav-text">Recoil은 왜 필요할까?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-상태-관리-로직의-한계점"><span class="nav-number">3.</span> <span class="nav-text">React 상태 관리 로직의 한계점</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recoil의-접근-방법"><span class="nav-number">4.</span> <span class="nav-text">Recoil의 접근 방법</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recoil의-철학"><span class="nav-number">5.</span> <span class="nav-text">Recoil의 철학</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Core-concept"><span class="nav-number">6.</span> <span class="nav-text">Core concept</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#유연하게-상태-관리-가능"><span class="nav-number">6.1.</span> <span class="nav-text">유연하게 상태 관리 가능</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#파생-데이터-생성이-용이"><span class="nav-number">6.2.</span> <span class="nav-text">파생 데이터 생성이 용이</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#어플리케이션-단의-상태-observing-가능"><span class="nav-number">6.3.</span> <span class="nav-text">어플리케이션 단의 상태 observing 가능</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#설치"><span class="nav-number">7.</span> <span class="nav-text">설치</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ESLint"><span class="nav-number">7.1.</span> <span class="nav-text">ESLint</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React"><span class="nav-number">7.2.</span> <span class="nav-text">React</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RecoilRoot"><span class="nav-number">8.</span> <span class="nav-text">RecoilRoot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#atoms"><span class="nav-number">9.</span> <span class="nav-text">atoms</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useRecoilState"><span class="nav-number">10.</span> <span class="nav-text">useRecoilState</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#atomFamily"><span class="nav-number">11.</span> <span class="nav-text">atomFamily</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#selector"><span class="nav-number">12.</span> <span class="nav-text">selector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React에서-사용하는-API"><span class="nav-number">13.</span> <span class="nav-text">React에서 사용하는 API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#왜-Recoil인가"><span class="nav-number">14.</span> <span class="nav-text">왜 Recoil인가?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recoil의-한계점"><span class="nav-number">15.</span> <span class="nav-text">Recoil의 한계점</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Heejin Lee</p>
+  <div class="site-description" itemprop="description">Today I Learned</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Heejin Lee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
