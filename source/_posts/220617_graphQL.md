@@ -4,12 +4,6 @@ date: 2022-06-17
 tags:
 ---
 
----
-
-_References_
-[Apollo Client](https://www.apollographql.com/docs/react/)
-[GraphQL](https://graphql.org/code/#javascript)
-
 REST API : GraphQL 이전부터 사용.
 
 - URI + 요청
@@ -108,3 +102,9 @@ type EquipmentAdv {
 7. intergace
    - 유사한 객체 타입을 만들기 위한 공통 필드 타입
    - 추상 타입 - 다른 타입에 implement 되기 위한 타입
+
+---
+
+_References_
+[Apollo Client](https://www.apollographql.com/docs/react/)
+[GraphQL](https://graphql.org/code/#javascript)

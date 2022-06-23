@@ -65,3 +65,9 @@ console.log(cartItemsVar());
 ### Reacting
 
 Reacting이라는 이름처럼 reactive variables는 어플리케이션에서의 reactive한 변화를 트리거할 수 있습니다. reactive variable의 값을 수정하려고 하면 쿼리는 해당 변수에 종속되어 있기 때문에 새로고침되고, 어플리케이션의 UI가 즉각 업데이트됩니다. useReactiveVar hook을 사용하면 query를 wrapping하지 않고 리액트 컴포넌트를 state에 바로 포함시킬 수 있습니다.
+
+---
+
+_References_
+[reactive-variables](https://www.apollographql.com/docs/react/local-state/reactive-variables/)
+[makeVar](https://www.apollographql.com/docs/react/api/cache/InMemoryCache/#makevar)
