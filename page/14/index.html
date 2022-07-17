@@ -175,7 +175,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-06 10:57:52" itemprop="dateModified" datetime="2022-07-06T10:57:52+09:00">2022-07-06</time>
+                <time title="Modified: 2022-07-18 01:11:04" itemprop="dateModified" datetime="2022-07-18T01:11:04+09:00">2022-07-18</time>
               </span>
 
           
@@ -265,6 +265,87 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2020/02/20/200222_mutable_immutable/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/20/200222_mutable_immutable/" class="post-title-link" itemprop="url">왜 원시타입은 변경불가하고, 객체는 가능할까?</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-21T00:00:00+09:00">2020-02-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-18 01:11:04" itemprop="dateModified" datetime="2022-07-18T01:11:04+09:00">2022-07-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>원시타입: string, number, boolean, null, undefined, symbol<br>객체: object, array, function…</p>
+</blockquote>
+<p><code>원시타입</code>의 값은 <strong>변경불가</strong>의 값이다. 따라서 원래 할당되어 있던 값을 변경하는 것이 아니라 재할당이 이루어진다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">5</span>; <span class="comment">// a = 5</span></span><br><span class="line"><span class="keyword">let</span> b = a; <span class="comment">// b = 5;</span></span><br><span class="line">a = <span class="number">6</span>; <span class="comment">// a = 6;</span></span><br></pre></td></tr></table></figure>
+<p>처음 5라는 값을 a라는 변수에 할당하고, 다음으로 5라는 값을 담고 있는 a의 값을 b에 할당하였을 때,<br>b의 값 5는 a의 값 5가 들어있는 메모리 공간을 차지하는 것이 아니라 새로운 공간을 차지하여 값을 할당한다. 그리고 a를 6이라고 재할당하면 이 역시 새로운 공간을 차지한다.</p>
+<p><em>객체의 경우는 어떨까?</em></p>
+<p><code>객체</code>는 <strong>변경가능</strong>한 값이기 때문에 새로운 공간에 값을 재할당하는 것이 아니라 원래 할당된 공간의 값을 변경한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  word: <span class="string">"hello"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line"><span class="comment">//b  -&gt; &#123;word:"hello"&#125;</span></span><br><span class="line">a.word = <span class="string">"world"</span>;</span><br><span class="line"><span class="comment">//a  -&gt; &#123;word:"world"&#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>{word: &quot;hello&quot;}</code>라는 객체를 a라는 변수에 할당하였고, 그 다음 b에 a의 값을 할당하였을 때,<br>b는 새로운 메모리 공간을 차지하는 대신 처음 a가 만들어 둔 <code>{word: &quot;hello&quot;}</code>라는 값이 든 공간을 바라보게 된다. 즉, a와 b라는 서로 다른 식별자가 <code>{word: &quot;hello&quot;}</code>라는 값이 들어 있는 하나의 공간을 공유하는 것이다.<br>따라서 a의 word라는 프로퍼티를 world로 변경하면 새로운 공간에 <code>{word: &quot;world&quot;}</code>라는 값을 담는 것이 아니라 원래 <code>{word: &quot;hello&quot;}</code>가 있던 공간의 프로퍼티를 <code>{word: &quot;world&quot;}</code>로 변경한다. b.word를 해도 같은 결과가 나온다.</p>
+<hr>
+<p><em>그렇다면 변수를 할당할 때 재할당이 불가능한 키워드 <strong>const</strong>를 사용한다면 어떻게 될까?</em></p>
+<p><code>const a = 5;</code>라고 할당한 후, <code>a = 6;</code>이라고 재할당하면 const는 재할당이 되지 않기 때문에 오류가 발생한다. 하지만 객체의 경우라면 어떻게 될까?</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a = &#123;num: 3&#125;</span></span><br><span class="line">a.num = <span class="number">5</span>;</span><br><span class="line"><span class="comment">//a = &#123;num: 5&#125;</span></span><br></pre></td></tr></table></figure>
+<p>const는 재할당을 할 수 없지만 다음과 같이 객체가 할당되면 객체의 프로퍼티는 변경할 수 있다.<br>처음 const a라는 변수에 <code>{num : 3}</code>를 할당한다. 그러면 이 값은 하나의 메모리 공간을 차지하게 된다.<br>이때 a의 num라는 프로퍼티에 접근하여 <code>a.num = 5;</code>라고 값을 할당한 후 a를 참조하면 값이 5로 바뀌어 있다.</p>
+<p>하지만 다음과 같이 코드를 사용하면 const는 재할당을 할 수 없기 때문에 오류가 발생한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  num: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line">a = &#123;</span><br><span class="line">  num: <span class="number">5</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -335,7 +416,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

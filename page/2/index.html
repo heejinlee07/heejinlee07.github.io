@@ -144,6 +144,123 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/05/08/220509_asynchronous/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/08/220509_asynchronous/" class="post-title-link" itemprop="url">자바스크립트의 비동기성</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-05-09 00:00:00" itemprop="dateCreated datePublished" datetime="2022-05-09T00:00:00+09:00">2022-05-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-18 01:11:04" itemprop="dateModified" datetime="2022-07-18T01:11:04+09:00">2022-07-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>자바스립트는 동기적이다. <strong>동기적이라는 말은 자바스크립트가 싱글 스레드이기 때문에 한 번에 한 가지 task만 수행할 수 있다는 의미이다.</strong> 즉, 어떤 task1이 실행되면 이 task의 처리가 끝나기 전까지 다음 task인 task2는 실행되지 못하고, task1이 끝날 때까지 기다려야 한다. 그런데 브라우저 환경에서 task가 동기적으로 차리되면 예를 들어 서버에 요청한 후 어떤 결과값을 받아서 화면에 렌더링하는 task가 있다고 했을 때, 서버에서 요청이 언제 돌아올지 모르는 상태로 마냥 기다려야 하는데, 이 사이에 사용자가 보는 웹 브라우저 화면은 빈 화면인 상태 또는 task가 수행되기 이전의 상태에 머물러 있게 된다. 이런 문제 때문에 <strong>브라우저 환경에서 자바스크립트는 비동기적으로 실행된다.</strong> 정확히 말하자면 자바스크립트가 비동기적인 것이 아니라 브라우저가 비동기 처리를 이용하여 task를 마치 동시에 처리되는 것처럼 처리하고, <strong>이러한 비동기 처리를 돕는 것은 이벤트 루프이다.</strong></p>
+<p><em>그렇다면 자바스크립트에서 말하는 비동기 프로그래밍의 개념에 대해 조금 더 상세히 살펴보겠다.</em></p>
+<blockquote>
+<p>비동기 프로그래밍의 핵심은 <code>지금</code>에 해당하는 부분, <code>나중</code>에 해당하는 부분 사이의 관계 또는 간극이다.</p>
+</blockquote>
+<h2 id="비동기성을-이해하기-위한-배경-지식"><a href="#비동기성을-이해하기-위한-배경-지식" class="headerlink" title="비동기성을 이해하기 위한 배경 지식"></a>비동기성을 이해하기 위한 배경 지식</h2><p>자바스크립트에서 프로그램은 여러 개의 chunk로 구성된다.</p>
+<ol>
+<li><code>지금</code> 실행 중인 프로그램 chunk</li>
+<li><code>나중에</code> 실행 할 프로그램 chunk</li>
+</ol>
+<p>여기서 <code>나중</code>은 <code>지금</code>의 직후가 아니며, <code>지금</code> 끝낼 수 없는 작업은 비동기적으로 처리되기 때문에 프로그램을 중단하지 않는다. AJAX를 예로 들자면 이 함수는 비동기적으로 어떠한 task를 <code>지금</code> 요청하고 <code>나중</code>에 결과를 받고, <code>지금</code>부터 <code>나중</code>까지 기다리는 최적의 방법은 <code>콜백 함수</code>를 이용하는 것이다.</p>
+<h3 id="이벤트-루프"><a href="#이벤트-루프" class="headerlink" title="이벤트 루프"></a>이벤트 루프</h3><p><strong>앞서 말했지만 자바스크립트는 동기적이라서 주어진 요청(task)가 주어지면 주어진대로 순서대로 처리할 뿐이다.</strong> 자바스크립트 엔진은 웹 브라우저와 같은 호스팅 환경에서 실행되는데, 이벤트 루프가 여러 프로그램 chunk를 시간에 따라 매 순간 한 번씩 엔진을 실행시키도록 한다. 즉 자바스크립트 엔진이 동기적으로 코드를 실행할 때 AJAX, 콜백함수와 같이 비동기 처리 함수가 있다면 브라우저 환경이 이벤트 루프를 통해 실행을 스케줄링 하는 것이다. 이 스케줄링이 비동기적으로 처리되기 때문에 자바스크립트 자체는 동기적이지만 브라우저 환경에서의 실행 스케줄링은 비동기적이라고 할 수 있다. 구현방식을 단순화해서 구현하면 다음과 같다.</p>
+<p><strong>while문의 무한 루프에서 매 순회를 틱이라 하는데, 한 번 틱이 발생할 때, 큐에 있는 이벤트(콜백 함수)를 선입 선출하여 실행한다.</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//eventLoop는 큐(선입, 선출) 역할을 하는 배열</span></span><br><span class="line"><span class="keyword">var</span> eventLoop = [];</span><br><span class="line"><span class="keyword">var</span> event;</span><br><span class="line"></span><br><span class="line"><span class="comment">//'무한'실행</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="comment">//'틱' 발생 (틱: 이벤트 루프를 한 차례 순회하는 것)</span></span><br><span class="line">  <span class="keyword">if</span> (eventLoop.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">//큐에 있는 다음 이벤트 조회</span></span><br><span class="line">    event = eventLoop.shift();</span><br><span class="line">    <span class="comment">//이제 다음 이벤트 실행</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      event();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      reportError(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="싱글-스레드-vs-병렬-스레드"><a href="#싱글-스레드-vs-병렬-스레드" class="headerlink" title="싱글 스레드 vs 병렬 스레드"></a>싱글 스레드 vs 병렬 스레드</h3><p>자바스크립트의 비동기 처리에 대해서 설명할 때 종종 병렬과 혼용하여 사용하는데, 둘은 완전히 다른 개념이다.</p>
+<ul>
+<li>비동기 : <code>지금</code>과 <code>나중</code> 사이의 간극에 관함</li>
+<li>병렬: <code>동시</code>에 일어나는 일에 관함</li>
+</ul>
+<p>자바스크립트는 하나의 프로그램에서 여러 스레드를 처리하는 병렬 시스템이 아니라 <strong>절대로 스레드 간에 데이터를 공유하지 않는 단일 스레드 환경이다.</strong> 그리고 단일 스레드이기 때문에 완전-실행(Run-to-Completion)된다. 즉 함수가 2개 있다면 첫 번째 함수의 전체 코드가 다 실행된 후, 다음 함수가 실행된다. 그리고 두 함수가 있다면 이 함수는 순서에 따른 비결정성을 가진다. 이를 경합 조건(Race Condition)이라 한다.</p>
+<h3 id="동시성"><a href="#동시성" class="headerlink" title="동시성"></a>동시성</h3><p>복수의 프로세스가 같은 시간 동안 동시에 실행된다. 앞서 말했듯이 자바스크립트는 병렬 스레드가 아니므로 여기서 말하는 동시성은 <strong>각 프로세스 작업(개별 프로세스의 스레드)이 병렬로 처리되는지와 관계된 것이 아닌, 프로세스 수준(작업 수준)의 병행성을 말한다.</strong> 단 프로세스 1과 프로세스 2가 있다면 이들은 동시에 실행되지만 이들을 구성하는 이벤트들은 이벤트 루프 큐에서 차례대로 실행된다.</p>
+<h3 id="상호작용-vs-비상호-작용"><a href="#상호작용-vs-비상호-작용" class="headerlink" title="상호작용 vs 비상호 작용"></a>상호작용 vs 비상호 작용</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> res = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">results</span>) </span>&#123;</span><br><span class="line">  res.foo = results;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">results</span>) </span>&#123;</span><br><span class="line">  res.bar = results;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ajax()는 라이브러리에 있는 임의의 AJAX 함수</span></span><br><span class="line">ajax(<span class="string">'http://some.url.1'</span>, foo);</span><br><span class="line">ajax(<span class="string">'http://some.url.2'</span>, bar);</span><br></pre></td></tr></table></figure>
+<p>위 코드에서 복수의 프로세스 foo(), bar()가 동시에 실행될 때, 누가 먼저 실행될 지는 알 수 없지만 이들 프로세스 사이에 연관된 작업이 없기 때문에 프로세스간 상호작용이 일어나지 않는다. 이런 경우에 실행 순서가 문제되지 않는다. <em>즉 경합 조건이 문제시 되지 않는다.</em> 하지만 상호 작용하는 상황이라면 이야기는 달라진다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> res = [];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">response</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  res.push(data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ajax()는 라이브러리에 있는 임의의 AJAX 함수</span></span><br><span class="line"><span class="comment">//1️⃣</span></span><br><span class="line">ajax(<span class="string">'http://some.url.1'</span>, response);</span><br><span class="line"><span class="comment">//2️⃣</span></span><br><span class="line">ajax(<span class="string">'http://some.url.2'</span>, response);</span><br></pre></td></tr></table></figure>
+<p>위의 코드는 상호 작용이 발생하는 프로세스이다. 1️⃣과 2️⃣의 프로세스는 모두 AJAX 응답에 대한 처리를 하는 response() 함수를 호출하기 때문에 선발 순으로 처리된다. 이 코드가 프로그램 개발자가 ‘<a href="http://some.url.1&#39;의" target="_blank" rel="noopener">http://some.url.1&#39;의</a> 결과를 res[0]에, ‘<a href="http://some.url.2&#39;,의" target="_blank" rel="noopener">http://some.url.2&#39;,의</a> 결과를 res[1]에 넣고자 의도한 코드라고 했을 때, 의도한 대로 동작할 수 있지만 어느쪽 URL의 응답이 먼저 도착할지 보장되지 않기 때문에 만약 예측한 대로 응답이 도착하지 않을 경우 결과가 뒤집힐 수 있다. 이런 경합 조건을 해결하려면 상호 작용의 순서를 잘 조정해야 한다. <em>특히 동시 프로세스들이 스코프나 DOM을 통해 간접적으로 상호작용하기 때문에 순서 조정이 아주 중요하다. DOM을 조작하는 코드의 경우 순서 조정이 제대로 이루어지지 않으면 처리가 덜 된 DOM 요소를 화면에 보여주게 될 수도 있다.</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> res = [];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">response</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (data.url == <span class="string">'http://some.url.1'</span>) &#123;</span><br><span class="line">    res[<span class="number">0</span>] = data;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (data.url == <span class="string">'http://some.url.2'</span>) &#123;</span><br><span class="line">    res[<span class="number">1</span>] = data;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ajax()는 라이브러리에 있는 임의의 AJAX 함수</span></span><br><span class="line"><span class="comment">//1️⃣</span></span><br><span class="line">ajax(<span class="string">'http://some.url.1'</span>, response);</span><br><span class="line"><span class="comment">//2️⃣</span></span><br><span class="line">ajax(<span class="string">'http://some.url.2'</span>, response);</span><br></pre></td></tr></table></figure>
+<p>위와 같이 작성하게 되면 어느 쪽에 응답이 먼저 오더라도 data.url을 보고 해당하는 결과를 res[0] 또는 res[1]에 담을 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a, b;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  a = x * <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">if</span> (a &amp;&amp; b) &#123;</span><br><span class="line">    baz();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line">  b = y * <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">if</span> (a &amp;&amp; b) &#123;</span><br><span class="line">    baz();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">baz</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a + b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ajax()는 라이브러리에 있는 임의의 AJAX 함수</span></span><br><span class="line"><span class="comment">//1️⃣</span></span><br><span class="line">ajax(<span class="string">'http://some.url.1'</span>, foo);</span><br><span class="line"><span class="comment">//2️⃣</span></span><br><span class="line">ajax(<span class="string">'http://some.url.2'</span>, bar);</span><br></pre></td></tr></table></figure>
+<p>위의 코드에서 <code>if (a &amp;&amp; b) { baz() }</code>의 조건은 관문(Gate)라 부른다. <em>a와 b 둘 중 누가 먼저 도착할지 알 수 없지만 반드시 둘 다 도착한 다음에 baz()함수가 호출이 되는, 즉 관문이 열리기 때문이다.</em> 이 코드가 존재하지 않다면 baz() 함수가 초기에는 a,b가 undefined인 상태에서도 호출이 되어 제대로 작동하지 않는다. 이와 다르게 둘 다 도착했을 때가 아닌, 둘 중 하나만 도착했을 때 상호 작용하도록 하는 코드도 있다. 이는 관문(Gate)보다 <em>걸쇠(Latch)로 불리고, 선착순 한 명만 이기는 형태이다.</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!a) &#123;</span><br><span class="line">    a = x * <span class="number">2</span>;</span><br><span class="line">    baz();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">for</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!a) &#123;</span><br><span class="line">    a = x / <span class="number">2</span>;</span><br><span class="line">    baz();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">baz</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ajax()는 라이브러리에 있는 임의의 AJAX 함수</span></span><br><span class="line"><span class="comment">//1️⃣</span></span><br><span class="line">ajax(<span class="string">'http://some.url.1'</span>, foo);</span><br><span class="line"><span class="comment">//2️⃣</span></span><br><span class="line">ajax(<span class="string">'http://some.url.2'</span>, bar);</span><br></pre></td></tr></table></figure>
+<p>위의 코드에서 <code>if (!a) {}</code>와 같은 코드를 걸쇠(Latch)라 부른다. foo()나 bar() 둘 중 첫 번째 실행된 함수만이 이 조건을 통과하고 늦게 실행된 함수 호출은 무시되기 때문이다.</p>
+<hr>
+<h2 id="콜백"><a href="#콜백" class="headerlink" title="콜백"></a>콜백</h2><p>콜백은 백그라운드에서 코드 실행을 시작할 함수를 호출할 때 인수로 지정된 함수이다. 백그라운드 코드 실행이 끝나면 콜백 함수를 호출해서 작업이 완료되었음을 아리거나 다음 작업을 실행하게 할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">btn.addEventListener(<span class="string">'click'</span>, () =&gt; &#123;</span><br><span class="line">  alert(<span class="string">'You clicked me!'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> pElem = <span class="built_in">document</span>.createElement(<span class="string">'p'</span>);</span><br><span class="line">  pElem.textContent = <span class="string">'This is a newly-added paragraph.'</span>;</span><br><span class="line">  <span class="built_in">document</span>.body.appendChild(pElem);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>위의 함수에서 콜백은 addEventListener()의 click 옆의 두 번째 매개변수이다. 이벤트가 실행 될 때 이 콜백 함수가 호출된다. callback 함수를 다른 함수의 인수로 전달할 때, 함수의 참조를 인수로 전달할 뿐이지 즉시 실행되지 않고, 함수의 body에서 “called back”된다. 즉 정의된 함수는 때가 되면 callback 함수를 실행하는 역할을 한다. 또한 콜백은 <strong>자바스크립트에서 비동기성을 표현하고 관리하는 가장 일반적인 기법이자 가장 기본적인 <code>비동기 패턴</code>이다.</strong></p>
+<h3 id="콜백의-실체"><a href="#콜백의-실체" class="headerlink" title="콜백의 실체"></a>콜백의 실체</h3><h4 id="연속성"><a href="#연속성" class="headerlink" title="연속성"></a>연속성</h4><p>비동기 코드 작성의 어려움은 콜백 함수의 연속성과 인간 두뇌의 연속성의 개념이 다르기 때문이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//A</span></span><br><span class="line">ajax(<span class="string">"..."</span>, <span class="function"><span class="keyword">function</span>(<span class="params">..</span>)</span>&#123;</span><br><span class="line">  <span class="comment">//c</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//B</span></span><br></pre></td></tr></table></figure>
+<p>위와 같은 코드가 있다고 했을 때, <code>지금</code>에 해당하는 전반부 코드(A,B)가 실행되면 비결정적(indeterminate) 시간 동안 중지되고 언젠가 AJAX 호출이 끝날 때 중지되기 이전 위치로 다시 돌아와서 나머지 후반부(C)프로그램이 이어진다. 즉 콜백 함수는 프로그램의 연속성을 감싼(캡슐화)한 장치이다. 그런데 이러한 코드는 순차적으로 task를 처리하는 두뇌의 처리방식과 다른 순서를 같기 때문에 추론이 어렵다. 즉 위와 같은 코드를 보면 두뇌는 A -&gt; C -&gt; B의 순서대로 작성된 코드를 읽어내려가며 추론하려 할 것이다. 하지만 실질적인 코드는 A -&gt; B -&gt; C의 순서대로 실행하기 때문에 이러한 괴리감 때문에 비동기 처리를 이해하기 어렵게 만든다.</p>
+<h4 id="콜백지옥"><a href="#콜백지옥" class="headerlink" title="콜백지옥"></a>콜백지옥</h4><p>비동기 처리를 위해 콜백을 중첩 또는 연속해서 사용되면 아래와 같은 콜백 지옥이 발생한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">listen(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> <span class="title">handler</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    ajax(<span class="string">'http://some.url.1'</span>, <span class="function"><span class="keyword">function</span> <span class="title">response</span>(<span class="params">text</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (text == <span class="string">'hello'</span>) &#123;</span><br><span class="line">        handler();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (text == <span class="string">'world'</span>) &#123;</span><br><span class="line">        request();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;, <span class="number">500</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>이러한 콜백 지옥으로 거론되는 첫 번째 문제는 콜백을 연속해서 쓰다보니 점점 들여쓰기가 되면서 가독성이 떨어져서 유지 보수를 어렵게 하는 것이다. 하지만 들여쓰기로 인한 가독성 저하보다 코드를 너무 복잡하게 만든다는 점이 더 큰 문제이다. 중접된 콜백으로 인한 가독성 저하를 막기 위해 콜백 작성시 조건을 작성해서 좀 더 가독성을 높일 수 있는데, <em>이러한 하드 코딩은 사실 코드를 더 복잡하게 만들고, 코드가 복잡해지는 것이야말로 유지보수를 어렵게 만든다.</em> 즉 콜백의 단계별 맞닥뜨릴 수 있는 경우의 수를 분기처리해 줄 수 있는데, 분기처리를 해야하는 가능한 경우의 수를 나열하다보면 코드가 방대해지고, 작성된 구문이 모든 경우의 수를 커버하라는 보장도 없다.</p>
+<h4 id="믿음성-문제"><a href="#믿음성-문제" class="headerlink" title="믿음성 문제"></a>믿음성 문제</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//A</span></span><br><span class="line">ajax(<span class="string">"..."</span>, <span class="function"><span class="keyword">function</span>(<span class="params">..</span>)</span>&#123;</span><br><span class="line">  <span class="comment">//c</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//B</span></span><br></pre></td></tr></table></figure>
+<p>위와 같은 함수는 <code>제어권을 주고받는 행위</code>가 발생한다. A,B가 자바스크립트 메인 프로그램의 제어를 받으며 <code>지금</code> 실행된다면 C는 다른 프로그램(ajax() 함수)의 제어하에 <code>나중에</code> 실행된다. <em>이 제어권 교환이야말로 콜백 중심적 설계의 가장 큰 문제점이다.</em> 위 코드에서 쓰인 ajax()처럼 콜백을 넘겨주는 코드는 개발자가 직접 제어할 수 있는 함수가 아니라 서드 파티가 제공한 유틸리티인 경우가 대부분이다. 이렇게 내가 작성하는 프로그램인데도 실행 흐름은 서드 파티에 의존해야 하는 상황을 <code>제어의 역전</code>이라 한다. 그래서 비동기 콜백 함수를 작성한 경우, 콜백 자체에 대해 개발자가 직접 제어할 수 없기 때문에, 콜백 호출 시 오류가 날 수 있는 상황에 대한 여러가지 보완 로직을 구현하기 마련이다. 예를 들어 콜백을 너무 일찍 부르거나 너무 늦게 부른다거나, 너무 많이 부른다거나 하는 등의 잘못 될 가능성이 있는 상황에 대한 보완 로직을 작성해 두는 것이다. 하지만 보완 로직을 작성했다고 해도 서드 파티의 처리에서 무언가 문제가 생기면 완전히 잘못 틀어질 수도 있다. 그래서 이런 믿음성의 문제를 해결하기 위해 몇 가지 콜백 체계가 존재한다.</p>
+<ul>
+<li>분할 콜백</li>
+<li>에러 우선 스타일</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//분할 콜백 - 한쪽은 성공, 한쪽은 실패</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">success</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">failure</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(err);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ajax(<span class="string">'http://some.url.1'</span>, succes, failure);</span><br><span class="line"></span><br><span class="line"><span class="comment">//에러 우선 - 성공 시 빈/falsy 객체, 실패 시 truthy/에러 객체로 세팅됨.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">response</span>(<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//에러인가?</span></span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(err);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//아니면 성공한 것</span></span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ajax(<span class="string">'http://some.url.1'</span>, response);</span><br></pre></td></tr></table></figure>
+<p>언뜻 보면 믿음성에 대한 문제가 해결된 것 같지만 원하지 않는 반복적인 호출을 방지하거나 걸러내는 콜백 기능은 전혀 없다. 오히려 성공/에러를 동시에 받거나 전혀 받지 못하는 상황에 대해서도 고려해야 하고, 이렇게 표준적인 형태로 작성되었어도 재사용이 불가하거나 장황한 관용 코드라서 콜백을 쓸 때마다 매번 새로 타이핑을 해주어야 할 수 있다.</p>
+<p><em>정리하자면 콜백이 자바스크립트의 비동기성을 표현하는 기본 단위로써 충분히 그 역할을 다 해왔지만, 점점 진화하는 비동기 프로그래밍 환경에 대응하기에는 충분하지 않다.</em><br>첫 번째 이유는 연속성의 문제로 사람의 두뇌는 순차적이고, 단일-스레드 방식으로 계획하는데 익숙하지만 콜백은 비동기 흐름을 비선형적, 비순차적으로 나타내기 때문에 그 괴리감으로 인해 구현된 코드를 사람이 이해하기가 쉽지 않다. 이렇게 추론하기 어려운 코드는 악성 버그를 품을 가능성을 내재한 코드가 된다. 두 번째, 콜백이 프로그램을 진행하기 위해 제어권을 다른 파트(e.g. 서드파티 유틸리티)로 넘겨줘야 하는데, 이렇게 제어권이 넘어가면 믿음성의 문제에 봉착해서 콜백이 잘못될 가능성에 대해 구구절절한 보완 로직을 작성하게 된다. 이렇게 작성하면 믿음성의 문제는 해결할 수 있을지라도 거칠과 유지보수가 어려운 방대하고 복잡한 코드가 되고, 실제로 100% 믿음성의 문제를 해결했다고 보기도 어렵다. 모든 케이스에 대해 보완 로직을 작성했다고 해도, 제어권이 넘어간 상태에서 발생한 일까지 대응할 수는 없기 때문이다.</p>
+<p>결국 이렇게 제기된 문제들을 해결하려면 콜백을 능가하는 조금 더 나은 해결법이 필요하고, 그런 배경 아래 등장한 것이 <code>프로미스</code>이다.</p>
+<hr>
+<p><em>References</em><br><a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/Asynchronous/Introducing#async_callbacks" target="_blank" rel="noopener">callback</a><br>[YOU DON’T KNOW JS] 카일 심슨 지음</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/03/21/220322_blockchain_22to23/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +292,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-06 10:57:52" itemprop="dateModified" datetime="2022-07-06T10:57:52+09:00">2022-07-06</time>
+                <time title="Modified: 2022-07-18 01:11:04" itemprop="dateModified" datetime="2022-07-18T01:11:04+09:00">2022-07-18</time>
               </span>
 
           
@@ -360,7 +477,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-06 10:57:52" itemprop="dateModified" datetime="2022-07-06T10:57:52+09:00">2022-07-06</time>
+                <time title="Modified: 2022-07-18 01:11:04" itemprop="dateModified" datetime="2022-07-18T01:11:04+09:00">2022-07-18</time>
               </span>
 
           
@@ -453,7 +570,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-06 10:57:52" itemprop="dateModified" datetime="2022-07-06T10:57:52+09:00">2022-07-06</time>
+                <time title="Modified: 2022-07-18 01:11:04" itemprop="dateModified" datetime="2022-07-18T01:11:04+09:00">2022-07-18</time>
               </span>
 
           
@@ -692,7 +809,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-06 10:57:52" itemprop="dateModified" datetime="2022-07-06T10:57:52+09:00">2022-07-06</time>
+                <time title="Modified: 2022-07-18 01:11:04" itemprop="dateModified" datetime="2022-07-18T01:11:04+09:00">2022-07-18</time>
               </span>
 
           
@@ -973,7 +1090,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-06 10:57:52" itemprop="dateModified" datetime="2022-07-06T10:57:52+09:00">2022-07-06</time>
+                <time title="Modified: 2022-07-18 01:11:04" itemprop="dateModified" datetime="2022-07-18T01:11:04+09:00">2022-07-18</time>
               </span>
 
           
@@ -1314,7 +1431,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-06 10:57:52" itemprop="dateModified" datetime="2022-07-06T10:57:52+09:00">2022-07-06</time>
+                <time title="Modified: 2022-07-18 01:11:04" itemprop="dateModified" datetime="2022-07-18T01:11:04+09:00">2022-07-18</time>
               </span>
 
           
@@ -1525,7 +1642,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-06 10:57:52" itemprop="dateModified" datetime="2022-07-06T10:57:52+09:00">2022-07-06</time>
+                <time title="Modified: 2022-07-18 01:11:04" itemprop="dateModified" datetime="2022-07-18T01:11:04+09:00">2022-07-18</time>
               </span>
 
           
@@ -1645,7 +1762,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-06 10:57:52" itemprop="dateModified" datetime="2022-07-06T10:57:52+09:00">2022-07-06</time>
+                <time title="Modified: 2022-07-18 01:11:04" itemprop="dateModified" datetime="2022-07-18T01:11:04+09:00">2022-07-18</time>
               </span>
 
           
@@ -1847,7 +1964,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-06 10:57:52" itemprop="dateModified" datetime="2022-07-06T10:57:52+09:00">2022-07-06</time>
+                <time title="Modified: 2022-07-18 01:11:04" itemprop="dateModified" datetime="2022-07-18T01:11:04+09:00">2022-07-18</time>
               </span>
 
           
@@ -1911,93 +2028,6 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> double = <span class="function">(<span class="params">x: <span class="built_in">number</span></span>) =&gt;</span> <span class="number">2</span> * x</span><br><span class="line"><span class="keyword">let</span> p: Parameters&lt;<span class="keyword">typeof</span> double&gt; = <span class="literal">null</span>!</span><br><span class="line">assertType&lt;[<span class="built_in">number</span>, <span class="built_in">number</span>]&gt;(p)</span><br><span class="line"><span class="comment">//                           ~ Argument of type '[number]' is not</span></span><br><span class="line"><span class="comment">//                             assignable to parameter of type [number, number]</span></span><br><span class="line"><span class="keyword">let</span> r: ReturnType&lt;<span class="keyword">typeof</span> double&gt; = <span class="literal">null</span>!</span><br><span class="line">assertType&lt;<span class="built_in">number</span>&gt;(r) <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="아이템-53-타입스크립트-기능보다는-ECMAScript-기능을-사용하기"><a href="#아이템-53-타입스크립트-기능보다는-ECMAScript-기능을-사용하기" class="headerlink" title="아이템 53 타입스크립트 기능보다는 ECMAScript 기능을 사용하기"></a>아이템 53 타입스크립트 기능보다는 ECMAScript 기능을 사용하기</h2><p>타입스크립트 초기 버전에는 자바스크립트가 가진 결함들도 수용해야 했기 때문에 독립적으로 개발한 클래스, 열거형, 모듈 시스템을 포함시켰다. 시간이 흐르면서 부족했던 부분들을 내장 기능으로 추가하게 되었는데 <em>자바스크립트에 새로 추가된 기능은 타입스크립트 초기 버전에서 독립적으로 개발했던 기능과 호환성 문제를 발생시킨다.</em> 그래서 타입스크립트는 <strong>자바스크립트의 신규 기능을 그대로 채택하고 타입스크립트 초기 버전</strong>과 호환성을 포기하는 방법을 택했다. 그런데 이 기능과 타입스크립트 팀은 타입만 발전시킨다는 원칙이 세워지기 이전에 이미 사용되던 몇 가지 기능들이 있고, 이런 것들이 타입 공간(타입스크립트), 값 공간(자바스크립트)의 경계를 혼란스럽게 하기 때문에 사용을 지양해야 한다.</p>
-<hr>
-<p><em>References</em><br>[이펙티브 타입스크립트] 댄 밴더캄 지음</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/20/220221_item42to48/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/20/220221_item42to48/" class="post-title-link" itemprop="url">타입스크립트 이펙티브 아이템 42 - 아이템 48</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-21T00:00:00+09:00">2022-02-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-06 10:57:52" itemprop="dateModified" datetime="2022-07-06T10:57:52+09:00">2022-07-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="아이템-42-모르는-타입의-값에는-any-대신-unknown을-사용하기"><a href="#아이템-42-모르는-타입의-값에는-any-대신-unknown을-사용하기" class="headerlink" title="아이템 42 모르는 타입의 값에는 any 대신 unknown을 사용하기"></a>아이템 42 모르는 타입의 값에는 any 대신 unknown을 사용하기</h2><h3 id="any의-특성"><a href="#any의-특성" class="headerlink" title="any의 특성"></a>any의 특성</h3><ul>
-<li>어떠한 타입이든 any 타입에 할당 가능하다.</li>
-<li>any 타입은 never를 제외한 어떠한 타입으로도 할당 가능하다.</li>
-</ul>
-<p>이러한 any의 특성은 집합 기반의 타입시스템과 상충된다. 따라서 any를 쓰면 타입 체커가 무용지물이 된다. 마치 any와 같은 역할을 하면서 타입시스템에 부합하는 타입이 바로 <code>unknown</code>이다.</p>
-<h3 id="unknown의-특성"><a href="#unknown의-특성" class="headerlink" title="unknown의 특성"></a>unknown의 특성</h3><ul>
-<li>어떠한 타입도 unknown에 할당 가능하다.</li>
-<li>오직 unknown과 any에만 할당 가능하다.</li>
-</ul>
-<h3 id="never의-특성"><a href="#never의-특성" class="headerlink" title="never의 특성"></a>never의 특성</h3><ul>
-<li>어떤 타입도 never에 할당 할 수 없다.</li>
-<li>어떠한 타입으로도 할당 가능하다.</li>
-</ul>
-<hr>
-<h3 id="1-unknown의-함수의-반환값과-관련된-형태"><a href="#1-unknown의-함수의-반환값과-관련된-형태" class="headerlink" title="1. unknown의 함수의 반환값과 관련된 형태"></a>1. unknown의 함수의 반환값과 관련된 형태</h3><p><em>함수의 반환타입으로 any를 쓰는 것은 좋지 않기 때문에</em> 그보다는 함수를 호출한 곳에서 반환값을 원하는 타입으로 할당하는 것이 바람직하다. 그러나 함수의 반환값에 타입 선언을 강제할 수 없기 때문에 호출한 곳에서 타입 선언을 생략하면 아래 예제를 예시로 들었을 때 1️⃣, 2️⃣처럼 book 변수가 암시적 any타입이 되고, 사용되는 곳마다 타입 오류가 발생한다. 이런 경우에 any 대신 unknown을 쓰면 훨씬 안전하다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseYAML</span>(<span class="params">yaml: <span class="built_in">string</span></span>): <span class="title">any</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> Book &#123;</span><br><span class="line">  name: <span class="built_in">string</span></span><br><span class="line">  author: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">safeParseYAML</span>(<span class="params">yaml: <span class="built_in">string</span></span>): <span class="title">unknown</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> parseYAML(yaml)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> book = safeParseYAML(<span class="string">`</span></span><br><span class="line"><span class="string">  name: The Tenant of Wildfell Hall</span></span><br><span class="line"><span class="string">  author: Anne Brontë</span></span><br><span class="line"><span class="string">`</span>)</span><br><span class="line">alert(book.title)</span><br><span class="line"><span class="comment">// 1️⃣ - No error, alerts "undefined" at runtime</span></span><br><span class="line"><span class="comment">// ~~~~ Object is of type 'unknown'</span></span><br><span class="line">book(<span class="string">'read'</span>)</span><br><span class="line"><span class="comment">// No error, throws "TypeError: book is not a</span></span><br><span class="line"><span class="comment">// 2️⃣ - function" at runtime</span></span><br><span class="line"><span class="comment">// ~~~~~~~~~~ Object is of type 'unknown'</span></span><br></pre></td></tr></table></figure>
-<p>하지만 unknown인 타입의 값을 사용하려고 하거나 함수 호출 또는 연산을 진행할 때 오류가 발생하기 때문에 적절한 타입으로 변환하도록 강제할 수 있다.</p>
-<h3 id="2-변수선언과-관련된-unknown"><a href="#2-변수선언과-관련된-unknown" class="headerlink" title="2. 변수선언과 관련된 unknown"></a>2. 변수선언과 관련된 unknown</h3><p>어떠한 값이 있지만 그 타입을 모르는 경우에 사용한다.</p>
-<hr>
-<h2 id="아이템-43-몽키-패치보다는-안전한-타입을-사용하기"><a href="#아이템-43-몽키-패치보다는-안전한-타입을-사용하기" class="headerlink" title="아이템 43 몽키 패치보다는 안전한 타입을 사용하기"></a>아이템 43 몽키 패치보다는 안전한 타입을 사용하기</h2><p>몽키 패치는 프로그램이 런타임 되는 동안 사용되는 모듈이나 클래스를 변경하는 것이다. 자바스크립트는 객체와 클래스에 임의의 속성을 추가할 수 있을 만큼 유연하기 때문에 이 성질을 이용해서 전역 변수를 만들 수도 있다. 예를 들어 window나 document에 값을 할당해서 전역 변수를 만드는 것이다. 그런데 window 또는 DOM 노드에 데이터를 추가하면 그 데이터는 기본적으로 전역 변수기 때문에 프로그랢 내에서 의존성을 만들고, 사이드 이펙트를 만들 수 있다. 그리고 타입스크립트의 타입 체커는 아래와 같이 임의로 추가한 속성에 대해서 알지 못한다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.monkey = <span class="string">'Tamarin'</span></span><br><span class="line"><span class="comment">// ~~~~~~ Property 'monkey' does not exist on type 'Document'</span></span><br></pre></td></tr></table></figure>
 <hr>
 <p><em>References</em><br>[이펙티브 타입스크립트] 댄 밴더캄 지음</p>
 
@@ -2085,7 +2115,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
