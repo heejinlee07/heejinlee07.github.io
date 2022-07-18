@@ -6,7 +6,7 @@ tags:
 
 HTML에서 `<input>, <textarea>, <select>`와 같은 form 엘리먼트들은 자체적으로 내부 상태와 user의 입력값에 따른 내부 상태를 가진다. 그런데 리액트에서 변경가능한 state는 컴포넌트의 state로 관리되고, setState()를 통해서 업데이트하는 방식을 취한다.
 
-```javascript
+```jsx
 <form>
   <label>
     Name:
@@ -24,7 +24,7 @@ HTML에서 `<input>, <textarea>, <select>`와 같은 form 엘리먼트들은 자
 
 **폼 값을 DOM이 아니라 리액트로 관리하는 방식이다.** 이 방법을 사용하면 ref와 같은 참조를 사용할 필요가 없고, 명령형 코드를 사용할 필요도 없다.즉 리액트가 폼의 상태를 모두 제어하는 것이다.이러한 제어 컴포넌트가 표준 방식이라 일컬어지는 이유는 리액트 어플리케이션에서 발생하는 어떤 데이터의 변화도 `single soure of truth`를 지향하기 때문이다.
 
-```javascript
+```jsx
 import { useState } from 'react';
 
 const NameForm = () => {
@@ -59,7 +59,7 @@ export default NameForm;
 
 제어 컴포넌트에서 폼 데이터가 리액트 컴포넌트에서 제어된 것과 달리 **DOM 자체에서 폼 데이터가 이루어지는 방식이다.** 비제어 방식으로 컴포넌트를 작성하려면 모든 state의 업데이트에 대해 이벤트 핸들러를 작성하는 대신 **ref를 사용해서 직접 DOM에 접근할 수 있다.** ref는 참조라고 불리는데 리액트에서 컴포넌트의 생명주기 값을 저장하는 객체이다. 이 참조는 useRef라는 훅을 통해 사용가능하다.
 
-```javascript
+```jsx
 import React, { useRef } from 'react';
 
 export default function AddColorForm({ onNewColor = (f) => f }) {
@@ -99,7 +99,7 @@ submit이 하는 일은 먼저 e.preventDefault()를 통해 폼 요소가 기본
 
 > 필요할 때 필드에서 값을 가져와야 한다. (pull the value from field)
 
-```javascript
+```jsx
 class Form extends Component {
   handleSubmitClick = () => {
     const name = this._name.value;
@@ -125,7 +125,7 @@ class Form extends Component {
 
 제어된 방식에서 입력값은 prop과 이 값을 변경하기 위한 콜백을 받는다. 앞선 예제보다 보다 React적인 방법이라고 말할 수 있다. 입력한 값은 어떠한 방식으로 작성되던 반드시 `state`로 어딘가에 있어야 한다. `state`는 다른 컴포넌트의 state나 Redux와 같이 별도의 store에 저장되어 있을 수 있는데, 일반적으로는 아래와 같이 리액트의 state에 그 값을 저장한다.
 
-```javascript
+```jsx
 class Form extends Component {
   constructor() {
     super();
