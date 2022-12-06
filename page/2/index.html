@@ -144,6 +144,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/05/09/220510_promise/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Heejin Lee">
+      <meta itemprop="description" content="Today I Learned">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heejin">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/09/220510_promise/" class="post-title-link" itemprop="url">자바스크립트의 프로미스</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-05-10 00:00:00" itemprop="dateCreated datePublished" datetime="2022-05-10T00:00:00+09:00">2022-05-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-06 23:40:24" itemprop="dateModified" datetime="2022-12-06T23:40:24+09:00">2022-12-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>자바스크립트의 비동기성을 표현하는 기본 단위로써 콜백이 있는데, 콜백은 순차성과 믿음성이 결여되는 문제점이 있었다. 특히 콜백이 가진 제어의 역전은 실행 흐름을 서드 파티에 의존해야 하기 때문에 요청을 보내면 그 요청이 잘되기를 바라는 방법이 최선이었다. 이런 문제점을 보완하고 좀 더 나은 방법으로 비동기 처리를 할 수 있는 방법으로 <code>프로미스</code>가 등장하게 되는데, <code>제어의 되역전</code>을 아이디어로 삼는다. <strong>즉 실행 흐름을 서드 파티와 같은 다른 파트에 넘겨주지 않고도 개발자가 작업의 실행 결과와 다음 task에 대해 제어할 수 있는 것이다.</strong></p>
+<h2 id="프로미스의-미랫값-지금값-나중값"><a href="#프로미스의-미랫값-지금값-나중값" class="headerlink" title="프로미스의 미랫값, 지금값, 나중값"></a>프로미스의 미랫값, 지금값, 나중값</h2><p><strong><code>미랫값</code>은 <code>시간 독립적인 값(Time Independent)</code>이다.</strong> 시간의 흐름과 상관없이 미래에 성공 또는 실패로 귀결되는 값이다. 이 미랫값은 원래 내가 가지고 있던 값 자체와 교환된다. 미랫값이 성공이면 나는 언제가 되었든 반드시 원래 가지고 있던 값을 받게 되고, 실패이면 값을 받지 못한다. 그리고 이러한 미랫값을 다루는 방법이 콜백이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1️⃣</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">getX, getY, cb</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x, y;</span><br><span class="line"></span><br><span class="line">  getX(<span class="function"><span class="keyword">function</span> (<span class="params">xVal</span>) </span>&#123;</span><br><span class="line">    x = xVal;</span><br><span class="line">    <span class="comment">//둘 다 준비됐나?</span></span><br><span class="line">    <span class="keyword">if</span> (y != <span class="literal">undefined</span>) &#123;</span><br><span class="line">      cb(x + y); <span class="comment">//더해서 보내</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  getY(<span class="function"><span class="keyword">function</span> (<span class="params">yVal</span>) </span>&#123;</span><br><span class="line">    y = yVal;</span><br><span class="line">    <span class="comment">//둘 다 준비됐나?</span></span><br><span class="line">    <span class="keyword">if</span> (x != <span class="literal">undefined</span>) &#123;</span><br><span class="line">      cb(x + y); <span class="comment">//더해서 보내</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//fetchX()와 fetchY()는 동기/비동기 함수</span></span><br><span class="line">add(fetchX, fetchY, <span class="function"><span class="keyword">function</span> (<span class="params">sum</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(sum); <span class="comment">//너무 쉽지?</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>위의 코드가 비동기 패턴이 아니라 일반 함수라고 가정해보자면, x,y의 값은 <code>지금</code>존재하는 구체적인 값이라는 가정 하에 연산이 진행될 것이다. 아래 예시를 통해 지금값에 대해 보충해 보겠다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//2️⃣</span></span><br><span class="line"><span class="keyword">var</span> x,</span><br><span class="line">  y = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x + y); <span class="comment">//NaN &lt;- x는 아직 세팅 전이다.</span></span><br></pre></td></tr></table></figure>
+<p>이 2️⃣번 예시는 비동기 패턴이 아닌 일반적인 계산 로직을 담고 있는 코드이다. 이 로직에서 x + y 가 연산되는 시점에서 코드는 x, y가 <code>지금</code> 존재하고 있는, 귀결(Resolved)된 값이라고 생각하고 연산이 이루어진다. 그렇기 때문에 x는 아직 할당 전이어서 실질적인 값은 undefined인데 지금 값이 존재한다고 가정되어 undefined + 2로 계산이 되어 NaN이라는 결과를 얻은 것이다.</p>
+<p>만약 이 함수에서 x, y의 값을 연산할 때 <code>지금</code> 둘 중 하나라도 준비가 덜 됐으면 될 때까지 기다렸다가 <code>나중</code>에 값을 얻었을 때 연산을 진행한다고 가정해보자. 즉 코드에서 x, y를 <code>지금</code> 존재하는 귀결된 값이라고 가정하는 것이 아니라 <strong>미래에 실패 또는 성공할 값이라고 가정하고 연산을 진행하는 것이다.</strong> 그렇다면 결과값은 두 가지 값 모두 순조롭게 할당이 완료되어 성공적으로 정상적인 값을 출력하거나, <code>나중</code>까지 기다렸는데도 정상적인 값이 할당되지 않아 undefined + 2로 계산된 것처럼 정상적인 결과를 출력하는데 실패하게 될 것이다. 그래서 x, y의 구체적인 연산 결과는 당장 예측할 수 없지만 그 값이 미래에 반드시 성공 또는 실패될 것이라는 사실을 예측할 수 있게 된다.</p>
+<p>다시 돌아와서 1️⃣번 예제의 비동기 패턴을 살펴보자. <em>비동기 프로그래밍의 핵심은 <code>지금</code>에 해당하는 부분과 <code>나중</code>에 해당하는 부분 사이의 관계라고 하였다.</em> 1️⃣번 예제에서 <code>지금</code>부터 <code>나중</code>까지 기다리는 최적의 방법으로 <code>콜백 함수</code>를 사용한다. 위에 설명했던 것처럼 지금 값이 귀결되어 있는지와 상관없이 일단 add() 함수를 호출하여 작성된 로직을 수행한다. add() 함수 내부의 x, y는 add()입장에서 실행되는 지금 시점에서 값이 준비되어 있는지 아닌지는 관심 밖이다. 여기서 <strong>x,y는 미랫값으로 취급된다.</strong> 따라서 그 값이 어떤 것인지와 상관없이 add()의 결과는 성공 또는 실패 일 것이라고 예측할 수 있게 된다.즉 x,y의 값이 <code>지금</code> 존재하는 값일 수도 있고, 나중에 값을 얻게 될 수도 있는데, 여기서는 <code>지금</code>과 <code>나중</code>의 어떤 때라도 결과론적으로 똑같이 일관적으로 동작할 수 있게 하기 위해서 이 두 가지 모두를 <code>나중</code>으로 만들어서 모든 작업을 나중에 얻게 될 성공 또는 실패의 값으로 비동기화시킨 것이다.</p>
+<p><em>정리하자면 어떤 로직을 수행할 때, 값이 지금 존재하는지를 알기 여려운 경우, 해당 값을 지금 값이 존재하는지, 미래에 어느 시점에 존재하는 값으로 바뀌는지는 알 수 없지만 값 자체를 <code>나중</code>에 언젠가는 존재할 값이라는 가정 하에 로직을 수행하고, <code>나중</code>에 그 값을 얻게 되면, 그 값은 구체적으로 로직의 연산 결과를 반환하는 값은 아니지만 반드시 성공 또는 실패한 값이다.</em></p>
+<p>이 개념을 기억하며 프로미스 함수를 좀 더 자세히 살펴보자. 위 예제의 x + y를 프로미스 함수로 나타낸 것이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">xPromise, yPromise</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.all([xPromise, yPromise]).then(<span class="function"><span class="keyword">function</span> (<span class="params">values</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> values[<span class="number">0</span>] + values[<span class="number">1</span>];</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(fetchX(), fetchY()).then(</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">sum</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(sum);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.error(err);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>Promise.all([])은 프로미스 배열을 인자로 받아서 프로미스가 모두 귀결될 때까지 기다렸다가 새 프로미스를 만들어 반환한다. 그리고 프로미스가 귀결되면 X와 Y 값을 받아 더하고, then에서 파라미터로 전달받은 values는 앞에서 귀결된 프로미스가 전달해 준 메시지 배열이다. 그리고 fetchX()와 fetchY()는 제각기 값을 가진 프로미스를 반환하는데, 지금 또는 나중에 준비된다. add()의 결과로 두 숫자의 합이 담긴 프로미스를 받으면 이제 반환된 프로미스가 귀결될 때까지 대기하기 위해 then()을 연쇄 호출한다.</p>
+<p>위 예제에는 두 개의 프로미스 계층이 있다. 먼저 두 프로미스 fetchX()와 fetchY()를 호출하여 반환된 값은 add()에 전달된다. 프로미스 속의 원래 값은 지금 또는 나중에 준비되는데 그 시점과는 상관없이 각 프로미스가 같은 결과를 내게끔 정규화하고, <strong>미랫값 X,Y는 시간 독립적으로 추론이 가능하다.</strong> 그리고 그 다음 프로미스 계층은 add()가 Promise.all을 거쳐 반환한 프로미스인데, then()을 호출하고 대기한다. add()가 끝나면 덧셈을 마친 미랫값이 콘솔에 출력된다.</p>
+<p><strong>이렇게 프로미스는 <code>Fulfillment</code> 또는 <code>Rejection</code>으로 귀결될 수 있다.</strong> 여기서 Fulfillment는 항상 프로그램이 귀결값을 결정짓고, Rejection은 프로그램 로직에 따라 직접 세팅되거나 런타임 예외에 의해 암시적으로 생겨난다.</p>
+<p>그리고 프로미스 then() 함수는 Fulfillment 함수를 첫 번째 인자로, Rejection 함수를 두 번째 인자로 넘겨받는다. 그렇기 때문에 X나 Y의 조회 시 문제가 있거나 연산에 실패하면 add()가 반환하는 프로미스는 버려지고, then()의 두 번째 에러 처리 콜백이 이 프로미스에서 Rejection을 받는다.</p>
+<p>요약해보자면 프로미스는 시간 의존적인 상태를 외부로부터 캡슐화하기 때문에 타이밍 또는 내부 결과값에 상관없이 예측 가능한 방향으로 조합할 수 있다. 또 프로미스는 일단 귀결되면 그 상태가 그대로 유지되는 불변값이다.</p>
+<h2 id="프로미스"><a href="#프로미스" class="headerlink" title="프로미스"></a>프로미스</h2><blockquote>
+<p>프로미스 객체는 비동기 작업이 맞이할 미래의 완료 또는 실패와 그 결과 값이다.</p>
+</blockquote>
+<p>위에서 보았던 여러 예제를 통해 프로미스의 성격에 대해 알아보았다. 프로미스에서는 미랫값이라는 개념이 중요했다. 미랫값은 지금 당장은 값은 알 수 없고, 어느 시점에 그 값이 확정되는지 알 수 없지만 성공 또는 실패일 것으로 추론할 수 있는 값이었다. 프로미스는 이처럼 지금 당장 실행하는 시점에서 아직 알려지지 않을 수도 있는 값을 위한 대리자이고, 미랫값 개념을 콜백으로 다루는데, 비동기 연산이 종료된 이후에 결과 값과 실패 사유를 처리하기 위한 처리기를 연결할 수 있다. 그래서 프로미스를 사용하면 비동기 메서드에서 마치 동기 메서드처럼 값을 반환할 수 있다. 다만 최종 결과를 반환하는 것이 아니고, <code>미래의 어떤 시점에 결과를 제공하겠다는 &#39;약속&#39;(프로미스)을 반환한다.</code></p>
+<p>그래서 프로미스는 다음 중 하나의 상태를 가진다.</p>
+<ul>
+<li>대기(pending): 이행하지도, 거부하지도 않은 초기 상태.</li>
+<li>이행(Fulfillment): 연산이 성공적으로 완료됨.</li>
+<li>거부(Rejection): 연산이 실패함.</li>
+</ul>
+<p>Promise가 생성된 시점에 대기 중인 프로미스 값은 성공적으로 이행(Fulfillment)이 되어서 위 예제에서 처럼 X + Y의 값을 얻을 수도 있고, 오류와 같은 이유로 인해 이행이 불가하여 거부(Rejection)될 수도 있다. 그리고 프로미스가 이행이나 거부로 귀결되면 then 메서드에 의해서 처리기들이 호출된다. 이 프로미스는 시간 의존적인 상태를 외부로부터 캡슐화하기 때문에 <strong>프로미스 자체는 시간 독립적이고,</strong> 따라서 언젠가 이행(Fulfillment)되거나 거부(Rejection)될 것을 예측하여 로직을 구성할 수 있다.</p>
+<h2 id="프로미스의-완료-이벤트"><a href="#프로미스의-완료-이벤트" class="headerlink" title="프로미스의 완료 이벤트"></a>프로미스의 완료 이벤트</h2><blockquote>
+<p>프로미스는 각각 미래값으로서 작동하지만 <em>프로미스의 귀결은 비동기 작업의 여러 단계를 흐름 제어하기 위한 체계이다.</em></p>
+</blockquote>
+<p>어떤 일을 하는 foo()라는 함수를 호출한다고 했을 때,</p>
+<ul>
+<li>전통적인 자바스크립트 사고 방식 :알림 자체를 하나의 이벤트로 보고 리스닝하고, foo()의 완료 이벤트를 리스닝함으로써 알림 요건을 재구성한다.</li>
+<li>콜백에 : foo()에서 넘겨준 콜백을 호출하면 성립된다.</li>
+<li>프로미스에서 : foo()에서 이벤트를 리스닝하고 있다가 알림을 받게 되면 다음으로 진행한다.</li>
+</ul>
+<p>아래는 프로미스의 예제이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">foo(x) &#123;</span><br><span class="line">  <span class="comment">//뭔가 시간이 제법 걸리는 일을 한다.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">on(foo <span class="string">"완료"</span>) &#123;</span><br><span class="line">  <span class="comment">// 이제 다음 단계로 갈 수 있다.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">on(foo <span class="string">"에러"</span>) &#123;</span><br><span class="line">  <span class="comment">//어랏, foo()에서 뭔가 잘못됐다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>foo()를 호출한 뒤에 완료, 에러 이벤트를 각각 리스닝하는 이벤트 리스너를 설정했다. foo()를 호출하면 foo()에서 이벤트를 받아 어떻게 처리하는지를 신경쓰지 않아도 되고, foo()의 결과는 완료 아니면 에러인 <code>관심사의 분리</code>가 된다.</p>
+<p>이러한 코드는 사실상 일반적으로 콜백이 지향하는 코드와 정반대이다. 아래 예제를 보면 foo()에 콜백 함수를 넘겨주는 대신 <em>foo()가 이벤트 구독기를 반환하고 여기에 콜백 함수를 넣는다.</em> 이처럼 콜백 패턴을 뒤집는다는 것은 사실상 <code>제어의 되역전</code>으로 서드파티와 같은 다른 파트에 주었던 실행 흐름의 제어권을 호출부에 되돌려 둔 것이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//뭔가 시간이 제법 걸리는 일을 시작한다.</span></span><br><span class="line">  <span class="comment">//이벤트 구독기를 생성하여 반환한다.</span></span><br><span class="line">  <span class="keyword">return</span> listener;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> evt = foo(<span class="number">42</span>);</span><br><span class="line"></span><br><span class="line">evt.on(<span class="string">'completion'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//이제 다음 단계로 갈 수 있다.</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">evt.on(<span class="string">'failure'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//어랏, foo()에서 뭔가 잘못됐다.</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>이 <code>제어의 되역전</code>으로 인해 이제 관심사를 분리할 수 있게 된다. 아래와 같은 코드가 있으면 bar()나 baz()는 foo()가 호출되어 처리되는 것에 신경 쓸 필요 없고, foo()도 마찬가지로 누군가 자신을 기다리고 있다는 사실을 몰라도 된다. 이렇게 분리된 관심사 간에 중재자 역할을 evt가 하는 것이고, 이것이 프로미스와 매우 유사하다. 프로미스식으로 아래 코드를 다시 작성한다면 foo()는 프로미스 인스턴스를 생성해서 반환하고, 이 프로미스를 bar()와 baz()에 전달할 것이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> evt = foo(<span class="number">42</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//bar()는 foo()의 완료 이벤트를 리스닝한다.</span></span><br><span class="line">bar(evt);</span><br><span class="line"><span class="comment">//baz()는 foo()의 완료 이벤트를 리스닝한다.</span></span><br><span class="line">baz(evt;)</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>References</em><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noopener">Promise</a><br>[YOU DON’T KNOW JS] 카일 심슨 지음</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/05/08/220509_asynchronous/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +284,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-18 13:57:23" itemprop="dateModified" datetime="2022-07-18T13:57:23+09:00">2022-07-18</time>
+                <time title="Modified: 2022-12-06 23:40:24" itemprop="dateModified" datetime="2022-12-06T23:40:24+09:00">2022-12-06</time>
               </span>
 
           
@@ -292,7 +401,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-18 13:57:23" itemprop="dateModified" datetime="2022-07-18T13:57:23+09:00">2022-07-18</time>
+                <time title="Modified: 2022-12-06 23:40:24" itemprop="dateModified" datetime="2022-12-06T23:40:24+09:00">2022-12-06</time>
               </span>
 
           
@@ -477,7 +586,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-18 13:57:23" itemprop="dateModified" datetime="2022-07-18T13:57:23+09:00">2022-07-18</time>
+                <time title="Modified: 2022-12-06 23:40:24" itemprop="dateModified" datetime="2022-12-06T23:40:24+09:00">2022-12-06</time>
               </span>
 
           
@@ -570,7 +679,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-18 13:57:23" itemprop="dateModified" datetime="2022-07-18T13:57:23+09:00">2022-07-18</time>
+                <time title="Modified: 2022-12-06 23:40:24" itemprop="dateModified" datetime="2022-12-06T23:40:24+09:00">2022-12-06</time>
               </span>
 
           
@@ -809,7 +918,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-18 13:57:23" itemprop="dateModified" datetime="2022-07-18T13:57:23+09:00">2022-07-18</time>
+                <time title="Modified: 2022-12-06 23:40:24" itemprop="dateModified" datetime="2022-12-06T23:40:24+09:00">2022-12-06</time>
               </span>
 
           
@@ -1090,7 +1199,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-18 13:57:23" itemprop="dateModified" datetime="2022-07-18T13:57:23+09:00">2022-07-18</time>
+                <time title="Modified: 2022-12-06 23:40:24" itemprop="dateModified" datetime="2022-12-06T23:40:24+09:00">2022-12-06</time>
               </span>
 
           
@@ -1431,7 +1540,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-18 13:57:23" itemprop="dateModified" datetime="2022-07-18T13:57:23+09:00">2022-07-18</time>
+                <time title="Modified: 2022-12-06 23:40:24" itemprop="dateModified" datetime="2022-12-06T23:40:24+09:00">2022-12-06</time>
               </span>
 
           
@@ -1611,126 +1720,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/03/01/220302_item56to62/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Heejin Lee">
-      <meta itemprop="description" content="Today I Learned">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Heejin">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/01/220302_item56to62/" class="post-title-link" itemprop="url">타입스크립트 이펙티브 아이템 56 - 아이템 62</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-03-02 00:00:00" itemprop="dateCreated datePublished" datetime="2022-03-02T00:00:00+09:00">2022-03-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-18 13:57:23" itemprop="dateModified" datetime="2022-07-18T13:57:23+09:00">2022-07-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="아이템-56-정보를-감추는-목적으로-private-사용하지-않기"><a href="#아이템-56-정보를-감추는-목적으로-private-사용하지-않기" class="headerlink" title="아이템 56 정보를 감추는 목적으로 private 사용하지 않기"></a>아이템 56 정보를 감추는 목적으로 private 사용하지 않기</h2><p>자바스크립트는 클래스에 비공개 속성을 만들 수 없다. 비공개 속성임을 나태내기 위해 <code>언더스코어(_)</code>를 접두사로 붙이던 것이 관례로 인정되어 왔던 것 뿐이다. <em>하지만 언더스코어를 붙이는 것은 비공개라고 표시한 것 뿐, 일반적인 속성과 동일하게 클래스 외부로 공개되어 있다.</em></p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Diary &#123;</span><br><span class="line">  <span class="keyword">private</span> secret = <span class="string">'cheated on my English test'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> diary = <span class="keyword">new</span> Diary()</span><br><span class="line">;(diary <span class="keyword">as</span> <span class="built_in">any</span>).secret <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
-<p>타입스크립트에서 위의 예시처럼 public, protected, private 접근 제어자를 사용하기 때문에 규칙을 강제하는 것으로 오해하기 쉬운데 <strong>이는 타입스크립트 키워드이기 때문에 컴파일 후에 제거된다.</strong> 그래서 타입스크립트의 컴파일되면 위의 예제는 아래의 예제처럼 자바스크립트 코드(target=ES2017)로 변환된다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Diary &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.secret = <span class="string">'cheated on my English test'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> diary = <span class="keyword">new</span> Diary()</span><br><span class="line">diary.secret</span><br></pre></td></tr></table></figure>
-<p>컴파일 후에 확인해보면 타입스크립트 키워드인 private이 제거되었고, secret은 일반적인 속성이어서 접근할 수 있다. 즉 언더스코어의 관례처럼 타입스크립트의 접근 제어자들도 런타임에는 아무런 효력이 없다. 심지어 타입스크립트 상태에서도 단언문을 사용하면 private에 접근 가능하다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">declare <span class="function"><span class="keyword">function</span> <span class="title">hash</span>(<span class="params">text: string</span>): <span class="title">number</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">class</span> <span class="title">PasswordChecker</span> </span>&#123;</span><br><span class="line">  checkPassword: <span class="function">(<span class="params">password: string</span>) =&gt;</span> boolean</span><br><span class="line">  <span class="keyword">constructor</span>(passwordHash: number) &#123;</span><br><span class="line">    <span class="keyword">this</span>.checkPassword = <span class="function">(<span class="params">password: string</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> hash(password) === passwordHash</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> checker = <span class="keyword">new</span> PasswordChecker(hash(<span class="string">'s3cret'</span>))</span><br><span class="line">checker.checkPassword(<span class="string">'s3cret'</span>) <span class="comment">// Returns true</span></span><br></pre></td></tr></table></figure>
-<p>따라서 정보를 감추기 위한 목적으로 private을 사용하면 안된다. <em>자바스크립트에서 정보를 숨기기 위한 가장 효과적은 방법은 클로저이다.</em> 위의 예시는 생성자에서 클로저를 만드는 예시이다. 이렇게 작성하면 PasswordChecker의 생성자 외부에서 passwordHash 변수에 접근할 수 없어서 정보를 숨기는 목적은 달성하게 되는데, 주의사항이 있다. passwordHash를 생성자 외부에서 접근할 수 없기 때문에 passwordHash에 접근해야 하는 메서드는 생성자 내부에 정의되어야 한다. 또 메서드 정의가 생성자 내부에 존재하게 되면, 인스턴스를 생성할 때마다 각 메서드의 복사본이 생성되기 때문에 메모리를 낭비하게 된다. 클로저를 쓰지 않으면 현재 표준화가 진행 중인 비공개 필드 기능을 사용할 수 있는데, 접두사 #을 붙여서 타입 체크과 런타임 모두에서 비공개로 만드는 역할을 한다.</p>
-<hr>
-<h2 id="아이템-57-소스맵을-사용하여-타입스크립트-디버깅하기"><a href="#아이템-57-소스맵을-사용하여-타입스크립트-디버깅하기" class="headerlink" title="아이템 57 소스맵을 사용하여 타입스크립트 디버깅하기"></a>아이템 57 소스맵을 사용하여 타입스크립트 디버깅하기</h2><p>타입스크립트 코드를 실행한다는 것은 타입스크립트 컴파일러가 생성한 자바스크립트 코드를 생성한다는 것이다. 그런데 변환된 자바스크립트 코드는 복잡해서 디버깅하기가 어렵다. <strong>디버깅하기 쉽도록 해결책을 내놓은 것이 소스맵이다.</strong> 소스맵은 변환된 코드의 위치와 심벌들을 원본 코드의 원래 위치와 심벌들로 매핑한다. 보통 자바스크립트로 변환된 코드는 원본 코드와 거의 비슷해서 디버깅하기 쉽지만 복잡하게 변환된다면 소스맵이 필요하다. 타입스크립트가 소스맵을 생성할 수 있도록 tsconfig.json에 소스맵 옵션을 다음과 같이 설정한다.</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compiletOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"sourceMap"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="아이템-58-모던-자바스크립트로-작성하기"><a href="#아이템-58-모던-자바스크립트로-작성하기" class="headerlink" title="아이템 58 모던 자바스크립트로 작성하기"></a>아이템 58 모던 자바스크립트로 작성하기</h2><p>타입스크립트 코드를 특정 버전의 자바스크립트로 컴파일 할 수 있다. 즉 타입스크립트를 자바스크립트 트랜스 파일러로 사용할 수 있다. 옛날 버전의 자바스크립트 코드를 타입스크립트 컴파일러에서 동작하게 만들면 그 이후 회신 버전의 자바스크립트 기능을 코드에 추가해도 문제가 없다. 이렇게 옛날 버전의 자바스크립트 코드를 최신 버전의 자바스크립트로 바꾸는 작업이 타입스크립트로 전환하는 작업의 일부라 볼 수 있다. <em>타입스크립트는 자바스크립트의 상위 집합이기 때문에 코드를 최신 버전으로 바꾸다 보면 타입스크립트의 일부를 저절로 익힐 수 있다.</em> 타입스크립트 도입 시 가장 중요하나 기능은 ECMAScript 모듈과 ES2015 클래스이다.</p>
-<h3 id="ECMA-모듈-사용하기"><a href="#ECMA-모듈-사용하기" class="headerlink" title="ECMA 모듈 사용하기"></a>ECMA 모듈 사용하기</h3><p>ES2015부터 import, export를 사용하는 ECMAScript 모듈이 표준이 되었다. 따라서 자바스크립트 코드가 단일 파일이거나 비표준 모듈 시스템을 사용 중이라면 ES 모듈로 전환해야 한다. 이 과정에서 웹팩이나 ts-node와 같은 도구가 필요할 수도 있다. ES 모듈 시스템은 모듈 단위로 전환할 수 있게 해주기 때문에 점진적 마이그레이션이 원활해진다.</p>
-<h3 id="프로토타입-대신-클래스-사용하기"><a href="#프로토타입-대신-클래스-사용하기" class="headerlink" title="프로토타입 대신 클래스 사용하기"></a>프로토타입 대신 클래스 사용하기</h3><p>자바스크립트에서 프로토타입 기반의 객체 모델을 사용하는데, 많은 개발자들이 클래스 기반 모델을 선호했기 때문에 ES2015에서 class 키워드를 사용하는 클래스 기반 모델이 도입되었다. <em>만약 단순한 객체를 다룰 때 프로토타입을 사용하고 있었다면 클래스로 바꾸는 것이 좋다.</em></p>
-<h3 id="var-대신-let-const-사용하기"><a href="#var-대신-let-const-사용하기" class="headerlink" title="var 대신 let/const 사용하기"></a>var 대신 let/const 사용하기</h3><p>var 키워드에는 스코프 규칙의 문제가 있었고, let이나 const를 쓰는 것으로 이러한 문제를 피할 수 있었다. var로 되어있던 코드를 let이나 const로 수정하면 일부 코드에서 타입스크립트가 오류를 표시할 수 있다. 만약 오류가 발생했다면 잠재적으로 스코프 문제가 존재하는 코드이니 수정이 필요하다.</p>
-<h3 id="for-대신-for-of-또는-배열-메서드-사용하기"><a href="#for-대신-for-of-또는-배열-메서드-사용하기" class="headerlink" title="for(;;) 대신 for-of 또는 배열 메서드 사용하기"></a>for(;;) 대신 for-of 또는 배열 메서드 사용하기</h3><p>과거에는 자바스크립트가 배열을 순회할 때 for 루프를 사용했는데 모던 자바스크립트에는 <code>for~of</code>가 존재하기 때문에 이를 사용하면 된다. for~of가 for문에 비해 코드가 짧고 인덱스 변수를 사용하지 않기 때문에 실수를 줄일 수 있다. 만약 인덱스 변수가 필요하다면 forEach를 사용하면 되고, 비슷한 루프문으로 for~in도 있지만 몇 가지 문제점이 있으므로 쓰지 않는 것이 좋다.</p>
-<h3 id="함수-표현식보다-화살표-함수-사용하기"><a href="#함수-표현식보다-화살표-함수-사용하기" class="headerlink" title="함수 표현식보다 화살표 함수 사용하기"></a>함수 표현식보다 화살표 함수 사용하기</h3><p>this 키워드는 일반 변수들과 다른 스코프 규칙을 가지기 때문에 가장 어려운 개념 중 하나이다. 그러나 화살표 함수를 사용하면 상위 스코프의 this를 유지할 수 있다. 컴파일러 옵션에 noImplicitThis(또는 strict)를 설정하면 타입스크립트가 this 바인딩 관련된 오류를 표시해준다.</p>
-<h3 id="단축-객체-표현과-구조-분해-할당-사용하기"><a href="#단축-객체-표현과-구조-분해-할당-사용하기" class="headerlink" title="단축 객체 표현과 구조 분해 할당 사용하기"></a>단축 객체 표현과 구조 분해 할당 사용하기</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">1</span>,</span><br><span class="line">  y = <span class="number">2</span>,</span><br><span class="line">  z = <span class="number">3</span></span><br><span class="line"><span class="keyword">const</span> pt = &#123;</span><br><span class="line">  x: x,</span><br><span class="line">  y: y,</span><br><span class="line">  z: z</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>위와 같은 코드는 아래와 같이 구조 분해 할당을 이용하여 더 간단하게 표현할 수 있다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">1</span>,</span><br><span class="line">  y = <span class="number">2</span>,</span><br><span class="line">  z = <span class="number">3</span></span><br><span class="line"><span class="keyword">const</span> pt = &#123; x, y, z &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="함수-매개변수-기본값-사용하기"><a href="#함수-매개변수-기본값-사용하기" class="headerlink" title="함수 매개변수 기본값 사용하기"></a>함수 매개변수 기본값 사용하기</h3><p>자바스크립트의 함수의 모든 매개변수는 선택적(생략 가능)이며, 매개변수를 지정하지 않았을 때는 undefined로 간주된다. 매개변수에 기본값을 직접 지정할 수도 있는데 이렇게 하면 코드가 간결해진다.</p>
-<h3 id="저수준-프로미스나-콜백-대신-async-await-사용하기"><a href="#저수준-프로미스나-콜백-대신-async-await-사용하기" class="headerlink" title="저수준 프로미스나 콜백 대신 async/await 사용하기"></a>저수준 프로미스나 콜백 대신 async/await 사용하기</h3><p>async/await가 코드의 가독성을 높이는 것 뿐 아니라 비동기 코드에 타입 정보가 전달되어 타입 추론을 가능하게 한다.</p>
-<h3 id="연관-배열에-객체-대신-Map과-Set-사용하기"><a href="#연관-배열에-객체-대신-Map과-Set-사용하기" class="headerlink" title="연관 배열에 객체 대신 Map과 Set 사용하기"></a>연관 배열에 객체 대신 Map과 Set 사용하기</h3><h3 id="타입스크립트에-use-strict-넣지-않기"><a href="#타입스크립트에-use-strict-넣지-않기" class="headerlink" title="타입스크립트에 use strict 넣지 않기"></a>타입스크립트에 use strict 넣지 않기</h3><p>버그가 될 수 있는 코드 패턴에 오류를 표시해 주는 엄격 모드가 ES5에서 도입되었는데 타입스크립트에서 수행되는 안정성 검사가 엄격 모드보다 훨싼 더 엄격한 체크를 수행한다.</p>
-<hr>
-<h2 id="아이템-59-타입스크립트-도입-전에-ts-check와-JSDoc으로-시험해-보기"><a href="#아이템-59-타입스크립트-도입-전에-ts-check와-JSDoc으로-시험해-보기" class="headerlink" title="아이템 59 타입스크립트 도입 전에 @ts-check와 JSDoc으로 시험해 보기"></a>아이템 59 타입스크립트 도입 전에 @ts-check와 JSDoc으로 시험해 보기</h2><p>@ts-check 지시자를 써서 타입 체커가 파일을 분석하고, 발견된 오류를 보고하도록 지시할 수 있다. 단 매우 느슨한 수준으로 타입 체크를 수행하고, noImplicitAny를 해제한 것보다 헐거운 체크를 수행한다. <em>JSDoc의 @types 구문을 사용해서 타입 단언을 대체할 수 있는데 이때 중요한 것은 타입을 감싸는 중괄호가 필요하다는 것이다.</em> 이처럼 자바스크립트 환경에서도 @ts-check 지시자와 JSDoc 주석으로 타입스크립트와 비슷한 경험의 작업이 가능하다.</p>
-<h2 id="아이템-60-allowJs로-타입스크립트와-자바스크립트-같이-사용하기"><a href="#아이템-60-allowJs로-타입스크립트와-자바스크립트-같이-사용하기" class="headerlink" title="아이템 60 allowJs로 타입스크립트와 자바스크립트 같이 사용하기"></a>아이템 60 allowJs로 타입스크립트와 자바스크립트 같이 사용하기</h2><p>마이그레이션 기간 중에 자바스크립트와 타입스크립트가 동시에 동작할 수 있도록 해야 한다. 이 두 가지가 공존할 수 있도록 하는 핵심은 <code>allowJs</code>컴파일러 옵션이다. 타입스크립트 파일과 자바스크립트 파일을 서로 임포트할 수 있게 해준다. 타입 체크와 관련이 없지만 기존 빌드 과정에 타입스크립트 컴파일러를 추가하기 위해서도 allowJs 옵션이 필요하고, 모듈 단위로 타입스크립트로 전환하는 과정에서 테스트를 수행해야 하기 때문에도 이 옵션이 필요하다.</p>
-<hr>
-<h2 id="아이템-61-의존성-관계에-따라-모듈-단위로-전환하기"><a href="#아이템-61-의존성-관계에-따라-모듈-단위로-전환하기" class="headerlink" title="아이템 61 의존성 관계에 따라 모듈 단위로 전환하기"></a>아이템 61 의존성 관계에 따라 모듈 단위로 전환하기</h2><p>점진적 마이그레이션에서는 모듈 단위로 각개격파하는 것이 이상적인데, 한 모듈을 골라서 타입 정보를 추가하면 <em>해당 모듈이 의존하는 모듈에서 비롯되는 타입 오류</em>가 발생하게 된다. 따라서 다른 모듈에 의존하지 않는 최하단 모듈부터 시작하여 의존성의 최상단에 있는 모듈을 마지막으로 완성해야 한다.</p>
-<ul>
-<li>서드파티 라이브러리 타입 정보를 가장 먼저 해결한다.</li>
-</ul>
-<p>프로젝트 내에 존재하는 모듈은 서드파티 라이브러리에 의존하지만 서드파티 라이브러리는 해당 모듈에 의존하지 않기 때문에 가장 먼저 타입 정보를 해결해야 한다. <code>@types</code>모듈을 설치하면 된다. (e.g. @types/lodash)</p>
-<ul>
-<li>외부 API의 타입 정보 추가</li>
-</ul>
-<p>프로젝트 내의 모듈은 API에 의존하지만 API는 해당 모듈에 의존하지 않기 때문에 먼저 해결한다. 단 특별한 문맥이 없어서 타입스크립트가 추론하기 어렵기 때문에 <strong>API에 대한 사양을 기반으로 타입 정보를 생성하도록 한다.</strong></p>
-<ul>
-<li><p>의존성 관계도에서 가장 의존성이 낮은 모듈부터 타입 정보 추가<br>대부분의 프로젝트 최하단에 유틸리티 종류의 모듈이 위치하는 패턴이 있다. <strong>이때 중요한 것은 타입정보를 추가한 것이지 리팩토링을 하려 해서는 안된다.</strong></p>
-</li>
-<li><p>선언되지 않은 클래스 멤버</p>
-</li>
-</ul>
-<p>자바스크립트에서 클래스 멤버 변수를 선언할 필요가 없지만 타입스크립트에서는 명시적으로 선언해야 한다.</p>
-<ul>
-<li>타입이 바뀌는 값</li>
-</ul>
-<p>자바스크립트일 때 문제가 없다가 타입스크립트가 되는 순간 오류가 발생하는 값들이 많은데, 한꺼번에 객체를 생성하여 간단히 오류를 해결할 수 있다. 한꺼번에 생성이 어렵다면 타입 단언문을 사용할 수 있다. <em>단, 당장 마이그레이션이 최우선이라 임시 방편으로 사용한 것이지 마이그레이션이 완료된 후에는 적절한 방법으로 타입을 선언해야 한다.</em> 또한 자바스크립트에서 JSDoc와 @ts-check를 사용해서 타입 정보를 추가했다면 타입스크립트로 전환하는 순간 타입 정보가 무효화 된다는 것에 유의하도록 한다.</p>
-<ul>
-<li>테스트 코드를 타입스크립트로 전환<br>로직 코드가 테스트 코드에 의존하지 않기 때문에, 테스트 코드는 항상 의존성 관계도의 최상단에 위치한다. 따라서 최하단의 모듈부터 마이그레이션 하는 중에도 테스트는 정상적으로 수행할 수 있다.</li>
-</ul>
-<hr>
-<h2 id="아이템-62-마이그레이션의-완성을-위해-noImplicitAny-설정하기"><a href="#아이템-62-마이그레이션의-완성을-위해-noImplicitAny-설정하기" class="headerlink" title="아이템 62 마이그레이션의 완성을 위해 noImplicitAny 설정하기"></a>아이템 62 마이그레이션의 완성을 위해 noImplicitAny 설정하기</h2><p>만약 noImplicitAny를 설정하지 않았다면 타입 선언에서 비롯되는 실제 오류를 완벽하게 잡을 수 없으므로 마이그레이션이 완료되었다고 말하기 어렵다. 아래와 같은 코드는 <code>noImplicitAny:true</code>를 설정한 순간 에러가 발생하게 된다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// tsConfig: &#123;"noImplicitAny":true,"strictNullChecks":false&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// HIDE</span></span><br><span class="line"><span class="keyword">class</span> Chart &#123;</span><br><span class="line">  indices: <span class="built_in">number</span>[]</span><br><span class="line">  <span class="comment">// END</span></span><br><span class="line">  getRanges() &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> r of <span class="keyword">this</span>.indices) &#123;</span><br><span class="line">      <span class="keyword">const</span> low = r[<span class="number">0</span>]</span><br><span class="line">      <span class="comment">// ~~~~ Element implicitly has an 'any' type because</span></span><br><span class="line">      <span class="comment">//      type 'Number' has no index signature</span></span><br><span class="line">      <span class="keyword">const</span> high = r[<span class="number">1</span>]</span><br><span class="line">      <span class="comment">// ~~~~ Element implicitly has an 'any' type because</span></span><br><span class="line">      <span class="comment">//      type 'Number' has no index signature</span></span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// HIDE</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// END</span></span><br></pre></td></tr></table></figure>
-<p>noImplicitAny를 설정할 때는 로컬에만 설정하고 작업을 하여 점진적 마이그레이션이 가능하도록 한다.</p>
-<hr>
-<p><em>References</em><br>[이펙티브 타입스크립트] 댄 밴더캄 지음</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/03/01/220302_blockchain01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1762,7 +1751,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-18 13:57:23" itemprop="dateModified" datetime="2022-07-18T13:57:23+09:00">2022-07-18</time>
+                <time title="Modified: 2022-12-06 23:40:24" itemprop="dateModified" datetime="2022-12-06T23:40:24+09:00">2022-12-06</time>
               </span>
 
           
@@ -1933,7 +1922,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/02/22/220223_item49to55/">
+    <link itemprop="mainEntityOfPage" href="https://heejinlee07.github.io/2022/03/01/220302_item56to62/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1947,7 +1936,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2022/02/22/220223_item49to55/" class="post-title-link" itemprop="url">타입스크립트 이펙티브 아이템 49 - 아이템 55</a>
+            <a href="/2022/03/01/220302_item56to62/" class="post-title-link" itemprop="url">타입스크립트 이펙티브 아이템 56 - 아이템 62</a>
         </h1>
 
         <div class="post-meta">
@@ -1957,14 +1946,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2022-02-23 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-23T00:00:00+09:00">2022-02-23</time>
+              <time title="Created: 2022-03-02 00:00:00" itemprop="dateCreated datePublished" datetime="2022-03-02T00:00:00+09:00">2022-03-02</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-18 13:57:23" itemprop="dateModified" datetime="2022-07-18T13:57:23+09:00">2022-07-18</time>
+                <time title="Modified: 2022-12-06 23:40:24" itemprop="dateModified" datetime="2022-12-06T23:40:24+09:00">2022-12-06</time>
               </span>
 
           
@@ -1978,56 +1967,60 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="아이템-49-콜백에서-this에-대한-타입-제공하기"><a href="#아이템-49-콜백에서-this에-대한-타입-제공하기" class="headerlink" title="아이템 49 콜백에서 this에 대한 타입 제공하기"></a>아이템 49 콜백에서 this에 대한 타입 제공하기</h2><p>this는 let,const와 달리 dynamic scope이기 때문에 정의된 방식이 아닌 <code>호출된 방식</code>에 따라 값이 달라진다. 아래 코드는 현재의 객체 인스턴스를 참조하는 <code>클래스</code>에서 많이 쓰이는 this이다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> C &#123;</span><br><span class="line">  vals = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">  logSquares() &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> val of <span class="keyword">this</span>.vals) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(val * val)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> c = <span class="keyword">new</span> C()</span><br><span class="line"><span class="keyword">const</span> method = c.logSquares</span><br><span class="line">method()</span><br></pre></td></tr></table></figure>
-<p>이 코드는 런타임에 <em>uncaught TypeError: undefined의 ‘vals’속성을 읽을 수 없습니다.</em>는 오류를 발생시킨다. 그 이유는 <code>c.logSquares</code>가 <code>C.prototype.logSquares</code>를 호출하고, <code>this 값을 c로 바인딩</code>하는 두 가지 작업을 수행하기 때문이다. 이 작업에 따르면 this의 값은 undefined로 설정된다. 이런 문제를 해결하는 첫 번째 방법은 <code>call</code>을 사용해서 명시적으로 this를 바인딩하는 것이다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> c = <span class="keyword">new</span> C()</span><br><span class="line"><span class="keyword">const</span> method = c.logSquares</span><br><span class="line">method.call(c) <span class="comment">// 제곱 출력</span></span><br></pre></td></tr></table></figure>
-<p>이처럼 명시적인 <code>this 바인딩</code>을 통해 this의 타입에 대해 구체화할 수 있다. this 바인딩은 어떤 것에도 가능하며, 콜백 함수에도 쓰일 수 있다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">makeButton</span>(<span class="params">props: &#123; text: <span class="built_in">string</span>; onClick: () =&gt; <span class="built_in">void</span> &#125;</span>): <span class="title">void</span></span></span><br><span class="line"><span class="function"><span class="title">class</span> <span class="title">ResetButton</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> makeButton(&#123; text: <span class="string">'Reset'</span>, onClick: <span class="keyword">this</span>.onClick &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  onClick() &#123;</span><br><span class="line">    alert(<span class="string">`Reset <span class="subst">$&#123;<span class="keyword">this</span>&#125;</span>`</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>그런데 여기서도 this 바인딩 문제로 인해 <em>Reset이 정의되지 않았다는 에러가 발생한다.</em> 이때 해결하는 방법은 아래와 같이 <code>생성자에서 메서드에 this를 바인딩시키는 것이다.</code></p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">makeButton</span>(<span class="params">props: &#123; text: <span class="built_in">string</span>; onClick: () =&gt; <span class="built_in">void</span> &#125;</span>): <span class="title">void</span></span></span><br><span class="line"><span class="function"><span class="title">class</span> <span class="title">ResetButton</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.onClick = <span class="keyword">this</span>.onClick.bind(<span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> makeButton(&#123; text: <span class="string">'Reset'</span>, onClick: <span class="keyword">this</span>.onClick &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  onClick() &#123;</span><br><span class="line">    alert(<span class="string">`Reset <span class="subst">$&#123;<span class="keyword">this</span>&#125;</span>`</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>onClick()은 ResetButton.proptotype의 속성을 정의한다. 따라서 ResetButton의 모든 인스턴스에 공유된다. 그런데 위와 같이 생성자 함수에 바인딩하게 되면 onClick 속성에 this가 바인딩되어 해당 인스턴스에 생성된다. onClick 인스턴스 속성은 프로토타입 속성보다 앞에 놓이므로 <code>render() 메서드의 this.onClick은 바인딩된 함수를 참조하게 된다.</code> 하지만 onClick을 화살표 함수로 바꾸는 방법으로 좀 더 간단하게 해결할 수도 있다. 그 이유는 화살표 함수 내부에서 this를 참조하면 상위 컨텍스트의 this를 그대로 참조하기 때문이다. 따라서 ResetButton이 생성될 때 마다 제대로 바인딩된 this를 가지는 새 함수를 생성한다.</p>
+          <h2 id="아이템-56-정보를-감추는-목적으로-private-사용하지-않기"><a href="#아이템-56-정보를-감추는-목적으로-private-사용하지-않기" class="headerlink" title="아이템 56 정보를 감추는 목적으로 private 사용하지 않기"></a>아이템 56 정보를 감추는 목적으로 private 사용하지 않기</h2><p>자바스크립트는 클래스에 비공개 속성을 만들 수 없다. 비공개 속성임을 나태내기 위해 <code>언더스코어(_)</code>를 접두사로 붙이던 것이 관례로 인정되어 왔던 것 뿐이다. <em>하지만 언더스코어를 붙이는 것은 비공개라고 표시한 것 뿐, 일반적인 속성과 동일하게 클래스 외부로 공개되어 있다.</em></p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Diary &#123;</span><br><span class="line">  <span class="keyword">private</span> secret = <span class="string">'cheated on my English test'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> diary = <span class="keyword">new</span> Diary()</span><br><span class="line">;(diary <span class="keyword">as</span> <span class="built_in">any</span>).secret <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
+<p>타입스크립트에서 위의 예시처럼 public, protected, private 접근 제어자를 사용하기 때문에 규칙을 강제하는 것으로 오해하기 쉬운데 <strong>이는 타입스크립트 키워드이기 때문에 컴파일 후에 제거된다.</strong> 그래서 타입스크립트의 컴파일되면 위의 예제는 아래의 예제처럼 자바스크립트 코드(target=ES2017)로 변환된다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Diary &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.secret = <span class="string">'cheated on my English test'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> diary = <span class="keyword">new</span> Diary()</span><br><span class="line">diary.secret</span><br></pre></td></tr></table></figure>
+<p>컴파일 후에 확인해보면 타입스크립트 키워드인 private이 제거되었고, secret은 일반적인 속성이어서 접근할 수 있다. 즉 언더스코어의 관례처럼 타입스크립트의 접근 제어자들도 런타임에는 아무런 효력이 없다. 심지어 타입스크립트 상태에서도 단언문을 사용하면 private에 접근 가능하다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">declare <span class="function"><span class="keyword">function</span> <span class="title">hash</span>(<span class="params">text: string</span>): <span class="title">number</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">class</span> <span class="title">PasswordChecker</span> </span>&#123;</span><br><span class="line">  checkPassword: <span class="function">(<span class="params">password: string</span>) =&gt;</span> boolean</span><br><span class="line">  <span class="keyword">constructor</span>(passwordHash: number) &#123;</span><br><span class="line">    <span class="keyword">this</span>.checkPassword = <span class="function">(<span class="params">password: string</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> hash(password) === passwordHash</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> checker = <span class="keyword">new</span> PasswordChecker(hash(<span class="string">'s3cret'</span>))</span><br><span class="line">checker.checkPassword(<span class="string">'s3cret'</span>) <span class="comment">// Returns true</span></span><br></pre></td></tr></table></figure>
+<p>따라서 정보를 감추기 위한 목적으로 private을 사용하면 안된다. <em>자바스크립트에서 정보를 숨기기 위한 가장 효과적은 방법은 클로저이다.</em> 위의 예시는 생성자에서 클로저를 만드는 예시이다. 이렇게 작성하면 PasswordChecker의 생성자 외부에서 passwordHash 변수에 접근할 수 없어서 정보를 숨기는 목적은 달성하게 되는데, 주의사항이 있다. passwordHash를 생성자 외부에서 접근할 수 없기 때문에 passwordHash에 접근해야 하는 메서드는 생성자 내부에 정의되어야 한다. 또 메서드 정의가 생성자 내부에 존재하게 되면, 인스턴스를 생성할 때마다 각 메서드의 복사본이 생성되기 때문에 메모리를 낭비하게 된다. 클로저를 쓰지 않으면 현재 표준화가 진행 중인 비공개 필드 기능을 사용할 수 있는데, 접두사 #을 붙여서 타입 체크과 런타임 모두에서 비공개로 만드는 역할을 한다.</p>
 <hr>
-<h2 id="아이템-50-오버로딩-타입보다는-조건부-타입을-사용하기"><a href="#아이템-50-오버로딩-타입보다는-조건부-타입을-사용하기" class="headerlink" title="아이템 50 오버로딩 타입보다는 조건부 타입을 사용하기"></a>아이템 50 오버로딩 타입보다는 조건부 타입을 사용하기</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">number</span> | <span class="built_in">string</span></span>): <span class="title">number</span> | <span class="title">string</span></span></span><br><span class="line"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">any</span></span>) </span>&#123;</span></span><br><span class="line"><span class="function">  <span class="title">return</span> <span class="title">x</span> + <span class="title">x</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x</span>) </span>&#123;</span></span><br><span class="line"><span class="function">  <span class="title">return</span> <span class="title">x</span> + <span class="title">x</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>함수 오버로딩(동일한 이름에 매개변수만 다른 여러 버전의 함수를 허용하는 것.단, 타입 수준에서 동작)의 개념을 통해 위와 같이 함수의 타입 정보를 추가한다. 그런데 이렇게 작성하면 선언문에서 number타입을 매개변수로 넣고, string타입을 반환하는 경우도 포함되어 있어서 모호한 지점이 생긴다. 이런 상황에서 <code>첫 번째 해결법은 제너릭을 사용하는 것</code>이다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">number</span> | <span class="title">string</span>&gt;(<span class="params">x: T</span>): <span class="title">T</span></span></span><br><span class="line"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">any</span></span>) </span>&#123;</span></span><br><span class="line"><span class="function">  <span class="title">return</span> <span class="title">x</span> + <span class="title">x</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">const</span> <span class="title">num</span> = <span class="title">double</span>(<span class="params">12</span>) // <span class="title">Type</span> <span class="title">is</span> 12</span></span><br><span class="line"><span class="function"><span class="title">const</span> <span class="title">str</span> = <span class="title">double</span>(<span class="params">'x'</span>) // <span class="title">Type</span> <span class="title">is</span> "<span class="title">x</span>"</span></span><br></pre></td></tr></table></figure>
-<p>제너릭 타입을 쓰면서 앞서 말했던 number로 선언되어 string 타입을 반환하는 경우에 대해서 해결은 되었으나 지나치게 구체적인 타입이 되었다. string을 넣으면 string만 반환해야 하게 되었다. 좀 더 다른 방법으로 <code>여러 가지 타입 선언으로 분리</code>해 볼 수 있다. 함수의 구현체는 하나여도 타입 선언은 여러 개 만들 수 있기 때문에 함수 타입을 보다 명확하게 할 수 있다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">number</span></span>): <span class="title">number</span></span></span><br><span class="line"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">string</span></span>): <span class="title">string</span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">any</span></span>) </span>&#123;</span></span></span><br><span class="line"><span class="function"><span class="function">  <span class="title">return</span> <span class="title">x</span> + <span class="title">x</span></span></span></span><br><span class="line"><span class="function"><span class="function">&#125;</span></span></span><br><span class="line"><span class="function"><span class="function"></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="title">const</span> <span class="title">num</span> = <span class="title">double</span>(<span class="params">12</span>) // <span class="title">Type</span> <span class="title">is</span> <span class="title">number</span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="title">const</span> <span class="title">str</span> = <span class="title">double</span>(<span class="params">'x'</span>) // <span class="title">Type</span> <span class="title">is</span> <span class="title">string</span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x: <span class="built_in">number</span> | <span class="built_in">string</span></span>) </span>&#123;</span></span></span><br><span class="line"><span class="function"><span class="function">  <span class="title">return</span> <span class="title">double</span>(<span class="params">x</span>)</span></span></span><br><span class="line"><span class="function"><span class="function">  // ~ <span class="title">Argument</span> <span class="title">of</span> <span class="title">type</span> '<span class="title">string</span> | <span class="title">number</span>' <span class="title">is</span> <span class="title">not</span> <span class="title">assignable</span></span></span></span><br><span class="line"><span class="function"><span class="function">  //   <span class="title">to</span> <span class="title">parameter</span> <span class="title">of</span> <span class="title">type</span> '<span class="title">string</span>'</span></span></span><br><span class="line"><span class="function"><span class="function">&#125;</span></span></span><br></pre></td></tr></table></figure>
-<p>단 유니온 타입에 대해서는 문제가 발생한다. <strong>타입스크립트는 오버로딩 타입 중에서 일치하는 타입을 찾을 때까지 순차적으로 검색한다.</strong> 마지막 선언인 string까지 검색했을 때 string | number 타입은 string에 할당할 수 없기 때문에 에러가 발생하는 것이다. 이때는 <code>오버로딩 타입으로 string|number를 추가</code>하여 문제를 해결할 수 있고, 더 좋은 방법은 아래와 같이 <code>조건부 타입</code>을 사용하는 것이다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">number</span> | <span class="title">string</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  x: T</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">T</span> <span class="title">extends</span> <span class="title">string</span> ? <span class="title">string</span> : <span class="title">number</span></span></span><br><span class="line"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">x: <span class="built_in">any</span></span>) </span>&#123;</span></span><br><span class="line"><span class="function">  <span class="title">return</span> <span class="title">x</span> + <span class="title">x</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>조건부 타입을 사용하면 아래와 같이 반환 타입이 정교해진다.</p>
+<h2 id="아이템-57-소스맵을-사용하여-타입스크립트-디버깅하기"><a href="#아이템-57-소스맵을-사용하여-타입스크립트-디버깅하기" class="headerlink" title="아이템 57 소스맵을 사용하여 타입스크립트 디버깅하기"></a>아이템 57 소스맵을 사용하여 타입스크립트 디버깅하기</h2><p>타입스크립트 코드를 실행한다는 것은 타입스크립트 컴파일러가 생성한 자바스크립트 코드를 생성한다는 것이다. 그런데 변환된 자바스크립트 코드는 복잡해서 디버깅하기가 어렵다. <strong>디버깅하기 쉽도록 해결책을 내놓은 것이 소스맵이다.</strong> 소스맵은 변환된 코드의 위치와 심벌들을 원본 코드의 원래 위치와 심벌들로 매핑한다. 보통 자바스크립트로 변환된 코드는 원본 코드와 거의 비슷해서 디버깅하기 쉽지만 복잡하게 변환된다면 소스맵이 필요하다. 타입스크립트가 소스맵을 생성할 수 있도록 tsconfig.json에 소스맵 옵션을 다음과 같이 설정한다.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compiletOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"sourceMap"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="아이템-58-모던-자바스크립트로-작성하기"><a href="#아이템-58-모던-자바스크립트로-작성하기" class="headerlink" title="아이템 58 모던 자바스크립트로 작성하기"></a>아이템 58 모던 자바스크립트로 작성하기</h2><p>타입스크립트 코드를 특정 버전의 자바스크립트로 컴파일 할 수 있다. 즉 타입스크립트를 자바스크립트 트랜스 파일러로 사용할 수 있다. 옛날 버전의 자바스크립트 코드를 타입스크립트 컴파일러에서 동작하게 만들면 그 이후 회신 버전의 자바스크립트 기능을 코드에 추가해도 문제가 없다. 이렇게 옛날 버전의 자바스크립트 코드를 최신 버전의 자바스크립트로 바꾸는 작업이 타입스크립트로 전환하는 작업의 일부라 볼 수 있다. <em>타입스크립트는 자바스크립트의 상위 집합이기 때문에 코드를 최신 버전으로 바꾸다 보면 타입스크립트의 일부를 저절로 익힐 수 있다.</em> 타입스크립트 도입 시 가장 중요하나 기능은 ECMAScript 모듈과 ES2015 클래스이다.</p>
+<h3 id="ECMA-모듈-사용하기"><a href="#ECMA-모듈-사용하기" class="headerlink" title="ECMA 모듈 사용하기"></a>ECMA 모듈 사용하기</h3><p>ES2015부터 import, export를 사용하는 ECMAScript 모듈이 표준이 되었다. 따라서 자바스크립트 코드가 단일 파일이거나 비표준 모듈 시스템을 사용 중이라면 ES 모듈로 전환해야 한다. 이 과정에서 웹팩이나 ts-node와 같은 도구가 필요할 수도 있다. ES 모듈 시스템은 모듈 단위로 전환할 수 있게 해주기 때문에 점진적 마이그레이션이 원활해진다.</p>
+<h3 id="프로토타입-대신-클래스-사용하기"><a href="#프로토타입-대신-클래스-사용하기" class="headerlink" title="프로토타입 대신 클래스 사용하기"></a>프로토타입 대신 클래스 사용하기</h3><p>자바스크립트에서 프로토타입 기반의 객체 모델을 사용하는데, 많은 개발자들이 클래스 기반 모델을 선호했기 때문에 ES2015에서 class 키워드를 사용하는 클래스 기반 모델이 도입되었다. <em>만약 단순한 객체를 다룰 때 프로토타입을 사용하고 있었다면 클래스로 바꾸는 것이 좋다.</em></p>
+<h3 id="var-대신-let-const-사용하기"><a href="#var-대신-let-const-사용하기" class="headerlink" title="var 대신 let/const 사용하기"></a>var 대신 let/const 사용하기</h3><p>var 키워드에는 스코프 규칙의 문제가 있었고, let이나 const를 쓰는 것으로 이러한 문제를 피할 수 있었다. var로 되어있던 코드를 let이나 const로 수정하면 일부 코드에서 타입스크립트가 오류를 표시할 수 있다. 만약 오류가 발생했다면 잠재적으로 스코프 문제가 존재하는 코드이니 수정이 필요하다.</p>
+<h3 id="for-대신-for-of-또는-배열-메서드-사용하기"><a href="#for-대신-for-of-또는-배열-메서드-사용하기" class="headerlink" title="for(;;) 대신 for-of 또는 배열 메서드 사용하기"></a>for(;;) 대신 for-of 또는 배열 메서드 사용하기</h3><p>과거에는 자바스크립트가 배열을 순회할 때 for 루프를 사용했는데 모던 자바스크립트에는 <code>for~of</code>가 존재하기 때문에 이를 사용하면 된다. for~of가 for문에 비해 코드가 짧고 인덱스 변수를 사용하지 않기 때문에 실수를 줄일 수 있다. 만약 인덱스 변수가 필요하다면 forEach를 사용하면 되고, 비슷한 루프문으로 for~in도 있지만 몇 가지 문제점이 있으므로 쓰지 않는 것이 좋다.</p>
+<h3 id="함수-표현식보다-화살표-함수-사용하기"><a href="#함수-표현식보다-화살표-함수-사용하기" class="headerlink" title="함수 표현식보다 화살표 함수 사용하기"></a>함수 표현식보다 화살표 함수 사용하기</h3><p>this 키워드는 일반 변수들과 다른 스코프 규칙을 가지기 때문에 가장 어려운 개념 중 하나이다. 그러나 화살표 함수를 사용하면 상위 스코프의 this를 유지할 수 있다. 컴파일러 옵션에 noImplicitThis(또는 strict)를 설정하면 타입스크립트가 this 바인딩 관련된 오류를 표시해준다.</p>
+<h3 id="단축-객체-표현과-구조-분해-할당-사용하기"><a href="#단축-객체-표현과-구조-분해-할당-사용하기" class="headerlink" title="단축 객체 표현과 구조 분해 할당 사용하기"></a>단축 객체 표현과 구조 분해 할당 사용하기</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">1</span>,</span><br><span class="line">  y = <span class="number">2</span>,</span><br><span class="line">  z = <span class="number">3</span></span><br><span class="line"><span class="keyword">const</span> pt = &#123;</span><br><span class="line">  x: x,</span><br><span class="line">  y: y,</span><br><span class="line">  z: z</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위와 같은 코드는 아래와 같이 구조 분해 할당을 이용하여 더 간단하게 표현할 수 있다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">1</span>,</span><br><span class="line">  y = <span class="number">2</span>,</span><br><span class="line">  z = <span class="number">3</span></span><br><span class="line"><span class="keyword">const</span> pt = &#123; x, y, z &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="함수-매개변수-기본값-사용하기"><a href="#함수-매개변수-기본값-사용하기" class="headerlink" title="함수 매개변수 기본값 사용하기"></a>함수 매개변수 기본값 사용하기</h3><p>자바스크립트의 함수의 모든 매개변수는 선택적(생략 가능)이며, 매개변수를 지정하지 않았을 때는 undefined로 간주된다. 매개변수에 기본값을 직접 지정할 수도 있는데 이렇게 하면 코드가 간결해진다.</p>
+<h3 id="저수준-프로미스나-콜백-대신-async-await-사용하기"><a href="#저수준-프로미스나-콜백-대신-async-await-사용하기" class="headerlink" title="저수준 프로미스나 콜백 대신 async/await 사용하기"></a>저수준 프로미스나 콜백 대신 async/await 사용하기</h3><p>async/await가 코드의 가독성을 높이는 것 뿐 아니라 비동기 코드에 타입 정보가 전달되어 타입 추론을 가능하게 한다.</p>
+<h3 id="연관-배열에-객체-대신-Map과-Set-사용하기"><a href="#연관-배열에-객체-대신-Map과-Set-사용하기" class="headerlink" title="연관 배열에 객체 대신 Map과 Set 사용하기"></a>연관 배열에 객체 대신 Map과 Set 사용하기</h3><h3 id="타입스크립트에-use-strict-넣지-않기"><a href="#타입스크립트에-use-strict-넣지-않기" class="headerlink" title="타입스크립트에 use strict 넣지 않기"></a>타입스크립트에 use strict 넣지 않기</h3><p>버그가 될 수 있는 코드 패턴에 오류를 표시해 주는 엄격 모드가 ES5에서 도입되었는데 타입스크립트에서 수행되는 안정성 검사가 엄격 모드보다 훨싼 더 엄격한 체크를 수행한다.</p>
+<hr>
+<h2 id="아이템-59-타입스크립트-도입-전에-ts-check와-JSDoc으로-시험해-보기"><a href="#아이템-59-타입스크립트-도입-전에-ts-check와-JSDoc으로-시험해-보기" class="headerlink" title="아이템 59 타입스크립트 도입 전에 @ts-check와 JSDoc으로 시험해 보기"></a>아이템 59 타입스크립트 도입 전에 @ts-check와 JSDoc으로 시험해 보기</h2><p>@ts-check 지시자를 써서 타입 체커가 파일을 분석하고, 발견된 오류를 보고하도록 지시할 수 있다. 단 매우 느슨한 수준으로 타입 체크를 수행하고, noImplicitAny를 해제한 것보다 헐거운 체크를 수행한다. <em>JSDoc의 @types 구문을 사용해서 타입 단언을 대체할 수 있는데 이때 중요한 것은 타입을 감싸는 중괄호가 필요하다는 것이다.</em> 이처럼 자바스크립트 환경에서도 @ts-check 지시자와 JSDoc 주석으로 타입스크립트와 비슷한 경험의 작업이 가능하다.</p>
+<h2 id="아이템-60-allowJs로-타입스크립트와-자바스크립트-같이-사용하기"><a href="#아이템-60-allowJs로-타입스크립트와-자바스크립트-같이-사용하기" class="headerlink" title="아이템 60 allowJs로 타입스크립트와 자바스크립트 같이 사용하기"></a>아이템 60 allowJs로 타입스크립트와 자바스크립트 같이 사용하기</h2><p>마이그레이션 기간 중에 자바스크립트와 타입스크립트가 동시에 동작할 수 있도록 해야 한다. 이 두 가지가 공존할 수 있도록 하는 핵심은 <code>allowJs</code>컴파일러 옵션이다. 타입스크립트 파일과 자바스크립트 파일을 서로 임포트할 수 있게 해준다. 타입 체크와 관련이 없지만 기존 빌드 과정에 타입스크립트 컴파일러를 추가하기 위해서도 allowJs 옵션이 필요하고, 모듈 단위로 타입스크립트로 전환하는 과정에서 테스트를 수행해야 하기 때문에도 이 옵션이 필요하다.</p>
+<hr>
+<h2 id="아이템-61-의존성-관계에-따라-모듈-단위로-전환하기"><a href="#아이템-61-의존성-관계에-따라-모듈-단위로-전환하기" class="headerlink" title="아이템 61 의존성 관계에 따라 모듈 단위로 전환하기"></a>아이템 61 의존성 관계에 따라 모듈 단위로 전환하기</h2><p>점진적 마이그레이션에서는 모듈 단위로 각개격파하는 것이 이상적인데, 한 모듈을 골라서 타입 정보를 추가하면 <em>해당 모듈이 의존하는 모듈에서 비롯되는 타입 오류</em>가 발생하게 된다. 따라서 다른 모듈에 의존하지 않는 최하단 모듈부터 시작하여 의존성의 최상단에 있는 모듈을 마지막으로 완성해야 한다.</p>
 <ul>
-<li>T가 string의 부분 집합이면 반환 타입이 string이다.</li>
-<li>그 외의 경우는 반환 타입이 number이다.</li>
+<li>서드파티 라이브러리 타입 정보를 가장 먼저 해결한다.</li>
 </ul>
-<p>이처럼 조건부 타입은 개별 타입의 유니온으로 일반화하기 때문에 타입이 더욱 정확해진다. 조건부 타입은 타입 체커가 단일 표현식으로 받아들이기 때문에 타입 오버로딩에서 유니온 문제가 발생했을 때 문제를 해결할 수 있다.</p>
-<hr>
-<h2 id="아이템-51-의존성-분리를-위해-미러-타입-사용하기"><a href="#아이템-51-의존성-분리를-위해-미러-타입-사용하기" class="headerlink" title="아이템 51 의존성 분리를 위해 미러 타입 사용하기"></a>아이템 51 의존성 분리를 위해 미러 타입 사용하기</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseCSV</span>(<span class="params">contents: <span class="built_in">string</span> | Buffer</span>): </span>&#123; [column: <span class="built_in">string</span>]: <span class="built_in">string</span> &#125;[] &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> contents === <span class="string">'object'</span>) &#123;</span><br><span class="line">    <span class="comment">// It's a buffer</span></span><br><span class="line">    <span class="keyword">return</span> parseCSV(contents.toString(<span class="string">'utf8'</span>))</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// COMPRESS</span></span><br><span class="line">  <span class="keyword">return</span> []</span><br><span class="line">  <span class="comment">// END</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>다음 코드는 NodeJs 사용자를 위해 매개변수에 Buffer 타입을 허용한 예시이다. 그리고 Buffer의 타입 정의는 npm install —save-dev @types/node로 설치하여 얻을 수 있다. 단 타입 선언이 @types/node에 의존하기 때문에 devDependencies로 포함해야 하는데 이를 포함하면 <em>@types와 무관한 자바스크립트 개발자 또는 NodeJS와 무관한 타입스크립트 웹 개발자</em>에게 혼란을 줄 수 있다. 그 이유는 두 그룹 사용자가 사용하지 않는 모듈이 포함되어 있기 때문이다. Buffer는 NodeJS 개발자에게만 필요하다. 따라서 Buffer를 사용하는 대신 아래와 같이 필요한 메서드와 속성만 별도로 작성하는 방식으로 개선할 수 있다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> CsvBuffer &#123;</span><br><span class="line">  toString(encoding: <span class="built_in">string</span>): <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseCSV</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  contents: <span class="built_in">string</span> | CsvBuffer</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): </span>&#123; [column: <span class="built_in">string</span>]: <span class="built_in">string</span> &#125;[] &#123;</span><br><span class="line">  <span class="comment">// COMPRESS</span></span><br><span class="line">  <span class="keyword">return</span> []</span><br><span class="line">  <span class="comment">// END</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>만약 작성 중인 라이브러리가 의존하는 라이브러리의 구현과 무관하게 타입에만 의존한다면, 필요한 선언부만 추출해서 작성 중인 라이브러리에 넣는 미러링을 고려해 볼 수 있다.</strong></p>
-<hr>
-<h2 id="아이템-52-테스팅-타입의-함정에-주의하기"><a href="#아이템-52-테스팅-타입의-함정에-주의하기" class="headerlink" title="아이템 52 테스팅 타입의 함정에 주의하기"></a>아이템 52 테스팅 타입의 함정에 주의하기</h2><p>타입 선언도 테스트를 거쳐야 하고, dtslint 또는 타입 시스템 외부의 타입을 검사하는 도구를 사용할 수 있다. 타입 선언이 예상한 타입으로 결과를 내는지 체크할 수 있는 한 가지 방법은 <code>함수를 호출하는 테스트 파일의 작성</code>이다. 그러나 단순히 함수를 실행만 하는 테스트 코드를 작성하는 것보다는 <code>반환 타입을 체크하는 것이 중요하다.</code> 반환값을 특정 타입의 변수에 할당하여 간단히 반환 타입을 체크할 수 있는 방법은 다음과 같다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> lengths: <span class="built_in">number</span>[] = map([<span class="string">'john'</span>, <span class="string">'paul'</span>], <span class="function"><span class="params">name</span> =&gt;</span> name.length)</span><br></pre></td></tr></table></figure>
-<p>이 코드는 불필요한 타입 선언에 해당하지만 테스트 관점에서는 매우 중요하다. 그런데 테스팅을 위해서 할당하는 방법에는 두 가지 문제가 있다.</p>
+<p>프로젝트 내에 존재하는 모듈은 서드파티 라이브러리에 의존하지만 서드파티 라이브러리는 해당 모듈에 의존하지 않기 때문에 가장 먼저 타입 정보를 해결해야 한다. <code>@types</code>모듈을 설치하면 된다. (e.g. @types/lodash)</p>
 <ul>
-<li><p>불필요한 변수를 만들어야 하고, 일부 린팅 규칙을 비활성화해야한다.</p>
-<ul>
-<li><strong>변수를 도입하는 대신 헬퍼 함수를 정의하는 것으로 해결한다.</strong></li>
+<li>외부 API의 타입 정보 추가</li>
 </ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">assertType</span>&lt;<span class="title">T</span>&gt;(<span class="params">x: T</span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">assertType&lt;<span class="built_in">number</span>[]&gt;(map([<span class="string">'john'</span>, <span class="string">'paul'</span>], <span class="function"><span class="params">name</span> =&gt;</span> name.length))</span><br></pre></td></tr></table></figure>
+<p>프로젝트 내의 모듈은 API에 의존하지만 API는 해당 모듈에 의존하지 않기 때문에 먼저 해결한다. 단 특별한 문맥이 없어서 타입스크립트가 추론하기 어렵기 때문에 <strong>API에 대한 사양을 기반으로 타입 정보를 생성하도록 한다.</strong></p>
+<ul>
+<li><p>의존성 관계도에서 가장 의존성이 낮은 모듈부터 타입 정보 추가<br>대부분의 프로젝트 최하단에 유틸리티 종류의 모듈이 위치하는 패턴이 있다. <strong>이때 중요한 것은 타입정보를 추가한 것이지 리팩토링을 하려 해서는 안된다.</strong></p>
 </li>
-<li><p>두 타입이 동일한지에 대한 체크 대신 <strong>할당 가능성을 체크한다.</strong></p>
+<li><p>선언되지 않은 클래스 멤버</p>
 </li>
 </ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> n = <span class="number">12</span></span><br><span class="line">assertType&lt;<span class="built_in">number</span>&gt;(n) <span class="comment">//정상</span></span><br></pre></td></tr></table></figure>
-<p>n 심벌은 타입이 숫자 리터럴 12인데, 12는 number의 서브타입이라서 할당 가능성 체크를 통과한다. 그러나 객체 타입 체크해서 문제가 발생한다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> beatles = [<span class="string">'john'</span>, <span class="string">'paul'</span>, <span class="string">'george'</span>, <span class="string">'ringo'</span>]</span><br><span class="line">assertType&lt;&#123; name: <span class="built_in">string</span> &#125;[]&gt;(</span><br><span class="line">  map(beatles, <span class="function"><span class="params">name</span> =&gt;</span> (&#123;</span><br><span class="line">    name,</span><br><span class="line">    inYellowSubmarine: name === <span class="string">'ringo'</span></span><br><span class="line">  &#125;))</span><br><span class="line">) <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
-<p>map은 {name: string, inYellowSubmarine: boolean}객체의 배열을 반환하는데, 반환된 배열은 {name: string}[]에 할당 가능하지만 inYellowSubmarine 속성에 대해 체크되지 않는다.</p>
-<h3 id="assertType-사용-방법"><a href="#assertType-사용-방법" class="headerlink" title="assertType 사용 방법"></a>assertType 사용 방법</h3><p>아래 예제처럼 parameters와 ReturnType 제너릭 타입을 이용해서 함수의 매개변수 타입과 반환 타입만 분리하여 테스트한다.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> double = <span class="function">(<span class="params">x: <span class="built_in">number</span></span>) =&gt;</span> <span class="number">2</span> * x</span><br><span class="line"><span class="keyword">let</span> p: Parameters&lt;<span class="keyword">typeof</span> double&gt; = <span class="literal">null</span>!</span><br><span class="line">assertType&lt;[<span class="built_in">number</span>, <span class="built_in">number</span>]&gt;(p)</span><br><span class="line"><span class="comment">//                           ~ Argument of type '[number]' is not</span></span><br><span class="line"><span class="comment">//                             assignable to parameter of type [number, number]</span></span><br><span class="line"><span class="keyword">let</span> r: ReturnType&lt;<span class="keyword">typeof</span> double&gt; = <span class="literal">null</span>!</span><br><span class="line">assertType&lt;<span class="built_in">number</span>&gt;(r) <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
+<p>자바스크립트에서 클래스 멤버 변수를 선언할 필요가 없지만 타입스크립트에서는 명시적으로 선언해야 한다.</p>
+<ul>
+<li>타입이 바뀌는 값</li>
+</ul>
+<p>자바스크립트일 때 문제가 없다가 타입스크립트가 되는 순간 오류가 발생하는 값들이 많은데, 한꺼번에 객체를 생성하여 간단히 오류를 해결할 수 있다. 한꺼번에 생성이 어렵다면 타입 단언문을 사용할 수 있다. <em>단, 당장 마이그레이션이 최우선이라 임시 방편으로 사용한 것이지 마이그레이션이 완료된 후에는 적절한 방법으로 타입을 선언해야 한다.</em> 또한 자바스크립트에서 JSDoc와 @ts-check를 사용해서 타입 정보를 추가했다면 타입스크립트로 전환하는 순간 타입 정보가 무효화 된다는 것에 유의하도록 한다.</p>
+<ul>
+<li>테스트 코드를 타입스크립트로 전환<br>로직 코드가 테스트 코드에 의존하지 않기 때문에, 테스트 코드는 항상 의존성 관계도의 최상단에 위치한다. 따라서 최하단의 모듈부터 마이그레이션 하는 중에도 테스트는 정상적으로 수행할 수 있다.</li>
+</ul>
 <hr>
-<h2 id="아이템-53-타입스크립트-기능보다는-ECMAScript-기능을-사용하기"><a href="#아이템-53-타입스크립트-기능보다는-ECMAScript-기능을-사용하기" class="headerlink" title="아이템 53 타입스크립트 기능보다는 ECMAScript 기능을 사용하기"></a>아이템 53 타입스크립트 기능보다는 ECMAScript 기능을 사용하기</h2><p>타입스크립트 초기 버전에는 자바스크립트가 가진 결함들도 수용해야 했기 때문에 독립적으로 개발한 클래스, 열거형, 모듈 시스템을 포함시켰다. 시간이 흐르면서 부족했던 부분들을 내장 기능으로 추가하게 되었는데 <em>자바스크립트에 새로 추가된 기능은 타입스크립트 초기 버전에서 독립적으로 개발했던 기능과 호환성 문제를 발생시킨다.</em> 그래서 타입스크립트는 <strong>자바스크립트의 신규 기능을 그대로 채택하고 타입스크립트 초기 버전</strong>과 호환성을 포기하는 방법을 택했다. 그런데 이 기능과 타입스크립트 팀은 타입만 발전시킨다는 원칙이 세워지기 이전에 이미 사용되던 몇 가지 기능들이 있고, 이런 것들이 타입 공간(타입스크립트), 값 공간(자바스크립트)의 경계를 혼란스럽게 하기 때문에 사용을 지양해야 한다.</p>
+<h2 id="아이템-62-마이그레이션의-완성을-위해-noImplicitAny-설정하기"><a href="#아이템-62-마이그레이션의-완성을-위해-noImplicitAny-설정하기" class="headerlink" title="아이템 62 마이그레이션의 완성을 위해 noImplicitAny 설정하기"></a>아이템 62 마이그레이션의 완성을 위해 noImplicitAny 설정하기</h2><p>만약 noImplicitAny를 설정하지 않았다면 타입 선언에서 비롯되는 실제 오류를 완벽하게 잡을 수 없으므로 마이그레이션이 완료되었다고 말하기 어렵다. 아래와 같은 코드는 <code>noImplicitAny:true</code>를 설정한 순간 에러가 발생하게 된다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// tsConfig: &#123;"noImplicitAny":true,"strictNullChecks":false&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// HIDE</span></span><br><span class="line"><span class="keyword">class</span> Chart &#123;</span><br><span class="line">  indices: <span class="built_in">number</span>[]</span><br><span class="line">  <span class="comment">// END</span></span><br><span class="line">  getRanges() &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> r of <span class="keyword">this</span>.indices) &#123;</span><br><span class="line">      <span class="keyword">const</span> low = r[<span class="number">0</span>]</span><br><span class="line">      <span class="comment">// ~~~~ Element implicitly has an 'any' type because</span></span><br><span class="line">      <span class="comment">//      type 'Number' has no index signature</span></span><br><span class="line">      <span class="keyword">const</span> high = r[<span class="number">1</span>]</span><br><span class="line">      <span class="comment">// ~~~~ Element implicitly has an 'any' type because</span></span><br><span class="line">      <span class="comment">//      type 'Number' has no index signature</span></span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// HIDE</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// END</span></span><br></pre></td></tr></table></figure>
+<p>noImplicitAny를 설정할 때는 로컬에만 설정하고 작업을 하여 점진적 마이그레이션이 가능하도록 한다.</p>
 <hr>
 <p><em>References</em><br>[이펙티브 타입스크립트] 댄 밴더캄 지음</p>
 
@@ -2115,7 +2108,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
